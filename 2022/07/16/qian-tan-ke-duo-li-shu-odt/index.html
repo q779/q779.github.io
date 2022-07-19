@@ -436,12 +436,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%A2%98%E8%A7%A3/">
-                                <span class="chip bg-color">题解</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/C/">
-                                <span class="chip bg-color">C++</span>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">数据结构</span>
                             </a>
                         
                     </div>
@@ -480,30 +480,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>珂学家狂喜（</p>
-<HR>
-
-
-<h1 id="一、珂朵莉树来源"><a href="#一、珂朵莉树来源" class="headerlink" title="一、珂朵莉树来源"></a>一、珂朵莉树来源</h1><p><strong>珂朵莉树</strong>，原名老司机树（Old Driver Tree），在某场CF比赛中提出</p>
+                <h1 id="浅谈珂朵莉树-ODT"><a href="#浅谈珂朵莉树-ODT" class="headerlink" title="浅谈珂朵莉树(ODT)"></a>浅谈珂朵莉树(ODT)</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>珂学家狂喜（</p>
+<p><HR></p>
+<h2 id="一、珂朵莉树来源"><a href="#一、珂朵莉树来源" class="headerlink" title="一、珂朵莉树来源"></a>一、珂朵莉树来源</h2><p><strong>珂朵莉树</strong>，原名老司机树（Old Driver Tree），在某场CF比赛中提出</p>
 <p>因为题目背景是《末日时在做什么？有没有空？可以来拯救吗？》中的珂朵莉，所以就叫珂朵莉树了</p>
-<HR>
-
-
-<h1 id="二、珂朵莉树"><a href="#二、珂朵莉树" class="headerlink" title="二、珂朵莉树"></a>二、珂朵莉树</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896C">CF896C Willem, Chtholly and Seniorious</a></p>
+<p><HR></p>
+<h2 id="二、珂朵莉树"><a href="#二、珂朵莉树" class="headerlink" title="二、珂朵莉树"></a>二、珂朵莉树</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896C">CF896C Willem, Chtholly and Seniorious</a></p>
 <p>题目要求维护一种数据结构，支持以下操作</p>
 <ol>
 <li>将 $[l,r]$ 区间内所有数加上 $x$ </li>
-<li><p><strong>将 $[l,r]$ 区间内所有数改成 $x$</strong></p>
-</li>
-<li><p>求 $[l,r]$ 区间第 $k$ 小的数</p>
-</li>
+<li><strong>将 $[l,r]$ 区间内所有数改成 $x$</strong></li>
+<li>求 $[l,r]$ 区间第 $k$ 小的数</li>
 <li>求 $[l,r]$ 区间内所有数的 $x$ 次方的和取模 $y$ </li>
 </ol>
 <p>值得注意的是，数据为<strong>随机数据</strong>，说明没有故意构造卡的数据</p>
-<h2 id="1-珂朵莉树有什么用？"><a href="#1-珂朵莉树有什么用？" class="headerlink" title="1.珂朵莉树有什么用？"></a>1.珂朵莉树有什么用？</h2><p>最主要的就是<strong>区间内的推平操作</strong>了，即本题中的操作 $2$ </p>
+<h3 id="1-珂朵莉树有什么用？"><a href="#1-珂朵莉树有什么用？" class="headerlink" title="1.珂朵莉树有什么用？"></a>1.珂朵莉树有什么用？</h3><p>最主要的就是<strong>区间内的推平操作</strong>了，即本题中的操作 $2$ </p>
 <p>当然还有别的操作，那就不是最主要的了</p>
-<h2 id="2-原理是什么？"><a href="#2-原理是什么？" class="headerlink" title="2.原理是什么？"></a>2.原理是什么？</h2><p>写在前面：这个数据结构唯一前置知识就只有<code>set</code></p>
-<h3 id="a-存储"><a href="#a-存储" class="headerlink" title="a.存储"></a>a.存储</h3><p>我们可以把区间看作若干个结点，每个结点都有自己的左端点 $l$ 、右端点 $r$ 以及值 $v$ </p>
+<h3 id="2-原理是什么？"><a href="#2-原理是什么？" class="headerlink" title="2.原理是什么？"></a>2.原理是什么？</h3><p>写在前面：这个数据结构唯一前置知识就只有<code>set</code></p>
+<h4 id="a-存储"><a href="#a-存储" class="headerlink" title="a.存储"></a>a.存储</h4><p>我们可以把区间看作若干个结点，每个结点都有自己的左端点 $l$ 、右端点 $r$ 以及值 $v$ </p>
 <p>显然，一开始的时候每个结点的 $l=r=idx$ ， $idx$ 指该元素在数组中的下标 </p>
 <p>我们可以把这些结点按左端点顺序存储在一个<code>set</code>里</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
@@ -517,7 +511,7 @@
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意 <code>int v</code>前的关键字 <code>mutable</code>，这个关键字和<code>const</code>恰好相反，意思是使<code>v</code>始终允许修改，即使它是个常量</p>
 <p>那么我们为什么要多次一举呢？过会再说（</p>
-<h3 id="b-分割结点"><a href="#b-分割结点" class="headerlink" title="b.分割结点"></a>b.分割结点</h3><p>显然每次推平操作并不能保证区间左、右端点恰好就在一个结点上，因此我们还需要<strong>对结点进行分割</strong></p>
+<h4 id="b-分割结点"><a href="#b-分割结点" class="headerlink" title="b.分割结点"></a>b.分割结点</h4><p>显然每次推平操作并不能保证区间左、右端点恰好就在一个结点上，因此我们还需要<strong>对结点进行分割</strong></p>
 <p>考虑查找一个结点，使得其左端点恰好为 $pos$ ，$pos$ 指某次操作中的一个分割点</p>
 <p>我们可以用<code>set</code>中的<code>lower_bound()</code>函数来找到第一个左端点大于等于 $pos$ 的结点</p>
 <p>（注：因为我们是按左端点顺序排序的）</p>
@@ -540,7 +534,7 @@
 	<span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>pos<span class="token punctuation">,</span>r<span class="token punctuation">,</span>v<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>first<span class="token punctuation">;</span> 
     <span class="token comment">// insert函数的返回值是pair类型的，而它的first恰好使我们需要的（新插入结点的指针）</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="c-推平"><a href="#c-推平" class="headerlink" title="c.推平"></a>c.推平</h3><p>解决了区间的端点问题，我们只要获取要求修改区间左、右端点的结点，把这一段删除，再插入要求赋的值和修改区间的左、右端点作为新的结点</p>
+<h4 id="c-推平"><a href="#c-推平" class="headerlink" title="c.推平"></a>c.推平</h4><p>解决了区间的端点问题，我们只要获取要求修改区间左、右端点的结点，把这一段删除，再插入要求赋的值和修改区间的左、右端点作为新的结点</p>
 <p><strong>注意</strong>一定要先找右端点所在结点，再找左端点所在结点</p>
 <p>为什么？因为我们再分割结点时大概率删除了部分结点，并加入新的结点，如果我们先找左端点所在结点，再找右端点所在结点，很有左端点所在结点的迭代器已经失效了</p>
 <p>例如有一个结点 $node\{l=1,r=5\}$ ，修改区间的左端点为 $1$ ，右端点为 $3$</p>
@@ -553,7 +547,7 @@
 	s<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span>itl<span class="token punctuation">,</span>itr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删掉[itl,itr)中所有结点</span>
 	s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>k<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 插入新结点</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="d-剩余操作"><a href="#d-剩余操作" class="headerlink" title="d.剩余操作"></a>d.剩余操作</h3><p><strong>区间加</strong>，十分暴力，十分简单，我们只要找到左、右端点所在结点，然后直接把每个结点修改就行</p>
+<h4 id="d-剩余操作"><a href="#d-剩余操作" class="headerlink" title="d.剩余操作"></a>d.剩余操作</h4><p><strong>区间加</strong>，十分暴力，十分简单，我们只要找到左、右端点所在结点，然后直接把每个结点修改就行</p>
 <p>现在知道为什么要写<code>mutable</code>了吧！因为<code>split()</code>返回的是<strong>常量</strong>迭代器</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -592,7 +586,7 @@
 		ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">%</span>y<span class="token operator">+</span><span class="token function">qpow</span><span class="token punctuation">(</span>it<span class="token operator">-></span>v<span class="token punctuation">,</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token operator">*</span><span class="token punctuation">(</span>it<span class="token operator">-></span>r<span class="token operator">-</span>it<span class="token operator">-></span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token punctuation">;</span> <span class="token comment">// 快速幂qpow()就不贴了</span>
 	<span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-复杂度分析"><a href="#3-复杂度分析" class="headerlink" title="3.复杂度分析"></a>3.复杂度分析</h2><p><code>set</code>实现的珂朵莉树复杂度为 $O(n\log^2n)$</p>
+<h3 id="3-复杂度分析"><a href="#3-复杂度分析" class="headerlink" title="3.复杂度分析"></a>3.复杂度分析</h3><p><code>set</code>实现的珂朵莉树复杂度为 $O(n\log^2n)$</p>
 <p>不过本人不是很会分析，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/102786071">这篇文章</a>分析证明的很好，大家可以看看</p>
 <p>完整代码 （注：原题的随机数据是给定 $seed$ 等自行生成）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -721,8 +715,8 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 <HR>
 
 
-<h1 id="三、珂朵莉树例题"><a href="#三、珂朵莉树例题" class="headerlink" title="三、珂朵莉树例题"></a>三、珂朵莉树例题</h1><p>（注：都是洛谷上的题~）</p>
-<h2 id="1-P4979-矿洞：坍塌"><a href="#1-P4979-矿洞：坍塌" class="headerlink" title="1.P4979 矿洞：坍塌"></a>1.P4979 矿洞：坍塌</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4979">P4979 矿洞：坍塌</a></p>
+<h2 id="三、珂朵莉树例题"><a href="#三、珂朵莉树例题" class="headerlink" title="三、珂朵莉树例题"></a>三、珂朵莉树例题</h2><p>（注：都是洛谷上的题~）</p>
+<h3 id="1-P4979-矿洞：坍塌"><a href="#1-P4979-矿洞：坍塌" class="headerlink" title="1.P4979 矿洞：坍塌"></a>1.P4979 矿洞：坍塌</h3><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4979">P4979 矿洞：坍塌</a></p>
 <blockquote>
 <p><strong>题意</strong>：要求维护一个数据结构，支持对给定字符串进行如下操作</p>
 <p><code>A x y op</code>表示替换材料，将 $x$ 到 $y(1\le x\le y\le N)$<br>区间内的材料替换为<code>op</code>，<code>op</code>为$A,B,C$ 三种材料字符中的一个</p>
@@ -820,7 +814,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2-P5350-序列"><a href="#2-P5350-序列" class="headerlink" title="2.P5350 序列"></a>2.P5350 序列</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5350">P5350 序列</a></p>
+<h3 id="2-P5350-序列"><a href="#2-P5350-序列" class="headerlink" title="2.P5350 序列"></a>2.P5350 序列</h3><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5350">P5350 序列</a></p>
 <blockquote>
 <p><strong>题意</strong>：要求维护一个数据结构，支持对给定数组进行以下操作</p>
 <p><code>1 l r</code>求 $[l,r]$ 的区间和</p>
@@ -990,7 +984,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-CF343D-Water-Tree"><a href="#3-CF343D-Water-Tree" class="headerlink" title="3.CF343D Water Tree"></a>3.CF343D Water Tree</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF343D">CF343D Water Tree</a></p>
+<h3 id="3-CF343D-Water-Tree"><a href="#3-CF343D-Water-Tree" class="headerlink" title="3.CF343D Water Tree"></a>3.CF343D Water Tree</h3><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF343D">CF343D Water Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：给出一棵以 $1$ 为根节点的 $n$ 个节点的有根树。每个点有一个权值，初始为 $0$ ，支持以下操作</p>
 <p><code>1 u</code>将点 $u$ 和其子树上的所有节点的权值改为 $1$</p>
@@ -1123,7 +1117,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="4-CF915E-Physical-Education-Lessons"><a href="#4-CF915E-Physical-Education-Lessons" class="headerlink" title="4.CF915E Physical Education Lessons"></a>4.CF915E Physical Education Lessons</h2><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915E">CF915E Physical Education Lessons</a></p>
+<h3 id="4-CF915E-Physical-Education-Lessons"><a href="#4-CF915E-Physical-Education-Lessons" class="headerlink" title="4.CF915E Physical Education Lessons"></a>4.CF915E Physical Education Lessons</h3><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915E">CF915E Physical Education Lessons</a></p>
 <blockquote>
 <p><strong>题意</strong>：区间赋值为 $1$ 或 $0$ ，求 $1$ 个数 （我用 $1$ 表示题目中的工作日）</p>
 </blockquote>
@@ -1188,16 +1182,15 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 <HR>
 
 
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文简单介绍了珂朵莉树</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简单介绍了珂朵莉树</p>
 <p>顺便讲了几道简单的例题</p>
-<p><strong>转载请说明出处</strong></p>
 <HR>
 
 
-<h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p>作为珂学家，怎么能少了这环节呢（</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>作为珂学家，怎么能少了这环节呢（</p>
 <p>送上本人找到的<del>高清无水印</del>壁纸一份（</p>
-<p><img src="https://img-blog.csdnimg.cn/5d713a31fec4434c90e57a07f28f463e.jpg?x-oss-process=size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>再来一个（</p>
-<p><img src="https://img-blog.csdnimg.cn/4b150adc70be4456b1f2c69f2c7992d2.png?x-oss-process=size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>如果幸福有颜色的话，那一定是终末之红染尽的蓝色！</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/5d713a31fec4434c90e57a07f28f463e.jpg?x-oss-process=size_16,color_FFFFFF,t_70#pic_center" alt=""><br>再来一个（</p>
+<p><img src="https://img-blog.csdnimg.cn/4b150adc70be4456b1f2c69f2c7992d2.png?x-oss-process=size_16,color_FFFFFF,t_70#pic_center" alt=""><br><strong>如果幸福有颜色的话，那一定是终末之红染尽的蓝色！</strong></p>
 
                 
             </div>
@@ -1262,12 +1255,12 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%A2%98%E8%A7%A3/">
-                                    <span class="chip bg-color">题解</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/C/">
-                                    <span class="chip bg-color">C++</span>
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">数据结构</span>
                                 </a>
                             
                         </div>
