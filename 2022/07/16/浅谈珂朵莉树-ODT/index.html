@@ -522,7 +522,7 @@
 <p>那么其他情况得到的这个结点的左端点<strong>一定</strong>比 $pos$ 大</p>
 <p>因此可以尝试分割前一个结点，即把迭代器<code>it--</code></p>
 <p><strong>第二种情况</strong>：这个结点的右端点小于 $pos$ ，由于结点的端点一定是连续的，说明 $pos$ 是新加入的结点，直接 <code>return s.end()</code></p>
-<p><strong>第三种情况</strong>：最普遍的情况，找到了一个结点恰好包含 $pos$ ，因为我们要的是以 $pos$ 为左端点的结点，显然我们要把这个结点分割成 $node{l,pos-1,v}$ 和 $node{pos,r,v}$</p>
+<p><strong>第三种情况</strong>：最普遍的情况，找到了一个结点恰好包含 $pos$ ，因为我们要的是以 $pos$ 为左端点的结点，显然我们要把这个结点分割成 $node\{l,pos-1,v\}$ 和 $node\{pos,r,v\}$</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator <span class="token function">split</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> pos<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator it<span class="token operator">=</span>s<span class="token punctuation">.</span><span class="token function">lower_bound</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>pos<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -538,9 +538,9 @@
 <h3 id="c-推平"><a href="#c-推平" class="headerlink" title="c.推平"></a>c.推平</h3><p>解决了区间的端点问题，我们只要获取要求修改区间左、右端点的结点，把这一段删除，再插入要求赋的值和修改区间的左、右端点作为新的结点</p>
 <p><strong>注意</strong>一定要先找右端点所在结点，再找左端点所在结点</p>
 <p>为什么？因为我们再分割结点时大概率删除了部分结点，并加入新的结点，如果我们先找左端点所在结点，再找右端点所在结点，很有左端点所在结点的迭代器已经失效了</p>
-<p>例如有一个结点 $node{l=1,r=5}$ ，修改区间的左端点为 $1$ ，右端点为 $3$</p>
+<p>例如有一个结点 $node\{l=1,r=5\}$ ，修改区间的左端点为 $1$ ，右端点为 $3$</p>
 <p>按先左再右的顺序，我们先会得到左端点所在结点</p>
-<p>$node{l=1,r=5}$</p>
+<p>$node\{l=1,r=5\}$</p>
 <p>显然如果我们找右端点所在结点，会将左端点所在结点进行分割，那么原来的结点就没了，迭代器失效，然后RE</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">assign</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
