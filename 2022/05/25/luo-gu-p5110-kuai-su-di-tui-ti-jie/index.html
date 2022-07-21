@@ -498,6 +498,7 @@ a_0=0,a_1=1
 <p>多组询问</p>
 <p>这个题是有个循环节的，正好是 $10^9+6$ ，据出题人说是凑好的</p>
 <p><del>关于循环节怎么求的我也不太清楚，先留个坑，研究好了就补上来</del></p>
+<p><strong>upd.20220721 现在知道怎么求循环节了，详见本文最后</strong></p>
 <p>也就是，如果数列 $a_n$ 在模 $M$ 意义下存在循环节 $p$ ，则有 $a_n \equiv a_{n\,\bmod\, p} \bmod M$</p>
 </blockquote>
 <p>本题的解法就是手推通项公式</p>
@@ -605,6 +606,29 @@ uint <span class="token function">solve</span><span class="token punctuation">(<
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 <span class="token comment">//233230706×(94153035^n−905847205^n) </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>如何求解循环节？</strong></p>
+<blockquote>
+<p>如果数列 $a_n$ 在模 $M$ 意义下存在循环节 $p$ ，则有 $a_n \equiv a_{n\,\bmod\, p} \bmod M$</p>
+</blockquote>
+<p>问了 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/637997">@zx2017</a> 老师 CCOrz</p>
+<p>这个东西其实求起来非常简单，</p>
+<p>在已知 $a_n$ 递推式和 $M$ 的情况下</p>
+<p>直接暴力去枚举就好了</p>
+<p>具体的，这道题</p>
+<script type="math/tex; mode=display">
+a_0=0,a_1=1
+\\a_n = 233a_{n-1}+666a_{n-2}</script><p>注意到 $a_n$ 是从 $a_{n-1}$ 和 $a_{n-2}$ 推来的</p>
+<p>那我们枚举 $n$ ，直到出现了这样的情况</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a_i\equiv a_2
+\\\\a_{i-1}\equiv a_1
+\\\\a_{i-2}\equiv a_0
+\end{cases}
+\mod M</script><p>那么 $i-2$ 就是循环节</p>
+<p>是不是很神奇？<del>我太菜了根本没想到 QAQ</del></p>
+<p>当然可能会有更优秀的做法（比起暴力枚举）</p>
+<p>不过起码知道怎么简单求就很好了 qwq</p>
 
                 
             </div>
@@ -1241,21 +1265,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
