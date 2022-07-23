@@ -445,30 +445,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="最小树形图-Tarjan的DMST算法"><a href="#最小树形图-Tarjan的DMST算法" class="headerlink" title="最小树形图 Tarjan的DMST算法"></a>最小树形图 Tarjan的DMST算法</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上怎么都是<strong>朱刘算法</strong>啊？</p>
-<p>那我来写一篇 <strong>Tarjan</strong> 的 <strong>DMST</strong> 算法吧 qwq</p>
+                <h1 id="最小树形图-tarjan的dmst算法">最小树形图 Tarjan的DMST算法</h1>
+<h2 id="前言">前言</h2>
+<p>网上怎么都是<strong>朱刘算法</strong>啊？</p>
+<p>那我来写一篇 <strong>Tarjan</strong> 的 <strong>DMST</strong> 算法吧
+qwq</p>
 <p>注：本文的<strong>DMST</strong>采用左偏树+并查集实现</p>
-<p>时间复杂度为 $O(E+V\log E)$</p>
-<p>如果采用斐波那契堆则为 $O(E+V\log V)$</p>
+<p>时间复杂度为 <span class="math inline">\(O(E+V\log E)\)</span></p>
+<p>如果采用斐波那契堆则为 <span class="math inline">\(O(E+V\log
+V)\)</span></p>
 <p>由于差别不大（<del>其实是q779不会斐波那契堆</del>），因此本文不会提及</p>
 <p>如果需要模板题数据的可以私信我（ qwq</p>
-<p><HR></p>
-<h2 id="最小树形图"><a href="#最小树形图" class="headerlink" title="最小树形图"></a>最小树形图</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4716">P4716 【模板】最小树形图</a></p>
+<HR>
+<h2 id="最小树形图">最小树形图</h2>
+<p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4716">P4716
+【模板】最小树形图</a></p>
 <blockquote>
 <p><strong>题目描述</strong></p>
-<p>给定包含 $n$ 个结点， $m$ 条有向边的一个图。试求一棵以结点 $r$ 为根的最小树形图，并输出最小树形图每条边的权值之和，如果没有以 $r$ 为根的最小树形图，输出 $-1$。</p>
+<p>给定包含 <span class="math inline">\(n\)</span> 个结点， <span
+class="math inline">\(m\)</span> 条有向边的一个图。试求一棵以结点 <span
+class="math inline">\(r\)</span>
+为根的最小树形图，并输出最小树形图每条边的权值之和，如果没有以 <span
+class="math inline">\(r\)</span> 为根的最小树形图，输出 <span
+class="math inline">\(-1\)</span>。</p>
 </blockquote>
-<h3 id="1-朱刘算法（Edmonds算法）"><a href="#1-朱刘算法（Edmonds算法）" class="headerlink" title="1.朱刘算法（Edmonds算法）"></a>1.朱刘算法（Edmonds算法）</h3><p>有向图上的最小生成树（Directed Minimum Spanning Tree）称为最小树形图。</p>
-<p>常用的算法是朱刘算法（也称 Edmonds 算法），可以在 $O(nm)$ 时间内解决最小树形图问题。</p>
+<h3 id="朱刘算法edmonds算法">1.朱刘算法（Edmonds算法）</h3>
+<p>有向图上的最小生成树（Directed Minimum Spanning
+Tree）称为最小树形图。</p>
+<p>常用的算法是朱刘算法（也称 Edmonds 算法），可以在 <span
+class="math inline">\(O(nm)\)</span> 时间内解决最小树形图问题。</p>
 <p>注意到有根最小树形图满足<strong>从根结点可以到达任意结点</strong>的性质</p>
 <p>算法流程：</p>
-<ol>
-<li>求出图中的最短弧集合 $E_0$</li>
-<li>若 $E_0$ 中存在环，则对图进行缩点和重构，包括边权的修改和点的处理，转到步骤1</li>
-<li>若 $E_0$ 中不存在环，则展开收缩点，即求得最小树形图，算法结束。</li>
+<ol type="1">
+<li>求出图中的最短弧集合 <span class="math inline">\(E_0\)</span></li>
+<li>若 <span class="math inline">\(E_0\)</span>
+中存在环，则对图进行缩点和重构，包括边权的修改和点的处理，转到步骤1</li>
+<li>若 <span class="math inline">\(E_0\)</span>
+中不存在环，则展开收缩点，即求得最小树形图，算法结束。</li>
 </ol>
-<p>对于环上结点 $v$ 的入边，因为选择了一条这样的边相当于删除了一条环边</p>
-<p>所以将边权设为 $w-\text{ine[v]}$，其中 $\text{ine[v]}$ 表示结点 $v$ 的最短弧（权值最小的入边）</p>
+<p>对于环上结点 <span class="math inline">\(v\)</span>
+的入边，因为选择了一条这样的边相当于删除了一条环边</p>
+<p>所以将边权设为 <span
+class="math inline">\(w-\text{ine[v]}\)</span>，其中 <span
+class="math inline">\(\text{ine[v]}\)</span> 表示结点 <span
+class="math inline">\(v\)</span> 的最短弧（权值最小的入边）</p>
 <p>本文不过多叙述朱刘算法，仅给出代码</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -574,18 +594,22 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以发现这就是个暴力 qwq</p>
-<p><HR></p>
-<h3 id="2-Tarjan的DMST算法（Tarjan的优化算法）"><a href="#2-Tarjan的DMST算法（Tarjan的优化算法）" class="headerlink" title="2.Tarjan的DMST算法（Tarjan的优化算法）"></a>2.Tarjan的DMST算法（Tarjan的优化算法）</h3><p>观察朱刘算法的实现</p>
+<HR>
+<h3
+id="tarjan的dmst算法tarjan的优化算法">2.Tarjan的DMST算法（Tarjan的优化算法）</h3>
+<p>观察朱刘算法的实现</p>
 <blockquote>
 <p>算法流程：</p>
-<ol>
-<li>求出图中的最短弧集合 $E_0$</li>
-<li>若 $E_0$ 中存在环，则对图进行缩点和重构，包括边权的修改和点的处理，转到步骤1</li>
-<li>若 $E_0$ 中不存在环，则展开收缩点，即求得最小树形图，算法结束。</li>
+<ol type="1">
+<li>求出图中的最短弧集合 <span class="math inline">\(E_0\)</span></li>
+<li>若 <span class="math inline">\(E_0\)</span>
+中存在环，则对图进行缩点和重构，包括边权的修改和点的处理，转到步骤1</li>
+<li>若 <span class="math inline">\(E_0\)</span>
+中不存在环，则展开收缩点，即求得最小树形图，算法结束。</li>
 </ol>
 </blockquote>
 <p>可以发现这是三种操作</p>
-<ol>
+<ol type="1">
 <li>查询最小值</li>
 <li>整体减去一个数</li>
 <li>合并若干集合</li>
@@ -594,32 +618,48 @@
 <p>2操作可以通过在左偏树上设懒标记实现</p>
 <p>朱刘算法每次需要判断是否存在环，很慢</p>
 <p>于是我们尝试直接将原图缩成一个点（尽管实现的时候并不完全如此）</p>
-<p>然而原图不一定是强连通图，不过我们只要通过添加 $n$ 条边权为 $+\infty$ 就可以让它强连通了</p>
+<p>然而原图不一定是强连通图，不过我们只要通过添加 <span
+class="math inline">\(n\)</span> 条边权为 <span
+class="math inline">\(+\infty\)</span> 就可以让它强连通了</p>
 <p>形象地描述，如果我们最后“迫不得已”选择了这些额外的边，则原图不存在最小树形图</p>
 <p>本质上该算法就是不断将最短弧加入当前的最小树形图</p>
 <p>当树形图中出现环时将环进行缩点处理</p>
 <p><strong>算法实现：</strong></p>
-<p>我们可以维护一个栈，每次将栈顶元素 $v$ 的最短弧的起点 $u$ 入栈</p>
-<p>如果 $u$ 已经在栈中，则出现了环，将环进行缩点即可</p>
-<p>注意如果计算答案时存在根节点 $r$ 的入边，显然不可计入答案</p>
-<p>引理：下文代码中，建树时间复杂度为 $O(m)$</p>
+<p>我们可以维护一个栈，每次将栈顶元素 <span
+class="math inline">\(v\)</span> 的最短弧的起点 <span
+class="math inline">\(u\)</span> 入栈</p>
+<p>如果 <span class="math inline">\(u\)</span>
+已经在栈中，则出现了环，将环进行缩点即可</p>
+<p>注意如果计算答案时存在根节点 <span class="math inline">\(r\)</span>
+的入边，显然不可计入答案</p>
+<p>引理：下文代码中，建树时间复杂度为 <span
+class="math inline">\(O(m)\)</span></p>
 <blockquote>
 <p>证明：</p>
-<p>对于结点 $k$ ，设其共有 $d_k$ 条入边的</p>
-<p>对于第 $i$ 轮合并，需合并 $\dfrac{d_k}{2^i}$ 次，且该轮合并左偏树上各有 $i$ 个结点</p>
-<p>则复杂度为</p>
-<script type="math/tex; mode=display">
-O\left(\sum\limits_{i=1}^{\log_2 d_k}{\dfrac{d_k}{2^i}\times \left(2\log_2{i} + 1\right)}\right) = O(d_k)</script><p>$\because \sum d_k = m$</p>
-<p>$\therefore$ 总复杂度为 </p>
-<script type="math/tex; mode=display">
-O\left(\sum_{d_k}\sum\limits_{i=1}^{\log_2 d_k}{\dfrac{d_k}{2^i}\times \left(2\log_2{i} + 1\right)}\right) = O(m)</script><p>证毕 。</p>
+<p>对于结点 <span class="math inline">\(k\)</span> ，设其共有 <span
+class="math inline">\(d_k\)</span> 条入边的</p>
+<p>对于第 <span class="math inline">\(i\)</span> 轮合并，需合并 <span
+class="math inline">\(\dfrac{d_k}{2^i}\)</span>
+次，且该轮合并左偏树上各有 <span class="math inline">\(i\)</span>
+个结点</p>
+<p>则复杂度为 <span class="math display">\[
+O\left(\sum\limits_{i=1}^{\log_2 d_k}{\dfrac{d_k}{2^i}\times
+\left(2\log_2{i} + 1\right)}\right) = O(d_k)
+\]</span> <span class="math inline">\(\because \sum d_k = m\)</span></p>
+<p><span class="math inline">\(\therefore\)</span> 总复杂度为 <span
+class="math display">\[
+O\left(\sum_{d_k}\sum\limits_{i=1}^{\log_2 d_k}{\dfrac{d_k}{2^i}\times
+\left(2\log_2{i} + 1\right)}\right) = O(m)
+\]</span> 证毕 。</p>
 </blockquote>
-<p>时间复杂度为 $O(m+n\log m)$</p>
+<p>时间复杂度为 <span class="math inline">\(O(m+n\log m)\)</span></p>
 <blockquote>
 <p>证明：</p>
-<p>由引理可知，建树复杂度为 $O(m)$ </p>
-<p>因为每个结点至多入栈一次，每次查询最短弧复杂度为 $O(\log m)$ </p>
-<p>则总复杂度为 $O(m+n\log m)$</p>
+<p>由引理可知，建树复杂度为 <span
+class="math inline">\(O(m)\)</span></p>
+<p>因为每个结点至多入栈一次，每次查询最短弧复杂度为 <span
+class="math inline">\(O(\log m)\)</span></p>
+<p>则总复杂度为 <span class="math inline">\(O(m+n\log m)\)</span></p>
 <p>证毕。</p>
 </blockquote>
 <p>代码如下</p>
@@ -771,11 +811,14 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
     <span class="token function">write</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><HR></p>
-<h3 id="3-加强版模板题"><a href="#3-加强版模板题" class="headerlink" title="3.加强版模板题"></a>3.加强版模板题</h3><p>这里有一道我写的模板题</p>
+<HR>
+<h3 id="加强版模板题">3.加强版模板题</h3>
+<p>这里有一道我写的模板题</p>
 <p>可以卡掉暴力朱刘算法</p>
 <p>大家可以在这里调试代码</p>
-<p><strong>题目链接</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U210116">U210116 【模板】最小树形图（加强版）</a></p>
+<p><strong>题目链接</strong>：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U210116">U210116
+【模板】最小树形图（加强版）</a></p>
 <p>这里是std</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -935,12 +978,18 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
     <span class="token comment">// outfile.close();</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><HR></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简单介绍了Tarjan的DMST算法及左偏树实现方法</p>
-<p><HR><br><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/dmst/">OI Wiki 最小树形图</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/CHiCO/solution-p4716">CHiCO的博客 题解 P4716</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/robator/article/details/112692535">左偏树简介</a></p>
+<HR>
+<h2 id="总结">总结</h2>
+<p>本文简单介绍了Tarjan的DMST算法及左偏树实现方法</p>
+<HR>
+<p><strong>参考文献</strong></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/dmst/">OI Wiki
+最小树形图</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/CHiCO/solution-p4716">CHiCO的博客
+题解 P4716</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/robator/article/details/112692535">左偏树简介</a></p>
 
                 
             </div>
@@ -1058,13 +1107,13 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/ubuntu-xian-shi-jian-pan-an-jian/">
+                <a href="/2022/05/25/luo-gu-p1501-guo-jia-ji-xun-dui-tree-ii-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p91.png" class="responsive-img" alt="ubuntu 显示键盘按键">
+                        <img src="/medias/featureimages/p58.jpg" class="responsive-img" alt="洛谷P1501 [国家集训队]Tree II 题解">
                         
-                        <span class="card-title">ubuntu 显示键盘按键</span>
+                        <span class="card-title">洛谷P1501 [国家集训队]Tree II 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1081,8 +1130,8 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                    系统
+                            <a href="/categories/OI/" class="post-category">
+                                    OI
                                 </a>
                             
                             
@@ -1092,8 +1141,12 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ubuntu/">
-                        <span class="chip bg-color">ubuntu</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1107,13 +1160,13 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/shu-lun-ti-xia-zuo-1/">
+                <a href="/2022/05/25/luo-gu-p1522-usaco2.4-niu-de-lu-xing-cow-tours-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p45.jpg" class="responsive-img" alt="数论题瞎做[1]">
+                        <img src="/medias/featureimages/p46.jpg" class="responsive-img" alt="洛谷P1522 [USACO2.4]牛的旅行 Cow Tours 题解">
                         
-                        <span class="card-title">数论题瞎做[1]</span>
+                        <span class="card-title">洛谷P1522 [USACO2.4]牛的旅行 Cow Tours 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1141,8 +1194,8 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
                 </div>
@@ -1569,6 +1622,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
