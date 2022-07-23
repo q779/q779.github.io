@@ -471,8 +471,10 @@ priority_queue<span class="token operator">&lt;</span><span class="token keyword
 <p><code>char</code> 数则较用 <code>strcmp(&lt;a&gt;,&lt;b&gt;)</code> ，<strong>不要直接用</strong> <code>==</code> ，<strong>会出问题</strong></p>
 <p>reverse 函数 <code>[first,last)</code>.</p>
 <p><code>fixed</code>表示定点数</p>
-<p>​    如果不用<code>fixed</code>直接用<code>setprecision(x)</code>就是最多有效位数为 $x$ ，而且是科学计数法+四舍五入</p>
-<p>​    如果用了<code>fixed</code> 那么<code>setprecision(x)</code> 就是小数点后最多位数 $x$ ，非科学计数法+四舍五入</p>
+<ul>
+<li>如果不用<code>fixed</code>直接用<code>setprecision(x)</code>就是最多有效位数为 $x$ ，而且是科学计数法+四舍五入</li>
+<li>如果用了<code>fixed</code> 那么<code>setprecision(x)</code> 就是小数点后最多位数 $x$ ，非科学计数法+四舍五入</li>
+</ul>
 <blockquote>
 <p><code>atan2(y,x)</code> 返回的值是方位角（极角）的值</p>
 <p><code>atan(y,x)</code> 返回的值是反正切的值</p>
@@ -504,30 +506,20 @@ priority_queue<span class="token operator">&lt;</span><span class="token keyword
 <p><code>#define sum(x) ((x)*(x+1)/2)</code> 注意宏定义一定要所有的 $x$ <strong>都套个括号</strong></p>
 <p><code>%llu</code> 输出unsigned long long</p>
 <p><code>getline(cin,str[pos]);</code></p>
-<pre class="line-numbers language-set::count```" data-language="set::count```"><div class="caption"><span>同 map，都是 $O(\log n)$</span></div><code class="language-set::count```">
-&#96;&#96;&#96;scanf(&quot;%s&quot;,a);n&#x3D;strlen(a+1)&#96;&#96;&#96;
-
-注意左移运算符 
-
-如果写&#96;&#96;&#96;1&lt;&lt;31ll&#96;&#96;&#96;或&#96;&#96;&#96;(long long)(1&lt;&lt;31)&#96;&#96;&#96;会爆&#96;&#96;&#96;int&#96;&#96;&#96;
-
-要写成&#96;&#96;&#96;1ll&lt;&lt;31&#96;&#96;&#96;
-
-判断第 $i$ 位是否为$1$
-
-&#96;&#96;&#96;cpp
-((m&amp;(1ll&lt;&lt;(i-1)))!&#x3D;0) &#x2F;&#x2F; 一定要写 !&#x3D;0 而且要套括号！
-((m&gt;&gt;(i-1))&amp;1) &#x2F;&#x2F; 这个安全一点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>set::count</code> 同 map，都是 $O(\log n)$ </p>
+<p><code>scanf(&quot;%s&quot;,a);n=strlen(a+1)</code></p>
+<p>注意左移运算符 </p>
+<p>如果写<code>1&lt;&lt;31ll</code>或<code>(long long)(1&lt;&lt;31)</code>会爆<code>int</code></p>
+<p>要写成<code>1ll&lt;&lt;31</code></p>
+<p>判断第 $i$ 位是否为$1$</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">(</span><span class="token punctuation">(</span>m<span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token number">1ll</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// 一定要写 !=0 而且要套括号！</span>
+<span class="token punctuation">(</span><span class="token punctuation">(</span>m<span class="token operator">>></span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">// 这个安全一点</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>终极快读不要和 <code>scanf(“%s”,a+1)</code> 这种混用！</p>
-<pre class="line-numbers language-assert(true)```会正常运行" data-language="assert(true)```会正常运行"><code class="language-assert(true)```会正常运行">
-&#96;&#96;&#96;double&#96;&#96;&#96;占8字节，&#96;&#96;&#96;long double&#96;&#96;&#96;占16字节，
-
-cmp最好不要写在结构体里
-
-因为成员函数指针和普通函数指针不同，前者实际上是这样子的。
-
-&#96;&#96;&#96;cpp
-bool cmp(node*this, int a, int b) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>assert(true)</code>会正常运行</p>
+<p><code>double</code>占8字节，<code>long double</code>占16字节，</p>
+<p>cmp最好不要写在结构体里</p>
+<p>因为成员函数指针和普通函数指针不同，前者实际上是这样子的。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">cmp</span><span class="token punctuation">(</span>node<span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>开三次根号的方法（不要用<code>pow</code>）</p>
 <ol>
 <li><p><code>cbrt()</code> 答案为<code>double</code>，可以放<code>long long</code>进去</p>
