@@ -449,64 +449,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2868-usaco07decsightseeing-cows-g-题解">洛谷P2868
-[USACO07DEC]Sightseeing Cows G 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2868">P2868
-[USACO07DEC]Sightseeing Cows G</a></p>
+                <h1 id="洛谷P2868-USACO07DEC-Sightseeing-Cows-G-题解"><a href="#洛谷P2868-USACO07DEC-Sightseeing-Cows-G-题解" class="headerlink" title="洛谷P2868 [USACO07DEC]Sightseeing Cows G 题解"></a>洛谷P2868 [USACO07DEC]Sightseeing Cows G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2868">P2868 [USACO07DEC]Sightseeing Cows G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定有向图，有点权 <span class="math inline">\(F_i\)</span> 和边权
-<span class="math inline">\(T_i\)</span>
-，找一条回路（不一定是简单回路），使得 <span class="math display">\[
-\dfrac{\sum F_i}{\sum T_i}
-\]</span> 尽可能的大，求出这个值</p>
+<p>给定有向图，有点权 $F_i$ 和边权 $T_i$ ，找一条回路（不一定是简单回路），使得</p>
+<script type="math/tex; mode=display">
+\dfrac{\sum F_i}{\sum T_i}</script><p>尽可能的大，求出这个值</p>
 <p>若回路的结点序列中含相同结点，只计算一次点权</p>
-<p><span class="math inline">\(2 \le n \le 10^3,1\le m \le 5 \times
-10^3,1 \le F_i,T_i \le 10^3\)</span></p>
+<p>$2 \le n \le 10^3,1\le  m \le 5 \times 10^3,1 \le F_i,T_i \le 10^3$ </p>
 </blockquote>
 <p>比较经典的01分数规划问题</p>
-<p>设 <span class="math display">\[
-\sum F_i \times \dfrac{1}{\sum T_i} &gt; x
-\]</span> 移项可得 <span class="math display">\[
-\sum (F_i - x T_i) &gt; 0
-\]</span> 取个反可得 <span class="math display">\[
-\sum (xT_i - F_i) &lt; 0
-\]</span> 然后就变成了判负环的问题。</p>
-<p>二分一个 <span class="math inline">\(x\)</span>
-，然后每次跑个spfa检验一下</p>
-<p>时间复杂度 <span class="math inline">\(O(\log_2 10^7 \times
-nm)\)</span></p>
-<p>为什么大于也可以求出答案呢？因为当 <span
-class="math inline">\(x\)</span> 足够精确时，也就是答案了</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+\sum F_i \times \dfrac{1}{\sum T_i} > x</script><p>移项可得</p>
+<script type="math/tex; mode=display">
+\sum (F_i - x T_i) > 0</script><p>取个反可得</p>
+<script type="math/tex; mode=display">
+\sum (xT_i - F_i) < 0</script><p>然后就变成了判负环的问题。</p>
+<p>二分一个 $x$ ，然后每次跑个spfa检验一下</p>
+<p>时间复杂度 $O(\log_2 10^7 \times nm)$</p>
+<p>为什么大于也可以求出答案呢？因为当 $x$ 足够精确时，也就是答案了</p>
 <p>这里有个问题，题目说的是回路，不是环（简单回路），</p>
 <p>不过事实上<strong>答案中都是环（简单回路）</strong></p>
-<p>这里有个<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/282157">证明</a>，比较繁琐，因此我来提供一种简单证明</p>
-<hr />
+<p>这里有个<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/282157">证明</a>，比较繁琐，因此我来提供一种简单证明</p>
+<hr>
 <p>证：考虑最简单的情况，</p>
-<p>设两个环 <span class="math inline">\(A,B\)</span> 的交集为结点 <span
-class="math inline">\(u\)</span> （此时图可以是一个8字形）</p>
-<p>设 <span class="math inline">\(A\)</span> 的答案是 <span
-class="math inline">\(x\)</span> ，<span
-class="math inline">\(B\)</span> 的答案是 <span
-class="math inline">\(y\)</span></p>
+<p>设两个环 $A,B$ 的交集为结点 $u$ （此时图可以是一个8字形）</p>
+<p>设 $A$ 的答案是 $x$ ，$B$ 的答案是 $y$ </p>
 <ul>
-<li><p>若 <span class="math inline">\(x=y\)</span> ，</p>
-<p>则若合并 <span class="math inline">\(A,B\)</span> ，多出来的几条连接
-<span class="math inline">\(u\)</span> 的边会使分母增加</p>
-<p>则答案小于 <span class="math inline">\(x\)</span></p>
-<p>只有这几条边的 <span class="math inline">\(T_i\)</span> 都为 <span
-class="math inline">\(0\)</span> 时，</p>
-<p>合并后的答案才能达到 <span class="math inline">\(x\)</span>
-，但是数据范围里没有这种情况。</p>
-<p>故合并 <span class="math inline">\(A,B\)</span>
-一定不是最优的。</p></li>
-<li><p>若 <span class="math inline">\(x&gt;y\)</span> 或 <span
-class="math inline">\(x&lt;y\)</span></p>
-<p>那显然合并了就更烂了哇。肯定不是最优的。</p></li>
+<li><p>若 $x=y$ ，</p>
+<p>则若合并 $A,B$ ，多出来的几条连接 $u$ 的边会使分母增加</p>
+<p>则答案小于 $x$ </p>
+<p>只有这几条边的 $T_i$ 都为 $0$ 时，</p>
+<p>合并后的答案才能达到 $x$ ，但是数据范围里没有这种情况。</p>
+<p>故合并 $A,B$ 一定不是最优的。</p>
+</li>
+<li><p>若 $x&gt;y$ 或 $x&lt;y$ </p>
+<p>那显然合并了就更烂了哇。肯定不是最优的。</p>
+</li>
 </ul>
 <p>证毕。</p>
-<hr />
+<hr>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -957,6 +940,47 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
 
 
     <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="song"
+                   id="1863403592"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.3'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
