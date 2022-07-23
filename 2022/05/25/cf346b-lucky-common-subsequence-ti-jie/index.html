@@ -445,22 +445,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF346B-Lucky-Common-Subsequence-题解"><a href="#CF346B-Lucky-Common-Subsequence-题解" class="headerlink" title="CF346B Lucky Common Subsequence 题解"></a>CF346B Lucky Common Subsequence 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF346B">CF346B Lucky Common Subsequence</a></p>
+                <h1 id="cf346b-lucky-common-subsequence-题解">CF346B Lucky Common
+Subsequence 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF346B">CF346B
+Lucky Common Subsequence</a></p>
 <blockquote>
-<p><strong>题意</strong>：通过删除一个字符串中的某些元素而不改变其余元素的顺序，可以派生出该字符串的一个子序列。 例如，序列BDF是ABCDEF的子序列。 字符串的子字符串是该字符串的连续子序列。 例如，BCD是ABCDEF的子串。 你得到了两个字符串s1,s2和另一个名为virus的字符串。你的任务是找到s1和s2的最长公共子序列，同时不包含virus子字符串。</p>
+<p><strong>题意</strong>：通过删除一个字符串中的某些元素而不改变其余元素的顺序，可以派生出该字符串的一个子序列。
+例如，序列BDF是ABCDEF的子序列。 字符串的子字符串是该字符串的连续子序列。
+例如，BCD是ABCDEF的子串。
+你得到了两个字符串s1,s2和另一个名为virus的字符串。你的任务是找到s1和s2的最长公共子序列，同时不包含virus子字符串。</p>
 </blockquote>
 <p>升级版的最长公共子序列问题（LCS问题）</p>
-<p>考虑增加一维，称为与 $c$ 串匹配度，即</p>
-<p>$dp[i][j][k]$ 表示：</p>
-<p> $a$ 串匹配到第 $i$ 位，$b$ 串匹配到第 $j$ 位最长公共子序列与 $c$ 串匹配到第 $k$ 位。</p>
-<p>显然当 $a[i]\ne b[j]$ 时，有 $dp[i][j][k]=\max(dp[i][j][k],dp[i][j-1][k],dp[i-1][j][k])$</p>
-<p>当 $a[i]=b[j]$ 时，直接去想 $dp[i][j][k]$ 怎么转移不太好搞</p>
-<p>考虑反过来想此时 $dp[i-1][j-1][k]$ 的贡献</p>
-<p>显然此时在最长公共子序列上增加一个 $a[i]$ ，可能会改变匹配的程度</p>
-<p>设加上 $a[i]$ 后的最长公共子序列与 $c$ 串匹配到第 $p$ 位</p>
-<p>则有 $dp[i][j][p] = dp[i][j][p],dp[i-1][j-1][k]+a[i]$</p>
-<p>注意到这个 $p$ 可以通过跳fail数组得到，考虑KMP</p>
-<p>则时间复杂度 $O(n^3)$ </p>
+<p>考虑增加一维，称为与 <span class="math inline">\(c\)</span>
+串匹配度，即</p>
+<p><span class="math inline">\(dp[i][j][k]\)</span> 表示：</p>
+<p><span class="math inline">\(a\)</span> 串匹配到第 <span
+class="math inline">\(i\)</span> 位，<span
+class="math inline">\(b\)</span> 串匹配到第 <span
+class="math inline">\(j\)</span> 位最长公共子序列与 <span
+class="math inline">\(c\)</span> 串匹配到第 <span
+class="math inline">\(k\)</span> 位。</p>
+<p>显然当 <span class="math inline">\(a[i]\ne b[j]\)</span> 时，有 <span
+class="math inline">\(dp[i][j][k]=\max(dp[i][j][k],dp[i][j-1][k],dp[i-1][j][k])\)</span></p>
+<p>当 <span class="math inline">\(a[i]=b[j]\)</span> 时，直接去想 <span
+class="math inline">\(dp[i][j][k]\)</span> 怎么转移不太好搞</p>
+<p>考虑反过来想此时 <span class="math inline">\(dp[i-1][j-1][k]\)</span>
+的贡献</p>
+<p>显然此时在最长公共子序列上增加一个 <span
+class="math inline">\(a[i]\)</span> ，可能会改变匹配的程度</p>
+<p>设加上 <span class="math inline">\(a[i]\)</span> 后的最长公共子序列与
+<span class="math inline">\(c\)</span> 串匹配到第 <span
+class="math inline">\(p\)</span> 位</p>
+<p>则有 <span class="math inline">\(dp[i][j][p] =
+dp[i][j][p],dp[i-1][j-1][k]+a[i]\)</span></p>
+<p>注意到这个 <span class="math inline">\(p\)</span>
+可以通过跳fail数组得到，考虑KMP</p>
+<p>则时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -626,13 +646,13 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/at1899-hua-xiang-chu-li-gao-qiao-jun-ti-jie/">
+                <a href="/2022/05/25/cf652b-z-sort-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p83.png" class="responsive-img" alt="AT1899 画像処理高橋君 题解">
+                        <img src="/medias/featureimages/p34.png" class="responsive-img" alt="CF652B z-sort 题解">
                         
-                        <span class="card-title">AT1899 画像処理高橋君 题解</span>
+                        <span class="card-title">CF652B z-sort 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -664,6 +684,10 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                         <span class="chip bg-color">算法</span>
                     </a>
                     
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -675,13 +699,13 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/cf294b-shaass-and-bookshelf-ti-jie/">
+                <a href="/2022/05/25/cf708a-letters-cyclic-shift-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p31.png" class="responsive-img" alt="CF294B Shaass and Bookshelf 题解">
+                        <img src="/medias/featureimages/p80.png" class="responsive-img" alt="CF708A Letters Cyclic Shift 题解">
                         
-                        <span class="card-title">CF294B Shaass and Bookshelf 题解</span>
+                        <span class="card-title">CF708A Letters Cyclic Shift 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -713,8 +737,8 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -856,47 +880,6 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
 
 
     <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="song"
-                   id="1863403592"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.3'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
