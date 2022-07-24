@@ -445,24 +445,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1122-最大子树和-题解"><a href="#洛谷P1122-最大子树和-题解" class="headerlink" title="洛谷P1122 最大子树和 题解"></a>洛谷P1122 最大子树和 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1122">P1122 最大子树和</a></p>
+                <h1 id="洛谷p1122-最大子树和-题解">洛谷P1122 最大子树和 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1122">P1122
+最大子树和</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小明对数学饱有兴趣，并且是个勤奋好学的学生，总是在课后留在教室向老师请教一些问题。一天他早晨骑车去上课，路上见到一个老伯正在修剪花花草草，顿时想到了一个有关修剪花卉的问题。于是当日课后，小明就向老师提出了这个问题：</p>
-<p>一株奇怪的花卉，上面共连有 $N$ 朵花，共有 $N-1$ 条枝干将花儿连在一起，并且未修剪时每朵花都不是孤立的。每朵花都有一个“美丽指数”，该数越大说明这朵花越漂亮，也有“美丽指数”为负数的，说明这朵花看着都让人恶心。所谓“修剪”，意为：去掉其中的一条枝条，这样一株花就成了两株，扔掉其中一株。经过一系列“修剪“之后，还剩下最后一株花（也可能是一朵）。老师的任务就是：通过一系列“修剪”（也可以什么“修剪”都不进行），使剩下的那株（那朵）花卉上所有花朵的“美丽指数”之和最大。</p>
+<p>一株奇怪的花卉，上面共连有 <span class="math inline">\(N\)</span>
+朵花，共有 <span class="math inline">\(N-1\)</span>
+条枝干将花儿连在一起，并且未修剪时每朵花都不是孤立的。每朵花都有一个“美丽指数”，该数越大说明这朵花越漂亮，也有“美丽指数”为负数的，说明这朵花看着都让人恶心。所谓“修剪”，意为：去掉其中的一条枝条，这样一株花就成了两株，扔掉其中一株。经过一系列“修剪“之后，还剩下最后一株花（也可能是一朵）。老师的任务就是：通过一系列“修剪”（也可以什么“修剪”都不进行），使剩下的那株（那朵）花卉上所有花朵的“美丽指数”之和最大。</p>
 <p>老师想了一会儿，给出了正解。小明见问题被轻易攻破，相当不爽，于是又拿来问你。</p>
 </blockquote>
 <p><del>一眼</del>树形dp</p>
 <p>这道题就是要在树上找一个极大权值连通块</p>
 <p>显然我们不知道连通块是什么样的，但是不急</p>
-<p>树形dp的核心是从子树转移状态</p>
-<script type="math/tex; mode=display">
-dp[u] \leftarrow f(dp[v])</script><p>设 $dp[u]$ 表示 $u$ 所在子树中包含 $u$ 的极大连通块大小</p>
-<p>在本题中，如果 $u$ 的子结点 $v$ 有 $dp[v] &gt; 0$ ，那么可以把 $v$ 给拼接到 $u$ 上</p>
-<p>于是有</p>
-<script type="math/tex; mode=display">
-dp[u]=\sum_{dp[v]>0} dp[v] + \text{val}[u]</script><p>最后答案就是 $\max(dp[u])$ </p>
-<p>时间复杂度 $O(n^2)$ </p>
+<p>树形dp的核心是从子树转移状态 <span class="math display">\[
+dp[u] \leftarrow f(dp[v])
+\]</span> 设 <span class="math inline">\(dp[u]\)</span> 表示 <span
+class="math inline">\(u\)</span> 所在子树中包含 <span
+class="math inline">\(u\)</span> 的极大连通块大小</p>
+<p>在本题中，如果 <span class="math inline">\(u\)</span> 的子结点 <span
+class="math inline">\(v\)</span> 有 <span class="math inline">\(dp[v]
+&gt; 0\)</span> ，那么可以把 <span class="math inline">\(v\)</span>
+给拼接到 <span class="math inline">\(u\)</span> 上</p>
+<p>于是有 <span class="math display">\[
+dp[u]=\sum_{dp[v]&gt;0} dp[v] + \text{val}[u]
+\]</span> 最后答案就是 <span
+class="math inline">\(\max(dp[u])\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1139,21 +1149,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
