@@ -454,31 +454,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3177-HAOI2015-树上染色-题解"><a href="#洛谷P3177-HAOI2015-树上染色-题解" class="headerlink" title="洛谷P3177 [HAOI2015] 树上染色 题解"></a>洛谷P3177 [HAOI2015] 树上染色 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3177">P3177 [HAOI2015] 树上染色</a></p>
+                <h1 id="洛谷p3177-haoi2015-树上染色-题解">洛谷P3177 [HAOI2015] 树上染色
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3177">P3177
+[HAOI2015] 树上染色</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一棵点数为 $n$ 的树，树边有边权。给你一个在 $0 \sim n$ 之内的正整数 $m$ ，你要在这棵树中选择 $m$ 个点，将其染成黑色，并将其他 的 $n-m$ 个点染成白色。将所有点染色后，你会获得黑点两两之间的距离加上白点两两之间的距离的和的受益。问受益最大值是多少。</p>
+<p>有一棵点数为 <span class="math inline">\(n\)</span>
+的树，树边有边权。给你一个在 <span class="math inline">\(0 \sim
+n\)</span> 之内的正整数 <span class="math inline">\(m\)</span>
+，你要在这棵树中选择 <span class="math inline">\(m\)</span>
+个点，将其染成黑色，并将其他 的 <span class="math inline">\(n-m\)</span>
+个点染成白色。将所有点染色后，你会获得黑点两两之间的距离加上白点两两之间的距离的和的受益。问受益最大值是多少。</p>
 </blockquote>
-<p><strong>upd.20220531</strong> 由于本人对树上背包掌握不熟，导致复杂度写假了</p>
+<p><strong>upd.20220531</strong>
+由于本人对树上背包掌握不熟，导致复杂度写假了</p>
 <p><del>其实是题解区普遍写错罢了。</del></p>
 <p>不过原文只是没用刷表法</p>
 <p>于是在原文基础上做了修改，<del>不影响观感，请放心食用（逃</del></p>
 <HR>
-
 <p>显然树上背包</p>
-<p>设 $dp[u][j]$ 表示 $u$ 所在子树染了 $j$ 个黑点的最大价值</p>
-<p>容易推出一个<strong>大概的</strong>方程</p>
-<script type="math/tex; mode=display">
-dp[u][j]=\max(dp[u][j],dp[u][j-k]+dp[v][k]+\text{val})</script><p><strong>注：下文会提到这个转移方程是有点问题的</strong></p>
+<p>设 <span class="math inline">\(dp[u][j]\)</span> 表示 <span
+class="math inline">\(u\)</span> 所在子树染了 <span
+class="math inline">\(j\)</span> 个黑点的最大价值</p>
+<p>容易推出一个<strong>大概的</strong>方程 <span class="math display">\[
+dp[u][j]=\max(dp[u][j],dp[u][j-k]+dp[v][k]+\text{val})
+\]</span> <strong>注：下文会提到这个转移方程是有点问题的</strong></p>
 <p>黑点两两距离+白点两两距离</p>
-<p>直接去算就是 $O(n^2)$ 的了</p>
+<p>直接去算就是 <span class="math inline">\(O(n^2)\)</span> 的了</p>
 <p>考虑更好的计算方法</p>
 <p>一条路径会包括若干条边</p>
 <p>因为是树所以有很多的边会被重复走过</p>
 <p>考虑将距离计算转化为边重复经过次数</p>
-<p>根据乘法原理，可知边 $(u,v)$ （ $u$ 为父结点）的贡献为</p>
-<script type="math/tex; mode=display">
-\text{val}=w(u,v)\times(k(m-k)+(\text{sz}[v]-k)(n-m-\text{sz}[v]+k))</script><p><strong>upd.20220531</strong> 然后<strong>填表法</strong>写出来就是这样的（原文代码）</p>
+<p>根据乘法原理，可知边 <span class="math inline">\((u,v)\)</span> （
+<span class="math inline">\(u\)</span> 为父结点）的贡献为 <span
+class="math display">\[
+\text{val}=w(u,v)\times(k(m-k)+(\text{sz}[v]-k)(n-m-\text{sz}[v]+k))
+\]</span> <strong>upd.20220531</strong>
+然后<strong>填表法</strong>写出来就是这样的（原文代码）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>head<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> i<span class="token punctuation">;</span> i<span class="token operator">=</span>e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> v<span class="token operator">=</span>e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>v<span class="token punctuation">;</span>
@@ -497,11 +510,15 @@ dp[u][j]=\max(dp[u][j],dp[u][j-k]+dp[v][k]+\text{val})</script><p><strong>注：
         <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>不难发现这个其实复杂度是可以被卡到 $O(nm^2)$ 的</p>
-<p>所以考虑<strong>刷表法</strong>，即</p>
-<script type="math/tex; mode=display">
-dp[u][j+k]=\max(dp[u][j+k],\text{tmp}[j]+dp[v][k]+\text{val})</script><p>这里的 $\text{tmp}[j]$ 是上一轮的 $dp[u][j]$ ，刷表的过程中会被刷坏，所以要先存一下</p>
-<p>这样时间复杂度才是严格的 $O(nm)$ </p>
+<p>不难发现这个其实复杂度是可以被卡到 <span
+class="math inline">\(O(nm^2)\)</span> 的</p>
+<p>所以考虑<strong>刷表法</strong>，即 <span class="math display">\[
+dp[u][j+k]=\max(dp[u][j+k],\text{tmp}[j]+dp[v][k]+\text{val})
+\]</span> 这里的 <span class="math inline">\(\text{tmp}[j]\)</span>
+是上一轮的 <span class="math inline">\(dp[u][j]\)</span>
+，刷表的过程中会被刷坏，所以要先存一下</p>
+<p>这样时间复杂度才是严格的 <span
+class="math inline">\(O(nm)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -567,17 +584,25 @@ dp[u][j+k]=\max(dp[u][j+k],\text{tmp}[j]+dp[v][k]+\text{val})</script><p>这里�
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>这一段可以跳过，只是详细解释了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ahaha254/solution-p3177">link</a>的东西，</p>
+<p>这一段可以跳过，只是详细解释了<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ahaha254/solution-p3177">link</a>的东西，</p>
 <p>而且ta的代码复杂度也是假的，因为都是填表法</p>
-<p>注意到有些人 $k$ 倒序枚举，要先转移 $k=0$ 的情况，这里解释一下</p>
+<p>注意到有些人 <span class="math inline">\(k\)</span>
+倒序枚举，要先转移 <span class="math inline">\(k=0\)</span>
+的情况，这里解释一下</p>
 <blockquote>
-<p> 关于为什么要先将 $k=0$ 的转移</p>
-<p> 观察方程，因为如果直接倒序枚举，最后一次 $k=0$ 的枚举</p>
-<p> 会出现 $dp[u][j]=\max(dp[u][j],dp[u][j]+\text{val})$ 的情况</p>
-<p> 显然此时的 $dp[u][j]$ 已经被更新过了</p>
-<p> 因此会导致答案有误（偏大）</p>
+<p>关于为什么要先将 <span class="math inline">\(k=0\)</span> 的转移</p>
+<p>观察方程，因为如果直接倒序枚举，最后一次 <span
+class="math inline">\(k=0\)</span> 的枚举</p>
+<p>会出现 <span
+class="math inline">\(dp[u][j]=\max(dp[u][j],dp[u][j]+\text{val})\)</span>
+的情况</p>
+<p>显然此时的 <span class="math inline">\(dp[u][j]\)</span>
+已经被更新过了</p>
+<p>因此会导致答案有误（偏大）</p>
 </blockquote>
-<p>除了 $k=0$ 的特殊情况，其他时候 $k$ 随便啥顺序枚举都是可以的</p>
+<p>除了 <span class="math inline">\(k=0\)</span> 的特殊情况，其他时候
+<span class="math inline">\(k\)</span> 随便啥顺序枚举都是可以的</p>
 </blockquote>
 
                 
@@ -952,7 +977,7 @@ dp[u][j+k]=\max(dp[u][j+k],\text{tmp}[j]+dp[v][k]+\text{val})</script><p>这里�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">254.3k</span>&nbsp;字
+                class="white-color">256.3k</span>&nbsp;字
             
             
             
