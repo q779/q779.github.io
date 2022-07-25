@@ -446,58 +446,90 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="kd-tree-KDT-时间复杂度证明"><a href="#kd-tree-KDT-时间复杂度证明" class="headerlink" title="kd-tree(KDT) 时间复杂度证明"></a>kd-tree(KDT) 时间复杂度证明</h1><p>kd-tree 是一种可以高效处理 $k$ 维空间的数据结构</p>
-<p>在算法竞赛类的题目中一般有 $k=2$</p>
-<p>还有个比较有趣的结论，当 $k=1$ 时其实它就是一棵线段树</p>
-<p>下文中的 $n$ 为kd-tree中的结点数量， $k$ 为kd-tree的维度</p>
+                <h1 id="kd-treekdt-时间复杂度证明">kd-tree(KDT) 时间复杂度证明</h1>
+<p>kd-tree 是一种可以高效处理 <span class="math inline">\(k\)</span>
+维空间的数据结构</p>
+<p>在算法竞赛类的题目中一般有 <span
+class="math inline">\(k=2\)</span></p>
+<p>还有个比较有趣的结论，当 <span class="math inline">\(k=1\)</span>
+时其实它就是一棵线段树</p>
+<p>下文中的 <span class="math inline">\(n\)</span>
+为kd-tree中的结点数量， <span class="math inline">\(k\)</span>
+为kd-tree的维度</p>
 <HR>
-
-<h2 id="一、建树"><a href="#一、建树" class="headerlink" title="一、建树"></a>一、建树</h2><p>一般建树有三种</p>
-<ol>
+<h2 id="一建树">一、建树</h2>
+<p>一般建树有三种</p>
+<ol type="1">
 <li>随机划分（玄学）</li>
 <li>轮换划分：每个维度轮着划分</li>
 <li>方差划分：优先划分方差较大的维度</li>
 </ol>
 <p><del>我可不想分析玄学的划分</del></p>
-<h3 id="1-轮换划分"><a href="#1-轮换划分" class="headerlink" title="1. 轮换划分"></a>1. 轮换划分</h3><p>显然有递推式 $T(n) = 2T(n/2) + O(n)$</p>
-<p>根据主定理，有 $a=2,b=2,\log_b{a}=1,f(n)=O(n)$</p>
-<p>$\because \exist \epsilon \ge 0$ 使得 $f(n) = \Theta(n^{\log_b{a}}\log^{\epsilon}n)$ ，此时 $\epsilon = 0$ </p>
-<p>$\therefore T(n) = \Theta(n\log n)$</p>
-<h3 id="2-方差划分"><a href="#2-方差划分" class="headerlink" title="2. 方差划分"></a>2. 方差划分</h3><p>注意到 $T(n) = 2T(n/2) + O(kn)$</p>
-<p>因此时间复杂度为 $T(n) =  \Theta(nk\log n)$</p>
-<p>一般在算法竞赛中，由于 $k$ 很小（一般 $k=2$ ），因此有 </p>
-<p>$T(n) = \Theta(n\log n)$</p>
+<h3 id="轮换划分">1. 轮换划分</h3>
+<p>显然有递推式 <span class="math inline">\(T(n) = 2T(n/2) +
+O(n)\)</span></p>
+<p>根据主定理，有 <span
+class="math inline">\(a=2,b=2,\log_b{a}=1,f(n)=O(n)\)</span></p>
+<p><span class="math inline">\(\because \exist \epsilon \ge 0\)</span>
+使得 <span class="math inline">\(f(n) =
+\Theta(n^{\log_b{a}}\log^{\epsilon}n)\)</span> ，此时 <span
+class="math inline">\(\epsilon = 0\)</span></p>
+<p><span class="math inline">\(\therefore T(n) = \Theta(n\log
+n)\)</span></p>
+<h3 id="方差划分">2. 方差划分</h3>
+<p>注意到 <span class="math inline">\(T(n) = 2T(n/2) +
+O(kn)\)</span></p>
+<p>因此时间复杂度为 <span class="math inline">\(T(n) = \Theta(nk\log
+n)\)</span></p>
+<p>一般在算法竞赛中，由于 <span class="math inline">\(k\)</span>
+很小（一般 <span class="math inline">\(k=2\)</span> ），因此有</p>
+<p><span class="math inline">\(T(n) = \Theta(n\log n)\)</span></p>
 <p>本划分方法能较好保证树高，且不易被卡</p>
 <HR>
-
-<h2 id="二、插入-amp-删除"><a href="#二、插入-amp-删除" class="headerlink" title="二、插入&amp;删除"></a>二、插入&amp;删除</h2><p>一般采用替罪羊树的插入&amp;删除操作</p>
+<h2 id="二插入删除">二、插入&amp;删除</h2>
+<p>一般采用替罪羊树的插入&amp;删除操作</p>
 <p>利用重构子树的方式维持平衡</p>
-<p>均摊复杂度为 $O(\log n)$</p>
+<p>均摊复杂度为 <span class="math inline">\(O(\log n)\)</span></p>
 <p>证明可以去看替罪羊树的，这里先留个坑以后补上</p>
 <HR>
-
-<h2 id="三、Range-Query"><a href="#三、Range-Query" class="headerlink" title="三、Range Query"></a>三、Range Query</h2><p>个人感觉算kd-tree的核心操作吧</p>
-<p>支持将一个超长方体区域内的点划分为 $O(\sqrt{n})$ 个点所管辖的区域</p>
-<p>称 $R$ 为待查询的超长方体，则对于树上结点所管辖的超长方体分类，存在以下三种情况</p>
-<ol>
-<li>与 $R$ 的交集为空</li>
-<li><p>全部包含于 $R$ 内</p>
-</li>
-<li><p>与 $R$ 有交集且不包含于 $R$ </p>
-</li>
+<h2 id="三range-query">三、Range Query</h2>
+<p>个人感觉算kd-tree的核心操作吧</p>
+<p>支持将一个超长方体区域内的点划分为 <span
+class="math inline">\(O(\sqrt{n})\)</span> 个点所管辖的区域</p>
+<p>称 <span class="math inline">\(R\)</span>
+为待查询的超长方体，则对于树上结点所管辖的超长方体分类，存在以下三种情况</p>
+<ol type="1">
+<li><p>与 <span class="math inline">\(R\)</span> 的交集为空</p></li>
+<li><p>全部包含于 <span class="math inline">\(R\)</span> 内</p></li>
+<li><p>与 <span class="math inline">\(R\)</span> 有交集且不包含于 <span
+class="math inline">\(R\)</span></p></li>
 </ol>
 <p>算法在查询过程中，碰到第1,2类点不会继续递归其子树</p>
 <p>因此算法的时间复杂度就与第3类点的数量有关</p>
-<p>我们以<strong>轮换划分</strong>来分析，则在相邻的 $k$ 轮中，分别对每一维进行了划分</p>
-<p>显然会产生 $2^k$ 个部分，每个部分的大小均为原来的 $\dfrac{1}{2^k}$</p>
-<p>由于一个用于划分的超平面至多跨越 $2^{k-1}$ 个部分（可以由归纳法证明，此处略）</p>
-<p>则有 $T(n) = 2^{k-1}T(n/2^k)+O(1)$</p>
-<p>根据主定理，有 $a=2^{k-1},b=2^k,\log_b{a} = \dfrac{k-1}{k},f(n)=O(1)$</p>
-<p>$\because \exist \epsilon &gt; 0$ 使得 $f(n) = O(n^{\log_b{a}-\epsilon})$ ，此时 $\epsilon = \dfrac{k-1}{k}$ </p>
-<p>$\therefore T(n) = \Theta\left(n^{1-\frac{1}{k}}\right)$</p>
-<p>当 $k=2$ 时， $T(n) = \Theta(\sqrt{n})$</p>
-<p><HR><br><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/command-block/kdt-xiao-ji">KDT小记</a></p>
+<p>我们以<strong>轮换划分</strong>来分析，则在相邻的 <span
+class="math inline">\(k\)</span> 轮中，分别对每一维进行了划分</p>
+<p>显然会产生 <span class="math inline">\(2^k\)</span>
+个部分，每个部分的大小均为原来的 <span
+class="math inline">\(\dfrac{1}{2^k}\)</span></p>
+<p>由于一个用于划分的超平面至多跨越 <span
+class="math inline">\(2^{k-1}\)</span>
+个部分（可以由归纳法证明，此处略）</p>
+<p>则有 <span class="math inline">\(T(n) =
+2^{k-1}T(n/2^k)+O(1)\)</span></p>
+<p>根据主定理，有 <span class="math inline">\(a=2^{k-1},b=2^k,\log_b{a}
+= \dfrac{k-1}{k},f(n)=O(1)\)</span></p>
+<p><span class="math inline">\(\because \exist \epsilon &gt; 0\)</span>
+使得 <span class="math inline">\(f(n) =
+O(n^{\log_b{a}-\epsilon})\)</span> ，此时 <span
+class="math inline">\(\epsilon = \dfrac{k-1}{k}\)</span></p>
+<p><span class="math inline">\(\therefore T(n) =
+\Theta\left(n^{1-\frac{1}{k}}\right)\)</span></p>
+<p>当 <span class="math inline">\(k=2\)</span> 时， <span
+class="math inline">\(T(n) = \Theta(\sqrt{n})\)</span></p>
+<HR>
+<p><strong>参考文献</strong></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/command-block/kdt-xiao-ji">KDT小记</a></p>
 
                 
             </div>
@@ -611,13 +643,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/vijos1659-he-xie-wang-guo-ti-jie/">
+                <a href="/2022/05/25/chrome-zi-dong-cao-zong-gu-ge-xiao-kong-long/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p45.jpg" class="responsive-img" alt="Vijos1659 河蟹王国 题解">
+                        <img src="/medias/featureimages/p96.png" class="responsive-img" alt="chrome 自动操纵谷歌小恐龙">
                         
-                        <span class="card-title">Vijos1659 河蟹王国 题解</span>
+                        <span class="card-title">chrome 自动操纵谷歌小恐龙</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -634,8 +666,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/OI/" class="post-category">
-                                    OI
+                            <a href="/categories/%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    系统
                                 </a>
                             
                             
@@ -645,12 +677,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/%E6%91%86%E7%83%82/">
+                        <span class="chip bg-color">摆烂</span>
                     </a>
                     
                 </div>
@@ -664,13 +692,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/ji-suan-ji-he-shi-yong-cha-ji-ji-suan-zhi-xian-jiao-dian/">
+                <a href="/2022/05/25/linux-ji-windows-dui-pai-cheng-xu-c/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p110.png" class="responsive-img" alt="[计算几何] 使用叉积计算直线交点">
+                        <img src="/medias/featureimages/p86.png" class="responsive-img" alt="linux及windows对拍程序 C++">
                         
-                        <span class="card-title">[计算几何] 使用叉积计算直线交点</span>
+                        <span class="card-title">linux及windows对拍程序 C++</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -698,12 +726,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
-                        <span class="chip bg-color">计算几何</span>
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
                     </a>
                     
                 </div>
@@ -859,7 +883,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">253.3k</span>&nbsp;字
+                class="white-color">255.2k</span>&nbsp;字
             
             
             

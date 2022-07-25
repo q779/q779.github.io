@@ -450,14 +450,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="无序数组交换任意两个元素-最少交换次数"><a href="#无序数组交换任意两个元素-最少交换次数" class="headerlink" title="无序数组交换任意两个元素 最少交换次数"></a>无序数组交换任意两个元素 最少交换次数</h1><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定长度为 $n$ 的无序数组，将数组中的元素按<strong>从小到大</strong>的顺序排列，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
+                <h1 id="无序数组交换任意两个元素-最少交换次数">无序数组交换任意两个元素
+最少交换次数</h1>
+<h3 id="题目描述">题目描述</h3>
+给定长度为 <span class="math inline">\(n\)</span>
+的无序数组，将数组中的元素按<strong>从小到大</strong>的顺序排列，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？
 <HR>
-
-<h3 id="解题方法"><a href="#解题方法" class="headerlink" title="解题方法"></a>解题方法</h3><h4 id="解法一（较繁琐）"><a href="#解法一（较繁琐）" class="headerlink" title="解法一（较繁琐）"></a>解法一（较繁琐）</h4><p>我们可以遍历一遍原数组，如果当前元素不在正确位置上，将该元素和此时在它正确位置上的元素<strong>交换</strong></p>
+<h3 id="解题方法">解题方法</h3>
+<h4 id="解法一较繁琐">解法一（较繁琐）</h4>
+<p>我们可以遍历一遍原数组，如果当前元素不在正确位置上，将该元素和此时在它正确位置上的元素<strong>交换</strong></p>
 <p>这里有一个要注意的，某次交换后我们可能没有将交换和被交换数都放在正确位置上，且有可能在接下来的遍历中不会再次遍历到被交换数，因此交换后还要再判断，直到当前位置的数正确，显然不这么做不会影响正确结果</p>
 <p>很容易证明这是最少的。</p>
-<p>设当前元素为 $\alpha$ （不在正确位置上），它与非 $\alpha$ 的正确位置上的元素 $\beta$ 交换，会有两种情况：第一种， $\beta$ 在正确位置上。由于最后 $\beta$ 一定会在正确位置上，且一定是 $\beta$ 和在 $\beta$ 正确位置上的元素交换（或 $\beta$ 本来就在正确位置），所以交换 $\alpha$ 和 $\beta$ 就是多余的；第二种， $\beta$ 不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换 $\alpha$ 和 $\beta$ 是多余的</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度 $O(n\log n)$</p>
+<p>设当前元素为 <span class="math inline">\(\alpha\)</span>
+（不在正确位置上），它与非 <span class="math inline">\(\alpha\)</span>
+的正确位置上的元素 <span class="math inline">\(\beta\)</span>
+交换，会有两种情况：第一种， <span class="math inline">\(\beta\)</span>
+在正确位置上。由于最后 <span class="math inline">\(\beta\)</span>
+一定会在正确位置上，且一定是 <span class="math inline">\(\beta\)</span>
+和在 <span class="math inline">\(\beta\)</span> 正确位置上的元素交换（或
+<span class="math inline">\(\beta\)</span> 本来就在正确位置），所以交换
+<span class="math inline">\(\alpha\)</span> 和 <span
+class="math inline">\(\beta\)</span> 就是多余的；第二种， <span
+class="math inline">\(\beta\)</span>
+不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换
+<span class="math inline">\(\alpha\)</span> 和 <span
+class="math inline">\(\beta\)</span> 是多余的</p>
+<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
+<span class="math inline">\(O(n\log n)\)</span></p>
 <p>主要代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">fun</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -477,15 +496,24 @@
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <HR>
-
-<h4 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h4><p>对于每个元素，我们将该元素和它的正确位置建边</p>
-<p>最后一定是 $1\sim n$ 个环（自环也算）</p>
-<p>对于有 $k$ 个元素的环，最少交换次数为 $k-1$</p>
-<p>假设共有 $p$ 个环，对于第 $i$ 个环，有 $k_i$ 个元素，则它的最少交换次数为 $k_i - 1$ </p>
-<p>因此 $ans = \sum\limits_{i=1}^{p}{(k_i-1)} = \sum\limits_{i=1}^{p}{k_i} - p$</p>
-<p>显然 $n  = \sum\limits_{i=1}^{p}{k_i}$ </p>
-<p>所以答案就是 $n-p$ ，即元素个数 - 环的个数</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度 $O(n\log n)$</p>
+<h4 id="解法二">解法二</h4>
+<p>对于每个元素，我们将该元素和它的正确位置建边</p>
+<p>最后一定是 <span class="math inline">\(1\sim n\)</span>
+个环（自环也算）</p>
+<p>对于有 <span class="math inline">\(k\)</span>
+个元素的环，最少交换次数为 <span class="math inline">\(k-1\)</span></p>
+<p>假设共有 <span class="math inline">\(p\)</span> 个环，对于第 <span
+class="math inline">\(i\)</span> 个环，有 <span
+class="math inline">\(k_i\)</span> 个元素，则它的最少交换次数为 <span
+class="math inline">\(k_i - 1\)</span></p>
+<p>因此 <span class="math inline">\(ans = \sum\limits_{i=1}^{p}{(k_i-1)}
+= \sum\limits_{i=1}^{p}{k_i} - p\)</span></p>
+<p>显然 <span class="math inline">\(n =
+\sum\limits_{i=1}^{p}{k_i}\)</span></p>
+<p>所以答案就是 <span class="math inline">\(n-p\)</span> ，即元素个数 -
+环的个数</p>
+<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
+<span class="math inline">\(O(n\log n)\)</span></p>
 <p>主要代码如下（注：其实可以不用递归）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">;</span>
 map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span>mp<span class="token punctuation">;</span>
@@ -623,13 +651,13 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/zheng-shu-de-hua-fen-dong-tai-gui-hua/">
+                <a href="/2022/05/25/jun-zhi-bu-deng-shi-ji-qi-zheng-ming/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p13.jpg" class="responsive-img" alt="整数的划分 动态规划">
+                        <img src="/medias/featureimages/p103.png" class="responsive-img" alt="均值不等式及其证明">
                         
-                        <span class="card-title">整数的划分 动态规划</span>
+                        <span class="card-title">均值不等式及其证明</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -657,8 +685,8 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DP/">
-                        <span class="chip bg-color">DP</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -672,13 +700,13 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/shu-lun-ti-xia-zuo-1/">
+                <a href="/2022/05/25/luo-gu-p1006-noip2008-ti-gao-zu-chuan-zhi-tiao-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p66.jpg" class="responsive-img" alt="数论题瞎做[1]">
+                        <img src="/medias/featureimages/p41.png" class="responsive-img" alt="洛谷P1006 [NOIP2008 提高组] 传纸条">
                         
-                        <span class="card-title">数论题瞎做[1]</span>
+                        <span class="card-title">洛谷P1006 [NOIP2008 提高组] 传纸条</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -706,8 +734,12 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
                 </div>
@@ -863,7 +895,7 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">253.3k</span>&nbsp;字
+                class="white-color">255.2k</span>&nbsp;字
             
             
             

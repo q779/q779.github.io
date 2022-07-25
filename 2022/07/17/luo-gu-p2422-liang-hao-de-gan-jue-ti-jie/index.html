@@ -454,27 +454,56 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2422-良好的感觉-题解"><a href="#洛谷P2422-良好的感觉-题解" class="headerlink" title="洛谷P2422 良好的感觉 题解"></a>洛谷P2422 良好的感觉 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2422">P2422 良好的感觉</a></p>
+                <h1 id="洛谷p2422-良好的感觉-题解">洛谷P2422 良好的感觉 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2422">P2422
+良好的感觉</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>kkk 做了一个人体感觉分析器。每一天，人都有一个感受值 $A_i$，$A_i$ 越大，表示人感觉越舒适。在一段时间 $\left[i, j\right]$ 内，人的舒适程度定义为 $\left[i, j\right]$ 中最不舒服的那一天的感受值 $\times$ $\left[i, j\right]$中每一天感受值的和。现在给出 kkk 在连续 $N$ 天中的感受值，请问，在哪一段时间，kkk 感觉最舒适？</p>
-<p>对于 $100\%$ 的数据，$1\le N\le 100000$，$1\le \texttt{感受值}\le 1000000$。</p>
+<p>kkk 做了一个人体感觉分析器。每一天，人都有一个感受值 <span
+class="math inline">\(A_i\)</span>，<span
+class="math inline">\(A_i\)</span> 越大，表示人感觉越舒适。在一段时间
+<span class="math inline">\(\left[i, j\right]\)</span>
+内，人的舒适程度定义为 <span class="math inline">\(\left[i,
+j\right]\)</span> 中最不舒服的那一天的感受值 <span
+class="math inline">\(\times\)</span> <span
+class="math inline">\(\left[i,
+j\right]\)</span>中每一天感受值的和。现在给出 kkk 在连续 <span
+class="math inline">\(N\)</span> 天中的感受值，请问，在哪一段时间，kkk
+感觉最舒适？</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le N\le 100000\)</span>，<span
+class="math inline">\(1\le \texttt{感受值}\le 1000000\)</span>。</p>
 </blockquote>
 <p>题意简化一下就是</p>
 <p>找到一个区间，使得区间最小值乘以区间的和最大</p>
 <p>考虑每个最小值对区间的贡献</p>
-<p>设当前的数为 $a_i$ ，</p>
-<p>它能成为最小值的区间 $[l,r]$ 满足 $l\in [j+1,i],r\in [i,k-1]$</p>
-<p>其中 $j$ 是所有 $a_j &lt;a_i$ 中最大的 $j$ ，$k$ 是所有 $a_k &lt; a_i$ 中最小的 $k$</p>
-<p>设 $f_i$ 表示前 $i$ 个数中的最大答案 </p>
-<script type="math/tex; mode=display">
-f_i = (f_j + S_i-S_j)+(f_k+S_{k-1}-S_i)</script><p>这里的 $j,k$ 和上面同义，$S_i$ 为前缀和，即 $S_i = \sum_{j=1}^{i}a_j$</p>
+<p>设当前的数为 <span class="math inline">\(a_i\)</span> ，</p>
+<p>它能成为最小值的区间 <span class="math inline">\([l,r]\)</span> 满足
+<span class="math inline">\(l\in [j+1,i],r\in [i,k-1]\)</span></p>
+<p>其中 <span class="math inline">\(j\)</span> 是所有 <span
+class="math inline">\(a_j &lt;a_i\)</span> 中最大的 <span
+class="math inline">\(j\)</span> ，<span
+class="math inline">\(k\)</span> 是所有 <span class="math inline">\(a_k
+&lt; a_i\)</span> 中最小的 <span class="math inline">\(k\)</span></p>
+<p>设 <span class="math inline">\(f_i\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个数中的最大答案 <span
+class="math display">\[
+f_i = (f_j + S_i-S_j)+(f_k+S_{k-1}-S_i)
+\]</span> 这里的 <span class="math inline">\(j,k\)</span>
+和上面同义，<span class="math inline">\(S_i\)</span> 为前缀和，即 <span
+class="math inline">\(S_i = \sum_{j=1}^{i}a_j\)</span></p>
 <p>于是用单调栈维护最小值，从左往右扫，就能把左半部分搞定了</p>
 <p>那么右半部分怎么搞呢？</p>
-<p>不难发现 $a_k$ 一定是第一个加入单调栈以后把 $a_i$ 踢出去的数</p>
-<p>我们只要在踢出 $a_i$ 的时候把 $i$ 到 $k-1$ 的贡献给加到 $f_i$ 上就好了</p>
-<p>注意最后一定要把 $a_{n+1}$ 设为一个极小值，使其能把前面所有的踢出去</p>
-<p>时间复杂度 $O(n)$ </p>
+<p>不难发现 <span class="math inline">\(a_k\)</span>
+一定是第一个加入单调栈以后把 <span class="math inline">\(a_i\)</span>
+踢出去的数</p>
+<p>我们只要在踢出 <span class="math inline">\(a_i\)</span> 的时候把
+<span class="math inline">\(i\)</span> 到 <span
+class="math inline">\(k-1\)</span> 的贡献给加到 <span
+class="math inline">\(f_i\)</span> 上就好了</p>
+<p>注意最后一定要把 <span class="math inline">\(a_{n+1}\)</span>
+设为一个极小值，使其能把前面所有的踢出去</p>
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -884,7 +913,7 @@ f_i = (f_j + S_i-S_j)+(f_k+S_{k-1}-S_i)</script><p>这里的 $j,k$ 和上面同�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">253.3k</span>&nbsp;字
+                class="white-color">255.2k</span>&nbsp;字
             
             
             

@@ -450,48 +450,75 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UVA1437-String-painter-题解"><a href="#UVA1437-String-painter-题解" class="headerlink" title="UVA1437 String painter 题解"></a>UVA1437 String painter 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1437">UVA1437 String painter</a></p>
+                <h1 id="uva1437-string-painter-题解">UVA1437 String painter 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1437">UVA1437
+String painter</a></p>
 <blockquote>
-<p><strong>题意</strong>：There are two strings A and B with equal length. Both strings are made up of lower case letters. Now you have a powerful string painter. With the help of the painter, you can change a segment of characters of a string to any other character you want. That is, after using the painter, the segment is made up of only one kind of character. Now your task is to change A to B using string painter. What’s the minimum number of operations?</p>
+<p><strong>题意</strong>：There are two strings A and B with equal
+length. Both strings are made up of lower case letters. Now you have a
+powerful string painter. With the help of the painter, you can change a
+segment of characters of a string to any other character you want. That
+is, after using the painter, the segment is made up of only one kind of
+character. Now your task is to change A to B using string painter.
+What’s the minimum number of operations?</p>
 <p>1 &lt;= |A|=|B| &lt;= 100</p>
 </blockquote>
 <p>显然区间dp</p>
 <p>考虑A与B<strong>完全不同</strong>时</p>
-<p>设 $f[i][j]$ 表示暴力（不管A的情况）修改 $[i,j]$ 的最小花费</p>
-<p>那就是<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50332374/article/details/124977817">这个题目</a>了</p>
-<p>当 $i=j$ 时，有</p>
-<script type="math/tex; mode=display">
-f[i][j]=1</script><p>当 $i\ne j$ 时，</p>
+<p>设 <span class="math inline">\(f[i][j]\)</span>
+表示暴力（不管A的情况）修改 <span class="math inline">\([i,j]\)</span>
+的最小花费</p>
+<p>那就是<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50332374/article/details/124977817">这个题目</a>了</p>
+<p>当 <span class="math inline">\(i=j\)</span> 时，有 <span
+class="math display">\[
+f[i][j]=1
+\]</span> 当 <span class="math inline">\(i\ne j\)</span> 时，</p>
 <ul>
-<li><p>若 $b[i]=b[j]$ ，此时只需要 $[i+1,j]$ 或 $[i,j-1]$ 首次涂的时候多涂一格即可</p>
-<script type="math/tex; mode=display">
-f[i][j]=\min(f[i+1][j],f[i][j-1])</script></li>
-<li><p>若 $b[i]\ne b[j]$ ， $b[i],b[j]$ 都可以尝试向内扩展，显然 $[i,j]$ 首次涂会涂两种颜色，考虑枚举其断点 $k$ </p>
-<script type="math/tex; mode=display">
-f[i][j]=\min(f[i][j],f[i][k]+f[k+1][j])</script></li>
+<li><p>若 <span class="math inline">\(b[i]=b[j]\)</span> ，此时只需要
+<span class="math inline">\([i+1,j]\)</span> 或 <span
+class="math inline">\([i,j-1]\)</span> 首次涂的时候多涂一格即可 <span
+class="math display">\[
+f[i][j]=\min(f[i+1][j],f[i][j-1])
+\]</span></p></li>
+<li><p>若 <span class="math inline">\(b[i]\ne b[j]\)</span> ， <span
+class="math inline">\(b[i],b[j]\)</span> 都可以尝试向内扩展，显然 <span
+class="math inline">\([i,j]\)</span> 首次涂会涂两种颜色，考虑枚举其断点
+<span class="math inline">\(k\)</span> <span class="math display">\[
+f[i][j]=\min(f[i][j],f[i][k]+f[k+1][j])
+\]</span></p></li>
 </ul>
 <p>显然有时候我们的暴力修改时不必要的</p>
-<p>设 $g[i]$ 表示 $[1,i]$ 的最小修改，则 $g[i]$ 至多为 $f[1][i]$ ，且有 $g[0]=0$ </p>
+<p>设 <span class="math inline">\(g[i]\)</span> 表示 <span
+class="math inline">\([1,i]\)</span> 的最小修改，则 <span
+class="math inline">\(g[i]\)</span> 至多为 <span
+class="math inline">\(f[1][i]\)</span> ，且有 <span
+class="math inline">\(g[0]=0\)</span></p>
 <ul>
-<li><p>若 $a[i]=b[i]$ ，则</p>
-<script type="math/tex; mode=display">
-g[i]=g[i-1]</script><p>显然这个 $g[i-1]$ 一定不大于 $f[1][i]$ ，直接转移即可</p>
-</li>
-<li><p>若 $a[i] \ne b[i]$ ，则此时 $a[i]$ 是必须得暴力修改的了</p>
+<li><p>若 <span class="math inline">\(a[i]=b[i]\)</span> ，则 <span
+class="math display">\[
+g[i]=g[i-1]
+\]</span> 显然这个 <span class="math inline">\(g[i-1]\)</span>
+一定不大于 <span class="math inline">\(f[1][i]\)</span>
+，直接转移即可</p></li>
+<li><p>若 <span class="math inline">\(a[i] \ne b[i]\)</span> ，则此时
+<span class="math inline">\(a[i]\)</span> 是必须得暴力修改的了</p>
 <p>但是这个修改长度我们不知道</p>
-<p>考虑枚举一个断点 $k$ ，也就是 $[k+1,i]$ 第一次涂色涂成 $a[i]$</p>
+<p>考虑枚举一个断点 <span class="math inline">\(k\)</span> ，也就是
+<span class="math inline">\([k+1,i]\)</span> 第一次涂色涂成 <span
+class="math inline">\(a[i]\)</span></p>
 <blockquote>
 <p>为什么不是上个极大公共子串的末尾开始呢？</p>
 <p>考虑这种情况</p>
 <pre class="line-numbers language-none"><code class="language-none">zzzzfzzzz
 abcdfdcba<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>最小花费为 $5$ </p>
+<p>最小花费为 <span class="math inline">\(5\)</span></p>
 </blockquote>
-<p>故转移方程为</p>
-<script type="math/tex; mode=display">
-g[i]=\min_{0 \le k \le i}(g[i],g[k]+f[k+1][i])</script></li>
+<p>故转移方程为 <span class="math display">\[
+g[i]=\min_{0 \le k \le i}(g[i],g[k]+f[k+1][i])
+\]</span></p></li>
 </ul>
-<p>时间复杂度 $O(Qn^2)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(Qn^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -904,7 +931,7 @@ g[i]=\min_{0 \le k \le i}(g[i],g[k]+f[k+1][i])</script></li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">253.3k</span>&nbsp;字
+                class="white-color">255.2k</span>&nbsp;字
             
             
             
