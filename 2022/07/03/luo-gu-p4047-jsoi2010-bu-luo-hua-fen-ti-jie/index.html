@@ -446,58 +446,40 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4047-jsoi2010部落划分-题解">洛谷P4047 [JSOI2010]部落划分
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4047">P4047
-[JSOI2010]部落划分</a></p>
+                <h1 id="洛谷P4047-JSOI2010-部落划分-题解"><a href="#洛谷P4047-JSOI2010-部落划分-题解" class="headerlink" title="洛谷P4047 [JSOI2010]部落划分 题解"></a>洛谷P4047 [JSOI2010]部落划分 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4047">P4047 [JSOI2010]部落划分</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>聪聪研究发现，荒岛野人总是过着群居的生活，但是，并不是整个荒岛上的所有野人都属于同一个部落，野人们总是拉帮结派形成属于自己的部落，不同的部落之间则经常发生争斗。只是，这一切都成为谜团了——聪聪根本就不知道部落究竟是如何分布的。</p>
-<p>不过好消息是，聪聪得到了一份荒岛的地图。地图上标注了 <span
-class="math inline">\(n\)</span>
-个野人居住的地点（可以看作是平面上的坐标）。我们知道，同一个部落的野人总是生活在附近。我们把两个部落的距离，定义为部落中距离最近的那两个居住点的距离。聪聪还获得了一个有意义的信息——这些野人总共被分为了
-<span class="math inline">\(k\)</span>
-个部落！这真是个好消息。聪聪希望从这些信息里挖掘出所有部落的详细信息。他正在尝试这样一种算法：</p>
+<p>不过好消息是，聪聪得到了一份荒岛的地图。地图上标注了 $n$ 个野人居住的地点（可以看作是平面上的坐标）。我们知道，同一个部落的野人总是生活在附近。我们把两个部落的距离，定义为部落中距离最近的那两个居住点的距离。聪聪还获得了一个有意义的信息——这些野人总共被分为了 $k$ 个部落！这真是个好消息。聪聪希望从这些信息里挖掘出所有部落的详细信息。他正在尝试这样一种算法：</p>
 <p>对于任意一种部落划分的方法，都能够求出两个部落之间的距离，聪聪希望求出一种部落划分的方法，使靠得最近的两个部落尽可能远离。</p>
 <p>例如，下面的左图表示了一个好的划分，而右图则不是。请你编程帮助聪聪解决这个难题。</p>
-<p><img src="https://cdn.luogu.com.cn/upload/pic/30573.png" /></p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，保证 <span
-class="math inline">\(2 \leq k \leq n \leq 10^3\)</span>，<span
-class="math inline">\(0 \leq x, y \leq 10^4\)</span>。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/30573.png" alt=""></p>
+<p>对于 $100\%$ 的数据，保证 $2 \leq k \leq n \leq 10^3$，$0 \leq  x, y \leq 10^4$。</p>
 </blockquote>
 <p>最小距离最大，一眼二分</p>
 <p>但是这里给出一个kruskal的解法</p>
-<p>我们先把 <span class="math inline">\(O(n^2)\)</span> 条边建出来</p>
+<p>我们先把 $O(n^2)$ 条边建出来</p>
 <p>然后找到最小生成树</p>
-<p>贪心地把最小生成树划分为 <span class="math inline">\(k\)</span>
-个连通块</p>
+<p>贪心地把最小生成树划分为 $k$ 个连通块</p>
 <p>具体的，我们只要依次合并树上最小边</p>
-<p>最后一共合并掉 <span class="math inline">\((n-1)-(k-1) = n-k\)</span>
-条边</p>
-<p>所以答案就是第 <span class="math inline">\(n-k+1\)</span>
-条边的边权</p>
+<p>最后一共合并掉 $(n-1)-(k-1) = n-k$ 条边</p>
+<p>所以答案就是第 $n-k+1$ 条边的边权</p>
 <p>口糊一个正确性证明（可能不是很严谨）</p>
 <p>考虑反证法</p>
-<p>设最小生成树上的一条边 <span class="math inline">\(w_1(u,v)\)</span>
-，将其替换为 <span class="math inline">\(w_2(u,v^{\prime})\)</span>
-（<span class="math inline">\(w_2&gt;w_1\)</span>）</p>
+<p>设最小生成树上的一条边 $w_1(u,v)$ ，将其替换为 $w_2(u,v^{\prime})$ （$w_2&gt;w_1$）</p>
 <ul>
-<li><p>如果 <span class="math inline">\(w_1\)</span>
-会被合并而我们合并了 <span class="math inline">\(w_2\)</span>
-，好像看不出什么变化</p></li>
-<li><p>如果 <span class="math inline">\(w_1\)</span>
-会被合并而我们没有合并 <span class="math inline">\(w_2\)</span> ，</p>
-<p>那么我们一定合并了一条比 <span class="math inline">\(w_1\)</span>
-大的边，而且是最小生成树上的边</p>
-<p>因此答案会偏大</p></li>
-<li><p>如果 <span class="math inline">\(w_1\)</span>
-不会被合并而我们合并了 <span class="math inline">\(w_2\)</span>
-，没有这种情况。</p></li>
-<li><p>如果 <span class="math inline">\(w_1\)</span>
-不会被合并而我们没有合并 <span class="math inline">\(w_2\)</span>
-，没影响。</p></li>
+<li><p>如果 $w_1$ 会被合并而我们合并了 $w_2$ ，好像看不出什么变化</p>
+</li>
+<li><p>如果 $w_1$ 会被合并而我们没有合并 $w_2$ ，</p>
+<p>那么我们一定合并了一条比 $w_1$ 大的边，而且是最小生成树上的边</p>
+<p>因此答案会偏大</p>
+</li>
+<li><p>如果 $w_1$ 不会被合并而我们合并了 $w_2$ ，没有这种情况。</p>
+</li>
+<li><p>如果 $w_1$ 不会被合并而我们没有合并 $w_2$ ，没影响。</p>
+</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(O(n^2 \log n)\)</span></p>
+<p>时间复杂度 $O(n^2 \log n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -911,7 +893,7 @@ class="math inline">\(0 \leq x, y \leq 10^4\)</span>。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">255.2k</span>&nbsp;字
+                class="white-color">254.3k</span>&nbsp;字
             
             
             
