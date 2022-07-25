@@ -450,21 +450,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="rmb找零问题">RMB找零问题</h1>
-<p>来自某次研究性学习的作业</p>
-<h2 id="前言">前言</h2>
-<p>可以先考虑这样的问题</p>
+                <h1 id="RMB找零问题"><a href="#RMB找零问题" class="headerlink" title="RMB找零问题"></a>RMB找零问题</h1><p>来自某次研究性学习的作业</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>可以先考虑这样的问题</p>
 <blockquote>
-<p>给定 <span class="math inline">\(n\)</span>
-种足量多的纸币，每种面额为 <span class="math inline">\(a_i\)</span> 元
-<span class="math inline">\((0&lt;a[i]≤10000,a[i]\in
-\Z,1≤i≤n≤100)\)</span></p>
-<p>给出需要找零的金额 <span class="math inline">\(m
-(0≤m≤10000)\)</span></p>
+<p>给定 $n$ 种足量多的纸币，每种面额为 $a_i$ 元 $(0&lt;a[i]≤10000,a[i]\in \Z,1≤i≤n≤100)$</p>
+<p>给出需要找零的金额 $m (0≤m≤10000)$</p>
 <p>请找到一种方法使得找零所需的纸币数量尽可能地少，输出最小数量</p>
-<p>例如：<span class="math inline">\(68=50+10+5+2+1,12=10+2\)</span></p>
-<p>尽管 <span class="math inline">\(8=10-2\)</span>
-，但是收银员是不能支付 <span class="math inline">\(-2\)</span> 元的</p>
+<p>例如：$68=50+10+5+2+1,12=10+2$</p>
+<p>尽管 $8=10-2$ ，但是收银员是不能支付 $-2$ 元的</p>
 </blockquote>
 <p>可以看出这就是一道完全背包模板题</p>
 <p>代码如下</p>
@@ -489,97 +482,63 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>而本文讨论的是关于RMB（人民币）的找零问题</p>
 <HR>
-<h2 id="特殊的找零问题">特殊的找零问题</h2>
-<blockquote>
+
+<h2 id="特殊的找零问题"><a href="#特殊的找零问题" class="headerlink" title="特殊的找零问题"></a>特殊的找零问题</h2><blockquote>
 <p>考虑这样的问题</p>
-<p>给定足量多的纸币，面额为 <span
-class="math inline">\(1,2,5,10,20,50,100\)</span> 元</p>
-<p>给出需要找零的金额 <span
-class="math inline">\(m(0≤m≤10^9)\)</span></p>
+<p>给定足量多的纸币，面额为 $1,2,5,10,20,50,100$ 元</p>
+<p>给出需要找零的金额 $m(0≤m≤10^9)$</p>
 <p>请找到一种方法使得找零所需的纸币数量尽可能地少，输出最小数量</p>
-<p>例如：<span class="math inline">\(68=50+10+5+2+1,12=10+2\)</span></p>
-<p>尽管 <span class="math inline">\(8=10-2\)</span>
-，但是收银员是不能支付 <span class="math inline">\(-2\)</span> 元的</p>
+<p>例如：$68=50+10+5+2+1,12=10+2$</p>
+<p>尽管 $8=10-2$ ，但是收银员是不能支付 $-2$ 元的</p>
 </blockquote>
 <p>根据生活常识，我们可以发现这其实是个<strong>贪心</strong>问题</p>
 <p>那我们来尝试证明</p>
 <p>先把概念放一下</p>
-首先能用贪心解决的问题需要具备<strong>贪心选择</strong>和<strong>最优子结构</strong>的性质
+<p>首先能用贪心解决的问题需要具备<strong>贪心选择</strong>和<strong>最优子结构</strong>的性质</p>
 <HR>
+
 <p><strong>贪心选择</strong></p>
-<p>所谓贪心选择是指应用同一规则，将原问题转变成一个相似的但规模更小的子问题，而后的每一步
-都是当前看似最佳的选择，且这种选择只依赖于已做出的选择，不依赖于未做出的选择</p>
+<p>所谓贪心选择是指应用同一规则，将原问题转变成一个相似的但规模更小的子问题，而后的每一步<br>都是当前看似最佳的选择，且这种选择只依赖于已做出的选择，不依赖于未做出的选择</p>
 <p>也就是说所求问题的整体最优解可以通过一系列局部最优的选择，即贪心选择来达到</p>
 <p>这是贪心算法可行的第一个基本要素，也是贪心算法与动态规划的主要区别。</p>
 <p>在动态规划中，每步所做的选择往往依赖于相关子问题的解。因而只有在解出相关子问题后，才能做出选择。</p>
 <p>而在贪心算法中，仅在当前状态下做出最好选择，即局部最优选择。然后再去解出做出这个选择后产生的相应的子问题。贪心算法所做的贪心选择可以依赖于以往所做过的选择，但决不依赖于将来所做的选择，也不依赖于子问题的解。正是由于这种差别，动态规划通常以自底向上的方式解各个问题，而贪心算法则通常以自顶向下的方式进行，以迭代的方式做出相继的贪心选择，每做一次贪心选择就将所求问题简化为规模更小的子问题</p>
 <HR>
+
 <p><strong>最优子结构</strong></p>
 <p>执行算法时，每一次得到的结果虽然都是当前问题的最优解（即局部最优解），但只有满足全局最</p>
-优解包含局部最优解时，才能保证最终得到的结果是最优解
+<p>优解包含局部最优解时，才能保证最终得到的结果是最优解</p>
 <HR>
-<h3 id="证明">证明</h3>
-<p>设 <span class="math inline">\(c_i\)</span> 为第 <span
-class="math inline">\(i\)</span> 种纸币的面额， <span
-class="math inline">\(S_i\)</span> 为总金额为 <span
-class="math inline">\(i\)</span> 时的最小花费</p>
-<p>设总金额为 <span class="math inline">\(n\)</span>
-，则原问题的最优解即为 <span class="math inline">\(S_n=k\)</span></p>
-<p>现在将某一面值的纸币 <span class="math inline">\(c_j\)</span> 减少
-<span class="math inline">\(1\)</span> ，则有 <span
-class="math inline">\(S_{n-c_j} = k-1\)</span> 为总金额 <span
-class="math inline">\(n-c_j\)</span> 时的最优解</p>
-<p>否则设 <span class="math inline">\(T_{n-c_j} = m\)</span> 为总金额
-<span class="math inline">\(n-c_j\)</span> 时的最优解，即 <span
-class="math inline">\(m&lt;k-1\)</span></p>
-<p>则 <span class="math inline">\(T_{n-c_j} + 1\)</span>
-应为原问题的最优解，即 <span
-class="math inline">\(m+1&lt;k-1+1=k\)</span> ，与最小花费为 <span
-class="math inline">\(k\)</span> 相矛盾</p>
+
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>设 $c_i$ 为第 $i$ 种纸币的面额， $S_i$ 为总金额为 $i$ 时的最小花费</p>
+<p>设总金额为 $n$ ，则原问题的最优解即为 $S_n=k$</p>
+<p>现在将某一面值的纸币 $c_j$ 减少 $1$ ，则有 $S_{n-c_j} = k-1$ 为总金额 $n-c_j$ 时的最优解</p>
+<p>否则设 $T_{n-c_j} = m$ 为总金额 $n-c_j$ 时的最优解，即 $m&lt;k-1$ </p>
+<p>则 $T_{n-c_j} + 1$ 应为原问题的最优解，即 $m+1&lt;k-1+1=k$ ，与最小花费为 $k$ 相矛盾</p>
 <p>又由于纸币的数量足够多，因此问题间相互独立</p>
 <p>故问题满足<strong>最优子结构</strong>性质</p>
-<p>设 <span class="math inline">\(c_i\)</span> 为第 <span
-class="math inline">\(i\)</span> 种纸币的面额，<span
-class="math inline">\(x_i\)</span> 为贪心得到的最优解 <span
-class="math inline">\(\sum x_i\)</span> 中使用第 <span
-class="math inline">\(i\)</span> 种纸币的数量，</p>
-<p><span class="math inline">\(y_i\)</span> 为原问题最优解 <span
-class="math inline">\(\sum y_i\)</span> 中使用第 <span
-class="math inline">\(i\)</span> 种纸币的数量，令 <span
-class="math inline">\(x_i&lt;x_{i+1},y_i&lt;y_{i+1}\)</span></p>
-<p>假设贪心的得到的最优解不是原问题的最优解，则存在一个最大的 <span
-class="math inline">\(k\)</span> ，使得 <span
-class="math inline">\(x_k\ne y_k\)</span></p>
-<p>可以发现 <span class="math inline">\(k\ne 1\)</span></p>
-<p>情况1：若 <span class="math inline">\(x_k&lt;y_k\)</span>
-，由于贪心算法每次选择的都是最大面额的纸币，因此不存在</p>
-<p>情况2：若 <span class="math inline">\(x_k&gt;y_k\)</span>
-，此时一定使用了较小面额的纸币来替代 <span
-class="math inline">\(c_k\)</span> ，即 <span
-class="math inline">\(\sum{c_i}=c_k\)</span></p>
-<p>显然对于任意一个币值，任意 <span class="math inline">\(2\)</span>
-张小于它的相加都小于它，例如 <span
-class="math inline">\(1+2&lt;5\)</span></p>
-<p>因此此时 <span class="math inline">\(\sum x_k &lt; \sum y_k\)</span>
-，与 <span class="math inline">\(\sum y_k\)</span>
-是最优解相矛盾，因此不成立</p>
+<p>设 $c_i$ 为第 $i$ 种纸币的面额，$x_i$ 为贪心得到的最优解 $\sum x_i$ 中使用第 $i$ 种纸币的数量，</p>
+<p>$y_i$ 为原问题最优解 $\sum y_i$ 中使用第 $i$ 种纸币的数量，令 $x_i&lt;x_{i+1},y_i&lt;y_{i+1}$</p>
+<p>假设贪心的得到的最优解不是原问题的最优解，则存在一个最大的 $k$ ，使得 $x_k\ne y_k$ </p>
+<p>可以发现 $k\ne 1$ </p>
+<p>情况1：若 $x_k&lt;y_k$ ，由于贪心算法每次选择的都是最大面额的纸币，因此不存在</p>
+<p>情况2：若 $x_k&gt;y_k$ ，此时一定使用了较小面额的纸币来替代 $c_k$ ，即 $\sum{c_i}=c_k$ </p>
+<p>显然对于任意一个币值，任意 $2$ 张小于它的相加都小于它，例如 $1+2&lt;5$ </p>
+<p>因此此时 $\sum x_k &lt; \sum y_k$ ，与 $\sum y_k$ 是最优解相矛盾，因此不成立</p>
 <p>故问题满足<strong>贪心选择</strong>性质</p>
-<p>因此我们就可以 <span class="math inline">\(O(1)\)</span> 求解了</p>
-代码不放了比较简单
+<p>因此我们就可以 $O(1)$ 求解了</p>
+<p>代码不放了比较简单</p>
 <HR>
-<h3 id="其他情况">其他情况</h3>
-<p>可以猜测，可能存在其他的情况也满足贪心的性质</p>
+
+<h3 id="其他情况"><a href="#其他情况" class="headerlink" title="其他情况"></a>其他情况</h3><p>可以猜测，可能存在其他的情况也满足贪心的性质</p>
 <p><del>还没研究 qwq</del> 但是找到了一篇论文</p>
-<p><a
-target="_blank" rel="noopener" href="https://arxiv.org/pdf/0809.0400v1.pdf">https://arxiv.org/pdf/0809.0400v1.pdf</a></p>
-是关于怎样的面额才能使用贪心算法的
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/0809.0400v1.pdf">https://arxiv.org/pdf/0809.0400v1.pdf</a> </p>
+<p>是关于怎样的面额才能使用贪心算法的</p>
 <HR>
-<h2 id="总结">总结</h2>
-简单证明了一下某些特定找零问题贪心算法的正确性
-<HR>
-<p><strong>参考文献</strong></p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/details/26481551">人民币找零的贪婪算法最有解的证明</a></p>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单证明了一下某些特定找零问题贪心算法的正确性</p>
+<p><HR><br><strong>参考文献</strong></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/details/26481551">人民币找零的贪婪算法最有解的证明</a></p>
 
                 
             </div>
@@ -697,13 +656,13 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/de
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/uva10006-carmichael-numbers-ti-jie/">
+                <a href="/2022/05/25/cf374c-inna-and-dima-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p14.jpg" class="responsive-img" alt="UVA10006 Carmichael Numbers">
+                        <img src="/medias/featureimages/p112.png" class="responsive-img" alt="CF374C Inna and Dima 题解">
                         
-                        <span class="card-title">UVA10006 Carmichael Numbers</span>
+                        <span class="card-title">CF374C Inna and Dima 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -735,8 +694,8 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/de
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
                 </div>
@@ -750,13 +709,13 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/de
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/uva1121-subsequence-ti-jie/">
+                <a href="/2022/05/25/poj3723-conscription-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p114.png" class="responsive-img" alt="UVA1121 Subsequence 题解">
+                        <img src="/medias/featureimages/p103.png" class="responsive-img" alt="POJ3723 Conscription 题解">
                         
-                        <span class="card-title">UVA1121 Subsequence 题解</span>
+                        <span class="card-title">POJ3723 Conscription 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -941,7 +900,7 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/Lizo_Is_Me/article/de
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">258.6k</span>&nbsp;字
+                class="white-color">259.3k</span>&nbsp;字
             
             
             
