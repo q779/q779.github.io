@@ -445,47 +445,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4127-ahoi2009同类分布-题解">洛谷P4127 [AHOI2009]同类分布
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4127">P4127
-[AHOI2009]同类分布</a></p>
+                <h1 id="洛谷P4127-AHOI2009-同类分布-题解"><a href="#洛谷P4127-AHOI2009-同类分布-题解" class="headerlink" title="洛谷P4127 [AHOI2009]同类分布 题解"></a>洛谷P4127 [AHOI2009]同类分布 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4127">P4127 [AHOI2009]同类分布</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出两个数 <span class="math inline">\(a,b\)</span> ，求出 <span
-class="math inline">\([a,b]\)</span>
-中各位数字之和能整除原数的数的个数。</p>
-<p>对于所有的数据， <span class="math inline">\(1 ≤ a ≤ b ≤
-10^{18}\)</span>。</p>
+<p>给出两个数 $a,b$ ，求出 $[a,b]$ 中各位数字之和能整除原数的数的个数。</p>
+<p>对于所有的数据， $1 ≤ a ≤ b ≤ 10^{18}$。 </p>
 </blockquote>
 <p><del>明天就期末考了非但不复习还在刷题 qwqqwqwq</del></p>
 <p>因为我们不能确切知道每个数的数位和</p>
-<p>但是我们知道它们一定在 <span class="math inline">\([1,9 \times
-l]\)</span> 的范围内（ <span class="math inline">\(l\)</span>
-为最长的位数）</p>
+<p>但是我们知道它们一定在 $[1,9 \times l]$ 的范围内（ $l$ 为最长的位数）</p>
 <p>我们枚举所有的数位和并计算每个数位和对应的答案</p>
-<p>把这些答案加起来就是 <span class="math inline">\([0,x]\)</span>
-的答案</p>
-<p><span class="math inline">\([a,b]\)</span> 的答案可以拆分为两个询问
-<span class="math inline">\([0,b]\)</span> 和 <span
-class="math inline">\([0,a-1]\)</span></p>
-<p>而这里 <span class="math inline">\(a,b \le 10^{18}\)</span>
-，直接压入状态显然不可接受</p>
+<p>把这些答案加起来就是 $[0,x]$ 的答案</p>
+<p>$[a,b]$ 的答案可以拆分为两个询问 $[0,b]$ 和 $[0,a-1]$ </p>
+<p>而这里 $a,b \le 10^{18}$ ，直接压入状态显然不可接受</p>
 <p>于是我们可以考虑记录模当前枚举的数位和意义下的数</p>
-<p>方便起见，我们称当前枚举的数位和为 <span
-class="math inline">\(m\)</span></p>
-<p>设 <span class="math inline">\(f_{i,j,k}\)</span> 表示只考虑前 <span
-class="math inline">\(i\)</span> 位数（包括前导零），前 <span
-class="math inline">\(i\)</span> 位的数位和为 <span
-class="math inline">\(j\)</span> ，当前数模 <span
-class="math inline">\(m\)</span> 为 <span
-class="math inline">\(k\)</span> 时的答案</p>
-<p>不难发现 <span class="math display">\[
-f_{i,j,k} = \sum_{0 \le d \le t} f_{i+1,j+d,\left(k\times 10 + d \,
-\bmod \, m\right)}
-\]</span> 其中 <span class="math inline">\(t\)</span> 为第 <span
-class="math inline">\(i+1\)</span> 位的高位限制</p>
+<p>方便起见，我们称当前枚举的数位和为 $m$ </p>
+<p>设 $f_{i,j,k}$ 表示只考虑前 $i$ 位数（包括前导零），前 $i$ 位的数位和为 $j$ ，当前数模 $m$ 为 $k$ 时的答案</p>
+<p>不难发现</p>
+<script type="math/tex; mode=display">
+f_{i,j,k} = \sum_{0 \le d \le t} f_{i+1,j+d,\left(k\times 10 + d \, \bmod \, m\right)}</script><p>其中 $t$ 为第 $i+1$ 位的高位限制</p>
 <p>用记搜写法能简洁不少</p>
-<p>时间复杂度 <span class="math inline">\(O(9^3\times l^4)\)</span></p>
+<p>时间复杂度 $O(9^3\times l^4)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>

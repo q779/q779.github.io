@@ -445,43 +445,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf149d-coloring-brackets-题解">CF149D Coloring Brackets
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF149D">CF149D
-Coloring Brackets</a></p>
+                <h1 id="CF149D-Coloring-Brackets-题解"><a href="#CF149D-Coloring-Brackets-题解" class="headerlink" title="CF149D Coloring Brackets 题解"></a>CF149D Coloring Brackets 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF149D">CF149D Coloring Brackets</a></p>
 <blockquote>
-<p><strong>题意</strong>：给出一个配对的括号序列（如 “<span
-class="math inline">\(\texttt{(())()}\)</span>”、“<span
-class="math inline">\(\texttt{()}\)</span>” 等，“<span
-class="math inline">\(\texttt{)()}\)</span>”、“<span
-class="math inline">\(\texttt{(()}\)</span>”是不符合要求的），对该序列按照以下方法染色。</p>
-<ol type="1">
+<p><strong>题意</strong>：给出一个配对的括号序列（如 “$\texttt{(())()}$”、“$\texttt{()}$” 等，“$\texttt{)()}$”、“$\texttt{(()}$”是不符合要求的），对该序列按照以下方法染色。</p>
+<ol>
 <li>一个括号可以染成红色、蓝色或者不染色。</li>
 <li>一对匹配的括号需要且只能将其中一个染色。</li>
 <li>相邻两个括号颜色不能相同（但都可以不染色）。</li>
 </ol>
-<p>求符合条件的染色方案数，对 <span
-class="math inline">\(1000000007\)</span> 取模。</p>
+<p>求符合条件的染色方案数，对 $1000000007$ 取模。</p>
 </blockquote>
 <p>容易发现这个题目就是个区间dp</p>
-<p>但是仅仅用 <span class="math inline">\(dp[l][r]\)</span>
-并不能表示出两侧括号的颜色</p>
-<p>因此设 <span class="math inline">\(dp[l][r][i][j]\)</span> 为区间
-<span class="math inline">\([l,r]\)</span> 内且左右两侧的颜色分别为
-<span class="math inline">\(i,j\)</span> 时的方案数
-（0为不染色，1为红，2为蓝）</p>
-<p>考虑边界：当 <span class="math inline">\(l+1=r\)</span> 时，有 <span
-class="math display">\[
-\text{()}
-\]</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>但是仅仅用 $dp[l][r]$ 并不能表示出两侧括号的颜色</p>
+<p>因此设 $dp[l][r][i][j]$ 为区间 $[l,r]$ 内且左右两侧的颜色分别为 $i,j$ 时的方案数 （0为不染色，1为红，2为蓝）</p>
+<p>考虑边界：当 $l+1=r$ 时，有</p>
+<script type="math/tex; mode=display">
+\text{()}</script><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>一般地，</p>
-<p>当 <span class="math inline">\(l\)</span> 与 <span
-class="math inline">\(r\)</span> 配对时，有 <span
-class="math display">\[
-\text{(}\dots\text{)}
-\]</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+<p>当 $l$ 与 $r$ 配对时，有</p>
+<script type="math/tex; mode=display">
+\text{(}\dots\text{)}</script><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token punctuation">&#123;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">!=</span><span class="token number">1</span><span class="token punctuation">)</span> dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>dp<span class="token punctuation">[</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
@@ -489,13 +472,11 @@ class="math display">\[
         <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">!=</span><span class="token number">1</span><span class="token punctuation">)</span> dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>dp<span class="token punctuation">[</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">!=</span><span class="token number">2</span><span class="token punctuation">)</span> dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>dp<span class="token punctuation">[</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>r<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">%</span>mod<span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>当 <span class="math inline">\(l\)</span> 与 <span
-class="math inline">\(r\)</span> 不配对时，有 <span
-class="math display">\[
-\text{(}\dots\text{)}\dots\text{(}\dots\text{)}
-\]</span> 以及 <span class="math display">\[
-\text{(}\dots\text{)}\text{(}\dots\text{)}
-\]</span> 等情况，不过本质上是一样的</p>
+<p>当 $l$ 与 $r$ 不配对时，有</p>
+<script type="math/tex; mode=display">
+\text{(}\dots\text{)}\dots\text{(}\dots\text{)}</script><p>以及</p>
+<script type="math/tex; mode=display">
+\text{(}\dots\text{)}\text{(}\dots\text{)}</script><p>等情况，不过本质上是一样的</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> p<span class="token operator">&lt;=</span><span class="token number">2</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -560,9 +541,7 @@ class="math display">\[
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>本文很多地方参考了<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/hhz6830975/cf149d-coloring-brackets-ou-jian-dp-ji-yi-hua-sou-suo-post">这篇文章</a>，写的非常好<span
-class="math inline">\(✅\)</span></p>
+<p>本文很多地方参考了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/hhz6830975/cf149d-coloring-brackets-ou-jian-dp-ji-yi-hua-sou-suo-post">这篇文章</a>，写的非常好$✅$</p>
 
                 
             </div>
