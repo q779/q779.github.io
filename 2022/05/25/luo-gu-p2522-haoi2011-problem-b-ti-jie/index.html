@@ -450,31 +450,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2522-HAOI2011-Problem-b-题解"><a href="#洛谷P2522-HAOI2011-Problem-b-题解" class="headerlink" title="洛谷P2522 [HAOI2011]Problem b 题解"></a>洛谷P2522 [HAOI2011]Problem b 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2522">P2522 [HAOI2011]Problem b</a></p>
+                <h1 id="洛谷p2522-haoi2011problem-b-题解">洛谷P2522 [HAOI2011]Problem b
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2522">P2522
+[HAOI2011]Problem b</a></p>
 <blockquote>
-<p><strong>题意</strong>：对于给出的 $n$ 个询问，每次求有多少个数对 $(x,y)$，满足 $a \le x \le b$，$c \le y \le d$，且 $\gcd(x,y) = k$，$\gcd(x,y)$ 函数为 $x$ 和 $y$ 的最大公约数。</p>
+<p><strong>题意</strong>：对于给出的 <span
+class="math inline">\(n\)</span> 个询问，每次求有多少个数对 <span
+class="math inline">\((x,y)\)</span>，满足 <span class="math inline">\(a
+\le x \le b\)</span>，<span class="math inline">\(c \le y \le
+d\)</span>，且 <span class="math inline">\(\gcd(x,y) = k\)</span>，<span
+class="math inline">\(\gcd(x,y)\)</span> 函数为 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 的最大公约数。</p>
 </blockquote>
 <p>一句话题意：</p>
-<p>求</p>
-<script type="math/tex; mode=display">
-\sum_{i=a}^{b}\sum_{j=c}^{d}[\gcd(i,j)=k]</script><p>根据容斥原理，不妨令</p>
-<script type="math/tex; mode=display">
-F(n,m) = \sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]</script><p>则答案为</p>
-<script type="math/tex; mode=display">
-F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
-<script type="math/tex; mode=display">
+<p>求 <span class="math display">\[
+\sum_{i=a}^{b}\sum_{j=c}^{d}[\gcd(i,j)=k]
+\]</span> 根据容斥原理，不妨令 <span class="math display">\[
+F(n,m) = \sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
+\]</span> 则答案为 <span class="math display">\[
+F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)
+\]</span> 然后推推柿子 <span class="math display">\[
 \begin{aligned}
-&\sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
-\\&=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\gcd(i,j)=1]
-\\&=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d\mid \gcd(i,j)}\mu(d)
-\end{aligned}</script><p>考虑变换求和顺序，得</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[d\mid i]\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d\mid j]</script><p>根据 $1\sim n$ 中 $d$ 的倍数有 $\left\lfloor\dfrac{n}{d}\right\rfloor$ 个，</p>
-<p>以及 $\left\lfloor\dfrac{n}{kd}\right\rfloor=\left\lfloor\dfrac{\left\lfloor\frac{n}{k}\right\rfloor}{d}\right\rfloor$</p>
-<p>可得</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\left\lfloor\dfrac{n}{kd}\right\rfloor\left\lfloor\dfrac{m}{kd}\right\rfloor</script><p>然后数论分块就好了</p>
-<p>时间复杂度 $O(N+Q\sqrt{n})$</p>
+&amp;\sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
+\\&amp;=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\gcd(i,j)=1]
+\\&amp;=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d\mid
+\gcd(i,j)}\mu(d)
+\end{aligned}
+\]</span> 考虑变换求和顺序，得 <span class="math display">\[
+\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[d\mid
+i]\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d\mid j]
+\]</span> 根据 <span class="math inline">\(1\sim n\)</span> 中 <span
+class="math inline">\(d\)</span> 的倍数有 <span
+class="math inline">\(\left\lfloor\dfrac{n}{d}\right\rfloor\)</span>
+个，</p>
+<p>以及 <span
+class="math inline">\(\left\lfloor\dfrac{n}{kd}\right\rfloor=\left\lfloor\dfrac{\left\lfloor\frac{n}{k}\right\rfloor}{d}\right\rfloor\)</span></p>
+<p>可得 <span class="math display">\[
+\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\left\lfloor\dfrac{n}{kd}\right\rfloor\left\lfloor\dfrac{m}{kd}\right\rfloor
+\]</span> 然后数论分块就好了</p>
+<p>时间复杂度 <span class="math inline">\(O(N+Q\sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -680,13 +696,13 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2350-haoi2012-wai-xing-ren-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2568-gcd-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p91.png" class="responsive-img" alt="洛谷P2350 [HAOI2012]外星人 题解">
+                        <img src="/medias/featureimages/p17.jpg" class="responsive-img" alt="洛谷P2568 GCD 题解">
                         
-                        <span class="card-title">洛谷P2350 [HAOI2012]外星人 题解</span>
+                        <span class="card-title">洛谷P2568 GCD 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -733,13 +749,13 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2568-gcd-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2613-mo-ban-you-li-shu-qu-yu-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p17.jpg" class="responsive-img" alt="洛谷P2568 GCD 题解">
+                        <img src="/medias/featureimages/p90.png" class="responsive-img" alt="洛谷P2613 【模板】有理数取余 题解">
                         
-                        <span class="card-title">洛谷P2568 GCD 题解</span>
+                        <span class="card-title">洛谷P2613 【模板】有理数取余 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -928,7 +944,7 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">259.3k</span>&nbsp;字
+                class="white-color">262.5k</span>&nbsp;字
             
             
             
