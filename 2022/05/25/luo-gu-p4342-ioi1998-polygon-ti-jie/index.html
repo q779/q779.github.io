@@ -450,37 +450,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4342-IOI1998-Polygon-题解"><a href="#洛谷P4342-IOI1998-Polygon-题解" class="headerlink" title="洛谷P4342 [IOI1998]Polygon 题解"></a>洛谷P4342 [IOI1998]Polygon 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4342">P4342 [IOI1998]Polygon</a></p>
+                <h1 id="洛谷p4342-ioi1998polygon-题解">洛谷P4342 [IOI1998]Polygon
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4342">P4342
+[IOI1998]Polygon</a></p>
 <blockquote>
-<p><strong>题意</strong>：多边形是一个玩家在一个有 $n$ 个顶点的多边形上的游戏，如图所示，其中 $n=4$ 。每个顶点用整数标记，每个边用符号+（加）或符号*（乘积）标记。</p>
-<p><img src="https://cdn.luogu.org/upload/pic/16086.png" alt=""></p>
+<p><strong>题意</strong>：多边形是一个玩家在一个有 <span
+class="math inline">\(n\)</span> 个顶点的多边形上的游戏，如图所示，其中
+<span class="math inline">\(n=4\)</span>
+。每个顶点用整数标记，每个边用符号+（加）或符号*（乘积）标记。</p>
+<p><img src="https://cdn.luogu.org/upload/pic/16086.png" /></p>
 <p>第一步，删除其中一条边。随后每一步：</p>
 <p>选择一条边连接的两个顶点V1和V2，用边上的运算符计算V1和V2得到的结果来替换这两个顶点。</p>
 <p>游戏结束时，只有一个顶点，没有多余的边。</p>
 <p>如图所示，玩家先移除编号为3的边。之后，玩家选择计算编号为1的边，然后计算编号为4的边，最后，计算编号为2的边。结果是0。</p>
-<p><img src="https://cdn.luogu.org/upload/pic/16088.png" alt=""></p>
+<p><img src="https://cdn.luogu.org/upload/pic/16088.png" /></p>
 <p>这里每条边的运算符旁边的数字为边的编号，不拿来计算</p>
 <p>编写一个程序，给定一个多边形，计算最高可能的分数。</p>
-<p>$3 \le n\le 50$ </p>
-<p>对于任何一系列的操作，顶点数字都在 $[-32768,32767]$ 的范围内。</p>
+<p><span class="math inline">\(3 \le n\le 50\)</span></p>
+<p>对于任何一系列的操作，顶点数字都在 <span
+class="math inline">\([-32768,32767]\)</span> 的范围内。</p>
 </blockquote>
 <p>容易发现我们需要断环为链，然后区间dp</p>
 <p>注意到存在负数，而负负得正，说明不是简单的区间dp</p>
 <p>不难发现两个负的极小值之乘积对答案有更大贡献</p>
 <p>考虑维护区间最大值的同时维护区间最小值</p>
-<p>即，设 $f[i][j]$ 为区间 $[i,j]$ 的最大值，$g[i][j]$ 为区间 $[i,j]$ 的最小值</p>
-<p>当符号为”加”时，显然有</p>
-<script type="math/tex; mode=display">
+<p>即，设 <span class="math inline">\(f[i][j]\)</span> 为区间 <span
+class="math inline">\([i,j]\)</span> 的最大值，<span
+class="math inline">\(g[i][j]\)</span> 为区间 <span
+class="math inline">\([i,j]\)</span> 的最小值</p>
+<p>当符号为"加"时，显然有 <span class="math display">\[
 \begin{aligned}
-f[i][j]=&\max_{i\le k < j}(f[i][j],f[i][k]+f[k+1][j])
-\\g[i][j]=&\min_{i\le k < j}(g[i][j],g[i][k]+g[k+1][j])
-\end{aligned}</script><p>当符号为”乘”时</p>
-<p>因为我们并不知道最大值是否非负，直接把所有情况都列出即可</p>
-<script type="math/tex; mode=display">
+f[i][j]=&amp;\max_{i\le k &lt; j}(f[i][j],f[i][k]+f[k+1][j])
+\\g[i][j]=&amp;\min_{i\le k &lt; j}(g[i][j],g[i][k]+g[k+1][j])
+\end{aligned}
+\]</span></p>
+<p>当符号为"乘"时</p>
+<p>因为我们并不知道最大值是否非负，直接把所有情况都列出即可 <span
+class="math display">\[
 \begin{aligned}
-f[i][j]=&\max_{i\le k < j}(f[i][j],f[i][k]\times f[k+1][j],g[i][k]\times g[k+1][j],f[i][k]\times g[k+1][j],g[i][k]\times f[k+1][j])\\
-g[i][j]=&\min_{i\le k < j}(g[i][j],f[i][k]\times f[k+1][j],g[i][k]\times g[k+1][j],f[i][k]\times g[k+1][j],g[i][k]\times f[k+1][j])
-\end{aligned}</script><p>时间复杂度 $O(n^3)$ </p>
+f[i][j]=&amp;\max_{i\le k &lt; j}(f[i][j],f[i][k]\times
+f[k+1][j],g[i][k]\times g[k+1][j],f[i][k]\times g[k+1][j],g[i][k]\times
+f[k+1][j])\\
+g[i][j]=&amp;\min_{i\le k &lt; j}(g[i][j],f[i][k]\times
+f[k+1][j],g[i][k]\times g[k+1][j],f[i][k]\times g[k+1][j],g[i][k]\times
+f[k+1][j])
+\end{aligned}
+\]</span> 时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -909,7 +925,7 @@ g[i][j]=&\min_{i\le k < j}(g[i][j],f[i][k]\times f[k+1][j],g[i][k]\times g[k+1][
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">261.2k</span>&nbsp;字
+                class="white-color">262.5k</span>&nbsp;字
             
             
             
