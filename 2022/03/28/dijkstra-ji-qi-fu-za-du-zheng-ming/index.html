@@ -450,11 +450,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Dijkstra及其复杂度证明"><a href="#Dijkstra及其复杂度证明" class="headerlink" title="Dijkstra及其复杂度证明"></a>Dijkstra及其复杂度证明</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要围绕易混淆的<strong>复杂度分析</strong>进行讨论</p>
+                <h1 id="dijkstra及其复杂度证明">Dijkstra及其复杂度证明</h1>
+<h2 id="前言">前言</h2>
+<p>本文主要围绕易混淆的<strong>复杂度分析</strong>进行讨论</p>
 <HR>
-
-<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><p>其实这个不叫迪杰斯特拉，这个叫<code>/ˈdɛɪkstra/</code> qwq</p>
-<h3 id="一、小概念"><a href="#一、小概念" class="headerlink" title="一、小概念"></a>一、小概念</h3><p>先放几个简单概念</p>
+<h2 id="dijkstra">Dijkstra</h2>
+<p>其实这个不叫迪杰斯特拉，这个叫<code>/ˈdɛɪkstra/</code> qwq</p>
+<h3 id="一小概念">一、小概念</h3>
+<p>先放几个简单概念</p>
 <p><strong>无向图</strong>：图中所有的边都是两端可达的，也就是可以从任意一端通过这条边</p>
 <p><strong>有向图</strong>：图中所有的边都是单向的，有一个起点和一个终点，方向为起点指向终点</p>
 <p><strong>重边</strong>：两个结点间多条存在完全一样的边，通常它们可能拥有不同的权重或属性</p>
@@ -462,35 +465,53 @@
 <p><strong>简单图</strong>：图中不存在自环和重边，显然一定存在两个结点的度数相同</p>
 <p><strong>多重图</strong>：存在自环或重边</p>
 <blockquote>
-<p>更多内容可以参考<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/concept/">这里</a>  ，这里只介绍了一些对本文有用的概念</p>
+<p>更多内容可以参考<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/concept/">这里</a>
+，这里只介绍了一些对本文有用的概念</p>
 </blockquote>
 <HR>
-
-<h3 id="二、时间复杂度分析"><a href="#二、时间复杂度分析" class="headerlink" title="二、时间复杂度分析"></a>二、时间复杂度分析</h3><p>给定一张具有<strong>非负权重</strong>的图和一个源点 $s$ （起点），问结点 $t$ 与 $s$ 的最短距离是多少</p>
-<p>设图中的结点数为 $n$ ，边数为 $m$ ，$n\le m$</p>
+<h3 id="二时间复杂度分析">二、时间复杂度分析</h3>
+<p>给定一张具有<strong>非负权重</strong>的图和一个源点 <span
+class="math inline">\(s\)</span> （起点），问结点 <span
+class="math inline">\(t\)</span> 与 <span
+class="math inline">\(s\)</span> 的最短距离是多少</p>
+<p>设图中的结点数为 <span class="math inline">\(n\)</span> ，边数为
+<span class="math inline">\(m\)</span> ，<span
+class="math inline">\(n\le m\)</span></p>
 <p>算法流程：</p>
-<ol>
-<li><p>$\text{dis[s]=0} \land \forall u \in V\backslash S , \text{dis[}u\text{]}=+\infty$</p>
-</li>
-<li><p>从未确定最短路的点集 $T$ 中找到一个结点满足其最短路长度最小</p>
-</li>
-<li>将已确定最短路的点集 $S$ 的所有出边进行松弛操作</li>
-<li>如果 $T\ne \varnothing$ ，重复1,2操作</li>
+<ol start="0" type="1">
+<li><p><span class="math inline">\(\text{dis[s]=0} \land \forall u \in
+V\backslash S , \text{dis[}u\text{]}=+\infty\)</span></p></li>
+<li><p>从未确定最短路的点集 <span class="math inline">\(T\)</span>
+中找到一个结点满足其最短路长度最小</p></li>
+<li><p>将已确定最短路的点集 <span class="math inline">\(S\)</span>
+的所有出边进行松弛操作</p></li>
+<li><p>如果 <span class="math inline">\(T\ne \varnothing\)</span>
+，重复1,2操作</p></li>
 </ol>
-<h4 id="1-朴素dijkstra"><a href="#1-朴素dijkstra" class="headerlink" title="1. 朴素dijkstra"></a>1. 朴素dijkstra</h4><p>操作1复杂度为 $O(n)$ ，操作2复杂度为 $O(n)$ ，每条都会被松弛一次</p>
-<p>因此总时间复杂度为 $O(m+n^2)$</p>
-<h4 id="2-优先队列优化"><a href="#2-优先队列优化" class="headerlink" title="2.优先队列优化"></a>2.优先队列优化</h4><p>显然操作1可以优化</p>
+<h4 id="朴素dijkstra">1. 朴素dijkstra</h4>
+<p>操作1复杂度为 <span class="math inline">\(O(n)\)</span>
+，操作2复杂度为 <span class="math inline">\(O(n)\)</span>
+，每条都会被松弛一次</p>
+<p>因此总时间复杂度为 <span class="math inline">\(O(m+n^2)\)</span></p>
+<h4 id="优先队列优化">2.优先队列优化</h4>
+<p>显然操作1可以优化</p>
 <p>考虑一般多重图，使用优先队列优化存在弊端</p>
-<p>对于队首的元素，至多遍历 $d_i$ 条边 ，$\sum d_i = m$</p>
-<p>注意到一次操作2中，同一结点可能入队多次，则时间复杂度为 $O(m)$ </p>
+<p>对于队首的元素，至多遍历 <span class="math inline">\(d_i\)</span>
+条边 ，<span class="math inline">\(\sum d_i = m\)</span></p>
+<p>注意到一次操作2中，同一结点可能入队多次，则时间复杂度为 <span
+class="math inline">\(O(m)\)</span></p>
 <blockquote>
 <p>假设按某种固定顺序遍历出边，每次松弛操作都会使被松弛结点入队</p>
-<p>因为存在重边，考虑构造重边以权重大小降序排列，即 $w(e_{k-1})\ge w(e_k),k\in\mathbb{Z}\land k\in[1,d_i]$</p>
-<p>这样最坏可以做到 $O(m)$</p>
+<p>因为存在重边，考虑构造重边以权重大小降序排列，即 <span
+class="math inline">\(w(e_{k-1})\ge w(e_k),k\in\mathbb{Z}\land
+k\in[1,d_i]\)</span></p>
+<p>这样最坏可以做到 <span class="math inline">\(O(m)\)</span></p>
 </blockquote>
-<p>因此找最短路最小的结点时间为 $O(\log m)$ </p>
+<p>因此找最短路最小的结点时间为 <span class="math inline">\(O(\log
+m)\)</span></p>
 <p>每个结点至少被遍历一次</p>
-<p>则总时间复杂度为 $O\left((n+m)\log m\right)$ </p>
+<p>则总时间复杂度为 <span class="math inline">\(O\left((n+m)\log
+m\right)\)</span></p>
 <p>优先队列优化的代码</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">priority_queue<span class="token operator">&lt;</span>node<span class="token operator">></span> q<span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">dijkstra</span><span class="token punctuation">(</span><span class="token keyword">int</span> st<span class="token punctuation">)</span>
@@ -514,16 +535,22 @@
 		<span class="token punctuation">&#125;</span>
 	<span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="3-二叉堆优化"><a href="#3-二叉堆优化" class="headerlink" title="3.二叉堆优化"></a>3.二叉堆优化</h4><p>对于堆顶的元素，至多遍历 $d_i$ 条边 ，$\sum d_i = m$</p>
+<h4 id="二叉堆优化">3.二叉堆优化</h4>
+<p>对于堆顶的元素，至多遍历 <span class="math inline">\(d_i\)</span>
+条边 ，<span class="math inline">\(\sum d_i = m\)</span></p>
 <p>由于二叉堆支持修改，我们每次遇到重复入队的情况只要修改就好了</p>
-<p>因此找最短路最小的结点时间为 $O(\log n)$ </p>
+<p>因此找最短路最小的结点时间为 <span class="math inline">\(O(\log
+n)\)</span></p>
 <p>每个结点至少被遍历一次</p>
-<p>则总时间复杂度为 $O\left((n+m)\log n\right)$ </p>
-<h4 id="4-斐波那契堆优化"><a href="#4-斐波那契堆优化" class="headerlink" title="4.斐波那契堆优化"></a>4.斐波那契堆优化</h4><p>原理同二叉堆，这个更快但是更难写，一般不使用</p>
-<p>理论时间复杂度 $O(m + n\log n)$</p>
+<p>则总时间复杂度为 <span class="math inline">\(O\left((n+m)\log
+n\right)\)</span></p>
+<h4 id="斐波那契堆优化">4.斐波那契堆优化</h4>
+<p>原理同二叉堆，这个更快但是更难写，一般不使用</p>
+<p>理论时间复杂度 <span class="math inline">\(O(m + n\log
+n)\)</span></p>
 <HR>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简单讨论了一下复杂度的问题</p>
+<h2 id="总结">总结</h2>
+<p>本文简单讨论了一下复杂度的问题</p>
 
                 
             </div>
@@ -889,7 +916,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">262.5k</span>&nbsp;字
+                class="white-color">265.2k</span>&nbsp;字
             
             
             
