@@ -450,16 +450,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈快速乘"><a href="#浅谈快速乘" class="headerlink" title="浅谈快速乘"></a>浅谈快速乘</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>想必大家都听说过快速幂</p>
+                <h1 id="浅谈快速乘">浅谈快速乘</h1>
+<h2 id="前言">前言</h2>
+<p>想必大家都听说过快速幂</p>
 <p>那快速乘是个什么东西呢？</p>
 <p>考虑取模操作<code>a*b%p</code>，<code>1^10 ≤ a,b,p ≤ 2^10</code></p>
 <p>可以发现在 <code>long long</code>情况下，我们直接取模会溢出</p>
 <p>那么怎么办呢？</p>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U203580">https://www.luogu.com.cn/problem/U203580</a></p>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U203580">https://www.luogu.com.cn/problem/U203580</a></p>
 <HR>
-
-<h2 id="快速乘"><a href="#快速乘" class="headerlink" title="快速乘"></a>快速乘</h2><p><strong>注：本文根据q779本人的习惯，所有的<code>int</code>都宏定义为了<code>long long</code></strong></p>
-<h3 id="标准快速乘"><a href="#标准快速乘" class="headerlink" title="标准快速乘"></a>标准快速乘</h3><p>时间复杂度 $O(\log b)$，且正确性完备</p>
+<h2 id="快速乘">快速乘</h2>
+<p><strong>注：本文根据q779本人的习惯，所有的<code>int</code>都宏定义为了<code>long long</code></strong></p>
+<h3 id="标准快速乘">标准快速乘</h3>
+<p>时间复杂度 <span class="math inline">\(O(\log
+b)\)</span>，且正确性完备</p>
 <p>类似于快速幂，具体见代码</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 
@@ -474,19 +479,22 @@
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <HR>
-
-<h3 id="int128-t"><a href="#int128-t" class="headerlink" title="__int128_t"></a>__int128_t</h3><p>这是个<strong>自带的数据类型</strong>，而且根据我查阅到的资料来看，有一点点不太靠谱的感觉</p>
-<p>它能存到 $2^{128}$ 的数量级，且NOIP等赛事中是明确可以使用的</p>
-<p>而且本机编译通过了 （<code>g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</code>）</p>
+<h3 id="int128_t">__int128_t</h3>
+<p>这是个<strong>自带的数据类型</strong>，而且根据我查阅到的资料来看，有一点点不太靠谱的感觉</p>
+<p>它能存到 <span class="math inline">\(2^{128}\)</span>
+的数量级，且NOIP等赛事中是明确可以使用的</p>
+<p>而且本机编译通过了
+（<code>g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</code>）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 
 cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int128_t<span class="token punctuation">)</span>a<span class="token operator">*</span>b<span class="token operator">%</span>p<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int128<span class="token punctuation">)</span>a<span class="token operator">*</span>b<span class="token operator">%</span>p<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token comment">// 这样写也是可以的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>据说win上不能用，因此建议还是使用标准快速乘吧</p>
+据说win上不能用，因此建议还是使用标准快速乘吧
 <HR>
-
-<h3 id="O-1-快速乘"><a href="#O-1-快速乘" class="headerlink" title="O(1)快速乘"></a>O(1)快速乘</h3><p>一个正确性<strong>不太靠谱</strong>但是在这个数据范围下<strong>能算出正确答案</strong>的神奇算法</p>
-<p>好像出自 2009年全国信息学奥林匹克冬令营论文 《论程序底层优化的一些方法与技巧》骆可强 </p>
+<h3 id="o1快速乘">O(1)快速乘</h3>
+<p>一个正确性<strong>不太靠谱</strong>但是在这个数据范围下<strong>能算出正确答案</strong>的神奇算法</p>
+<p>好像出自 2009年全国信息学奥林匹克冬令营论文
+《论程序底层优化的一些方法与技巧》骆可强</p>
 <p>它利用了<code>long double</code>的范围来算的</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 
@@ -498,20 +506,23 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation
     <span class="token keyword">if</span><span class="token punctuation">(</span>ans<span class="token operator">>=</span>p<span class="token punctuation">)</span>ans<span class="token operator">-=</span>p<span class="token punctuation">;</span>
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>由于$ab-p\left\lfloor\dfrac{ab}{p}\right\rfloor$的值是“固定”的</p>
+<p>由于<span
+class="math inline">\(ab-p\left\lfloor\dfrac{ab}{p}\right\rfloor\)</span>的值是“固定”的</p>
 <p>即这两部分都会溢出，但<code>long long</code>保证了它们的差值基本不变</p>
 <p>因此溢出也不会影响计算</p>
-<p>但是因为使用了除法操作，会存在精度问题，不建议在模数大于<code>1e+12</code>时使用（即$10^{12}$）</p>
+但是因为使用了除法操作，会存在精度问题，不建议在模数大于<code>1e+12</code>时使用（即<span
+class="math inline">\(10^{12}\)</span>）
 <HR>
-
-<h3 id="Montgomery算法"><a href="#Montgomery算法" class="headerlink" title="Montgomery算法"></a>Montgomery算法</h3><p>目前还没有学会，先留个坑以后补</p>
+<h3 id="montgomery算法">Montgomery算法</h3>
+<p>目前还没有学会，先留个坑以后补</p>
 <p>估计得到大学才会去研究吧。</p>
 <HR>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了一些快速算乘法取模的算法</p>
+<h2 id="总结">总结</h2>
+<p>介绍了一些快速算乘法取模的算法</p>
 <p>本文目前还没有彻底完工，有待更新</p>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/812-xiao-wen/p/10543023.html">快速乘总结</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/812-xiao-wen/p/10543023.html">快速乘总结</a></p>
 
                 
             </div>
@@ -873,7 +884,7 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">264.2k</span>&nbsp;字
+                class="white-color">265.6k</span>&nbsp;字
             
             
             
