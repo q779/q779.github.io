@@ -450,10 +450,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="逆序对的三种求法"><a href="#逆序对的三种求法" class="headerlink" title="逆序对的三种求法"></a>逆序对的三种求法</h1><h2 id="一、什么是逆序对？"><a href="#一、什么是逆序对？" class="headerlink" title="一、什么是逆序对？"></a>一、什么是逆序对？</h2><p>对于给定的一段正整数序列，逆序对就是序列中 $a_i&gt;a_j$ 且 $i&lt;j$ 的有序对</p>
+                <h1 id="逆序对的三种求法">逆序对的三种求法</h1>
+<h2 id="一什么是逆序对">一、什么是逆序对？</h2>
+<p>对于给定的一段正整数序列，逆序对就是序列中 <span
+class="math inline">\(a_i&gt;a_j\)</span> 且 <span
+class="math inline">\(i&lt;j\)</span> 的有序对</p>
 <HR>
-
-<h2 id="二、怎么求逆序对"><a href="#二、怎么求逆序对" class="headerlink" title="二、怎么求逆序对"></a>二、怎么求逆序对</h2><h3 id="1-归并排序解法"><a href="#1-归并排序解法" class="headerlink" title="1.归并排序解法"></a>1.归并排序解法</h3><p>归并排序可以很好的解决逆序对问题</p>
+<h2 id="二怎么求逆序对">二、怎么求逆序对</h2>
+<h3 id="归并排序解法">1.归并排序解法</h3>
+<p>归并排序可以很好的解决逆序对问题</p>
 <p>我们只需要计算跨越分界线的贡献，并保证分界线两端的答案已被统计，显然根据归并的性质是可以保证的</p>
 <p>对于跨分界线的贡献计算很简单，只要在归并排序上加一句就行了</p>
 <p><del>这个东西请您自己理解，没什么好讲的</del> qwq</p>
@@ -508,13 +513,17 @@
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <HR>
-
-<h3 id="2-树状数组解法"><a href="#2-树状数组解法" class="headerlink" title="2.树状数组解法"></a>2.树状数组解法</h3><p><del>有人要说了，你这文章写的太烂了</del> 好吧我承认我只是想讲这个方法，稍微铺垫一下…</p>
+<h3 id="树状数组解法">2.树状数组解法</h3>
+<p><del>有人要说了，你这文章写的太烂了</del>
+好吧我承认我只是想讲这个方法，稍微铺垫一下...</p>
 <p>那么树状数组跟逆序对有什么关系？</p>
 <p>我们可以观察每一个元素，假设它有属性<code>idx[i]</code>表示在原数组中的位置，<code>b[i]</code>表示它的大小</p>
 <p>我们把元素按照<code>b[i]</code>降序排序，然后从大到小取出这些元素并<code>++f[idx[i]]</code></p>
 <p>这样有什么性质呢？显然越小的数越晚标记</p>
-<p>或者说，$\sum\limits_{j=1}^{\text{idx[i]-1}}{f[j]}$ 就是 $i<j$ 且 $a_i>a_j$ 的个数</p>
+<p>或者说，<span
+class="math inline">\(\sum\limits_{j=1}^{\text{idx[i]-1}}{f[j]}\)</span>
+就是 <span class="math inline">\(i&lt;j\)</span> 且 <span
+class="math inline">\(a_i&gt;a_j\)</span> 的个数</p>
 <p>这个东西一看就是树状数组处理</p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -577,15 +586,16 @@
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <HR>
-
-<h3 id="3-动态开点权值线段树解法"><a href="#3-动态开点权值线段树解法" class="headerlink" title="3.动态开点权值线段树解法"></a>3.动态开点权值线段树解法</h3><p>有点类似树状数组的解法，维护区间和</p>
-<p>我们可以基于值域 $[1,1e9]$ 建一棵线段树</p>
+<h3 id="动态开点权值线段树解法">3.动态开点权值线段树解法</h3>
+<p>有点类似树状数组的解法，维护区间和</p>
+<p>我们可以基于值域 <span class="math inline">\([1,1e9]\)</span>
+建一棵线段树</p>
 <p>显然不能把所有的值都建结点，不然就MLE了</p>
 <p>怎么办呢？我们会发现，其实每次要查的其实就几个点</p>
 <p>那么就可以使用<strong>动态开点</strong>的思想，开一棵残缺的线段树，只保留我们会用到的结点</p>
 <p>其他的结点就是虚拟结点啦！根本不用管，查到的时候返回0就行了</p>
 <p>这题用这个解法有点容易被卡（？ 而且有点大材小用</p>
-<p>因此写的权值线段树可能有点小区别（因为实在太简单了…）</p>
+<p>因此写的权值线段树可能有点小区别（因为实在太简单了...）</p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1006,7 +1016,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">264.2k</span>&nbsp;字
+                class="white-color">265.6k</span>&nbsp;字
             
             
             
