@@ -454,74 +454,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2387-noi2014-魔法森林-题解">洛谷P2387 [NOI2014] 魔法森林
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2387">P2387
-[NOI2014] 魔法森林</a></p>
+                <h1 id="洛谷P2387-NOI2014-魔法森林-题解"><a href="#洛谷P2387-NOI2014-魔法森林-题解" class="headerlink" title="洛谷P2387 [NOI2014] 魔法森林 题解"></a>洛谷P2387 [NOI2014] 魔法森林 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2387">P2387 [NOI2014] 魔法森林</a></p>
 <blockquote>
-<p><strong>题意</strong>：每条边有边权 <span
-class="math inline">\(a,b\)</span> 两个，求 <span
-class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 的路径使得所经过的边中 <span
-class="math inline">\(\max\{a\}+\max\{b\}\)</span> 尽可能小</p>
+<p><strong>题意</strong>：每条边有边权 $a,b$ 两个，求 $1$ 到 $n$ 的路径使得所经过的边中 $\max\{a\}+\max\{b\}$ 尽可能小</p>
 </blockquote>
 <p>由于下面写了很多解题思路上的东西，导致有些冗长，因此这里先放<strong>简化版题解</strong></p>
-<p>如果不理解可以跳过这一段<strong>简化版</strong>，直接看下面的<strong>完整版</strong>
-### 简化版 因为不方便同时处理 <span class="math inline">\(a,b\)</span>
-两维，我们可以枚举 <span class="math inline">\(a\)</span>
-然后尽可能的选择较小的 <span class="math inline">\(b\)</span></p>
-<p>这个 <span class="math inline">\(b\)</span> 的一定在连接 <span
-class="math inline">\(1\)</span> 和 <span
-class="math inline">\(n\)</span> 的最小生成树上</p>
+<p>如果不理解可以跳过这一段<strong>简化版</strong>，直接看下面的<strong>完整版</strong></p>
+<h3 id="简化版"><a href="#简化版" class="headerlink" title="简化版"></a>简化版</h3><p>因为不方便同时处理 $a,b$ 两维，我们可以枚举 $a$ 然后尽可能的选择较小的 $b$ </p>
+<p>这个 $b$ 的一定在连接 $1$ 和 $n$ 的最小生成树上</p>
 <p>因此这道题就是个动态加边的LCT裸题了</p>
-<p>代码在后面，时间复杂度 <span class="math inline">\(O(m\log
-m)\)</span></p>
+<p>代码在后面，时间复杂度 $O(m\log m)$</p>
 <HR>
-<h3 id="完整版">完整版</h3>
-<p>这种“二维”的问题常见的解法就是枚举第一维，然后优化第二维</p>
+
+<h3 id="完整版"><a href="#完整版" class="headerlink" title="完整版"></a>完整版</h3><p>这种“二维”的问题常见的解法就是枚举第一维，然后优化第二维</p>
 <blockquote>
 <p>不知道这个套路也没关系</p>
 <p>首先看到这个题意，最大值的和最小，显然我们无法确定这是个多大的值</p>
-<p>似乎可以二分？但是再一想，二分 <span
-class="math inline">\(a+b\)</span> 肯定是不对的</p>
-<p>那先二分 <span class="math inline">\(a\)</span> 再二分 <span
-class="math inline">\(b\)</span> （二分套二分）呢？</p>
-<p>看上去似乎也不行，这个 <span class="math inline">\(b\)</span>
-不是很好二分，而且复杂度似乎是 <span
-class="math inline">\(O(n\log^3n)\)</span> 的</p>
-<p>那二分 <span class="math inline">\(a\)</span> 呢？好像要对 <span
-class="math inline">\(a\)</span> 这一维从小到大排个序，然后在 <span
-class="math inline">\(a\)</span> 相等时，第二维也从小到大排序</p>
-<p>而每次我们检验 <span class="math inline">\(a\)</span> 时，都要把在
-<span class="math inline">\(a\)</span>
-所在位置（数组中）左边的边都去连连看有没有用什么的</p>
-<p>那还不如直接从小到大枚举 <span class="math inline">\(a\)</span>
-呢！</p>
+<p>似乎可以二分？但是再一想，二分 $a+b$ 肯定是不对的</p>
+<p>那先二分 $a$ 再二分 $b$ （二分套二分）呢？</p>
+<p>看上去似乎也不行，这个 $b$ 不是很好二分，而且复杂度似乎是 $O(n\log^3n)$ 的</p>
+<p>那二分 $a$ 呢？好像要对 $a$ 这一维从小到大排个序，然后在 $a$ 相等时，第二维也从小到大排序</p>
+<p>而每次我们检验 $a$ 时，都要把在 $a$ 所在位置（数组中）左边的边都去连连看有没有用什么的</p>
+<p>那还不如直接从小到大枚举 $a$ 呢！</p>
 </blockquote>
-<p>于是我们可以枚举 <span class="math inline">\(a\)</span>
-，然后发现如果要保证 <span class="math inline">\(b\)</span>
-尽可能的小</p>
-<p>我们需要在所有 <span class="math inline">\(a’&lt;a\)</span>
-的边中找出一棵生成树</p>
-<p>也就是在用 <span class="math inline">\(a\)</span>
-所在位置（数组中）左边的边建出的图中建最小生成森林（因为这个子图不一定连通）</p>
+<p>于是我们可以枚举 $a$ ，然后发现如果要保证 $b$ 尽可能的小</p>
+<p>我们需要在所有 $a’&lt;a$ 的边中找出一棵生成树</p>
+<p>也就是在用 $a$ 所在位置（数组中）左边的边建出的图中建最小生成森林（因为这个子图不一定连通）</p>
 <p>其实我们并不是在为了维护最小生成森林而维护它的</p>
-<p>而是在维护包括结点 <span class="math inline">\(1\)</span> 和 <span
-class="math inline">\(n\)</span> 最小生成树的过程中所必需的 qwq</p>
-<p>当这个包括结点 <span class="math inline">\(1\)</span> 和 <span
-class="math inline">\(n\)</span>
-的最小生成树建出来的时候，我们就可以更新答案了</p>
-<p>注意这里是更新答案，不是最终结果，因为最终结果它和 <span
-class="math inline">\(a\)</span> 的大小没有直接的关系</p>
-<p>举个例子就知道了，<code>a=1,b=998244353</code>和
-<code>a=2,b=1</code>，显然是后者更小</p>
+<p>而是在维护包括结点 $1$ 和 $n$ 最小生成树的过程中所必需的 qwq</p>
+<p>当这个包括结点 $1$ 和 $n$ 的最小生成树建出来的时候，我们就可以更新答案了</p>
+<p>注意这里是更新答案，不是最终结果，因为最终结果它和 $a$ 的大小没有直接的关系</p>
+<p>举个例子就知道了，<code>a=1,b=998244353</code>和 <code>a=2,b=1</code>，显然是后者更小</p>
 <p>那么怎么动态的维护一棵最小生成树呢？我们可以使用LCT</p>
-<p>如果不会LCT动态维护最小生成树，可以看看<a
-href="https://q779.github.io/2022/05/25/lct-qiu-jie-zui-xiao-sheng-cheng-shu/">这篇</a></p>
+<p>如果不会LCT动态维护最小生成树，可以看看<a href="https://q779.github.io/2022/05/25/lct-qiu-jie-zui-xiao-sheng-cheng-shu/">这篇</a></p>
 <p>那么，其实这道题就解决了</p>
-<p>也就是枚举 <span class="math inline">\(a\)</span>
-，动态维护最小生成树</p>
-<p>时间复杂度 <span class="math inline">\(O(m\log m)\)</span></p>
+<p>也就是枚举 $a$ ，动态维护最小生成树</p>
+<p>时间复杂度 $O(m\log m)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1055,7 +1023,7 @@ href="https://q779.github.io/2022/05/25/lct-qiu-jie-zui-xiao-sheng-cheng-shu/">�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">265.6k</span>&nbsp;字
+                class="white-color">264.2k</span>&nbsp;字
             
             
             
@@ -1319,6 +1287,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

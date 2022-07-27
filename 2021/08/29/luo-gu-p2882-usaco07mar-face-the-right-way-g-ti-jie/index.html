@@ -446,53 +446,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2882-usaco07marface-the-right-way-g-题解">洛谷P2882
-[USACO07MAR]Face The Right Way G 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2882">P2882
-[USACO07MAR]Face The Right Way G</a></p>
+                <h1 id="洛谷P2882-USACO07MAR-Face-The-Right-Way-G-题解"><a href="#洛谷P2882-USACO07MAR-Face-The-Right-Way-G-题解" class="headerlink" title="洛谷P2882 [USACO07MAR]Face The Right Way G 题解"></a>洛谷P2882 [USACO07MAR]Face The Right Way G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2882">P2882 [USACO07MAR]Face The Right Way G</a></p>
 <blockquote>
 <p><strong>题意</strong>: 固定长度转向，求最小次数和相应的长度</p>
 </blockquote>
 <p>（注：下文中的转向操作均以<strong>翻转</strong>一词替代 qwq）</p>
-<p>首先可以想到搜索，状态数 <span class="math inline">\(2^n\)</span>
-，<del>直接起飞</del></p>
-<p>那么我们来分析一下，可以看出对于一个位置，如果它被翻转了大于 <span
-class="math inline">\(2\)</span> 次，那这个一定不是必要的操作</p>
-<p>也就是说，一个位置只可能被翻转至多 <span
-class="math inline">\(2\)</span> 次</p>
+<p>首先可以想到搜索，状态数 $2^n$ ，<del>直接起飞</del></p>
+<p>那么我们来分析一下，可以看出对于一个位置，如果它被翻转了大于 $2$ 次，那这个一定不是必要的操作</p>
+<p>也就是说，一个位置只可能被翻转至多 $2$ 次</p>
 <p>而且通过观察样例，我们可以发现其实翻转的顺序和答案无关</p>
-<p>很容易想到我们要枚举 <span class="math inline">\(k\)</span>
-（转向的区间长度），然后进行检查</p>
-<p>怎么检查呢？我们要从左开始扫一遍，则至多翻转 <span
-class="math inline">\(n-k+1\)</span> 次，而每次翻转要 <span
-class="math inline">\(k\)</span> 个位置</p>
-<p>时间复杂度<span class="math inline">\(O(n^3)\)</span> ，显然 <span
-class="math inline">\(n\le 5000\)</span> 是过不了的</p>
+<p>很容易想到我们要枚举 $k$ （转向的区间长度），然后进行检查</p>
+<p>怎么检查呢？我们要从左开始扫一遍，则至多翻转 $n-k+1$ 次，而每次翻转要 $k$ 个位置</p>
+<p>时间复杂度$O(n^3)$ ，显然 $n\le 5000$ 是过不了的</p>
 <p>考虑优化翻转操作</p>
-<p>为了方便起见，我们可以把 <code>B</code>的位置记为
-<code>1</code>，表示要翻转这个位置</p>
-<p>记 <span class="math inline">\(f[i]\)</span> 表示 <span
-class="math inline">\([i,i+k-1]\)</span> 是否被翻转</p>
-<p>那么如果从左往右扫到一个位置 <span class="math inline">\(i\)</span>
-，怎么判断这个位置要不要再翻转呢？</p>
-<p>我们可以发现，如果 <span
-class="math inline">\(\sum_{j=i-k+1}^{i-1}f[j]\)</span>
-为奇数则该点需要翻转（<del>这个东西自己想一想就知道了</del>）</p>
+<p>为了方便起见，我们可以把 <code>B</code>的位置记为 <code>1</code>，表示要翻转这个位置</p>
+<p>记 $f[i]$ 表示 $[i,i+k-1]$ 是否被翻转</p>
+<p>那么如果从左往右扫到一个位置 $i$ ，怎么判断这个位置要不要再翻转呢？</p>
+<p>我们可以发现，如果 $\sum_{j=i-k+1}^{i-1}f[j]$ 为奇数则该点需要翻转（<del>这个东西自己想一想就知道了</del>）</p>
 <p>那么我们怎么把这个东西求出来呢？</p>
-<p>我们看下一个位置 <span class="math inline">\(i+1\)</span>
-，它要求的就是 <span
-class="math inline">\(\sum_{j=i-k+2}^{i}f[j]\)</span></p>
-<p>我们来拆一下可以得到 <span
-class="math inline">\(\sum_{j=i-k+2}^{i}f[j] =
-\sum_{j=i-k+1}^{i-1}f[j]+f[i-1]-f[i-k+1]\)</span></p>
-<p>有没有发现它可以从 <span class="math inline">\(i\)</span>
-的位置转移过来？</p>
-<p>那么我们就可以 <span class="math inline">\(O(1)\)</span>
-求解这个东西了</p>
+<p>我们看下一个位置 $i+1$ ，它要求的就是 $\sum_{j=i-k+2}^{i}f[j]$</p>
+<p>我们来拆一下可以得到 $\sum_{j=i-k+2}^{i}f[j] = \sum_{j=i-k+1}^{i-1}f[j]+f[i-1]-f[i-k+1]$</p>
+<p>有没有发现它可以从 $i$ 的位置转移过来？</p>
+<p>那么我们就可以 $O(1)$ 求解这个东西了</p>
 <p>来算一下时间复杂度</p>
-<p>枚举 <span class="math inline">\(k\)</span>
-，从左往右扫一遍，时间复杂度 <span
-class="math inline">\(O(n^2)\)</span></p>
+<p>枚举 $k$ ，从左往右扫一遍，时间复杂度 $O(n^2)$ </p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -895,7 +872,7 @@ class="math inline">\(O(n^2)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">265.6k</span>&nbsp;字
+                class="white-color">264.2k</span>&nbsp;字
             
             
             
@@ -1159,6 +1136,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
