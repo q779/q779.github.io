@@ -446,324 +446,167 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈补码的原理和正确性">浅谈补码的原理和正确性</h1>
-<h2 id="前言">前言</h2>
-<p><strong>upd 2022.2.14</strong>
-我就该早点看《计算机组成原理》，补码的定义就是</p>
+                <h1 id="浅谈补码的原理和正确性"><a href="#浅谈补码的原理和正确性" class="headerlink" title="浅谈补码的原理和正确性"></a>浅谈补码的原理和正确性</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>upd 2022.2.14</strong> 我就该早点看《计算机组成原理》，补码的定义就是</p>
 <blockquote>
-<p>一个 <span class="math inline">\(n\)</span> 位二进制数 <span
-class="math inline">\(N\)</span> 的二进制补码定义为 <span
-class="math inline">\(2^n-N\)</span></p>
+<p>一个 $n$ 位二进制数 $N$ 的二进制补码定义为 $2^n-N$ </p>
 </blockquote>
 <p>不过本文还是严谨证明了它的正确性，以下为原文</p>
 <p>补码是怎么来的？</p>
-<p>负数的补码为什么是按位取反（除了符号位）再加 <span
-class="math inline">\(1\)</span> ?</p>
+<p>负数的补码为什么是按位取反（除了符号位）再加 $1$ ?</p>
 <p>补码的正确性能保证吗？</p>
 <p>补码背后的数学原理是什么？</p>
 <p>本文围绕原理和正确性介绍了补码</p>
 <HR>
-<h2 id="一我们为什么用补码">一、我们为什么用补码？</h2>
-<p>我们以 <span class="math inline">\(8\)</span> 位二进制数为例</p>
-<p><span class="math inline">\(8\)</span>
-位<strong>无符号数</strong>，可以表示 <span
-class="math inline">\(0\sim255\)</span> 以内的数（即 <span
-class="math inline">\(00000000 \sim 11111111\)</span>
-），那么如果我们要表示负数呢？</p>
-<p>我们都知道正、负号能够表示正、负数，可是计算机“看不懂“，它只能识别
-<span class="math inline">\(0,1\)</span></p>
-<p>于是，就出现了<strong>原码</strong></p>
-<p>最高位表示数的正负，<span class="math inline">\(0\)</span> 表示
-<strong>正</strong> ，<span class="math inline">\(1\)</span>
-表示<strong>负</strong></p>
-<p><span class="math inline">\(8\)</span>
-位<strong>有符号数</strong>，以原码形式存储则可以表示 <span
-class="math inline">\(0 \sim 127\)</span>（即 <span
-class="math inline">\(00000000 \sim 01111111\)</span> ） 和 <span
-class="math inline">\(-127 \sim 0\)</span> （即 <span
-class="math inline">\(11111111 \sim 10000000\)</span> ）</p>
-<p>相信看到这里，你应该发现了：以原码形式存储时，<span
-class="math inline">\(0\)</span> 的值不唯一</p>
-<p>我们把 <span class="math inline">\(\pm 0\)</span>
-的问题放一边，先来讨论一下编码的正确性</p>
-<p>计算 <span class="math inline">\(1+(-1)\)</span></p>
-<p><span class="math inline">\(00000001 + 10000001 =
-10000010\)</span></p>
-<p>然而 <span class="math inline">\(10000010\)</span> 转成十进制是 <span
-class="math inline">\(-2\)</span> ！</p>
+
+<h2 id="一、我们为什么用补码？"><a href="#一、我们为什么用补码？" class="headerlink" title="一、我们为什么用补码？"></a>一、我们为什么用补码？</h2><p>我们以 $8$ 位二进制数为例</p>
+<p>$8$ 位<strong>无符号数</strong>，可以表示 $0\sim255$ 以内的数（即 $00000000 \sim 11111111$ ），那么如果我们要表示负数呢？</p>
+<p>我们都知道正、负号能够表示正、负数，可是计算机“看不懂“，它只能识别 $0,1$ </p>
+<p>于是，就出现了<strong>原码</strong> </p>
+<p>最高位表示数的正负，$0$ 表示 <strong>正</strong> ，$1$ 表示<strong>负</strong> </p>
+<p>$8$ 位<strong>有符号数</strong>，以原码形式存储则可以表示 $0 \sim 127$（即 $00000000 \sim 01111111$ ） 和 $-127 \sim 0$ （即 $11111111 \sim 10000000$ ）</p>
+<p>相信看到这里，你应该发现了：以原码形式存储时，$0$ 的值不唯一</p>
+<p>我们把 $\pm 0$ 的问题放一边，先来讨论一下编码的正确性</p>
+<p>计算 $1+(-1)$ </p>
+<p>$00000001 + 10000001 = 10000010$ </p>
+<p>然而 $10000010$ 转成十进制是 $-2$ ！</p>
 <p>由此可知原码<strong>不可以</strong>直接进行运算，或者可以认为以原码的编码方式运算是<strong>错误</strong>的</p>
 <p>那么问题来了，正数的表示都符合我们的习惯，那么问题一定出在负数上</p>
 <HR>
-<h2 id="二补码是怎么来的">二、补码是怎么来的？</h2>
-<p>各大教科书上都会告诉你，<strong>正数</strong>的补码就是它的原码，<strong>负数</strong>的补码就是原码按位取反（除了符号位）再加
-<span class="math inline">\(1\)</span></p>
+
+<h2 id="二、补码是怎么来的？"><a href="#二、补码是怎么来的？" class="headerlink" title="二、补码是怎么来的？"></a>二、补码是怎么来的？</h2><p>各大教科书上都会告诉你，<strong>正数</strong>的补码就是它的原码，<strong>负数</strong>的补码就是原码按位取反（除了符号位）再加 $1$</p>
 <p>你是不是也很迷惑？补码到底为什么是这么算出来的？</p>
-<p>我们还是以 <span class="math inline">\(8\)</span>
-<strong>位有符号数</strong>为例</p>
-<p>我们知道，两个数如果<strong>互为相反数</strong>则和为<span
-class="math inline">\(0\)</span> ，例如 <span
-class="math inline">\(1+(-1)=0\)</span></p>
-<p>那么正确的编码方式中 <span class="math inline">\(1+(-1)\)</span>
-一定等于 <span class="math inline">\(0\)</span></p>
-<p>我们设 <span class="math inline">\(-1\)</span> 的编码为 <span
-class="math inline">\(\phi\)</span> ，可得 <span
-class="math inline">\(00000001 + \phi = 0\)</span></p>
-<p><span class="math inline">\(\therefore \phi =
-11111111\)</span>（注：计算过程将在下文中讲述，这里只需要知道结果）</p>
-<p>那么就很清楚了，如果我们已知编码 <span
-class="math inline">\(\phi\)</span> ，它的相反数的编码就是 <span
-class="math inline">\(0 - \phi\)</span></p>
-<p>现在我们来讨论一下 <span class="math inline">\(\pm 0\)</span>
-的问题，显而易见，<span class="math inline">\(10000000\)</span>
-肯定是不符合常理的（ <span class="math inline">\(00000000 + 10000000 \ne
-00000000\)</span> ）</p>
-<p>那么 <span class="math inline">\(10000000\)</span>
-对应的相反数的编码是什么呢？</p>
-<p>设 <span class="math inline">\(10000000 + \phi = 0\)</span> 解得
-<span class="math inline">\(\phi = 100000000\)</span> （注意位数！）</p>
-<p>我们会发现 <span class="math inline">\(00000000 \sim
-11111111\)</span> 已经无法表示了</p>
-<p>那 <span class="math inline">\(0\)</span> 呢？<span
-class="math inline">\(0\)</span> 的相反数还是 <span
-class="math inline">\(0\)</span> ，就是它本身</p>
-<p><del>事已至此，干脆就让它们单身着吧。</del> 既然 <span
-class="math inline">\(10000000\)</span> 的第一位是 <span
-class="math inline">\(1\)</span> ，表示负数，那就规定它为负数，因此
-<span class="math inline">\(10000000\)</span> 就代替了 <span
-class="math inline">\(-128\)</span></p>
-<p>因为 <span class="math inline">\(10000000\)</span>
-没有对应的相反数的编码，所以没有 <span
-class="math inline">\(+128\)</span></p>
-<p>然后每个数都有了自己对应的编码，<span class="math inline">\(1 \sim
-127\)</span> 对应 <span class="math inline">\(-1 \sim -127\)</span>
-，加上两个单身汉 <span class="math inline">\(0\)</span> 和 <span
-class="math inline">\(-128\)</span></p>
+<p>我们还是以 $8$ <strong>位有符号数</strong>为例</p>
+<p>我们知道，两个数如果<strong>互为相反数</strong>则和为$0$ ，例如 $1+(-1)=0$ </p>
+<p>那么正确的编码方式中 $1+(-1)$ 一定等于 $0$ </p>
+<p>我们设 $-1$ 的编码为 $\phi$ ，可得 $00000001 + \phi = 0$</p>
+<p>$\therefore \phi = 11111111$（注：计算过程将在下文中讲述，这里只需要知道结果）</p>
+<p>那么就很清楚了，如果我们已知编码 $\phi$ ，它的相反数的编码就是 $0 - \phi$ </p>
+<p>现在我们来讨论一下 $\pm 0$ 的问题，显而易见，$10000000$ 肯定是不符合常理的（ $00000000 + 10000000 \ne 00000000$ ）</p>
+<p>那么 $10000000$ 对应的相反数的编码是什么呢？</p>
+<p>设 $10000000 + \phi = 0$ 解得 $\phi = 100000000$  （注意位数！）</p>
+<p>我们会发现 $00000000 \sim 11111111$ 已经无法表示了</p>
+<p>那 $0$ 呢？$0$ 的相反数还是 $0$ ，就是它本身</p>
+<p><del>事已至此，干脆就让它们单身着吧。</del> 既然 $10000000$ 的第一位是 $1$ ，表示负数，那就规定它为负数，因此 $10000000$ 就代替了 $-128$ </p>
+<p>因为 $10000000$ 没有对应的相反数的编码，所以没有 $+128$</p>
+<p>然后每个数都有了自己对应的编码，$1 \sim 127$ 对应 $-1 \sim -127$ ，加上两个单身汉 $0$ 和 $-128$ </p>
 <p>这种编码就叫<strong>补码</strong></p>
-<p>那么为什么负数的补码是原码按位取反再加 <span
-class="math inline">\(1\)</span> 呢？</p>
-<p>我们再看 <span class="math inline">\(1+(-1)=0\)</span> 的例子</p>
-<p>设 <span class="math inline">\(00000001 + \phi =
-00000000\)</span></p>
-<p><span class="math inline">\(\therefore \phi =
-00000000-00000001\)</span></p>
+<p>那么为什么负数的补码是原码按位取反再加 $1$ 呢？</p>
+<p>我们再看 $1+(-1)=0$ 的例子</p>
+<p>设 $00000001 + \phi = 00000000$</p>
+<p>$\therefore \phi = 00000000-00000001$</p>
 <p>一个小的数减一个大的数，怎么办？</p>
 <p>首先我们应该都知道<strong>溢出</strong>这一概念</p>
-<p>那么 <span class="math inline">\(00000000\)</span> 就可以看作 <span
-class="math inline">\(11111111 + 00000001\)</span></p>
-<p><span class="math inline">\(\therefore\  \phi = (11111111 + 00000001)
-- 00000001\)</span></p>
-<p><span class="math inline">\(\qquad= (11111111-00000001) +
-00000001\)</span></p>
+<p>那么 $00000000$ 就可以看作 $11111111 + 00000001$ </p>
+<p>$\therefore\  \phi = (11111111 + 00000001) - 00000001$</p>
+<p>$\qquad= (11111111-00000001) + 00000001$</p>
 <p>注：这个就是简单的结合律</p>
 <p>我们看前面一部分，不就是按位取反嘛（<strong>反码</strong>）！</p>
-<p>相信你现在应该理解了，如果我们要求正数 <span
-class="math inline">\(\lambda\)</span> 的相反数 <span
-class="math inline">\(\mu\)</span> 的补码</p>
-<p><span class="math inline">\(\mu = (11111111-\lambda) +
-00000001\)</span> ，</p>
-<p>即 <span
-class="math inline">\(\lambda\)</span>）按位取反（包括符号位）再加 <span
-class="math inline">\(1\)</span> ，当然也是 <span
-class="math inline">\(\mu\)</span> 按位取反（除了符号位）再加 <span
-class="math inline">\(1\)</span> ，一样的</p>
+<p>相信你现在应该理解了，如果我们要求正数 $\lambda$ 的相反数 $\mu$ 的补码</p>
+<p>$\mu = (11111111-\lambda) + 00000001$ ，</p>
+<p>即 $\lambda$）按位取反（包括符号位）再加 $1$ ，当然也是 $\mu$ 按位取反（除了符号位）再加 $1$ ，一样的</p>
 <HR>
-<h2 id="三补码的正确性能保证吗">三、补码的正确性能保证吗？</h2>
-<h3
-id="符号位能保证本身的值运算结果的值正确吗">1.符号位能保证本身的值、运算结果的值正确吗？</h3>
-<p>本身的值肯定正确，运算结果的值也正确</p>
+
+<h2 id="三、补码的正确性能保证吗？"><a href="#三、补码的正确性能保证吗？" class="headerlink" title="三、补码的正确性能保证吗？"></a>三、补码的正确性能保证吗？</h2><h3 id="1-符号位能保证本身的值、运算结果的值正确吗？"><a href="#1-符号位能保证本身的值、运算结果的值正确吗？" class="headerlink" title="1.符号位能保证本身的值、运算结果的值正确吗？"></a>1.符号位能保证本身的值、运算结果的值正确吗？</h3><p>本身的值肯定正确，运算结果的值也正确</p>
 <p>运算都是从最低位运算到最高位，这个符号位又加在最高位，不可能影响运算，只可能被影响（注：接下来我们就来证明这个影响<strong>不会</strong>对运算结果的符号正确性产生影响）</p>
-<h3
-id="数学运算结果的符号能保证正确吗">2.数学运算结果的符号能保证正确吗？</h3>
-<p>为了方便理解和证明，我们以 <span class="math inline">\(4\)</span>
-<strong>位有符号数</strong>为例（即 <span class="math inline">\(-8 \sim
-7\)</span> ）</p>
+<h3 id="2-数学运算结果的符号能保证正确吗？"><a href="#2-数学运算结果的符号能保证正确吗？" class="headerlink" title="2.数学运算结果的符号能保证正确吗？"></a>2.数学运算结果的符号能保证正确吗？</h3><p>为了方便理解和证明，我们以 $4$ <strong>位有符号数</strong>为例（即 $-8 \sim 7$ ）</p>
 <p>注意：<strong>正确性</strong>指在<strong>数学运算结果不溢出</strong>的情况下位运算的结果和数学运算的结果正确</p>
-<p>首先，易知<strong>任何合法的数</strong>与 <span
-class="math inline">\(0\)</span> 作运算结果一定正确</p>
-<h4 id="值的位运算结果不溢出时">1) 值的位运算结果不溢出时</h4>
-<h5 id="正数正数">1.正数+正数</h5>
-<p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算不溢出，符号位 <span
-class="math inline">\(0+0=0\)</span>，仍为<strong>正</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[0b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+B\)</span></p>
-<p>且 <span class="math inline">\(0 &lt; A+B \le 7\)</span></p>
-<p>值的位运算结果不溢出即 <span class="math inline">\(-8 \le A+B \le
-7\)</span></p>
-<p><span class="math inline">\(\{x|0 &lt; x \le 7\}\subsetneqq\{x|-8 \le
-x \le 7\}\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{正确}\)</span></p>
-<h5 id="负数负数">2.负数+负数</h5>
-<p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
-<p>位运算结果：值的位运算不溢出，符号位 <span
-class="math inline">\(1+1=0\)</span> ，变成了<strong>正</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([1a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(-8+A+（-8）+B =
--16+A+B\)</span></p>
-<p>且 <span class="math inline">\(-8 \le A+B-16 &lt; 0 \Rightarrow 8 \le
-A+B &lt; 16\)</span></p>
-<p>值的位运算结果不溢出即 <span class="math inline">\(-8 \le A+B \le
-7\)</span></p>
-<p><span class="math inline">\(\{x|-8 \le x \le 7\}\cap\{x|8 \le x &lt;
-16\} = \varnothing\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{不存在}\)</span></p>
-<h5 id="一正一负">3.一正一负</h5>
-<h6 id="a.正数绝对值大于负数绝对值">a.正数绝对值大于负数绝对值</h6>
-<p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算结果不溢出，符号位 <span
-class="math inline">\(0+1=1\)</span> ，变成了<strong>负</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为<span class="math inline">\(A+(-8)+B = A+B-8\)</span></p>
-<p>且 <span class="math inline">\(0 &lt; A+B-8 \le 7 \Rightarrow 8 &lt;
-A+B \le 15\)</span></p>
-<p>值的位运算的结果不溢出即 <span class="math inline">\(-8 \le A+B \le
-7\)</span></p>
-<p><span class="math inline">\(\{x|-8 \le x \le 7\}\cap\{x|8 &lt; x \le
-15\} = \varnothing\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{不存在}\)</span></p>
-<h6 id="b.正数绝对值等于负数绝对值">b.正数绝对值等于负数绝对值</h6>
-<p>数学运算结果：<span class="math inline">\(0\)</span>
-，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算结果不溢出，符号位 <span
-class="math inline">\(0+1=1\)</span> ，变成了<strong>负</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为<span class="math inline">\(A+(-8)+B = A+B-8 = 0
-\Rightarrow A+B=8\)</span></p>
-<p>值的位运算的结果不溢出即 <span class="math inline">\(-8 \le A+B \le
-7\)</span></p>
-<p><span class="math inline">\(\{x|-8 \le x \le 7\}\cap\{x|x=8\} =
-\varnothing\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{不存在}\)</span></p>
-<h6 id="c.正数绝对值小于负数绝对值">c.正数绝对值小于负数绝对值</h6>
-<p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
-<p>位运算结果：值的位运算结果不溢出，符号为 <span
-class="math inline">\(0 + 1 = 1\)</span> ，仍为<strong>负</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+(-8)+B = A+B-8\)</span></p>
-<p>且 <span class="math inline">\(-8 \le A+B-8 &lt; 0 \Rightarrow 0 \le
-A+B &lt; 8\)</span></p>
-<p>值的位运算结果不溢出即 <span class="math inline">\(-8 \le A+B \le
-7\)</span></p>
-<p><span class="math inline">\(\{x|0 \le x &lt; 8\}\subsetneqq\{x|-8 \le
-x \le 7\}\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{正确}\)</span></p>
-<h4 id="值的位运算结果溢出时">2) 值的位运算结果溢出时</h4>
-<h5 id="正数正数-1">1.正数+正数</h5>
-<p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算结果溢出，符号位 <span
-class="math inline">\(0+0+1=1\)</span> ，变成了<strong>负</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[0b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+B\)</span></p>
-<p>且 <span class="math inline">\(0 &lt; A+B \le 7\)</span></p>
-<p>值的位运算结果溢出即 <span
-class="math inline">\(A+B&gt;7\)</span></p>
-<p><span class="math inline">\(\{x|0 &lt; x \le 7\}\cap\{x|x&gt;7\} =
-\varnothing\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{不存在}\)</span></p>
-<h5 id="负数负数-1">2.负数+负数</h5>
-<p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
-<p>位运算结果：值的位运算结果溢出，符号位 <span
-class="math inline">\(1+1+1=1\)</span> ，仍为<strong>负</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([1a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(-8+A+(-8)+B =
-A+B-16\)</span></p>
-<p>且 <span class="math inline">\(-8 \le A+B -16&lt; 0 \Rightarrow 8 \le
-A+B &lt; 16\)</span></p>
-<p>值的位运算结果溢出即 <span
-class="math inline">\(A+B&gt;7\)</span></p>
-<p><span class="math inline">\(\{x|8\le x &lt;
-16\}\subsetneqq\{x|x&gt;7\}\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{正确}\)</span></p>
-<h5 id="一正一负-1">3.一正一负</h5>
-<h6 id="a.正数绝对值大于负数绝对值-1">a.正数绝对值大于负数绝对值</h6>
-<p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算结果溢出，符号位 <span
-class="math inline">\(0+1+1=0\)</span> ，仍为<strong>正</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+(-8)+B = A+B-8\)</span></p>
-<p>且 <span class="math inline">\(0&lt;A+B-8\le 7 \Rightarrow
-8&lt;A+B\le15\)</span></p>
-<p>值的位运算结果溢出即 <span
-class="math inline">\(A+B&gt;7\)</span></p>
-<p><span class="math inline">\(\{x|8&lt; x \le
-15\}\subsetneqq\{x|x&gt;7\}\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{正确}\)</span></p>
-<h6 id="b.正数绝对值等于负数绝对值-1">b.正数绝对值等于负数绝对值</h6>
-<p>数学运算结果：<span class="math inline">\(0\)</span>
-，符号为<strong>正</strong></p>
-<p>位运算结果：值的位运算结果溢出，符号位 <span
-class="math inline">\(0+1+1=0\)</span> ，仍为<strong>正</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+(-8)+B = A+B-8 = 0
-\Rightarrow A+B=8\)</span></p>
-<p>值的位运算结果溢出即<span class="math inline">\(A+B&gt;7\)</span></p>
-<p><span
-class="math inline">\(\{x|x=8\}\subsetneqq\{x|x&gt;7\}\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{正确}\)</span></p>
-<h6 id="c.正数绝对值小于负数绝对值-1">c.正数绝对值小于负数绝对值</h6>
-<p>数学运算结果：一定为负数 ，符号为<strong>负</strong></p>
-<p>位运算结果：值的位运算结果溢出，符号位 <span
-class="math inline">\(0+1+1=0\)</span> ，变成了<strong>正</strong></p>
-<p>设这里两个数补码分别为<span class="math inline">\([0a_2a_1a_0],
-[1b_2b_1b_0]\)</span></p>
-<p>令 <span class="math inline">\(A = \sum\limits_{i=0}^{2}{a_i\times
-2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}\)</span>，易知 <span
-class="math inline">\(A,B \in \N\)</span></p>
-<p>原式可化为 <span class="math inline">\(A+(-8)+B = A+B-8\)</span></p>
-<p>且 <span class="math inline">\(-8\le A+B - 8&lt;0 \Rightarrow 0 \le
-A+B &lt;8\)</span></p>
-<p>值的位运算结果溢出即 <span
-class="math inline">\(A+B&gt;7\)</span></p>
-<p><span class="math inline">\(\{x|0 &lt; x &lt; 8\}\cap\{x|x&gt;7\} =
-\varnothing\)</span></p>
-<p>故该情况<span class="math inline">\(\color{red}{不存在}\)</span></p>
-综上所述，所有存在的情况中，符号都是正确的，因此<strong>补码的正确性是可以保证的</strong>
+<p>首先，易知<strong>任何合法的数</strong>与 $0$ 作运算结果一定正确</p>
+<h4 id="1-值的位运算结果不溢出时"><a href="#1-值的位运算结果不溢出时" class="headerlink" title="1) 值的位运算结果不溢出时"></a>1) 值的位运算结果不溢出时</h4><h5 id="1-正数-正数"><a href="#1-正数-正数" class="headerlink" title="1.正数+正数"></a>1.正数+正数</h5><p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算不溢出，符号位 $0+0=0$，仍为<strong>正</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [0b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+B$</p>
+<p>且 $0 &lt; A+B \le 7$</p>
+<p>值的位运算结果不溢出即 $-8 \le A+B \le 7$ </p>
+<p>$\{x|0 &lt; x \le 7\}\subsetneqq\{x|-8 \le x \le 7\}$</p>
+<p>故该情况$\color{red}{正确}$</p>
+<h5 id="2-负数-负数"><a href="#2-负数-负数" class="headerlink" title="2.负数+负数"></a>2.负数+负数</h5><p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
+<p>位运算结果：值的位运算不溢出，符号位 $1+1=0$ ，变成了<strong>正</strong></p>
+<p>设这里两个数补码分别为$[1a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $-8+A+（-8）+B = -16+A+B$</p>
+<p>且 $-8 \le A+B-16 &lt; 0 \Rightarrow 8 \le A+B &lt; 16$</p>
+<p>值的位运算结果不溢出即 $-8 \le A+B \le 7$ </p>
+<p>$\{x|-8 \le x \le 7\}\cap\{x|8 \le x &lt; 16\} = \varnothing$</p>
+<p>故该情况$\color{red}{不存在}$</p>
+<h5 id="3-一正一负"><a href="#3-一正一负" class="headerlink" title="3.一正一负"></a>3.一正一负</h5><h6 id="a-正数绝对值大于负数绝对值"><a href="#a-正数绝对值大于负数绝对值" class="headerlink" title="a.正数绝对值大于负数绝对值"></a>a.正数绝对值大于负数绝对值</h6><p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算结果不溢出，符号位 $0+1=1$ ，变成了<strong>负</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为$A+(-8)+B = A+B-8$</p>
+<p>且 $0 &lt; A+B-8 \le 7 \Rightarrow 8 &lt; A+B \le 15$</p>
+<p>值的位运算的结果不溢出即  $-8 \le A+B \le 7$ </p>
+<p>$\{x|-8 \le x \le 7\}\cap\{x|8 &lt; x \le 15\} = \varnothing$</p>
+<p>故该情况$\color{red}{不存在}$</p>
+<h6 id="b-正数绝对值等于负数绝对值"><a href="#b-正数绝对值等于负数绝对值" class="headerlink" title="b.正数绝对值等于负数绝对值"></a>b.正数绝对值等于负数绝对值</h6><p>数学运算结果：$0$  ，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算结果不溢出，符号位 $0+1=1$ ，变成了<strong>负</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为$A+(-8)+B = A+B-8 = 0 \Rightarrow A+B=8$</p>
+<p>值的位运算的结果不溢出即  $-8 \le A+B \le 7$ </p>
+<p>$\{x|-8 \le x \le 7\}\cap\{x|x=8\} = \varnothing$</p>
+<p>故该情况$\color{red}{不存在}$</p>
+<h6 id="c-正数绝对值小于负数绝对值"><a href="#c-正数绝对值小于负数绝对值" class="headerlink" title="c.正数绝对值小于负数绝对值"></a>c.正数绝对值小于负数绝对值</h6><p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
+<p>位运算结果：值的位运算结果不溢出，符号为 $0 + 1 = 1$ ，仍为<strong>负</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+(-8)+B = A+B-8$</p>
+<p>且 $-8 \le A+B-8 &lt; 0 \Rightarrow 0 \le A+B &lt; 8$</p>
+<p>值的位运算结果不溢出即 $-8 \le A+B \le 7$ </p>
+<p>$\{x|0 \le x &lt; 8\}\subsetneqq\{x|-8 \le x \le 7\}$</p>
+<p>故该情况$\color{red}{正确}$</p>
+<h4 id="2-值的位运算结果溢出时"><a href="#2-值的位运算结果溢出时" class="headerlink" title="2) 值的位运算结果溢出时"></a>2) 值的位运算结果溢出时</h4><h5 id="1-正数-正数-1"><a href="#1-正数-正数-1" class="headerlink" title="1.正数+正数"></a>1.正数+正数</h5><p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算结果溢出，符号位 $0+0+1=1$ ，变成了<strong>负</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [0b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+B$</p>
+<p>且 $0 &lt; A+B \le 7$</p>
+<p>值的位运算结果溢出即 $A+B&gt;7$</p>
+<p>$\{x|0 &lt; x \le 7\}\cap\{x|x&gt;7\} = \varnothing$</p>
+<p>故该情况$\color{red}{不存在}$</p>
+<h5 id="2-负数-负数-1"><a href="#2-负数-负数-1" class="headerlink" title="2.负数+负数"></a>2.负数+负数</h5><p>数学运算结果：一定为负数，符号为<strong>负</strong></p>
+<p>位运算结果：值的位运算结果溢出，符号位 $1+1+1=1$ ，仍为<strong>负</strong></p>
+<p>设这里两个数补码分别为$[1a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $-8+A+(-8)+B = A+B-16$ </p>
+<p>且 $-8 \le A+B -16&lt; 0 \Rightarrow 8 \le A+B &lt; 16$</p>
+<p>值的位运算结果溢出即 $A+B&gt;7$</p>
+<p>$\{x|8\le x &lt; 16\}\subsetneqq\{x|x&gt;7\}$</p>
+<p>故该情况$\color{red}{正确}$</p>
+<h5 id="3-一正一负-1"><a href="#3-一正一负-1" class="headerlink" title="3.一正一负"></a>3.一正一负</h5><h6 id="a-正数绝对值大于负数绝对值-1"><a href="#a-正数绝对值大于负数绝对值-1" class="headerlink" title="a.正数绝对值大于负数绝对值"></a>a.正数绝对值大于负数绝对值</h6><p>数学运算结果：一定为正数，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算结果溢出，符号位 $0+1+1=0$ ，仍为<strong>正</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+(-8)+B = A+B-8$ </p>
+<p>且 $0&lt;A+B-8\le 7 \Rightarrow 8&lt;A+B\le15$</p>
+<p>值的位运算结果溢出即 $A+B&gt;7$</p>
+<p>$\{x|8&lt; x \le 15\}\subsetneqq\{x|x&gt;7\}$</p>
+<p>故该情况$\color{red}{正确}$</p>
+<h6 id="b-正数绝对值等于负数绝对值-1"><a href="#b-正数绝对值等于负数绝对值-1" class="headerlink" title="b.正数绝对值等于负数绝对值"></a>b.正数绝对值等于负数绝对值</h6><p>数学运算结果：$0$ ，符号为<strong>正</strong></p>
+<p>位运算结果：值的位运算结果溢出，符号位 $0+1+1=0$ ，仍为<strong>正</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+(-8)+B = A+B-8 = 0 \Rightarrow A+B=8$</p>
+<p>值的位运算结果溢出即$A+B&gt;7$</p>
+<p>$\{x|x=8\}\subsetneqq\{x|x&gt;7\}$</p>
+<p>故该情况$\color{red}{正确}$</p>
+<h6 id="c-正数绝对值小于负数绝对值-1"><a href="#c-正数绝对值小于负数绝对值-1" class="headerlink" title="c.正数绝对值小于负数绝对值"></a>c.正数绝对值小于负数绝对值</h6><p>数学运算结果：一定为负数 ，符号为<strong>负</strong></p>
+<p>位运算结果：值的位运算结果溢出，符号位 $0+1+1=0$ ，变成了<strong>正</strong></p>
+<p>设这里两个数补码分别为$[0a_2a_1a_0], [1b_2b_1b_0]$</p>
+<p>令 $A = \sum\limits_{i=0}^{2}{a_i\times 2^i}, B = \sum\limits_{i=0}^{2}{b_i \times 2^i}$，易知 $A,B \in \N$</p>
+<p>原式可化为 $A+(-8)+B = A+B-8$</p>
+<p>且 $-8\le A+B - 8&lt;0 \Rightarrow 0 \le A+B &lt;8$</p>
+<p>值的位运算结果溢出即 $A+B&gt;7$</p>
+<p>$\{x|0 &lt; x &lt; 8\}\cap\{x|x&gt;7\} = \varnothing$</p>
+<p>故该情况$\color{red}{不存在}$</p>
+<p>综上所述，所有存在的情况中，符号都是正确的，因此<strong>补码的正确性是可以保证的</strong></p>
 <HR>
-<h2 id="总结">总结</h2>
-<p>本文简单解释了补码的原理</p>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简单解释了补码的原理</p>
 <p>并证明了补码的正确性</p>
-<HR>
-<p><strong>参考文献</strong></p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/woodpeck/article/details/77747265">《补码正确性的证明》</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/wenxinwukui234/article/details/42119265">《补码(为什么按位取反再加一)：告诉你一个其实很简单的问题》</a></p>
+<p><HR><br><strong>参考文献</strong></p>
+<p>[1]  <a target="_blank" rel="noopener" href="https://blog.csdn.net/woodpeck/article/details/77747265">《补码正确性的证明》</a></p>
+<p>[2]  <a target="_blank" rel="noopener" href="https://blog.csdn.net/wenxinwukui234/article/details/42119265">《补码(为什么按位取反再加一)：告诉你一个其实很简单的问题》</a></p>
 
                 
             </div>
@@ -1121,7 +964,7 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/wenxinwukui234/articl
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">274.3k</span>&nbsp;字
+                class="white-color">272.8k</span>&nbsp;字
             
             
             
