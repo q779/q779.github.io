@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P3985 不开心的金明 题解, Q779的博客">
+    <meta name="keywords" content="friends, Q779的博客">
     <meta name="description" content="施工中qwq~">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>洛谷P3985 不开心的金明 题解 | Q779的博客</title>
+    <title>friends | Q779的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -271,12 +271,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p37.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p90.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3985 不开心的金明 题解</h1>
+                    <h1 class="description center-align post-title">friends</h1>
                 </div>
             </div>
         </div>
@@ -390,29 +390,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/DP/">
-                                <span class="chip bg-color">DP</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/OI/" class="post-category">
-                                OI
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -421,14 +404,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-25
+                    2022-08-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-22
+                    2022-08-16
                 </div>
                 
 
@@ -450,58 +433,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3985-不开心的金明-题解"><a href="#洛谷P3985-不开心的金明-题解" class="headerlink" title="洛谷P3985 不开心的金明 题解"></a>洛谷P3985 不开心的金明 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3985">P3985 不开心的金明</a></p>
-<blockquote>
-<p><strong>题意</strong>：</p>
-<p>金明今天很不开心，家里购置的二手房就要领钥匙了，房里并没有一间他自己专用的很宽敞的房间。更让他不高兴的是，妈妈昨天对他说：“你需要购买哪些物品，怎么布置，你说了不算（有很大的限制），而且不超过 $W$ 元钱。”。今天一早金明就开始做预算，但是他想买的东西太多了，肯定会超过妈妈限定的 $W$ 元。于是，他把每件物品规定了一个重要度整数 $p_i$ 表示。他还从因特网上查到了每件物品的价格 $v_i$ （都是整数元）。</p>
-<p>妈妈看到购物单后进行了审查，要求购物单上所有的物品价格的极差（最贵的减去最便宜的）不超过$3$（当然金明至今不知道为什么会这样）。他希望在不超过 $W$ 元（可以等于 $W$ 元）的前提下，使购买的重要度总和 $\sum p_i$ 的最大。</p>
-<p>请你帮助金明设计一个满足要求的购物单，你只需要告诉我们重要度的最大的和。</p>
-<p>数据保证：$\max(v_i)-\min(v_i) \le 3$</p>
-<p>数据范围：$1 \le N \le 100 ,1\le p_i \le 10^7,1 \le W,v_i \le 10^9$</p>
-</blockquote>
-<p>容易发现是01背包</p>
-<p>这个极差不超过 $3$ 根本不用管，都保证了。</p>
-<p>注意到这个费用很大但是极差很小，于是把所有的花费全部减去 $\min(v_i)$ </p>
-<p>但是这个 $W$ 巨大，不可能按照 $j=W \to 1$ 去枚举</p>
-<p>于是我们找到 $\sum v_i^\prime$  ，从它开始枚举，并增加一维 $k$ 表示装了 $k$ 个物品</p>
-<p>这样我们只要判断 $j+k\times\min(v_i) \le W$ 就知道我们枚举的背包容量是否合法了</p>
-<p>代码：（变量名和上面的陈述完全不一样）</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">105</span><span class="token punctuation">)</span></span></span>
-
-<span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">,</span>sum<span class="token punctuation">;</span>
-<span class="token keyword">int</span> w<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>v<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>mn<span class="token operator">=</span>INF<span class="token punctuation">,</span>dp<span class="token punctuation">[</span>N<span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// freopen("check.in","r",stdin);</span>
-    <span class="token comment">// freopen("check.out","w",stdout);</span>
-    cin <span class="token operator">>></span> n <span class="token operator">>></span> m<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        cin <span class="token operator">>></span> w<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>></span> v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        mn<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>mn<span class="token punctuation">,</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>sum<span class="token operator">+=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 确实，但是，代码写的是w[i] qwq</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-=</span>mn<span class="token punctuation">;</span>
-    sum<span class="token operator">-=</span>n<span class="token operator">*</span>mn<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>sum<span class="token punctuation">;</span> j<span class="token operator">>=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
-            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span>n<span class="token punctuation">;</span> k<span class="token operator">>=</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">--</span><span class="token punctuation">)</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">+</span>k<span class="token operator">*</span>mn<span class="token operator">&lt;=</span>m<span class="token punctuation">)</span>
-                <span class="token punctuation">&#123;</span>
-                    dp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span>dp<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-    <span class="token keyword">int</span> res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>sum<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-            res<span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> res<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <p><a target="_blank" rel="noopener" href="https://jiangcd001.github.io/">$\text{\color{black}{J}\color{red}{IANGCD001}}\color{black}{\texttt{巨佬的博客}}$</a></p>
 
                 
             </div>
@@ -528,7 +460,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://q779.github.io/2022/05/25/luo-gu-p3985-bu-kai-xin-de-jin-ming-ti-jie/">https://q779.github.io/2022/05/25/luo-gu-p3985-bu-kai-xin-de-jin-ming-ti-jie/</a>
+                    <a href="https://q779.github.io/friends/index.html">https://q779.github.io/friends/index.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -565,15 +497,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/DP/">
-                                    <span class="chip bg-color">DP</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -615,74 +539,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p3747-liu-sheng-lian-kao-2017-xiang-feng-shi-wen-hou-ti-jie/">
+                <a href="/friends/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p45.jpg" class="responsive-img" alt="洛谷P3747 [六省联考 2017] 相逢是问候 题解">
+                        <img src="/medias/featureimages/p90.png" class="responsive-img" alt="friends">
                         
-                        <span class="card-title">洛谷P3747 [六省联考 2017] 相逢是问候 题解</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-25
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/OI/" class="post-category">
-                                    OI
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/05/25/luo-gu-p3935-calculating-ti-jie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/p71.jpg" class="responsive-img" alt="洛谷P3935 Calculating 题解">
-                        
-                        <span class="card-title">洛谷P3935 Calculating 题解</span>
+                        <span class="card-title">friends</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -693,32 +561,55 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/OI/" class="post-category">
-                                    OI
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            q779
                             
                         </span>
                     </div>
                 </div>
+
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/friends/index.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/p90.png" class="responsive-img" alt="friends">
+                        
+                        <span class="card-title">friends</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            q779
+                            
+                        </span>
+                    </div>
                 </div>
+
                 
             </div>
         </div>
@@ -846,13 +737,6 @@
 
 </main>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
 
 
 
