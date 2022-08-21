@@ -450,18 +450,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模拟赛题讲解-19"><a href="#模拟赛题讲解-19" class="headerlink" title="模拟赛题讲解[19]"></a>模拟赛题讲解[19]</h1><p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a> 2022-08-08 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2771">noi.ac #2771</a></p>
+                <h1 id="模拟赛题讲解19">模拟赛题讲解[19]</h1>
+<p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a>
+2022-08-08 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2771">noi.ac #2771</a></p>
 <p><strong>题目背景</strong>：</p>
-<p>$\text{yukuai26}$ 喜欢爬山，所以他选择绕着山跑圈</p>
+<p><span class="math inline">\(\text{yukuai26}\)</span>
+喜欢爬山，所以他选择绕着山跑圈</p>
 <p><strong>题目描述</strong>：</p>
-<p>$\text{yukuai26}$ 会跑一个环形路径，每个路径有一个高度 $h$，他会顺时针或者逆时针沿着路径跑，一旦确定方向就不会换方向。</p>
+<p><span class="math inline">\(\text{yukuai26}\)</span>
+会跑一个环形路径，每个路径有一个高度 <span
+class="math inline">\(h\)</span>，他会顺时针或者逆时针沿着路径跑，一旦确定方向就不会换方向。</p>
 <p>由于他喜欢爬山，所以如果前一次跑步时上坡，他希望下一次是下坡，同样的，如果前一次跑步时下坡，下一次他希望是上坡，并且他不希望重复经过同一地点，所以他跑过所有点时就会停下来。</p>
-<p>现在 $\text{yukuai26}$ 想知道，他最多可以跑过多少点呢？</p>
-<p>一句话题意，给你一个环，环上每个点有一个高度，你要找到其中最长的一条路径 $d_1,d_2….d_l$ , 满足 $d_i$和 $d_{i+1}$ 相邻且所有 $d_i$ 互不相同，且 $h_{d_1} \leq h_{d_2} \geq h_{d_3} \leq h_{d_4}…$或者 $h_{d_1} \geq h_{d_2} \leq h_{d_3} \geq h_{d_4}….$</p>
-<p>问最长的 $l$ 是多少。</p>
+<p>现在 <span class="math inline">\(\text{yukuai26}\)</span>
+想知道，他最多可以跑过多少点呢？</p>
+<p>一句话题意，给你一个环，环上每个点有一个高度，你要找到其中最长的一条路径
+<span class="math inline">\(d_1,d_2....d_l\)</span> , 满足 <span
+class="math inline">\(d_i\)</span>和 <span
+class="math inline">\(d_{i+1}\)</span> 相邻且所有 <span
+class="math inline">\(d_i\)</span> 互不相同，且 <span
+class="math inline">\(h_{d_1} \leq h_{d_2} \geq h_{d_3} \leq
+h_{d_4}...\)</span>或者 <span class="math inline">\(h_{d_1} \geq h_{d_2}
+\leq h_{d_3} \geq h_{d_4}....\)</span></p>
+<p>问最长的 <span class="math inline">\(l\)</span> 是多少。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个数 $n$ ，表示环形路径的长度</p>
-<p>第二行 $n$ 个数 $h_i$ ，表示 $i$ 号点的高度</p>
+<p>第一行一个数 <span class="math inline">\(n\)</span>
+，表示环形路径的长度</p>
+<p>第二行 <span class="math inline">\(n\)</span> 个数 <span
+class="math inline">\(h_i\)</span> ，表示 <span
+class="math inline">\(i\)</span> 号点的高度</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个数，表示最长的路径长度是多少</p>
 <p><strong>输入1</strong>：</p>
@@ -475,18 +491,31 @@
 <p><strong>输出2</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $50$% 的数据 $n \leq 100$</p>
-<p>对于 $70$% 的数据 $n \leq 1000$</p>
-<p>对于 $100$% 的数据 $n \leq 10^5$ ， $h_i \leq 10^4$</p>
+<p>对于 <span class="math inline">\(50\)</span>% 的数据 <span
+class="math inline">\(n \leq 100\)</span></p>
+<p>对于 <span class="math inline">\(70\)</span>% 的数据 <span
+class="math inline">\(n \leq 1000\)</span></p>
+<p>对于 <span class="math inline">\(100\)</span>% 的数据 <span
+class="math inline">\(n \leq 10^5\)</span> ， <span
+class="math inline">\(h_i \leq 10^4\)</span></p>
 <p><strong>题解</strong>：</p>
 <p>首先断环为链。</p>
-<p>注意到以 $i$ 为起点的极大合法段，设其为 $[i,i+\text{sz}_i-1]$ </p>
-<p>不难发现 $\forall x \in [i,i+\text{sz}_i-1]$ ，$x$ 与 $i$ 重合的那种合法段是一样的。</p>
-<p>这里的重合指的是以 $i$ 为起点的那个子段在 $x$ 处切一刀，分割线到 $i+\text{sz}_i-1$ 的那一段。</p>
-<p>设 $f_{i,0/1}$ 表示以 $i$ 结尾的极大路径，下一个要朝上走还是朝下走</p>
-<script type="math/tex; mode=display">
+<p>注意到以 <span class="math inline">\(i\)</span>
+为起点的极大合法段，设其为 <span
+class="math inline">\([i,i+\text{sz}_i-1]\)</span></p>
+<p>不难发现 <span class="math inline">\(\forall x \in
+[i,i+\text{sz}_i-1]\)</span> ，<span class="math inline">\(x\)</span> 与
+<span class="math inline">\(i\)</span> 重合的那种合法段是一样的。</p>
+<p>这里的重合指的是以 <span class="math inline">\(i\)</span>
+为起点的那个子段在 <span class="math inline">\(x\)</span>
+处切一刀，分割线到 <span class="math inline">\(i+\text{sz}_i-1\)</span>
+的那一段。</p>
+<p>设 <span class="math inline">\(f_{i,0/1}\)</span> 表示以 <span
+class="math inline">\(i\)</span>
+结尾的极大路径，下一个要朝上走还是朝下走 <span class="math display">\[
 f_{i,0} = \max\{1,(f_{i-1,1}+1)\times [a_{i-1}\le a_i]\}
-\\f_{i,1} = \max\{1,(f_{i-1,0}+1)\times [a_{i-1}\ge a_i]\}</script><p>时间复杂度 $O(n)$ </p>
+\\f_{i,1} = \max\{1,(f_{i-1,0}+1)\times [a_{i-1}\ge a_i]\}
+\]</span> 时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -891,7 +920,7 @@ f_{i,0} = \max\{1,(f_{i-1,1}+1)\times [a_{i-1}\le a_i]\}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">314.4k</span>&nbsp;字
+                class="white-color">317.7k</span>&nbsp;字
             
             
             
@@ -1155,6 +1184,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
