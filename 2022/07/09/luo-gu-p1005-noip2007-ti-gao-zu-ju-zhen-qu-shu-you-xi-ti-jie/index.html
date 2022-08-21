@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解, Q779的博客">
-    <meta name="description" content="施工中qwq~">
+    <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -128,7 +128,7 @@
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            施工中qwq~
+            Never really desperate, only the lost of the soul.
             
         </div>
     </div>
@@ -450,46 +450,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1005-noip2007-提高组-矩阵取数游戏-题解">洛谷P1005 [NOIP2007
-提高组] 矩阵取数游戏 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1005">P1005
-[NOIP2007 提高组] 矩阵取数游戏</a></p>
+                <h1 id="洛谷P1005-NOIP2007-提高组-矩阵取数游戏-题解"><a href="#洛谷P1005-NOIP2007-提高组-矩阵取数游戏-题解" class="headerlink" title="洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解"></a>洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1005">P1005 [NOIP2007 提高组] 矩阵取数游戏</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>帅帅经常跟同学玩一个矩阵取数游戏：对于一个给定的 <span
-class="math inline">\(n \times m\)</span> 的矩阵，矩阵中的每个元素 <span
-class="math inline">\(a_{i,j}\)</span> 均为非负整数。游戏规则如下：</p>
-<ol type="1">
-<li>每次取数时须从每行各取走一个元素，共 <span
-class="math inline">\(n\)</span> 个。经过 <span
-class="math inline">\(m\)</span> 次后取完矩阵内所有元素；</li>
+<p>帅帅经常跟同学玩一个矩阵取数游戏：对于一个给定的 $n \times m$ 的矩阵，矩阵中的每个元素 $a_{i,j}$ 均为非负整数。游戏规则如下：</p>
+<ol>
+<li>每次取数时须从每行各取走一个元素，共 $n$ 个。经过 $m$ 次后取完矩阵内所有元素；</li>
 <li>每次取走的各个元素只能是该元素所在行的行首或行尾；</li>
-<li>每次取数都有一个得分值，为每行取数的得分之和，每行取数的得分 =
-被取走的元素值 <span class="math inline">\(\times 2^i\)</span>，其中
-<span class="math inline">\(i\)</span> 表示第 <span
-class="math inline">\(i\)</span> 次取数（从 <span
-class="math inline">\(1\)</span> 开始编号）；</li>
-<li>游戏结束总得分为 <span class="math inline">\(m\)</span>
-次取数得分之和。</li>
+<li>每次取数都有一个得分值，为每行取数的得分之和，每行取数的得分 = 被取走的元素值 $\times 2^i$，其中 $i$ 表示第 $i$ 次取数（从 $1$ 开始编号）；</li>
+<li>游戏结束总得分为 $m$ 次取数得分之和。</li>
 </ol>
 <p>帅帅想请你帮忙写一个程序，对于任意矩阵，可以求出取数后的最大得分。</p>
-<p>对于 <span class="math inline">\(60\%\)</span> 的数据，满足 <span
-class="math inline">\(1\le n,m\le 30\)</span>，答案不超过 <span
-class="math inline">\(10^{16}\)</span>。 对于 <span
-class="math inline">\(100\%\)</span> 的数据，满足 <span
-class="math inline">\(1\le n,m\le 80\)</span>，<span
-class="math inline">\(0\le a_{i,j}\le1000\)</span>。</p>
+<p>对于 $60\%$ 的数据，满足 $1\le n,m\le 30$，答案不超过 $10^{16}$。<br>对于 $100\%$ 的数据，满足 $1\le n,m\le 80$，$0\le a_{i,j}\le1000$。</p>
 </blockquote>
 <p>注意到每一行的决策与其他行无关</p>
-<p>考虑区间dp然后把 <span class="math inline">\(n\)</span>
-行答案加起来</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示区间变为 <span
-class="math inline">\([i,j]\)</span> 时的最大分数</p>
-<p>不难发现 <span class="math display">\[
+<p>考虑区间dp然后把 $n$ 行答案加起来</p>
+<p>设 $f_{i,j}$ 表示区间变为 $[i,j]$ 时的最大分数</p>
+<p>不难发现</p>
+<script type="math/tex; mode=display">
 f_{i,i}=\max\left\{f_{i,i}+a_i\times 2^m\right\}
-\\f_{i,j}=\max\left\{f_{i-1,j}+a_{i-1} \times
-2^{m-j+i-1},f_{i,j+1}+a_{j+1} \times 2^{m-j+i-1}\right\}
-\]</span> 要用高精度。比较恶心。</p>
+\\f_{i,j}=\max\left\{f_{i-1,j}+a_{i-1} \times 2^{m-j+i-1},f_{i,j+1}+a_{j+1} \times 2^{m-j+i-1}\right\}</script><p>要用高精度。比较恶心。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -881,7 +861,7 @@ bg <span class="token function">max</span><span class="token punctuation">(</spa
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -893,7 +873,7 @@ bg <span class="token function">max</span><span class="token punctuation">(</spa
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -978,7 +958,7 @@ bg <span class="token function">max</span><span class="token punctuation">(</spa
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">313.9k</span>&nbsp;字
+                class="white-color">313.1k</span>&nbsp;字
             
             
             
