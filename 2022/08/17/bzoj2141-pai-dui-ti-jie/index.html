@@ -468,25 +468,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="BZOJ2141-排队-题解"><a href="#BZOJ2141-排队-题解" class="headerlink" title="BZOJ2141 排队 题解"></a>BZOJ2141 排队 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://darkbzoj.cc/problem/2141">#2141. 排队</a></p>
+                <h1 id="bzoj2141-排队-题解">BZOJ2141 排队 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://darkbzoj.cc/problem/2141">#2141.
+排队</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>一句话题意：</p>
-<p> 给定 $n$ 个数，$Q$ 次询问，每次交换两个不同位置的数，然后输出逆序对数。</p>
-<p>$1 \le n \le 2\times 10^4,~1\le Q \le 2 \times 10^3$ </p>
+<p>给定 <span class="math inline">\(n\)</span> 个数，<span
+class="math inline">\(Q\)</span>
+次询问，每次交换两个不同位置的数，然后输出逆序对数。</p>
+<p><span class="math inline">\(1 \le n \le 2\times 10^4,~1\le Q \le 2
+\times 10^3\)</span></p>
 <p>排排坐，吃果果，生果甜嗦嗦，大家笑呵呵。你一个，我一个，大的分给你，小的留给我，吃完果果唱支歌，大家乐和和。红星幼儿园的小朋友们排起了长长地队伍，准备吃果果。</p>
-<p>不过因为小朋友们的身高有所区别，排成的队伍高低错乱，极不美观。设第i个小朋友的身高为 $h_i (1\le h_i \le 10^9)$ ，我们定义一个序列的杂乱程度为：满足 $h_i&gt;h_j$ 的 $(i, j)$ 数量。幼儿园阿姨每次会选出两个小朋友，交换他们的位置，请你帮忙计算出每次交换后，序列的杂乱程度。为方便幼儿园阿姨统计，在未进行任何交换操作时，你也应该输出该序列的杂乱程度。</p>
+<p>不过因为小朋友们的身高有所区别，排成的队伍高低错乱，极不美观。设第i个小朋友的身高为
+<span class="math inline">\(h_i (1\le h_i \le 10^9)\)</span>
+，我们定义一个序列的杂乱程度为：满足 <span
+class="math inline">\(h_i&gt;h_j\)</span> 的 <span
+class="math inline">\((i, j)\)</span>
+数量。幼儿园阿姨每次会选出两个小朋友，交换他们的位置，请你帮忙计算出每次交换后，序列的杂乱程度。为方便幼儿园阿姨统计，在未进行任何交换操作时，你也应该输出该序列的杂乱程度。</p>
 </blockquote>
 <p><del>这题还是比较水的。</del></p>
-<p>首先朴素的逆序对不会有人不会吧（<del>不会吧不会吧</del> ，不会的<a href="https://q779.github.io/2021/09/05/ni-xu-dui-de-san-chong-qiu-fa/">戳这里</a></p>
+<p>首先朴素的逆序对不会有人不会吧（<del>不会吧不会吧</del> ，不会的<a
+href="https://q779.github.io/2021/09/05/ni-xu-dui-de-san-chong-qiu-fa/">戳这里</a></p>
 <p>考虑一次修改会对答案产生什么影响</p>
-<p>设交换 $a_l$ 和 $a_r$ ，则显然只有 $(l,r)$ 的数会影响答案</p>
-<p>于是我们依次考虑每个 $a_i (l &lt; i &lt; r)$ </p>
-<p>经过观察可以发现， $a_i$ 对答案的影响和它与 $a_l,a_r$ 的大小有关</p>
-<p>则 $a_i$ 对答案的贡献为</p>
-<script type="math/tex; mode=display">
-\mathrm{sgn}(a_i-a_l) + \mathrm{sgn}(a_r-a_i)</script><p>其中 $\mathrm{sgn}(x)=\begin{cases}1,&amp;x&gt;0\\0,&amp;x=0\\ -1,&amp;x&lt;0\end{cases}$ </p>
-<p>时间复杂度 $O(n \log n + nm)$ </p>
+<p>设交换 <span class="math inline">\(a_l\)</span> 和 <span
+class="math inline">\(a_r\)</span> ，则显然只有 <span
+class="math inline">\((l,r)\)</span> 的数会影响答案</p>
+<p>于是我们依次考虑每个 <span class="math inline">\(a_i (l &lt; i &lt;
+r)\)</span></p>
+<p>经过观察可以发现， <span class="math inline">\(a_i\)</span>
+对答案的影响和它与 <span class="math inline">\(a_l,a_r\)</span>
+的大小有关</p>
+<p>则 <span class="math inline">\(a_i\)</span> 对答案的贡献为 <span
+class="math display">\[
+\mathrm{sgn}(a_i-a_l) + \mathrm{sgn}(a_r-a_i)
+\]</span> 其中 <span
+class="math inline">\(\mathrm{sgn}(x)=\begin{cases}1,&amp;x&gt;0\\0,&amp;x=0\\
+-1,&amp;x&lt;0\end{cases}\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(n \log n + nm)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -912,7 +931,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">320.5k</span>&nbsp;字
+                class="white-color">322.9k</span>&nbsp;字
             
             
             

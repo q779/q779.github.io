@@ -476,30 +476,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6348-PA2011-Journeys-题解"><a href="#洛谷P6348-PA2011-Journeys-题解" class="headerlink" title="洛谷P6348 [PA2011]Journeys 题解"></a>洛谷P6348 [PA2011]Journeys 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6348">P6348 [PA2011]Journeys</a></p>
+                <h1 id="洛谷p6348-pa2011journeys-题解">洛谷P6348 [PA2011]Journeys
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6348">P6348
+[PA2011]Journeys</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $n$ 个结点， $m$ 次操作</p>
-<p>每次操作给出 $a,b,c,d$ ，表示</p>
-<script type="math/tex; mode=display">
-\forall x\in [a,b],\forall y\in [c,d], \exist (x,y) \in E\land (y,x) \in E</script><p>也就是编号在 $[a,b]$ 内的所有结点与编号在 $[c,d]$ 内的结点<strong>存在边权为 $1$ 的无向边</strong></p>
-<p>求 $s$ 到每个点的最短路。</p>
-<p>$1\le n\le 5\times 10^5$，$1\le m\le 10^5$，$1\le a\le b\le n$，$1\le c\le d\le n$。</p>
+<p>给定 <span class="math inline">\(n\)</span> 个结点， <span
+class="math inline">\(m\)</span> 次操作</p>
+<p>每次操作给出 <span class="math inline">\(a,b,c,d\)</span> ，表示
+<span class="math display">\[
+\forall x\in [a,b],\forall y\in [c,d], \exist (x,y) \in E\land (y,x) \in
+E
+\]</span> 也就是编号在 <span class="math inline">\([a,b]\)</span>
+内的所有结点与编号在 <span class="math inline">\([c,d]\)</span>
+内的结点<strong>存在边权为 <span class="math inline">\(1\)</span>
+的无向边</strong></p>
+<p>求 <span class="math inline">\(s\)</span> 到每个点的最短路。</p>
+<p><span class="math inline">\(1\le n\le 5\times 10^5\)</span>，<span
+class="math inline">\(1\le m\le 10^5\)</span>，<span
+class="math inline">\(1\le a\le b\le n\)</span>，<span
+class="math inline">\(1\le c\le d\le n\)</span>。</p>
 </blockquote>
-<p>线段树优化建图板子（区间连区间），不会单点连区间的<a href="https://q779.github.io/2022/08/21/cf786b-legacy-ti-jie/">戳这里</a></p>
+<p>线段树优化建图板子（区间连区间），不会单点连区间的<a
+href="https://q779.github.io/2022/08/21/cf786b-legacy-ti-jie/">戳这里</a></p>
 <p>同样的，我们还是建两棵树，称为「入树」和「出树」</p>
 <p>先考虑连<strong>有向边</strong>的情况。</p>
 <p>对于区间的修改，我们只需要把入树和出树中的结点提出来</p>
-<p>称<strong>出树</strong>中提取的结点构成 $S$ ，<strong>入树</strong>中提取的结点构成 $T$ </p>
-<p>我们新建一个虚点 $u$ ，把 $S$ 中的每个结点向 $u$ 连一条边权为 $0$ 的有向边</p>
-<p>然后再把 $u$ 向 $T$ 中的每个结点分别连一条边权为 $1$ 的有向边</p>
+<p>称<strong>出树</strong>中提取的结点构成 <span
+class="math inline">\(S\)</span> ，<strong>入树</strong>中提取的结点构成
+<span class="math inline">\(T\)</span></p>
+<p>我们新建一个虚点 <span class="math inline">\(u\)</span> ，把 <span
+class="math inline">\(S\)</span> 中的每个结点向 <span
+class="math inline">\(u\)</span> 连一条边权为 <span
+class="math inline">\(0\)</span> 的有向边</p>
+<p>然后再把 <span class="math inline">\(u\)</span> 向 <span
+class="math inline">\(T\)</span> 中的每个结点分别连一条边权为 <span
+class="math inline">\(1\)</span> 的有向边</p>
 <p>然后这道题要连<strong>无向边</strong>，所以我们反过来再做一次就行了</p>
 <p><strong>注意！</strong>反过来的时候一定要再建一个虚点，不然会出错！（显然）</p>
 <p>纯文本可能不是很好懂，所以放张图。</p>
-<p><img src="https://s2.loli.net/2022/08/21/OibID4Mxo8fY3Ec.png" alt=""></p>
-<p>这道题因为边权只有 $0,1$ ，考虑 $\mathtt{01bfs}$</p>
-<p>时间复杂度 $O((n+m)\log n)$</p>
-<p>空间复杂度 $O(2n\log n + 2m)$</p>
+<p><img src="https://s2.loli.net/2022/08/21/OibID4Mxo8fY3Ec.png" /></p>
+<p>这道题因为边权只有 <span class="math inline">\(0,1\)</span> ，考虑
+<span class="math inline">\(\mathtt{01bfs}\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O((n+m)\log n)\)</span></p>
+<p>空间复杂度 <span class="math inline">\(O(2n\log n + 2m)\)</span></p>
 <p>代码：（<del>常数比较大</del>）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1012,7 +1033,7 @@ deque<span class="token operator">&lt;</span><span class="token keyword">int</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">320.5k</span>&nbsp;字
+                class="white-color">322.9k</span>&nbsp;字
             
             
             
