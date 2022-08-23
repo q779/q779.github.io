@@ -422,12 +422,12 @@
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -480,50 +480,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf178f3-representative-sampling-题解">CF178F3 Representative
-Sampling 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF178F3">CF178F3
-Representative Sampling</a></p>
+                <h1 id="CF178F3-Representative-Sampling-题解"><a href="#CF178F3-Representative-Sampling-题解" class="headerlink" title="CF178F3 Representative Sampling 题解"></a>CF178F3 Representative Sampling 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF178F3">CF178F3 Representative Sampling</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 <span class="math inline">\(n\)</span> 个字符串 <span
-class="math inline">\(a_i\)</span> ，从中选取 <span
-class="math inline">\(k\)</span> 个，使它们两两之间的 <span
-class="math inline">\(\text{LCP}\)</span>（最长公共前缀）之和最大。输出这个最大值。</p>
-<p><span class="math inline">\(k\le n\le 2000,|a_i|\le 500\)</span></p>
+<p>有 $n$ 个字符串 $a_i$ ，从中选取 $k$ 个，使它们两两之间的 $\text{LCP}$（最长公共前缀）之和最大。输出这个最大值。</p>
+<p>$k\le n\le 2000,|a_i|\le 500$</p>
 </blockquote>
-<p>看到最长公共前缀我还愣了一下，<del>这不裸的 <span
-class="math inline">\(\tt{trie}\)</span>
-树吗，然后想了半天不会。。</del></p>
-<p>考虑建 <span class="math inline">\(\tt{trie}\)</span>
-树然后在上面做树上背包</p>
-<p>注意这里背包能选的“物品”只有 <span
-class="math inline">\(\tt{trie}\)</span> 树上「是字符串结尾的结点」</p>
+<p>看到最长公共前缀我还愣了一下，<del>这不裸的 $\tt{trie}$ 树吗，然后想了半天不会。。</del></p>
+<p>考虑建 $\tt{trie}$ 树然后在上面做树上背包</p>
+<p>注意这里背包能选的“物品”只有 $\tt{trie}$ 树上「是字符串结尾的结点」</p>
 <p>方便起见，称「是字符串结尾的结点」为「串结点」</p>
 <p>两两串结点的贡献，也就是他们的最长公共前缀（LCP）长度，其实就是他们的LCA深度。</p>
-<p>记 <span class="math inline">\(i\)</span> 的子结点 <span
-class="math inline">\(c_1,c_2,\cdots,c_{\lambda_i}\)</span> ，设 <span
-class="math inline">\(f_{c_k,j}\)</span> 表示以 <span
-class="math inline">\(i\)</span> 为根的子树中，只考虑 <span
-class="math inline">\(c_1,c_2,\cdots,c_k\)</span> ，选 <span
-class="math inline">\(j\)</span>
-个串结点，「两两串结点的LCA」的深度之和（<span
-class="math inline">\(i\)</span> 深度为 <span
-class="math inline">\(0\)</span> ），</p>
-<p>设 <span class="math inline">\(g_{i,j}\)</span> 表示以 <span
-class="math inline">\(i\)</span> 为根的子树中，选 <span
-class="math inline">\(j\)</span> 个串结点，「两两串结点的LCA」的深度之和
-（<span class="math inline">\(i\)</span> 深度为 <span
-class="math inline">\(0\)</span> ），则 <span class="math display">\[
+<p>记 $i$ 的子结点 $c_1,c_2,\cdots,c_{\lambda_i}$ ，设 $f_{c_k,j}$ 表示以 $i$ 为根的子树中，只考虑 $c_1,c_2,\cdots,c_k$ ，选 $j$ 个串结点，「两两串结点的LCA」的深度之和（$i$ 深度为 $0$ ），</p>
+<p>设 $g_{i,j}$ 表示以 $i$ 为根的子树中，选 $j$ 个串结点，「两两串结点的LCA」的深度之和 （$i$ 深度为 $0$ ），则</p>
+<script type="math/tex; mode=display">
 f_{c_k,j} = \max\limits_{0 \le l \le \min \{j,\text{size}(c_k)\}}
-\left\{f_{c_{k-1},j-l}+g_{c_k,l}+\dbinom{l}{2}\right\}
-\]</span>
-注意到两个串只会在他们的LCA处更新dp值，因此有很多结点都是没用的</p>
+\left\{f_{c_{k-1},j-l}+g_{c_k,l}+\dbinom{l}{2}\right\}</script><p>注意到两个串只会在他们的LCA处更新dp值，因此有很多结点都是没用的</p>
 <p>我们直接把这棵树缩成一个带权树，保留可以成为LCA的结点</p>
-<p>于是我们就可以 <span class="math inline">\(O(n^2)\)</span>
-通过这题了</p>
-<p><del>u1s1，代码是学的yhx巨佬的<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>，懒得改了（</del></p>
+<p>于是我们就可以 $O(n^2)$ 通过这题了</p>
+<p><del>u1s1，代码是学的yhx巨佬的<sup><a href="#fn_1" id="reffn_1">1</a></sup>，懒得改了（</del></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -607,15 +582,9 @@ string s<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"
-role="doc-endnote"><p>https://yhx-12243.github.io/OI-transit/records/cf178F3.html<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<blockquote id="fn_1">
+<sup>1</sup>. <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf178F3.html">https://yhx-12243.github.io/OI-transit/records/cf178F3.html</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 
                 
             </div>
@@ -688,12 +657,12 @@ href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
                                     <span class="chip bg-color">DP</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -989,7 +958,7 @@ href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">326.2k</span>&nbsp;字
+                class="white-color">326.3k</span>&nbsp;字
             
             
             
