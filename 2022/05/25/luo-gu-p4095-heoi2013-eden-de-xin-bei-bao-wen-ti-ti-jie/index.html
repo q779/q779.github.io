@@ -476,24 +476,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4095-HEOI2013-Eden-的新背包问题-题解"><a href="#洛谷P4095-HEOI2013-Eden-的新背包问题-题解" class="headerlink" title="洛谷P4095 [HEOI2013]Eden 的新背包问题 题解"></a>洛谷P4095 [HEOI2013]Eden 的新背包问题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4095">P4095 [HEOI2013]Eden 的新背包问题</a></p>
+                <h1 id="洛谷p4095-heoi2013eden-的新背包问题-题解">洛谷P4095
+[HEOI2013]Eden 的新背包问题 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4095">P4095
+[HEOI2013]Eden 的新背包问题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>失忆的 Eden 总想努力地回忆起过去，然而总是只能清晰地记得那种思念的感觉，却不能回忆起她的音容笑貌。</p>
-<p>记忆中，她总是喜欢给 Eden 出谜题：在 valentine’s day 的夜晚，两人在闹市中闲逛时，望着礼品店里精巧玲珑的各式玩偶，她突发奇想，问了 Eden 这样的一个问题：有 $n$ 个玩偶，每个玩偶有对应的价值、价钱，每个玩偶都可以被买有限次，在携带的价钱 $m$ 固定的情况下，如何选择买哪些玩偶以及每个玩偶买多少个，才能使得选择的玩偶总价钱不超过 $m$，且价值和最大。</p>
-<p>众所周知的，这是一个很经典的多重背包问题，Eden 很快解决了，不过她似乎因为自己的问题被飞快解决感到了一丝不高兴，于是她希望把问题加难：多次询问，每次询问都将给出新的总价钱，并且会去掉某个玩偶（即这个玩偶不能被选择），再问此时的多重背包的答案（即前一段所叙述的问题）。</p>
+<p>失忆的 Eden
+总想努力地回忆起过去，然而总是只能清晰地记得那种思念的感觉，却不能回忆起她的音容笑貌。</p>
+<p>记忆中，她总是喜欢给 Eden 出谜题：在 valentine's day
+的夜晚，两人在闹市中闲逛时，望着礼品店里精巧玲珑的各式玩偶，她突发奇想，问了
+Eden 这样的一个问题：有 <span class="math inline">\(n\)</span>
+个玩偶，每个玩偶有对应的价值、价钱，每个玩偶都可以被买有限次，在携带的价钱
+<span class="math inline">\(m\)</span>
+固定的情况下，如何选择买哪些玩偶以及每个玩偶买多少个，才能使得选择的玩偶总价钱不超过
+<span class="math inline">\(m\)</span>，且价值和最大。</p>
+<p>众所周知的，这是一个很经典的多重背包问题，Eden
+很快解决了，不过她似乎因为自己的问题被飞快解决感到了一丝不高兴，于是她希望把问题加难：多次询问，每次询问都将给出新的总价钱，并且会去掉某个玩偶（即这个玩偶不能被选择），再问此时的多重背包的答案（即前一段所叙述的问题）。</p>
 <p>这下 Eden 犯难了，不过 Eden 不希望自己被难住，你能帮帮他么？</p>
 <p>数据范围：</p>
 <ul>
-<li>对于 $100\%$ 的数据，保证  $1 \leq n \leq 1000$，$1 \leq q \leq 3\times 10^5$， $1 \leq a_i,b_i,c_i \leq 100$，$0 \leq d_i &lt; n$，$0 \leq e_i \leq 1000$。</li>
-<li>$\sum e_i \le 2\times 10^7$ （讨论区补充的）</li>
+<li>对于 <span class="math inline">\(100\%\)</span> 的数据，保证 <span
+class="math inline">\(1 \leq n \leq 1000\)</span>，<span
+class="math inline">\(1 \leq q \leq 3\times 10^5\)</span>， <span
+class="math inline">\(1 \leq a_i,b_i,c_i \leq 100\)</span>，<span
+class="math inline">\(0 \leq d_i &lt; n\)</span>，<span
+class="math inline">\(0 \leq e_i \leq 1000\)</span>。</li>
+<li><span class="math inline">\(\sum e_i \le 2\times 10^7\)</span>
+（讨论区补充的）</li>
 </ul>
 </blockquote>
-<p>不难发现，如果不考虑第 $p$ 个物品</p>
-<p>最大的价值其实就是 $1\sim p-1$ 和 $p+1 \sim n$ 的最大价值</p>
+<p>不难发现，如果不考虑第 <span class="math inline">\(p\)</span>
+个物品</p>
+<p>最大的价值其实就是 <span class="math inline">\(1\sim p-1\)</span> 和
+<span class="math inline">\(p+1 \sim n\)</span> 的最大价值</p>
 <p>考虑正反分别跑一遍多重背包，然后对于每个询问暴力合并泛化物品</p>
 <p>单调队列优化更快一点，当然二进制拆分也是可以过的。</p>
-<p>二进制拆分写法，时间复杂度 $O(m \sum_{i=1}^{n}\log c_i + \sum e_i)$</p>
+<p>二进制拆分写法，时间复杂度 <span class="math inline">\(O(m
+\sum_{i=1}^{n}\log c_i + \sum e_i)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -577,7 +597,8 @@
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>单调队列优化写法，时间复杂度 $O(nm+\sum e_i)$</p>
+<p>单调队列优化写法，时间复杂度 <span class="math inline">\(O(nm+\sum
+e_i)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1039,7 +1060,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">326.3k</span>&nbsp;字
+                class="white-color">331k</span>&nbsp;字
             
             
             
