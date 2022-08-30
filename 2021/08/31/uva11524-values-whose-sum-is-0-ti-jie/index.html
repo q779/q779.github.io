@@ -468,15 +468,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UVA11524-Values-whose-Sum-is-0-题解"><a href="#UVA11524-Values-whose-Sum-is-0-题解" class="headerlink" title="UVA11524 Values whose Sum is 0 题解"></a>UVA11524 Values whose Sum is 0 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1152">UVA1152 4 Values whose Sum is 0</a></p>
+                <h1 id="uva11524-values-whose-sum-is-0-题解">UVA11524 Values whose Sum
+is 0 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1152">UVA1152
+4 Values whose Sum is 0</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定四个数组，求 $a_i+b_j+c_k+d_l = 0$ 的个数，多组数据+奇怪的输出格式 </p>
+<p><strong>题意</strong>：给定四个数组，求 <span
+class="math inline">\(a_i+b_j+c_k+d_l = 0\)</span>
+的个数，多组数据+奇怪的输出格式</p>
 </blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p> $O(n^4)$ 枚举肯定过不去</p>
-<p>想一想，我们有必要在枚举 $i,j$ 的时候再去枚举 $k,l$ 吗？</p>
-<p>没有，因为 $k,l$ 的组合是有限的，只有这么多</p>
-<p>我们可以先 $O(n^2)$ 把所有 $c_k+d_l$ 枚举出来，然后排个序，就可以二分找出所有的 $-(a_i+b_j)$ 了</p>
-<p>时间复杂度 $O(n^2\log n)$</p>
+<h2 id="解法一">解法一</h2>
+<p><span class="math inline">\(O(n^4)\)</span> 枚举肯定过不去</p>
+<p>想一想，我们有必要在枚举 <span class="math inline">\(i,j\)</span>
+的时候再去枚举 <span class="math inline">\(k,l\)</span> 吗？</p>
+<p>没有，因为 <span class="math inline">\(k,l\)</span>
+的组合是有限的，只有这么多</p>
+<p>我们可以先 <span class="math inline">\(O(n^2)\)</span> 把所有 <span
+class="math inline">\(c_k+d_l\)</span>
+枚举出来，然后排个序，就可以二分找出所有的 <span
+class="math inline">\(-(a_i+b_j)\)</span> 了</p>
+<p>时间复杂度 <span class="math inline">\(O(n^2\log n)\)</span></p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -526,22 +537,30 @@
 	<span class="token keyword">while</span><span class="token punctuation">(</span>Q<span class="token operator">--</span><span class="token punctuation">)</span><span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><p>通过刚才的分析，我们会惊奇的发现这个 $i,j$ 的组合其实是有限的！</p>
-<p>那么我们就可以预处理所有的 $a_i+b_j$ 和 $c_k+d_l$ </p>
+<h2 id="解法二">解法二</h2>
+<p>通过刚才的分析，我们会惊奇的发现这个 <span
+class="math inline">\(i,j\)</span> 的组合其实是有限的！</p>
+<p>那么我们就可以预处理所有的 <span
+class="math inline">\(a_i+b_j\)</span> 和 <span
+class="math inline">\(c_k+d_l\)</span></p>
 <p>然后用哈希表搞一搞，每次去暴力查表（注：查有没有相反数）</p>
-<p>时间复杂度 $O(n^2)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(n^2)\)</span></p>
 <p><strong>真的有这么简单吗？</strong></p>
 <p>我们来重新分析一下时间复杂度</p>
-<p>首先题目中说明给的数小于等于 $2^{28}$</p>
-<p>那么每个组合（和）小于$2^{29}$</p>
+<p>首先题目中说明给的数小于等于 <span
+class="math inline">\(2^{28}\)</span></p>
+<p>那么每个组合（和）小于<span class="math inline">\(2^{29}\)</span></p>
 <p>如果用哈希表搞，理论上来说可以构造hack数据，特别是简单的哈希函数很容易hack</p>
-<p>为什么？因为如果哈希函数不是很好，那么至多在一个位置放了 $n^2$ 个数</p>
-<p><del>好耶</del>时间复杂度退化为 $O(n^4)$ 直接TLE</p>
-<p>什么你要表内排序？ $O(n^2\log n^2)$ + 可能较大常数   （来自本文作者的奇思妙想）</p>
+<p>为什么？因为如果哈希函数不是很好，那么至多在一个位置放了 <span
+class="math inline">\(n^2\)</span> 个数</p>
+<p><del>好耶</del>时间复杂度退化为 <span
+class="math inline">\(O(n^4)\)</span> 直接TLE</p>
+<p>什么你要表内排序？ <span class="math inline">\(O(n^2\log
+n^2)\)</span> + 可能较大常数 （来自本文作者的奇思妙想）</p>
 <p>所以其实理论上来说这个解法是行不通的</p>
 <p>如果数据生成器能够分析提交的代码原理并构造hack数据，那么直接玩完</p>
 <p>好在没有那么恶心这题，数据比较简单，手写哈希表也能过</p>
-<p>代码就不贴了，个人感觉实现很简单而且这解法不是很好 qwq </p>
+<p>代码就不贴了，个人感觉实现很简单而且这解法不是很好 qwq</p>
 
                 
             </div>
@@ -895,7 +914,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">344.1k</span>&nbsp;字
+                class="white-color">347.5k</span>&nbsp;字
             
             
             

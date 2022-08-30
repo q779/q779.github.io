@@ -472,33 +472,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4113-HEOI2012-采花-题解"><a href="#洛谷P4113-HEOI2012-采花-题解" class="headerlink" title="洛谷P4113 [HEOI2012]采花 题解"></a>洛谷P4113 [HEOI2012]采花 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4113">P4113 [HEOI2012]采花</a></p>
+                <h1 id="洛谷p4113-heoi2012采花-题解">洛谷P4113 [HEOI2012]采花 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4113">P4113
+[HEOI2012]采花</a></p>
 <blockquote>
 <p><strong>题意</strong>：萧薰儿是古国的公主，平时的一大爱好是采花。</p>
 <p>今天天气晴朗，阳光明媚，公主清晨便去了皇宫中新建的花园采花。</p>
-<p>花园足够大，容纳了 $n$ 朵花，共有 $c$ 种颜色，用整数 $1 \sim c$ 表示。且花是排成一排的，以便于公主采花。公主每次采花后会统计采到的花的颜色数，颜色数越多她会越高兴。同时，她有一癖好，她不允许最后自己采到的花中，某一颜色的花只有一朵。为此，公主每采一朵花，要么此前已采到此颜色的花，要么有相当正确的直觉告诉她，她必能再次采到此颜色的花。</p>
-<p>由于时间关系，公主只能走过花园连续的一段进行采花，便让女仆福涵洁安排行程。福涵洁综合各种因素拟定了 $m$ 个行程，然后一一向你询问公主能采到的花共有几种不同的颜色。</p>
-<p> $1 \leq n, c, m \leq 2 \times 10^6$。</p>
-<p>对于全部的测试点，保证 $1 \leq x_i \leq c$，$1 \leq l \leq r \leq n$。</p>
+<p>花园足够大，容纳了 <span class="math inline">\(n\)</span> 朵花，共有
+<span class="math inline">\(c\)</span> 种颜色，用整数 <span
+class="math inline">\(1 \sim c\)</span>
+表示。且花是排成一排的，以便于公主采花。公主每次采花后会统计采到的花的颜色数，颜色数越多她会越高兴。同时，她有一癖好，她不允许最后自己采到的花中，某一颜色的花只有一朵。为此，公主每采一朵花，要么此前已采到此颜色的花，要么有相当正确的直觉告诉她，她必能再次采到此颜色的花。</p>
+<p>由于时间关系，公主只能走过花园连续的一段进行采花，便让女仆福涵洁安排行程。福涵洁综合各种因素拟定了
+<span class="math inline">\(m\)</span>
+个行程，然后一一向你询问公主能采到的花共有几种不同的颜色。</p>
+<p><span class="math inline">\(1 \leq n, c, m \leq 2 \times
+10^6\)</span>。</p>
+<p>对于全部的测试点，保证 <span class="math inline">\(1 \leq x_i \leq
+c\)</span>，<span class="math inline">\(1 \leq l \leq r \leq
+n\)</span>。</p>
 </blockquote>
-<p>其实就是 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1972">P1972 [SDOI2009] HH的项链</a> 改了一改，</p>
+<p>其实就是 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1972">P1972
+[SDOI2009] HH的项链</a> 改了一改，</p>
 <p>本题具体的做法是预处理出所有第二次出现的数的贡献，然后离线处理询问。</p>
 <p><del>（作者语文比较烂，不知道这句话放哪里比较好，就放前面来了）</del></p>
 <p>下面是详细的解释。</p>
-<hr>
-<p>设数组 $\text{val} = \{1,2,2,3,1,1,3\}$</p>
-<p>要询问一个区间 $[1,7]=\{1,2,2,3,1,1,3\}$</p>
-<p>每个数的贡献是这样的 $\{0,0,1,0,1,0,1\}$</p>
+<hr />
+<p>设数组 <span class="math inline">\(\text{val} =
+\{1,2,2,3,1,1,3\}\)</span></p>
+<p>要询问一个区间 <span
+class="math inline">\([1,7]=\{1,2,2,3,1,1,3\}\)</span></p>
+<p>每个数的贡献是这样的 <span
+class="math inline">\(\{0,0,1,0,1,0,1\}\)</span></p>
 <p>实际上我们只需要处理第二次出现的数的贡献即可</p>
 <p>因为出现两次是容易处理的，并且小于的不会产生贡献，大于的不会增加贡献</p>
 <p>不难发现区间询问可以用树状数组维护贡献</p>
-<p>一个暴力的想法是，对于每个询问 $[l,r]$ ，我们扫一遍 $[1,l-1]$ </p>
+<p>一个暴力的想法是，对于每个询问 <span
+class="math inline">\([l,r]\)</span> ，我们扫一遍 <span
+class="math inline">\([1,l-1]\)</span></p>
 <p>为什么要扫一遍呢？因为对于出现大于两次的，</p>
 <p>我们只把贡献记在了它第二次出现的位置上，</p>
-<p>而这个数可能在 $[1,l-1]$ 和 $[l,r]$ 都出现了两次及以上</p>
+<p>而这个数可能在 <span class="math inline">\([1,l-1]\)</span> 和 <span
+class="math inline">\([l,r]\)</span> 都出现了两次及以上</p>
 <p>当然这样暴力扫肯定是不行的，考虑离线处理询问。</p>
-<p>把询问按照 $l$ 从小到大排序，这样我们只要在询问的过程中扫就可以了</p>
-<p>时间复杂度 $O(m \log n)$ </p>
+<p>把询问按照 <span class="math inline">\(l\)</span>
+从小到大排序，这样我们只要在询问的过程中扫就可以了</p>
+<p>时间复杂度 <span class="math inline">\(O(m \log n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -600,7 +618,8 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zykykyk/solution-p4113">https://www.luogu.com.cn/blog/zykykyk/solution-p4113</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zykykyk/solution-p4113">https://www.luogu.com.cn/blog/zykykyk/solution-p4113</a></p>
 
                 
             </div>
@@ -760,12 +779,12 @@
                         <span class="chip bg-color">DP</span>
                     </a>
                     
-                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">字符串</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -974,7 +993,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">344.1k</span>&nbsp;字
+                class="white-color">347.5k</span>&nbsp;字
             
             
             
