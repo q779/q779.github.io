@@ -472,27 +472,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2424-约数和-题解"><a href="#洛谷P2424-约数和-题解" class="headerlink" title="洛谷P2424 约数和 题解"></a>洛谷P2424 约数和 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2424">P2424 约数和</a></p>
+                <h1 id="洛谷p2424-约数和-题解">洛谷P2424 约数和 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2424">P2424
+约数和</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于一个数 $X$，函数 $f(X)$ 表示 $X$ 所有约数的和。例如：$f(6)=1+2+3+6=12$。对于一个 $X$，Smart 可以很快的算出 $f(X)$。现在的问题是，给定两个正整数 $X,Y(X&lt;Y)$，Smart 希望尽快地算出 $f(X)+f(X+1)+\dots +f(Y)$的值，你能帮助 Smart 算出这个值吗？</p>
-<p>对于 $100\%$ 的数据有 $1\leq X&lt;Y\leq 2\times 10^9$。</p>
+<p>对于一个数 <span class="math inline">\(X\)</span>，函数 <span
+class="math inline">\(f(X)\)</span> 表示 <span
+class="math inline">\(X\)</span> 所有约数的和。例如：<span
+class="math inline">\(f(6)=1+2+3+6=12\)</span>。对于一个 <span
+class="math inline">\(X\)</span>，Smart 可以很快的算出 <span
+class="math inline">\(f(X)\)</span>。现在的问题是，给定两个正整数 <span
+class="math inline">\(X,Y(X&lt;Y)\)</span>，Smart 希望尽快地算出 <span
+class="math inline">\(f(X)+f(X+1)+\dots +f(Y)\)</span>的值，你能帮助
+Smart 算出这个值吗？</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据有 <span
+class="math inline">\(1\leq X&lt;Y\leq 2\times 10^9\)</span>。</p>
 </blockquote>
-<p>设 $f(n) = \sum_{i=1}^{n} g(i)$ </p>
-<p>其中 $g(i)$ 表示 $i$ 的约数个数和</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f(n) = \sum_{i=1}^{n}
+g(i)\)</span></p>
+<p>其中 <span class="math inline">\(g(i)\)</span> 表示 <span
+class="math inline">\(i\)</span> 的约数个数和 <span
+class="math display">\[
 \begin{aligned}
-f(n) &= \sum_{i=1}^{n} \sum_{j \mid i}^{n} j
-\end{aligned}</script><p>变换枚举顺序</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^{n}j\sum_{i=1}^{n} [j \mid i]</script><p>不难发现，$\sum_{i=1}^{n} [j \mid i]$ 其实就是求 $1$ 到 $n$ 中包含约束 $j$ 的数的数量，则</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^{n} j \left\lfloor\frac{n}{j}\right\rfloor</script><p>也就是</p>
-<script type="math/tex; mode=display">
-f(n) = \sum_{i=1}^{n} i \left\lfloor\frac{n}{i}\right\rfloor</script><p>然后就是数论分块板子了 awa，答案就是 $f(r)-f(l-1)$</p>
-<p>这里前缀和是 $\sum_{i=l}^{r} = \dfrac{1}{2}(l+r)\times(r-l+1)$ </p>
+f(n) &amp;= \sum_{i=1}^{n} \sum_{j \mid i}^{n} j
+\end{aligned}
+\]</span> 变换枚举顺序 <span class="math display">\[
+\sum_{j=1}^{n}j\sum_{i=1}^{n} [j \mid i]
+\]</span> 不难发现，<span class="math inline">\(\sum_{i=1}^{n} [j \mid
+i]\)</span> 其实就是求 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span> 中包含约束 <span
+class="math inline">\(j\)</span> 的数的数量，则 <span
+class="math display">\[
+\sum_{j=1}^{n} j \left\lfloor\frac{n}{j}\right\rfloor
+\]</span> 也就是 <span class="math display">\[
+f(n) = \sum_{i=1}^{n} i \left\lfloor\frac{n}{i}\right\rfloor
+\]</span> 然后就是数论分块板子了 awa，答案就是 <span
+class="math inline">\(f(r)-f(l-1)\)</span></p>
+<p>这里前缀和是 <span class="math inline">\(\sum_{i=l}^{r} =
+\dfrac{1}{2}(l+r)\times(r-l+1)\)</span></p>
 <p><del>有没有一种可能，我居然差点忘了这个前缀和是怎么算的</del></p>
-<p>时间复杂度 $O(\sqrt{n})$</p>
+<p>时间复杂度 <span class="math inline">\(O(\sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -895,7 +915,7 @@ f(n) = \sum_{i=1}^{n} i \left\lfloor\frac{n}{i}\right\rfloor</script><p>然后�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">350.7k</span>&nbsp;字
+                class="white-color">356.6k</span>&nbsp;字
             
             
             
