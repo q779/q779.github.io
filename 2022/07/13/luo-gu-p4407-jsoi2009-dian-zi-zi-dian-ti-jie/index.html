@@ -293,7 +293,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p151.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p137.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -476,87 +476,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4407-jsoi2009-电子字典-题解">洛谷P4407 [JSOI2009] 电子字典
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4407">P4407
-[JSOI2009] 电子字典</a></p>
+                <h1 id="洛谷P4407-JSOI2009-电子字典-题解"><a href="#洛谷P4407-JSOI2009-电子字典-题解" class="headerlink" title="洛谷P4407 [JSOI2009] 电子字典 题解"></a>洛谷P4407 [JSOI2009] 电子字典 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4407">P4407 [JSOI2009] 电子字典</a></p>
 <blockquote>
-<p><strong>题意</strong>：人们在英文字典中查找某个单词的时候可能不知道该单词的完整拼法，而只知道该单词的一个错误的近似拼法，这时人们可能陷入困境，为了查找一个单词而浪费大量的时间。带有模糊查询功能的电子字典能够从一定程度上解决这一问题：用户只要输入一个字符串，电子字典就返回与该单词编辑距离最小的几个单词供用户选择。</p>
-<p>字符串a与字符串 <span class="math inline">\(b\)</span>
-的编辑距离是指：允许对 <span class="math inline">\(a\)</span> 或 <span
-class="math inline">\(b\)</span> 串进行下列“编辑”操作，将 <span
-class="math inline">\(a\)</span> 变为 <span
-class="math inline">\(b\)</span> 或 <span
-class="math inline">\(b\)</span> 变为 <span
-class="math inline">\(a\)</span> ，最少“编辑”次数即为距离。</p>
-<ol type="1">
+<p><strong>题意</strong>：人们在英文字典中查找某个单词的时候可能不知道该单词的完整拼法，而只知道该单词的一个错误的近似拼法，这时人们可能陷入困境，为了查找一个单词而浪费大量的时间。带有模糊查询功能的电子字典能够从一定程度上解决这一问题：用户只要输入一个字符串，电子字典就返回与该单词编辑距离最小的几个单词供用户选择。   </p>
+<p>字符串a与字符串 $b$ 的编辑距离是指：允许对 $a$ 或 $b$ 串进行下列“编辑”操作，将 $a$ 变为 $b$ 或 $b$ 变为 $a$ ，最少“编辑”次数即为距离。</p>
+<ol>
 <li>删除串中某个位置的字母；</li>
 <li>添加一个字母到串中某个位置；</li>
 <li>替换串中某一位置的一个字母为另一个字母；</li>
 </ol>
-<p>给定 <span class="math inline">\(n\)</span> 个不同的单词，<span
-class="math inline">\(m\)</span>
-次询问，对于一个待查询字符串，如果它是单词，则返回 <span
-class="math inline">\(-1\)</span>；如果它不是单词，则返回字典中有多少个单词与它的编辑距离为
-<span class="math inline">\(1\)</span> 。</p>
-<p><span class="math inline">\(n,m \le 10,000\)</span> ，每个单词长度
-<span class="math inline">\(\le 20\)</span> ，每个待查询字符串长度 <span
-class="math inline">\(\le 20\)</span></p>
+<p>给定 $n$ 个不同的单词，$m$ 次询问，对于一个待查询字符串，如果它是单词，则返回 $-1$；如果它不是单词，则返回字典中有多少个单词与它的编辑距离为 $1$ 。</p>
+<p> $n,m \le 10,000$ ，每个单词长度 $\le 20$ ，每个待查询字符串长度 $\le 20$ </p>
 </blockquote>
-<p>首先建 <span class="math inline">\(\tt{trie}\)</span>
-树很容易想到</p>
-<p>注意到这个数据范围很小，尝试在 <span
-class="math inline">\(\tt{trie}\)</span> 树上暴搜。</p>
+<p>首先建 $\tt{trie}$ 树很容易想到</p>
+<p>注意到这个数据范围很小，尝试在 $\tt{trie}$ 树上暴搜。</p>
 <p>显然我们需要记录的状态有：</p>
-<ol type="1">
-<li>当前所在结点 <span class="math inline">\(u\)</span></li>
-<li>当前枚举的字符串长度 <span class="math inline">\(l\)</span>
-（实际上并不完全是，只是判断长度用的）</li>
-<li>是否使用修改 <span class="math inline">\(\text{ck}=0/1\)</span> （
-<span class="math inline">\(0\)</span> 表示没有使用修改）</li>
+<ol>
+<li>当前所在结点 $u$ </li>
+<li>当前枚举的字符串长度 $l$ （实际上并不完全是，只是判断长度用的）</li>
+<li>是否使用修改 $\text{ck}=0/1$ （ $0$ 表示没有使用修改）</li>
 </ol>
 <p><strong>下面是算法分析，比较抽象，建议直接看代码。</strong>（<del>所以为什么我要写</del></p>
-<p>方便起见，记当前字符为 <span class="math inline">\(s_l\)</span></p>
-<p>当 <span class="math inline">\(\text{ck}=1\)</span> 时，如果 <span
-class="math inline">\(u\)</span> 存在字符为 <span
-class="math inline">\(s_l\)</span> 的子结点，直接搜。</p>
-<p>当 <span class="math inline">\(\text{ck}=0\)</span>
-时，除了搜子结点，还需要考虑每个操作的处理</p>
+<p>方便起见，记当前字符为 $s_l$ </p>
+<p>当 $\text{ck}=1$ 时，如果 $u$ 存在字符为 $s_l$ 的子结点，直接搜。</p>
+<p>当 $\text{ck}=0$ 时，除了搜子结点，还需要考虑每个操作的处理</p>
 <ul>
-<li>操作1：删除某个字符。直接搜 <span class="math inline">\(l+1\)</span>
-就好了</li>
-<li>操作2：增加某个字符。直接枚举字符，搜 <span
-class="math inline">\(l\)</span> 就好了</li>
-<li>操作3：替换某个字符。枚举一个不同于 <span
-class="math inline">\(s_{l+1}\)</span> 的字符，搜 <span
-class="math inline">\(l+1\)</span></li>
+<li>操作1：删除某个字符。直接搜 $l+1$ 就好了</li>
+<li>操作2：增加某个字符。直接枚举字符，搜 $l$ 就好了</li>
+<li>操作3：替换某个字符。枚举一个不同于 $s_{l+1}$ 的字符，搜 $l+1$ </li>
 </ul>
 <p><strong>注意去重！！！！</strong></p>
-<p>因为 <span class="math inline">\(\tt{abc}\)</span> 在 <span
-class="math inline">\(\tt{a}\)</span> 前后增加一个 <span
-class="math inline">\(\tt{a}\)</span> ，都会变成 <span
-class="math inline">\(\tt{aabc}\)</span> ！！！</p>
+<p>因为 $\tt{abc}$ 在 $\tt{a}$ 前后增加一个 $\tt{a}$ ，都会变成 $\tt{aabc}$ ！！！</p>
 <p><strong>时间复杂度分析</strong></p>
 <p>比较有趣。</p>
-<p>对于一个长度为 <span class="math inline">\(20\)</span>
-的串，思考我们至多枚举了多少修改串</p>
-<p>一共有 <span class="math inline">\(21\)</span>
-个位置可添加字符，<span class="math inline">\(20\)</span>
-个字符可替换，<span class="math inline">\(20\)</span> 个字符可删除，则
-<span class="math display">\[
-(21+20) \times 26 + 20 = 1086
-\]</span> <span class="math inline">\(\tt{trie}\)</span> 树树高至多在
-<span class="math inline">\(20\)</span> ，<span
-class="math inline">\(m\le 10^4\)</span></p>
-<p>则粗略算一下，计算量为 <span class="math display">\[
-1086 \times 2\times 10^5 = 2.172\times 10^8
-\]</span> 当然这个估计显然是过于大了。</p>
+<p>对于一个长度为 $20$ 的串，思考我们至多枚举了多少修改串</p>
+<p>一共有 $21$ 个位置可添加字符，$20$ 个字符可替换，$20$ 个字符可删除，则</p>
+<script type="math/tex; mode=display">
+(21+20) \times 26 + 20 = 1086</script><p>$\tt{trie}$ 树树高至多在 $20$ ，$m\le 10^4$ </p>
+<p>则粗略算一下，计算量为</p>
+<script type="math/tex; mode=display">
+1086 \times 2\times 10^5 = 2.172\times 10^8</script><p>当然这个估计显然是过于大了。</p>
 <p>因为很多枚举的修改串拥有相同前缀</p>
-<p>也就是说，这些串并不是每个都要从上到下跑 <span
-class="math inline">\(\tt{trie}\)</span> 树的</p>
+<p>也就是说，这些串并不是每个都要从上到下跑 $\tt{trie}$ 树的</p>
 <p>而且我们有很多的修改串会被剪掉，这样看来完全可过</p>
-<p>强行写个时间复杂度，那可能是 <span
-class="math inline">\(O(\max\{s_i\}\times\sum |s_i|^2)\)</span> 吧</p>
+<p>强行写个时间复杂度，那可能是 $O(\max\{s_i\}\times\sum |s_i|^2)$ 吧</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -758,7 +721,7 @@ string s<span class="token punctuation">;</span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p130.jpg" class="responsive-img" alt="洛谷P3966 [TJOI2013]单词 题解">
+                        <img src="/medias/featureimages/p91.png" class="responsive-img" alt="洛谷P3966 [TJOI2013]单词 题解">
                         
                         <span class="card-title">洛谷P3966 [TJOI2013]单词 题解</span>
                     </div>
@@ -811,7 +774,7 @@ string s<span class="token punctuation">;</span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p81.png" class="responsive-img" alt="洛谷P2922 [USACO08DEC]Secret Message G 题解">
+                        <img src="/medias/featureimages/p198.jpg" class="responsive-img" alt="洛谷P2922 [USACO08DEC]Secret Message G 题解">
                         
                         <span class="card-title">洛谷P2922 [USACO08DEC]Secret Message G 题解</span>
                     </div>
@@ -1002,7 +965,7 @@ string s<span class="token punctuation">;</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">386.7k</span>&nbsp;字
+                class="white-color">385.9k</span>&nbsp;字
             
             
             
@@ -1266,21 +1229,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
