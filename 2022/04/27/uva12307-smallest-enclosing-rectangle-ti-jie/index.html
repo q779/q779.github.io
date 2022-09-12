@@ -476,57 +476,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="uva12307-smallest-enclosing-rectangle-题解">UVA12307 Smallest
-Enclosing Rectangle 题解</h1>
-<p><strong>upd.20220429</strong>
-由于q779太菜，导致代码出了点锅，已经重新修改</p>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA12307">UVA12307 Smallest
-Enclosing Rectangle</a></p>
+                <h1 id="UVA12307-Smallest-Enclosing-Rectangle-题解"><a href="#UVA12307-Smallest-Enclosing-Rectangle-题解" class="headerlink" title="UVA12307 Smallest Enclosing Rectangle 题解"></a>UVA12307 Smallest Enclosing Rectangle 题解</h1><p><strong>upd.20220429</strong> 由于q779太菜，导致代码出了点锅，已经重新修改</p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA12307">UVA12307 Smallest Enclosing Rectangle</a></p>
 <blockquote>
-<p><strong>题意</strong>：多组数据，给定平面上的 <span
-class="math inline">\(n\)</span>
-个点，<strong>分别求出</strong>周长最小、面积最小的矩形，使得所有的点均被矩形覆盖</p>
-<p>数据范围： <span class="math inline">\(3\le n \le 10^5\)</span>
-，<span class="math inline">\(-10^5 \le x,y \le 10^5\)</span></p>
+<p><strong>题意</strong>：多组数据，给定平面上的 $n$ 个点，<strong>分别求出</strong>周长最小、面积最小的矩形，使得所有的点均被矩形覆盖</p>
+<p>数据范围： $3\le n \le 10^5$ ，$-10^5 \le x,y \le 10^5$ </p>
 </blockquote>
-<p>看到本题，容易想到 <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3187">P3187</a></p>
+<p>看到本题，容易想到 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3187">P3187</a> </p>
 <p>解法是旋转卡壳</p>
 <p>要求的是矩形，因此考虑维护三个点：</p>
-<p><span class="math inline">\(a\)</span> 代表当前枚举直线对面的边</p>
-<p><span class="math inline">\(b\)</span>
-代表当前枚举直线右侧最远的点</p>
-<p><span class="math inline">\(c\)</span>
-代表当前枚举直线左侧最远的点</p>
+<p>$a$ 代表当前枚举直线对面的边</p>
+<p>$b$ 代表当前枚举直线右侧最远的点</p>
+<p>$c$ 代表当前枚举直线左侧最远的点</p>
 <p>如下图所示</p>
-<figure>
-<img
-src="https://img-blog.csdnimg.cn/6d467a49210c4708820c299b5520cd3f.png#pic_center"
-alt="在这里插入图片描述" />
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
-<p>其中，<span class="math inline">\(a\)</span> 使用叉积比较，<span
-class="math inline">\(b,c\)</span> 则使用点积比较</p>
-<p>方便起见，我们称当前的底边长为 <span
-class="math inline">\(\text{T}\)</span> （即图中的q[1]到q[2]）</p>
-<p>可以发现 <span class="math inline">\(\text{T =
-L}+\text{R}-\text{d}\)</span></p>
-<p><span class="math inline">\(\text{L}\)</span> 表示向量 <span
-class="math inline">\(s_i\to c\)</span> 在 <span
-class="math inline">\(\text{T}\)</span> 上投影向量的模长</p>
-<p><span class="math inline">\(\text{R}\)</span> 表示向量 <span
-class="math inline">\(s_{i-1} \to b\)</span> 在 <span
-class="math inline">\(\text{T}\)</span> 上投影向量的模长</p>
-<p><span class="math inline">\(\text{d}\)</span> 表示向量 <span
-class="math inline">\(s_{i-1}\to s_i\)</span>
-的模长（即图中的绿色段）</p>
+<p><img src="https://img-blog.csdnimg.cn/6d467a49210c4708820c299b5520cd3f.png#pic_center" alt="在这里插入图片描述"></p>
+<p>其中，$a$ 使用叉积比较，$b,c$ 则使用点积比较</p>
+<p>方便起见，我们称当前的底边长为 $\text{T}$ （即图中的q[1]到q[2]）</p>
+<p>可以发现 $\text{T = L}+\text{R}-\text{d}$</p>
+<p>$\text{L}$ 表示向量 $s_i\to c$ 在 $\text{T}$ 上投影向量的模长</p>
+<p>$\text{R}$ 表示向量 $s_{i-1} \to b$ 在 $\text{T}$ 上投影向量的模长</p>
+<p>$\text{d}$ 表示向量 $s_{i-1}\to s_i$ 的模长（即图中的绿色段）  </p>
 <p>那么面积就可以计算出来了</p>
 <p>关于周长的计算</p>
 <p>通过向量旋转和数乘运算来求出矩形的四个顶点坐标</p>
 <p>然后直接用两点距离公式计算即可</p>
 <p>因为周长和面积不一定同时最小，所以只要两个都分别<code>fmin</code>一下就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(n\log n)\)</span></p>
+<p>时间复杂度 $O(n\log n)$ </p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -630,9 +605,7 @@ vct <span class="token function">rot</span><span class="token punctuation">(</sp
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><del>友情提醒：多测不清空，爆零两行泪！</del></p>
-<p>部分参考了 <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user18431/solution-p3187">这篇博客</a>
-的写法，但是他写的那个挂了，会出现除以0的情况</p>
+<p>部分参考了 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user18431/solution-p3187">这篇博客</a> 的写法，但是他写的那个挂了，会出现除以0的情况</p>
 <p><del>代码确实蛮难写的，这道题我研究了一整天才搞出来</del> QAQ</p>
 
                 
@@ -1006,7 +979,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user18431/sol
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">395.3k</span>&nbsp;字
+                class="white-color">392.6k</span>&nbsp;字
             
             
             
@@ -1270,6 +1243,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
