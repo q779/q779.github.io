@@ -472,10 +472,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1410-子序列-题解"><a href="#洛谷P1410-子序列-题解" class="headerlink" title="洛谷P1410 子序列 题解"></a>洛谷P1410 子序列 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1410">P1410 子序列</a></p>
+                <h1 id="洛谷p1410-子序列-题解">洛谷P1410 子序列 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1410">P1410
+子序列</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 $N$（$N$ 为偶数）的序列，问能否将其划分为两个长度为 $N / 2$ 的严格递增子序列。</p>
+<p>给定一个长度为 <span class="math inline">\(N\)</span>（<span
+class="math inline">\(N\)</span>
+为偶数）的序列，问能否将其划分为两个长度为 <span class="math inline">\(N
+/ 2\)</span> 的严格递增子序列。</p>
 <p><strong>【数据范围】</strong></p>
 <p>共三组数据，每组数据行数&lt;=50，0 &lt;= 输入的所有数 &lt;= 10^9</p>
 <p>第一组(30%)：N &lt;= 20</p>
@@ -483,21 +488,41 @@
 <p>第三组(40%)：N &lt;= 2000</p>
 </blockquote>
 <p>首先可以有个原始的思路</p>
-<p>设 $f_{i,j,k}$ 表示前 $i$ 位，以 $i$ 结尾的上升子序列长度为 $j$ ，另一个上升子序列以 $k$ 结尾是否可行。</p>
+<p>设 <span class="math inline">\(f_{i,j,k}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 位，以 <span
+class="math inline">\(i\)</span> 结尾的上升子序列长度为 <span
+class="math inline">\(j\)</span> ，另一个上升子序列以 <span
+class="math inline">\(k\)</span> 结尾是否可行。</p>
 <p>如果仅仅用是否可行去做，比较浪费。</p>
-<p>注意到我们一定希望 $a_k$ 尽可能小，这个很好用dp去算</p>
-<p>考虑把 $k$ 这一维去掉，移到 $f$ 里让它算。</p>
-<p>设 $f_{i,j}$ 表示以 $i$ 结尾的上升子序列长度为 $j$ ，不以 $i$ 结尾的另一条上升子序列的结尾的最小值。</p>
-<p>如果 $a_i &lt; a_{i+1}$ ，那么 $a_{i+1}$ 可以被加入以 $i$ 结尾的上升子序列</p>
-<script type="math/tex; mode=display">
-f_{i+1,j+1}=\min\{f_{i+1,j+1},f_{i,j}\}</script><p>如果 $f_{i,j}&lt;a_{i+1}$ ，那么 $a_{i+1}$ 可以被加入不以 $i$ 结尾的上升子序列</p>
-<p>注意此时如果加入不以 $i$ 结尾的上升子序列更优的话，</p>
+<p>注意到我们一定希望 <span class="math inline">\(a_k\)</span>
+尽可能小，这个很好用dp去算</p>
+<p>考虑把 <span class="math inline">\(k\)</span> 这一维去掉，移到 <span
+class="math inline">\(f\)</span> 里让它算。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示以 <span
+class="math inline">\(i\)</span> 结尾的上升子序列长度为 <span
+class="math inline">\(j\)</span> ，不以 <span
+class="math inline">\(i\)</span>
+结尾的另一条上升子序列的结尾的最小值。</p>
+<p>如果 <span class="math inline">\(a_i &lt; a_{i+1}\)</span> ，那么
+<span class="math inline">\(a_{i+1}\)</span> 可以被加入以 <span
+class="math inline">\(i\)</span> 结尾的上升子序列 <span
+class="math display">\[
+f_{i+1,j+1}=\min\{f_{i+1,j+1},f_{i,j}\}
+\]</span> 如果 <span class="math inline">\(f_{i,j}&lt;a_{i+1}\)</span>
+，那么 <span class="math inline">\(a_{i+1}\)</span> 可以被加入不以 <span
+class="math inline">\(i\)</span> 结尾的上升子序列</p>
+<p>注意此时如果加入不以 <span class="math inline">\(i\)</span>
+结尾的上升子序列更优的话，</p>
 <ul>
-<li>不以 $i$ 结尾的那个子序列变成了以 $i+1$ 结尾的子序列</li>
-<li>以 $i$ 结尾的那个子序列变成了不以 $i+1$ 结尾的子序列</li>
+<li>不以 <span class="math inline">\(i\)</span> 结尾的那个子序列变成了以
+<span class="math inline">\(i+1\)</span> 结尾的子序列</li>
+<li>以 <span class="math inline">\(i\)</span> 结尾的那个子序列变成了不以
+<span class="math inline">\(i+1\)</span> 结尾的子序列</li>
 </ul>
-<script type="math/tex; mode=display">
-f_{i+1,i-j+1}=\min\{f_{i+1,i-j+1},a_i\}</script><p>时间复杂度 $O(Qn^2)$ </p>
+<p><span class="math display">\[
+f_{i+1,i-j+1}=\min\{f_{i+1,i-j+1},a_i\}
+\]</span></p>
+<p>时间复杂度 <span class="math inline">\(O(Qn^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -915,7 +940,7 @@ f_{i+1,i-j+1}=\min\{f_{i+1,i-j+1},a_i\}</script><p>时间复杂度 $O(Qn^2)$ </p
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">385.9k</span>&nbsp;字
+                class="white-color">394.5k</span>&nbsp;字
             
             
             

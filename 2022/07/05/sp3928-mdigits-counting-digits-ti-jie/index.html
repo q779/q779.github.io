@@ -472,33 +472,73 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP3928-MDIGITS-Counting-Digits-题解"><a href="#SP3928-MDIGITS-Counting-Digits-题解" class="headerlink" title="SP3928 MDIGITS - Counting Digits 题解"></a>SP3928 MDIGITS - Counting Digits 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP3928">SP3928 MDIGITS - Counting Digits</a></p>
+                <h1 id="sp3928-mdigits---counting-digits-题解">SP3928 MDIGITS - Counting
+Digits 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP3928">SP3928
+MDIGITS - Counting Digits</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个整数 $a$ 和 $b$，求 $a$ 和 $b$ 之间的所有数字中 $0$ ~ $9$ 出现次数。</p>
-<p>例如，$a$ = $1024$，$b$ = $1032$，则 $a$ 和 $b$ 之间共有 $9$ 个数如下：</p>
+<p>给定两个整数 <span class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>，求 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span> 之间的所有数字中 <span
+class="math inline">\(0\)</span> ~ <span
+class="math inline">\(9\)</span> 出现次数。</p>
+<p>例如，<span class="math inline">\(a\)</span> = <span
+class="math inline">\(1024\)</span>，<span
+class="math inline">\(b\)</span> = <span
+class="math inline">\(1032\)</span>，则 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span> 之间共有 <span
+class="math inline">\(9\)</span> 个数如下：</p>
 <p><code>1024 1025 1026 1027 1028 1029 1030 1031 1032</code></p>
-<p>其中 <code>0</code> 出现 $10$ 次，<code>1</code> 出现 $10$ 次，<code>2</code> 出现 $7$ 次，<code>3</code> 出现 $3$ 次等等……</p>
+<p>其中 <code>0</code> 出现 <span class="math inline">\(10\)</span>
+次，<code>1</code> 出现 <span class="math inline">\(10\)</span>
+次，<code>2</code> 出现 <span class="math inline">\(7\)</span>
+次，<code>3</code> 出现 <span class="math inline">\(3\)</span>
+次等等……</p>
 </blockquote>
 <p>数位dp的基础题</p>
-<p>设 $f_i$ 表示满 $i$ 位数字（包括前导零），每种数字的出现次数</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f_i\)</span> 表示满 <span
+class="math inline">\(i\)</span>
+位数字（包括前导零），每种数字的出现次数 <span class="math display">\[
 f_1 = 1
-\\f_i = f_{i-1} \times 10 +  10^{i-1}</script><p>其中 $f_{i-1}\times 10$ 是 $i-1$ 位及以下位的贡献</p>
-<p>例如 $\tt{7000\sim7999,~8000\sim8999}$</p>
-<p>显然 $\tt{000\sim999}$出现了 $10$ 次</p>
-<p>而 $10^{i-1}$ 是第 $i$ 位的贡献，比如 $\tt{9000 \sim 9999}$ ，第 $4$ 位的 $\tt{9}$ 出现了 $10^3$ 次</p>
-<p> 然后我们再考虑怎么获得答案</p>
-<p>首先 $[l,r]$ 可以拆分为 $[0,l-1],~[0,r]$ 两个询问（基本的容斥）</p>
-<p>然后考虑一个数 $\tt{\overline{ABC}}$ ，不难发现，$\tt{0}$ 到 $\tt{\overline{A00}}$ 每个非最高位数都出现了 $\tt{A}$ $\times f_2$ 次</p>
-<p>而最高位 $\tt{0\sim A-1}$ 都各出现了 $10^2$ 次</p>
-<p>注：这里 $\tt 0$ 是前导零，所以其实不会算进去，这里只是为了方便分析</p>
-<p>那么 $\tt{A}$ 呢？不难发现它出现了 $\tt{\overline{BC}+1}$ 次</p>
-<p>对于 $\tt{B}$ ，同样的处理方式。</p>
+\\f_i = f_{i-1} \times 10 +  10^{i-1}
+\]</span> 其中 <span class="math inline">\(f_{i-1}\times 10\)</span> 是
+<span class="math inline">\(i-1\)</span> 位及以下位的贡献</p>
+<p>例如 <span
+class="math inline">\(\tt{7000\sim7999,~8000\sim8999}\)</span></p>
+<p>显然 <span class="math inline">\(\tt{000\sim999}\)</span>出现了 <span
+class="math inline">\(10\)</span> 次</p>
+<p>而 <span class="math inline">\(10^{i-1}\)</span> 是第 <span
+class="math inline">\(i\)</span> 位的贡献，比如 <span
+class="math inline">\(\tt{9000 \sim 9999}\)</span> ，第 <span
+class="math inline">\(4\)</span> 位的 <span
+class="math inline">\(\tt{9}\)</span> 出现了 <span
+class="math inline">\(10^3\)</span> 次</p>
+<p>然后我们再考虑怎么获得答案</p>
+<p>首先 <span class="math inline">\([l,r]\)</span> 可以拆分为 <span
+class="math inline">\([0,l-1],~[0,r]\)</span> 两个询问（基本的容斥）</p>
+<p>然后考虑一个数 <span
+class="math inline">\(\tt{\overline{ABC}}\)</span> ，不难发现，<span
+class="math inline">\(\tt{0}\)</span> 到 <span
+class="math inline">\(\tt{\overline{A00}}\)</span>
+每个非最高位数都出现了 <span class="math inline">\(\tt{A}\)</span> <span
+class="math inline">\(\times f_2\)</span> 次</p>
+<p>而最高位 <span class="math inline">\(\tt{0\sim A-1}\)</span>
+都各出现了 <span class="math inline">\(10^2\)</span> 次</p>
+<p>注：这里 <span class="math inline">\(\tt 0\)</span>
+是前导零，所以其实不会算进去，这里只是为了方便分析</p>
+<p>那么 <span class="math inline">\(\tt{A}\)</span> 呢？不难发现它出现了
+<span class="math inline">\(\tt{\overline{BC}+1}\)</span> 次</p>
+<p>对于 <span class="math inline">\(\tt{B}\)</span>
+，同样的处理方式。</p>
 <p><del>怎么一股机翻的味道</del></p>
 <p>然后我们就搞定这道题了</p>
-<p>时间复杂度 $O(Qlb)$ </p>
-<p>其中 $l$ 表示最大位数， $b$ 表示进制，这题里为 $10$ </p>
+<p>时间复杂度 <span class="math inline">\(O(Qlb)\)</span></p>
+<p>其中 <span class="math inline">\(l\)</span> 表示最大位数， <span
+class="math inline">\(b\)</span> 表示进制，这题里为 <span
+class="math inline">\(10\)</span></p>
 <p>代码：（非dfs写法）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -932,7 +972,7 @@ f_1 = 1
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">385.9k</span>&nbsp;字
+                class="white-color">394.5k</span>&nbsp;字
             
             
             

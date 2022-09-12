@@ -472,31 +472,54 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="POJ2976-Dropping-tests-题解"><a href="#POJ2976-Dropping-tests-题解" class="headerlink" title="POJ2976 Dropping tests 题解"></a>POJ2976 Dropping tests 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="http://poj.org/problem?id=2976">POJ2976 Dropping tests</a></p>
+                <h1 id="poj2976-dropping-tests-题解">POJ2976 Dropping tests 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="http://poj.org/problem?id=2976">POJ2976 Dropping
+tests</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p><strong>Description</strong></p>
-<p>In a certain course, you take <em>n</em> tests. If you get <em>ai</em> out of <em>bi</em> questions correct on test <em>i</em>, your cumulative average is defined to be</p>
-<p><img src="http://poj.org/images/2976_1.gif" alt="">.</p>
-<p>Given your test scores and a positive integer <em>k</em>, determine how high you can make your cumulative average if you are allowed to drop any <em>k</em> of your test scores.</p>
-<p>Suppose you take 3 tests with scores of 5/5, 0/1, and 2/6. Without dropping any tests, your cumulative average is <img src="http://poj.org/images/2976_3.gif" alt="">. However, if you drop the third test, your cumulative average becomes <img src="http://poj.org/images/2976_2.gif" alt="">.</p>
+<p>In a certain course, you take <em>n</em> tests. If you get
+<em>ai</em> out of <em>bi</em> questions correct on test <em>i</em>,
+your cumulative average is defined to be</p>
+<p><img src="http://poj.org/images/2976_1.gif" />.</p>
+<p>Given your test scores and a positive integer <em>k</em>, determine
+how high you can make your cumulative average if you are allowed to drop
+any <em>k</em> of your test scores.</p>
+<p>Suppose you take 3 tests with scores of 5/5, 0/1, and 2/6. Without
+dropping any tests, your cumulative average is <img
+src="http://poj.org/images/2976_3.gif" />. However, if you drop the
+third test, your cumulative average becomes <img
+src="http://poj.org/images/2976_2.gif" />.</p>
 <p><strong>Input</strong></p>
-<p>The input test file will contain multiple test cases, each containing exactly three lines. The first line contains two integers, 1 ≤ <em>n</em> ≤ 1000 and 0 ≤ <em>k</em> &lt; <em>n</em>. The second line contains <em>n</em> integers indicating <em>ai</em> for all <em>i</em>. The third line contains <em>n</em> positive integers indicating <em>bi</em> for all <em>i</em>. It is guaranteed that 0 ≤ <em>ai</em> ≤ <em>bi</em> ≤ 1, 000, 000, 000. The end-of-file is marked by a test case with <em>n</em> = <em>k</em> = 0 and should not be processed.</p>
+<p>The input test file will contain multiple test cases, each containing
+exactly three lines. The first line contains two integers, 1 ≤
+<em>n</em> ≤ 1000 and 0 ≤ <em>k</em> &lt; <em>n</em>. The second line
+contains <em>n</em> integers indicating <em>ai</em> for all <em>i</em>.
+The third line contains <em>n</em> positive integers indicating
+<em>bi</em> for all <em>i</em>. It is guaranteed that 0 ≤ <em>ai</em> ≤
+<em>bi</em> ≤ 1, 000, 000, 000. The end-of-file is marked by a test case
+with <em>n</em> = <em>k</em> = 0 and should not be processed.</p>
 <p><strong>Output</strong></p>
-<p>For each test case, write a single line with the highest cumulative average possible after dropping <em>k</em> of the given test scores. The average should be rounded to the nearest integer.</p>
+<p>For each test case, write a single line with the highest cumulative
+average possible after dropping <em>k</em> of the given test scores. The
+average should be rounded to the nearest integer.</p>
 </blockquote>
 <p>经典的01分数规划问题</p>
-<p>注意到题目要求的就是选 $n-k$ 个物品使得</p>
-<script type="math/tex; mode=display">
-\sum a_i \times \dfrac{1}{\sum b_i}</script><p>尽可能的大</p>
-<p>不妨假设</p>
-<script type="math/tex; mode=display">
-\sum a_i \times \dfrac{1}{\sum b_i} \ge x</script><p>移项可得</p>
-<script type="math/tex; mode=display">
-\sum a_i - x \sum b_i \ge 0</script><p>于是可以二分一个 $x$ </p>
-<p>每次暴力检验 $ps[i] = a_i - xb_i$ </p>
-<p>注意要排个序然后取最大的 $n-k$ 个 $ps[i]$ </p>
-<p>时间复杂度 $O(\log_2 10^6 \times Q n \log n)$</p>
+<p>注意到题目要求的就是选 <span class="math inline">\(n-k\)</span>
+个物品使得 <span class="math display">\[
+\sum a_i \times \dfrac{1}{\sum b_i}
+\]</span> 尽可能的大</p>
+<p>不妨假设 <span class="math display">\[
+\sum a_i \times \dfrac{1}{\sum b_i} \ge x
+\]</span> 移项可得 <span class="math display">\[
+\sum a_i - x \sum b_i \ge 0
+\]</span> 于是可以二分一个 <span class="math inline">\(x\)</span></p>
+<p>每次暴力检验 <span class="math inline">\(ps[i] = a_i -
+xb_i\)</span></p>
+<p>注意要排个序然后取最大的 <span class="math inline">\(n-k\)</span> 个
+<span class="math inline">\(ps[i]\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(\log_2 10^6 \times Q n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -924,7 +947,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">385.9k</span>&nbsp;字
+                class="white-color">394.5k</span>&nbsp;字
             
             
             
