@@ -472,36 +472,62 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF578D-LCS-Again-题解"><a href="#CF578D-LCS-Again-题解" class="headerlink" title="CF578D LCS Again 题解"></a>CF578D LCS Again 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF578D">CF578D LCS Again</a></p>
+                <h1 id="cf578d-lcs-again-题解">CF578D LCS Again 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF578D">CF578D
+LCS Again</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个字符串 $S$，求有多少个与 $S$ 等长字符串 $T$，满足 $\mathrm{LCS}(S,T)=|S|-1$，其中 $S,T$ 只包含前 $m$ 个小写字母。</p>
+<p>给定一个字符串 <span class="math inline">\(S\)</span>，求有多少个与
+<span class="math inline">\(S\)</span> 等长字符串 <span
+class="math inline">\(T\)</span>，满足 <span
+class="math inline">\(\mathrm{LCS}(S,T)=|S|-1\)</span>，其中 <span
+class="math inline">\(S,T\)</span> 只包含前 <span
+class="math inline">\(m\)</span> 个小写字母。</p>
 <p>LCS（最长公共子序列）</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包括两个数字 $n$ 和 $m$，第二行是给定的字符串 $S$。</p>
+<p>第一行包括两个数字 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(m\)</span>，第二行是给定的字符串 <span
+class="math inline">\(S\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数表示答案。</p>
 </blockquote>
 <p>一眼hash，然后发现假了。。。</p>
-<p>这里就讲讲<strong>dp套dp</strong>解法，其他解法可以看<a target="_blank" rel="noopener" href="https://szmssf.blog.luogu.org/solution-cf578d">这篇博客</a></p>
+<p>这里就讲讲<strong>dp套dp</strong>解法，其他解法可以看<a
+target="_blank" rel="noopener" href="https://szmssf.blog.luogu.org/solution-cf578d">这篇博客</a></p>
 <p>考虑经典的LCS（最长公共子序列）</p>
-<p>$f_{i,j}$ 表示第一个串前 $i$ 个字符和第二个串前 $j$ 个字符的最长公共子序列</p>
-<p>显然 $f_{i,j}$ 只与 $f_{i-1,j},f_{i,j-1},f_{i-1,j-1}$ 有关</p>
-<p>而我们要求的就是 $f_{i,j}=n-1$ 的方案数</p>
-<p>从 $f_{i,j}=n-1$ 可以得到</p>
-<script type="math/tex; mode=display">
-\min \{i,j\} -1 \le f_{i,j} \le \min \{ i,j\}</script><p>因此，我们指关心所有满足 $|i-j| \le 1$ 的 $j$ </p>
-<p>即 $f_{i,i-1},~f_{i,i},~f_{i,i+1}$ 这三个，并且显然有</p>
-<script type="math/tex; mode=display">
+<p><span class="math inline">\(f_{i,j}\)</span> 表示第一个串前 <span
+class="math inline">\(i\)</span> 个字符和第二个串前 <span
+class="math inline">\(j\)</span> 个字符的最长公共子序列</p>
+<p>显然 <span class="math inline">\(f_{i,j}\)</span> 只与 <span
+class="math inline">\(f_{i-1,j},f_{i,j-1},f_{i-1,j-1}\)</span> 有关</p>
+<p>而我们要求的就是 <span class="math inline">\(f_{i,j}=n-1\)</span>
+的方案数</p>
+<p>从 <span class="math inline">\(f_{i,j}=n-1\)</span> 可以得到 <span
+class="math display">\[
+\min \{i,j\} -1 \le f_{i,j} \le \min \{ i,j\}
+\]</span> 因此，我们指关心所有满足 <span class="math inline">\(|i-j| \le
+1\)</span> 的 <span class="math inline">\(j\)</span></p>
+<p>即 <span class="math inline">\(f_{i,i-1},~f_{i,i},~f_{i,i+1}\)</span>
+这三个，并且显然有 <span class="math display">\[
 i-2 \le f_{i,i-1} \le i-1
 \\i-1 \le f_{i,i} \le i
-\\i-1 \le f_{i,i+1} \le i</script><p>所以dp值的组合一共有 $2^3 = 8$ 种情况</p>
-<p>考虑状压，设状态为 $P$ 。那么有什么用呢？</p>
-<p>设 $g_{i,P}$ 表示有多少个 $T$ 的 $i$-前缀，满足上述 $3$ 个dp值的状态为 $P$ </p>
-<p>接着枚举 $m$ 个字符，分别与 $s_i,s_{i+1},s_{i+2}$ 比较，然后转移就好啦</p>
-<p>最后答案就是符合条件 $f_{i,j}=n-1$ 的那几个状态</p>
-<p>时间复杂度 $O(nm)$ </p>
-<p>代码：（<del>跟讲述里的变量名不太一样</del>）<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+\\i-1 \le f_{i,i+1} \le i
+\]</span> 所以dp值的组合一共有 <span class="math inline">\(2^3 =
+8\)</span> 种情况</p>
+<p>考虑状压，设状态为 <span class="math inline">\(P\)</span>
+。那么有什么用呢？</p>
+<p>设 <span class="math inline">\(g_{i,P}\)</span> 表示有多少个 <span
+class="math inline">\(T\)</span> 的 <span
+class="math inline">\(i\)</span>-前缀，满足上述 <span
+class="math inline">\(3\)</span> 个dp值的状态为 <span
+class="math inline">\(P\)</span></p>
+<p>接着枚举 <span class="math inline">\(m\)</span> 个字符，分别与 <span
+class="math inline">\(s_i,s_{i+1},s_{i+2}\)</span>
+比较，然后转移就好啦</p>
+<p>最后答案就是符合条件 <span class="math inline">\(f_{i,j}=n-1\)</span>
+的那几个状态</p>
+<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
+<p>代码：（<del>跟讲述里的变量名不太一样</del>） <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -557,7 +583,8 @@ i-2 \le f_{i,i-1} \le i-1
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf578D.html">https://yhx-12243.github.io/OI-transit/records/cf578D.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf578D.html">https://yhx-12243.github.io/OI-transit/records/cf578D.html</a></p>
 
                 
             </div>
@@ -923,7 +950,7 @@ i-2 \le f_{i,i-1} \le i-1
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">392.6k</span>&nbsp;字
+                class="white-color">397.5k</span>&nbsp;字
             
             
             
