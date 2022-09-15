@@ -450,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-14
+                    2022-09-15
                 </div>
                 
 
@@ -482,28 +482,65 @@
 <hr />
 <h2 id="集合的整数表示">集合的整数表示</h2>
 <blockquote>
-<p>因为我的博客是基于hexo框架的，所以有些功能比较烂</p>
-<p>比如这里的表格我不得不贴图片上来，因为 <code>S|(1&lt;&lt;x)</code>
-这种会被识别为表格的语法。。。</p>
+<p>注意，当集合元素个数较多的时候，可能需要使用
+<code>1ll&lt;&lt;n</code> 或者 <code>1ull&lt;&lt;n</code> 。</p>
 </blockquote>
-<p><img src="https://s2.loli.net/2022/08/30/i6J42F89lCpBrTv.png" style="zoom:50%;" /></p>
-<p>源码：</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token table"><span class="token table-header-row"><span class="token punctuation">|</span><span class="token table-header important"> 集合                                                         </span><span class="token punctuation">|</span><span class="token table-header important"> 代码表示           </span><span class="token punctuation">|</span>
-</span><span class="token table-line"><span class="token punctuation">|</span> <span class="token punctuation">------------------------------------------------------------</span> <span class="token punctuation">|</span> <span class="token punctuation">------------------</span> <span class="token punctuation">|</span>
-</span><span class="token table-data-rows"><span class="token punctuation">|</span><span class="token table-data"> $\varnothing$                                                </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`0`</span>                </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $\&#123;x\&#125;$                                                      </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`1 &lt;&lt; x`</span>           </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $n$ 个元素的全集                                             </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`(1 &lt;&lt; n) - 1`</span>     </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> 判断第 $i$ 个元素是否在集合 $S$ 中                           </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`(S >> i) &amp; 1`</span>     </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $S \cup \&#123;x\&#125;$                                               </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`S |(1 &lt;&lt; x)`</span>      </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $S\setminus\&#123;i\&#125;\quad \left(S-\&#123;i\&#125;\right)$                  </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`S &amp; (~(1 &lt;&lt; x))`</span>  </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $\sim S\quad (E-S,E \texttt&#123; 为 &#125; n \texttt&#123; 个元素的全集&#125;)$ </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`~(((-1) &lt;&lt; n)|S)`</span> </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $S \cup T$                                                   </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`S|T`</span>              </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> $S\cap T$                                                    </span><span class="token punctuation">|</span><span class="token table-data"> <span class="token code-snippet code keyword">`S&amp;T`</span>              </span><span class="token punctuation">|</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>基本表示</strong>：</p>
+<p>空集：<code>0</code></p>
+<p>大小为 <span class="math inline">\(n\)</span> 的全集：
+<code>(1 &lt;&lt; n) - 1</code></p>
+<p>第 <span class="math inline">\(i\)</span> 个元素 <span
+class="math inline">\(x_i\)</span> ：<code>1 &lt;&lt; i</code></p>
+<p><br></p>
+<p><strong>交集</strong>：</p>
+<p><span class="math inline">\(S\cap \{x_i\}\)</span>
+：<code>(S &gt;&gt; i) &amp; 1</code></p>
+<p><span class="math inline">\(S\cap
+T\)</span>：<code>S &amp; T</code></p>
+<p><br></p>
+<p><strong>并集</strong>：</p>
+<p><span class="math inline">\(S \cup \{x_i\}\)</span>
+：<code>S | (1 &lt;&lt; i)</code></p>
+<p><span class="math inline">\(S \cup T\)</span>
+：<code>S | T</code></p>
+<p><br></p>
+<p><strong>绝对补集</strong>：</p>
+<p><span class="math inline">\(\sim S\)</span> ：<code>U^S</code> 或
+<code>U-S</code> 或 <code>(~S) &amp; U</code> ，<code>U</code>为全集</p>
+<p><br></p>
+<p><strong>相对补集</strong>：</p>
+<p><span class="math inline">\(S\setminus\{x_i\}\)</span>
+：<code>S &amp; (~(1 &lt;&lt; i))</code></p>
+<p><span class="math inline">\(S\setminus T\)</span> ：
+<code>S &amp; (T^U)</code></p>
+<p><br></p>
+<p><strong>集合的基数</strong>（元素个数）：</p>
+<p>第一种不建议在使用C++20之前的版本使用。（<del>但是可以偷懒</del>）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">__builtin_popcount</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span>
+<span class="token keyword">int</span> <span class="token function">__builtin_popcountll</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 虽然它参数是unsigned，但是可以直接传signed</span>
+    
+<span class="token keyword">int</span> S <span class="token operator">=</span> <span class="token function">calc1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token function">__builtin_popcount</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> <span class="token keyword">long</span> T <span class="token operator">=</span> <span class="token function">calc2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token function">__builtin_popcountll</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二种推荐使用</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">popc</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> cnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> x<span class="token punctuation">;</span> x <span class="token operator">&amp;=</span> <span class="token punctuation">(</span>x<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">++</span>cnt<span class="token punctuation">;</span> <span class="token comment">// 原理：每次去掉最后一位</span>
+    <span class="token keyword">return</span> cnt<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><br></p>
 <p>下面给出了一份代码，可以用来测试。</p>
 <p>状压dp和一般的集合表示不太一样（<del>毕竟是整数表示嘛</del>）</p>
 <p>例如 <code>S=0010</code> 表示的是 <span
 class="math inline">\(S\)</span> 只有第 <span
 class="math inline">\(3\)</span> 个元素</p>
+<p><strong>请注意代码均 <code>#define int long long</code>
+了，下同。</strong></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -516,7 +553,13 @@ class="math inline">\(3\)</span> 个元素</p>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
         <span class="token punctuation">(</span><span class="token punctuation">(</span>S <span class="token operator">>></span> i<span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>cout <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span>cout <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> <span class="token function">popc</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> cnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> x<span class="token punctuation">;</span> x <span class="token operator">&amp;=</span> <span class="token punctuation">(</span>x<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">++</span>cnt<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> cnt<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 <span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -524,53 +567,67 @@ class="math inline">\(3\)</span> 个元素</p>
     cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">// freopen("check.in","r",stdin);</span>
     <span class="token comment">// freopen("check.out","w",stdout);</span>
-    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> S <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> rS<span class="token operator">=</span><span class="token punctuation">(</span><span class="token operator">~</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token operator">|</span>S<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"|S| = "</span> <span class="token operator">&lt;&lt;</span> n <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span> S <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> U <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> rS <span class="token operator">=</span> S <span class="token operator">^</span> U<span class="token punctuation">;</span> <span class="token comment">// S 的绝对补集</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"U = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>U<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"|U| = "</span> <span class="token operator">&lt;&lt;</span> n <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"---\n"</span><span class="token punctuation">;</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"~S = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>rS<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"~S = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>rS<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"---\n"</span><span class="token punctuation">;</span>
     
     <span class="token keyword">int</span> T <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"|T| = "</span> <span class="token operator">&lt;&lt;</span> n <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S ∩ T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token operator">&amp;</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S ∪ T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token operator">|</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"|T| = "</span> <span class="token operator">&lt;&lt;</span> <span class="token function">__builtin_popcountll</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"|T| = "</span> <span class="token operator">&lt;&lt;</span> <span class="token function">popc</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"---\n"</span><span class="token punctuation">;</span>
+
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S ∩ T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token operator">&amp;</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"S ∪ T = "</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>S<span class="token operator">|</span>T<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出如下： <pre class="line-numbers language-none"><code class="language-none">|S| &#x3D; 8
-S &#x3D; 01010100
-~S &#x3D; 10101011
-|T| &#x3D; 8
-T &#x3D; 00100100
-S ∩ T &#x3D; 00000100
-S ∪ T &#x3D; 01110100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出如下： <pre class="line-numbers language-none"><code class="language-none">---
+|T| &#x3D; 2
+|T| &#x3D; 2
+U &#x3D; 11111111 
+|U| &#x3D; 8
+---
+S &#x3D; 01010100 
+~S &#x3D; 10101011 
+---
+|T| &#x3D; 2
+|T| &#x3D; 2
+T &#x3D; 00100100 
+---
+S ∩ T &#x3D; 00000100 
+S ∪ T &#x3D; 01110100 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
 <hr />
 <h2 id="集合的枚举">集合的枚举</h2>
 <p><strong>枚举 <span class="math inline">\(n\)</span>
 个元素的所有子集</strong></p>
 <p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<hr />
-<p><strong>枚举 <span class="math inline">\(n\)</span>
-个元素的所有非空子集</strong></p>
-<p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<hr />
-<p><strong>枚举 <span class="math inline">\(n\)</span>
-个元素的所有真子集</strong></p>
-<p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<hr />
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果要枚举<strong>非空子集</strong>就这么写</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果要枚举<strong>非空真子集</strong>就这么写</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><br></p>
 <p><strong>枚举 <span class="math inline">\(S\)</span>
 所有的非空子集</strong></p>
 <p>时间复杂度 <span class="math inline">\({O(2^n)}\)</span></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>S<span class="token punctuation">;</span> i<span class="token punctuation">;</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> S<span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果要枚举<strong>非空真子集</strong>，只要这么写就行了</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>S<span class="token operator">&amp;</span><span class="token punctuation">(</span>S<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token punctuation">;</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> S<span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<hr />
+<p><br></p>
 <p><strong>枚举大小为 <span class="math inline">\(n\)</span>
 的集合的所有非空子集的非空子集</strong></p>
 <p>时间复杂度 <span class="math inline">\(\color{red}{O(3^n)}\)</span>
@@ -613,19 +670,19 @@ O\left(\sum_{i=1}^n\dbinom ni 2^i\right)
 =O(3^n) \qquad\square
 \]</span></p>
 </blockquote>
-<hr />
+<p><br></p>
 <p><strong>枚举 <span class="math inline">\(n\)</span>
 个元素的所有大小为 <span class="math inline">\(k\)</span>
 的子集</strong></p>
 <p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
-<p>常数小一些，用处不是很大，而且不好记，目前没碰到过有用的地方。</p>
+<p>常数可能小一些，用处不是很大，而且不好记，目前没碰到过有用的地方。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>k<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> x <span class="token operator">=</span> i<span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token operator">-</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> y <span class="token operator">=</span> i<span class="token operator">+</span>x<span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span> i <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token operator">~</span>y<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token operator">/</span> x<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">|</span> y<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<p><br></p>
 <p>可能还有，待补。。咕咕咕。。。</p>
 <p>同样的，示例代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -655,8 +712,8 @@ O\left(\sum_{i=1}^n\dbinom ni 2^i\right)
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\n----\n"</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"no empty:\n"</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// no empty</span>
 
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\n----\n"</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"no empty &amp;&amp; no E:\n"</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// no empty &amp;&amp; no E</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\n----\n"</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"no empty &amp;&amp; no U:\n"</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// no empty &amp;&amp; no U</span>
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\n----\n"</span><span class="token punctuation">;</span>
 
     n <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
@@ -696,7 +753,7 @@ all<span class="token operator">:</span>
 no empty<span class="token operator">:</span>
 <span class="token number">100</span> <span class="token number">010</span> <span class="token number">110</span> <span class="token number">001</span> <span class="token number">101</span> <span class="token number">011</span> <span class="token number">111</span> 
 <span class="token operator">--</span><span class="token operator">--</span>
-no empty <span class="token operator">&amp;&amp;</span> no E<span class="token operator">:</span>
+no empty <span class="token operator">&amp;&amp;</span> no U<span class="token operator">:</span>
 <span class="token number">100</span> <span class="token number">010</span> <span class="token number">110</span> <span class="token number">001</span> <span class="token number">101</span> <span class="token number">011</span> 
 <span class="token operator">--</span><span class="token operator">--</span>
 S <span class="token operator">=</span> <span class="token number">10100100</span> 
@@ -751,6 +808,10 @@ href="https://q779.github.io/2022/08/30/at2657-arc078d-mole-and-abandoned-mine-t
 target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html">https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html</a></p>
 <p>[4] <a
 target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/15876755.html">https://www.cnblogs.com/CDOI-24374/p/15876755.html</a></p>
+<p>[5] <a
+target="_blank" rel="noopener" href="https://oi-wiki.org/math/bit/">https://oi-wiki.org/math/bit/</a></p>
+<p>[6] <a
+target="_blank" rel="noopener" href="https://shanlunjiajian.github.io/2021/04/04/state-dp/">https://shanlunjiajian.github.io/2021/04/04/state-dp/</a></p>
 
                 
             </div>
@@ -966,12 +1027,12 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/158767
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/DP/">
                         <span class="chip bg-color">DP</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -1127,7 +1188,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/158767
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">397.5k</span>&nbsp;字
+                class="white-color">395.2k</span>&nbsp;字
             
             
             

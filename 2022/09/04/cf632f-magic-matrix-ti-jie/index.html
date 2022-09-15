@@ -476,59 +476,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf632f-magic-matrix-题解">CF632F Magic Matrix 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF632F">CF632F
-Magic Matrix</a></p>
+                <h1 id="CF632F-Magic-Matrix-题解"><a href="#CF632F-Magic-Matrix-题解" class="headerlink" title="CF632F Magic Matrix 题解"></a>CF632F Magic Matrix 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF632F">CF632F Magic Matrix</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>定义一个大小为 <span class="math inline">\(n\times n\)</span> 矩阵
-<span class="math inline">\(a\)</span> 为魔法矩阵，当且仅当 <span
-class="math inline">\(a\)</span> 满足以下条件：</p>
-<p>以下 <span class="math inline">\(i,j,k\in \mathbb{Z_+}\)</span></p>
+<p>定义一个大小为 $n\times n$ 矩阵 $a$ 为魔法矩阵，当且仅当 $a$ 满足以下条件：</p>
+<p>以下 $i,j,k\in \mathbb{Z_+}$ </p>
 <ul>
-<li><p><span class="math inline">\(\forall
-i\in[1,n],~a_{i,i}=0\)</span></p></li>
-<li><p><span class="math inline">\(\forall
-i,j\in[1,n],~a_{i,j}=a_{j,i}\)</span></p></li>
-<li><p><span class="math inline">\(\forall
-i,j,k\in[1,n],~a_{i,j}\le\max\{a_{i,k},a_{j,k}\}\)</span></p></li>
+<li><p>$\forall i\in[1,n],~a_{i,i}=0$</p>
+</li>
+<li><p>$\forall i,j\in[1,n],~a_{i,j}=a_{j,i}$</p>
+</li>
+<li><p>$\forall i,j,k\in[1,n],~a_{i,j}\le\max\{a_{i,k},a_{j,k}\}$</p>
+</li>
 </ul>
 <p>给你一个矩阵，问它是不是魔法矩阵。</p>
-<p>如果 <span class="math inline">\(a\)</span> 是魔法矩阵输出 <span
-class="math inline">\(\texttt{MAGIC}\)</span>，否则输出 <span
-class="math inline">\(\texttt{NOT MAGIC}\)</span> 。</p>
+<p>如果 $a$ 是魔法矩阵输出 $\texttt{MAGIC}$，否则输出 $\texttt{NOT MAGIC}$ 。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq n\leq 2500,~\forall
-i,j\in[1,n],~0\le a_{i,j}\le 10^9\)</span></p>
+<p>$1\leq n\leq 2500,~\forall i,j\in[1,n],~0\le a_{i,j}\le 10^9$</p>
 </blockquote>
 <p>前两条限制已经告诉你了，这个东西就是个无向简单图的邻接矩阵，不然肯定不满足条件。</p>
-<p>考虑第三条限制怎么处理。注意到后面的 <span
-class="math inline">\(a_{i,k}\)</span> 同样满足这样的性质，则 <span
-class="math display">\[
+<p>考虑第三条限制怎么处理。注意到后面的 $a_{i,k}$ 同样满足这样的性质，则</p>
+<script type="math/tex; mode=display">
 a_{i,j} \le \max\left\{ { a_{i,k},~a_{k,j} } \right\}
 \le \max\left\{ { a_{i,k_1},~a_{k_1,k_2},~a_{k_2,j} } \right\}
-\le \dots
-\le \max\left\{ { a_{ i,k_1 }, ~
-a_{k_1,k_2},~\cdots,~a_{k_{n-1},k_n},~a_{k_n,j}     } \right\}
-\]</span> 称一条起点为 <span class="math inline">\(i\)</span> ，终点为
-<span class="math inline">\(j\)</span>
-的路径的<strong>权值</strong>为「其经过的边的<strong>边权的最大值</strong>」，记为
-<span class="math inline">\(d_{i,j}\)</span> 。</p>
-<p>则限制转化为 <span class="math display">\[
-\forall i,j \in [1,n],~a_{i,j} \le d_{i,j}
-\]</span> 而 <span class="math inline">\(i\rightarrow j\)</span>
-也是一条合法的路径，故 <span class="math inline">\(d_{i,j} \le
-a_{i,j}\)</span></p>
-<p>因此如果满足限制，则有 <span class="math display">\[
-\forall i,j \in [1,n],~a_{i,j} = d_{i,j}
-\]</span> 考虑如何求出 <span class="math inline">\(d_{i,j}\)</span>
-。</p>
+\le \dots 
+\le \max\left\{ { a_{ i,k_1 }, ~ a_{k_1,k_2},~\cdots,~a_{k_{n-1},k_n},~a_{k_n,j}     } \right\}</script><p>称一条起点为 $i$ ，终点为 $j$ 的路径的<strong>权值</strong>为「其经过的边的<strong>边权的最大值</strong>」，记为 $d_{i,j}$ 。</p>
+<p>则限制转化为</p>
+<script type="math/tex; mode=display">
+\forall i,j \in [1,n],~a_{i,j} \le d_{i,j}</script><p>而 $i\rightarrow j$ 也是一条合法的路径，故 $d_{i,j} \le a_{i,j}$</p>
+<p>因此如果满足限制，则有</p>
+<script type="math/tex; mode=display">
+\forall i,j \in [1,n],~a_{i,j} = d_{i,j}</script><p>考虑如何求出 $d_{i,j}$ 。</p>
 <p>不妨从每一条边的角度出发，观察它是怎么构成<strong>路径的权值</strong>的。</p>
 <p>我们把所有边按从小到大的顺序依次添加，每次合并边两端点所在的连通块（如果已经连通就跳过）</p>
-<p>不难发现其实这个过程就是建立了一棵最小生成树，且任意两点在树上的简单路径的权值就是他们的
-<span class="math inline">\(d_{i,j}\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(m \log m)\)</span> ，懒得写
-<span class="math inline">\(\mathtt{Prim}\)</span> 。</p>
+<p>不难发现其实这个过程就是建立了一棵最小生成树，且任意两点在树上的简单路径的权值就是他们的 $d_{i,j}$ </p>
+<p>时间复杂度 $O(m \log m)$ ，懒得写 $\mathtt{Prim}$ 。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -975,7 +957,7 @@ a_{i,j}\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">397.5k</span>&nbsp;字
+                class="white-color">395.2k</span>&nbsp;字
             
             
             

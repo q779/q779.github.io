@@ -476,60 +476,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2502-haoi2006旅行-题解">洛谷P2502 [HAOI2006]旅行 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2502">P2502
-[HAOI2006]旅行</a></p>
+                <h1 id="洛谷P2502-HAOI2006-旅行-题解"><a href="#洛谷P2502-HAOI2006-旅行-题解" class="headerlink" title="洛谷P2502 [HAOI2006]旅行 题解"></a>洛谷P2502 [HAOI2006]旅行 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2502">P2502 [HAOI2006]旅行</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Z 小镇是一个景色宜人的地方，吸引来自各地的观光客来此旅游观光。Z
-小镇附近共有 <span class="math inline">\(n\)</span> 个景点（编号为 <span
-class="math inline">\(1,2,3,\ldots,n\)</span>），这些景点被 <span
-class="math inline">\(m\)</span>
-条道路连接着，所有道路都是双向的，两个景点之间可能有多条道路。</p>
-<p>也许是为了保护该地的旅游资源，Z
-小镇有个奇怪的规定，就是对于一条给定的公路 <span
-class="math inline">\(r_i\)</span>，任何在该公路上行驶的车辆速度必须为
-<span class="math inline">\(v_i\)</span>。</p>
+<p>Z 小镇是一个景色宜人的地方，吸引来自各地的观光客来此旅游观光。Z 小镇附近共有 $n$ 个景点（编号为 $1,2,3,\ldots,n$），这些景点被 $m$ 条道路连接着，所有道路都是双向的，两个景点之间可能有多条道路。</p>
+<p>也许是为了保护该地的旅游资源，Z 小镇有个奇怪的规定，就是对于一条给定的公路 $r_i$，任何在该公路上行驶的车辆速度必须为 $v_i$。</p>
 <p>速度变化太快使得游客们很不舒服，因此从一个景点前往另一个景点的时候，大家都希望选择行使过程中最大速度和最小速度的比尽可能小的路线，也就是所谓最舒适的路线。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 <span class="math inline">\(n,m\)</span>。</p>
-<p>接下来的 <span class="math inline">\(m\)</span> 行每行包含三个正整数
-<span class="math inline">\(x,y,v\)</span>。表示景点 <span
-class="math inline">\(x\)</span> 到景点 <span
-class="math inline">\(y\)</span> 之间有一条双向公路，车辆必须以速度
-<span class="math inline">\(v\)</span> 在该公路上行驶。</p>
-<p>最后一行包含两个正整数 <span
-class="math inline">\(s,t\)</span>，表示想知道从景点 <span
-class="math inline">\(s\)</span> 到景点 <span
-class="math inline">\(t\)</span> 最大最小速度比最小的路径。<span
-class="math inline">\(s\)</span> 和 <span
-class="math inline">\(t\)</span> 不可能相同。</p>
+<p>第一行包含两个正整数 $n,m$。</p>
+<p>接下来的 $m$ 行每行包含三个正整数 $x,y,v$。表示景点 $x$ 到景点 $y$ 之间有一条双向公路，车辆必须以速度 $v$ 在该公路上行驶。</p>
+<p>最后一行包含两个正整数 $s,t$，表示想知道从景点 $s$ 到景点 $t$ 最大最小速度比最小的路径。$s$ 和 $t$ 不可能相同。</p>
 <p><strong>输出格式</strong>：</p>
-<p>如果景点 <span class="math inline">\(s\)</span> 到景点 <span
-class="math inline">\(t\)</span>
-没有路径，输出<code>IMPOSSIBLE</code>。否则输出一个数，表示最小的速度比。如果需要，输出一个既约分数。</p>
+<p>如果景点 $s$ 到景点 $t$ 没有路径，输出<code>IMPOSSIBLE</code>。否则输出一个数，表示最小的速度比。如果需要，输出一个既约分数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1 \le x,y \le n \le 500\)</span>，<span
-class="math inline">\(1 \le v &lt; 3 \times 10^4\)</span>，<span
-class="math inline">\(1 \le m \le 5 \times 10^3\)</span>，<span
-class="math inline">\(x \ne y\)</span>。</p>
+<p>对于 $100\%$ 的数据，$1 \le x,y \le n \le 500$，$1 \le v &lt; 3 \times 10^4$，$1 \le m \le 5 \times 10^3$，$x \ne y$。</p>
 </blockquote>
 <p>这种经典二维限制的题目，往往是<strong>枚举一维，维护一维</strong>。</p>
-<p>在这题中，就是固定 <span class="math inline">\(\min\)</span>
-，然后处理 <span class="math inline">\(\max\)</span></p>
-<p>无解显然是把所有边全加进去 <span class="math inline">\(s,t\)</span>
-都不连通，用并查集很好维护</p>
-<p>具体地，按边权从小到大依次考虑每条边作为 <span
-class="math inline">\(\min\)</span> ，</p>
-<p>然后从小到大不断加入<strong>大于它的边</strong>，直到 <span
-class="math inline">\(s,t\)</span> 连通。</p>
-<p>此时最后加入的一条边就是 <span class="math inline">\(\max\)</span>
-，但是我们枚举的 <span class="math inline">\(\min\)</span>
-不一定是。</p>
+<p>在这题中，就是固定 $\min$ ，然后处理 $\max$ </p>
+<p>无解显然是把所有边全加进去 $s,t$ 都不连通，用并查集很好维护</p>
+<p>具体地，按边权从小到大依次考虑每条边作为 $\min$ ，</p>
+<p>然后从小到大不断加入<strong>大于它的边</strong>，直到 $s,t$ 连通。</p>
+<p>此时最后加入的一条边就是 $\max$ ，但是我们枚举的 $\min$ 不一定是。</p>
 <p>这不要紧，因为我们会考虑所有的边，所以一定不会漏掉更优的解。</p>
-<p>时间复杂度 <span class="math inline">\(O(m^2)\)</span>
-，还是比较灵活的一道题。</p>
+<p>时间复杂度 $O(m^2)$ ，还是比较灵活的一道题。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -965,7 +934,7 @@ class="math inline">\(s,t\)</span> 连通。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">397.5k</span>&nbsp;字
+                class="white-color">395.2k</span>&nbsp;字
             
             
             

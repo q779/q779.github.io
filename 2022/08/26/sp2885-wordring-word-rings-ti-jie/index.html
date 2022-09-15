@@ -480,67 +480,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sp2885-wordring---word-rings-题解">SP2885 WORDRING - Word Rings
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP2885">SP2885
-WORDRING - Word Rings</a></p>
+                <h1 id="SP2885-WORDRING-Word-Rings-题解"><a href="#SP2885-WORDRING-Word-Rings-题解" class="headerlink" title="SP2885 WORDRING - Word Rings 题解"></a>SP2885 WORDRING - Word Rings 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP2885">SP2885 WORDRING - Word Rings</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>如果字符串 <span class="math inline">\(A\)</span>
-的<strong>结尾两个</strong>字符与字符串 <span
-class="math inline">\(B\)</span>
-的<strong>开头两个</strong>字符相匹配，我们称 <span
-class="math inline">\(A\)</span> 与 <span
-class="math inline">\(B\)</span> 能 <strong>“ 相连 ”</strong> ( 注意：
-<span class="math inline">\(A\)</span> 与 <span
-class="math inline">\(B\)</span> 能相连，不代表 <span
-class="math inline">\(B\)</span> 与 <span
-class="math inline">\(A\)</span> 能相连 )</p>
-<p>当若干个串首尾 “ 相连 ”
-成一个环时，我们称之为一个环串（一个串首尾相连也算）</p>
+<p>如果字符串 $A$ 的<strong>结尾两个</strong>字符与字符串 $B$ 的<strong>开头两个</strong>字符相匹配，我们称 $A$ 与 $B$ 能 <strong>“ 相连 ”</strong> ( 注意： $A$ 与 $B$ 能相连，不代表 $B$ 与 $A$ 能相连 ) </p>
+<p>当若干个串首尾 “ 相连 ” 成一个环时，我们称之为一个环串（一个串首尾相连也算） </p>
 <p>我们希望从给定的全小写字符串中<strong>找出一个环串，使这个环串的平均长度最长</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">intercommunicational
 alkylbenzenesulfonate
 tetraiodophenolphthalein<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>如上例：第一个串能与第二个串相连，第二个串能与第三个串相连，第三个串又能与第一个串相连。按此顺序连接，便形成了一个环串。</p>
-<p>长度为 <span class="math inline">\(20+21+24=65\)</span> (
-<strong>首尾重复部分需计算两次</strong> ) ，总共使用了 <span
-class="math inline">\(3\)</span> 个串，所以平均长度是 <span
-class="math inline">\(65/3\approx 21.6667\)</span></p>
+<p>长度为 $20+21+24=65$ ( <strong>首尾重复部分需计算两次</strong> ) ，总共使用了 $3$ 个串，所以平均长度是 $65/3\approx 21.6667$ </p>
 <p><strong>输入格式</strong>：</p>
-<p>多组数据 每组数据第一行一个整数 <span
-class="math inline">\(n\)</span> ，表示字符串数量 接下来 <span
-class="math inline">\(n\)</span> 行每行一个长度小于等于 <span
-class="math inline">\(1000\)</span> 的字符串 读入以 <span
-class="math inline">\(n=0\)</span> 结束</p>
+<p>多组数据<br>每组数据第一行一个整数 $n$ ，表示字符串数量<br>接下来 $n$ 行每行一个长度小于等于 $1000$ 的字符串<br>读入以 $n=0$ 结束</p>
 <p><strong>输出格式</strong>：</p>
-<p>若不存在环串，输出
-<code>No solution.</code>。否则输出最长的环串平均长度。</p>
+<p>若不存在环串，输出 <code>No solution.</code>。否则输出最长的环串平均长度。</p>
 </blockquote>
 <p><del>吐了，一个初值没赋调了半天。</del></p>
 <p>注意到每个字符串其实只有开头结尾的几个字符有用</p>
-<p>直接把这两个字符组成的串看作结点，不难发现不超过 <span
-class="math inline">\(26^2 = 676\)</span> 个结点</p>
-<p>比如 <span class="math inline">\(\tt{aabbcdcdcab}\)</span> 就是 <span
-class="math inline">\(\tt{aa}\)</span> 向 <span
-class="math inline">\(\tt{ab}\)</span> 连一条边，边权为 <span
-class="math inline">\(11\)</span> 。</p>
+<p>直接把这两个字符组成的串看作结点，不难发现不超过 $26^2 = 676$ 个结点</p>
+<p>比如 $\tt{aabbcdcdcab}$ 就是 $\tt{aa}$ 向 $\tt{ab}$ 连一条边，边权为 $11$ 。</p>
 <p>看上去是找个最长的环，但是因为是平均值，</p>
-<p>所以这道题就变成经典的 <span class="math inline">\(\tt{01}\)</span>
-分数规划了，<del>虽然稍微有一丢丢不同</del></p>
-<p><span class="math inline">\(\tt{01}\)</span>
-分数规划的精髓就在于<strong>二分比值</strong>，<strong>使原本同一事物的两个属性合并</strong>。</p>
-<p>设环 <span class="math inline">\(C\)</span> 的答案为 <span
-class="math display">\[
-\bar{w} = \dfrac{1}{k}(w_1+w_2+\cdots+w_k)&gt; M
-\]</span> 则不等式等价于 <span class="math display">\[
-(M-w_1) + (M-w_2)+\cdots+(M-w_k) &lt; 0
-\]</span> 很好，我们有了新的边权，找负环就好啦！</p>
-<p>这个二分边界么，如果有负环，那就 <span class="math inline">\(l
-\leftarrow \mathrm{mid}\)</span> ，否则 <span class="math inline">\(r
-\leftarrow \mathrm{mid}\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(-n|\Sigma|\log
-\epsilon)\)</span></p>
+<p>所以这道题就变成经典的 $\tt{01}$ 分数规划了，<del>虽然稍微有一丢丢不同</del></p>
+<p>$\tt{01}$ 分数规划的精髓就在于<strong>二分比值</strong>，<strong>使原本同一事物的两个属性合并</strong>。</p>
+<p>设环 $C$ 的答案为</p>
+<script type="math/tex; mode=display">
+\bar{w} = \dfrac{1}{k}(w_1+w_2+\cdots+w_k)> M</script><p>则不等式等价于</p>
+<script type="math/tex; mode=display">
+(M-w_1) + (M-w_2)+\cdots+(M-w_k) < 0</script><p>很好，我们有了新的边权，找负环就好啦！</p>
+<p>这个二分边界么，如果有负环，那就 $l \leftarrow \mathrm{mid}$ ，否则 $r \leftarrow \mathrm{mid}$</p>
+<p>时间复杂度 $O(-n|\Sigma|\log \epsilon)$ </p>
 <p>然后这道题愉快地卡了我好久，然后顺便练习了一下卡常</p>
 <p>代码1：（bfs版，实测<code>1.78s</code>）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -1094,7 +1063,7 @@ vector<span class="token operator">&lt;</span> pair<span class="token operator">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">397.5k</span>&nbsp;字
+                class="white-color">395.2k</span>&nbsp;字
             
             
             
