@@ -480,33 +480,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF822E-Liar-题解"><a href="#CF822E-Liar-题解" class="headerlink" title="CF822E Liar 题解"></a>CF822E Liar 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF822E">CF822E Liar</a></p>
+                <h1 id="cf822e-liar-题解">CF822E Liar 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF822E">CF822E
+Liar</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个字符串 $s, t$，长度分别为 $n, m$。你需要选择 $s$ 的若干个两两不相交的子串，然后将它们按照原先在 $s$ 中出现的顺序合并起来，希望得到 $t$。</p>
-<p>令 $f(s, t)$ 表示要选择的 $s$ 的子串数目的最小值，以便它们的并是串 $t$。如果无法合理选择这样的子串，则 $f(s, t) = +\infty$。现在 cxy 想知道，对于给定的 $s, t$，是否有 $f(s, t) \leq x$。</p>
+<p>给定两个字符串 <span class="math inline">\(s, t\)</span>，长度分别为
+<span class="math inline">\(n, m\)</span>。你需要选择 <span
+class="math inline">\(s\)</span>
+的若干个两两不相交的子串，然后将它们按照原先在 <span
+class="math inline">\(s\)</span> 中出现的顺序合并起来，希望得到 <span
+class="math inline">\(t\)</span>。</p>
+<p>令 <span class="math inline">\(f(s, t)\)</span> 表示要选择的 <span
+class="math inline">\(s\)</span> 的子串数目的最小值，以便它们的并是串
+<span class="math inline">\(t\)</span>。如果无法合理选择这样的子串，则
+<span class="math inline">\(f(s, t) = +\infty\)</span>。现在 cxy
+想知道，对于给定的 <span class="math inline">\(s, t\)</span>，是否有
+<span class="math inline">\(f(s, t) \leq x\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含一个正整数 $n,~(n \leq 10^5)$，表示字符串 $s$ 的长度。</p>
-<p>第二行为一个长度为 $n$ 的，只包含小写字母 $\mathtt{a} \sim \mathtt{z}$ 的字符串 $s$。</p>
-<p>第三行包含一个正整数 $m,~(m \leq n)$，表示字符串 $t$ 的长度。</p>
-<p>第四行类似地包含一个长度为 $m$ 的字符串 $t$。</p>
-<p>第五行包含一个正整数 $x,~(x \le 30)$，表示最大能分成的断数 (即上文不等式中的 $x$)。</p>
+<p>第一行包含一个正整数 <span class="math inline">\(n,~(n \leq
+10^5)\)</span>，表示字符串 <span class="math inline">\(s\)</span>
+的长度。</p>
+<p>第二行为一个长度为 <span class="math inline">\(n\)</span>
+的，只包含小写字母 <span class="math inline">\(\mathtt{a} \sim
+\mathtt{z}\)</span> 的字符串 <span
+class="math inline">\(s\)</span>。</p>
+<p>第三行包含一个正整数 <span class="math inline">\(m,~(m \leq
+n)\)</span>，表示字符串 <span class="math inline">\(t\)</span>
+的长度。</p>
+<p>第四行类似地包含一个长度为 <span class="math inline">\(m\)</span>
+的字符串 <span class="math inline">\(t\)</span>。</p>
+<p>第五行包含一个正整数 <span class="math inline">\(x,~(x \le
+30)\)</span>，表示最大能分成的断数 (即上文不等式中的 <span
+class="math inline">\(x\)</span>)。</p>
 <p><strong>输出格式</strong>：</p>
-<p>仅输出一行，包含一个字符串，输出 <code>YES</code> 如果 $f(s, t) \leq x$，否则输出 <code>NO</code>。</p>
+<p>仅输出一行，包含一个字符串，输出 <code>YES</code> 如果 <span
+class="math inline">\(f(s, t) \leq x\)</span>，否则输出
+<code>NO</code>。</p>
 </blockquote>
 <p>吐了，以为会被卡单哈，写了2&amp;3哈希，最后反而被卡常了</p>
-<p>然后这个二分边界什么的东西搞得我要吐了（主要我看的题解是从 $0$ 开始的）</p>
-<p>下文中使用 $a\uparrow b+c$ 表示 $a \leftarrow \max\{a,b+c\}$</p>
-<p>设 $f_{i,j}$ 表示考虑字符串 $s$ 的前 $i$ 个字符，取出不超过 $j$ 段，能拼出 $t$ 的前缀的最大长度。</p>
-<p>考虑转移。第一种，不管第 $i+1$ 个字符</p>
-<script type="math/tex; mode=display">
-f_{i+1,j} \uparrow f_{i,j}</script><p>第二种，拼接一个 $s[i+1\dots i+k]=t[j+1\dots j+k]$ ，且 $k$ 尽可能的大。</p>
-<p>不难发现， $k$ 就是 $s[i+1\dots n]$ 和 $t[j+1\dots m]$ 的LCP（最长公共前缀）</p>
+<p>然后这个二分边界什么的东西搞得我要吐了（主要我看的题解是从 <span
+class="math inline">\(0\)</span> 开始的）</p>
+<p>下文中使用 <span class="math inline">\(a\uparrow b+c\)</span> 表示
+<span class="math inline">\(a \leftarrow \max\{a,b+c\}\)</span></p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示考虑字符串 <span
+class="math inline">\(s\)</span> 的前 <span
+class="math inline">\(i\)</span> 个字符，取出不超过 <span
+class="math inline">\(j\)</span> 段，能拼出 <span
+class="math inline">\(t\)</span> 的前缀的最大长度。</p>
+<p>考虑转移。第一种，不管第 <span class="math inline">\(i+1\)</span>
+个字符 <span class="math display">\[
+f_{i+1,j} \uparrow f_{i,j}
+\]</span> 第二种，拼接一个 <span class="math inline">\(s[i+1\dots
+i+k]=t[j+1\dots j+k]\)</span> ，且 <span
+class="math inline">\(k\)</span> 尽可能的大。</p>
+<p>不难发现， <span class="math inline">\(k\)</span> 就是 <span
+class="math inline">\(s[i+1\dots n]\)</span> 和 <span
+class="math inline">\(t[j+1\dots m]\)</span> 的LCP（最长公共前缀）</p>
 <p>这里其实利用了贪心的思想，正确性显然。</p>
-<p>这个可以用二分加hash求出来</p>
-<script type="math/tex; mode=display">
-f_{i+k,j} \uparrow f_{i,j} + k</script><p>然后看一下是否存在一个 $j$ 使得 $f_{n,j}=m$ ，即可判断是否有解了。</p>
-<p>时间复杂度 $O(nk \log n)$ </p>
+<p>这个可以用二分加hash求出来 <span class="math display">\[
+f_{i+k,j} \uparrow f_{i,j} + k
+\]</span> 然后看一下是否存在一个 <span class="math inline">\(j\)</span>
+使得 <span class="math inline">\(f_{n,j}=m\)</span>
+，即可判断是否有解了。</p>
+<p>时间复杂度 <span class="math inline">\(O(nk \log n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -592,7 +629,8 @@ f_{i+k,j} \uparrow f_{i,j} + k</script><p>然后看一下是否存在一个 $j$ 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf822E.html">https://yhx-12243.github.io/OI-transit/records/cf822E.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf822E.html">https://yhx-12243.github.io/OI-transit/records/cf822E.html</a></p>
 
                 
             </div>
@@ -974,7 +1012,7 @@ f_{i+k,j} \uparrow f_{i,j} + k</script><p>然后看一下是否存在一个 $j$ 
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">401.3k</span>&nbsp;字
+                class="white-color">403.9k</span>&nbsp;字
             
             
             

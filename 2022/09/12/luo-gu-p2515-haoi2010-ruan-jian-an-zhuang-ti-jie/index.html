@@ -480,17 +480,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2515-HAOI2010-软件安装-题解"><a href="#洛谷P2515-HAOI2010-软件安装-题解" class="headerlink" title="洛谷P2515 [HAOI2010]软件安装 题解"></a>洛谷P2515 [HAOI2010]软件安装 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2515">P2515 [HAOI2010]软件安装</a></p>
+                <h1 id="洛谷p2515-haoi2010软件安装-题解">洛谷P2515 [HAOI2010]软件安装
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2515">P2515
+[HAOI2010]软件安装</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>现在我们的手头有 $N$ 个软件，对于一个软件 $i$ ，它要占用 $W_i$ 的磁盘空间，它的价值为 $V_i$ 。我们希望从中选择一些软件安装到一台磁盘容量为 $M$ 计算机上，使得这些软件的价值尽可能大（即 $V_i$ 的和最大）。</p>
-<p>但是现在有个问题：软件之间存在依赖关系，即软件i只有在安装了软件 $j$ （包括软件 $j$ 的直接或间接依赖）的情况下才能正确工作（软件 $i$ 依赖软件 $j$ )。幸运的是，一个软件<strong>最多依赖另外一个软件</strong>。如果一个软件不能正常工作，那么它能够发挥的作用为 $0$ 。</p>
-<p>我们现在知道了软件之间的依赖关系：软件 $i$ 依赖软件 $D_i$ 。现在请你设计出一种方案，安装价值尽量大的软件。一个软件只能被安装一次，如果一个软件没有依赖则$D_i=0$，这时只要这个软件安装了，它就能正常工作。</p>
+<p>现在我们的手头有 <span class="math inline">\(N\)</span>
+个软件，对于一个软件 <span class="math inline">\(i\)</span> ，它要占用
+<span class="math inline">\(W_i\)</span> 的磁盘空间，它的价值为 <span
+class="math inline">\(V_i\)</span>
+。我们希望从中选择一些软件安装到一台磁盘容量为 <span
+class="math inline">\(M\)</span>
+计算机上，使得这些软件的价值尽可能大（即 <span
+class="math inline">\(V_i\)</span> 的和最大）。</p>
+<p>但是现在有个问题：软件之间存在依赖关系，即软件i只有在安装了软件 <span
+class="math inline">\(j\)</span> （包括软件 <span
+class="math inline">\(j\)</span>
+的直接或间接依赖）的情况下才能正确工作（软件 <span
+class="math inline">\(i\)</span> 依赖软件 <span
+class="math inline">\(j\)</span>
+)。幸运的是，一个软件<strong>最多依赖另外一个软件</strong>。如果一个软件不能正常工作，那么它能够发挥的作用为
+<span class="math inline">\(0\)</span> 。</p>
+<p>我们现在知道了软件之间的依赖关系：软件 <span
+class="math inline">\(i\)</span> 依赖软件 <span
+class="math inline">\(D_i\)</span>
+。现在请你设计出一种方案，安装价值尽量大的软件。一个软件只能被安装一次，如果一个软件没有依赖则<span
+class="math inline">\(D_i=0\)</span>，这时只要这个软件安装了，它就能正常工作。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第1行：$N,M(0\leq N\leq 100, 0\leq M\leq 500)$</p>
-<p>第2行：$W_1,W_2, … W_i, …, W_n (0\leq W_i\leq M)$</p>
-<p>第3行：$V_1, V_2, …, V_i, …, V_n  (0\leq V_i\leq 1000)$</p>
-<p>第4行：$D_1, D_2, …, D_i, …, D_n (0\leq D_i\leq N, D_i≠i)$</p>
+<p>第1行：<span class="math inline">\(N,M(0\leq N\leq 100, 0\leq M\leq
+500)\)</span></p>
+<p>第2行：<span class="math inline">\(W_1,W_2, ... W_i, ..., W_n (0\leq
+W_i\leq M)\)</span></p>
+<p>第3行：<span class="math inline">\(V_1, V_2, ..., V_i, ..., V_n
+(0\leq V_i\leq 1000)\)</span></p>
+<p>第4行：<span class="math inline">\(D_1, D_2, ..., D_i, ..., D_n
+(0\leq D_i\leq N, D_i≠i)\)</span></p>
 <p><strong>输出格式</strong>：</p>
 <p>一个整数，代表最大价值</p>
 </blockquote>
@@ -499,10 +524,16 @@
 <p>因此我们可以把整个环看作一个点，则原图变成了一个森林</p>
 <p>然后就变成了一个树上背包的问题了。</p>
 <p>不过森林背包我也没听说过，所以我们建一个必选的（显然）虚点，连接所有的树根结点</p>
-<p>然后就是简单的树形dp啦（下文用 $a\uparrow b+c$  表示 $a \gets \max\{a,b+c\}$ ）</p>
-<p>设 $f_{i,j}$ 表示 $i$ 所在子树的用不超过 $j$ 的空间能得到的最大价值，则</p>
-<script type="math/tex; mode=display">
-f_{i,j} \uparrow \max_{j-k \ge w^{\prime}_i \land v \in \mathrm{son}(u)}\{f_{i,j-k} + f_{v,k}\}</script><p>时间复杂度 $O(nm^2)$ </p>
+<p>然后就是简单的树形dp啦（下文用 <span class="math inline">\(a\uparrow
+b+c\)</span> 表示 <span class="math inline">\(a \gets
+\max\{a,b+c\}\)</span> ）</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示 <span
+class="math inline">\(i\)</span> 所在子树的用不超过 <span
+class="math inline">\(j\)</span> 的空间能得到的最大价值，则 <span
+class="math display">\[
+f_{i,j} \uparrow \max_{j-k \ge w^{\prime}_i \land v \in
+\mathrm{son}(u)}\{f_{i,j-k} + f_{v,k}\}
+\]</span> 时间复杂度 <span class="math inline">\(O(nm^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -948,7 +979,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">401.3k</span>&nbsp;字
+                class="white-color">403.9k</span>&nbsp;字
             
             
             
