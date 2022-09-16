@@ -468,64 +468,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ubuntu-内存占用过高导致卡死-解决办法">ubuntu
-内存占用过高导致卡死 解决办法</h1>
-<h2 id="一具体表现">一、具体表现</h2>
-<p>例如下图</p>
-<figure>
-<img
-src="https://img-blog.csdnimg.cn/2021030118411739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzUwMzMyMzc0,size_16,color_FFFFFF,t_70#pic_center"
-alt="在这里插入图片描述" />
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+                <h1 id="ubuntu-内存占用过高导致卡死-解决办法"><a href="#ubuntu-内存占用过高导致卡死-解决办法" class="headerlink" title="ubuntu 内存占用过高导致卡死 解决办法"></a>ubuntu 内存占用过高导致卡死 解决办法</h1><h2 id="一、具体表现"><a href="#一、具体表现" class="headerlink" title="一、具体表现"></a>一、具体表现</h2><p>例如下图</p>
+<p><img src="https://img-blog.csdnimg.cn/2021030118411739.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzUwMzMyMzc0,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p>注:图示版本为ubuntu18.04，现在我用的是ubuntu20.04</p>
 <HR>
-<h2 id="二原因">二、原因</h2>
-<p>查阅到了一些资料</p>
+
+<h2 id="二、原因"><a href="#二、原因" class="headerlink" title="二、原因"></a>二、原因</h2><p>查阅到了一些资料</p>
 <blockquote>
-<p>在Linux中经常发现空闲内存很少，似乎所有的内存都被系统占用了，表面感觉是内存不够用了，其实不然。这是Linux内存管理的一个优秀特性，在这方
-面，区别于 Windows的内存管理。主要特点是，无论物理内存有多大，Linux
-都将其充份利用，将一些程序调用过的硬盘数据读入内存，利用内存读写的高速特性来提高Linux系统的数据访问性能。</p>
-</blockquote>
-<blockquote>
-<p>Linux 的这一特性，主要是利用空闲的物理内存，划分出一部份空间，做为
-cache 和 buffers ，以此提高数据访问性能。</p>
-</blockquote>
-<blockquote>
-<p>Linux
-优先使用物理内存，当物理内存还有空闲时，linux是不会施放内存的，即时占用内存的程序已经被关闭了（这部分内存就用来做缓存了）。也就是说，即使你有很多内存,用过一段时间后，也会被占满。这样做的好处是，启动那些刚开启过的程序、或是读取刚存取过得数据会比较快，对于服务器很有好处。</p>
+<p>在Linux中经常发现空闲内存很少，似乎所有的内存都被系统占用了，表面感觉是内存不够用了，其实不然。这是Linux内存管理的一个优秀特性，在这方 面，区别于 Windows的内存管理。主要特点是，无论物理内存有多大，Linux 都将其充份利用，将一些程序调用过的硬盘数据读入内存，利用内存读写的高速特性来提高Linux系统的数据访问性能。</p>
+<p>Linux 的这一特性，主要是利用空闲的物理内存，划分出一部份空间，做为 cache 和 buffers ，以此提高数据访问性能。</p>
+<p>Linux 优先使用物理内存，当物理内存还有空闲时，linux是不会施放内存的，即时占用内存的程序已经被关闭了（这部分内存就用来做缓存了）。也就是说，即使你有很多内存,用过一段时间后，也会被占满。这样做的好处是，启动那些刚开启过的程序、或是读取刚存取过得数据会比较快，对于服务器很有好处。</p>
 </blockquote>
 <p>总结一下，我的这种情况就是swap空间开的太小了</p>
 <HR>
-<h2 id="三解决方案">三、解决方案</h2>
-<p>把swap空间调大（建议在物理内存的两倍以上）</p>
+
+<h2 id="三、解决方案"><a href="#三、解决方案" class="headerlink" title="三、解决方案"></a>三、解决方案</h2><p>把swap空间调大（建议在物理内存的两倍以上）</p>
 <p>首先用gparted改一下磁盘分区，然后再配置（这两步缺一不可）</p>
-<p>可以参考一下这篇<a
-target="_blank" rel="noopener" href="https://masterhu.blog.csdn.net/article/details/104856865">博客</a>，写的很好（感谢）</p>
+<p>可以参考一下这篇<a target="_blank" rel="noopener" href="https://masterhu.blog.csdn.net/article/details/104856865">博客</a>，写的很好（感谢）</p>
 <p><strong>顺便提醒一下</strong>，每个人电脑都存在差异，我在参考那篇博客时就出现了一些不同之处</p>
-<p>因为我写本文的时候买的16GB内存条还没到，所以提前调成60GB的swap空间了
-（好像大了点）</p>
+<p>因为我写本文的时候买的16GB内存条还没到，所以提前调成60GB的swap空间了 （好像大了点）</p>
 <p>经过实验证明，目前该方法完全解决了之前的问题（再次道歉 qwq）</p>
 <p>如果要释放swap空间的话，可以用以下指令</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">su</span>
 swapoff -a
 <span class="token function">swapon</span> swapfile 		注：也有用 <span class="token function">swapon</span> -a的，不过我这不行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>放几张图吧...（开了一堆窗口，然后不会卡死了）</p>
-<figure>
-<img
-src="https://img-blog.csdnimg.cn/3f409313af6c471ea099a70c511f8111.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcTc3OQ==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
-alt="在这里插入图片描述" />
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+<p>放几张图吧…（开了一堆窗口，然后不会卡死了）</p>
+<p><img src="https://img-blog.csdnimg.cn/3f409313af6c471ea099a70c511f8111.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAcTc3OQ==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>全部关掉以后，一切正常！！成功！！</p>
 <HR>
-<h2 id="四其他优化">四、其他优化</h2>
-<p>有时候缓存会过高，可以写个脚本及时释放缓存</p>
-<p><a
-target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50332374/article/details/122022149?spm=1001.2014.3001.5501">释放缓存脚本</a></p>
+
+<h2 id="四、其他优化"><a href="#四、其他优化" class="headerlink" title="四、其他优化"></a>四、其他优化</h2><p>有时候缓存会过高，可以写个脚本及时释放缓存</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50332374/article/details/122022149?spm=1001.2014.3001.5501">释放缓存脚本</a></p>
 <HR>
-<h2 id="总结">总结</h2>
-<p>调大swap空间</p>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>调大swap空间</p>
 
                 
             </div>
@@ -879,7 +856,7 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50332374/article/d
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">404.5k</span>&nbsp;字
+                class="white-color">405.7k</span>&nbsp;字
             
             
             

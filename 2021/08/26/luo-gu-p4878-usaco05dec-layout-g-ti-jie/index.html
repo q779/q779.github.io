@@ -472,61 +472,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4878-usaco05declayout-g-题解">洛谷P4878 [USACO05DEC]Layout
-G 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4878">P4878
-[USACO05DEC]Layout G</a></p>
+                <h1 id="洛谷P4878-USACO05DEC-Layout-G-题解"><a href="#洛谷P4878-USACO05DEC-Layout-G-题解" class="headerlink" title="洛谷P4878 [USACO05DEC]Layout G 题解"></a>洛谷P4878 [USACO05DEC]Layout G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4878">P4878 [USACO05DEC]Layout G</a></p>
 <blockquote>
-<p><strong>题意</strong>：按编号排了 <span
-class="math inline">\(n\)</span>
-只奶牛，有的奶牛间必须相距小于等于一个距离，有的奶牛间必须相距大于等于一个距离，问
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 的距离最大值</p>
+<p><strong>题意</strong>：按编号排了 $n$ 只奶牛，有的奶牛间必须相距小于等于一个距离，有的奶牛间必须相距大于等于一个距离，问 $1$ 到 $n$ 的距离最大值</p>
 </blockquote>
-<p>我们可以发现题目给的数据本质上就是 <span class="math inline">\(v-u\ge
-d_i\)</span> 或 <span class="math inline">\(v-u \le d_i\)</span></p>
+<p>我们可以发现题目给的数据本质上就是 $v-u\ge d_i$ 或 $v-u \le d_i$  </p>
 <p>这是什么？差分约束！</p>
-<p><strong>差分约束</strong>：根据三角不等式 <span
-class="math inline">\(d_u + w(u,v) \ge d_v\)</span>
-的构成，我们可以把形如 <span class="math inline">\(v-u\ge d_i\)</span>
-的不等式转化为</p>
-<p><span class="math inline">\(v-d_i\ge u\)</span> （可以看作 <span
-class="math inline">\(v\)</span> 向 <span
-class="math inline">\(u\)</span> 连了一条边权为 <span
-class="math inline">\(-d_i\)</span> 的有向边），同理 <span
-class="math inline">\(v-u \le d_i\)</span> 转化为 <span
-class="math inline">\(u+d_i \ge v\)</span></p>
+<p><strong>差分约束</strong>：根据三角不等式 $d_u + w(u,v) \ge d_v$ 的构成，我们可以把形如 $v-u\ge d_i$ 的不等式转化为</p>
+<p>$v-d_i\ge u$  （可以看作 $v$ 向 $u$ 连了一条边权为 $-d_i$ 的有向边），同理 $v-u \le d_i$ 转化为 $u+d_i \ge v$</p>
 <p>这里不过多讲解差分约束了</p>
 <p>那么为什么差分约束后求最短路就是<strong>最大值</strong>呢？</p>
 <p>因为求最短路是由无穷大向下不断约束得到的，因此得到的是最大值（同理求最长路就是最小值）</p>
 <p>那我们只要按题意建图就行了</p>
-<p>要注意的是，每个奶牛 <span class="math inline">\(i\)</span> 满足
-<span class="math inline">\(d_{i-1} \le d_{i}\)</span> ，其中 <span
-class="math inline">\(d\)</span> 表示所在位置，因此相邻的也要建边</p>
+<p>要注意的是，每个奶牛 $i$ 满足 $d_{i-1} \le d_{i}$ ，其中 $d$ 表示所在位置，因此相邻的也要建边</p>
 <p>为什么要强调这一点呢？</p>
 <p>如下图：</p>
-<p><img
-src="https://img-blog.csdnimg.cn/cba07fe7245941d6ad4314ef80953a7c.png?x-oss-process=image#pic_center" /></p>
-<p>如果没有建边，会发现答案为 <span class="math inline">\(5\)</span>
-（如上图所示）</p>
-<p><img
-src="https://img-blog.csdnimg.cn/49e04ff019524a4492ff5518d0fa93e4.png?x-oss-process=image#pic_center" /></p>
+<p><img src="https://img-blog.csdnimg.cn/cba07fe7245941d6ad4314ef80953a7c.png?x-oss-process=image#pic_center" alt=""></p>
+<p>如果没有建边，会发现答案为 $5$ （如上图所示）</p>
+<p><img src="https://img-blog.csdnimg.cn/49e04ff019524a4492ff5518d0fa93e4.png?x-oss-process=image#pic_center" alt=""></p>
 <p>如果建了边，答案才正确（该情况无解）</p>
-<p>那现在只要从 <span class="math inline">\(1\)</span>
-开始跑SPFA就好了</p>
-<p>但是还有问题， <span class="math inline">\(1\)</span>
-并不能保证与所有结点连通，而我们知道差分约束无解的情况就是图中有负环</p>
-<p>这个问题好解决，我们先在原图上建一个超级结点 <span
-class="math inline">\(0\)</span> 与所有结点相连（边权为 <span
-class="math inline">\(0\)</span> ），在 <span
-class="math inline">\(0\)</span> 跑一次SPFA判断即可判断解的情况</p>
+<p>那现在只要从 $1$ 开始跑SPFA就好了</p>
+<p>但是还有问题， $1$ 并不能保证与所有结点连通，而我们知道差分约束无解的情况就是图中有负环</p>
+<p>这个问题好解决，我们先在原图上建一个超级结点 $0$ 与所有结点相连（边权为 $0$ ），在 $0$ 跑一次SPFA判断即可判断解的情况</p>
 <p>说了这么多，是不是有点晕（</p>
 <p>理一下思路：</p>
-<ol type="1">
+<ol>
 <li>差分约束建图</li>
 <li>相邻编号建图</li>
-<li>建 <span class="math inline">\(0\)</span> 结点判断解的情况</li>
-<li>有解则从 <span class="math inline">\(1\)</span> 开始跑SPFA</li>
+<li>建 $0$ 结点判断解的情况</li>
+<li>有解则从 $1$ 开始跑SPFA</li>
 </ol>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -965,7 +939,7 @@ class="math inline">\(0\)</span> 跑一次SPFA判断即可判断解的情况</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">404.5k</span>&nbsp;字
+                class="white-color">405.7k</span>&nbsp;字
             
             
             

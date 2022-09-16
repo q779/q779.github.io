@@ -476,64 +476,40 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf915f-imbalance-value-of-a-tree-题解">CF915F Imbalance Value of
-a Tree 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F
-Imbalance Value of a Tree</a></p>
+                <h1 id="CF915F-Imbalance-Value-of-a-Tree-题解"><a href="#CF915F-Imbalance-Value-of-a-Tree-题解" class="headerlink" title="CF915F Imbalance Value of a Tree 题解"></a>CF915F Imbalance Value of a Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F Imbalance Value of a Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 <span class="math inline">\(n\)</span>
-个点的树，每个点有点权 <span class="math inline">\(a_i\)</span> 。</p>
-<p>定义 <span class="math inline">\(I(x,y)\)</span> 为 <span
-class="math inline">\(x\)</span> 到 <span
-class="math inline">\(y\)</span> 的简单路径上的 <span
-class="math inline">\(\max\{a_i\}-\min\{a_i\}\)</span></p>
-<p>求 <span class="math display">\[
-\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)
-\]</span> <strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^6\)</span></p>
+<p>给定一棵 $n$ 个点的树，每个点有点权 $a_i$ 。</p>
+<p>定义 $I(x,y)$ 为 $x$ 到 $y$ 的简单路径上的 $\max\{a_i\}-\min\{a_i\}$</p>
+<p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)</script><p><strong>数据范围</strong>：</p>
+<p>$1 \le n \le 10^6$</p>
 </blockquote>
-<p>这个 <span class="math inline">\(I(i,j)\)</span>
-是真的难看。考虑化简。 <span class="math display">\[
-\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)
-\]</span> <span class="math inline">\(f(i,j)\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 的简单路径上的 <span
-class="math inline">\(\max\{a_i\}\)</span></p>
-<p><span class="math inline">\(g(i,j)\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 的简单路径上的 <span
-class="math inline">\(\min\{a_i\}\)</span></p>
+<p>这个 $I(i,j)$ 是真的难看。考虑化简。</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)</script><p>$f(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\max\{a_i\}$</p>
+<p>$g(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\min\{a_i\}$</p>
 <p>套路地，由于我们只需要知道总答案，而并非每一条路径的答案</p>
 <p>于是考虑每个点的贡献。但是这个点就很不好处理。</p>
 <p>我们可以先看看最熟悉的<strong>边权</strong>怎么处理</p>
 <p>不失一般性，考虑<strong>边权最大值</strong>的贡献。</p>
 <p>如果是边权的话，我们可以把所有的边从小到大排序</p>
 <p>然后一条条边的加入，计算贡献后合并边两端的结点</p>
-<p>对于当前的边 <span class="math inline">\((u,v)\)</span>
-，它的贡献就是 <span class="math display">\[
-w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)
-\]</span> 其中 <span class="math inline">\(\mathrm{size}(u)\)</span>
-表示当前 <span class="math inline">\(u\)</span> 所在连通块的大小。</p>
+<p>对于当前的边 $(u,v)$ ，它的贡献就是</p>
+<script type="math/tex; mode=display">
+w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)</script><p>其中 $\mathrm{size}(u)$ 表示当前 $u$ 所在连通块的大小。</p>
 <p>然后我们考虑点权怎么处理</p>
-<p>考虑一条路径 <span class="math inline">\(a \rightarrow b \rightarrow
-c\)</span></p>
-<p>它的点权最大值就是（<del>懒得写 <span
-class="math inline">\(a_a,a_b,a_c\)</span> ，看得懂就好</del>） <span
-class="math display">\[
-\max\{a,b,c\}
-\]</span> 根据 <span class="math inline">\(\max\)</span>
-多次嵌套不变的性质，可知 <span class="math display">\[
-\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}
-\]</span> 注意到这构成了 <span
-class="math inline">\((a,b),(b,c)\)</span>
-的配对，于是我们就可以把<strong>点权化为边权</strong>了。 <span
-class="math display">\[
-w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}
-\]</span> 最小值也是一样的，就是从大到小排序而已。</p>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
-<p>树上的题目，如果 <span class="math inline">\(n\le 10^6\)</span>
-，一般都是 <span class="math inline">\(O(n)\)</span> 的</p>
+<p>考虑一条路径 $a \rightarrow b \rightarrow c$</p>
+<p>它的点权最大值就是（<del>懒得写 $a_a,a_b,a_c$ ，看得懂就好</del>）</p>
+<script type="math/tex; mode=display">
+\max\{a,b,c\}</script><p>根据 $\max$ 多次嵌套不变的性质，可知</p>
+<script type="math/tex; mode=display">
+\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}</script><p>注意到这构成了 $(a,b),(b,c)$ 的配对，于是我们就可以把<strong>点权化为边权</strong>了。</p>
+<script type="math/tex; mode=display">
+w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样的，就是从大到小排序而已。</p>
+<p>时间复杂度 $O(n)$ </p>
+<p>树上的题目，如果 $n\le 10^6$ ，一般都是 $O(n)$ 的</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -592,8 +568,7 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
 
                 
             </div>
@@ -971,7 +946,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">404.5k</span>&nbsp;字
+                class="white-color">405.7k</span>&nbsp;字
             
             
             

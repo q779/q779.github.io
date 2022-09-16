@@ -468,130 +468,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="全源最短路-johnson算法">全源最短路 Johnson算法</h1>
-<p>本文写于较早时期，之前对Dijkstra的理解不是很透彻</p>
+                <h1 id="全源最短路-Johnson算法"><a href="#全源最短路-Johnson算法" class="headerlink" title="全源最短路 Johnson算法"></a>全源最短路 Johnson算法</h1><p>本文写于较早时期，之前对Dijkstra的理解不是很透彻</p>
 <p>已经修改了部分显然错误的内容，有空会再仔细检查的</p>
-<p><strong>模板题</strong>：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5905">P5905 【模板】Johnson
-全源最短路</a></p>
-<p><strong>题意简述</strong>：给定一个包含 <span
-class="math inline">\(n\)</span> 个结点和 <span
-class="math inline">\(m\)</span>
-条带权边的<strong>有向图</strong>，求全源最短路，可能有<strong>负权重的边</strong>、<strong>重边</strong>、<strong>自环</strong>，部分数据卡
-SPFA 算法（还特地针对了SLF优化）</p>
+<p><strong>模板题</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5905">P5905 【模板】Johnson 全源最短路</a></p>
+<p><strong>题意简述</strong>：给定一个包含 $n$ 个结点和 $m$ 条带权边的<strong>有向图</strong>，求全源最短路，可能有<strong>负权重的边</strong>、<strong>重边</strong>、<strong>自环</strong>，部分数据卡 SPFA 算法（还特地针对了SLF优化）</p>
 <p>题意很明确，就是卡SPFA、Dijkstra、Floyd的</p>
-<p>这题用SPFA可以被卡成<span
-class="math inline">\(O(n^2m)\)</span>，Dijkstra不能处理负权重的边，Floyd<span
-class="math inline">\(O(n^3)\)</span>肯定超时</p>
+<p>这题用SPFA可以被卡成$O(n^2m)$，Dijkstra不能处理负权重的边，Floyd$O(n^3)$肯定超时</p>
 <p>说了这么多，就是为了引出我们要讲的 Johnson 算法</p>
-<p>Johnson算法可以判断给定的图中有无<strong>负环</strong>，在无负环时能给出<strong>全源最短路</strong>时间复杂度
-<span class="math inline">\(O(n^2\log m)\)</span>
-（Dijkstra采用优先队列优化，详细的分析可以看这边<a
-href="https://q779.github.io/2022/03/28/dijkstra-ji-qi-fu-za-du-zheng-ming/">link</a>）</p>
+<p>Johnson算法可以判断给定的图中有无<strong>负环</strong>，在无负环时能给出<strong>全源最短路</strong>时间复杂度 $O(n^2\log m)$ （Dijkstra采用优先队列优化，详细的分析可以看这边<a href="https://q779.github.io/2022/03/28/dijkstra-ji-qi-fu-za-du-zheng-ming/">link</a>） </p>
 <p>Johnson算法的核心为<strong>重新赋予权值</strong>，使得边权变成非负的新边权，而在运行过程中以Bellman-Ford和Dijkstra（以下提到的Dijkstra都用优先队列优化）作为自己的子程序</p>
-<h2 id="一算法原理">一、算法原理</h2>
-<p><strong>以下推导过程部分参照《算法导论》</strong></p>
-<p>对于给定有向图 <span class="math inline">\(G=(V,E)\)</span>
-，权重函数为 <span class="math inline">\(w:E \rightarrow R\)</span>
-，如果所有的边权重都为非负值，则只需在每一个结点上跑Dijkstra即可，时间复杂度<span
-class="math inline">\(O(V^2\log
-E)\)</span>；如果存在边权重为负值的边，但没有负环，则我们只需要预处理出一种新的权重函数
-<span class="math inline">\(w^{\prime}:E \rightarrow R\)</span>
-使得所有的边权重为非负值再跑Dijkstra即可</p>
-<p>则新的权重函数 <span class="math inline">\(w^{\prime}\)</span>
-一定满足以下两个条件：</p>
-<ol type="1">
-<li>对于结点 <span class="math inline">\(u,v \in V\)</span> ，路径 <span
-class="math inline">\(p\)</span> 为使用权重函数 <span
-class="math inline">\(w^{\prime}\)</span> 时 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 的一条最短路径，当且仅当 <span
-class="math inline">\(p\)</span> 为使用权重函数 <span
-class="math inline">\(w\)</span> 时 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 的一条最短路径</li>
-<li>对于任何边 <span class="math inline">\((u,v) \in E\)</span> ，<span
-class="math inline">\(w^{\prime}(u,v)\)</span> 为非负值
-（Dijkstra不可以处理负权重的边）</li>
+<h2 id="一、算法原理"><a href="#一、算法原理" class="headerlink" title="一、算法原理"></a>一、算法原理</h2><p><strong>以下推导过程部分参照《算法导论》</strong></p>
+<p>对于给定有向图 $G=(V,E)$ ，权重函数为 $w:E \rightarrow R$ ，如果所有的边权重都为非负值，则只需在每一个结点上跑Dijkstra即可，时间复杂度$O(V^2\log E)$；如果存在边权重为负值的边，但没有负环，则我们只需要预处理出一种新的权重函数 $w^{\prime}:E \rightarrow R$ 使得所有的边权重为非负值再跑Dijkstra即可</p>
+<p>则新的权重函数 $w^{\prime}$ 一定满足以下两个条件：</p>
+<ol>
+<li>对于结点 $u,v \in V$ ，路径 $p$ 为使用权重函数 $w^{\prime}$ 时 $u$ 到 $v$ 的一条最短路径，当且仅当 $p$ 为使用权重函数 $w$ 时 $u$ 到 $v$ 的一条最短路径</li>
+<li>对于任何边 $(u,v) \in E$ ，$w^{\prime}(u,v)$ 为非负值 （Dijkstra不可以处理负权重的边）</li>
 </ol>
-<p>设函数 <span class="math inline">\(h:V\rightarrow \mathbb{R}\)</span>
-将结点映射到实数上</p>
-<p>对于任何边<span class="math inline">\((u,v) \in E\)</span>，定义
-<span class="math inline">\(w^{\prime}(u,v) = w(u,v) + h(u) -
-h(v)\)</span></p>
-<p>我们<strong>先假设图</strong> <span class="math inline">\(G\)</span>
-<strong>没有负环</strong>，设路径 <span class="math inline">\(p\)</span>
-为使用权重函数 <span class="math inline">\(w^{\prime}\)</span> 时 <span
-class="math inline">\(v_0\)</span> 到 <span
-class="math inline">\(v_k\)</span>的一条最短路径<span
-class="math inline">\((v_0,v_k \in V)\)</span> ，当且仅当 <span
-class="math inline">\(p\)</span> 为使用权重函数 <span
-class="math inline">\(w\)</span> 时 <span
-class="math inline">\(v_0\)</span> 到 <span
-class="math inline">\(v_k\)</span> 的一条最短路径</p>
-<p>则可以证明 <span class="math inline">\(w^{\prime}(p) = w(p) +
-h(v_0)-h(v_k)\)</span> <span class="math display">\[
+<p>设函数 $h:V\rightarrow \mathbb{R}$ 将结点映射到实数上</p>
+<p>对于任何边$(u,v) \in E$，定义 $w^{\prime}(u,v) = w(u,v) + h(u) - h(v)$</p>
+<p>我们<strong>先假设图</strong> $G$ <strong>没有负环</strong>，设路径 $p$ 为使用权重函数 $w^{\prime}$ 时 $v_0$ 到 $v_k$的一条最短路径$(v_0,v_k \in V)$ ，当且仅当 $p$ 为使用权重函数 $w$ 时 $v_0$ 到 $v_k$ 的一条最短路径</p>
+<p>则可以证明 $w^{\prime}(p) = w(p) + h(v_0)-h(v_k)$</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-w^{\prime}(p)&amp;=\sum\limits_{i=1}^{k}{w^{\prime}(v_{i-1},v_i)}
-\\\\&amp;= \sum\limits_{i=1}^{k}{(w(v_{i-1},v_i)+h(v_{i-1})-h(v_i))}
-\\\\&amp;=\sum\limits_{i=1}^{k}{w(v_{i-1},v_i)}+h(v_0)-h(v_k)
-\\\\&amp;= w(p)+h(v_0)-h(v_k)
-\end{aligned}
-\]</span> 因为 <span class="math inline">\(h\)</span>
-为将<strong>结点映射到实数上的函数</strong>，函数的值<strong>不受边权重的影响</strong>，所以对于一条为使用权重函数
-<span class="math inline">\(w\)</span> 时 <span
-class="math inline">\(v_0\)</span> 到 <span
-class="math inline">\(v_k\)</span> 比 <span
-class="math inline">\(p\)</span> 要长的路径 <span
-class="math inline">\(q\)</span> ，在使用权重函数 <span
-class="math inline">\(w^{\prime}\)</span> 时 <span
-class="math inline">\(q\)</span> 一定比 <span
-class="math inline">\(p\)</span> 长</p>
-<p>我们再来看看负环的问题，对于环<span class="math inline">\(c = \langle
-v_0, v_1, ... v_k\rangle\)</span> ，其中 <span class="math inline">\(v_0
-= v_k\)</span> ，则有 <span class="math inline">\(w^{\prime}(c) = w(c) +
-h(v_0) -h(v_k) = w(c)\)</span></p>
-<p>则对于 <span class="math inline">\(c\)</span> 使用权重函数 <span
-class="math inline">\(w\)</span> 时为负环，当且仅当使用权重函数 <span
-class="math inline">\(w\)</span> 时为负环</p>
-<p>那么 <span class="math inline">\(h\)</span> 函数该如何处理呢？</p>
-<p>我们可以<strong>新建一个虚拟结点</strong> <span
-class="math inline">\(s\)</span> ，并将 <span
-class="math inline">\(s\)</span> 和其他所有结点建边权重为 <span
-class="math inline">\(0\)</span> 的边，在 <span
-class="math inline">\(s\)</span>
-结点跑一次Bellman-Ford（SPFA当然可以），求出 <span
-class="math inline">\(s\)</span> 到其他结点的最短路，则对于任何 <span
-class="math inline">\(v \in V\)</span> ， <span
-class="math inline">\(h(v)\)</span> 的值即为 <span
-class="math inline">\(s\)</span> 到 <span
-class="math inline">\(v\)</span>
-的最短路径长，在跑的过程中如果一条路径中某个结点被松弛超过 <span
-class="math inline">\(n\)</span>
-次，则一定存在负环，并返回存在负环的信息（SPFA判负环的方法就不延伸了）</p>
-<p>因为 <span class="math inline">\(s\)</span> 结点入度为 <span
-class="math inline">\(0\)</span> ，所以其他的路径中不会包含 <span
-class="math inline">\(s\)</span> 结点</p>
-<p>那么为什么无负环时使用权重函数 <span
-class="math inline">\(w^{\prime}\)</span> ，边权重一定为非负呢？</p>
-<p>设现在的图为 <span class="math inline">\(G^{\prime} =
-(V^{\prime},E^{\prime})\)</span> ，<span
-class="math inline">\(V^{\prime} = V \cup \{s\}\)</span> ，<span
-class="math inline">\(E^{\prime} = E \cup \{(s,v),v\in E\}\)</span></p>
-<p>根据三角形不等式，可知对于任意结点 <span class="math inline">\(u,v
-\in V^{\prime}\)</span> ，若 <span class="math inline">\(\exists (u,v)
-\in E^{\prime}\)</span>，则有 <span class="math display">\[
+w^{\prime}(p)&=\sum\limits_{i=1}^{k}{w^{\prime}(v_{i-1},v_i)}
+\\\\&= \sum\limits_{i=1}^{k}{(w(v_{i-1},v_i)+h(v_{i-1})-h(v_i))}
+\\\\&=\sum\limits_{i=1}^{k}{w(v_{i-1},v_i)}+h(v_0)-h(v_k)
+\\\\&= w(p)+h(v_0)-h(v_k)
+\end{aligned}</script><p>因为 $h$ 为将<strong>结点映射到实数上的函数</strong>，函数的值<strong>不受边权重的影响</strong>，所以对于一条为使用权重函数 $w$ 时 $v_0$ 到 $v_k$ 比 $p$ 要长的路径 $q$ ，在使用权重函数 $w^{\prime}$ 时 $q$ 一定比 $p$ 长</p>
+<p>我们再来看看负环的问题，对于环$c = \langle v_0, v_1, … v_k\rangle$ ，其中 $v_0 = v_k$ ，则有 $w^{\prime}(c) = w(c) + h(v_0) -h(v_k) = w(c)$   </p>
+<p>则对于 $c$ 使用权重函数 $w$ 时为负环，当且仅当使用权重函数 $w$ 时为负环</p>
+<p>那么 $h$ 函数该如何处理呢？</p>
+<p>我们可以<strong>新建一个虚拟结点</strong> $s$ ，并将 $s$ 和其他所有结点建边权重为 $0$ 的边，在 $s$ 结点跑一次Bellman-Ford（SPFA当然可以），求出 $s$ 到其他结点的最短路，则对于任何 $v \in V$ ， $h(v)$ 的值即为 $s$ 到 $v$ 的最短路径长，在跑的过程中如果一条路径中某个结点被松弛超过 $n$ 次，则一定存在负环，并返回存在负环的信息（SPFA判负环的方法就不延伸了）</p>
+<p>因为 $s$ 结点入度为 $0$  ，所以其他的路径中不会包含 $s$ 结点</p>
+<p>那么为什么无负环时使用权重函数 $w^{\prime}$ ，边权重一定为非负呢？</p>
+<p>设现在的图为 $G^{\prime} = (V^{\prime},E^{\prime})$ ，$V^{\prime} = V \cup \{s\}$ ，$E^{\prime} = E \cup \{(s,v),v\in E\}$</p>
+<p>根据三角形不等式，可知对于任意结点 $u,v \in V^{\prime}$ ，若 $\exists (u,v) \in E^{\prime}$，则有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-h(u) + w(u,v) \ge h(v)&amp;\Rightarrow w(u,v) + h(u) - h(v) \ge 0
-\\\\&amp;\Rightarrow w^{\prime}(u,v) \ge 0
-\end{aligned}
-\]</span> 现在我们只需要在每个结点上跑一次Dijkstra即可</p>
-<p><strong>时间复杂度</strong> <span class="math inline">\(O(V^2 \log
-E)\)</span> （SPFA时间复杂度最坏 <span
-class="math inline">\(O(VE)\)</span> ，预处理时间复杂度 <span
-class="math inline">\(O(VE)\)</span> ）</p>
-<h2 id="二参考代码">二、参考代码</h2>
-<p>模板题代码如下 （注：输出<strong>按该题要求</strong>写的）</p>
+h(u) + w(u,v) \ge h(v)&\Rightarrow w(u,v) + h(u) - h(v) \ge 0 
+\\\\&\Rightarrow w^{\prime}(u,v) \ge 0
+\end{aligned}</script><p>现在我们只需要在每个结点上跑一次Dijkstra即可</p>
+<p><strong>时间复杂度</strong> $O(V^2 \log E)$ （SPFA时间复杂度最坏 $O(VE)$ ，预处理时间复杂度 $O(VE)$ ）</p>
+<h2 id="二、参考代码"><a href="#二、参考代码" class="headerlink" title="二、参考代码"></a>二、参考代码</h2><p>模板题代码如下 （注：输出<strong>按该题要求</strong>写的）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -709,7 +627,6 @@ class="math inline">\(O(VE)\)</span> ）</p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
                 
             </div>
             <hr/>
@@ -1066,7 +983,7 @@ class="math inline">\(O(VE)\)</span> ）</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">404.5k</span>&nbsp;字
+                class="white-color">405.7k</span>&nbsp;字
             
             
             
