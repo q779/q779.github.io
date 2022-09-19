@@ -472,69 +472,109 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="主定理"><a href="#主定理" class="headerlink" title="主定理"></a>主定理</h1><p>证明先不写</p>
-<p>将一个规模为 $n$ 的问题，通过分治得到 $a$ 个规模为 $n/b$ 的子问题，每个递归带来的额外计算为 $f(n)$ ，则有</p>
-<script type="math/tex; mode=display">
-T(n)=aT(n/b)+f(n)</script><p>其中 $a,b$ 为常数， $n\in \mathbb{N}^*,a\ge 1,b &gt; 1,n/b$ 解释为 $\left\lfloor{\dfrac{n}{b}}\right\rfloor$ 或 $\left\lceil\dfrac{n}{b}\right\rceil$</p>
-<ol>
-<li>若 $\exists \epsilon &gt; 0$ 使得 $f(n)=O(n^{\log_b{a}-\epsilon})$，则 $T(n)=\Theta(n^{\log_ba})$</li>
-<li>若 $\exists \epsilon \ge 0$ 使得 $f(n)=\Theta(n^{\log_ba}\log^\epsilon n)$，则 $T(n)=\Theta(n^{\log_ba}\log^{\epsilon+1}n)$</li>
-<li>若 $\exists \epsilon&gt;0$ 使得 $f(n)=\Omega(n^{\log_ba+\epsilon})$ ，且 $\exists c&lt;1 , \forall n \gg 1$ 使得 $af(n/b)\le cf(n)$ ，则 $T(n)=\Theta(f(n))$</li>
+                <h1 id="主定理">主定理</h1>
+<p>证明先不写</p>
+<p>将一个规模为 <span class="math inline">\(n\)</span>
+的问题，通过分治得到 <span class="math inline">\(a\)</span> 个规模为
+<span class="math inline">\(n/b\)</span>
+的子问题，每个递归带来的额外计算为 <span
+class="math inline">\(f(n)\)</span> ，则有</p>
+<p><span class="math display">\[
+T(n)=aT(n/b)+f(n)
+\]</span> 其中 <span class="math inline">\(a,b\)</span> 为常数， <span
+class="math inline">\(n\in \mathbb{N}^*,a\ge 1,b &gt; 1,n/b\)</span>
+解释为 <span
+class="math inline">\(\left\lfloor{\dfrac{n}{b}}\right\rfloor\)</span>
+或 <span
+class="math inline">\(\left\lceil\dfrac{n}{b}\right\rceil\)</span></p>
+<ol type="1">
+<li>若 <span class="math inline">\(\exists \epsilon &gt; 0\)</span> 使得
+<span class="math inline">\(f(n)=O(n^{\log_b{a}-\epsilon})\)</span>，则
+<span class="math inline">\(T(n)=\Theta(n^{\log_ba})\)</span></li>
+<li>若 <span class="math inline">\(\exists \epsilon \ge 0\)</span> 使得
+<span class="math inline">\(f(n)=\Theta(n^{\log_ba}\log^\epsilon
+n)\)</span>，则 <span
+class="math inline">\(T(n)=\Theta(n^{\log_ba}\log^{\epsilon+1}n)\)</span></li>
+<li>若 <span class="math inline">\(\exists \epsilon&gt;0\)</span> 使得
+<span class="math inline">\(f(n)=\Omega(n^{\log_ba+\epsilon})\)</span>
+，且 <span class="math inline">\(\exists c&lt;1 , \forall n \gg
+1\)</span> 使得 <span class="math inline">\(af(n/b)\le cf(n)\)</span>
+，则 <span class="math inline">\(T(n)=\Theta(f(n))\)</span></li>
 </ol>
-<p>其中 $\epsilon,c$ 均为常数。</p>
-<hr>
-<h2 id="常用结论"><a href="#常用结论" class="headerlink" title="常用结论"></a>常用结论</h2><p>$T(n) = 2T(\frac{n}{2}) + \Theta(n) = \Theta(n \log n)$</p>
-<p>$T(n) = T(\frac{n}{2})  + \Theta (n) = \Theta (n)$</p>
-<p>$T(n) = T(\frac{n}{2})  +\Theta (1) = \Theta(\log n)$</p>
-<p>$T(n) = 2T(\frac{n}{2}) + \Theta(n \sqrt{n}) = \Theta ( n \sqrt{n} )$</p>
-<hr>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><hr>
-<p><strong>例1</strong>：</p>
-<script type="math/tex; mode=display">
-T(n) = 6T(n/3) + O(n^{\frac{3}{2}})</script><p>解：</p>
-<p>根据公式 $a=6,b=3$  </p>
-<script type="math/tex; mode=display">
-\log_b a = \log_3 6 = 1 + \frac{\ln 2}{\ln 3} \approx 1.63</script><p><del>注：不要问我为什么可以手算出来，因为我背了自然对数表</del></p>
-<p>并且</p>
-<script type="math/tex; mode=display">
-f(n) = O(n^{\frac{3}{2}}) = O\left(n^{\log_3 6 - \epsilon}\right)</script><p>故</p>
-<script type="math/tex; mode=display">
-T(n) = \Theta\left(n^{1 + \log_3 2}\right)</script><hr>
-<p><strong>例2</strong>：</p>
-<script type="math/tex; mode=display">
-T(n) = 4T(n/2) + \Theta(n^2)</script><p>解：</p>
-<p>根据公式 $a=4,b=2$</p>
-<script type="math/tex; mode=display">
-\log_b a =2</script><p>并且</p>
-<script type="math/tex; mode=display">
-f(n) = \Theta(n^2) = \Theta(n^2\log^0 n)</script><p>故</p>
-<script type="math/tex; mode=display">
-T(n) = \Theta(n^2 \log n)</script><hr>
-<p><strong>例3</strong>：</p>
-<script type="math/tex; mode=display">
-T(n) = T(n/2) + \Theta(\sqrt{n})</script><p>解：</p>
-<p>根据公式 $a=1,b=2$</p>
-<script type="math/tex; mode=display">
-\log_b a = 0</script><p>并且</p>
-<script type="math/tex; mode=display">
-f(n) = \Theta(\sqrt{n}) = \Omega(n^{0 + \frac{1}{2}})</script><p>同时</p>
-<script type="math/tex; mode=display">
-\exists c < 1 \quad \mathrm{s.t.} \quad f(n/2) = \frac{\sqrt{2}}{2}f(n) \le c f (n)</script><p>此时 $\frac{\sqrt{2}}{2}&lt; c &lt; 1$ ，故</p>
-<script type="math/tex; mode=display">
-T(n) = \Theta(\sqrt{n})</script><hr>
-<p><strong>例4</strong>：</p>
-<script type="math/tex; mode=display">
-T(n) = 4T(n/3) + \Theta(n^2)</script><p>解：</p>
-<p>根据公式 $a=4,b=3$</p>
-<script type="math/tex; mode=display">
-\log_b a = 2\log_32 \approx 1.26</script><p>并且</p>
-<script type="math/tex; mode=display">
-f(n) = \Theta(n^2) = \Omega(n^{1.26 + \epsilon})</script><p>同时</p>
-<script type="math/tex; mode=display">
-\exists c < 1 \quad \mathrm{s.t.} \quad 4f(n/3) = \frac{4}{9}f(n) \le cf(n)</script><p>此时 $\frac{4}{9} &lt; c &lt; 1$</p>
-<p>故</p>
-<script type="math/tex; mode=display">
-T(n) = \Theta(n^2)</script>
+<p>其中 <span class="math inline">\(\epsilon,c\)</span> 均为常数。</p>
+<hr />
+<h2 id="常用结论">常用结论</h2>
+<p><span class="math inline">\(T(n) = 2T(\frac{n}{2}) + \Theta(n) =
+\Theta(n \log n)\)</span></p>
+<p><span class="math inline">\(T(n) = T(\frac{n}{2}) + \Theta (n) =
+\Theta (n)\)</span></p>
+<p><span class="math inline">\(T(n) = T(\frac{n}{2}) +\Theta (1) =
+\Theta(\log n)\)</span></p>
+<p><span class="math inline">\(T(n) = 2T(\frac{n}{2}) + \Theta(n
+\sqrt{n}) = \Theta ( n \sqrt{n} )\)</span></p>
+<hr />
+<h2 id="例题">例题</h2>
+<hr />
+<p><strong>例1</strong>： <span class="math display">\[
+T(n) = 6T(n/3) + O(n^{\frac{3}{2}})
+\]</span> 解：</p>
+<p>根据公式 <span class="math inline">\(a=6,b=3\)</span><br />
+<span class="math display">\[
+\log_b a = \log_3 6 = 1 + \frac{\ln 2}{\ln 3} \approx 1.63
+\]</span>
+<del>注：不要问我为什么可以手算出来，因为我背了自然对数表</del></p>
+<p>并且 <span class="math display">\[
+f(n) = O(n^{\frac{3}{2}}) = O\left(n^{\log_3 6 - \epsilon}\right)
+\]</span></p>
+<p>故 <span class="math display">\[
+T(n) = \Theta\left(n^{1 + \log_3 2}\right)
+\]</span></p>
+<hr />
+<p><strong>例2</strong>： <span class="math display">\[
+T(n) = 4T(n/2) + \Theta(n^2)
+\]</span> 解：</p>
+<p>根据公式 <span class="math inline">\(a=4,b=2\)</span> <span
+class="math display">\[
+\log_b a =2
+\]</span> 并且 <span class="math display">\[
+f(n) = \Theta(n^2) = \Theta(n^2\log^0 n)
+\]</span> 故 <span class="math display">\[
+T(n) = \Theta(n^2 \log n)
+\]</span></p>
+<hr />
+<p><strong>例3</strong>： <span class="math display">\[
+T(n) = T(n/2) + \Theta(\sqrt{n})
+\]</span> 解：</p>
+<p>根据公式 <span class="math inline">\(a=1,b=2\)</span> <span
+class="math display">\[
+\log_b a = 0
+\]</span> 并且 <span class="math display">\[
+f(n) = \Theta(\sqrt{n}) = \Omega(n^{0 + \frac{1}{2}})
+\]</span> 同时 <span class="math display">\[
+\exists c &lt; 1 \quad \mathrm{s.t.} \quad f(n/2) =
+\frac{\sqrt{2}}{2}f(n) \le c f (n)
+\]</span> 此时 <span class="math inline">\(\frac{\sqrt{2}}{2}&lt; c &lt;
+1\)</span> ，故 <span class="math display">\[
+T(n) = \Theta(\sqrt{n})
+\]</span></p>
+<hr />
+<p><strong>例4</strong>： <span class="math display">\[
+T(n) = 4T(n/3) + \Theta(n^2)
+\]</span> 解：</p>
+<p>根据公式 <span class="math inline">\(a=4,b=3\)</span> <span
+class="math display">\[
+\log_b a = 2\log_32 \approx 1.26
+\]</span> 并且 <span class="math display">\[
+f(n) = \Theta(n^2) = \Omega(n^{1.26 + \epsilon})
+\]</span> 同时 <span class="math display">\[
+\exists c &lt; 1 \quad \mathrm{s.t.} \quad 4f(n/3) = \frac{4}{9}f(n) \le
+cf(n)
+\]</span> 此时 <span class="math inline">\(\frac{4}{9} &lt; c &lt;
+1\)</span></p>
+<p>故 <span class="math display">\[
+T(n) = \Theta(n^2)
+\]</span></p>
+
                 
             </div>
             <hr/>
@@ -899,7 +939,7 @@ T(n) = \Theta(n^2)</script>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">405.7k</span>&nbsp;字
+                class="white-color">410.5k</span>&nbsp;字
             
             
             

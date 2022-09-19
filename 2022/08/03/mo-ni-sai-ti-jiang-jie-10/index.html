@@ -472,14 +472,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模拟赛题讲解-10"><a href="#模拟赛题讲解-10" class="headerlink" title="模拟赛题讲解[10]"></a>模拟赛题讲解[10]</h1><p>来自 <a target="_blank" rel="noopener" href="https://oier.baoshuo.dev/oier/34187">xpp</a> 2022-08-03 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2723">noi.ac #2723</a></p>
+                <h1 id="模拟赛题讲解10">模拟赛题讲解[10]</h1>
+<p>来自 <a target="_blank" rel="noopener" href="https://oier.baoshuo.dev/oier/34187">xpp</a> 2022-08-03
+<a target="_blank" rel="noopener" href="http://noi.ac/problem/2723">noi.ac #2723</a></p>
 <p><strong>题目描述</strong></p>
-<p>lzr给了xpp一个字符串 $s$ 和一个字符串 $t$ ，xpp想通过 $s$ 构造出 $t$ ，构造方式为xpp每次选择 $s$ 的一个子序列，放到当前串的后面，xpp想知道他需要构造多少次才能构造出 $t$ 呢？</p>
+<p>lzr给了xpp一个字符串 <span class="math inline">\(s\)</span>
+和一个字符串 <span class="math inline">\(t\)</span> ，xpp想通过 <span
+class="math inline">\(s\)</span> 构造出 <span
+class="math inline">\(t\)</span> ，构造方式为xpp每次选择 <span
+class="math inline">\(s\)</span>
+的一个子序列，放到当前串的后面，xpp想知道他需要构造多少次才能构造出
+<span class="math inline">\(t\)</span> 呢？</p>
 <p><strong>输入格式</strong></p>
-<p>第一行一个数 $T$ 表示数据组数。</p>
-<p>对于每组数据第一行一个字符串 $s$ ，第二行一个字符串 $t$ ，含义见题目描述</p>
+<p>第一行一个数 <span class="math inline">\(T\)</span>
+表示数据组数。</p>
+<p>对于每组数据第一行一个字符串 <span class="math inline">\(s\)</span>
+，第二行一个字符串 <span class="math inline">\(t\)</span>
+，含义见题目描述</p>
 <p><strong>输出格式</strong></p>
-<p>每组数据输出一行表示次数。如果不能输出 $-1$。</p>
+<p>每组数据输出一行表示次数。如果不能输出 <span
+class="math inline">\(-1\)</span>。</p>
 <p><strong>输入1</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">3
 aabce
@@ -493,13 +505,25 @@ yyt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 -1
 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>数据规模</strong>：</p>
-<p>对于 $30\%$ 的数据， $\texttt{字符串长度} \le 100$</p>
-<p>对于 $100\%$ 的数据，$\texttt{字符串长度} \le 10^5,~1\le T\le 10$</p>
+<p>对于 <span class="math inline">\(30\%\)</span> 的数据， <span
+class="math inline">\(\texttt{字符串长度} \le 100\)</span></p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(\texttt{字符串长度} \le 10^5,~1\le T\le
+10\)</span></p>
 <p><strong>题解</strong>：</p>
-<p>暴力的解法就是遍历 $t$ ，然后维护一个指针 $p$ 在 $s$ 上跳</p>
-<p>仔细观察可以发现，如果 $s=\tt{aaabbbbbbc}$ ， $t=\tt{ac}$   </p>
-<p>那么 $p$ 就会慢悠悠的从 $s$ 的第一个 $\tt{a}$ 一直跑到最后的 $\tt{c}$ </p>
-<p>考虑维护一个 $\text{nx}_{i,j}$ 表示 $i$ 后面出现的第一个字符 $j$ 的位置</p>
+<p>暴力的解法就是遍历 <span class="math inline">\(t\)</span>
+，然后维护一个指针 <span class="math inline">\(p\)</span> 在 <span
+class="math inline">\(s\)</span> 上跳</p>
+<p>仔细观察可以发现，如果 <span
+class="math inline">\(s=\tt{aaabbbbbbc}\)</span> ， <span
+class="math inline">\(t=\tt{ac}\)</span></p>
+<p>那么 <span class="math inline">\(p\)</span> 就会慢悠悠的从 <span
+class="math inline">\(s\)</span> 的第一个 <span
+class="math inline">\(\tt{a}\)</span> 一直跑到最后的 <span
+class="math inline">\(\tt{c}\)</span></p>
+<p>考虑维护一个 <span class="math inline">\(\text{nx}_{i,j}\)</span>
+表示 <span class="math inline">\(i\)</span> 后面出现的第一个字符 <span
+class="math inline">\(j\)</span> 的位置</p>
 <p>这个东西的预处理还是很有趣的，我当时没想到怎么搞，<del>然后就用二分草过了</del></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">26</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -507,7 +531,7 @@ yyt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">26</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>n<span class="token punctuation">;</span> j<span class="token operator">>=</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
         nx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span><span class="token char">'a'</span><span class="token operator">+</span>i<span class="token punctuation">)</span><span class="token operator">?</span>j<span class="token operator">:</span>nx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>时间复杂度 $O(Qn)$</p>
+<p>时间复杂度 <span class="math inline">\(O(Qn)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -970,7 +994,7 @@ string s<span class="token punctuation">,</span>t<span class="token punctuation"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">405.7k</span>&nbsp;字
+                class="white-color">410.5k</span>&nbsp;字
             
             
             

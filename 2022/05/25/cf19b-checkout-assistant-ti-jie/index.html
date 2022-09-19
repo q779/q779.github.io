@@ -472,28 +472,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF19B-Checkout-Assistant-题解"><a href="#CF19B-Checkout-Assistant-题解" class="headerlink" title="CF19B Checkout Assistant 题解"></a>CF19B Checkout Assistant 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF19B">CF19B Checkout Assistant</a></p>
+                <h1 id="cf19b-checkout-assistant-题解">CF19B Checkout Assistant
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF19B">CF19B
+Checkout Assistant</a></p>
 <blockquote>
-<p><strong>题意</strong>：Bob 来到一家现购自运商店，将 $n$ 件商品放入了他的手推车，然后到收银台付款。每件商品由它的价格 $c_i$ 和收银员扫描它的时间 $t_i$ 秒定义。</p>
-<p>当收银员正在扫描某件商品时，Bob 可以从他的手推车中偷走某些其它商品。Bob 需要恰好 $1$ 秒来偷走一件商品。Bob 需要付给收银员的最少钱数是多少？请记住，收银员扫描商品的顺序由 Bob 决定。 </p>
+<p><strong>题意</strong>：Bob 来到一家现购自运商店，将 <span
+class="math inline">\(n\)</span>
+件商品放入了他的手推车，然后到收银台付款。每件商品由它的价格 <span
+class="math inline">\(c_i\)</span> 和收银员扫描它的时间 <span
+class="math inline">\(t_i\)</span> 秒定义。</p>
+<p>当收银员正在扫描某件商品时，Bob
+可以从他的手推车中偷走某些其它商品。Bob 需要恰好 <span
+class="math inline">\(1\)</span> 秒来偷走一件商品。Bob
+需要付给收银员的最少钱数是多少？请记住，收银员扫描商品的顺序由 Bob
+决定。</p>
 </blockquote>
-<p>这个题确实有点难想，因为它的背包容量和物品都是与 $n$ 有关的</p>
-<p>观察题目的性质，我们需要带走所有的 $n$ 件物品</p>
-<p>而第 $i$ 件物品可以花费 $c_i$ 的价格带走 $t_i+1$ 件物品</p>
-<p>为什么是 $+1$ ？因为它本身也会被带走</p>
-<p>题目要求的是带走这 $n$ 件物品的最小花费，可以看出这是一个01背包</p>
+<p>这个题确实有点难想，因为它的背包容量和物品都是与 <span
+class="math inline">\(n\)</span> 有关的</p>
+<p>观察题目的性质，我们需要带走所有的 <span
+class="math inline">\(n\)</span> 件物品</p>
+<p>而第 <span class="math inline">\(i\)</span> 件物品可以花费 <span
+class="math inline">\(c_i\)</span> 的价格带走 <span
+class="math inline">\(t_i+1\)</span> 件物品</p>
+<p>为什么是 <span class="math inline">\(+1\)</span>
+？因为它本身也会被带走</p>
+<p>题目要求的是带走这 <span class="math inline">\(n\)</span>
+件物品的最小花费，可以看出这是一个01背包</p>
 <p>但是背包的大小并不是很好确定</p>
-<p>因为选择的物品它们的 $\sum (t_i+1)$ 很可能会超过 $n$ </p>
-<p>那么最多会超过多少呢？不难发现背包容量最多为 $n+\max(v_i)+1$ </p>
+<p>因为选择的物品它们的 <span class="math inline">\(\sum
+(t_i+1)\)</span> 很可能会超过 <span class="math inline">\(n\)</span></p>
+<p>那么最多会超过多少呢？不难发现背包容量最多为 <span
+class="math inline">\(n+\max(v_i)+1\)</span></p>
 <p>如果超过了这个数，那么当前的选择一定不是优的</p>
-<p>由于我们并不知道最后会超过多少，我们就把每一种情况都算出来，然后取个 $\min$ 就好了</p>
-<p>设 $dp[i][j]$ 表示只考虑前 $i$ 件物品，恰好装满 $j$ 时的最小花费,则有</p>
-<script type="math/tex; mode=display">
-dp[i][j]=\min(dp[i-1][j],dp[i-1][j-t_i-1]+c_i)</script><p>滚动数组一下，就是</p>
-<script type="math/tex; mode=display">
-dp[j]=\min(dp[j],dp[j-t_i-1]+c_i)</script><p>于是答案就是</p>
-<script type="math/tex; mode=display">
-\min_{n \le i \le n+\max(v_k)+1}(dp[i])</script><p>代码：</p>
+<p>由于我们并不知道最后会超过多少，我们就把每一种情况都算出来，然后取个
+<span class="math inline">\(\min\)</span> 就好了</p>
+<p>设 <span class="math inline">\(dp[i][j]\)</span> 表示只考虑前 <span
+class="math inline">\(i\)</span> 件物品，恰好装满 <span
+class="math inline">\(j\)</span> 时的最小花费,则有 <span
+class="math display">\[
+dp[i][j]=\min(dp[i-1][j],dp[i-1][j-t_i-1]+c_i)
+\]</span> 滚动数组一下，就是 <span class="math display">\[
+dp[j]=\min(dp[j],dp[j-t_i-1]+c_i)
+\]</span> 于是答案就是 <span class="math display">\[
+\min_{n \le i \le n+\max(v_k)+1}(dp[i])
+\]</span> 代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -644,13 +667,13 @@ dp[j]=\min(dp[j],dp[j-t_i-1]+c_i)</script><p>于是答案就是</p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/cf219d-choosing-capital-for-treeland-ti-jie/">
+                <a href="/2022/05/25/cf149d-coloring-brackets-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p151.jpg" class="responsive-img" alt="CF219D Choosing Capital for Treeland 题解">
+                        <img src="/medias/featureimages/p17.jpg" class="responsive-img" alt="CF149D Coloring Brackets 题解">
                         
-                        <span class="card-title">CF219D Choosing Capital for Treeland 题解</span>
+                        <span class="card-title">CF149D Coloring Brackets 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -697,13 +720,13 @@ dp[j]=\min(dp[j],dp[j-t_i-1]+c_i)</script><p>于是答案就是</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/cf346b-lucky-common-subsequence-ti-jie/">
+                <a href="/2022/05/25/cf219d-choosing-capital-for-treeland-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p171.jpg" class="responsive-img" alt="CF346B Lucky Common Subsequence 题解">
+                        <img src="/medias/featureimages/p151.jpg" class="responsive-img" alt="CF219D Choosing Capital for Treeland 题解">
                         
-                        <span class="card-title">CF346B Lucky Common Subsequence 题解</span>
+                        <span class="card-title">CF219D Choosing Capital for Treeland 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -892,7 +915,7 @@ dp[j]=\min(dp[j],dp[j-t_i-1]+c_i)</script><p>于是答案就是</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">405.7k</span>&nbsp;字
+                class="white-color">410.5k</span>&nbsp;字
             
             
             
