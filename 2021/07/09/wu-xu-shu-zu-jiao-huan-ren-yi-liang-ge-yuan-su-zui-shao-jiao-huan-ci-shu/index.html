@@ -450,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-26
+                    2022-09-24
                 </div>
                 
 
@@ -472,34 +472,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="无序数组交换任意两个元素-最少交换次数">无序数组交换任意两个元素
-最少交换次数</h1>
-<h3 id="题目描述">题目描述</h3>
-给定长度为 <span class="math inline">\(n\)</span>
-的无序数组，将数组中的元素按<strong>从小到大</strong>的顺序排列，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？
-<HR>
-<h3 id="解题方法">解题方法</h3>
-<h4 id="解法一较繁琐">解法一（较繁琐）</h4>
+                <h1 id="无序数组交换任意两个元素-最少交换次数"><a href="#无序数组交换任意两个元素-最少交换次数" class="headerlink" title="无序数组交换任意两个元素 最少交换次数"></a>无序数组交换任意两个元素 最少交换次数</h1><p><strong>题目</strong>：</p>
+<p>属于是经典题了，做完可以去做一下 <a target="_blank" rel="noopener" href="https://uoj.ac/problem/233">UOJ233 【IOI2015】Sorting</a> （<del>确信</del></p>
+<p>给定长度为 $n$ 的排列，将元素升序排序，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
+<blockquote>
+<p>如果是交换相邻两个元素，那就是逆序对的个数，这个本文不会提及（<del>因为已经说完了</del></p>
+</blockquote>
+<p>例：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">input<span class="token operator">:</span>
+<span class="token number">6</span>
+<span class="token number">1</span> <span class="token number">4</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">5</span> <span class="token number">6</span>
+
+output<span class="token operator">:</span> 
+<span class="token number">2</span>
+swap <span class="token number">2</span> <span class="token number">4</span>
+swap <span class="token number">4</span> <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>题解</strong>：</p>
+<p>对于每个元素，我们将该元素和它的正确位置建边</p>
+<p>最后一定是 $1\sim n$ 个环（自环也算）</p>
+<p>对于有 $k$ 个元素的环，最少交换次数为 $k-1$</p>
+<p>假设共有 $p$ 个环，对于第 $i$ 个环，有 $k_i$ 个元素，则它的最少交换次数为 $k_i - 1$ </p>
+<p>因此</p>
+<script type="math/tex; mode=display">
+\mathtt{ans} = \sum\limits_{i=1}^{p}{(k_i-1)} = \sum\limits_{i=1}^{p}{k_i} - p</script><p>显然</p>
+<script type="math/tex; mode=display">
+n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素个数 - 环的个数。具体实现见代码。</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>代码：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">1e6</span><span class="token operator">+</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>p<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>q<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>tag<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> cur<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>tag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>i<span class="token punctuation">;</span> tag<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">=</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span> tag<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> p<span class="token punctuation">[</span>cur<span class="token punctuation">]</span><span class="token operator">=</span>j<span class="token punctuation">;</span> q<span class="token punctuation">[</span>cur<span class="token operator">++</span><span class="token punctuation">]</span><span class="token operator">=</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+            <span class="token operator">--</span>cur<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    
+    cout <span class="token operator">&lt;&lt;</span> cur <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>cur<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"swap "</span> <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span> <span class="token operator">&lt;&lt;</span> q<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// freopen("check.in","r",stdin);</span>
+    <span class="token comment">// freopen("check.out","w",stdout);</span>
+    cin <span class="token operator">>></span> n<span class="token punctuation">;</span> <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>其他解法</strong>：</p>
+<p>不知道啥时候写的垃圾东西，看个乐呵或者不看都没关系了啦！</p>
 <p>我们可以遍历一遍原数组，如果当前元素不在正确位置上，将该元素和此时在它正确位置上的元素<strong>交换</strong></p>
 <p>这里有一个要注意的，某次交换后我们可能没有将交换和被交换数都放在正确位置上，且有可能在接下来的遍历中不会再次遍历到被交换数，因此交换后还要再判断，直到当前位置的数正确，显然不这么做不会影响正确结果</p>
 <p>很容易证明这是最少的。</p>
-<p>设当前元素为 <span class="math inline">\(\alpha\)</span>
-（不在正确位置上），它与非 <span class="math inline">\(\alpha\)</span>
-的正确位置上的元素 <span class="math inline">\(\beta\)</span>
-交换，会有两种情况：第一种， <span class="math inline">\(\beta\)</span>
-在正确位置上。由于最后 <span class="math inline">\(\beta\)</span>
-一定会在正确位置上，且一定是 <span class="math inline">\(\beta\)</span>
-和在 <span class="math inline">\(\beta\)</span> 正确位置上的元素交换（或
-<span class="math inline">\(\beta\)</span> 本来就在正确位置），所以交换
-<span class="math inline">\(\alpha\)</span> 和 <span
-class="math inline">\(\beta\)</span> 就是多余的；第二种， <span
-class="math inline">\(\beta\)</span>
-不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换
-<span class="math inline">\(\alpha\)</span> 和 <span
-class="math inline">\(\beta\)</span> 是多余的</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
-<span class="math inline">\(O(n\log n)\)</span></p>
-<p>主要代码如下</p>
+<p>设当前元素为 $\alpha$ （不在正确位置上），它与非 $\alpha$ 的正确位置上的元素 $\beta$ 交换，会有两种情况：第一种， $\beta$ 在正确位置上。由于最后 $\beta$ 一定会在正确位置上，且一定是 $\beta$ 和在 $\beta$ 正确位置上的元素交换（或 $\beta$ 本来就在正确位置），所以交换 $\alpha$ 和 $\beta$ 就是多余的；第二种， $\beta$ 不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换 $\alpha$ 和 $\beta$ 是多余的</p>
+<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度 $\mathcal{O}(n\log n)$</p>
+<p>主要代码如下：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">fun</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span>tmp<span class="token operator">=</span>a<span class="token punctuation">;</span><span class="token comment">//排序后的数组</span>
@@ -514,48 +554,11 @@ class="math inline">\(\beta\)</span> 是多余的</p>
             ans<span class="token operator">++</span><span class="token punctuation">;</span>
             <span class="token function">swap</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>mp<span class="token punctuation">[</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
-        
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<HR>
-<h4 id="解法二">解法二</h4>
-<p>对于每个元素，我们将该元素和它的正确位置建边</p>
-<p>最后一定是 <span class="math inline">\(1\sim n\)</span>
-个环（自环也算）</p>
-<p>对于有 <span class="math inline">\(k\)</span>
-个元素的环，最少交换次数为 <span class="math inline">\(k-1\)</span></p>
-<p>假设共有 <span class="math inline">\(p\)</span> 个环，对于第 <span
-class="math inline">\(i\)</span> 个环，有 <span
-class="math inline">\(k_i\)</span> 个元素，则它的最少交换次数为 <span
-class="math inline">\(k_i - 1\)</span></p>
-<p>因此 <span class="math inline">\(ans = \sum\limits_{i=1}^{p}{(k_i-1)}
-= \sum\limits_{i=1}^{p}{k_i} - p\)</span></p>
-<p>显然 <span class="math inline">\(n =
-\sum\limits_{i=1}^{p}{k_i}\)</span></p>
-<p>所以答案就是 <span class="math inline">\(n-p\)</span> ，即元素个数 -
-环的个数</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
-<span class="math inline">\(O(n\log n)\)</span></p>
-<p>主要代码如下（注：其实可以不用递归）</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">;</span>
-map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span>mp<span class="token punctuation">;</span>
-map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">bool</span><span class="token operator">></span>vis<span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    vis<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span>mp<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token function">dfs</span><span class="token punctuation">(</span>mp<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">int</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span>tmp<span class="token operator">=</span>a<span class="token punctuation">;</span><span class="token comment">//排序后的数组</span>
-    <span class="token keyword">int</span> p<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token function">sort</span><span class="token punctuation">(</span>tmp<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>tmp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>tmp<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        mp<span class="token punctuation">[</span>tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span><span class="token comment">//记录每个对应的正确位置</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>a<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>p<span class="token operator">++</span><span class="token punctuation">,</span><span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> n<span class="token operator">-</span>p<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401713.html">https://www.cnblogs.com/hellowooorld/p/7401713.html</a></p>
 
                 
             </div>
@@ -913,7 +916,7 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415k</span>&nbsp;字
+                class="white-color">414k</span>&nbsp;字
             
             
             
@@ -1177,21 +1180,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

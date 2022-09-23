@@ -472,68 +472,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5851-usaco19decgreedy-pie-eaters-p-题解">洛谷P5851
-[USACO19DEC]Greedy Pie Eaters P 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5851">P5851
-[USACO19DEC]Greedy Pie Eaters P</a></p>
+                <h1 id="洛谷P5851-USACO19DEC-Greedy-Pie-Eaters-P-题解"><a href="#洛谷P5851-USACO19DEC-Greedy-Pie-Eaters-P-题解" class="headerlink" title="洛谷P5851 [USACO19DEC]Greedy Pie Eaters P 题解"></a>洛谷P5851 [USACO19DEC]Greedy Pie Eaters P 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5851">P5851 [USACO19DEC]Greedy Pie Eaters P</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Farmer John 有 <span class="math inline">\(M\)</span>
-头奶牛，为了方便，编号为 <span
-class="math inline">\(1,\dots,M\)</span>。这些奶牛平时都吃青草，但是喜欢偶尔换换口味。Farmer
-John 一天烤了 <span class="math inline">\(N\)</span> 个派请奶牛吃，这
-<span class="math inline">\(N\)</span> 个派编号为 <span
-class="math inline">\(1,\dots,N\)</span>。第 <span
-class="math inline">\(i\)</span> 头奶牛喜欢吃编号在 <span
-class="math inline">\(\left[ l_i,r_i \right]\)</span>
-中的派（包括两端），并且没有两头奶牛喜欢吃相同范围的派。第 <span
-class="math inline">\(i\)</span> 头奶牛有一个体重 <span
-class="math inline">\(w_i\)</span>，这是一个在 <span
-class="math inline">\(\left[ 1,10^6 \right]\)</span> 中的正整数。</p>
-<p>Farmer John 可以选择一个奶牛序列 <span
-class="math inline">\(c_1,c_2,\dots,c_K\)</span>，并让这些奶牛按这个顺序轮流吃派。不幸的是，这些奶牛不知道分享！当奶牛
-吃派时，她会把她喜欢吃的派都吃掉——也就是说，她会吃掉编号在 <span
-class="math inline">\([l_{c_i},r_{c_i}]\)</span> 中所有剩余的派。Farmer
-John
-想要避免当轮到一头奶牛吃派时，她所有喜欢的派在之前都被吃掉了这样尴尬的情况。因此，他想让你计算，要使奶牛按
-<span class="math inline">\(c_1,c_2,\dots,c_K\)</span>
-的顺序吃派，轮到这头奶牛时她喜欢的派至少剩余一个的情况下，这些奶牛的最大可能体重（<span
-class="math inline">\(w_{c_1}+w_{c_2}+\ldots+w_{c_K}\)</span>）是多少。</p>
+<p>Farmer John 有 $M$ 头奶牛，为了方便，编号为 $1,\dots,M$。这些奶牛平时都吃青草，但是喜欢偶尔换换口味。Farmer John 一天烤了 $N$ 个派请奶牛吃，这 $N$ 个派编号为 $1,\dots,N$。第 $i$ 头奶牛喜欢吃编号在 $\left[ l_i,r_i \right]$ 中的派（包括两端），并且没有两头奶牛喜欢吃相同范围的派。第 $i$ 头奶牛有一个体重 $w_i$，这是一个在 $\left[ 1,10^6 \right]$ 中的正整数。</p>
+<p>Farmer John 可以选择一个奶牛序列 $c_1,c_2,\dots,c_K$，并让这些奶牛按这个顺序轮流吃派。不幸的是，这些奶牛不知道分享！当奶牛  吃派时，她会把她喜欢吃的派都吃掉——也就是说，她会吃掉编号在 $[l_{c_i},r_{c_i}]$ 中所有剩余的派。Farmer John 想要避免当轮到一头奶牛吃派时，她所有喜欢的派在之前都被吃掉了这样尴尬的情况。因此，他想让你计算，要使奶牛按 $c_1,c_2,\dots,c_K$ 的顺序吃派，轮到这头奶牛时她喜欢的派至少剩余一个的情况下，这些奶牛的最大可能体重（$w_{c_1}+w_{c_2}+\ldots+w_{c_K}$）是多少。</p>
 </blockquote>
 <p>显然是一个区间dp</p>
-<p>设 <span class="math inline">\(f[i][j]\)</span> 表示吃完 <span
-class="math inline">\([i,j]\)</span> 能获得的最大 <span
-class="math inline">\(\sum w\)</span></p>
-<p>设 <span class="math inline">\(g[k][i][j]\)</span> 表示 <span
-class="math inline">\(k\)</span> 还没吃，准备吃掉 <span
-class="math inline">\(k\)</span> 时 <span class="math inline">\((i \le
-l_d \le k \le r_d \le j)\)</span> 的最大 <span
-class="math inline">\(w\)</span></p>
-<p>首先不尝试增加奶牛 <span class="math inline">\(d\)</span>
-，即不考虑吃 <span class="math inline">\(k\)</span> ，有 <span
-class="math display">\[
-f[i][j]=\max(f[i][j],f[i][k]+f[k+1][j])
-\]</span></p>
-<p>考虑吃 <span class="math inline">\(k\)</span> ，尝试增加奶牛 <span
-class="math inline">\(d\)</span> ，有 <span class="math display">\[
-f[i][j]=\max(f[i][j],f[i][k-1]+f[k+1][j]+g[k][i][j])
-\]</span></p>
-<ul>
-<li><p>关于 <span class="math inline">\(g[k][i][j]\)</span> 如何限制
-<span class="math inline">\((l_d \le k \le r_d)\)</span></p>
-<p>考虑读入时处理每头奶牛 <span class="math inline">\(g[t][l][r]=w,l \le
-t \le r\)</span></p></li>
-<li><p>如何更新 <span class="math inline">\(g[k][i][j]\)</span></p>
-<p>显然当 <span class="math inline">\([i,j]=[l_d,r_d]\)</span>
-时，已经在读入时更新了</p>
-<p>当 <span class="math inline">\(i \le l_d\)</span> 或 <span
-class="math inline">\(j \ge r_d\)</span> 时，我们可以通过 <span
-class="math display">\[
+<p>设 $f[i][j]$ 表示吃完 $[i,j]$ 能获得的最大 $\sum w$ </p>
+<p>设 $g[k][i][j]$ 表示 $k$ 还没吃，准备吃掉 $k$ 时 $(i \le l_d \le k \le r_d \le j)$ 的最大 $w$ </p>
+<p>首先不尝试增加奶牛 $d$ ，即不考虑吃 $k$ ，有</p>
+<script type="math/tex; mode=display">
+f[i][j]=\max(f[i][j],f[i][k]+f[k+1][j])</script><p>考虑吃 $k$ ，尝试增加奶牛 $d$ ，有</p>
+<script type="math/tex; mode=display">
+f[i][j]=\max(f[i][j],f[i][k-1]+f[k+1][j]+g[k][i][j])</script><ul>
+<li><p>关于 $g[k][i][j]$ 如何限制 $(l_d \le k \le r_d)$ </p>
+<p>考虑读入时处理每头奶牛 $g[t][l][r]=w,l \le t \le r$ </p>
+</li>
+<li><p>如何更新 $g[k][i][j]$ </p>
+<p>显然当 $[i,j]=[l_d,r_d]$ 时，已经在读入时更新了</p>
+<p>当 $i \le l_d$ 或 $j \ge r_d$ 时，我们可以通过</p>
+<script type="math/tex; mode=display">
 g[k][i-1][j]=\max(g[k][i-1][j],g[k][i][j])
-\\g[k][i][j+1]=\max(g[k][i][j+1],g[k][i][j])
-\]</span> 进行更新</p></li>
+\\g[k][i][j+1]=\max(g[k][i][j+1],g[k][i][j])</script><p>进行更新</p>
+</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
+<p>时间复杂度 $O(n^3)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -947,7 +911,7 @@ g[k][i-1][j]=\max(g[k][i-1][j],g[k][i][j])
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415k</span>&nbsp;字
+                class="white-color">414k</span>&nbsp;字
             
             
             
@@ -1211,21 +1175,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

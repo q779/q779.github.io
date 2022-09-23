@@ -472,47 +472,28 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4568-jloi2011-飞行路线-题解">洛谷P4568 [JLOI2011] 飞行路线
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4568">P4568
-[JLOI2011] 飞行路线</a></p>
+                <h1 id="洛谷P4568-JLOI2011-飞行路线-题解"><a href="#洛谷P4568-JLOI2011-飞行路线-题解" class="headerlink" title="洛谷P4568 [JLOI2011] 飞行路线 题解"></a>洛谷P4568 [JLOI2011] 飞行路线 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4568">P4568 [JLOI2011] 飞行路线</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Alice 和 Bob
-现在要乘飞机旅行，他们选择了一家相对便宜的航空公司。该航空公司一共在
-<span class="math inline">\(n\)</span>
-个城市设有业务，设这些城市分别标记为 <span
-class="math inline">\(0\)</span> 到 <span
-class="math inline">\(n-1\)</span>，一共有 <span
-class="math inline">\(m\)</span>
-种航线，每种航线连接两个城市，并且航线有一定的价格。</p>
-<p>Alice 和 Bob
-现在要从一个城市沿着航线到达另一个城市，途中可以进行转机。航空公司对他们这次旅行也推出优惠，他们可以免费在最多
-<span class="math inline">\(k\)</span> 种航线上搭乘飞机。那么 Alice 和
-Bob 这次出行最少花费多少？</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(2 \le n \le 10^4\)</span>，<span
-class="math inline">\(1 \le m \le 5\times 10^4\)</span>，<span
-class="math inline">\(0 \le k \le 10\)</span>，<span
-class="math inline">\(0\le s,t,a,b\le n\)</span>，<span
-class="math inline">\(a\ne b\)</span>，<span class="math inline">\(0\le
-c\le 10^3\)</span>。</p>
+<p>Alice 和 Bob 现在要乘飞机旅行，他们选择了一家相对便宜的航空公司。该航空公司一共在 $n$ 个城市设有业务，设这些城市分别标记为 $0$ 到 $n-1$，一共有 $m$ 种航线，每种航线连接两个城市，并且航线有一定的价格。</p>
+<p>Alice 和 Bob 现在要从一个城市沿着航线到达另一个城市，途中可以进行转机。航空公司对他们这次旅行也推出优惠，他们可以免费在最多 $k$ 种航线上搭乘飞机。那么 Alice 和 Bob 这次出行最少花费多少？</p>
+<p>对于 $100\%$ 的数据，$2 \le n \le 10^4$，$1 \le m \le 5\times 10^4$，$0 \le k \le 10$，$0\le s,t,a,b\le n$，$a\ne b$，$0\le c\le 10^3$。</p>
 </blockquote>
 <p>分层图板子题</p>
 <p>不写具体做法了，就总结几个易错点</p>
 <ul>
-<li><p>无向图的e数组开 <span class="math display">\[
-M\times (K+1) \times 4
-\]</span> <span class="math inline">\(M\)</span>
-稍微大一点（比如<code>5e4+5</code>）用于后面的额外边</p></li>
-<li><p>额外边：如果 <span class="math inline">\(s\to t\)</span>
-的路径，结点数小于 <span class="math inline">\(k\)</span></p>
+<li><p>无向图的e数组开</p>
+<script type="math/tex; mode=display">
+M\times (K+1) \times 4</script><p>$M$ 稍微大一点（比如<code>5e4+5</code>）用于后面的额外边</p>
+</li>
+<li><p>额外边：如果 $s\to t$ 的路径，结点数小于 $k$ </p>
 <p>则需要单独建边</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token function">addEdge</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span>n<span class="token operator">+</span>t<span class="token punctuation">,</span>i<span class="token operator">*</span>n<span class="token operator">+</span>t<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这样答案才是 <code>d[k*n+t]</code></p></li>
+<p>这样答案才是 <code>d[k*n+t]</code></p>
+</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(O(nk\log mk)\)</span></p>
+<p>时间复杂度 $O(nk\log mk)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -958,7 +939,7 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415k</span>&nbsp;字
+                class="white-color">414k</span>&nbsp;字
             
             
             
@@ -1222,21 +1203,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
