@@ -494,47 +494,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="dp总结-状压dp">DP总结-状压dp</h1>
-<p><strong>状压dp</strong>（状态压缩动态规划）是一种dp。（<del>废话</del>）</p>
+                <h1 id="DP总结-状压dp"><a href="#DP总结-状压dp" class="headerlink" title="DP总结-状压dp"></a>DP总结-状压dp</h1><p><strong>状压dp</strong>（状态压缩动态规划）是一种dp。（<del>废话</del>）</p>
 <p>状压dp的核心就是把若干状态压缩为一个整数</p>
-<p>通常要压缩的元素个数不超过 <span class="math inline">\(15\)</span>
-，此时状态数共有 <span class="math inline">\(2^{15}=32768\)</span>
-。</p>
+<p>通常要压缩的元素个数不超过 $15$ ，此时状态数共有 $2^{15}=32768$ 。</p>
 <p>状压dp更多的是一种思想，常见于数位dp等需要记录大量信息的dp中。</p>
-<hr />
-<h2 id="集合的整数表示">集合的整数表示</h2>
-<blockquote>
-<p>注意，当集合元素个数较多的时候，可能需要使用
-<code>1ll&lt;&lt;n</code> 或者 <code>1ull&lt;&lt;n</code> 。</p>
+<hr>
+<h2 id="集合的整数表示"><a href="#集合的整数表示" class="headerlink" title="集合的整数表示"></a>集合的整数表示</h2><blockquote>
+<p>注意，当集合元素个数较多的时候，可能需要使用 <code>1ll&lt;&lt;n</code> 或者 <code>1ull&lt;&lt;n</code> 。</p>
 </blockquote>
 <p><strong>基本表示</strong>：</p>
-<p>空集：<code>0</code></p>
-<p>大小为 <span class="math inline">\(n\)</span> 的全集：
-<code>(1 &lt;&lt; n) - 1</code></p>
-<p>第 <span class="math inline">\(i\)</span> 个元素 <span
-class="math inline">\(x_i\)</span> ：<code>1 &lt;&lt; i</code></p>
+<p>空集：<code>0</code> </p>
+<p>大小为 $n$ 的全集： <code>(1 &lt;&lt; n) - 1</code></p>
+<p>第 $i$ 个元素 $x_i$ ：<code>1 &lt;&lt; i</code></p>
 <p><br></p>
 <p><strong>交集</strong>：</p>
-<p><span class="math inline">\(S\cap \{x_i\}\)</span>
-：<code>(S &gt;&gt; i) &amp; 1</code></p>
-<p><span class="math inline">\(S\cap
-T\)</span>：<code>S &amp; T</code></p>
+<p>$S\cap \{x_i\}$ ：<code>(S &gt;&gt; i) &amp; 1</code></p>
+<p>$S\cap T$：<code>S &amp; T</code></p>
 <p><br></p>
 <p><strong>并集</strong>：</p>
-<p><span class="math inline">\(S \cup \{x_i\}\)</span>
-：<code>S | (1 &lt;&lt; i)</code></p>
-<p><span class="math inline">\(S \cup T\)</span>
-：<code>S | T</code></p>
+<p>$S \cup \{x_i\}$ ：<code>S | (1 &lt;&lt; i)</code></p>
+<p>$S \cup T$ ：<code>S | T</code></p>
 <p><br></p>
 <p><strong>绝对补集</strong>：</p>
-<p><span class="math inline">\(\sim S\)</span> ：<code>U^S</code> 或
-<code>U-S</code> 或 <code>(~S) &amp; U</code> ，<code>U</code>为全集</p>
+<p>$\sim S$ ：<code>U^S</code> 或 <code>U-S</code> 或 <code>(~S) &amp; U</code> ，<code>U</code>为全集</p>
 <p><br></p>
 <p><strong>相对补集</strong>：</p>
-<p><span class="math inline">\(S\setminus\{x_i\}\)</span>
-：<code>S &amp; (~(1 &lt;&lt; i))</code></p>
-<p><span class="math inline">\(S\setminus T\)</span> ：
-<code>S &amp; (T^U)</code></p>
+<p>$S\setminus\{x_i\}$ ：<code>S &amp; (~(1 &lt;&lt; i))</code></p>
+<p>$S\setminus T$ ： <code>S &amp; (T^U)</code></p>
 <p><br></p>
 <p><strong>集合的基数</strong>（元素个数）：</p>
 <p>第一种不建议在使用C++20之前的版本使用。（<del>但是可以偷懒</del>）</p>
@@ -558,11 +544,8 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token function">_
 <p><br></p>
 <p>下面给出了一份代码，可以用来测试。</p>
 <p>状压dp和一般的集合表示不太一样（<del>毕竟是整数表示嘛</del>）</p>
-<p>例如 <code>S=0010</code> 表示的是 <span
-class="math inline">\(S\)</span> 只有第 <span
-class="math inline">\(3\)</span> 个元素</p>
-<p><strong>请注意代码均 <code>#define int long long</code>
-了，下同。</strong></p>
+<p>例如 <code>S=0010</code> 表示的是 $S$ 只有第 $3$ 个元素</p>
+<p><strong>请注意代码均 <code>#define int long long</code> 了，下同。</strong></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -617,7 +600,7 @@ class="math inline">\(3\)</span> 个元素</p>
     
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出如下： <pre class="line-numbers language-none"><code class="language-none">---
+<p>输出如下：<br><pre class="line-numbers language-none"><code class="language-none">---
 |T| &#x3D; 2
 |T| &#x3D; 2
 U &#x3D; 11111111 
@@ -632,28 +615,23 @@ T &#x3D; 00100100
 ---
 S ∩ T &#x3D; 00000100 
 S ∪ T &#x3D; 01110100 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<hr />
-<h2 id="集合的枚举">集合的枚举</h2>
-<p><strong>枚举 <span class="math inline">\(n\)</span>
-个元素的所有子集</strong></p>
-<p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
+<hr>
+<h2 id="集合的枚举"><a href="#集合的枚举" class="headerlink" title="集合的枚举"></a>集合的枚举</h2><p><strong>枚举 $n$ 个元素的所有子集</strong></p>
+<p>时间复杂度 $O(2^n)$</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果要枚举<strong>非空子集</strong>就这么写</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果要枚举<strong>非空真子集</strong>就这么写</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><br></p>
-<p><strong>枚举 <span class="math inline">\(S\)</span>
-所有的非空子集</strong></p>
-<p>时间复杂度 <span class="math inline">\({O(2^n)}\)</span></p>
+<p><strong>枚举 $S$ 所有的非空子集</strong></p>
+<p>时间复杂度 ${O(2^n)}$</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>S<span class="token punctuation">;</span> i<span class="token punctuation">;</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> S<span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果要枚举<strong>非空真子集</strong>，只要这么写就行了</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>S<span class="token operator">&amp;</span><span class="token punctuation">(</span>S<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token punctuation">;</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> S<span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><br></p>
-<p><strong>枚举大小为 <span class="math inline">\(n\)</span>
-的集合的所有非空子集的非空子集</strong></p>
-<p>时间复杂度 <span class="math inline">\(\color{red}{O(3^n)}\)</span>
-（证明在下面）</p>
+<p><strong>枚举大小为 $n$ 的集合的所有非空子集的非空子集</strong></p>
+<p>时间复杂度 $\color{red}{O(3^n)}$ （证明在下面）</p>
 <p>用到了上面那个东西</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> u <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> u<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">// 枚举大小为n的集合的子集</span>
 <span class="token punctuation">&#123;</span>
@@ -676,27 +654,19 @@ n=3的运行结果如下
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>复杂度证明：</p>
-<p>枚举大小为 <span class="math inline">\(n\)</span> 的集合 <span
-class="math inline">\(S\)</span> 的子集的复杂度 <span
-class="math display">\[
-O\left(\sum_{T\subseteq S}2^{|T|}\right)
-\]</span> 而 <span class="math inline">\(S\)</span> 中大小为 <span
-class="math inline">\(k\)</span> 的子集个数为 <span
-class="math inline">\(\binom{n}{k}\)</span> ，则枚举非空子集的复杂度为
-<span class="math display">\[
-O\left(\sum_{i=1}^n\dbinom ni 2^i\right)
-\]</span> 根据二项式定理 <span class="math display">\[
+<p>枚举大小为 $n$ 的集合 $S$ 的子集的复杂度</p>
+<script type="math/tex; mode=display">
+O\left(\sum_{T\subseteq S}2^{|T|}\right)</script><p>而 $S$ 中大小为 $k$ 的子集个数为 $\binom{n}{k}$ ，则枚举非空子集的复杂度为</p>
+<script type="math/tex; mode=display">
+O\left(\sum_{i=1}^n\dbinom ni 2^i\right)</script><p>根据二项式定理</p>
+<script type="math/tex; mode=display">
 \sum_{i=1}^n\dbinom ni 2^i
 =\sum_{i=1}^n\dbinom ni 2^i1^{n-i}
 =(1+2)^n-1
-=O(3^n) \qquad\square
-\]</span></p>
-</blockquote>
+=O(3^n) \qquad\square</script></blockquote>
 <p><br></p>
-<p><strong>枚举 <span class="math inline">\(n\)</span>
-个元素的所有大小为 <span class="math inline">\(k\)</span>
-的子集</strong></p>
-<p>时间复杂度 <span class="math inline">\(O(2^n)\)</span></p>
+<p><strong>枚举 $n$ 个元素的所有大小为 $k$ 的子集</strong></p>
+<p>时间复杂度 $O(2^n)$</p>
 <p>常数可能小一些，用处不是很大，而且不好记，目前没碰到过有用的地方。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>k<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -766,7 +736,7 @@ O\left(\sum_{i=1}^n\dbinom ni 2^i\right)
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"\n----\n"</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出（加了个代码高亮便于区分...）</p>
+<p>输出（加了个代码高亮便于区分…）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">
 <span class="token operator">--</span><span class="token operator">--</span>
 all<span class="token operator">:</span>
@@ -792,14 +762,10 @@ S <span class="token operator">=</span> <span class="token number">10100100</spa
 <span class="token operator">--</span><span class="token operator">--</span>
 <span class="token number">110</span> <span class="token number">101</span> <span class="token number">011</span> 
 <span class="token operator">--</span><span class="token operator">--</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
-<h2 id="一些题目">一些题目</h2>
-<p>直接在博客里搜状压dp就好了，<strong>这里是很久以前写的东西</strong>。</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT3913">AT3913 XOR
-Tree</a></p>
-<p><strong>状态</strong>：压缩状态表示集合中 <span
-class="math inline">\(1\sim15\)</span>
-是否出现（本题要求拆分出非空集）</p>
+<hr>
+<h2 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h2><p>直接在博客里搜状压dp就好了，<strong>这里是很久以前写的东西</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT3913">AT3913 XOR Tree</a></p>
+<p><strong>状态</strong>：压缩状态表示集合中 $1\sim15$ 是否出现（本题要求拆分出非空集）</p>
 <p><strong>转移方程</strong>：略</p>
 <p><strong>枚举集合，并枚举这个集合所有的真子集</strong></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">// 所有可能的集合（要非空，不然无须dp，如果强行可能会挂）</span>
@@ -810,30 +776,22 @@ class="math inline">\(1\sim15\)</span>
     	<span class="token comment">// 这里的if是本题目需要的判断</span>
     	<span class="token comment">// 后面的d[k]+d[i^k]就是将每个拆分成两个不同的非空子集的答案之和</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里枚举的是一个非可重集中1~15的存在情况（ <span
-class="math inline">\(0\)</span> 不影响异或和，所以不管）</p>
+<p>这里枚举的是一个非可重集中1~15的存在情况（ $0$ 不影响异或和，所以不管）</p>
 <p>而题目中需要知道这个集合的异或和，可以这样写</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">// 每个集合</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span><span class="token number">15</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i<span class="token operator">>></span>j<span class="token punctuation">)</span><span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span>sxr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">^=</span><span class="token punctuation">(</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token comment">// j+1就是原来这个数，第j位是状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<hr />
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT2657">AT2657 [ARC078D]
-Mole and Abandoned Mine</a></p>
-<p>详见 <a
-href="https://q779.github.io/2022/08/30/at2657-arc078d-mole-and-abandoned-mine-ti-jie/">AT2657
-[ARC078D] Mole and Abandoned Mine 题解</a></p>
-<hr />
+<hr>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT2657">AT2657 [ARC078D] Mole and Abandoned Mine</a></p>
+<p>详见 <a href="https://q779.github.io/2022/08/30/at2657-arc078d-mole-and-abandoned-mine-ti-jie/">AT2657 [ARC078D] Mole and Abandoned Mine 题解</a></p>
+<hr>
 <p><strong>参考文献</strong>：</p>
 <p>[1] 《挑战程序设计竞赛（第二版）》秋叶拓哉 等</p>
 <p>[2] 《离散数学（第六版）》屈婉玲 等</p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html">https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html</a></p>
-<p>[4] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/15876755.html">https://www.cnblogs.com/CDOI-24374/p/15876755.html</a></p>
-<p>[5] <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/math/bit/">https://oi-wiki.org/math/bit/</a></p>
-<p>[6] <a
-target="_blank" rel="noopener" href="https://shanlunjiajian.github.io/2021/04/04/state-dp/">https://shanlunjiajian.github.io/2021/04/04/state-dp/</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html">https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/15876755.html">https://www.cnblogs.com/CDOI-24374/p/15876755.html</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/bit/">https://oi-wiki.org/math/bit/</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://shanlunjiajian.github.io/2021/04/04/state-dp/">https://shanlunjiajian.github.io/2021/04/04/state-dp/</a></p>
 
                 
             </div>
@@ -1210,7 +1168,7 @@ target="_blank" rel="noopener" href="https://shanlunjiajian.github.io/2021/04/04
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.8k</span>&nbsp;字
+                class="white-color">415.1k</span>&nbsp;字
             
             
             
@@ -1474,6 +1432,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

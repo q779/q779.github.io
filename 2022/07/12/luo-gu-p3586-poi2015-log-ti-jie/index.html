@@ -494,60 +494,40 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3586-poi2015-log-题解">洛谷P3586 [POI2015] LOG 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3586">P3586
-[POI2015] LOG</a></p>
+                <h1 id="洛谷P3586-POI2015-LOG-题解"><a href="#洛谷P3586-POI2015-LOG-题解" class="headerlink" title="洛谷P3586 [POI2015] LOG 题解"></a>洛谷P3586 [POI2015] LOG 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3586">P3586 [POI2015] LOG</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>维护一个长度为 <span class="math inline">\(n\)</span>
-的序列，一开始都是 <span
-class="math inline">\(0\)</span>，支持以下两种操作：</p>
-<ol type="1">
-<li><code>U k a</code> 将序列中第 <span class="math inline">\(k\)</span>
-个数修改为 <span class="math inline">\(a\)</span>。</li>
-<li><code>Z c s</code> 在这个序列上，每次选出 <span
-class="math inline">\(c\)</span> 个正数，并将它们都减去 <span
-class="math inline">\(1\)</span>，询问能否进行 <span
-class="math inline">\(s\)</span> 次操作。</li>
+<p>维护一个长度为 $n$ 的序列，一开始都是 $0$，支持以下两种操作：</p>
+<ol>
+<li><code>U k a</code> 将序列中第 $k$ 个数修改为 $a$。</li>
+<li><code>Z c s</code> 在这个序列上，每次选出 $c$ 个正数，并将它们都减去 $1$，询问能否进行 $s$ 次操作。</li>
 </ol>
 <p>每次询问独立，即每次询问不会对序列进行修改。</p>
 <p><strong>【数据范围】</strong></p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1\leq n,m\leq 10^6\)</span>，<span
-class="math inline">\(1\leq k,c\leq n\)</span>，<span
-class="math inline">\(0\leq a\leq 10^9\)</span>，<span
-class="math inline">\(1\leq s\leq 10^9\)</span>。</p>
+<p>对于 $100\%$ 的数据，$1\leq n,m\leq 10^6$，$1\leq k,c\leq n$，$0\leq a\leq 10^9$，$1\leq s\leq 10^9$。</p>
 </blockquote>
 <p><del>不是区间询问。注意了嗷。</del></p>
 <p>先考虑2操作</p>
-<p>对于大于 <span class="math inline">\(s\)</span> 的数，显然最多只能减
-<span class="math inline">\(s\)</span> 次</p>
-<p>对于小于等于 <span class="math inline">\(s\)</span>
-的数，肯定要把它全部减成 <span class="math inline">\(0\)</span></p>
-<p>设 <span class="math inline">\(S=\sum x_i [x_i\le s]\)</span>
-，则剩下的 <span class="math inline">\(c\times s - S\)</span> 由大于
-<span class="math inline">\(s\)</span> 的数贡献</p>
-<p>设 <span class="math inline">\(\text{cnt} = \sum [x_i \le s]\)</span>
-，则大于 <span class="math inline">\(s\)</span> 的数共有 <span
-class="math inline">\((n-\text{cnt})\)</span> 个</p>
-<p>于是我们只要判断下面的柿子是否成立 <span class="math display">\[
-(n-\text{cnt}) \times s \ge c \times s -S
-\]</span> 即 <span class="math display">\[
-S \ge s \times (c-n+\text{cnt})
-\]</span> 问题就转化为了如何求解 <span class="math inline">\(S\)</span>
-和 <span class="math inline">\(\text{cnt}\)</span></p>
+<p>对于大于 $s$ 的数，显然最多只能减 $s$ 次</p>
+<p>对于小于等于 $s$ 的数，肯定要把它全部减成 $0$ </p>
+<p>设 $S=\sum x_i [x_i\le s]$ ，则剩下的 $c\times s - S$ 由大于 $s$ 的数贡献</p>
+<p>设 $\text{cnt} = \sum [x_i \le s]$ ，则大于 $s$ 的数共有 $(n-\text{cnt})$ 个</p>
+<p>于是我们只要判断下面的柿子是否成立</p>
+<script type="math/tex; mode=display">
+(n-\text{cnt}) \times s \ge c \times s -S</script><p>即</p>
+<script type="math/tex; mode=display">
+S \ge s \times (c-n+\text{cnt})</script><p>问题就转化为了如何求解 $S$ 和 $\text{cnt}$ </p>
 <ul>
-<li><p>「比一个数小的数的数量」，显然树状数组</p></li>
+<li><p>「比一个数小的数的数量」，显然树状数组</p>
+</li>
 <li><p>「比一个数小的数的和」，我们把这个和看成这些数的权值</p>
-<p>那么这个就是上个问题的 <code>add(x,1)</code> 改成
-<code>add(x,x)</code>，还是树状数组</p></li>
+<p>那么这个就是上个问题的 <code>add(x,1)</code> 改成 <code>add(x,x)</code>，还是树状数组</p>
+</li>
 </ul>
-<p>当然，我们直接用树状数组肯定是不行的，因为 <span
-class="math inline">\(a\le 10^9\)</span></p>
-<p>考虑把原数组（本题中只有 <span class="math inline">\(0\)</span>
-）和所有询问中的 <span class="math inline">\(a,s\)</span> 离散化</p>
+<p>当然，我们直接用树状数组肯定是不行的，因为 $a\le 10^9$ </p>
+<p>考虑把原数组（本题中只有 $0$ ）和所有询问中的 $a,s$ 离散化</p>
 <p>相信学过主席树的都知道这个操作吧（其实没学过也没关系）</p>
-<p>时间复杂度 <span class="math inline">\(O(m \log m)\)</span></p>
+<p>时间复杂度 $O(m \log m)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -983,7 +963,7 @@ class="math inline">\(a\le 10^9\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.8k</span>&nbsp;字
+                class="white-color">415.1k</span>&nbsp;字
             
             
             
@@ -1247,6 +1227,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

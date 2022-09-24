@@ -498,50 +498,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="atcoder-educational-dp-contest-r-walk-题解">Atcoder Educational
-DP Contest R Walk 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_r">Atcoder
-Educational DP Contest R Walk</a></p>
+                <h1 id="Atcoder-Educational-DP-Contest-R-Walk-题解"><a href="#Atcoder-Educational-DP-Contest-R-Walk-题解" class="headerlink" title="Atcoder Educational DP Contest R Walk 题解"></a>Atcoder Educational DP Contest R Walk 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://atcoder.jp/contests/dp/tasks/dp_r">Atcoder Educational DP Contest R Walk</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给一张 <span class="math inline">\(N\)</span>
-个结点的有向简单图，给出邻接矩阵 <span class="math inline">\(A\)</span>
-，求长度为 <span class="math inline">\(K\)</span> 的路径条数，答案对
-<span class="math inline">\(10^9+7\)</span> 取模。</p>
-<p><span class="math inline">\(1 \le N \le 50,1\le K \le
-10^{18}\)</span> ， <span class="math inline">\(a_{i,j}\)</span> is 0 or
-1 ，<span class="math inline">\(a_{i,i}=0\)</span></p>
+<p>给一张 $N$ 个结点的有向简单图，给出邻接矩阵 $A$ ，求长度为 $K$ 的路径条数，答案对 $10^9+7$ 取模。</p>
+<p>$1 \le N \le 50,1\le K \le 10^{18}$ ， $a_{i,j}$ is 0 or 1 ，$a_{i,i}=0$ </p>
 </blockquote>
-<p>设 <span class="math inline">\(f_{k,i,j}\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 路径长为 <span
-class="math inline">\(k\)</span> 的方案数，则 <span
-class="math display">\[
-f_{k,i,j}=\sum_{(s,j) \in E} f_{k-1,i,s}
-\]</span> 之所以不从 <span class="math inline">\(k-t\)</span> 转移，而从
-<span class="math inline">\(k-1\)</span>
-转移，是因为可能存在重复计数</p>
+<p>设 $f_{k,i,j}$ 表示 $i$ 到 $j$ 路径长为 $k$ 的方案数，则</p>
+<script type="math/tex; mode=display">
+f_{k,i,j}=\sum_{(s,j) \in E} f_{k-1,i,s}</script><p>之所以不从 $k-t$ 转移，而从 $k-1$ 转移，是因为可能存在重复计数</p>
 <p>比如这张图</p>
 <p><img src="https://s2.loli.net/2022/07/30/T4h3cU7oWN5rdBD.png" alt="" style="zoom:50%;" /></p>
 <p>就可能重复计数</p>
-<p>上面的式子可以进一步化简 <span class="math display">\[
-f_{k,i,j} = \sum_{1\le s \le n} f_{k-1,i,s}\times A_{s,j}
-\]</span> 这个形式是不是很熟悉？ <span class="math display">\[
+<p>上面的式子可以进一步化简</p>
+<script type="math/tex; mode=display">
+f_{k,i,j} = \sum_{1\le s \le n} f_{k-1,i,s}\times A_{s,j}</script><p>这个形式是不是很熟悉？</p>
+<script type="math/tex; mode=display">
 f^{0}_{i,j} = A_{i,j}
-\\f^{k}_{i,j}=\sum f^{k-1}_{i,t}\times A_{t,j}
-\]</span> 考虑矩阵快速幂优化dp</p>
+\\f^{k}_{i,j}=\sum f^{k-1}_{i,t}\times A_{t,j}</script><p>考虑矩阵快速幂优化dp</p>
 <p>关于为什么可以用矩阵快速幂，这里解释一下</p>
-<p>由于矩阵乘法的定义为 <span class="math display">\[
-(AB)_{i,j}=\sum_{k=1}^{m}A_{i,k}B_{k,j}\quad i\in[1,n],j\in[1,p]
-\]</span> 而这里的形式和矩阵乘法的定义完全一致</p>
-<p>因此我们可以看作三个矩阵的关系，即 <span class="math display">\[
-f^k=f^{k-1}\times A
-\]</span> 稍微化一化柿子，可得 <span class="math display">\[
-f^k = f^{k-2} A^2 = \dots = A^k
-\]</span> 至此可知，答案就是 <span class="math display">\[
-\sum_{1\le i,j \le n}f^{k}_{i,j} = \sum_{1\le i,j \le n}A^{k}_{i,j}
-\]</span> 时间复杂度 <span class="math inline">\(O(n^3 \log
-k)\)</span></p>
+<p>由于矩阵乘法的定义为</p>
+<script type="math/tex; mode=display">
+(AB)_{i,j}=\sum_{k=1}^{m}A_{i,k}B_{k,j}\quad i\in[1,n],j\in[1,p]</script><p>而这里的形式和矩阵乘法的定义完全一致</p>
+<p>因此我们可以看作三个矩阵的关系，即</p>
+<script type="math/tex; mode=display">
+f^k=f^{k-1}\times A</script><p>稍微化一化柿子，可得</p>
+<script type="math/tex; mode=display">
+f^k = f^{k-2} A^2 = \dots = A^k</script><p>至此可知，答案就是</p>
+<script type="math/tex; mode=display">
+\sum_{1\le i,j \le n}f^{k}_{i,j} = \sum_{1\le i,j \le n}A^{k}_{i,j}</script><p>时间复杂度 $O(n^3 \log k)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -970,7 +955,7 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.8k</span>&nbsp;字
+                class="white-color">415.1k</span>&nbsp;字
             
             
             
@@ -1234,6 +1219,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

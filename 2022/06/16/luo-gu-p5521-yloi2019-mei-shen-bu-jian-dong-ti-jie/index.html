@@ -498,68 +498,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5521-yloi2019-梅深不见冬-题解">洛谷P5521 [yLOI2019]
-梅深不见冬 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5521">P5521
-[yLOI2019] 梅深不见冬</a></p>
+                <h1 id="洛谷P5521-yLOI2019-梅深不见冬-题解"><a href="#洛谷P5521-yLOI2019-梅深不见冬-题解" class="headerlink" title="洛谷P5521 [yLOI2019] 梅深不见冬 题解"></a>洛谷P5521 [yLOI2019] 梅深不见冬 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5521">P5521 [yLOI2019] 梅深不见冬</a></p>
 <blockquote>
-<p><strong>题意</strong>：</p>
-<p>给定一棵树，根节点为 <span class="math inline">\(1\)</span> ，有点权
-<span class="math inline">\(w_i\)</span> ，在结点上放满梅花</p>
-<p>放的要求是，只有一个结点 <span class="math inline">\(u\)</span>
-的<strong>所有儿子</strong> <span class="math inline">\(v\)</span>
-都放满了 <span class="math inline">\(w_v\)</span> 梅花才可以放</p>
+<p> <strong>题意</strong>：</p>
+<p>给定一棵树，根节点为 $1$ ，有点权 $w_i$ ，在结点上放满梅花</p>
+<p>放的要求是，只有一个结点 $u$ 的<strong>所有儿子</strong> $v$ 都放满了 $w_v$ 梅花才可以放</p>
 <p>梅花可以随时收回，求每个结点放梅花的最小花费</p>
-<hr />
+<hr>
 <p>这个背景蛮有趣的，留着（逃</p>
-<p>风，吹起梅岭的深冬；霜，如惊涛一样汹涌；<br />
-雪，飘落后把所有烧成空，像这场，捕捉不到的梦。<br />
-醒来时已是多年之久，宫门铜环才长了铁锈，也开始生出离愁。</p>
+<p>风，吹起梅岭的深冬；霜，如惊涛一样汹涌；<br>雪，飘落后把所有烧成空，像这场，捕捉不到的梦。<br>醒来时已是多年之久，宫门铜环才长了铁锈，也开始生出离愁。</p>
 <p>——银临《梅深不见冬》</p>
-<p><span class="math inline">\(1 \leq n \leq 10^5 + 4,~1 \leq w_i \leq
-1000\)</span>。</p>
+<p>$1 \leq n \leq 10^5 + 4,~1 \leq w_i \leq 1000$。</p>
 </blockquote>
-<p>设第 <span class="math inline">\(i\)</span> 个结点放梅花的最小花费为
-<span class="math inline">\(f_i\)</span> ，不难发现 <span
-class="math display">\[
-f_u = \max\left\{ \max_{v \in \text{son(u)}} \left\{f_v + \sum_{k \in
-\text{son}(u)\, \land \,k \text{ before } v} w_k\right\},w_u + \sum_{v
-\in \text{son}(u)}w_v\right\}
-\]</span> 后者是最小花费的下界</p>
-<p>观察第一部分 <span class="math display">\[
-\max_{v \in \text{son(u)}} \left\{f_v + \sum_{k \in \text{son}(u)\,
-\land \,k \text{ before } v} w_k\right\}
-\]</span> 这部分显然与 <span
-class="math inline">\(\text{son}(u)\)</span> 的排列有关</p>
+<p>设第 $i$ 个结点放梅花的最小花费为 $f_i$ ，不难发现</p>
+<script type="math/tex; mode=display">
+f_u = \max\left\{ \max_{v \in \text{son(u)}} \left\{f_v + \sum_{k \in \text{son}(u)\, \land \,k \text{ before } v} w_k\right\},w_u + \sum_{v \in \text{son}(u)}w_v\right\}</script><p>后者是最小花费的下界</p>
+<p>观察第一部分</p>
+<script type="math/tex; mode=display">
+\max_{v \in \text{son(u)}} \left\{f_v + \sum_{k \in \text{son}(u)\, \land \,k \text{ before } v} w_k\right\}</script><p>这部分显然与 $\text{son}(u)$ 的排列有关</p>
 <p>如何求出这个最优排列？</p>
-<p>贪心，按 <span class="math inline">\(g_u = f_u - w_u\)</span>
-降序排序即可</p>
-<p>考虑 <span class="math inline">\(u\)</span> 仅有 <span
-class="math inline">\(2\)</span> 个子结点 <span
-class="math inline">\(x,y\)</span> 的情况，</p>
-<p>设 <span class="math inline">\(x\)</span> 在 <span
-class="math inline">\(y\)</span> 之前更优，则 <span
-class="math display">\[
-f_u=\max\{f_x,f_y+w_x\}\le \max\{f_y,f_x+w_y\}
-\]</span></p>
-<ul>
-<li><p>若 <span class="math inline">\(f_y + w_x \ge f_x\)</span> ，</p>
-<p>因为 <span class="math inline">\(f_y + w_x &gt; f_y\)</span>
-，所以右侧取 <span class="math inline">\(f_x+w_y\)</span> 才可能成立</p>
-<p>则可得 <span class="math display">\[
-f_y + w_x \le f_x + w_y
-\]</span> 移项得 <span class="math display">\[
-f_x-w_x \le f_y-w_y
-\]</span></p></li>
-<li><p>若 <span class="math inline">\(f_y + w_x &lt; f_x\)</span></p>
-<p>则 <span class="math inline">\(f_x &gt; f_y\)</span>，故右侧取 <span
-class="math inline">\(f_x+w_y\)</span> 时才可能成立</p>
-<p>显然有 <span class="math inline">\(f_x &lt; f_x +
-w_y\)</span></p></li>
+<p>贪心，按 $g_u = f_u - w_u$  降序排序即可</p>
+<p>考虑 $u$ 仅有 $2$ 个子结点 $x,y$ 的情况，</p>
+<p>设 $x$ 在 $y$ 之前更优，则</p>
+<script type="math/tex; mode=display">
+f_u=\max\{f_x,f_y+w_x\}\le \max\{f_y,f_x+w_y\}</script><ul>
+<li><p>若 $f_y + w_x \ge f_x$ ，</p>
+<p>因为 $f_y + w_x &gt; f_y$ ，所以右侧取 $f_x+w_y$ 才可能成立</p>
+<p>则可得</p>
+<script type="math/tex; mode=display">
+f_y + w_x \le f_x + w_y</script><p>移项得</p>
+<script type="math/tex; mode=display">
+f_x-w_x \le f_y-w_y</script></li>
+<li><p>若 $f_y + w_x &lt; f_x$ </p>
+<p>则 $f_x &gt; f_y$，故右侧取 $f_x+w_y$ 时才可能成立 </p>
+<p>显然有 $f_x &lt; f_x + w_y$ </p>
+</li>
 </ul>
-<p>综上所述，按 <span class="math inline">\(g_u = f_u - w_u\)</span>
-降序排序可以获得最优解</p>
-<p>时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
+<p>综上所述，按 $g_u = f_u - w_u$ 降序排序可以获得最优解</p>
+<p>时间复杂度 $O(n \log n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -966,7 +942,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.8k</span>&nbsp;字
+                class="white-color">415.1k</span>&nbsp;字
             
             
             
@@ -1230,6 +1206,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
