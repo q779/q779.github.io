@@ -102,6 +102,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/notations" class="waves-effect waves-light">
+      
+      <i class="fas fa-signature" style="zoom: 0.6;"></i>
+      
+      <span>符号</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -188,6 +199,17 @@
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/notations" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-signature"></i>
+			
+			符号
 		</a>
           
         </li>
@@ -472,52 +494,100 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3327-SDOI2015-约数个数和-题解"><a href="#洛谷P3327-SDOI2015-约数个数和-题解" class="headerlink" title="洛谷P3327 [SDOI2015]约数个数和 题解"></a>洛谷P3327 [SDOI2015]约数个数和 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3327">P3327 [SDOI2015]约数个数和</a></p>
+                <h1 id="洛谷p3327-sdoi2015约数个数和-题解">洛谷P3327
+[SDOI2015]约数个数和 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3327">P3327
+[SDOI2015]约数个数和</a></p>
 <blockquote>
-<p><strong>题意</strong>：设 $d(x)$ 为 $x$ 的约数个数，给定 $n,m$ ，求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}d(ij)</script></blockquote>
+<p><strong>题意</strong>：设 <span class="math inline">\(d(x)\)</span>
+为 <span class="math inline">\(x\)</span> 的约数个数，给定 <span
+class="math inline">\(n,m\)</span> ，求 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}d(ij)
+\]</span></p>
+</blockquote>
 <p><del>感觉我前几篇题解的无解释推导有点不可读</del></p>
 <p><del>所以这篇还是写的清楚一点叭</del></p>
 <p>这题需要一个引理（感觉没必要记住证明的方法）</p>
-<p><strong>引理</strong>：设 $d(x)$ 为 $x$ 的约数个数，则有</p>
-<script type="math/tex; mode=display">
-d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
-<p><strong>证明</strong>：摘自 <a target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p3327">https://siyuan.blog.luogu.org/solution-p3327</a></p>
+<p><strong>引理</strong>：设 <span class="math inline">\(d(x)\)</span>
+为 <span class="math inline">\(x\)</span> 的约数个数，则有 <span
+class="math display">\[
+d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]
+\]</span></p>
+<blockquote>
+<p><strong>证明</strong>：摘自 <a
+target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p3327">https://siyuan.blog.luogu.org/solution-p3327</a></p>
 <p>我们考虑把每个因子一一映射。</p>
-<p>如果 $ij$ 的因子 $k$ 中有一个因子 $p^c$，$i$ 中有因子 $p^a$，$j$ 中有因子 $p^b$。我们规定：</p>
+<p>如果 <span class="math inline">\(ij\)</span> 的因子 <span
+class="math inline">\(k\)</span> 中有一个因子 <span
+class="math inline">\(p^c\)</span>，<span
+class="math inline">\(i\)</span> 中有因子 <span
+class="math inline">\(p^a\)</span>，<span
+class="math inline">\(j\)</span> 中有因子 <span
+class="math inline">\(p^b\)</span>。我们规定：</p>
 <ul>
-<li>如果 $c\le a$，那么在 $i$ 中选择。</li>
-<li>如果 $c&gt;a$，那么我们把 $c$ 减去 $a$，在 $j$ 中选择 $p^{c-a}$（在 j<em>j</em> 中选择 $p^e$ 表示的是 $p^{a+e}$ ）</li>
+<li>如果 <span class="math inline">\(c\le a\)</span>，那么在 <span
+class="math inline">\(i\)</span> 中选择。</li>
+<li>如果 <span class="math inline">\(c&gt;a\)</span>，那么我们把 <span
+class="math inline">\(c\)</span> 减去 <span
+class="math inline">\(a\)</span>，在 <span
+class="math inline">\(j\)</span> 中选择 <span
+class="math inline">\(p^{c-a}\)</span>（在 j<em>j</em> 中选择 <span
+class="math inline">\(p^e\)</span> 表示的是 <span
+class="math inline">\(p^{a+e}\)</span> ）</li>
 </ul>
-<p>对于 $ij$ 的因子 $k$ 的其他因子同理。于是对于任何一个 $k$ 有一个唯一的映射，且每一个选择对应着唯一的 $k$。</p>
-<p>通过如上过程，我们发现：对于 $ij$的因子 $k=\prod {p_i}^{c_i}$，我们不可能同时在 $i$ 和 $j$ 中选择 $p_i$（优先在 $i$ 中选择，如果不够就只在 $j$ 中选择不够的指数），故 $x$ 和 $y$ 必须互质。</p>
+<p>对于 <span class="math inline">\(ij\)</span> 的因子 <span
+class="math inline">\(k\)</span> 的其他因子同理。于是对于任何一个 <span
+class="math inline">\(k\)</span>
+有一个唯一的映射，且每一个选择对应着唯一的 <span
+class="math inline">\(k\)</span>。</p>
+<p>通过如上过程，我们发现：对于 <span
+class="math inline">\(ij\)</span>的因子 <span
+class="math inline">\(k=\prod {p_i}^{c_i}\)</span>，我们不可能同时在
+<span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(j\)</span> 中选择 <span
+class="math inline">\(p_i\)</span>（优先在 <span
+class="math inline">\(i\)</span> 中选择，如果不够就只在 <span
+class="math inline">\(j\)</span> 中选择不够的指数），故 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 必须互质。</p>
 <p>等式得证。</p>
 </blockquote>
 <p>有了这个引理，就可以开始搞了</p>
-<p>不妨假设 $n \le m$ </p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}d(ij)</script><p>代入</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><p>莫比乌斯反演</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}\sum_{d\mid \gcd(x,y)}\mu(d)</script><p>这个 $d \mid \gcd(x,y)$ 看着很难受，把它换掉</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}\sum_{d=1}^{n}\mu(d)[d\mid \gcd(x,y)]</script><p>啊它怎么又回来了，不急，继续推</p>
-<p>移一下</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{n}\mu(d)\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}[d\mid \gcd(x,y)]</script><p>可以发现这个正整数 $x$ 的取值范围在 $[1,n]$ </p>
-<p>而它的出现次数其实就是 $[1,n]$ 中有多少个数有因数 $x$ </p>
-<p>也就是 $\sum_{x=1}^{n}[x \mid n] = \sum_{x=1}^{n}\left\lfloor\frac{n}{x}\right\rfloor$ </p>
-<p>$y$ 同理，则可以得到</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{n}\mu(d)\sum_{x=1}^{n}\sum_{y=1}^{m}\left\lfloor{\dfrac{n}{x}}\right\rfloor\left\lfloor{\dfrac{m}{y}}\right\rfloor[d\mid \gcd(x,y)]</script><p>考虑消掉后面那个东西</p>
-<p>注意到 $d \mid \gcd(dx,dy)$ 恒成立，又因为 $\sum_{k\in K}a_k = \sum_{p(k) \in K}a_{p(k)}$</p>
-<p>则</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{n}\mu(d)\sum_{dx=1}^{n}\sum_{dy=1}^{m}\left\lfloor{\dfrac{n}{dx}}\right\rfloor\left\lfloor{\dfrac{m}{dy}}\right\rfloor</script><p>整理一下就是</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{n}\mu(d)\sum_{x=1}^{\left\lfloor{\frac{n}{d}}\right\rfloor}\left\lfloor{\dfrac{n}{dx}}\right\rfloor\sum_{y=1}^{\left\lfloor{\frac{m}{d}}\right\rfloor}\left\lfloor{\dfrac{m}{dy}}\right\rfloor</script><p>然后就可以数论分块啦！</p>
+<p>不妨假设 <span class="math inline">\(n \le m\)</span> <span
+class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}d(ij)
+\]</span> 代入 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}[\gcd(x,y)=1]
+\]</span> 莫比乌斯反演 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid j}\sum_{d\mid
+\gcd(x,y)}\mu(d)
+\]</span> 这个 <span class="math inline">\(d \mid \gcd(x,y)\)</span>
+看着很难受，把它换掉 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y \mid
+j}\sum_{d=1}^{n}\mu(d)[d\mid \gcd(x,y)]
+\]</span> 啊它怎么又回来了，不急，继续推</p>
+<p>移一下 <span class="math display">\[
+\sum_{d=1}^{n}\mu(d)\sum_{i=1}^{n}\sum_{j=1}^{m}\sum_{x\mid i}\sum_{y
+\mid j}[d\mid \gcd(x,y)]
+\]</span> 可以发现这个正整数 <span class="math inline">\(x\)</span>
+的取值范围在 <span class="math inline">\([1,n]\)</span></p>
+<p>而它的出现次数其实就是 <span class="math inline">\([1,n]\)</span>
+中有多少个数有因数 <span class="math inline">\(x\)</span></p>
+<p>也就是 <span class="math inline">\(\sum_{x=1}^{n}[x \mid n] =
+\sum_{x=1}^{n}\left\lfloor\frac{n}{x}\right\rfloor\)</span></p>
+<p><span class="math inline">\(y\)</span> 同理，则可以得到 <span
+class="math display">\[
+\sum_{d=1}^{n}\mu(d)\sum_{x=1}^{n}\sum_{y=1}^{m}\left\lfloor{\dfrac{n}{x}}\right\rfloor\left\lfloor{\dfrac{m}{y}}\right\rfloor[d\mid
+\gcd(x,y)]
+\]</span> 考虑消掉后面那个东西</p>
+<p>注意到 <span class="math inline">\(d \mid \gcd(dx,dy)\)</span>
+恒成立，又因为 <span class="math inline">\(\sum_{k\in K}a_k = \sum_{p(k)
+\in K}a_{p(k)}\)</span></p>
+<p>则 <span class="math display">\[
+\sum_{d=1}^{n}\mu(d)\sum_{dx=1}^{n}\sum_{dy=1}^{m}\left\lfloor{\dfrac{n}{dx}}\right\rfloor\left\lfloor{\dfrac{m}{dy}}\right\rfloor
+\]</span> 整理一下就是 <span class="math display">\[
+\sum_{d=1}^{n}\mu(d)\sum_{x=1}^{\left\lfloor{\frac{n}{d}}\right\rfloor}\left\lfloor{\dfrac{n}{dx}}\right\rfloor\sum_{y=1}^{\left\lfloor{\frac{m}{d}}\right\rfloor}\left\lfloor{\dfrac{m}{dy}}\right\rfloor
+\]</span> 然后就可以数论分块啦！</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -728,13 +798,13 @@ d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p3297-sdoi2013-tao-kao-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p3336-zjoi2013-hua-jiu-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p129.jpg" class="responsive-img" alt="洛谷P3297 [SDOI2013] 逃考 题解">
+                        <img src="/medias/featureimages/p184.jpg" class="responsive-img" alt="洛谷P3336 [ZJOI2013]话旧 题解">
                         
-                        <span class="card-title">洛谷P3297 [SDOI2013] 逃考 题解</span>
+                        <span class="card-title">洛谷P3336 [ZJOI2013]话旧 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -766,12 +836,8 @@ d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
-                        <span class="chip bg-color">计算几何</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -785,13 +851,13 @@ d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p3336-zjoi2013-hua-jiu-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p3747-liu-sheng-lian-kao-2017-xiang-feng-shi-wen-hou-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p184.jpg" class="responsive-img" alt="洛谷P3336 [ZJOI2013]话旧 题解">
+                        <img src="/medias/featureimages/p189.jpg" class="responsive-img" alt="洛谷P3747 [六省联考 2017] 相逢是问候 题解">
                         
-                        <span class="card-title">洛谷P3336 [ZJOI2013]话旧 题解</span>
+                        <span class="card-title">洛谷P3747 [六省联考 2017] 相逢是问候 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -825,6 +891,10 @@ d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
                     
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -980,7 +1050,7 @@ d(ij)=\sum_{x \mid i}\sum_{y \mid j}[\gcd(x,y)=1]</script><blockquote>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">414k</span>&nbsp;字
+                class="white-color">416.8k</span>&nbsp;字
             
             
             

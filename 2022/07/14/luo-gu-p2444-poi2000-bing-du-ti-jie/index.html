@@ -102,6 +102,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/notations" class="waves-effect waves-light">
+      
+      <i class="fas fa-signature" style="zoom: 0.6;"></i>
+      
+      <span>符号</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -188,6 +199,17 @@
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/notations" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-signature"></i>
+			
+			符号
 		</a>
           
         </li>
@@ -472,28 +494,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2444-POI2000-病毒-题解"><a href="#洛谷P2444-POI2000-病毒-题解" class="headerlink" title="洛谷P2444 [POI2000]病毒 题解"></a>洛谷P2444 [POI2000]病毒 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2444">P2444 [POI2000]病毒</a></p>
+                <h1 id="洛谷p2444-poi2000病毒-题解">洛谷P2444 [POI2000]病毒 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2444">P2444
+[POI2000]病毒</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>二进制病毒审查委员会最近发现了如下的规律：某些确定的二进制串是病毒的代码。如果某段代码中不存在任何一段病毒代码，那么我们就称这段代码是安全的。现在委员会已经找出了所有的病毒代码段，试问，是否存在一个无限长的安全的二进制代码。</p>
 <p>示例：</p>
-<p>例如如果 $\{011, 11, 00000\}$ 为病毒代码段，那么一个可能的无限长安全代码就是 $010101 \ldots$。如果 $\{01, 11, 000000\}$ 为病毒代码段，那么就不存在一个无限长的安全代码。</p>
+<p>例如如果 <span class="math inline">\(\{011, 11, 00000\}\)</span>
+为病毒代码段，那么一个可能的无限长安全代码就是 <span
+class="math inline">\(010101 \ldots\)</span>。如果 <span
+class="math inline">\(\{01, 11, 000000\}\)</span>
+为病毒代码段，那么就不存在一个无限长的安全代码。</p>
 <p>现在给出所有的病毒代码段，判断是否存在无限长的安全代码。</p>
-<p>$1 \leq n \leq 2000$，所有病毒代码段的总长度不超过 $3 \times 10^4$。</p>
+<p><span class="math inline">\(1 \leq n \leq
+2000\)</span>，所有病毒代码段的总长度不超过 <span
+class="math inline">\(3 \times 10^4\)</span>。</p>
 </blockquote>
-<p>不难发现这是一个 $\tt{AC}$ 自动机的题目</p>
-<p>考虑一个安全代码在 $\tt{AC}$ 自动机上是怎么跑的</p>
-<p>显然它会从 $0$ 结点开始跑，然后最后在一个环上面跑</p>
+<p>不难发现这是一个 <span class="math inline">\(\tt{AC}\)</span>
+自动机的题目</p>
+<p>考虑一个安全代码在 <span class="math inline">\(\tt{AC}\)</span>
+自动机上是怎么跑的</p>
+<p>显然它会从 <span class="math inline">\(0\)</span>
+结点开始跑，然后最后在一个环上面跑</p>
 <p>这个环显然不能包含「是字符串结尾的结点」</p>
 <p>仔细想一想，其实不止这些结点！</p>
-<p>对于一个结点 $u$ ，如果它的 $\tt{fail}$ 指针所指向的结点是「是字符串结尾的结点」</p>
-<p>那么 $u$ 也是不能走的我们称这些结点为 「含病毒后缀的结点」</p>
-<p>当然，如果一个结点的 $\tt{fail}$ 指针所指向的结点是「含病毒后缀的结点」，</p>
+<p>对于一个结点 <span class="math inline">\(u\)</span> ，如果它的 <span
+class="math inline">\(\tt{fail}\)</span>
+指针所指向的结点是「是字符串结尾的结点」</p>
+<p>那么 <span class="math inline">\(u\)</span>
+也是不能走的我们称这些结点为 「含病毒后缀的结点」</p>
+<p>当然，如果一个结点的 <span class="math inline">\(\tt{fail}\)</span>
+指针所指向的结点是「含病毒后缀的结点」，</p>
 <p>那么这个结点也是「含病毒后缀的结点」，同样不可以走</p>
 <p>说了这么多，其实只需要在板子上加一句</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">if</span><span class="token punctuation">(</span>ed<span class="token punctuation">[</span>fail<span class="token punctuation">[</span>trie<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">++</span>ed<span class="token punctuation">[</span>trie<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>就好了</p>
-<p>时间复杂度 $O(\sum |s_i|)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(\sum |s_i|)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -947,7 +984,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">414k</span>&nbsp;字
+                class="white-color">416.8k</span>&nbsp;字
             
             
             

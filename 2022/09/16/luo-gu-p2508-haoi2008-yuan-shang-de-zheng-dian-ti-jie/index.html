@@ -102,6 +102,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/notations" class="waves-effect waves-light">
+      
+      <i class="fas fa-signature" style="zoom: 0.6;"></i>
+      
+      <span>符号</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -188,6 +199,17 @@
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/notations" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-signature"></i>
+			
+			符号
 		</a>
           
         </li>
@@ -468,127 +490,228 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2508-HAOI2008-圆上的整点-题解"><a href="#洛谷P2508-HAOI2008-圆上的整点-题解" class="headerlink" title="洛谷P2508 [HAOI2008]圆上的整点 题解"></a>洛谷P2508 [HAOI2008]圆上的整点 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2508">P2508 [HAOI2008]圆上的整点</a></p>
+                <h1 id="洛谷p2508-haoi2008圆上的整点-题解">洛谷P2508
+[HAOI2008]圆上的整点 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2508">P2508
+[HAOI2008]圆上的整点</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>求一个给定的圆 $(x^2+y^2=r^2)$ ，在圆周上有多少个点的坐标是整数。</p>
+<p>求一个给定的圆 <span class="math inline">\((x^2+y^2=r^2)\)</span>
+，在圆周上有多少个点的坐标是整数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一个正整数 $r$ 。</p>
+<p>一个正整数 <span class="math inline">\(r\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>整点个数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le r\leq 2\times 10^9$</p>
+<p><span class="math inline">\(1\le r\leq 2\times 10^9\)</span></p>
 </blockquote>
 <p>关键词：高斯素数、复平面、费马平方和定理、乘法原理</p>
 <p><br></p>
-<p>圆心为原点，半径为 $r$ 的圆周上有多少个整点？</p>
+<p>圆心为原点，半径为 <span class="math inline">\(r\)</span>
+的圆周上有多少个整点？</p>
 <p>实际上我们可以把这个问题转化为以下的形式</p>
-<p>存在多少个<strong>整数对</strong> $(a,b)$ 满足 $a^2 + b^2 = N$ ，其中 $N \in \mathbb{Z}^+$ 。</p>
+<p>存在多少个<strong>整数对</strong> <span
+class="math inline">\((a,b)\)</span> 满足 <span
+class="math inline">\(a^2 + b^2 = N\)</span> ，其中 <span
+class="math inline">\(N \in \mathbb{Z}^+\)</span> 。</p>
 <p>对于这样的二元问题，我们可以将二维平面看作复平面。</p>
 <p><br></p>
 <p>首先我们要知道这么几个前置知识。</p>
 <p><strong>1.高斯整数</strong>：</p>
 <p>高斯整数是实部和虚部都为整数的复数。（只要知道这个就行了）</p>
-<p>所有的高斯整数组成了一个整环，写作 $\mathbb{Z}[i]$ 。</p>
-<script type="math/tex; mode=display">
-\mathbb{Z}[i] = \{a+bi \mid a,b \in \mathbb{Z}\}</script><p>高斯整数组成了一个唯一分解整环，其可逆元为 $1,-1,i,-i$ 。</p>
+<p>所有的高斯整数组成了一个整环，写作 <span
+class="math inline">\(\mathbb{Z}[i]\)</span> 。 <span
+class="math display">\[
+\mathbb{Z}[i] = \{a+bi \mid a,b \in \mathbb{Z}\}
+\]</span> 高斯整数组成了一个唯一分解整环，其可逆元为 <span
+class="math inline">\(1,-1,i,-i\)</span> 。</p>
 <p><strong>2.高斯素数</strong>：</p>
-<p>$\mathbb{Z}[i]$ 的素元素又称为高斯整数。</p>
-<p>高斯整数 $a+bi$ 是素数<strong>当且仅当</strong>以下两命题之一成立。</p>
+<p><span class="math inline">\(\mathbb{Z}[i]\)</span>
+的素元素又称为高斯整数。</p>
+<p>高斯整数 <span class="math inline">\(a+bi\)</span>
+是素数<strong>当且仅当</strong>以下两命题之一成立。</p>
 <ul>
-<li>$a,b$ 中有一个为零，并且另一个是形如 $4k+3$ 的素数（或其相反数 $-(4k+3)$ ）</li>
-<li>$a,b$ 均不为零，而 $a^2 + b^2$ 是素数。</li>
+<li><span class="math inline">\(a,b\)</span>
+中有一个为零，并且另一个是形如 <span class="math inline">\(4k+3\)</span>
+的素数（或其相反数 <span class="math inline">\(-(4k+3)\)</span> ）</li>
+<li><span class="math inline">\(a,b\)</span> 均不为零，而 <span
+class="math inline">\(a^2 + b^2\)</span> 是素数。</li>
 </ul>
 <p><strong>3.费马平方和定理</strong>：</p>
-<p><strong>奇素数</strong>能被表示为<strong>两个平方数之和</strong>的充分必要条件是该素数被 $4$ 除余 $1$ 。</p>
-<p>换个说法，<strong>奇素数</strong> $p$ 可以表示为<strong>两个正整数</strong>的平方和，<strong>当且仅当</strong> $p$ 是 $4k+1$ 型的。</p>
+<p><strong>奇素数</strong>能被表示为<strong>两个平方数之和</strong>的充分必要条件是该素数被
+<span class="math inline">\(4\)</span> 除余 <span
+class="math inline">\(1\)</span> 。</p>
+<p>换个说法，<strong>奇素数</strong> <span
+class="math inline">\(p\)</span>
+可以表示为<strong>两个正整数</strong>的平方和，<strong>当且仅当</strong>
+<span class="math inline">\(p\)</span> 是 <span
+class="math inline">\(4k+1\)</span> 型的。</p>
 <blockquote>
 <p>并且在不考虑两个正整数顺序的情况下，这个表示方法唯一。</p>
 </blockquote>
-<p><del>再换个说法，</del></p>
-<script type="math/tex; mode=display">
-\forall p \in \mathbb{P} \land p =4n+1~(n\in \mathbb{Z}^+),~\exists a,b\in\mathbb{Z^+} \ \ \textrm{s.t.}\ \   p =a^2 + b^2</script><blockquote>
-<p>注意，这里是 $4k+1$ 型，刚刚的费马素数是 $4k+3$ 型。</p>
+<p><del>再换个说法，</del> <span class="math display">\[
+\forall p \in \mathbb{P} \land p =4n+1~(n\in \mathbb{Z}^+),~\exists
+a,b\in\mathbb{Z^+} \ \ \textrm{s.t.}\ \   p =a^2 + b^2
+\]</span></p>
+<blockquote>
+<p>注意，这里是 <span class="math inline">\(4k+1\)</span>
+型，刚刚的费马素数是 <span class="math inline">\(4k+3\)</span> 型。</p>
 </blockquote>
 <p><br></p>
 <p><del>前置知识好像有亿点多</del></p>
-<p>回到刚刚的问题，存在多少个<strong>整数对</strong> $(a,b)$ 满足 $a^2 + b^2 = N$ </p>
-<p>因为我们把二维平面看作了复平面，所以 $a,b$ 分别对应实部和虚部，且 $a,b$ 为整数。</p>
-<p>而显然有</p>
-<script type="math/tex; mode=display">
-a^2 + b^2 = N \Rightarrow (a+bi)(a-bi) = N</script><p>因此题目又转化为了：有多少个<strong>高斯整数</strong> $z$ 满足其本身与其共轭复数 $\overline{z}$ 的乘积是 $N$ 。</p>
+<p>回到刚刚的问题，存在多少个<strong>整数对</strong> <span
+class="math inline">\((a,b)\)</span> 满足 <span
+class="math inline">\(a^2 + b^2 = N\)</span></p>
+<p>因为我们把二维平面看作了复平面，所以 <span
+class="math inline">\(a,b\)</span> 分别对应实部和虚部，且 <span
+class="math inline">\(a,b\)</span> 为整数。</p>
+<p>而显然有 <span class="math display">\[
+a^2 + b^2 = N \Rightarrow (a+bi)(a-bi) = N
+\]</span> 因此题目又转化为了：有多少个<strong>高斯整数</strong> <span
+class="math inline">\(z\)</span> 满足其本身与其共轭复数 <span
+class="math inline">\(\overline{z}\)</span> 的乘积是 <span
+class="math inline">\(N\)</span> 。</p>
 <p><br></p>
 <p>不难发现高斯整数的共轭复数也是高斯整数。</p>
-<p>考虑一个正整数 $N$ 在 $\mathbb{Z}[i]$ 上的分解。</p>
+<p>考虑一个正整数 <span class="math inline">\(N\)</span> 在 <span
+class="math inline">\(\mathbb{Z}[i]\)</span> 上的分解。</p>
 <blockquote>
-<p>梦回集训。当时 <a target="_blank" rel="noopener" href="https://codeforces.com/profile/AprilGrimoire">AprilGrimoire</a> 跟我们讲唯一分解整环，没有一个听懂的。</p>
+<p>梦回集训。当时 <a
+target="_blank" rel="noopener" href="https://codeforces.com/profile/AprilGrimoire">AprilGrimoire</a>
+跟我们讲唯一分解整环，没有一个听懂的。</p>
 </blockquote>
-<p>首先，$N$ 在 $\mathbb{Z}^+$ 上存在唯一分解（根据算术基本定理）</p>
-<p>也就是任意一个 $N$ 都可以表示成以下的形式</p>
-<script type="math/tex; mode=display">
-N = p_1^{k_1} p_2^{k_2} \cdots p_t^{k_t}\quad(p \in \mathbb{P})</script><p>如果我们给其中某对 $p_x,p_y$ 分别乘上 $i,-i$ ，看看会怎么样</p>
-<script type="math/tex; mode=display">
+<p>首先，<span class="math inline">\(N\)</span> 在 <span
+class="math inline">\(\mathbb{Z}^+\)</span>
+上存在唯一分解（根据算术基本定理）</p>
+<p>也就是任意一个 <span class="math inline">\(N\)</span>
+都可以表示成以下的形式 <span class="math display">\[
+N = p_1^{k_1} p_2^{k_2} \cdots p_t^{k_t}\quad(p \in \mathbb{P})
+\]</span> 如果我们给其中某对 <span
+class="math inline">\(p_x,p_y\)</span> 分别乘上 <span
+class="math inline">\(i,-i\)</span> ，看看会怎么样 <span
+class="math display">\[
 \begin{aligned}
-&\quad p_1^{k_1} p_2^{k_2} \cdots p_x^{k_x-1}p_y^{k_y-1}\cdots p_t^{k_t}\cdot ip_x\cdot (-i)p_y
-\\&=p_1^{k_1} p_2^{k_2} \cdots p_x^{k_x}p_y^{k_y}\cdots p_t^{k_t}
-\\&=N
-\end{aligned}</script><p>因此 $N$ 在 $\mathbb{Z}[i]$ 上的分解，可以先将 $N$ 在 $\mathbb{Z}^+$ 上分解为若干个素数的乘积，然后将<strong>非高斯素数</strong>再进一步分解。</p>
+&amp;\quad p_1^{k_1} p_2^{k_2} \cdots p_x^{k_x-1}p_y^{k_y-1}\cdots
+p_t^{k_t}\cdot ip_x\cdot (-i)p_y
+\\&amp;=p_1^{k_1} p_2^{k_2} \cdots p_x^{k_x}p_y^{k_y}\cdots p_t^{k_t}
+\\&amp;=N
+\end{aligned}
+\]</span> 因此 <span class="math inline">\(N\)</span> 在 <span
+class="math inline">\(\mathbb{Z}[i]\)</span> 上的分解，可以先将 <span
+class="math inline">\(N\)</span> 在 <span
+class="math inline">\(\mathbb{Z}^+\)</span>
+上分解为若干个素数的乘积，然后将<strong>非高斯素数</strong>再进一步分解。</p>
 <p>根据费马平方和定理以及刚才的推导可知</p>
 <ul>
-<li>$4k+1$ 型的素数可以被恰好分解成一堆共轭复数的乘积。</li>
-<li>$4k+3$ 型的素数是高斯素数。</li>
-<li>$2$ 比较特殊，它的确可以被分解为 $(1+i)(1-i)$ ，但是我们单独考虑它。</li>
+<li><span class="math inline">\(4k+1\)</span>
+型的素数可以被恰好分解成一堆共轭复数的乘积。</li>
+<li><span class="math inline">\(4k+3\)</span> 型的素数是高斯素数。</li>
+<li><span class="math inline">\(2\)</span> 比较特殊，它的确可以被分解为
+<span class="math inline">\((1+i)(1-i)\)</span>
+，但是我们单独考虑它。</li>
 </ul>
-<p>记 $p$ 为 $4k+1$ 型素数（ $p=5,13,16,\cdots$ ），$q$ 为 $4k+3$ 型素数（$q=3,7,11,\cdots$ ）（也是高斯素数），则</p>
-<script type="math/tex; mode=display">
-N = 2^n \prod_{p_i = 4k+1}p_i^{k_i}\prod_{q_i = 4k+3} q_i^{m_i}</script><p>显然每个 $p_i$ 都是可以被分解为一对共轭复数的。</p>
-<p>现在我们的目的是求将 $N$ 表示为若干对共轭复数的乘积有多少种方法。</p>
+<p>记 <span class="math inline">\(p\)</span> 为 <span
+class="math inline">\(4k+1\)</span> 型素数（ <span
+class="math inline">\(p=5,13,16,\cdots\)</span> ），<span
+class="math inline">\(q\)</span> 为 <span
+class="math inline">\(4k+3\)</span> 型素数（<span
+class="math inline">\(q=3,7,11,\cdots\)</span> ）（也是高斯素数），则
+<span class="math display">\[
+N = 2^n \prod_{p_i = 4k+1}p_i^{k_i}\prod_{q_i = 4k+3} q_i^{m_i}
+\]</span> 显然每个 <span class="math inline">\(p_i\)</span>
+都是可以被分解为一对共轭复数的。</p>
+<p>现在我们的目的是求将 <span class="math inline">\(N\)</span>
+表示为若干对共轭复数的乘积有多少种方法。</p>
 <p><br></p>
-<p>首先考虑 $p_i$ 的贡献。</p>
-<p>对于每个 $p_i$ ，我们可以把它分解为 $z_i$ 和 $\overline{z_i}$ </p>
-<p>我们可以将 $z_i$ 分配给 $N$ 的第一个因子，$\overline{z_i}$ 非配个 $N$ 的第二个因子（这样才能保证 $N$ 的两个因子是共轭的）</p>
-<p>当然反过来非配也是可以的。因此对于每个 $p_i$ 可以有 $2$ 种分配方式。</p>
-<p>进一步的， $p_i^{k_i}$ 可以有 $k_i+1$ 种分配方式，因为我们可以给第一个因子分配 $0,1,\cdots,k_i$ 个 $z_i$ 。</p>
+<p>首先考虑 <span class="math inline">\(p_i\)</span> 的贡献。</p>
+<p>对于每个 <span class="math inline">\(p_i\)</span>
+，我们可以把它分解为 <span class="math inline">\(z_i\)</span> 和 <span
+class="math inline">\(\overline{z_i}\)</span></p>
+<p>我们可以将 <span class="math inline">\(z_i\)</span> 分配给 <span
+class="math inline">\(N\)</span> 的第一个因子，<span
+class="math inline">\(\overline{z_i}\)</span> 非配个 <span
+class="math inline">\(N\)</span> 的第二个因子（这样才能保证 <span
+class="math inline">\(N\)</span> 的两个因子是共轭的）</p>
+<p>当然反过来非配也是可以的。因此对于每个 <span
+class="math inline">\(p_i\)</span> 可以有 <span
+class="math inline">\(2\)</span> 种分配方式。</p>
+<p>进一步的， <span class="math inline">\(p_i^{k_i}\)</span> 可以有
+<span class="math inline">\(k_i+1\)</span>
+种分配方式，因为我们可以给第一个因子分配 <span
+class="math inline">\(0,1,\cdots,k_i\)</span> 个 <span
+class="math inline">\(z_i\)</span> 。</p>
 <p><br></p>
-<p>然后考虑 $q_i$ 的贡献。</p>
-<p>也就是要计算把 $q_i^{m_i}$  分成共轭的两个因子的乘积的方案数。</p>
-<p>显然，如果 $2 \mid m_i$ ，则给每个因子分配 $\frac{m_i}{2}$ 个 $q_i$ </p>
-<p>此时两个因子相等且虚部为 $0$ ，但是也是共轭的。方案数为 $1$ </p>
-<p>如果 $2 \not\mid m_i$ ，方案数为 $0$ 。因此<strong>只要存在一个 $m_i$ 为奇数</strong>，答案一定为 $0$ 。</p>
+<p>然后考虑 <span class="math inline">\(q_i\)</span> 的贡献。</p>
+<p>也就是要计算把 <span class="math inline">\(q_i^{m_i}\)</span>
+分成共轭的两个因子的乘积的方案数。</p>
+<p>显然，如果 <span class="math inline">\(2 \mid m_i\)</span>
+，则给每个因子分配 <span class="math inline">\(\frac{m_i}{2}\)</span> 个
+<span class="math inline">\(q_i\)</span></p>
+<p>此时两个因子相等且虚部为 <span class="math inline">\(0\)</span>
+，但是也是共轭的。方案数为 <span class="math inline">\(1\)</span></p>
+<p>如果 <span class="math inline">\(2 \not\mid m_i\)</span> ，方案数为
+<span class="math inline">\(0\)</span> 。因此<strong>只要存在一个 <span
+class="math inline">\(m_i\)</span> 为奇数</strong>，答案一定为 <span
+class="math inline">\(0\)</span> 。</p>
 <p><br></p>
-<p>最后考虑 $2$ 的贡献。</p>
+<p>最后考虑 <span class="math inline">\(2\)</span> 的贡献。</p>
 <p>首先有一个问题</p>
 <blockquote>
-<p>高斯整数组成了一个唯一分解整环，其可逆元为 $1,-1,i,-i$ 。</p>
+<p>高斯整数组成了一个唯一分解整环，其可逆元为 <span
+class="math inline">\(1,-1,i,-i\)</span> 。</p>
 </blockquote>
-<p>对于刚刚 $z_i \times \overline{z_i}$ 的分解，实际上可以分解成以下四种情况</p>
-<script type="math/tex; mode=display">
+<p>对于刚刚 <span class="math inline">\(z_i \times
+\overline{z_i}\)</span> 的分解，实际上可以分解成以下四种情况 <span
+class="math display">\[
 z_i \times \overline{z_i}
 \quad (-z_i) \times (-\overline{z_i})
 \quad -iz_i \times i\overline{z_i}
-\quad iz_i \times (-i)\overline{z_i}</script><p>对应到复平面上，就是旋转了 $0,~\frac{\pi}{2},~\pi,~\frac{3\pi}{2}$ 。因此<strong>答案数实际上是要乘以 $4$ 的</strong>。</p>
+\quad iz_i \times (-i)\overline{z_i}
+\]</span> 对应到复平面上，就是旋转了 <span
+class="math inline">\(0,~\frac{\pi}{2},~\pi,~\frac{3\pi}{2}\)</span>
+。因此<strong>答案数实际上是要乘以 <span
+class="math inline">\(4\)</span> 的</strong>。</p>
 <blockquote>
 <p>根据复数乘法的几何意义，两个复数相乘就是 辐角相加 模相乘。</p>
 <p>是的，我又打算整一个复数的总结。然后就咕咕咕了。</p>
 </blockquote>
-<p>而对于 $(1+i),(1-i)$ ，可以发现</p>
-<script type="math/tex; mode=display">
+<p>而对于 <span class="math inline">\((1+i),(1-i)\)</span> ，可以发现
+<span class="math display">\[
 (1+i) \times (-i) = (1-i)
-\\(1-i) \times i = (1+i)</script><p>因此在给每个因子分配不同个数的 $(1+i),(1-i)$ 的过程，其实相当于让他们乘上了 $i$ 或 $-i$ 。</p>
-<p>这与我们刚刚的计数会有冲突（给第一个因子乘上 $1,-1,i,-i$ ，并让第二个乘以对应的共轭复数），因此实际上我们不需要统计 $2$ 交换产生的贡献。</p>
-<p>那么 $2^n$ 呢？其实根据归纳法可知，无论乘若干次都会与刚刚的计数冲突。</p>
-<p>因此综上，我们<strong>不需要考虑 $2^n$ 的贡献</strong>。</p>
+\\(1-i) \times i = (1+i)
+\]</span> 因此在给每个因子分配不同个数的 <span
+class="math inline">\((1+i),(1-i)\)</span>
+的过程，其实相当于让他们乘上了 <span class="math inline">\(i\)</span> 或
+<span class="math inline">\(-i\)</span> 。</p>
+<p>这与我们刚刚的计数会有冲突（给第一个因子乘上 <span
+class="math inline">\(1,-1,i,-i\)</span>
+，并让第二个乘以对应的共轭复数），因此实际上我们不需要统计 <span
+class="math inline">\(2\)</span> 交换产生的贡献。</p>
+<p>那么 <span class="math inline">\(2^n\)</span>
+呢？其实根据归纳法可知，无论乘若干次都会与刚刚的计数冲突。</p>
+<p>因此综上，我们<strong>不需要考虑 <span
+class="math inline">\(2^n\)</span> 的贡献</strong>。</p>
 <p><br></p>
 <p>写了几个小时了，总算可以考虑原题了。</p>
-<p>由于 $N=r^2$ ，因此有</p>
-<script type="math/tex; mode=display">
-r = 2^n \prod_{p_i = 4k+1}p_i^{k_i}\prod_{q_i = 4k+3} q_i^{m_i}</script><script type="math/tex; mode=display">
-N = 2^{2n} \prod_{p_i = 4k+1}p_i^{2k_i}\prod_{q_i = 4k+3} q_i^{2m_i}</script><p>因此我们不需要考虑 $q_i$ 导致方案数为 $0$ 的情况了。（见 $q_i$ 贡献的分析）</p>
-<p>故我们只需要考虑 $p_i$ 的贡献。</p>
-<p>根据上面的分析，答案为（ $2k_i+1$ 是因为 $k_i$ 变成 $2k_i$ 了 ）</p>
-<script type="math/tex; mode=display">
-4 \times \prod_{p_i = 4k+1} (2k_i + 1)</script><p>因此我们只需要分解一下质因数就好了。</p>
-<p>时间复杂度 $\mathcal{O}(\sqrt{n})$</p>
+<p>由于 <span class="math inline">\(N=r^2\)</span> ，因此有 <span
+class="math display">\[
+r = 2^n \prod_{p_i = 4k+1}p_i^{k_i}\prod_{q_i = 4k+3} q_i^{m_i}
+\]</span></p>
+<p><span class="math display">\[
+N = 2^{2n} \prod_{p_i = 4k+1}p_i^{2k_i}\prod_{q_i = 4k+3} q_i^{2m_i}
+\]</span></p>
+<p>因此我们不需要考虑 <span class="math inline">\(q_i\)</span>
+导致方案数为 <span class="math inline">\(0\)</span> 的情况了。（见 <span
+class="math inline">\(q_i\)</span> 贡献的分析）</p>
+<p>故我们只需要考虑 <span class="math inline">\(p_i\)</span>
+的贡献。</p>
+<p>根据上面的分析，答案为（ <span class="math inline">\(2k_i+1\)</span>
+是因为 <span class="math inline">\(k_i\)</span> 变成 <span
+class="math inline">\(2k_i\)</span> 了 ） <span class="math display">\[
+4 \times \prod_{p_i = 4k+1} (2k_i + 1)
+\]</span> 因此我们只需要分解一下质因数就好了。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -617,11 +740,16 @@ N = 2^{2n} \prod_{p_i = 4k+1}p_i^{2k_i}\prod_{q_i = 4k+3} q_i^{2m_i}</script><p>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/emptyset/solution-p2508">https://www.luogu.com.cn/blog/emptyset/solution-p2508</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%AB%98%E6%96%AF%E6%95%B4%E6%95%B8">https://zh.wikipedia.org/wiki/%E9%AB%98%E6%96%AF%E6%95%B4%E6%95%B8</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B9%B3%E6%96%B9%E5%92%8C%E5%AE%9A%E7%90%86">https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B9%B3%E6%96%B9%E5%92%8C%E5%AE%9A%E7%90%86</a></p>
-<p>[4] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86">https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86</a></p>
-<p>[5] <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av12131743?vd_source=6982651268f78885e6d898d1cff8858b">https://www.bilibili.com/video/av12131743?vd_source=6982651268f78885e6d898d1cff8858b</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/emptyset/solution-p2508">https://www.luogu.com.cn/blog/emptyset/solution-p2508</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%AB%98%E6%96%AF%E6%95%B4%E6%95%B8">https://zh.wikipedia.org/wiki/%E9%AB%98%E6%96%AF%E6%95%B4%E6%95%B8</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B9%B3%E6%96%B9%E5%92%8C%E5%AE%9A%E7%90%86">https://zh.wikipedia.org/wiki/%E8%B4%B9%E9%A9%AC%E5%B9%B3%E6%96%B9%E5%92%8C%E5%AE%9A%E7%90%86</a></p>
+<p>[4] <a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86">https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86</a></p>
+<p>[5] <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/av12131743?vd_source=6982651268f78885e6d898d1cff8858b">https://www.bilibili.com/video/av12131743?vd_source=6982651268f78885e6d898d1cff8858b</a></p>
 
                 
             </div>
@@ -981,7 +1109,7 @@ N = 2^{2n} \prod_{p_i = 4k+1}p_i^{2k_i}\prod_{q_i = 4k+3} q_i^{2m_i}</script><p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">414k</span>&nbsp;字
+                class="white-color">416.8k</span>&nbsp;字
             
             
             

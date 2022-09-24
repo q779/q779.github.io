@@ -102,6 +102,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/notations" class="waves-effect waves-light">
+      
+      <i class="fas fa-signature" style="zoom: 0.6;"></i>
+      
+      <span>符号</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -188,6 +199,17 @@
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/notations" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-signature"></i>
+			
+			符号
 		</a>
           
         </li>
@@ -472,61 +494,127 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5656-【模板】二元一次不定方程-exgcd-题解"><a href="#洛谷P5656-【模板】二元一次不定方程-exgcd-题解" class="headerlink" title="洛谷P5656 【模板】二元一次不定方程 (exgcd) 题解"></a>洛谷P5656 【模板】二元一次不定方程 (exgcd) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5656">P5656 【模板】二元一次不定方程 (exgcd)</a></p>
+                <h1 id="洛谷p5656-模板二元一次不定方程-exgcd-题解">洛谷P5656
+【模板】二元一次不定方程 (exgcd) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5656">P5656
+【模板】二元一次不定方程 (exgcd)</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定不定方程</p>
-<script type="math/tex; mode=display">
-ax+by=c</script><p>若该方程无整数解，输出 $-1$。<br>若该方程有整数解，且有正整数解，则输出其<strong>正整数</strong>解的数量，所有<strong>正整数</strong>解中 $x$ 的最小值，所有<strong>正整数</strong>解中 $y$ 的最小值，所有<strong>正整数</strong>解中 $x$ 的最大值，以及所有<strong>正整数</strong>解中 $y$ 的最大值。<br>若方程有整数解，但没有正整数解，你需要输出所有<strong>整数解</strong>中 $x$ 的最小正整数值， $y$ 的最小正整数值。</p>
-<p>正整数解即为 $x, y$ 均为正整数的解，$\boldsymbol{0}$ <strong>不是正整数</strong>。<br>整数解即为 $x,y$ 均为整数的解。<br>$x$ 的最小正整数值即所有 $x$ 为正整数的整数解中 $x$ 的最小值，$y$ 同理。</p>
-<p>$1\le a,b,c\le 10^9$</p>
+<p><strong>题意</strong>：给定不定方程 <span class="math display">\[
+ax+by=c
+\]</span> 若该方程无整数解，输出 <span
+class="math inline">\(-1\)</span>。
+若该方程有整数解，且有正整数解，则输出其<strong>正整数</strong>解的数量，所有<strong>正整数</strong>解中
+<span class="math inline">\(x\)</span>
+的最小值，所有<strong>正整数</strong>解中 <span
+class="math inline">\(y\)</span>
+的最小值，所有<strong>正整数</strong>解中 <span
+class="math inline">\(x\)</span>
+的最大值，以及所有<strong>正整数</strong>解中 <span
+class="math inline">\(y\)</span> 的最大值。
+若方程有整数解，但没有正整数解，你需要输出所有<strong>整数解</strong>中
+<span class="math inline">\(x\)</span> 的最小正整数值， <span
+class="math inline">\(y\)</span> 的最小正整数值。</p>
+<p>正整数解即为 <span class="math inline">\(x, y\)</span>
+均为正整数的解，<span class="math inline">\(\boldsymbol{0}\)</span>
+<strong>不是正整数</strong>。 整数解即为 <span
+class="math inline">\(x,y\)</span> 均为整数的解。 <span
+class="math inline">\(x\)</span> 的最小正整数值即所有 <span
+class="math inline">\(x\)</span> 为正整数的整数解中 <span
+class="math inline">\(x\)</span> 的最小值，<span
+class="math inline">\(y\)</span> 同理。</p>
+<p><span class="math inline">\(1\le a,b,c\le 10^9\)</span></p>
 </blockquote>
 <p>根据<strong>裴蜀定理</strong>，</p>
-<p>对于 $x,y$ 的二元一次<strong>不定方程</strong> $ax+by=c$ ，其有解的充要条件为 $\gcd(a,b) \mid c$ </p>
-<p>可知方程无解当且仅当 $\gcd(a,b) \nmid c$ </p>
+<p>对于 <span class="math inline">\(x,y\)</span>
+的二元一次<strong>不定方程</strong> <span
+class="math inline">\(ax+by=c\)</span> ，其有解的充要条件为 <span
+class="math inline">\(\gcd(a,b) \mid c\)</span></p>
+<p>可知方程无解当且仅当 <span class="math inline">\(\gcd(a,b) \nmid
+c\)</span></p>
 <p>那么有解的时候，我们可以用<strong>扩展欧几里德算法</strong>求出一组特解</p>
-<p>即 $x^{\prime},y^{\prime}$ 满足</p>
-<script type="math/tex; mode=display">
-ax^{\prime}+by^{\prime}=\gcd(a,b)</script><p>考虑转化为原方程的一组特解。令 $d=\gcd(a,b)$ </p>
-<p>则特解 $x_0=x^{\prime}\times \dfrac{c}{d}，y_0 = y’ \times \dfrac{c}{d}$  满足</p>
-<script type="math/tex; mode=display">
-ax_0 + by_0 = c</script><p>此时的 $x_0,y_0$ 就是一个平凡的解，考虑转化为更有价值的解</p>
-<p>考虑增大 $x_0$ 为 $x_0+p$ ，则 $y_0$ 需减小至 $y_0-q$</p>
-<p>故</p>
-<script type="math/tex; mode=display">
+<p>即 <span class="math inline">\(x^{\prime},y^{\prime}\)</span> 满足
+<span class="math display">\[
+ax^{\prime}+by^{\prime}=\gcd(a,b)
+\]</span></p>
+<p>考虑转化为原方程的一组特解。令 <span
+class="math inline">\(d=\gcd(a,b)\)</span></p>
+<p>则特解 <span class="math inline">\(x_0=x^{\prime}\times
+\dfrac{c}{d}，y_0 = y&#39; \times \dfrac{c}{d}\)</span> 满足 <span
+class="math display">\[
+ax_0 + by_0 = c
+\]</span> 此时的 <span class="math inline">\(x_0,y_0\)</span>
+就是一个平凡的解，考虑转化为更有价值的解</p>
+<p>考虑增大 <span class="math inline">\(x_0\)</span> 为 <span
+class="math inline">\(x_0+p\)</span> ，则 <span
+class="math inline">\(y_0\)</span> 需减小至 <span
+class="math inline">\(y_0-q\)</span></p>
+<p>故 <span class="math display">\[
 \begin{cases}
 a\times(x_0+p)+b\times(y_0-q) = c\\\\
 ax_0 + b y_0 = c
-\end{cases}</script><p> 可得 $p =\dfrac{bq}{a}$ </p>
-<p>可以发现这样的解有无数个，我们只要找到一个<strong>最小正整数</strong>解即可（即 $p,q\in \mathbb{Z}_+$ 且 $p,q$ 尽可能小）</p>
-<p>$\because a\mid bq,b\mid bq$</p>
-<p>$\therefore (bq)_{\min}=\operatorname{lcm}(a,b) = \dfrac{ab}{\gcd(a,b)}$ </p>
-<p>即</p>
-<script type="math/tex; mode=display">
+\end{cases}
+\]</span> 可得 <span class="math inline">\(p =\dfrac{bq}{a}\)</span></p>
+<p>可以发现这样的解有无数个，我们只要找到一个<strong>最小正整数</strong>解即可（即
+<span class="math inline">\(p,q\in \mathbb{Z}_+\)</span> 且 <span
+class="math inline">\(p,q\)</span> 尽可能小）</p>
+<p><span class="math inline">\(\because a\mid bq,b\mid bq\)</span></p>
+<p><span class="math inline">\(\therefore
+(bq)_{\min}=\operatorname{lcm}(a,b) = \dfrac{ab}{\gcd(a,b)}\)</span></p>
+<p>即 <span class="math display">\[
 \begin{aligned}\begin{cases}
-p_{\min}&=\dfrac{b}{d}\\
+p_{\min}&amp;=\dfrac{b}{d}\\
 \\
-q_{\min}&=\dfrac{a}{d}
-\end{cases}\end{aligned}</script><p>于是我们尝试将 $x_0$ 调至最小正整数（ $y_0$ 同时也会改变 ）</p>
-<p>即找到一个最小的整数 $k$ 使得 $x_0 + kp \ge 1$ </p>
-<p>则</p>
-<script type="math/tex; mode=display">
-k= \left\lceil{\dfrac{1-x_0}{p}}\right\rceil</script><p>然后将 $x_0$ 变为 $x_0 + kp$ 即可，此时 $y_0$ 变化为 $y_0-qk$ </p>
-<p>若此时 $y_0 &gt; 0$ ，则<strong>存在正整数解</strong></p>
-<ol>
-<li><strong>正整数解的个数</strong>：使 $y_0$ 不停地减 $q$ 就是所有可行正整数解，故答案为 $\left\lfloor{\dfrac{y_0-1}{q}}\right\rfloor+1$</li>
-<li>$x$ <strong>的最小正整数值</strong>：$x_0$</li>
-<li><p>$y$ <strong>的最小正整数值</strong>：使 $y$ 不停地减 $q$ ，最小的那个正整数就是答案，即 $(y_0-1)\bmod q + 1$</p>
-</li>
-<li><p>$x$ <strong>的最大正整数值</strong>：$y$ 最小时 $x$ 最大</p>
-</li>
-<li>$y$ <strong>的最大正整数值</strong>： $y_0$ </li>
+q_{\min}&amp;=\dfrac{a}{d}
+\end{cases}\end{aligned}
+\]</span> 于是我们尝试将 <span class="math inline">\(x_0\)</span>
+调至最小正整数（ <span class="math inline">\(y_0\)</span> 同时也会改变
+）</p>
+<p>即找到一个最小的整数 <span class="math inline">\(k\)</span> 使得
+<span class="math inline">\(x_0 + kp \ge 1\)</span></p>
+<p>则 <span class="math display">\[
+k= \left\lceil{\dfrac{1-x_0}{p}}\right\rceil
+\]</span> 然后将 <span class="math inline">\(x_0\)</span> 变为 <span
+class="math inline">\(x_0 + kp\)</span> 即可，此时 <span
+class="math inline">\(y_0\)</span> 变化为 <span
+class="math inline">\(y_0-qk\)</span></p>
+<p>若此时 <span class="math inline">\(y_0 &gt; 0\)</span>
+，则<strong>存在正整数解</strong></p>
+<ol type="1">
+<li><p><strong>正整数解的个数</strong>：使 <span
+class="math inline">\(y_0\)</span> 不停地减 <span
+class="math inline">\(q\)</span> 就是所有可行正整数解，故答案为 <span
+class="math inline">\(\left\lfloor{\dfrac{y_0-1}{q}}\right\rfloor+1\)</span></p></li>
+<li><p><span class="math inline">\(x\)</span>
+<strong>的最小正整数值</strong>：<span
+class="math inline">\(x_0\)</span></p></li>
+<li><p><span class="math inline">\(y\)</span>
+<strong>的最小正整数值</strong>：使 <span
+class="math inline">\(y\)</span> 不停地减 <span
+class="math inline">\(q\)</span> ，最小的那个正整数就是答案，即 <span
+class="math inline">\((y_0-1)\bmod q + 1\)</span></p></li>
+<li><p><span class="math inline">\(x\)</span>
+<strong>的最大正整数值</strong>：<span class="math inline">\(y\)</span>
+最小时 <span class="math inline">\(x\)</span> 最大</p></li>
+<li><p><span class="math inline">\(y\)</span>
+<strong>的最大正整数值</strong>： <span
+class="math inline">\(y_0\)</span></p></li>
 </ol>
-<p>若此时 $y_0 \le 0$ ，则<strong>仅存在整数解</strong></p>
-<ol>
-<li>$x$ <strong>的最小正整数值</strong>： $x_0$</li>
-<li>$y$ <strong>的最小正整数值</strong>：构造 $y_0+k’q \ge 1$ ，易知 $k^{\prime} = \left\lceil{\dfrac{1-y_0}{q}}\right\rceil$ ，故答案为 $y_0+q\times \left\lceil{\dfrac{1-y_0}{q}}\right\rceil$ </li>
+<p>若此时 <span class="math inline">\(y_0 \le 0\)</span>
+，则<strong>仅存在整数解</strong></p>
+<ol type="1">
+<li><span class="math inline">\(x\)</span>
+<strong>的最小正整数值</strong>： <span
+class="math inline">\(x_0\)</span></li>
+<li><span class="math inline">\(y\)</span>
+<strong>的最小正整数值</strong>：构造 <span
+class="math inline">\(y_0+k&#39;q \ge 1\)</span> ，易知 <span
+class="math inline">\(k^{\prime} =
+\left\lceil{\dfrac{1-y_0}{q}}\right\rceil\)</span> ，故答案为 <span
+class="math inline">\(y_0+q\times
+\left\lceil{\dfrac{1-y_0}{q}}\right\rceil\)</span></li>
 </ol>
-<p>据说要开 $\text{long long}$ ，<del>反正我<code>#define int long long</code>丝毫不慌（逃</del></p>
+<p>据说要开 <span class="math inline">\(\text{long long}\)</span>
+，<del>反正我<code>#define int long long</code>丝毫不慌（逃</del></p>
 <p>主要代码如下（省略了快读和多组数据）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token keyword">int</span> <span class="token function">exgcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span>
@@ -560,7 +648,8 @@ k= \left\lceil{\dfrac{1-x_0}{p}}\right\rceil</script><p>然后将 $x_0$ 变为 $
     <span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/p5656-exgcd">https://www.luogu.com.cn/blog/McHf/p5656-exgcd</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/p5656-exgcd">https://www.luogu.com.cn/blog/McHf/p5656-exgcd</a></p>
 
                 
             </div>
@@ -678,13 +767,13 @@ k= \left\lceil{\dfrac{1-x_0}{p}}\right\rceil</script><p>然后将 $x_0$ 变为 $
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p5365-snoi2017-ying-xiong-lian-meng-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p5322-bjoi2019-pai-bing-bu-zhen-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p127.jpg" class="responsive-img" alt="洛谷P5365 [SNOI2017] 英雄联盟 题解">
+                        <img src="/medias/featureimages/p51.jpg" class="responsive-img" alt="洛谷P5322 [BJOI2019] 排兵布阵 题解">
                         
-                        <span class="card-title">洛谷P5365 [SNOI2017] 英雄联盟 题解</span>
+                        <span class="card-title">洛谷P5322 [BJOI2019] 排兵布阵 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -934,7 +1023,7 @@ k= \left\lceil{\dfrac{1-x_0}{p}}\right\rceil</script><p>然后将 $x_0$ 变为 $
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">414k</span>&nbsp;字
+                class="white-color">416.8k</span>&nbsp;字
             
             
             

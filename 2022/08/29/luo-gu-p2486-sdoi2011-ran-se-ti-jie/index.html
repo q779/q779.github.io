@@ -102,6 +102,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/notations" class="waves-effect waves-light">
+      
+      <i class="fas fa-signature" style="zoom: 0.6;"></i>
+      
+      <span>符号</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/about" class="waves-effect waves-light">
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
@@ -188,6 +199,17 @@
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/notations" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-signature"></i>
+			
+			符号
 		</a>
           
         </li>
@@ -472,39 +494,80 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2486-SDOI2011-染色-题解"><a href="#洛谷P2486-SDOI2011-染色-题解" class="headerlink" title="洛谷P2486 [SDOI2011]染色 题解"></a>洛谷P2486 [SDOI2011]染色 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2486">P2486 [SDOI2011]染色</a></p>
+                <h1 id="洛谷p2486-sdoi2011染色-题解">洛谷P2486 [SDOI2011]染色 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2486">P2486
+[SDOI2011]染色</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 $n$ 个节点的无根树，共有 $m$  个操作，操作分为两种：</p>
-<ol>
-<li>将节点 $a$ 到节点 $b$ 的路径上的所有点（包括 $a$ 和 $b$）都染成颜色 $c$。</li>
-<li>询问节点 $a$ 到节点 $b$ 的路径上的颜色段数量。</li>
+<p>给定一棵 <span class="math inline">\(n\)</span> 个节点的无根树，共有
+<span class="math inline">\(m\)</span> 个操作，操作分为两种：</p>
+<ol type="1">
+<li>将节点 <span class="math inline">\(a\)</span> 到节点 <span
+class="math inline">\(b\)</span> 的路径上的所有点（包括 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>）都染成颜色 <span
+class="math inline">\(c\)</span>。</li>
+<li>询问节点 <span class="math inline">\(a\)</span> 到节点 <span
+class="math inline">\(b\)</span> 的路径上的颜色段数量。</li>
 </ol>
-<p>颜色段的定义是极长的连续相同颜色被认为是一段。例如 <code>112221</code> 由三段组成：<code>11</code>、<code>222</code>、<code>1</code>。</p>
+<p>颜色段的定义是极长的连续相同颜色被认为是一段。例如
+<code>112221</code>
+由三段组成：<code>11</code>、<code>222</code>、<code>1</code>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行是用空格隔开的两个整数，分别代表树的节点个数 $n$ 和操作个数 $m$。</p>
-<p>第二行有 $n$ 个用空格隔开的整数，第 $i$ 个整数 $w_i$ 代表结点 $i$ 的初始颜色。</p>
-<p>第 $3$ 到第 $(n + 1)$ 行，每行两个用空格隔开的整数 $u, v$，代表树上存在一条连结节点 $u$ 和节点 $v$ 的边。</p>
-<p>第 $(n + 2)$ 到第 $(n + m + 1)$ 行，每行描述一个操作，其格式为：</p>
-<p>每行首先有一个字符 $op$，代表本次操作的类型。</p>
+<p>输入的第一行是用空格隔开的两个整数，分别代表树的节点个数 <span
+class="math inline">\(n\)</span> 和操作个数 <span
+class="math inline">\(m\)</span>。</p>
+<p>第二行有 <span class="math inline">\(n\)</span>
+个用空格隔开的整数，第 <span class="math inline">\(i\)</span> 个整数
+<span class="math inline">\(w_i\)</span> 代表结点 <span
+class="math inline">\(i\)</span> 的初始颜色。</p>
+<p>第 <span class="math inline">\(3\)</span> 到第 <span
+class="math inline">\((n + 1)\)</span> 行，每行两个用空格隔开的整数
+<span class="math inline">\(u, v\)</span>，代表树上存在一条连结节点
+<span class="math inline">\(u\)</span> 和节点 <span
+class="math inline">\(v\)</span> 的边。</p>
+<p>第 <span class="math inline">\((n + 2)\)</span> 到第 <span
+class="math inline">\((n + m + 1)\)</span>
+行，每行描述一个操作，其格式为：</p>
+<p>每行首先有一个字符 <span
+class="math inline">\(op\)</span>，代表本次操作的类型。</p>
 <ul>
-<li>若 $op$ 为 <code>C</code>，则代表本次操作是一次染色操作，在一个空格后有三个用空格隔开的整数 $a, b, c$，代表将 $a$ 到 $b$ 的路径上所有点都染成颜色 $c$。</li>
-<li>若 $op$ 为 <code>Q</code>，则代表本次操作是一次查询操作，在一个空格后有两个用空格隔开的整数 $a, b$，表示查询 $a$ 到 $b$ 路径上的颜色段数量。</li>
+<li>若 <span class="math inline">\(op\)</span> 为
+<code>C</code>，则代表本次操作是一次染色操作，在一个空格后有三个用空格隔开的整数
+<span class="math inline">\(a, b, c\)</span>，代表将 <span
+class="math inline">\(a\)</span> 到 <span
+class="math inline">\(b\)</span> 的路径上所有点都染成颜色 <span
+class="math inline">\(c\)</span>。</li>
+<li>若 <span class="math inline">\(op\)</span> 为
+<code>Q</code>，则代表本次操作是一次查询操作，在一个空格后有两个用空格隔开的整数
+<span class="math inline">\(a, b\)</span>，表示查询 <span
+class="math inline">\(a\)</span> 到 <span
+class="math inline">\(b\)</span> 路径上的颜色段数量。</li>
 </ul>
 <p><strong>输出格式</strong>：</p>
 <p>对于每次查询操作，输出一行一个整数代表答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1 \leq n, m \leq 10^5$，$1 \leq w_i, c \leq 10^9$，$1 \leq a, b, u, v \leq n$，$op$ 一定为 <code>C</code> 或 <code>Q</code>，保证给出的图是一棵树。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1 \leq n, m \leq 10^5\)</span>，<span
+class="math inline">\(1 \leq w_i, c \leq 10^9\)</span>，<span
+class="math inline">\(1 \leq a, b, u, v \leq n\)</span>，<span
+class="math inline">\(op\)</span> 一定为 <code>C</code> 或
+<code>Q</code>，保证给出的图是一棵树。</p>
 <p>除原数据外，还存在一组不计分的 hack 数据。</p>
 </blockquote>
 <p><del>一眼树剖，鉴定为：毒瘤。</del><img src="http://qzonestyle.gtimg.cn/qzone/em/e194.gif?max_age=2592000"  /></p>
-<p><del>貌似 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/236568">ttys000</a> 巨佬调了很久（（ 然后我就半路跑过去写了这题</del></p>
+<p><del>貌似 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/236568">ttys000</a>
+巨佬调了很久（（ 然后我就半路跑过去写了这题</del></p>
 <p>就是朴素的树剖，考虑线段树的结点维护什么</p>
 <p>因为它求的是极大子段数，不是颜色数</p>
 <p>所以我们只需要知道每个区间左端点、右端点的颜色，已经它有几个段即可</p>
-<p>左右子树合并的时候要注意如果 $a.r=b.l$ ，要把答案减一，因为这俩合并了以后是 $1$ 个段</p>
+<p>左右子树合并的时候要注意如果 <span
+class="math inline">\(a.r=b.l\)</span>
+，要把答案减一，因为这俩合并了以后是 <span
+class="math inline">\(1\)</span> 个段</p>
 <p>然后树剖的区间查询要注意合并顺序，建议自己画一画图</p>
-<p>时间复杂度 $O\left((n+m) \log^2 n\right)$ </p>
+<p>时间复杂度 <span class="math inline">\(O\left((n+m) \log^2
+n\right)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1036,7 +1099,7 @@ node <span class="token function">qRange</span><span class="token punctuation">(
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">414k</span>&nbsp;字
+                class="white-color">416.8k</span>&nbsp;字
             
             
             
