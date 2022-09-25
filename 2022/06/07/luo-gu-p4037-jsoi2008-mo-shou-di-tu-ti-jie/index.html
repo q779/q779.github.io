@@ -498,48 +498,83 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4037-JSOI2008-魔兽地图-题解"><a href="#洛谷P4037-JSOI2008-魔兽地图-题解" class="headerlink" title="洛谷P4037 [JSOI2008]魔兽地图 题解"></a>洛谷P4037 [JSOI2008]魔兽地图 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4037">P4037 [JSOI2008]魔兽地图</a></p>
+                <h1 id="洛谷p4037-jsoi2008魔兽地图-题解">洛谷P4037 [JSOI2008]魔兽地图
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4037">P4037
+[JSOI2008]魔兽地图</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>DotR (Defense of the Robots) Allstars是一个风靡全球的魔兽地图，他的规则简单与同样流行的地图DotA (Defense of the Ancients) Allstars。</p>
+<p>DotR (Defense of the Robots)
+Allstars是一个风靡全球的魔兽地图，他的规则简单与同样流行的地图DotA
+(Defense of the Ancients) Allstars。</p>
 <p>DotR里面的英雄只有一个属性——力量。他们需要购买装备来提升自己的力量值，每件装备都可以使佩戴它的英雄的力量值提高固定的点数，所以英雄的力量值等于它购买的所有装备的力量值之和。装备分为基本装备和高级装备两种。基本装备可以直接从商店里面用金币购买，而高级装备需要用基本装备或者较低级的高级装备来合成，合成不需要附加的金币。装备的合成路线可以用一棵树来表示。</p>
-<p>比如，Sange and Yasha的合成需要Sange,Yasha和Sange and Yasha Recipe Scroll三样物品。其中Sange又要用Ogre Axe, Belt of Giant Strength和 Sange Recipe Scroll合成。每件基本装备都有数量限制，这限制了你不能无限制地合成某些性价比很高的装备。</p>
+<p>比如，Sange and Yasha的合成需要Sange,Yasha和Sange and Yasha Recipe
+Scroll三样物品。其中Sange又要用Ogre Axe, Belt of Giant Strength和 Sange
+Recipe
+Scroll合成。每件基本装备都有数量限制，这限制了你不能无限制地合成某些性价比很高的装备。</p>
 <p>现在，英雄Spectre有M个金币，他想用这些钱购买装备使自己的力量值尽量高。你能帮帮他吗？他会教你魔法Haunt（幽灵附体）作为回报的。</p>
 </blockquote>
 <p>容易发现这是一个十分有(dú)趣(liú)的树上背包问题</p>
 <p>高级装备和基本装备显然有树形的依赖关系</p>
-<p>按照高级-&gt;高级-&gt;基本的方式进行建图，$(u,v)$ 的边权就是合成 $u$ 需要的 $v$ 个数</p>
+<p>按照高级-&gt;高级-&gt;基本的方式进行建图，<span
+class="math inline">\((u,v)\)</span> 的边权就是合成 <span
+class="math inline">\(u\)</span> 需要的 <span
+class="math inline">\(v\)</span> 个数</p>
 <p>于是可以由此建出一个<strong>森林</strong>，因此最后dp的时候要加个虚拟结点啥的</p>
-<p>设 $P[x],L[x],M[x]$ 分别表示物品 $x$ 的价值、购买上限和花费</p>
+<p>设 <span class="math inline">\(P[x],L[x],M[x]\)</span> 分别表示物品
+<span class="math inline">\(x\)</span> 的价值、购买上限和花费</p>
 <p>对于基本装备（叶子结点），显然要进行<code>L[x]=min(L[x],m/M[x])</code>的操作</p>
-<p>设 $f[u][j][k]$ 表示 $u$ 装备所在子树，上传 $j$ 个 $u$ 装备用于给上层合成（也就是不计算这 $j$ 个的贡献），且所在子树花费的总金额为 $k$ 是能获得的最大价值</p>
-<p>对于一个 $u$ ，它对父亲的贡献分为两方面</p>
+<p>设 <span class="math inline">\(f[u][j][k]\)</span> 表示 <span
+class="math inline">\(u\)</span> 装备所在子树，上传 <span
+class="math inline">\(j\)</span> 个 <span
+class="math inline">\(u\)</span> 装备用于给上层合成（也就是不计算这
+<span class="math inline">\(j\)</span>
+个的贡献），且所在子树花费的总金额为 <span
+class="math inline">\(k\)</span> 是能获得的最大价值</p>
+<p>对于一个 <span class="math inline">\(u\)</span>
+，它对父亲的贡献分为两方面</p>
 <ul>
 <li>它所在的子树的贡献（价值），包括儿子的以及自己没上传的</li>
-<li>$u$ 上传的 $u$ 装备的个数，以用于父亲的合成</li>
+<li><span class="math inline">\(u\)</span> 上传的 <span
+class="math inline">\(u\)</span> 装备的个数，以用于父亲的合成</li>
 </ul>
 <p>则我们首先要知道对于每个结点究竟合成几个</p>
-<p>考虑枚举 $l$ ，表示 $u$ 要合成 $l$ 个（上传+自己私藏的）</p>
+<p>考虑枚举 <span class="math inline">\(l\)</span> ，表示 <span
+class="math inline">\(u\)</span> 要合成 <span
+class="math inline">\(l\)</span> 个（上传+自己私藏的）</p>
 <p>然后我们就可以枚举上传几个以及花费多少了</p>
-<p>如何知道对 $u$ 所在子树花费 $k$ 能获得的最大价值是多少呢</p>
+<p>如何知道对 <span class="math inline">\(u\)</span> 所在子树花费 <span
+class="math inline">\(k\)</span> 能获得的最大价值是多少呢</p>
 <p>这个需要我们再单独做一个临时的dp</p>
-<p>设 $g[i][j]$ 表示对于 $u$ 所在子树，只考虑 $u$ 的前 $i$ 个儿子所在子树，花费为 $j$ 时能获得的最大价值（这里不用记录 $u$ ，因为只是临时的dp）</p>
-<p>则有</p>
-<script type="math/tex; mode=display">
-g[i][j+k]=\max(g[i][j+k],g[i-1][j]+f[v][l\times w(u,v)][k])</script><ul>
-<li><p>这里为什么是 $l\times w(u,v)$ ？因为已经枚举了当前要合成 $l$ 个</p>
-</li>
-<li><p>这里为什么max的第一个不是 $g[i-1][j+k]$ ？因为我们每个子树都要拿材料啊</p>
+<p>设 <span class="math inline">\(g[i][j]\)</span> 表示对于 <span
+class="math inline">\(u\)</span> 所在子树，只考虑 <span
+class="math inline">\(u\)</span> 的前 <span
+class="math inline">\(i\)</span> 个儿子所在子树，花费为 <span
+class="math inline">\(j\)</span> 时能获得的最大价值（这里不用记录 <span
+class="math inline">\(u\)</span> ，因为只是临时的dp）</p>
+<p>则有 <span class="math display">\[
+g[i][j+k]=\max(g[i][j+k],g[i-1][j]+f[v][l\times w(u,v)][k])
+\]</span></p>
+<ul>
+<li><p>这里为什么是 <span class="math inline">\(l\times w(u,v)\)</span>
+？因为已经枚举了当前要合成 <span class="math inline">\(l\)</span>
+个</p></li>
+<li><p>这里为什么max的第一个不是 <span
+class="math inline">\(g[i-1][j+k]\)</span>
+？因为我们每个子树都要拿材料啊</p>
 <p>所以这里只是代码这么写而已，</p>
-<p>相当于 $g[i][j+k]=\max\{g[i-1][j]+f[v][l\times w(u,v)][k]\}$</p>
-</li>
-<li><p><del>这里为什么是 $j+k$ ？因为我喜欢刷表法，当然可以填表法</del></p>
-</li>
+<p>相当于 <span
+class="math inline">\(g[i][j+k]=\max\{g[i-1][j]+f[v][l\times
+w(u,v)][k]\}\)</span></p></li>
+<li><p><del>这里为什么是 <span class="math inline">\(j+k\)</span>
+？因为我喜欢刷表法，当然可以填表法</del></p></li>
 </ul>
-<p>然后就可以愉快地推出 $f$ 的转移方程了</p>
-<script type="math/tex; mode=display">
-f[u][j][k]=\max(f[u][j][k],g[k]+(l-j) \times P[u])</script><p>细节巨多，详见代码（<del>这次有注释了qwq</del>）</p>
-<p>时间复杂度的宽松上界为 $O(100\times nm^2)$</p>
+<p>然后就可以愉快地推出 <span class="math inline">\(f\)</span>
+的转移方程了 <span class="math display">\[
+f[u][j][k]=\max(f[u][j][k],g[k]+(l-j) \times P[u])
+\]</span> 细节巨多，详见代码（<del>这次有注释了qwq</del>）</p>
+<p>时间复杂度的宽松上界为 <span class="math inline">\(O(100\times
+nm^2)\)</span></p>
 <p>实际剪枝+时限3.00s，可以<code>444ms</code>跑过所有点（<del>嘿嘿所以我是目前最优解</del></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -1018,7 +1053,7 @@ f[u][j][k]=\max(f[u][j][k],g[k]+(l-j) \times P[u])</script><p>细节巨多，详
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.2k</span>&nbsp;字
+                class="white-color">421.3k</span>&nbsp;字
             
             
             

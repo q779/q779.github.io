@@ -498,83 +498,118 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2470-SCOI2007-压缩-题解"><a href="#洛谷P2470-SCOI2007-压缩-题解" class="headerlink" title="洛谷P2470 [SCOI2007]压缩 题解"></a>洛谷P2470 [SCOI2007]压缩 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2470">P2470 [SCOI2007]压缩</a></p>
+                <h1 id="洛谷p2470-scoi2007压缩-题解">洛谷P2470 [SCOI2007]压缩 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2470">P2470
+[SCOI2007]压缩</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给一个由小写字母组成的字符串，我们可以用一种简单的方法来压缩其中的重复信息。压缩后的字符串除了小写字母外还可以（但不必）包含大写字母 $\tt{R}$ 与 $\tt{M}$ ，其中 $\tt{M}$ 标记重复串的开始，$\tt{R}$ 重复从上一个 $\tt{M}$（如果当前位置左边没有 $\tt{M}$，则从串的开始算起）开始的解压结果（称为缓冲串）。</p>
-<p>$\mathtt{bcdcdcdcd}$ 可以压缩为 $\mathtt{bMcdRR}$，下面是解压缩的过程：</p>
-<div class="table-container">
+<p>给一个由小写字母组成的字符串，我们可以用一种简单的方法来压缩其中的重复信息。压缩后的字符串除了小写字母外还可以（但不必）包含大写字母
+<span class="math inline">\(\tt{R}\)</span> 与 <span
+class="math inline">\(\tt{M}\)</span> ，其中 <span
+class="math inline">\(\tt{M}\)</span> 标记重复串的开始，<span
+class="math inline">\(\tt{R}\)</span> 重复从上一个 <span
+class="math inline">\(\tt{M}\)</span>（如果当前位置左边没有 <span
+class="math inline">\(\tt{M}\)</span>，则从串的开始算起）开始的解压结果（称为缓冲串）。</p>
+<p><span class="math inline">\(\mathtt{bcdcdcdcd}\)</span> 可以压缩为
+<span
+class="math inline">\(\mathtt{bMcdRR}\)</span>，下面是解压缩的过程：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>已经解压的部分</th>
 <th>解压结果</th>
 <th>缓冲串</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>$\mathtt{b}$</td>
-<td>$\mathtt{b}$</td>
-<td>$\mathtt{b}$</td>
+<tr class="odd">
+<td><span class="math inline">\(\mathtt{b}\)</span></td>
+<td><span class="math inline">\(\mathtt{b}\)</span></td>
+<td><span class="math inline">\(\mathtt{b}\)</span></td>
 </tr>
-<tr>
-<td>$\mathtt{bM}$</td>
-<td>$\mathtt{b}$</td>
-<td>$\varnothing$</td>
+<tr class="even">
+<td><span class="math inline">\(\mathtt{bM}\)</span></td>
+<td><span class="math inline">\(\mathtt{b}\)</span></td>
+<td><span class="math inline">\(\varnothing\)</span></td>
 </tr>
-<tr>
-<td>$\mathtt{bMc}$</td>
-<td>$\mathtt{bc}$</td>
-<td>$\mathtt{c}$</td>
+<tr class="odd">
+<td><span class="math inline">\(\mathtt{bMc}\)</span></td>
+<td><span class="math inline">\(\mathtt{bc}\)</span></td>
+<td><span class="math inline">\(\mathtt{c}\)</span></td>
 </tr>
-<tr>
-<td>$\mathtt{bMcd}$</td>
-<td>$\mathtt{bcd}$</td>
-<td>$\mathtt{cd}$</td>
+<tr class="even">
+<td><span class="math inline">\(\mathtt{bMcd}\)</span></td>
+<td><span class="math inline">\(\mathtt{bcd}\)</span></td>
+<td><span class="math inline">\(\mathtt{cd}\)</span></td>
 </tr>
-<tr>
-<td>$\mathtt{bMcdR}$</td>
-<td>$\mathtt{bcdcd}$</td>
-<td>$\mathtt{cdcd}$</td>
+<tr class="odd">
+<td><span class="math inline">\(\mathtt{bMcdR}\)</span></td>
+<td><span class="math inline">\(\mathtt{bcdcd}\)</span></td>
+<td><span class="math inline">\(\mathtt{cdcd}\)</span></td>
 </tr>
-<tr>
-<td>$\mathtt{bMcdRR}$</td>
-<td>$\mathtt{bcdcdcdcd}$</td>
-<td>$\mathtt{cdcdcdcd}$</td>
+<tr class="even">
+<td><span class="math inline">\(\mathtt{bMcdRR}\)</span></td>
+<td><span class="math inline">\(\mathtt{bcdcdcdcd}\)</span></td>
+<td><span class="math inline">\(\mathtt{cdcdcdcd}\)</span></td>
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>输入格式</strong>:</p>
-<p>输入仅一行，包含待压缩字符串，仅包含小写字母，长度为 $n$ 。</p>
+<p>输入仅一行，包含待压缩字符串，仅包含小写字母，长度为 <span
+class="math inline">\(n\)</span> 。</p>
 <p><strong>输出格式</strong>:</p>
 <p>输出仅一行，即压缩后字符串的最短长度。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$100\%$ 的数据满足：$1\le n\le 50$</p>
+<p><span class="math inline">\(100\%\)</span> 的数据满足：<span
+class="math inline">\(1\le n\le 50\)</span></p>
 </blockquote>
 <p>有史以来做过最神奇的区间dp</p>
-<p>由于 $\tt{M}$ 的设计<del>极其鬼畜</del>，因此套路地设每个考虑的段均以 $\tt{M}$ 开头（<del>可以无视这句话</del>）</p>
-<p>首先设 $f_{i,j}$ 表示 $[i,j]$ 能被压缩到的最短长度（包括开头的 $\tt{M}$ ）</p>
-<p>则答案为 $f_{1,n} - 1$ ，且 $f_{i,i} = 2$ </p>
-<p>不过，在相同串拼接时的转移中，这个缓冲串检测的 $\tt{M}$ 只会向右移</p>
-<p>例如我们想压缩 $ABBABB$ （$A,B$ 为某个子串） </p>
-<p>那就不能提前压缩 $BB$ 为 $\mathtt{M}B\mathtt{R}$  ，这样后面更优的 $\mathtt{M}ABB\mathtt{R}$ 就无法使用了。</p>
+<p>由于 <span class="math inline">\(\tt{M}\)</span>
+的设计<del>极其鬼畜</del>，因此套路地设每个考虑的段均以 <span
+class="math inline">\(\tt{M}\)</span>
+开头（<del>可以无视这句话</del>）</p>
+<p>首先设 <span class="math inline">\(f_{i,j}\)</span> 表示 <span
+class="math inline">\([i,j]\)</span> 能被压缩到的最短长度（包括开头的
+<span class="math inline">\(\tt{M}\)</span> ）</p>
+<p>则答案为 <span class="math inline">\(f_{1,n} - 1\)</span> ，且 <span
+class="math inline">\(f_{i,i} = 2\)</span></p>
+<p>不过，在相同串拼接时的转移中，这个缓冲串检测的 <span
+class="math inline">\(\tt{M}\)</span> 只会向右移</p>
+<p>例如我们想压缩 <span class="math inline">\(ABBABB\)</span> （<span
+class="math inline">\(A,B\)</span> 为某个子串）</p>
+<p>那就不能提前压缩 <span class="math inline">\(BB\)</span> 为 <span
+class="math inline">\(\mathtt{M}B\mathtt{R}\)</span> ，这样后面更优的
+<span class="math inline">\(\mathtt{M}ABB\mathtt{R}\)</span>
+就无法使用了。</p>
 <p>这一点应该很容易发现，但是怎么处理呢？</p>
 <p>注意到此时的dp状态无法记录这样的情况</p>
-<p>因为<strong>我们不知道当前处理的这一段中间有没有出现过 $\mathtt{M}$</strong></p>
+<p>因为<strong>我们不知道当前处理的这一段中间有没有出现过 <span
+class="math inline">\(\mathtt{M}\)</span></strong></p>
 <p><del>嗨害嘿</del>，这不都说出来了吗？</p>
-<p>于是我们<strong>重新</strong>设 $f_{i,j}$ 表示 $[i,j]$ 能被压缩到的最短长度（包括开头的 $\tt{M}$ ），<strong>且除了开头的 $\mathtt{M}$ ，中间没有其他的 $\mathtt{M}$</strong> </p>
-<p>相应地，设 $g_{i,j}$ 表示中间出现过别的 $\mathtt{M}$ </p>
-<p>考虑 $f_{i,j}$ 的转移。下文中用 $a\downarrow b+c$ 表示 $a\leftarrow \min\{a,b+c\}$。 </p>
-<p>第一种情况，两串合并，则要求 $k=\frac{i+j+1}{2} \in \mathbb{Z}$ ，且 $s[i\dots k-1]=s[k\dots j]$ ，则</p>
-<script type="math/tex; mode=display">
-f_{i,j}\downarrow f_{i,k-1}+1</script><p>第二种情况，直接添加字符</p>
-<script type="math/tex; mode=display">
-f_{i,j} \downarrow f_{i,k} + j - k</script><p>然后考虑 $g_{i,j}$ 的转移，没啥好考虑的，直接拼上</p>
-<script type="math/tex; mode=display">
-g_{i,j} \downarrow \min\{f_{i,k},~g_{i,k}\} + \min\{f_{k+1,j},~g_{k+1,j}\}</script><p><del>感觉做完了好像也没啥特别的</del></p>
-<p>时间复杂度 $O(n^3)$ </p>
+<p>于是我们<strong>重新</strong>设 <span
+class="math inline">\(f_{i,j}\)</span> 表示 <span
+class="math inline">\([i,j]\)</span> 能被压缩到的最短长度（包括开头的
+<span class="math inline">\(\tt{M}\)</span> ），<strong>且除了开头的
+<span class="math inline">\(\mathtt{M}\)</span> ，中间没有其他的 <span
+class="math inline">\(\mathtt{M}\)</span></strong></p>
+<p>相应地，设 <span class="math inline">\(g_{i,j}\)</span>
+表示中间出现过别的 <span class="math inline">\(\mathtt{M}\)</span></p>
+<p>考虑 <span class="math inline">\(f_{i,j}\)</span> 的转移。下文中用
+<span class="math inline">\(a\downarrow b+c\)</span> 表示 <span
+class="math inline">\(a\leftarrow \min\{a,b+c\}\)</span>。</p>
+<p>第一种情况，两串合并，则要求 <span
+class="math inline">\(k=\frac{i+j+1}{2} \in \mathbb{Z}\)</span> ，且
+<span class="math inline">\(s[i\dots k-1]=s[k\dots j]\)</span> ，则
+<span class="math display">\[
+f_{i,j}\downarrow f_{i,k-1}+1
+\]</span> 第二种情况，直接添加字符 <span class="math display">\[
+f_{i,j} \downarrow f_{i,k} + j - k
+\]</span> 然后考虑 <span class="math inline">\(g_{i,j}\)</span>
+的转移，没啥好考虑的，直接拼上 <span class="math display">\[
+g_{i,j} \downarrow \min\{f_{i,k},~g_{i,k}\} +
+\min\{f_{k+1,j},~g_{k+1,j}\}
+\]</span> <del>感觉做完了好像也没啥特别的</del></p>
+<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -625,7 +660,8 @@ g_{i,j} \downarrow \min\{f_{i,k},~g_{i,k}\} + \min\{f_{k+1,j},~g_{k+1,j}\}</scri
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1068%3Blg2470.html">https://yhx-12243.github.io/OI-transit/records/lydsy1068%3Blg2470.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1068%3Blg2470.html">https://yhx-12243.github.io/OI-transit/records/lydsy1068%3Blg2470.html</a></p>
 
                 
             </div>
@@ -995,7 +1031,7 @@ g_{i,j} \downarrow \min\{f_{i,k},~g_{i,k}\} + \min\{f_{k+1,j},~g_{k+1,j}\}</scri
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">416.2k</span>&nbsp;字
+                class="white-color">421.3k</span>&nbsp;字
             
             
             
