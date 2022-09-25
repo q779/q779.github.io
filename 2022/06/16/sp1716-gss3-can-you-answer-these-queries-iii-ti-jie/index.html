@@ -490,24 +490,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP1716-GSS3-Can-you-answer-these-queries-III-题解"><a href="#SP1716-GSS3-Can-you-answer-these-queries-III-题解" class="headerlink" title="SP1716 GSS3 - Can you answer these queries III 题解"></a>SP1716 GSS3 - Can you answer these queries III 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1716">SP1716 GSS3 - Can you answer these queries III</a></p>
+                <h1 id="sp1716-gss3---can-you-answer-these-queries-iii-题解">SP1716 GSS3
+- Can you answer these queries III 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1716">SP1716
+GSS3 - Can you answer these queries III</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p> $n$ 个数， $q$ 次操作</p>
-<p>操作<code>0 x y</code>把 $A_x$ 修改为 $y$ </p>
-<p>操作<code>1 l r</code>询问区间 $[l, r]$ 的最大子段和</p>
-<p>$n \le 5\times 10^4,~q \le 5 \times 10^4$</p>
+<p><span class="math inline">\(n\)</span> 个数， <span
+class="math inline">\(q\)</span> 次操作</p>
+<p>操作<code>0 x y</code>把 <span class="math inline">\(A_x\)</span>
+修改为 <span class="math inline">\(y\)</span></p>
+<p>操作<code>1 l r</code>询问区间 <span class="math inline">\([l,
+r]\)</span> 的最大子段和</p>
+<p><span class="math inline">\(n \le 5\times 10^4,~q \le 5 \times
+10^4\)</span></p>
 </blockquote>
 <p><strong>线段树维护最大子段和</strong>（<del>去年就看到了一直没去学</del>）</p>
-<p>考虑两个相邻区间合并，设答案为 $\text{res}_u$ </p>
+<p>考虑两个相邻区间合并，设答案为 <span
+class="math inline">\(\text{res}_u\)</span></p>
 <ul>
-<li><p>若不考虑中间的分界线，则有</p>
-<script type="math/tex; mode=display">
-\text{res}_u = \max\{\text{res}_l , \text{res}_r\}</script></li>
-<li><p>若考虑中间的分界线，于是尝试合并，则？</p>
-</li>
+<li><p>若不考虑中间的分界线，则有 <span class="math display">\[
+\text{res}_u = \max\{\text{res}_l , \text{res}_r\}
+\]</span></p></li>
+<li><p>若考虑中间的分界线，于是尝试合并，则？</p></li>
 </ul>
-<p>可是我们并不知道 $\text{res}_l$ 和 $\text{res}_r$ 对应的序列，也不知道可否合并等等</p>
+<p>可是我们并不知道 <span class="math inline">\(\text{res}_l\)</span> 和
+<span class="math inline">\(\text{res}_r\)</span>
+对应的序列，也不知道可否合并等等</p>
 <p>注意到合并后的区间包含三种本质不同的子段</p>
 <ul>
 <li>全部在左区间</li>
@@ -517,17 +526,22 @@
 <p>在进一步，中间线分割意味着什么？</p>
 <p>意味着这是一段从<strong>左区间右端点出发的极大子段</strong>与<strong>右区间左端点出发的极大子段</strong>合并后产生的极大子段</p>
 <p>所以对于每个区间我们要记录从左端点出发的极大子段大小，和右端点出发的极大子段大小</p>
-<p>不妨设这两个东西分别为 $\text{prel},\text{prer}$</p>
-<p>同时我们还需要记录区间和、区间最大子段和 $\text{sum},\text{res}$</p>
-<p>设当前要合并的左右两个区间分别为 $l,r$ ，合并后的区间为 $u$ </p>
-<p>则有</p>
-<script type="math/tex; mode=display">
+<p>不妨设这两个东西分别为 <span
+class="math inline">\(\text{prel},\text{prer}\)</span></p>
+<p>同时我们还需要记录区间和、区间最大子段和 <span
+class="math inline">\(\text{sum},\text{res}\)</span></p>
+<p>设当前要合并的左右两个区间分别为 <span
+class="math inline">\(l,r\)</span> ，合并后的区间为 <span
+class="math inline">\(u\)</span></p>
+<p>则有 <span class="math display">\[
 \text{sum}_u = \text{sum}_l + \text{sum}_r
 \\\text{prel}_u = \max\{\text{prel}_l,~\text{sum}_l+\text{prel}_r\}
 \\\text{prer}_u = \max\{\text{prer}_r,~\text{sum}_r+\text{prer}_l\}
-\\\text{res}_u = \max\{\text{res}_l,~\text{res}_r,~\text{prer}_l+\text{prel}_r\}</script><p>然后就可以上传信息啦</p>
+\\\text{res}_u =
+\max\{\text{res}_l,~\text{res}_r,~\text{prer}_l+\text{prel}_r\}
+\]</span> 然后就可以上传信息啦</p>
 <p>对于每个询问，也要维护这些信息，可以用结构体来搞</p>
-<p>时间复杂度 $O(n \log n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1001,7 +1015,7 @@ qry <span class="token function">query</span><span class="token punctuation">(</
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415.1k</span>&nbsp;字
+                class="white-color">419.1k</span>&nbsp;字
             
             
             

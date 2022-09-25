@@ -494,42 +494,68 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3294-SCOI2016-背单词-题解"><a href="#洛谷P3294-SCOI2016-背单词-题解" class="headerlink" title="洛谷P3294 [SCOI2016]背单词 题解"></a>洛谷P3294 [SCOI2016]背单词 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3294">P3294 [SCOI2016]背单词</a></p>
+                <h1 id="洛谷p3294-scoi2016背单词-题解">洛谷P3294 [SCOI2016]背单词
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3294">P3294
+[SCOI2016]背单词</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定 $n$ 个不同的字符串，求一个最优顺序使得花费最小</p>
-<p>设当前字符串为 $a$ ，位于排列中的 $x$ 位置</p>
+<p><strong>题意</strong>：给定 <span class="math inline">\(n\)</span>
+个不同的字符串，求一个最优顺序使得花费最小</p>
+<p>设当前字符串为 <span class="math inline">\(a\)</span> ，位于排列中的
+<span class="math inline">\(x\)</span> 位置</p>
 <ul>
-<li>如果 $a$ 存在后缀且 $a$ 的后缀在 $a$ 之后，花费增加 $n^2$</li>
-<li>如果 $a$ 不存在后缀，则花费增加 $x$ </li>
-<li>设 $y$ 为 $a$ <strong>之前</strong>与其相距最小的，且是 $a$ 的后缀的字符串的位置（前提是 $a$ 存在后缀），则花费增加 $x-y$ </li>
+<li>如果 <span class="math inline">\(a\)</span> 存在后缀且 <span
+class="math inline">\(a\)</span> 的后缀在 <span
+class="math inline">\(a\)</span> 之后，花费增加 <span
+class="math inline">\(n^2\)</span></li>
+<li>如果 <span class="math inline">\(a\)</span> 不存在后缀，则花费增加
+<span class="math inline">\(x\)</span></li>
+<li>设 <span class="math inline">\(y\)</span> 为 <span
+class="math inline">\(a\)</span>
+<strong>之前</strong>与其相距最小的，且是 <span
+class="math inline">\(a\)</span> 的后缀的字符串的位置（前提是 <span
+class="math inline">\(a\)</span> 存在后缀），则花费增加 <span
+class="math inline">\(x-y\)</span></li>
 </ul>
 </blockquote>
 <p>根据贪心，前两个条件基本上没有用</p>
 <p>同时为了方便处理，把所有字符串反转，考虑其前缀。</p>
 <p>原问题转化为：</p>
 <blockquote>
-<p>设某个字符串为 $a_i$ ，位于排列中的 $x_i$ 位置</p>
+<p>设某个字符串为 <span class="math inline">\(a_i\)</span>
+，位于排列中的 <span class="math inline">\(x_i\)</span> 位置</p>
 <ul>
-<li><p>$a_i$ 所有前缀必须在 $a_i$ 之前</p>
-</li>
-<li><p>设 $y_i$ 为 $a_i$ <strong>之前</strong>与其相距最小的，且是 $a_i$ 的前缀的字符串的位置</p>
-<p>如果 $a$ 不存在前缀，则 $y_i=0$ ，记 $v_i=x_i-y_i$</p>
-</li>
+<li><p><span class="math inline">\(a_i\)</span> 所有前缀必须在 <span
+class="math inline">\(a_i\)</span> 之前</p></li>
+<li><p>设 <span class="math inline">\(y_i\)</span> 为 <span
+class="math inline">\(a_i\)</span>
+<strong>之前</strong>与其相距最小的，且是 <span
+class="math inline">\(a_i\)</span> 的前缀的字符串的位置</p></li>
 </ul>
-<p>给定 $n$ 个字符串，求一种排列顺序，使得 $\sum v_i$ 最小，求出这个最小值。</p>
+<p>如果 <span class="math inline">\(a\)</span> 不存在前缀，则 <span
+class="math inline">\(y_i=0\)</span> ，记 <span
+class="math inline">\(v_i=x_i-y_i\)</span></p>
+<p>给定 <span class="math inline">\(n\)</span>
+个字符串，求一种排列顺序，使得 <span class="math inline">\(\sum
+v_i\)</span> 最小，求出这个最小值。</p>
 </blockquote>
-<p>考虑建 $\tt{trie}$ 树以存储字符串</p>
+<p>考虑建 <span class="math inline">\(\tt{trie}\)</span>
+树以存储字符串</p>
 <p>然后重构整棵树，只保留「是字符串结尾的结点」，注意根节点也要保留</p>
 <p>然后对于每个结点，将其子结点按子树大小从小到大排序</p>
 <p>然后跑一遍dfs就好了</p>
 <p>重构是为了方便排序子结点。</p>
 <p>排序的原因：</p>
-<p>设当前结点为 $u$ ，则 $u$ 的所有子结点都有相同的前缀</p>
-<p>这个前缀就是根节点到 $u$ 形成的字符串。</p>
-<p>对于排序后在后面的子结点，想在排列中距离 $u$ 尽可能小</p>
+<p>设当前结点为 <span class="math inline">\(u\)</span> ，则 <span
+class="math inline">\(u\)</span> 的所有子结点都有相同的前缀</p>
+<p>这个前缀就是根节点到 <span class="math inline">\(u\)</span>
+形成的字符串。</p>
+<p>对于排序后在后面的子结点，想在排列中距离 <span
+class="math inline">\(u\)</span> 尽可能小</p>
 <p>就需要前面的子结点所在子树大小尽可能小，这样他们之间夹着的字符串就少</p>
 <p>根据贪心，不难发现这样可以最小化答案</p>
-<p>时间复杂度 $O(L \log L)$ ，其中 $L=\sum |s_i|$ </p>
+<p>时间复杂度 <span class="math inline">\(O(L \log L)\)</span> ，其中
+<span class="math inline">\(L=\sum |s_i|\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -985,7 +1011,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415.1k</span>&nbsp;字
+                class="white-color">419.1k</span>&nbsp;字
             
             
             

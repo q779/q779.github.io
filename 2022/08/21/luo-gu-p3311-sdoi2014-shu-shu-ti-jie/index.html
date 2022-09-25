@@ -498,22 +498,57 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3311-SDOI2014-数数-题解"><a href="#洛谷P3311-SDOI2014-数数-题解" class="headerlink" title="洛谷P3311 [SDOI2014] 数数 题解"></a>洛谷P3311 [SDOI2014] 数数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3311">P3311 [SDOI2014] 数数</a></p>
+                <h1 id="洛谷p3311-sdoi2014-数数-题解">洛谷P3311 [SDOI2014] 数数
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3311">P3311
+[SDOI2014] 数数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>我们称一个正整数 $x$ 是幸运数，当且仅当它的十进制表示中不包含数字串集合 $s$ 中任意一个元素作为其子串。例如当 $s = \{22, 333, 0233\}$ 时，$233$ 是幸运数，$2333$、$20233$、$3223$ 不是幸运数。给定 $n$ 和 $s$，计算不大于 $n$ 的幸运数个数。</p>
-<p>答案对 $10^9 + 7$ 取模。</p>
-<p>$1 \leq n &lt; 10^{1201}$，$1 \leq m \leq 100$，$1 \leq \sum_{i = 1}^m |s_i| \leq 1500$，$\min_{i = 1}^m |s_i| \geq 1$，其中 $|s_i|$ 表示字符串 $s_i$ 的长度。$n$ 没有前导 $0$，但是 $s_i$ 可能有前导 $0$。</p>
+<p>我们称一个正整数 <span class="math inline">\(x\)</span>
+是幸运数，当且仅当它的十进制表示中不包含数字串集合 <span
+class="math inline">\(s\)</span> 中任意一个元素作为其子串。例如当 <span
+class="math inline">\(s = \{22, 333, 0233\}\)</span> 时，<span
+class="math inline">\(233\)</span> 是幸运数，<span
+class="math inline">\(2333\)</span>、<span
+class="math inline">\(20233\)</span>、<span
+class="math inline">\(3223\)</span> 不是幸运数。给定 <span
+class="math inline">\(n\)</span> 和 <span
+class="math inline">\(s\)</span>，计算不大于 <span
+class="math inline">\(n\)</span> 的幸运数个数。</p>
+<p>答案对 <span class="math inline">\(10^9 + 7\)</span> 取模。</p>
+<p><span class="math inline">\(1 \leq n &lt; 10^{1201}\)</span>，<span
+class="math inline">\(1 \leq m \leq 100\)</span>，<span
+class="math inline">\(1 \leq \sum_{i = 1}^m |s_i| \leq
+1500\)</span>，<span class="math inline">\(\min_{i = 1}^m |s_i| \geq
+1\)</span>，其中 <span class="math inline">\(|s_i|\)</span> 表示字符串
+<span class="math inline">\(s_i\)</span> 的长度。<span
+class="math inline">\(n\)</span> 没有前导 <span
+class="math inline">\(0\)</span>，但是 <span
+class="math inline">\(s_i\)</span> 可能有前导 <span
+class="math inline">\(0\)</span>。</p>
 </blockquote>
 <p>关键词：数位dp、AC自动机</p>
-<p>可能的前置芝士：<a href="https://q779.github.io/2022/07/15/luo-gu-p4052-jsoi2007-wen-ben-sheng-cheng-qi-ti-jie/">P4052 [JSOI2007]文本生成器</a> （涉及“危险结点”的定义）</p>
-<p>和P4052一样，我们先建出 $\tt{AC}$ 自动机，然后找到所有的危险结点</p>
-<p>因为这道题要求答案不超过 $n$ ，并且 $n &lt; 10^{1201}$ ，考虑数位dp</p>
-<p>设 $f_{i,j}$ 表示考虑 $n$ 的前 $i$ 位（从高位向低位数），走到 $\tt{AC}$ 自动机的 $j$ 结点的答案。</p>
+<p>可能的前置芝士：<a
+href="https://q779.github.io/2022/07/15/luo-gu-p4052-jsoi2007-wen-ben-sheng-cheng-qi-ti-jie/">P4052
+[JSOI2007]文本生成器</a> （涉及“危险结点”的定义）</p>
+<p>和P4052一样，我们先建出 <span class="math inline">\(\tt{AC}\)</span>
+自动机，然后找到所有的危险结点</p>
+<p>因为这道题要求答案不超过 <span class="math inline">\(n\)</span>
+，并且 <span class="math inline">\(n &lt; 10^{1201}\)</span>
+，考虑数位dp</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示考虑 <span
+class="math inline">\(n\)</span> 的前 <span
+class="math inline">\(i\)</span> 位（从高位向低位数），走到 <span
+class="math inline">\(\tt{AC}\)</span> 自动机的 <span
+class="math inline">\(j\)</span> 结点的答案。</p>
 <p>然后用记搜搞搞就好了，<del>懒得写转移方程，直接看代码</del></p>
-<p>值得注意的是，如果数位dp的过程中 $j$ 走到了危险结点，</p>
-<p>则要立刻返回 $0$ ，因为不能包含任何的非法子串 $s_i$ </p>
-<p>时间复杂度 $O(n \times \sum |s_i|)$</p>
+<p>值得注意的是，如果数位dp的过程中 <span
+class="math inline">\(j\)</span> 走到了危险结点，</p>
+<p>则要立刻返回 <span class="math inline">\(0\)</span>
+，因为不能包含任何的非法子串 <span
+class="math inline">\(s_i\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(n \times \sum
+|s_i|)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -982,7 +1017,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">415.1k</span>&nbsp;字
+                class="white-color">419.1k</span>&nbsp;字
             
             
             
