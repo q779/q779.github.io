@@ -494,14 +494,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="无序数组交换任意两个元素-最少交换次数">无序数组交换任意两个元素
-最少交换次数</h1>
-<p><strong>题目</strong>：</p>
-<p>属于是经典题了，做完可以去做一下 <a
-target="_blank" rel="noopener" href="https://uoj.ac/problem/233">UOJ233 【IOI2015】Sorting</a>
-（<del>确信</del></p>
-<p>给定长度为 <span class="math inline">\(n\)</span>
-的排列，将元素升序排序，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
+                <h1 id="无序数组交换任意两个元素-最少交换次数"><a href="#无序数组交换任意两个元素-最少交换次数" class="headerlink" title="无序数组交换任意两个元素 最少交换次数"></a>无序数组交换任意两个元素 最少交换次数</h1><p><strong>题目</strong>：</p>
+<p>属于是经典题了，做完可以去做一下 <a target="_blank" rel="noopener" href="https://uoj.ac/problem/233">UOJ233 【IOI2015】Sorting</a> （<del>确信</del></p>
+<p>给定长度为 $n$ 的排列，将元素升序排序，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
 <blockquote>
 <p>如果是交换相邻两个元素，那就是逆序对的个数，这个本文不会提及（<del>因为已经说完了</del></p>
 </blockquote>
@@ -516,23 +511,15 @@ swap <span class="token number">2</span> <span class="token number">4</span>
 swap <span class="token number">4</span> <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>题解</strong>：</p>
 <p>对于每个元素，我们将该元素和它的正确位置建边</p>
-<p>最后一定是 <span class="math inline">\(1\sim n\)</span>
-个环（自环也算）</p>
-<p>对于有 <span class="math inline">\(k\)</span>
-个元素的环，最少交换次数为 <span class="math inline">\(k-1\)</span></p>
-<p>假设共有 <span class="math inline">\(p\)</span> 个环，对于第 <span
-class="math inline">\(i\)</span> 个环，有 <span
-class="math inline">\(k_i\)</span> 个元素，则它的最少交换次数为 <span
-class="math inline">\(k_i - 1\)</span></p>
-<p>因此 <span class="math display">\[
-\mathtt{ans} = \sum\limits_{i=1}^{p}{(k_i-1)} =
-\sum\limits_{i=1}^{p}{k_i} - p
-\]</span> 显然 <span class="math display">\[
-n  = \sum\limits_{i=1}^{p}{k_i}
-\]</span></p>
-<p>所以答案就是 <span class="math inline">\(n-p\)</span> ，即元素个数 -
-环的个数。具体实现见代码。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>最后一定是 $1\sim n$ 个环（自环也算）</p>
+<p>对于有 $k$ 个元素的环，最少交换次数为 $k-1$</p>
+<p>假设共有 $p$ 个环，对于第 $i$ 个环，有 $k_i$ 个元素，则它的最少交换次数为 $k_i - 1$ </p>
+<p>因此</p>
+<script type="math/tex; mode=display">
+\mathtt{ans} = \sum\limits_{i=1}^{p}{(k_i-1)} = \sum\limits_{i=1}^{p}{k_i} - p</script><p>显然</p>
+<script type="math/tex; mode=display">
+n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素个数 - 环的个数。具体实现见代码。</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -572,22 +559,8 @@ n  = \sum\limits_{i=1}^{p}{k_i}
 <p>我们可以遍历一遍原数组，如果当前元素不在正确位置上，将该元素和此时在它正确位置上的元素<strong>交换</strong></p>
 <p>这里有一个要注意的，某次交换后我们可能没有将交换和被交换数都放在正确位置上，且有可能在接下来的遍历中不会再次遍历到被交换数，因此交换后还要再判断，直到当前位置的数正确，显然不这么做不会影响正确结果</p>
 <p>很容易证明这是最少的。</p>
-<p>设当前元素为 <span class="math inline">\(\alpha\)</span>
-（不在正确位置上），它与非 <span class="math inline">\(\alpha\)</span>
-的正确位置上的元素 <span class="math inline">\(\beta\)</span>
-交换，会有两种情况：第一种， <span class="math inline">\(\beta\)</span>
-在正确位置上。由于最后 <span class="math inline">\(\beta\)</span>
-一定会在正确位置上，且一定是 <span class="math inline">\(\beta\)</span>
-和在 <span class="math inline">\(\beta\)</span> 正确位置上的元素交换（或
-<span class="math inline">\(\beta\)</span> 本来就在正确位置），所以交换
-<span class="math inline">\(\alpha\)</span> 和 <span
-class="math inline">\(\beta\)</span> 就是多余的；第二种， <span
-class="math inline">\(\beta\)</span>
-不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换
-<span class="math inline">\(\alpha\)</span> 和 <span
-class="math inline">\(\beta\)</span> 是多余的</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
-<span class="math inline">\(\mathcal{O}(n\log n)\)</span></p>
+<p>设当前元素为 $\alpha$ （不在正确位置上），它与非 $\alpha$ 的正确位置上的元素 $\beta$ 交换，会有两种情况：第一种， $\beta$ 在正确位置上。由于最后 $\beta$ 一定会在正确位置上，且一定是 $\beta$ 和在 $\beta$ 正确位置上的元素交换（或 $\beta$ 本来就在正确位置），所以交换 $\alpha$ 和 $\beta$ 就是多余的；第二种， $\beta$ 不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换 $\alpha$ 和 $\beta$ 是多余的</p>
+<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度 $\mathcal{O}(n\log n)$</p>
 <p>主要代码如下：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">fun</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -605,10 +578,9 @@ class="math inline">\(\beta\)</span> 是多余的</p>
         <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401713.html">https://www.cnblogs.com/hellowooorld/p/7401713.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401713.html">https://www.cnblogs.com/hellowooorld/p/7401713.html</a></p>
 
                 
             </div>
@@ -966,7 +938,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">421.3k</span>&nbsp;字
+                class="white-color">419.9k</span>&nbsp;字
             
             
             

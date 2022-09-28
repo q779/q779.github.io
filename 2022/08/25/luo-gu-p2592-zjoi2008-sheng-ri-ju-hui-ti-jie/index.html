@@ -494,64 +494,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2592-zjoi2008生日聚会-题解">洛谷P2592 [ZJOI2008]生日聚会
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2592">P2592
-[ZJOI2008]生日聚会</a></p>
+                <h1 id="洛谷P2592-ZJOI2008-生日聚会-题解"><a href="#洛谷P2592-ZJOI2008-生日聚会-题解" class="headerlink" title="洛谷P2592 [ZJOI2008]生日聚会 题解"></a>洛谷P2592 [ZJOI2008]生日聚会 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2592">P2592 [ZJOI2008]生日聚会</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>今天是 cxy 小朋友的生日，她邀请了许多朋友来参加她的生日party。 cxy
-带着朋友们来到花园中，打算坐成一排玩游戏。为了游戏不至于无聊，就座的方案应满足如下条件：</p>
-<p>对于任意连续的一段，男孩与女孩的数目之差不超过 <span
-class="math inline">\(D\)</span> 。</p>
-<p>很快，小朋友便找到了一种方案坐了下来开始游戏。 cxy 的好朋友 q779
-发现，这样的就座方案其实是很多的，所以大家很快就找到了一种，那么到底有多少种呢？热爱数学的
-cxy 和她的朋友们开始思考这个问题……</p>
-<p>假设参加party的人中共有 <span class="math inline">\(n\)</span>
-个男孩与 <span class="math inline">\(m\)</span> 个女孩，你是否能解答
-q779 和 cxy 的疑问呢？由于这个数目可能很多，他们只想知道这个数目除以
-<span class="math inline">\(12345678\)</span> 的余数。</p>
+<p>今天是 cxy 小朋友的生日，她邀请了许多朋友来参加她的生日party。  cxy 带着朋友们来到花园中，打算坐成一排玩游戏。为了游戏不至于无聊，就座的方案应满足如下条件：</p>
+<p>对于任意连续的一段，男孩与女孩的数目之差不超过 $D$ 。</p>
+<p>很快，小朋友便找到了一种方案坐了下来开始游戏。 cxy 的好朋友 q779 发现，这样的就座方案其实是很多的，所以大家很快就找到了一种，那么到底有多少种呢？热爱数学的 cxy 和她的朋友们开始思考这个问题……</p>
+<p>假设参加party的人中共有 $n$ 个男孩与 $m$ 个女孩，你是否能解答 q779 和 cxy 的疑问呢？由于这个数目可能很多，他们只想知道这个数目除以 $12345678$ 的余数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行共 <span class="math inline">\(3\)</span> 个整数，分别为男孩数目
-<span class="math inline">\(n\)</span> ，女孩数目 <span
-class="math inline">\(m\)</span> ， 常数 <span
-class="math inline">\(D\)</span> 。</p>
+<p>一行共 $3$ 个整数，分别为男孩数目 $n$ ，女孩数目 $m$ ， 常数 $D$ 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据， <span
-class="math inline">\(n , m \le 150,~D \le 20\)</span>。</p>
+<p>对于 $100\%$ 的数据， $n , m \le  150,~D \le 20$。</p>
 </blockquote>
 <p><del>一开始我还以为是组合数，结果看看好像不太对（</del></p>
 <p>显然是区间dp，但是状态如何设计？</p>
-<p>这道题最难的就在于：「<strong>任意子段</strong>男女之差不超过 <span
-class="math inline">\(D\)</span> 」导致了朴素的区间dp即使记录了区间
-<span class="math inline">\([i,j]\)</span> 差值不超过 <span
-class="math inline">\(k\)</span> ，也无法合并。</p>
+<p>这道题最难的就在于：「<strong>任意子段</strong>男女之差不超过 $D$ 」导致了朴素的区间dp即使记录了区间 $[i,j]$ 差值不超过 $k$ ，也无法合并。</p>
 <p>于是我们从合并的角度观察加入一个人对整个当前区间的影响</p>
 <p>方便起见，我们考虑在区间后面加入了一个人，</p>
 <p>不难发现，这会影响到原区间的所有后缀。</p>
 <p>于是考虑记录<strong>所有后缀的</strong>男女个数之差，显然只有极值会产生影响。</p>
-<p>设 <span class="math inline">\(f_{i,j,k,l}\)</span> 表示放了 <span
-class="math inline">\(i\)</span> 个男生， <span
-class="math inline">\(j\)</span>
-个女生，且当前拼出来的区间的所有后缀（包括空串 <span
-class="math inline">\(\varnothing\)</span>
-），男生个数-女生个数的最大值为 <span class="math inline">\(k\)</span>
-，女生个数-男生个数的最大值为 <span class="math inline">\(l\)</span>
-的方案数。<del>（好长啊，要不是看题解我怎么想得出...</del></p>
-<p>下面用 <span class="math inline">\(a\uparrow b\)</span> 表示
-<code>a+=b</code> 。</p>
-<p>考虑在 <span class="math inline">\((i,j,k,l)\)</span>
-状态的后面加入一个男生，则 <span class="math display">\[
-f_{i+1,j,k+1,\max\{0,l-1\}} \uparrow f_{i,j,k,l}
-\]</span> 加入一个女生，则 <span class="math display">\[
-f_{i,j+1,\max\{0,k-1\},l+1} \uparrow f_{i,j,k,l}
-\]</span>
-注意一下转移的边界，就好了，这个不难，<del>主要还是状态设计难</del></p>
-<p>最后答案就是 <span class="math inline">\(\sum\limits_{0 \le k,l \le
-D} f_{n,m,k,l}\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(nmD^2)\)</span></p>
+<p>设 $f_{i,j,k,l}$ 表示放了 $i$ 个男生， $j$ 个女生，且当前拼出来的区间的所有后缀（包括空串 $\varnothing$ ），男生个数-女生个数的最大值为 $k$ ，女生个数-男生个数的最大值为 $l$ 的方案数。<del>（好长啊，要不是看题解我怎么想得出…</del></p>
+<p>下面用 $a\uparrow b$ 表示 <code>a+=b</code> 。</p>
+<p>考虑在 $(i,j,k,l)$ 状态的后面加入一个男生，则</p>
+<script type="math/tex; mode=display">
+f_{i+1,j,k+1,\max\{0,l-1\}} \uparrow f_{i,j,k,l}</script><p>加入一个女生，则</p>
+<script type="math/tex; mode=display">
+f_{i,j+1,\max\{0,k-1\},l+1} \uparrow f_{i,j,k,l}</script><p>注意一下转移的边界，就好了，这个不难，<del>主要还是状态设计难</del></p>
+<p>最后答案就是 $\sum\limits_{0 \le k,l \le D} f_{n,m,k,l}$ </p>
+<p>时间复杂度 $O(nmD^2)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -599,8 +571,7 @@ D} f_{n,m,k,l}\)</span></p>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1037.html">https://yhx-12243.github.io/OI-transit/records/lydsy1037.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1037.html">https://yhx-12243.github.io/OI-transit/records/lydsy1037.html</a></p>
 
                 
             </div>
@@ -978,7 +949,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">421.3k</span>&nbsp;字
+                class="white-color">419.9k</span>&nbsp;字
             
             
             

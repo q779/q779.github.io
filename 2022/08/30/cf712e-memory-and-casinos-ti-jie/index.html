@@ -502,79 +502,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf712e-memory-and-casinos-题解">CF712E Memory and Casinos
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF712E">CF712E
-Memory and Casinos</a></p>
+                <h1 id="CF712E-Memory-and-Casinos-题解"><a href="#CF712E-Memory-and-Casinos-题解" class="headerlink" title="CF712E Memory and Casinos 题解"></a>CF712E Memory and Casinos 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF712E">CF712E Memory and Casinos</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>现有一排 <span class="math inline">\(n\)</span> 个赌场。</p>
-<p>cxy 在第 <span class="math inline">\(i\)</span> 个赌场时有 <span
-class="math inline">\(p_i\)</span> 的几率获胜并移动到第 <span
-class="math inline">\(i+1\)</span> 个赌场，如果 <span
-class="math inline">\(i=n\)</span> 则 cxy 会离开赌场；</p>
-<p>同时有 <span class="math inline">\(1-p_i\)</span>的概率失败并移动到第
-<span class="math inline">\(i-1\)</span> 个赌场，如果<span
-class="math inline">\(i=1\)</span> 则 cxy 会离开赌场。</p>
-<p>定义 cxy "掌控"一段区间 <span class="math inline">\([i,j]\)</span>
-当且仅当 cxy 完成以下过程：</p>
+<p>现有一排 $n$ 个赌场。</p>
+<p>cxy 在第 $i$ 个赌场时有 $p_i$ 的几率获胜并移动到第 $i+1$ 个赌场，如果 $i=n$ 则 cxy 会离开赌场；</p>
+<p>同时有 $1-p_i$的概率失败并移动到第 $i-1$ 个赌场，如果$i=1$ 则 cxy 会离开赌场。</p>
+<p>定义 cxy “掌控”一段区间 $[i,j]$ 当且仅当 cxy 完成以下过程：</p>
 <ul>
-<li>cxy 从 <span class="math inline">\(i\)</span> 号赌场出发；</li>
-<li>cxy 从未在 <span class="math inline">\(i\)</span> 号赌场失败；</li>
-<li>cxy 某一次在 <span class="math inline">\(j\)</span>
-号赌场获胜并离开。</li>
+<li>cxy 从 $i$ 号赌场出发；</li>
+<li>cxy 从未在 $i$ 号赌场失败；</li>
+<li>cxy 某一次在 $j$ 号赌场获胜并离开。</li>
 </ul>
-<p>现在有 <span class="math inline">\(q\)</span>
-次操作，操作有以下两种：</p>
+<p>现在有 $q$ 次操作，操作有以下两种：</p>
 <ul>
-<li><span class="math inline">\(1\ i\ a\ b\)</span>：令 <span
-class="math inline">\(p_i = \frac{a}{b}\)</span>；</li>
-<li><span class="math inline">\(2\ l\ r\)</span>：询问 cxy "掌控"区间
-<span class="math inline">\([l,r]\)</span> 的概率。</li>
+<li>$1\ i\ a\ b$：令 $p_i = \frac{a}{b}$；</li>
+<li>$2\ l\ r$：询问 cxy “掌控”区间 $[l,r]$ 的概率。</li>
 </ul>
-<p>保证在任意时刻 <span class="math inline">\(p_i\)</span>
-构成的序列是单调不降的。</p>
+<p>保证在任意时刻 $p_i$ 构成的序列是单调不降的。</p>
 </blockquote>
 <p><strong>关键词</strong>：线段树、等比数列求和、概率、DP（思想）</p>
-<p>设 <span class="math inline">\(f(l,r)\)</span> 表示在 <span
-class="math inline">\(l\)</span> ，不到达 <span
-class="math inline">\(l-1\)</span> ，并从 <span
-class="math inline">\(r\)</span> 走出的概率.</p>
-<p>为了方便转移，设 <span class="math inline">\(g(l,r)\)</span> 表示在
-<span class="math inline">\(r\)</span> ，不到达 <span
-class="math inline">\(r+1\)</span> ，并从 <span
-class="math inline">\(l\)</span> 走出的概率</p>
+<p>设 $f(l,r)$ 表示在 $l$ ，不到达 $l-1$ ，并从 $r$ 走出的概率.</p>
+<p>为了方便转移，设 $g(l,r)$ 表示在 $r$ ，不到达 $r+1$ ，并从 $l$ 走出的概率</p>
 <p>考虑线段树上怎么合并两个区间的答案</p>
-<p>不妨设左侧为 <span class="math inline">\((f_1,g_1)\)</span> ，右侧为
-<span class="math inline">\((f_2,g_2)\)</span> ，最后的答案为 <span
-class="math inline">\((f,g)\)</span></p>
-<p>首先考虑 <span class="math inline">\(f\)</span> <span
-class="math display">\[
-f=f_1f_2\sum_{r=0}^{+\infty}\left[(1-f_2)(1-g_1)\right]^r
-\]</span></p>
-<blockquote>
+<p>不妨设左侧为 $(f_1,g_1)$ ，右侧为 $(f_2,g_2)$ ，最后的答案为 $(f,g)$ </p>
+<p>首先考虑 $f$ </p>
+<script type="math/tex; mode=display">
+f=f_1f_2\sum_{r=0}^{+\infty}\left[(1-f_2)(1-g_1)\right]^r</script><blockquote>
 <p>这个看上去复杂，其实不然。</p>
 <ul>
-<li><span class="math inline">\(r=0\)</span> ，就是直接一遍过</li>
-<li><span class="math inline">\(r=1\)</span> ，就是中间转了一圈再过</li>
-<li><span class="math inline">\(r=k\)</span> ，就是中间转了 <span
-class="math inline">\(k\)</span> 圈再过</li>
+<li>$r=0$ ，就是直接一遍过</li>
+<li>$r=1$ ，就是中间转了一圈再过</li>
+<li>$r=k$ ，就是中间转了 $k$ 圈再过</li>
 </ul>
 </blockquote>
 <p>然后这个东西其实就是等比数列求和</p>
-<p>根据公式 <span class="math inline">\(S(n) =
-\dfrac{a_1(1-q^n)}{1-q},q\ne 1\)</span> <span class="math display">\[
-f = \dfrac{f_1f_2\left\{1-\lim\limits_{r \to
-+\infty}\left[(1-f_2)(1-g_1)\right]^{r}\right\}}{1-(1-f_2)(1-g_1)} =
-\dfrac{f_1f_2}{1-(1-f_2)(1-g_1)}
-\]</span> 同理，也能推出 <span class="math display">\[
+<p>根据公式 $S(n) = \dfrac{a_1(1-q^n)}{1-q},q\ne 1$</p>
+<script type="math/tex; mode=display">
+f = \dfrac{f_1f_2\left\{1-\lim\limits_{r \to +\infty}\left[(1-f_2)(1-g_1)\right]^{r}\right\}}{1-(1-f_2)(1-g_1)} = \dfrac{f_1f_2}{1-(1-f_2)(1-g_1)}</script><p>同理，也能推出</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-g&amp;=g_1g_2\sum_{r=0}^{+\infty}\left[ (1-g_1)(1-f_2)\right]^r
-\\&amp;=\dfrac{g_1g_2}{1-(1-f_2)(1-g_1)}
-\end{aligned}
-\]</span> 然后我们就能 <span class="math inline">\(O(1)\)</span>
-合并两个子区间啦！</p>
-<p>时间复杂度 <span class="math inline">\(O( (n + q)\log n)\)</span></p>
+g&=g_1g_2\sum_{r=0}^{+\infty}\left[ (1-g_1)(1-f_2)\right]^r
+\\&=\dfrac{g_1g_2}{1-(1-f_2)(1-g_1)}
+\end{aligned}</script><p>然后我们就能 $O(1)$ 合并两个子区间啦！</p>
+<p>时间复杂度 $O( (n + q)\log n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1039,7 +1010,7 @@ P <span class="token function">query</span><span class="token punctuation">(</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">421.3k</span>&nbsp;字
+                class="white-color">419.9k</span>&nbsp;字
             
             
             
