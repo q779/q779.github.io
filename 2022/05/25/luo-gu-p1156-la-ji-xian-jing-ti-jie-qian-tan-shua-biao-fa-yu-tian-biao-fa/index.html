@@ -494,28 +494,45 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1156-垃圾陷阱-题解-amp-浅谈刷表法与填表法"><a href="#洛谷P1156-垃圾陷阱-题解-amp-浅谈刷表法与填表法" class="headerlink" title="洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法"></a>洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法</h1><p><strong>填表法</strong> ：就是一般的动态规划，当前点的状态，可以直接用状态方程，根据<strong>之前点</strong>的状态推导出来。</p>
+                <h1 id="洛谷p1156-垃圾陷阱-题解浅谈刷表法与填表法">洛谷P1156 垃圾陷阱
+题解&amp;浅谈刷表法与填表法</h1>
+<p><strong>填表法</strong>
+：就是一般的动态规划，当前点的状态，可以直接用状态方程，根据<strong>之前点</strong>的状态推导出来。</p>
 <p><strong>刷表法</strong>：由当前点的状态，<strong>更新其他点的状态</strong>。需要注意：只用当每个状态所依赖的状态对它的影响相互独立。</p>
 <p>下面会用一道题目给出两种写法的区别</p>
 <HR>
-
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1156">P1156 垃圾陷阱</a></p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1156">P1156
+垃圾陷阱</a></p>
 <blockquote>
 <p><strong>题意</strong>：<del>吃垃圾就完了</del></p>
-<p>卡门――农夫约翰极其珍视的一条<code>Holsteins</code>奶牛――已经落了到“垃圾井”中。“垃圾井”是农夫们扔垃圾的地方，它的深度为$D(2 \le D \le 100)$英尺。</p>
+<p>卡门――农夫约翰极其珍视的一条<code>Holsteins</code>奶牛――已经落了到“垃圾井”中。“垃圾井”是农夫们扔垃圾的地方，它的深度为<span
+class="math inline">\(D(2 \le D \le 100)\)</span>英尺。</p>
 <p>卡门想把垃圾堆起来，等到堆得与井同样高时，她就能逃出井外了。另外，卡门可以通过吃一些垃圾来维持自己的生命。</p>
 <p>每个垃圾都可以用来吃或堆放，并且堆放垃圾不用花费卡门的时间。</p>
-<p>假设卡门预先知道了每个垃圾扔下的时间$t(0&lt; t \le 1000)$，以及每个垃圾堆放的高度$h(1 \le h \le 25$)和吃进该垃圾能维持生命的时间$f(1 \le f \le 30)$，要求出卡门最早能逃出井外的时间，假设卡门当前体内有足够持续$10$小时的能量，如果卡门$10$小时内没有进食，卡门就将饿死。</p>
-<p>注：如果能量为 $0$ 时恰好有垃圾可以吃，则不会饿死</p>
+<p>假设卡门预先知道了每个垃圾扔下的时间<span
+class="math inline">\(t(0&lt; t \le
+1000)\)</span>，以及每个垃圾堆放的高度<span class="math inline">\(h(1
+\le h \le 25\)</span>)和吃进该垃圾能维持生命的时间<span
+class="math inline">\(f(1 \le f \le
+30)\)</span>，要求出卡门最早能逃出井外的时间，假设卡门当前体内有足够持续<span
+class="math inline">\(10\)</span>小时的能量，如果卡门<span
+class="math inline">\(10\)</span>小时内没有进食，卡门就将饿死。</p>
+<p>注：如果能量为 <span class="math inline">\(0\)</span>
+时恰好有垃圾可以吃，则不会饿死</p>
 </blockquote>
 <p>注意到对于每个垃圾，只有吃掉和堆起来两种方法</p>
-<p>设 $dp[i][j]$ 表示只考虑前 $i$ 个垃圾，堆到高度 $j$ 时，最多可以活到什么时候</p>
-<p>容易推出方程</p>
-<script type="math/tex; mode=display">
-dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])</script><p><strong>1.填表法</strong></p>
-<p>求出dp数组以后扫一遍就好了，细节较多（其实好像可以滚动数组，<del>但是懒</del> qwq）</p>
-<p>注意这里垃圾的高度可能会超过 $m$ ，但是数据好像没卡这个东西</p>
-<p>处理方法就是把 $m+\max(h_i)$ 都dp一下</p>
+<p>设 <span class="math inline">\(dp[i][j]\)</span> 表示只考虑前 <span
+class="math inline">\(i\)</span> 个垃圾，堆到高度 <span
+class="math inline">\(j\)</span> 时，最多可以活到什么时候</p>
+<p>容易推出方程 <span class="math display">\[
+dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])
+\]</span> <strong>1.填表法</strong></p>
+<p>求出dp数组以后扫一遍就好了，细节较多（其实好像可以滚动数组，<del>但是懒</del>
+qwq）</p>
+<p>注意这里垃圾的高度可能会超过 <span class="math inline">\(m\)</span>
+，但是数据好像没卡这个东西</p>
+<p>处理方法就是把 <span class="math inline">\(m+\max(h_i)\)</span>
+都dp一下</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -565,7 +582,8 @@ dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])</script><p><strong>1.填表法</str
 <p><strong>2.刷表法</strong></p>
 <p>这里可以滚动数组了，不过要两个</p>
 <p>否则会导致数据更新错误</p>
-<p>当然也可以不用滚动数组 <del>位运算那么可爱为什么不写她呐？对不对？</del></p>
+<p>当然也可以不用滚动数组
+<del>位运算那么可爱为什么不写她呐？对不对？</del></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -974,7 +992,7 @@ dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])</script><p><strong>1.填表法</str
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">419.9k</span>&nbsp;字
+                class="white-color">422.8k</span>&nbsp;字
             
             
             
