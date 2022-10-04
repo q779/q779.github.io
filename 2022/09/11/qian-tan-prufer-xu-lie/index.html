@@ -498,55 +498,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈-prüfer-序列">浅谈 Prüfer 序列</h1>
-<h2 id="prüfer-序列的定义">Prüfer 序列的定义</h2>
-<p>Prüfer 序列常用于组合计数。</p>
-<p><strong>板子题</strong>：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6086">P6086 【模板】Prüfer
-序列</a></p>
-<p>Prüfer 序列可以将一个带标号的 <span class="math inline">\(n\)</span>
-个结点的数用 <span class="math inline">\([1,n]\)</span> 中的 <span
-class="math inline">\(n-2\)</span> 个整数表示</p>
+                <h1 id="浅谈-Prufer-序列"><a href="#浅谈-Prufer-序列" class="headerlink" title="浅谈 Prüfer 序列"></a>浅谈 Prüfer 序列</h1><h2 id="Prufer-序列的定义"><a href="#Prufer-序列的定义" class="headerlink" title="Prüfer 序列的定义"></a>Prüfer 序列的定义</h2><p>Prüfer 序列常用于组合计数。</p>
+<p><strong>板子题</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6086">P6086 【模板】Prüfer 序列</a></p>
+<p>Prüfer 序列可以将一个带标号的 $n$ 个结点的数用 $[1,n]$ 中的 $n-2$ 个整数表示</p>
 <p>或者可以认为 Prüfer 序列是「完全图的生成树」与「数列」的双射。</p>
-<p>注意，<strong>Prüfer 序列的长度为 <span
-class="math inline">\(n-2\)</span></strong> ！</p>
-<p>例如，下图的带标号无根树的 Prüfer 序列为 <span
-class="math inline">\(\{4,4,4,5\}\)</span> 。</p>
+<p>注意，<strong>Prüfer 序列的长度为 $n-2$</strong> ！</p>
+<p>例如，下图的带标号无根树的 Prüfer 序列为 $\{4,4,4,5\}$ 。</p>
 <p><img src="https://s2.loli.net/2022/09/11/4kwPFalfeux9iBL.png" alt="这棵标号树有 Prüfer 序列{4,4,4,5}" style="zoom:50%;" /></p>
-<hr />
-<h2 id="prüfer-序列与无根树的相互转化">Prüfer
-序列与无根树的相互转化</h2>
-<p><strong>无根树的 Prüfer 序列的构造方法</strong>如下：</p>
-<ol type="1">
-<li><p>每次选择一个编号最小的<strong>叶子结点</strong>并删除它，然后记录它连接到的那个结点</p></li>
-<li><p>重复 <span class="math inline">\(n-2\)</span>
-次后就只<strong>剩下两个结点</strong>，算法结束。</p></li>
+<hr>
+<h2 id="Prufer-序列与无根树的相互转化"><a href="#Prufer-序列与无根树的相互转化" class="headerlink" title="Prüfer 序列与无根树的相互转化"></a>Prüfer 序列与无根树的相互转化</h2><p><strong>无根树的 Prüfer 序列的构造方法</strong>如下：</p>
+<ol>
+<li><p>每次选择一个编号最小的<strong>叶子结点</strong>并删除它，然后记录它连接到的那个结点</p>
+</li>
+<li><p>重复 $n-2$ 次后就只<strong>剩下两个结点</strong>，算法结束。</p>
+</li>
 </ol>
 <blockquote>
 <p>其实这个过程就是把外面一层一层的删掉，最后剩下两个结点</p>
 </blockquote>
-<p>我们可以用一个指针 <span class="math inline">\(p\)</span>
-来寻找维护「编号最小的叶子结点」</p>
-<p>具体地，我们可以先把无根树随便找个结点 <span
-class="math inline">\(\mathtt{dfs}\)</span>
-后转成<strong>有根树</strong></p>
+<p>我们可以用一个指针 $p$ 来寻找维护「编号最小的叶子结点」</p>
+<p>具体地，我们可以先把无根树随便找个结点 $\mathtt{dfs}$ 后转成<strong>有根树</strong></p>
 <blockquote>
-<p>注：板子题里直接默认 <span class="math inline">\(n\)</span>
-为转化后的根节点，并给出了每个结点的父亲。（挺良心的）</p>
+<p>注：板子题里直接默认 $n$ 为转化后的根节点，并给出了每个结点的父亲。（挺良心的）</p>
 </blockquote>
-<p>我们先找到原树「编号最小的叶子结点」，记为 <span
-class="math inline">\(u\)</span> ，并记它的父结点为 <span
-class="math inline">\(v\)</span> 。</p>
-<p>然后我们删除 <span class="math inline">\(u\)</span> 。</p>
+<p>我们先找到原树「编号最小的叶子结点」，记为 $u$ ，并记它的父结点为 $v$ 。</p>
+<p>然后我们删除 $u$ 。</p>
 <ul>
-<li>如果 <span class="math inline">\(v\)</span>
-<strong>成为了新的叶子结点</strong>，<strong>且 <span
-class="math inline">\(v\)</span> 编号比 <span
-class="math inline">\(u\)</span> 小</strong>，则直接继续删除。</li>
-<li>否则，自增 <span class="math inline">\(p\)</span>
-来寻找下一个编号最小的叶结点。</li>
+<li>如果 $v$ <strong>成为了新的叶子结点</strong>，<strong>且 $v$ 编号比 $u$ 小</strong>，则直接继续删除。</li>
+<li>否则，自增 $p$ 来寻找下一个编号最小的叶结点。</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span> ，代码：</p>
+<p>时间复杂度 $O(n)$ ，代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">t2p</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// tree to prüfer</span>
 <span class="token punctuation">&#123;</span>
     <span class="token comment">// f[i]为i的父结点， d[i]为i的度数， p[i]为prüfer序列</span>
@@ -559,18 +540,15 @@ class="math inline">\(u\)</span> 小</strong>，则直接继续删除。</li>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> ans <span class="token operator">^=</span> i <span class="token operator">*</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 题目要求这么输出的。</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>Prüfer 序列构造无根树的方法</strong></p>
-<ol type="1">
-<li>每次我们选择一个编号最小且<strong>度数为 <span
-class="math inline">\(1\)</span></strong> 的结点</li>
+<ol>
+<li>每次我们选择一个编号最小且<strong>度数为 $1$</strong> 的结点</li>
 <li>与当前枚举到的 Prüfer 序列的点连接，然后同时减掉两个点的度数。</li>
 </ol>
-<p>重复 <span class="math inline">\(n-2\)</span>
-次之后就只剩下两个度数为 <span class="math inline">\(1\)</span>
-的结点</p>
+<p>重复 $n-2$ 次之后就只剩下两个度数为 $1$ 的结点</p>
 <p>然后我们把剩下的两个点连一条边就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span> ，代码：</p>
+<p>时间复杂度 $O(n)$ ，代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">p2t</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// prüfer to tree</span>
 <span class="token punctuation">&#123;</span>
     <span class="token comment">// f[i]为i的父结点， d[i]为i的度数， p[i]为prüfer序列</span>
@@ -583,58 +561,31 @@ class="math inline">\(1\)</span></strong> 的结点</li>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> ans <span class="token operator">^=</span> i<span class="token operator">*</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 题目要求这么输出的。</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
-<h2 id="prüfer-序列的性质">Prüfer 序列的性质</h2>
-<p><strong>定理1</strong>：Prüfer
-序列与无根树<strong>一一对应</strong>。</p>
-<p><strong>证明</strong>：由定义与构造方法易得。<span
-class="math inline">\(\square\)</span></p>
+<hr>
+<h2 id="Prufer-序列的性质"><a href="#Prufer-序列的性质" class="headerlink" title="Prüfer 序列的性质"></a>Prüfer 序列的性质</h2><p><strong>定理1</strong>：Prüfer 序列与无根树<strong>一一对应</strong>。</p>
+<p><strong>证明</strong>：由定义与构造方法易得。$\square$</p>
 <p><br></p>
-<p><strong>定理2</strong>：度数为 <span
-class="math inline">\(d_i\)</span> 的结点在 Prüfer 序列中出现 <span
-class="math inline">\(d_i -1\)</span> 次</p>
-<p><strong>证明</strong>：某个点度数为 <span
-class="math inline">\(1\)</span> 时，会被直接删除</p>
+<p><strong>定理2</strong>：度数为 $d_i$ 的结点在 Prüfer 序列中出现 $d_i -1$ 次</p>
+<p><strong>证明</strong>：某个点度数为 $1$ 时，会被直接删除</p>
 <p>否则每少掉一个相邻的结点，它就会在原序列中出现一次。</p>
-<p>故出现次数为 <span class="math inline">\(d_i-1\)</span> 。 <span
-class="math inline">\(\square\)</span></p>
+<p>故出现次数为 $d_i-1$ 。 $\square$</p>
 <p><br></p>
-<p><strong>定理3（Cayley公式）</strong>：一个带标号的 <span
-class="math inline">\(n\)</span> 个结点的完全图的生成树个数有 <span
-class="math inline">\(n^{n-2}\)</span> 个。</p>
+<p><strong>定理3（Cayley公式）</strong>：一个带标号的 $n$ 个结点的完全图的生成树个数有 $n^{n-2}$ 个。</p>
 <blockquote>
-<p>或者说，<span class="math inline">\(n\)</span> 个带标号的结点，连
-<span class="math inline">\(n-1\)</span>
-条边后能组成多少种本质不同的树</p>
+<p>或者说，$n$ 个带标号的结点，连 $n-1$ 条边后能组成多少种本质不同的树</p>
 </blockquote>
-<p><strong>证明</strong>：对于一个无标号的 <span
-class="math inline">\(n\)</span> 个点的无根树，它的 Prüfer 序列长为
-<span class="math inline">\(n-2\)</span> 。</p>
-<p>而每个位置有 <span class="math inline">\(n\)</span>
-种可能性，因此可能的 Prüfer 序列共有 <span
-class="math inline">\(n^{n-2}\)</span> 种。</p>
-<p>根据定理1可知，Prüfer 序列与无根树一一对应。因此原命题得证。<span
-class="math inline">\(\square\)</span></p>
+<p><strong>证明</strong>：对于一个无标号的 $n$ 个点的无根树，它的 Prüfer 序列长为 $n-2$ 。</p>
+<p>而每个位置有 $n$ 种可能性，因此可能的 Prüfer 序列共有 $n^{n-2}$ 种。</p>
+<p>根据定理1可知，Prüfer 序列与无根树一一对应。因此原命题得证。$\square$</p>
 <p><br></p>
-<p><strong>定理4</strong>：对于给定度数 <span
-class="math inline">\(d_{1\sim n}\)</span> 的一棵无根树一共有 <span
-class="math inline">\(\dbinom{n-2}{d_1,d_2,\cdots,d_k}=\dfrac{(n-2)!}{\prod_{i=1}^n(d_i-1)!}\)</span>
-种情况。</p>
-<p><strong>证明</strong>：由定理2可知，度数为 <span
-class="math inline">\(d_i\)</span> 的结点会在 Prüfer 序列中出现 <span
-class="math inline">\(d_i-1\)</span> 次</p>
-<p>则情况数等价于多重集 <span class="math inline">\(S=\{(d_i-1) \cdot
-i\}\)</span> 的排列数 <a
-href="https://q779.github.io/2022/08/16/xiao-lan-shu-16.1/#toc-heading-11">多重集的排列数（多重组合数）</a>。<span
-class="math inline">\(\square\)</span></p>
-<hr />
+<p><strong>定理4</strong>：对于给定度数 $d_{1\sim n}$ 的一棵无根树一共有 $\dbinom{n-2}{d_1,d_2,\cdots,d_k}=\dfrac{(n-2)!}{\prod_{i=1}^n(d_i-1)!}$ 种情况。</p>
+<p><strong>证明</strong>：由定理2可知，度数为 $d_i$ 的结点会在 Prüfer 序列中出现 $d_i-1$ 次</p>
+<p>则情况数等价于多重集 $S=\{(d_i-1) \cdot i\}$ 的排列数 <a href="https://q779.github.io/2022/08/16/xiao-lan-shu-16.1/#toc-heading-11">多重集的排列数（多重组合数）</a>。$\square$</p>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/TheLostWeak/solution-p2290">https://www.luogu.com.cn/blog/TheLostWeak/solution-p2290</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xht37/solution-p6086">https://www.luogu.com.cn/blog/xht37/solution-p6086</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%99%AE%E5%90%95%E5%BC%97%E5%BA%8F%E5%88%97">https://zh.wikipedia.org/wiki/%E6%99%AE%E5%90%95%E5%BC%97%E5%BA%8F%E5%88%97</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/TheLostWeak/solution-p2290">https://www.luogu.com.cn/blog/TheLostWeak/solution-p2290</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xht37/solution-p6086">https://www.luogu.com.cn/blog/xht37/solution-p6086</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%99%AE%E5%90%95%E5%BC%97%E5%BA%8F%E5%88%97">https://zh.wikipedia.org/wiki/%E6%99%AE%E5%90%95%E5%BC%97%E5%BA%8F%E5%88%97</a></p>
 
                 
             </div>
@@ -1000,7 +951,7 @@ target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%99%AE%E5%
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">446.6k</span>&nbsp;字
+                class="white-color">445.3k</span>&nbsp;字
             
             
             

@@ -498,27 +498,17 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2491-sdoi2011-消防-题解">洛谷P2491 [SDOI2011] 消防
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2491">P2491
-[SDOI2011] 消防</a></p>
+                <h1 id="洛谷P2491-SDOI2011-消防-题解"><a href="#洛谷P2491-SDOI2011-消防-题解" class="headerlink" title="洛谷P2491 [SDOI2011] 消防 题解"></a>洛谷P2491 [SDOI2011] 消防 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2491">P2491 [SDOI2011] 消防</a></p>
 <blockquote>
-<p><strong>题意</strong>：某个国家有 <span
-class="math inline">\(n\)</span> 个城市，这 <span
-class="math inline">\(n\)</span>
-个城市中任意两个都连通且有唯一一条路径，每条连通两个城市的道路的长度为
-<span class="math inline">\(z_i\)</span> 。</p>
+<p><strong>题意</strong>：某个国家有 $n$ 个城市，这 $n$ 个城市中任意两个都连通且有唯一一条路径，每条连通两个城市的道路的长度为 $z_i$ 。</p>
 <p>这个国家的人对火焰有超越宇宙的热情，所以这个国家最兴旺的行业是消防业。由于政府对国民的热情忍无可忍（大量的消防经费开销）可是却又无可奈何（总统竞选的国民支持率），所以只能想尽方法提高消防能力。</p>
-<p>现在这个国家的经费足以在一条边长度和不超过 <span
-class="math inline">\(s\)</span>
-的路径（两端都是城市）上建立消防枢纽，为了尽量提高枢纽的利用率，要求其他所有城市到这条路径的距离的最大值最小。</p>
+<p>现在这个国家的经费足以在一条边长度和不超过 $s$ 的路径（两端都是城市）上建立消防枢纽，为了尽量提高枢纽的利用率，要求其他所有城市到这条路径的距离的最大值最小。</p>
 <p>你受命监管这个项目，你当然需要知道应该把枢纽建立在什么位置上。</p>
 </blockquote>
 <p>看到这是一棵树，而且还要求路径的最大值</p>
 <p>很容易想到这个枢纽要建在直径上</p>
-<p>当 <span class="math inline">\(s\)</span> 大于等于直径时显然成立</p>
-<p>考虑 <span class="math inline">\(s\)</span>
-小于直径的情况，枢纽全部建在直径上仍是最优解</p>
+<p>当 $s$ 大于等于直径时显然成立</p>
+<p>考虑 $s$ 小于直径的情况，枢纽全部建在直径上仍是最优解</p>
 <p>以下为证明：</p>
 <p>假设只有一个枢纽结点（在直径上），我们以它为中心扩展出一条路径</p>
 <p>离这个点最远的结点一定在直径上，而且是直径的端点</p>
@@ -527,25 +517,21 @@ class="math inline">\(s\)</span>
 <p>因此枢纽一定在直径上</p>
 <p>证毕。</p>
 <p>于是，我们可以想到个暴力做法</p>
-<p>先找出直径，然后枚举每一个直径上的点 <span
-class="math inline">\(u\)</span> 作为枢纽的起点进行扩展</p>
-<p>找到满足条件且最远的 <span class="math inline">\(v\)</span>
-，并对每组 <span class="math inline">\((u,v)\)</span>
-计算出直径的两个端点到枢纽的最大距离</p>
-<p>再计算出非直径的结点到枢纽的最大距离即可，时间复杂度 <span
-class="math inline">\(O(n^2)\)</span></p>
+<p>先找出直径，然后枚举每一个直径上的点 $u$ 作为枢纽的起点进行扩展</p>
+<p>找到满足条件且最远的 $v$ ，并对每组 $(u,v)$ 计算出直径的两个端点到枢纽的最大距离</p>
+<p>再计算出非直径的结点到枢纽的最大距离即可，时间复杂度 $O(n^2)$ </p>
 <p>注：因为两端到枢纽的距离不一定是最大值，可以参考下图</p>
-<p><img src="https://s2.loli.net/2022/07/26/HatbMfo59jmZ4ug.png" /></p>
+<p><img src="https://s2.loli.net/2022/07/26/HatbMfo59jmZ4ug.png" alt=""></p>
 <p>那么怎么优化呢</p>
 <p>注意到选择的枢纽长度随结点数量的增加单调递增</p>
 <p>因此我们可以考虑使用尺取法</p>
 <p>这样，算法的流程就变成了</p>
-<ol type="1">
+<ol>
 <li>找出直径</li>
 <li>对于每个极大枢纽，统计两端到其距离的最大值的最小值</li>
 <li>统计非直径结点到枢纽距离的最大值</li>
 </ol>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
+<p>时间复杂度 $O(n)$ </p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -978,7 +964,7 @@ class="math inline">\(O(n^2)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">446.6k</span>&nbsp;字
+                class="white-color">445.3k</span>&nbsp;字
             
             
             
