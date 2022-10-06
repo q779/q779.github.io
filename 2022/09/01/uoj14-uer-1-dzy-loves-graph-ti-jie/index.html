@@ -498,51 +498,78 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UOJ14-【UER-1】DZY-Loves-Graph-题解"><a href="#UOJ14-【UER-1】DZY-Loves-Graph-题解" class="headerlink" title="UOJ14 【UER #1】DZY Loves Graph 题解"></a>UOJ14 【UER #1】DZY Loves Graph 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/14">#14. 【UER #1】DZY Loves Graph</a></p>
+                <h1 id="uoj14-uer-1dzy-loves-graph-题解">UOJ14 【UER #1】DZY Loves Graph
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/14">#14. 【UER #1】DZY
+Loves Graph</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 开始有 $n$ 个点，现在她对这 $n$ 个点进行了 $m$ 次操作，对于第 $i$ 个操作 (从 $1$ 开始编号) 有可能的三种情况：</p>
-<ol>
-<li><code>Add a b</code>：表示在 $a$ 与 $b$ 之间连了一条长度为 $i$ 的边 <strong>(注意，$i$ 是操作编号)</strong>。保证 $1\le a,b \le n$ 。</li>
-<li><code>Delete k</code>：表示删除了当前图中边权最大的 $k$ 条边。保证 $k$ 一定不会比当前图中边的条数多。</li>
-<li><code>Return</code>：表示撤销第 $i−1$ 次操作。保证第 $1$ 次操作不是 <code>Return</code> 且第 $i−1$ 次不是 <code>Return</code> 操作。</li>
+<p>cxy 开始有 <span class="math inline">\(n\)</span> 个点，现在她对这
+<span class="math inline">\(n\)</span> 个点进行了 <span
+class="math inline">\(m\)</span> 次操作，对于第 <span
+class="math inline">\(i\)</span> 个操作 (从 <span
+class="math inline">\(1\)</span> 开始编号) 有可能的三种情况：</p>
+<ol type="1">
+<li><code>Add a b</code>：表示在 <span class="math inline">\(a\)</span>
+与 <span class="math inline">\(b\)</span> 之间连了一条长度为 <span
+class="math inline">\(i\)</span> 的边 <strong>(注意，<span
+class="math inline">\(i\)</span> 是操作编号)</strong>。保证 <span
+class="math inline">\(1\le a,b \le n\)</span> 。</li>
+<li><code>Delete k</code>：表示删除了当前图中边权最大的 <span
+class="math inline">\(k\)</span> 条边。保证 <span
+class="math inline">\(k\)</span> 一定不会比当前图中边的条数多。</li>
+<li><code>Return</code>：表示撤销第 <span
+class="math inline">\(i−1\)</span> 次操作。保证第 <span
+class="math inline">\(1\)</span> 次操作不是 <code>Return</code> 且第
+<span class="math inline">\(i−1\)</span> 次不是 <code>Return</code>
+操作。</li>
 </ol>
-<p>请你在每次操作后告诉 cxy 当前图的最小生成树边权和。如果最小生成树不存在则输出 $0$。</p>
+<p>请你在每次操作后告诉 cxy
+当前图的最小生成树边权和。如果最小生成树不存在则输出 <span
+class="math inline">\(0\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 $n,m (n\le 3\times 10^5,m\le 5\times 10^5)$ 。表示有 $n$ 个点和 $m$ 个操作。</p>
-<p>接下来 $m$ 行每行描述一个操作。</p>
+<p>第一行包含两个正整数 <span class="math inline">\(n,m (n\le 3\times
+10^5,m\le 5\times 10^5)\)</span> 。表示有 <span
+class="math inline">\(n\)</span> 个点和 <span
+class="math inline">\(m\)</span> 个操作。</p>
+<p>接下来 <span class="math inline">\(m\)</span>
+行每行描述一个操作。</p>
 <p><strong>输出格式</strong>：</p>
 <p>对于每一个操作，输出一行一个整数，表示当前最小生成树边权和。</p>
 </blockquote>
 <p>先考虑<strong>不带撤销操作</strong>的情况</p>
 <p>操作1：</p>
-<p>由于边的权值为 $i$ ，而 $i$ 是递增的，因此这个过程可以看作 $\text{Kruskal}$ 加边的过程。</p>
+<p>由于边的权值为 <span class="math inline">\(i\)</span> ，而 <span
+class="math inline">\(i\)</span> 是递增的，因此这个过程可以看作 <span
+class="math inline">\(\text{Kruskal}\)</span> 加边的过程。</p>
 <p>操作2：</p>
 <p>对于并查集的撤销合并操作，我们一般采用按秩合并维护其复杂度。</p>
-<p>撤销合并的方式很简单，直接 <code>sz[f[x]]-=sz[x],f[x]=x</code> 即可。</p>
-<p>同时，因为要删 $k$ 条边（显然是新加入的 $k$ 条）</p>
+<p>撤销合并的方式很简单，直接 <code>sz[f[x]]-=sz[x],f[x]=x</code>
+即可。</p>
+<p>同时，因为要删 <span class="math inline">\(k\)</span>
+条边（显然是新加入的 <span class="math inline">\(k\)</span> 条）</p>
 <p>所以我们还要<strong>维护一个时间戳</strong>，记录当前以及历史添加的边。</p>
 <p>实际上，我们还需要维护<strong>历史的最小生成树大小和边数</strong>，原因见下文。</p>
 <p>然后考虑<strong>带撤销操作</strong>的情况</p>
 <p>操作3：</p>
-<p>考虑每次在处理第 $i$ 个操作时，先把 $i+1$ 的操作读进来，以确定是否要直接删除</p>
+<p>考虑每次在处理第 <span class="math inline">\(i\)</span>
+个操作时，先把 <span class="math inline">\(i+1\)</span>
+的操作读进来，以确定是否要直接删除</p>
 <ul>
-<li><p>撤销操作1，直接删就好。</p>
-</li>
-<li><p>撤销操作2，意味着我们刚刚的删除要撤销。</p>
-</li>
+<li><p>撤销操作1，直接删就好。</p></li>
+<li><p>撤销操作2，意味着我们刚刚的删除要撤销。</p></li>
 </ul>
 <p>这个比较麻烦，并且复杂度是不对的。</p>
 <p>反过来，我们在每次操作2时，判断下一个是不是操作3</p>
 <ul>
-<li><p>如果是，直接输出加入最新的 $k$ 条边前的答案，这个是 $O(1)$ 的</p>
-<p>这也是为什么我们要维护「历史的最小生成树大小和边数」。</p>
-</li>
-<li><p>否则，暴力删除 $k$ 条边。</p>
-</li>
+<li><p>如果是，直接输出加入最新的 <span class="math inline">\(k\)</span>
+条边前的答案，这个是 <span class="math inline">\(O(1)\)</span> 的</p>
+<p>这也是为什么我们要维护「历史的最小生成树大小和边数」。</p></li>
+<li><p>否则，暴力删除 <span class="math inline">\(k\)</span>
+条边。</p></li>
 </ul>
 <p>这样每条边最多被删除一次，算上并查集</p>
-<p>时间复杂度 $O((n+m)\log n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O((n+m)\log n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -620,7 +647,8 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/uoj14.html">https://yhx-12243.github.io/OI-transit/records/uoj14.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/uoj14.html">https://yhx-12243.github.io/OI-transit/records/uoj14.html</a></p>
 
                 
             </div>
@@ -990,7 +1018,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">445.3k</span>&nbsp;字
+                class="white-color">452.3k</span>&nbsp;字
             
             
             

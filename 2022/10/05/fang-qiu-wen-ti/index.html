@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CF837F Prefix Sums 题解, Q779的博客">
+    <meta name="keywords" content="放球问题, Q779的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CF837F Prefix Sums 题解 | Q779的博客</title>
+    <title>放球问题 | Q779的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,12 +315,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p174.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p70.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CF837F Prefix Sums 题解</h1>
+                    <h1 class="description center-align post-title">放球问题</h1>
                 </div>
             </div>
         </div>
@@ -436,12 +436,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%92%95%E5%92%95/">
+                                <span class="chip bg-color">咕咕</span>
                             </a>
                         
                     </div>
@@ -465,14 +465,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-30
+                    2022-10-05
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-30
+                    2022-10-06
                 </div>
                 
 
@@ -494,152 +494,94 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf837f-prefix-sums-题解">CF837F Prefix Sums 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF837F">CF837F
-Prefix Sums</a></p>
-<blockquote>
-<p><strong>题意</strong>：</p>
-<p>考虑函数 <span class="math inline">\(p(x)\)</span>，其中 <span
-class="math inline">\(x\)</span> 是含有 <span
-class="math inline">\(m\)</span> 个元素的数组 <span
-class="math inline">\(x_1, \cdots, x_m\)</span>，它返回一个新的含有
-<span class="math inline">\(m\)</span> 个元素的数组 <span
-class="math inline">\(y_1, \cdots, y_m\)</span>，满足 <span
-class="math inline">\(y_k = \sum\limits_{i=1}^k x_i\)</span>。</p>
-<p>你有一个无限的数组序列 <span class="math inline">\(A^0, A^1, A^2,
-\cdots\)</span>，其中 <span class="math inline">\(A^0\)</span>
-由输入给出，且对于每个 <span class="math inline">\(i \geq
-1\)</span>，都有 <span class="math inline">\(A^i = p \left( A^{i-1}
-\right)\)</span>。你还有一个正整数 <span
-class="math inline">\(k\)</span>，你需要找到最小的 <span
-class="math inline">\(i\)</span>，使得 <span
-class="math inline">\(A^i\)</span> 中存在 <span
-class="math inline">\(\geq k\)</span> 的项。</p>
-<p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 <span class="math inline">\(n, k~(2 \leq n \leq
-2 \times 10^5, k \leq 10^{18})\)</span>，其中 <span
-class="math inline">\(n\)</span> 表示数组 <span
-class="math inline">\(A_0\)</span> 的大小。</p>
-<p>第二行包含 <span class="math inline">\(n\)</span> 个正整数 <span
-class="math inline">\(a_1, a_1, \cdots, a_n~(0\le a_i \leq
-10^9)\)</span>，表示原始的数组 <span
-class="math inline">\(A_0\)</span>。</p>
-<p>保证 <span class="math inline">\(A_0\)</span> 中至少有两个正数。</p>
-<p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示使得 <span class="math inline">\(A^i\)</span>
-中存在 <span class="math inline">\(\geq k\)</span> 的项的最小 <span
-class="math inline">\(i\)</span>。</p>
-</blockquote>
-<p>注意到<strong>前导的</strong> <span
-class="math inline">\(a_i=0\)</span>
-对前缀和变化没有影响，因此我们直接去掉即可。</p>
-<p><del>根据经验来看</del>，这个多次前缀和的增长速率是很快的。</p>
-<p>打个表<del>或者瞄一眼题解</del>可以发现在 <span
-class="math inline">\(n=20\)</span> 时它的值已经到了 <span
-class="math inline">\(8\times 10^{17}\)</span> 。</p>
-<p>也就是说，当 <span class="math inline">\(n\ge 20\)</span>
-时，我们可以直接暴力去算。</p>
-<p>对于 <span class="math inline">\(n\)</span>
-比较小的情况就不好暴力做了，因为它增长相对还是比较缓慢的。</p>
-<p>因为这个 <span class="math inline">\(a_n\)</span>
-是单调递增的，所以我们可以二分求前缀和的次数</p>
-<p>由前缀和公式可知，求完 <span class="math inline">\(m+1\)</span>
-次前缀和后的 <span class="math inline">\(a_n\)</span> 为 <span
-class="math display">\[
-\sum_{i=1}^n\dbinom{n+m-i}{m} a_i
-\]</span></p>
-<blockquote>
-<p>证明：咕咕咕。</p>
-</blockquote>
-<p>由于 <span class="math inline">\(\binom{n+m-i}{m} =
-\binom{n+m-i}{n-i}\)</span> ，而 <span class="math inline">\(n-i &lt; n
-&lt; 20\)</span> ，因此可以直接暴力算。</p>
-<p>如果在运算的过程中会过大溢出，直接记为 <code>INF</code>
-即可，因为肯定超过 <span class="math inline">\(k\)</span> 了。</p>
-<p>事实上在乘法里就溢出了，所以要用个</p>
-<p>又到了神奇的时间复杂度分析。</p>
+                <h1 id="放球问题">放球问题</h1>
+<p>关键词：子集划分</p>
+<p><strong>题目</strong>：</p>
 <ul>
-<li><p>对于二分的情况，复杂度为 <span
-class="math inline">\(\mathcal{O}(n^2 \log k)\)</span></p></li>
-<li><p>对于暴力的情况，因为 <span
-class="math inline">\(\binom{n+m-1}{n-1}\approx \frac{(n+m)^n}{n!} \ge
-k\)</span></p>
-<p>因此时间复杂度为 <span class="math display">\[
-\mathcal{O}(nm) = \mathcal{O}\left(n\left(\sqrt[n]{n! \cdot
-k}\right)\right) = \mathcal{O}\left(n^2\left(\sqrt[n]{k}-1\right)\right)
-\]</span></p></li>
+<li>给定 <span class="math inline">\(n\)</span>
+个（有标号/无标号）的球</li>
+<li>放到 <span class="math inline">\(m\)</span>
+个（有标号/无标号）的盒子里</li>
+<li>每个盒子（可空/不可空）</li>
 </ul>
-<p>代码：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
-<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2e5</span><span class="token operator">+</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-
-<span class="token keyword">int</span> n<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>b<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> _a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">*</span>a<span class="token operator">=</span>_a<span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> b <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> a <span class="token operator">:</span> <span class="token function">gcd</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> a<span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">(</span>x <span class="token operator">+=</span> y<span class="token punctuation">)</span> <span class="token operator">>=</span> INF <span class="token operator">?</span> <span class="token punctuation">(</span>x <span class="token operator">=</span> INF<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">int</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">>=</span> k<span class="token punctuation">)</span> <span class="token keyword">return</span> cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">int</span> <span class="token function">C</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span><span class="token keyword">int</span> m<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>m<span class="token operator">*</span><span class="token number">2</span> <span class="token operator">></span> n<span class="token punctuation">)</span> m <span class="token operator">=</span> n<span class="token operator">-</span>m<span class="token punctuation">;</span> <span class="token comment">// int res=1; __int128 t;</span>
-    <span class="token keyword">int</span> res<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>d<span class="token punctuation">,</span>t<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token comment">// t = (__int128)res * (n-i+1) / i;</span>
-        <span class="token comment">// res = t > INF ? INF : t;</span>
-        d <span class="token operator">=</span> <span class="token function">gcd</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> res <span class="token operator">/=</span> d<span class="token punctuation">;</span> t <span class="token operator">=</span> <span class="token punctuation">(</span>n<span class="token operator">-</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> d <span class="token operator">/</span> i<span class="token punctuation">;</span>
-        <span class="token punctuation">(</span>res <span class="token operator">&lt;=</span> INF <span class="token operator">/</span> t<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token punctuation">(</span>res <span class="token operator">*=</span> t<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span>res <span class="token operator">=</span> INF<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">bool</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> c<span class="token punctuation">,</span>res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>x<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
-        c <span class="token operator">=</span> <span class="token function">C</span><span class="token punctuation">(</span>n<span class="token operator">-</span>i<span class="token operator">+</span>x<span class="token punctuation">,</span> n<span class="token operator">-</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>c <span class="token operator">&lt;=</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">else</span> res <span class="token operator">=</span> INF<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> res <span class="token operator">>=</span> k<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// freopen("check.in","r",stdin);</span>
-    <span class="token comment">// freopen("check.out","w",stdout);</span>
-    cin <span class="token operator">>></span> n <span class="token operator">>></span> k<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>=</span> k<span class="token punctuation">)</span> <span class="token keyword">return</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"0\n"</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> <span class="token operator">!</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">++</span>a<span class="token punctuation">,</span><span class="token operator">--</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">>=</span> <span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> INF <span class="token operator">/</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>r<span class="token operator">=</span>k<span class="token punctuation">;</span> l<span class="token operator">&lt;</span>r<span class="token punctuation">;</span> <span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l<span class="token operator">+</span>r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token function">test</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">?</span> r <span class="token operator">=</span> mid <span class="token operator">:</span> l <span class="token operator">=</span> mid<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    cout <span class="token operator">&lt;&lt;</span> l <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注：“可空”表示可以有空的盒子，但不能全是空的盒子。</p>
+<p><br></p>
+<p>一些可能会出现的东西：</p>
+<p><span class="math inline">\(A_{m}^n\)</span> ：<span
+class="math inline">\(n\)</span> 个元素选 <span
+class="math inline">\(m\)</span> 个元素的排列。</p>
+<p><span class="math inline">\(S(n,m)\)</span> 为<a
+href="/2022/07/29/oi-shu-xue-zong-jie-zu-he-shu-xue/#toc-heading-12">第二类斯特林数</a>，表示将
+<span class="math inline">\(n\)</span> 个<strong>不同</strong>元素划分为
+<span class="math inline">\(m\)</span>
+个<strong>无区别</strong>的<strong>非空子集</strong>的方案数，有 <span
+class="math display">\[
+S(n,0)=[n=0]
+\\[6pt] S(n,m) = S(n-1,m-1) + mS(n-1,m)
+\]</span></p>
+<hr />
+<p><strong>题解</strong>：</p>
+<ol type="1">
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p>
+<p>解：生成函数，咕咕咕。</p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p>解：生成函数，咕咕咕。</p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p>解：问题等价于求解下面方程的解的个数 <span class="math display">\[
+x_1 + x_2 + \cdots + x_m = n \qquad(x_i \in \mathbb{Z}_+)
+\]</span> 考虑插空法。将 <span class="math inline">\(m-1\)</span>
+个隔板插到 <span class="math inline">\(n-1\)</span>
+个空隙中（空隙只能放至多一个）</p>
+<p>则方案数为 <span class="math display">\[
+\dbinom{n-1}{m-1}
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p>解：和上一题差不多，只不过 <span class="math inline">\(x_i \in
+\mathbb{N}\)</span> ，我们只要令 <span class="math inline">\(y_i =
+x_i+1\)</span> ，就i转化为了 <span class="math display">\[
+y_1 + y_2 + \cdots + y_m = n + m\qquad(y_i \in \mathbb{Z_+})
+\]</span> 则方案数为 <span class="math display">\[
+\dbinom{n+m-1}{m-1}
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p>
+<p>解：根据第二类斯特林数的定义易得 <span class="math display">\[
+S(n,m)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p>解：枚举非空盒子的个数，注意不能全为空 <span class="math display">\[
+\sum_{i=1}^{m}S(n,i)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p>解：枚举 <span class="math inline">\(m\)</span> 个盒子的全排列即可
+<span class="math display">\[
+m!S(n,m)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p>解：枚举非空盒子的个数，对于个数相同的情况，乘上一个排列数 <span
+class="math display">\[
+\sum_{i=1}^{m}A_{m}^{i}S(n,i)
+\]</span></p></li>
+</ol>
 <hr />
 <p><strong>参考文献</strong>：</p>
 <p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=242">https://yhx-12243.github.io/OI-transit/?redirect=242</a></p>
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706">https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706</a></p>
 
                 
             </div>
@@ -666,7 +608,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://q779.github.io/2022/09/30/cf837f-prefix-sums-ti-jie/">https://q779.github.io/2022/09/30/cf837f-prefix-sums-ti-jie/</a>
+                    <a href="https://q779.github.io/2022/10/05/fang-qiu-wen-ti/">https://q779.github.io/2022/10/05/fang-qiu-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -704,12 +646,12 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%92%95%E5%92%95/">
+                                    <span class="chip bg-color">咕咕</span>
                                 </a>
                             
                         </div>
@@ -757,12 +699,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/09/30/luo-gu-p7912-csp-j-2021-xiao-xiong-de-guo-lan-ti-jie/">
+                <a href="/2022/10/05/qian-tan-gao-si-xiao-yuan/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/p136.jpg" class="responsive-img" alt="洛谷P7912 [CSP-J 2021] 小熊的果篮 题解">
                         
-                        <span class="card-title">洛谷P7912 [CSP-J 2021] 小熊的果篮 题解</span>
+                        <img src="/medias/featureimages/p100.png" class="responsive-img" alt="浅谈高斯消元">
+                        
+                        <span class="card-title">浅谈高斯消元</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -773,7 +716,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
                         </span>
                         <span class="publish-author">
                             
@@ -794,8 +737,8 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -809,13 +752,12 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/09/30/cf846e-chemistry-in-berland-ti-jie/">
+                <a href="/2022/10/05/lightoj1341-aladdin-and-the-flying-carpet-ti-jie/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/p38.png" class="responsive-img" alt="LightOJ1341 Aladdin and the Flying Carpet 题解">
                         
-                        <img src="/medias/featureimages/p111.png" class="responsive-img" alt="CF846E Chemistry in Berland 题解">
-                        
-                        <span class="card-title">CF846E Chemistry in Berland 题解</span>
+                        <span class="card-title">LightOJ1341 Aladdin and the Flying Carpet 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -826,7 +768,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
                             </span>
                         <span class="publish-author">
                             
@@ -847,8 +789,8 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1004,7 +946,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">446.6k</span>&nbsp;字
+                class="white-color">452.3k</span>&nbsp;字
             
             
             
