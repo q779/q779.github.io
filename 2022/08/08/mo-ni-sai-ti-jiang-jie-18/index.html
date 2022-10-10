@@ -494,22 +494,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模拟赛题讲解18">模拟赛题讲解[18]</h1>
-<p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a>
-2022-08-08 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2773">noi.ac #2773</a></p>
+                <h1 id="模拟赛题讲解-18"><a href="#模拟赛题讲解-18" class="headerlink" title="模拟赛题讲解[18]"></a>模拟赛题讲解[18]</h1><p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a> 2022-08-08 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2773">noi.ac #2773</a></p>
 <p><strong>题目背景</strong>：</p>
 <p>搞个大新闻. jpg</p>
 <p><strong>题目描述</strong>：</p>
 <p>你来到了幻想乡。首先你准备搞一个大新闻，获得文文的报道并变得出名，你决定对幻想乡的股票系统下手。</p>
-<p>你通过猪脚光环了解到了接下来 <span class="math inline">\(n\)</span>
-天的股票价格 <span
-class="math inline">\(a_i\)</span>，你每天可以买一个股票或卖出一个股票或者什么都不做，一天只能干一件事。</p>
-<p>那么为了搞个大事情，你希望赚的钱最多，那么你最多能获得多少钱呢？
-(注意到最终手上的股票不能算钱, 并且你可以暂时亏损)</p>
+<p>你通过猪脚光环了解到了接下来 $n$ 天的股票价格 $a_i$，你每天可以买一个股票或卖出一个股票或者什么都不做，一天只能干一件事。</p>
+<p>那么为了搞个大事情，你希望赚的钱最多，那么你最多能获得多少钱呢？ (注意到最终手上的股票不能算钱, 并且你可以暂时亏损)</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span>，表示天数</p>
-<p>接下来一行 <span class="math inline">\(n\)</span>
-个数，表示每天股票的价格</p>
+<p>第一行一个整数 $n$，表示天数</p>
+<p>接下来一行 $n$ 个数，表示每天股票的价格</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个数，表示最大能挣的钱</p>
 <p><strong>输入1</strong>：</p>
@@ -524,42 +518,26 @@ class="math inline">\(a_i\)</span>，你每天可以买一个股票或卖出一�
 <pre class="line-numbers language-none"><code class="language-none">41<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>数据范围</strong>：</p>
 <p>打包测试</p>
-<p>测试包 1: <span class="math inline">\(n \leq 15,~55\)</span> 分</p>
-<p>测试包 2: <span class="math inline">\(n \leq 100,~a_i \leq 100
-,~10\)</span>分</p>
-<p>测试包 3: <span class="math inline">\(n \leq 5000 ,~20\)</span>分</p>
-<p>测试包 4: <span class="math inline">\(a_i \leq a_{i+1}
-,~10\)</span>分</p>
-<p>测试包 5: 无特殊限制 <span class="math inline">\(5\)</span> 分</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据 <span
-class="math inline">\(1 \leq a_i \leq 10^6,1 \leq n \leq 3\times
-10^5\)</span></p>
+<p>测试包 1: $n \leq 15,~55$ 分</p>
+<p>测试包 2: $n \leq 100,~a_i \leq 100 ,~10$分</p>
+<p>测试包 3: $n \leq 5000 ,~20$分</p>
+<p>测试包 4: $a_i \leq a_{i+1} ,~10$分</p>
+<p>测试包 5: 无特殊限制 $5$ 分</p>
+<p>对于 $100\%$ 的数据 $1 \leq a_i \leq 10^6,1 \leq n \leq 3\times 10^5$</p>
 <p><strong>题解</strong>：</p>
 <p><del>好可怕的贪心！QAQ</del></p>
 <p>样例一某种程度上提示了我们，如何选择更好的一天卖出很重要</p>
 <p>而很多时候我们只是不知道之后还有更好的机会卖出，显然反悔型贪心。</p>
 <p>倒着考虑每天，维护一个可以卖的时候的大根堆</p>
-<p>对于每个数 <span class="math inline">\(a_i\)</span>
-，如果它比堆顶小，则把堆顶 <span class="math inline">\(a_k\)</span>
-踢掉，代表在这一天买了股票，在堆顶卖出</p>
-<p>并且， <span class="math inline">\(a_i\)</span>
-也要入堆，因为不一定这一天买是最优的</p>
-<p>当 <span class="math inline">\(a_i\)</span>
-入堆以后，在未来某次决策中</p>
-<p>如果有一个数 <span class="math inline">\(a_j\)</span> 加入，并踢掉了
-<span class="math inline">\(a_i\)</span></p>
-<p>这就等价于在 <span class="math inline">\(a_j\)</span> 买入，
-<strong><span class="math inline">\(a_i\)</span> 卖出，再在 <span
-class="math inline">\(a_i\)</span> 买入</strong>，再在之前那个 <span
-class="math inline">\(a_k\)</span> 卖出</p>
-<p>加粗的部分在实际决策时是不会做的，这个决策最后就等价于 <span
-class="math inline">\(a_j\)</span> 买 <span
-class="math inline">\(a_k\)</span> 卖</p>
-<p>值得注意的时，此时我们还要把 <span class="math inline">\(a_i\)</span>
-入堆，因为它也可以卖东西了（这个在代码里用 <span
-class="math inline">\(\text{vis}\)</span> 数组标记）</p>
+<p>对于每个数 $a_i$ ，如果它比堆顶小，则把堆顶 $a_k$ 踢掉，代表在这一天买了股票，在堆顶卖出</p>
+<p>并且， $a_i$ 也要入堆，因为不一定这一天买是最优的</p>
+<p>当 $a_i$ 入堆以后，在未来某次决策中</p>
+<p>如果有一个数 $a_j$ 加入，并踢掉了 $a_i$ </p>
+<p>这就等价于在 $a_j$ 买入， <strong>$a_i$ 卖出，再在 $a_i$ 买入</strong>，再在之前那个 $a_k$ 卖出</p>
+<p>加粗的部分在实际决策时是不会做的，这个决策最后就等价于 $a_j$ 买 $a_k$ 卖</p>
+<p>值得注意的时，此时我们还要把 $a_i$ 入堆，因为它也可以卖东西了（这个在代码里用 $\text{vis}$ 数组标记）</p>
 <p>然后这题就搞定了，<del>好难啊</del></p>
-<p>时间复杂度 <span class="math inline">\(O(n\log n)\)</span></p>
+<p>时间复杂度 $O(n\log n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -976,7 +954,7 @@ priority_queue<span class="token operator">&lt;</span><span class="token keyword
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">452.3k</span>&nbsp;字
+                class="white-color">457.5k</span>&nbsp;字
             
             
             

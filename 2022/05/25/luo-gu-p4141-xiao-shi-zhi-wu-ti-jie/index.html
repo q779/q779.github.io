@@ -494,66 +494,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4141-消失之物-题解">洛谷P4141 消失之物 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4141">P4141
-消失之物</a></p>
+                <h1 id="洛谷P4141-消失之物-题解"><a href="#洛谷P4141-消失之物-题解" class="headerlink" title="洛谷P4141 消失之物 题解"></a>洛谷P4141 消失之物 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4141">P4141 消失之物</a></p>
 <blockquote>
-<p><strong>题意</strong>：ftiasch 有 <span
-class="math inline">\(n\)</span> 个物品, 体积分别是 <span
-class="math inline">\(w_1,w_2,\dots,w_n\)</span> 。由于她的疏忽，第
-<span class="math inline">\(i\)</span> 个物品丢失了。</p>
-<p>“要使用剩下的 <span class="math inline">\(n-1\)</span> 物品装满容积为
-<span class="math inline">\(x\)</span>
-的背包，有几种方法呢？”——这是经典的问题了。</p>
-<p>她把答案记为 <span
-class="math inline">\(\text{cnt}(i,x)\)</span>，想要得到所有 <span
-class="math inline">\(i \in [1,n] ,x \in [1,m]\)</span> 的 <span
-class="math inline">\(\text{cnt}(i,x)\)</span> 表格。</p>
+<p><strong>题意</strong>：ftiasch 有 $n$ 个物品, 体积分别是 $w_1,w_2,\dots,w_n$ 。由于她的疏忽，第 $i$ 个物品丢失了。</p>
+<p>“要使用剩下的 $n-1$ 物品装满容积为 $x$ 的背包，有几种方法呢？”——这是经典的问题了。</p>
+<p>她把答案记为 $\text{cnt}(i,x)$，想要得到所有 $i \in [1,n] ,x \in [1,m]$ 的 $\text{cnt}(i,x)$ 表格。</p>
 <p>只需要输出末位数字。</p>
 </blockquote>
-<p>设 <span class="math inline">\(f[i][j]\)</span> 为只用前 <span
-class="math inline">\(i\)</span>
-件物品，不考虑删除任何物品时，<strong>恰好</strong>装满容量为 <span
-class="math inline">\(j\)</span> 的背包的方案数，显然有 <span
-class="math display">\[
-f[i][j]=f[i-1][j]+f[i-1][j-w[i]]
-\]</span> 滚动数组一下就是</p>
+<p>设 $f[i][j]$ 为只用前 $i$ 件物品，不考虑删除任何物品时，<strong>恰好</strong>装满容量为 $j$ 的背包的方案数，显然有</p>
+<script type="math/tex; mode=display">
+f[i][j]=f[i-1][j]+f[i-1][j-w[i]]</script><p>滚动数组一下就是</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">f<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>m<span class="token punctuation">;</span> j<span class="token operator">>=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
 		f<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>f<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>那么现在求出来的 <span class="math inline">\(f[i]\)</span>
-也就是原来的 <span class="math inline">\(f[n][i]\)</span> 了</p>
-<p>于是设 <span class="math inline">\(g[i][j]\)</span> 为不考虑物品
-<span class="math inline">\(i\)</span> 的贡献恰好装满容量为 <span
-class="math inline">\(j\)</span> 的背包的方案数</p>
-<p>首先容易想到一个<strong>看起来正确</strong>的柿子（其实是错的） <span
-class="math display">\[
-g[i][j]=f[n][j]-f[n][j-w[i]]
-\]</span> 为什么错呢？因为 <span
-class="math inline">\(f[n][j-w[i]]\)</span> 中也可能含有 <span
-class="math inline">\(w[i]\)</span> 的贡献！</p>
-<p>那么其实稍微改一改就对了 <span class="math display">\[
-g[i][j]=f[n][j]-g[i][j-w[i]]
-\]</span> 此时的 <span class="math inline">\(g[i][j-w[i]]\)</span>
-恰好删除了物品 <span class="math inline">\(i\)</span> 的贡献，不错</p>
-<p>注意这个 <span class="math inline">\(g[i][j]\)</span> 需要 <span
-class="math inline">\(j\)</span> 顺推，因为我们需要 <span
-class="math inline">\(g[i][j-w[i]]\)</span></p>
+<p>那么现在求出来的 $f[i]$ 也就是原来的 $f[n][i]$ 了</p>
+<p>于是设 $g[i][j]$ 为不考虑物品 $i$ 的贡献恰好装满容量为 $j$ 的背包的方案数</p>
+<p>首先容易想到一个<strong>看起来正确</strong>的柿子（其实是错的）</p>
+<script type="math/tex; mode=display">
+g[i][j]=f[n][j]-f[n][j-w[i]]</script><p>为什么错呢？因为 $f[n][j-w[i]]$ 中也可能含有 $w[i]$ 的贡献！</p>
+<p>那么其实稍微改一改就对了</p>
+<script type="math/tex; mode=display">
+g[i][j]=f[n][j]-g[i][j-w[i]]</script><p>此时的 $g[i][j-w[i]]$ 恰好删除了物品 $i$ 的贡献，不错</p>
+<p>注意这个 $g[i][j]$ 需要 $j$ 顺推，因为我们需要 $g[i][j-w[i]]$</p>
 <p>然后这个柿子还是不够精简</p>
-<p>注意到我们其实并不需要记录 <span class="math inline">\(i\)</span>
-这一状态，因为我们其实不需要保存这些信息</p>
-<p>加上之前的滚动数组优化，柿子可以化简为 <span class="math display">\[
+<p>注意到我们其实并不需要记录 $i$ 这一状态，因为我们其实不需要保存这些信息</p>
+<p>加上之前的滚动数组优化，柿子可以化简为</p>
+<script type="math/tex; mode=display">
 g[j]=
 \begin{cases}
-f[j]-g[j-w[i]],&amp;j \ge w[i],
-\\f[j],&amp;\text{default.}
-\end{cases}
-\]</span> 嗯，其实还可以化简。</p>
+f[j]-g[j-w[i]],&j \ge w[i],
+\\f[j],&\text{default.}
+\end{cases}</script><p>嗯，其实还可以化简。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">memcpy</span><span class="token punctuation">(</span>g<span class="token punctuation">,</span>f<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
 	g<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">-=</span>g<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
+<p>时间复杂度 $O(nm)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -955,7 +931,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">452.3k</span>&nbsp;字
+                class="white-color">457.5k</span>&nbsp;字
             
             
             

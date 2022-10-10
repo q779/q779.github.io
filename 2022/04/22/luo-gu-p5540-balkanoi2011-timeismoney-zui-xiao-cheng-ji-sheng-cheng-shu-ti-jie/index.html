@@ -498,78 +498,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1
-id="洛谷p5540-balkanoi2011-timeismoney-最小乘积生成树-题解">洛谷P5540
-[BalkanOI2011] timeismoney | 最小乘积生成树 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5540">P5540
-[BalkanOI2011] timeismoney | 最小乘积生成树</a></p>
+                <h1 id="洛谷P5540-BalkanOI2011-timeismoney-最小乘积生成树-题解"><a href="#洛谷P5540-BalkanOI2011-timeismoney-最小乘积生成树-题解" class="headerlink" title="洛谷P5540 [BalkanOI2011] timeismoney | 最小乘积生成树 题解"></a>洛谷P5540 [BalkanOI2011] timeismoney | 最小乘积生成树 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5540">P5540 [BalkanOI2011] timeismoney | 最小乘积生成树</a></p>
 <blockquote>
-<p><strong>题意</strong>：给出一个 <span
-class="math inline">\(n\)</span> 个点 <span
-class="math inline">\(m\)</span> 条边的无向图，第 <span
-class="math inline">\(i\)</span> 条边有两个权值 <span
-class="math inline">\(a_i\)</span> 和 <span
-class="math inline">\(b_i\)</span> 。</p>
-<p>求该图的一棵生成树 <span class="math inline">\(T\)</span> ，使得
-<span class="math display">\[
-\left(\sum_{e\in T}a_e\right)\times\left(\sum_{e\in T}b_e\right)
-\]</span></p>
-<p>最小</p>
+<p><strong>题意</strong>：给出一个 $n$ 个点 $m$ 条边的无向图，第 $i$ 条边有两个权值 $a_i$ 和 $b_i$ 。</p>
+<p>求该图的一棵生成树 $T$  ，使得</p>
+<script type="math/tex; mode=display">
+\left(\sum_{e\in T}a_e\right)\times\left(\sum_{e\in T}b_e\right)</script><p>最小</p>
 </blockquote>
 <p>注意到对于一棵生成树，式子中的左右两边均为常数</p>
-<p>考虑将生成树映射到平面上的点 <span
-class="math inline">\((x,y)\)</span></p>
-<p>其中 <span class="math inline">\(x=\sum\limits_{e\in
-T}a_e,y=\sum\limits_{e\in T}b_e\)</span></p>
-<p>那么问题就转化为了求一个点 <span class="math inline">\((x,y)\)</span>
-使得 <span class="math inline">\(x\times y\)</span> 最小</p>
+<p>考虑将生成树映射到平面上的点 $(x,y)$ </p>
+<p>其中 $x=\sum\limits_{e\in T}a_e,y=\sum\limits_{e\in T}b_e$ </p>
+<p>那么问题就转化为了求一个点 $(x,y)$ 使得 $x\times y$ 最小</p>
 <p>可以发现这些点的分布存在边界</p>
-<p>即 <span class="math inline">\(x\)</span> 特别大 <span
-class="math inline">\(y\)</span> 特别小的时候以及 <span
-class="math inline">\(y\)</span> 特别大 <span
-class="math inline">\(x\)</span> 特别小的时候</p>
-<p>这两种情况分别对应点 <span class="math inline">\(A\)</span> 和 <span
-class="math inline">\(B\)</span></p>
-<p>则有 <span class="math inline">\(A\)</span> 为距离 <span
-class="math inline">\(x\)</span> 轴最近的点， <span
-class="math inline">\(B\)</span> 为距离 <span
-class="math inline">\(y\)</span> 轴最近的点</p>
-<p>对于直线 <span class="math inline">\(AB\)</span> ，显然在 <span
-class="math inline">\(AB\)</span> 上方的不是优解</p>
-<p>根据反比例函数的性质，可以发现这个解一定在以 <span
-class="math inline">\(A,B\)</span> 为端点的下凸包上</p>
+<p>即 $x$ 特别大 $y$ 特别小的时候以及 $y$ 特别大 $x$ 特别小的时候</p>
+<p>这两种情况分别对应点 $A$ 和 $B$ </p>
+<p>则有 $A$ 为距离 $x$ 轴最近的点， $B$ 为距离 $y$ 轴最近的点</p>
+<p>对于直线 $AB$ ，显然在 $AB$ 上方的不是优解</p>
+<p>根据反比例函数的性质，可以发现这个解一定在以 $A,B$ 为端点的下凸包上</p>
 <p>由于我们不可能枚举出所有的生成树然后求二维凸包</p>
 <p>考虑递归求解，<del>不知道大家知不知道割圆术，不知道也没关系</del></p>
 <p>这个解法有点像割圆术</p>
-<p>首先找出距离直线 <span class="math inline">\(AB\)</span> 最远的点
-<span class="math inline">\(C\)</span> （在 <span
-class="math inline">\(AB\)</span> 下方）</p>
-<p>然后递归 <span class="math inline">\(AC\)</span> 和 <span
-class="math inline">\(CB\)</span> ，即可求出解</p>
-<p>如何寻找 <span class="math inline">\(C\)</span> 点呢？可以发现此时
-<span class="math inline">\(S_{\triangle ABC}\)</span> 取到了最大值</p>
-<p>而 <span class="math inline">\(S_{\triangle ABC} =
--\dfrac{1}{2}\overset{\longrightarrow}{AB}\times
-\overset{\longrightarrow}{AC}\)</span></p>
-<p>（注：这里写的不是很规范，其实应该除以一个单位向量 <span
-class="math inline">\(\boldsymbol{z}\)</span>
-的，<del>不重要不管了</del>）</p>
-<p>推柿子环节 qwq <span class="math display">\[
+<p>首先找出距离直线 $AB$ 最远的点 $C$ （在 $AB$ 下方）</p>
+<p>然后递归 $AC$ 和 $CB$ ，即可求出解</p>
+<p>如何寻找 $C$ 点呢？可以发现此时 $S_{\triangle ABC}$ 取到了最大值</p>
+<p>而 $S_{\triangle ABC} = -\dfrac{1}{2}\overset{\longrightarrow}{AB}\times \overset{\longrightarrow}{AC}$ </p>
+<p>（注：这里写的不是很规范，其实应该除以一个单位向量 $\boldsymbol{z}$ 的，<del>不重要不管了</del>）</p>
+<p>推柿子环节 qwq</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\overset{\longrightarrow}{AB}\times \overset{\longrightarrow}{AC}
-&amp;= (x_B-x_A)(y_C-y_A)-(y_B-y_A)(x_C-x_A)\\
-&amp;=(x_B-x_A)\times y_C + (y_A-y_B)\times x_C + y_Bx_A-x_By_A
-\end{aligned}
-\]</span> 可以发现后面两项是定值</p>
-<p>因此我们将边权设为 <span
-class="math inline">\((x_B-x_A)b_i+(y_A-y_B)a_i\)</span>
-，然后跑最小生成树即可</p>
-<p>由于 <span class="math inline">\(n\)</span>
-很小，且凸包上的期望点数分析极其复杂</p>
-<p>本题复杂度可以近似看作 <span class="math inline">\(O(km\log
-m)\)</span>，其中 <span class="math inline">\(k\)</span>
-为一个小常数，据说是 <span class="math inline">\(\sqrt{\ln n}\)</span>
-，不太清楚</p>
+\overset{\longrightarrow}{AB}\times \overset{\longrightarrow}{AC} 
+&= (x_B-x_A)(y_C-y_A)-(y_B-y_A)(x_C-x_A)\\
+&=(x_B-x_A)\times y_C + (y_A-y_B)\times x_C + y_Bx_A-x_By_A
+\end{aligned}</script><p>可以发现后面两项是定值</p>
+<p>因此我们将边权设为 $(x_B-x_A)b_i+(y_A-y_B)a_i$ ，然后跑最小生成树即可</p>
+<p>由于 $n$ 很小，且凸包上的期望点数分析极其复杂</p>
+<p>本题复杂度可以近似看作 $O(km\log m)$，其中 $k$ 为一个小常数，据说是 $\sqrt{\ln n}$ ，不太清楚</p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1052,7 +1015,7 @@ vct <span class="token function">kruskal</span><span class="token punctuation">(
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">452.3k</span>&nbsp;字
+                class="white-color">457.5k</span>&nbsp;字
             
             
             
