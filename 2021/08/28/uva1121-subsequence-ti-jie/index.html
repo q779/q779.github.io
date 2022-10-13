@@ -312,6 +312,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -490,14 +503,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UVA1121-Subsequence-题解"><a href="#UVA1121-Subsequence-题解" class="headerlink" title="UVA1121 Subsequence 题解"></a>UVA1121 Subsequence 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1121">UVA1121 Subsequence</a></p>
+                <h1 id="uva1121-subsequence-题解">UVA1121 Subsequence 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1121">UVA1121
+Subsequence</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定数组，找最短连续子序列使其和大于 $S$ ，多组数据</p>
+<p><strong>题意</strong>：给定数组，找最短连续子序列使其和大于 <span
+class="math inline">\(S\)</span> ，多组数据</p>
 </blockquote>
-<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><p>对于区间 $[l,r]$ ，若 $\sum_{i=l}^{r}a[i]\ge S$ ，那么 $\forall r’&gt;r (r’ \le n)$ 该条件均成立</p>
+<h2 id="解法一">解法一</h2>
+<p>对于区间 <span class="math inline">\([l,r]\)</span> ，若 <span
+class="math inline">\(\sum_{i=l}^{r}a[i]\ge S\)</span> ，那么 <span
+class="math inline">\(\forall r&#39;&gt;r (r&#39; \le n)\)</span>
+该条件均成立</p>
 <p>那么我们只要枚举左端点，二分查找满足条件的最左的右端点，然后找个最小值就行了</p>
 <p>区间和用前缀和优化即可</p>
-<p>时间复杂度 $O(n\log n)$</p>
+<p>时间复杂度 <span class="math inline">\(O(n\log n)\)</span></p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -533,18 +553,29 @@
 	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">Input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token function">proc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><p>本解法就是<strong>尺取法</strong></p>
+<h2 id="解法二">解法二</h2>
+<p>本解法就是<strong>尺取法</strong></p>
 <p>根据上面的结论，我们再想一想，有没有必要枚举左端点呢？</p>
 <p>对于每个左端点，当且仅当右端点在尽可能左的位置时对答案有贡献</p>
 <p>或者说对答案有贡献的每个左端点所对应的右端点是<strong>唯一确定</strong>的</p>
 <p>显然右端点也是<strong>单调不降</strong>的</p>
-<p>我们可以设 $l$ 表示当前左端点的位置， $r$ 不断自增 $1$ 直到 $[l,r]$ 的和大于等于 $S$</p>
-<p>这时 $l,r$ 一定是对答案有贡献的一组，和最小值取个 $\min$ </p>
+<p>我们可以设 <span class="math inline">\(l\)</span>
+表示当前左端点的位置， <span class="math inline">\(r\)</span> 不断自增
+<span class="math inline">\(1\)</span> 直到 <span
+class="math inline">\([l,r]\)</span> 的和大于等于 <span
+class="math inline">\(S\)</span></p>
+<p>这时 <span class="math inline">\(l,r\)</span>
+一定是对答案有贡献的一组，和最小值取个 <span
+class="math inline">\(\min\)</span></p>
 <p>那么怎么继续呢？</p>
-<p>我们把左端点 $l$ 不断自增 $1$ 直到此时 $[l,r]$ 的和小于 $S$ ，然后再继续拓展右端点</p>
+<p>我们把左端点 <span class="math inline">\(l\)</span> 不断自增 <span
+class="math inline">\(1\)</span> 直到此时 <span
+class="math inline">\([l,r]\)</span> 的和小于 <span
+class="math inline">\(S\)</span> ，然后再继续拓展右端点</p>
 <p>不断重复以上过程直到右端点无法拓展且左端点无解时结束</p>
-<p>由于每个点只遍历至多 $2$ 次，因此</p>
-<p>时间复杂度 $O(n)$ </p>
+<p>由于每个点只遍历至多 <span class="math inline">\(2\)</span>
+次，因此</p>
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -932,7 +963,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">457.5k</span>&nbsp;字
+                class="white-color">463.8k</span>&nbsp;字
             
             
             

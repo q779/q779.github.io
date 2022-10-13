@@ -312,6 +312,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -494,24 +507,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4053-JSOI2007-建筑抢修-题解"><a href="#洛谷P4053-JSOI2007-建筑抢修-题解" class="headerlink" title="洛谷P4053 [JSOI2007] 建筑抢修 题解"></a>洛谷P4053 [JSOI2007] 建筑抢修 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4053">P4053 [JSOI2007] 建筑抢修</a></p>
+                <h1 id="洛谷p4053-jsoi2007-建筑抢修-题解">洛谷P4053 [JSOI2007] 建筑抢修
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4053">P4053
+[JSOI2007] 建筑抢修</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 在玩 JSOI 提供的一个称之为“建筑抢修”的电脑游戏：经过了一场激烈的战斗，T 部落消灭了所有 Z 部落的入侵者。但是 T 部落的基地里已经有 $N$ 个建筑设施受到了严重的损伤，如果不尽快修复的话，这些建筑设施将会完全毁坏。现在的情况是：T 部落基地里只有一个修理工人，虽然他能瞬间到达任何一个建筑，但是修复每个建筑都需要一定的时间。同时，修理工人修理完一个建筑才能修理下一个建筑，不能同时修理多个建筑。如果某个建筑在一段时间之内没有完全修理完毕，这个建筑就报废了。你的任务是帮 cxy 合理的制订一个修理顺序，以抢修尽可能多的建筑。</p>
+<p>cxy 在玩 JSOI
+提供的一个称之为“建筑抢修”的电脑游戏：经过了一场激烈的战斗，T
+部落消灭了所有 Z 部落的入侵者。但是 T 部落的基地里已经有 <span
+class="math inline">\(N\)</span>
+个建筑设施受到了严重的损伤，如果不尽快修复的话，这些建筑设施将会完全毁坏。现在的情况是：T
+部落基地里只有一个修理工人，虽然他能瞬间到达任何一个建筑，但是修复每个建筑都需要一定的时间。同时，修理工人修理完一个建筑才能修理下一个建筑，不能同时修理多个建筑。如果某个建筑在一段时间之内没有完全修理完毕，这个建筑就报废了。你的任务是帮
+cxy 合理的制订一个修理顺序，以抢修尽可能多的建筑。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个整数 $N$。</p>
-<p>接下来 $N$ 行，每行两个整数 $T_1,T_2$ 描述一个建筑：修理这个建筑需要 $T_1$ 秒，如果在 $T_2$ 秒之内还没有修理完成，这个建筑就报废了。</p>
+<p>第一行，一个整数 <span class="math inline">\(N\)</span>。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行两个整数 <span
+class="math inline">\(T_1,T_2\)</span> 描述一个建筑：修理这个建筑需要
+<span class="math inline">\(T_1\)</span> 秒，如果在 <span
+class="math inline">\(T_2\)</span>
+秒之内还没有修理完成，这个建筑就报废了。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个整数 $S$，表示最多可以抢修 $S$ 个建筑。</p>
-<p>对于 $100 \%$ 的数据，$1 \le N &lt; 150000$，$1 \le T_1 &lt; T_2 &lt; 2^{31}$。</p>
+<p>输出一个整数 <span class="math inline">\(S\)</span>，表示最多可以抢修
+<span class="math inline">\(S\)</span> 个建筑。</p>
+<p>对于 <span class="math inline">\(100 \%\)</span> 的数据，<span
+class="math inline">\(1 \le N &lt; 150000\)</span>，<span
+class="math inline">\(1 \le T_1 &lt; T_2 &lt; 2^{31}\)</span>。</p>
 </blockquote>
 <p>经典的反悔型贪心，<del>经典的爆零。</del></p>
 <p>说实话我根据直觉就是选耗时尽可能短的</p>
-<p>我们把所有的建筑按 $T_2$ 排序，从前到后依次考虑每个建筑</p>
-<p>如果可以修，就把它的 $T_1$ 加入大根堆</p>
+<p>我们把所有的建筑按 <span class="math inline">\(T_2\)</span>
+排序，从前到后依次考虑每个建筑</p>
+<p>如果可以修，就把它的 <span class="math inline">\(T_1\)</span>
+加入大根堆</p>
 <p>如果修不了，就把之前修的时间太长的扔掉</p>
 <p>因为当初不知道有这更好的选择</p>
-<p>时间复杂度 $O(n \log n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -933,7 +964,7 @@ priority_queue<span class="token operator">&lt;</span><span class="token keyword
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">457.5k</span>&nbsp;字
+                class="white-color">463.8k</span>&nbsp;字
             
             
             

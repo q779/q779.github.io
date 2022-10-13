@@ -312,6 +312,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -506,62 +519,144 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UOJ279-【UTR-2】题目交流通道-题解"><a href="#UOJ279-【UTR-2】题目交流通道-题解" class="headerlink" title="UOJ279 【UTR #2】题目交流通道 题解"></a>UOJ279 【UTR #2】题目交流通道 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/279">#279. 【UTR #2】题目交流通道</a></p>
+                <h1 id="uoj279-utr-2题目交流通道-题解">UOJ279 【UTR #2】题目交流通道
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/279">#279. 【UTR
+#2】题目交流通道</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>定好了难度，雄心勃勃的 cxy 开始寻找智慧的神犇星球的居民出题。</p>
-<p>然而 cxy 没有料到，神犇星球的居民告诉 cxy ：“今年神犇星球经济不景气，大家都想宅在家里，哪有心思出来出题呢？”</p>
-<p>为了挽救这一局面， cxy 决定为神犇星球建一些高速传送通道促进该星球各地区之间交流题目。</p>
-<p>神犇星球有 $n$ 座小城。对于任意两座小城 $v, u$（$v \neq u$）， cxy 想在 $v, u$ 之间建立一个传送时间为 $w(v, u)$ 的<strong>无向</strong>传送通道，其中 $w(v, u)$ 为不超过 $k$ 的非负整数。建成后，神犇星球的居民可从一座小城出发经过一个或若干个传送通道到达另一座小城交流题目，花费的时间为所有经过的传送通道的传送时间之和。</p>
-<p> cxy 还没有决定每一个传送通道的传送时间取值，只是对于任意两座小城 $v, u$，决定了从 $v$ 出发到达 $u$ 的最短时间要恰好等于 $d(v, u)$。但 cxy 日理万机，于是他找到了你 —— IOI AKer，请你帮助 cxy 数一数有多少种不同的满足条件的传送通道建设方案吧！</p>
-<p>由于方案数可能很大，你只用输出方案数对 $998244353$（$7 \times 17 \times 2^{23}+1$，一个质数）取模后的结果。</p>
+<p>然而 cxy 没有料到，神犇星球的居民告诉 cxy
+：“今年神犇星球经济不景气，大家都想宅在家里，哪有心思出来出题呢？”</p>
+<p>为了挽救这一局面， cxy
+决定为神犇星球建一些高速传送通道促进该星球各地区之间交流题目。</p>
+<p>神犇星球有 <span class="math inline">\(n\)</span>
+座小城。对于任意两座小城 <span class="math inline">\(v,
+u\)</span>（<span class="math inline">\(v \neq u\)</span>）， cxy 想在
+<span class="math inline">\(v, u\)</span> 之间建立一个传送时间为 <span
+class="math inline">\(w(v, u)\)</span>
+的<strong>无向</strong>传送通道，其中 <span class="math inline">\(w(v,
+u)\)</span> 为不超过 <span class="math inline">\(k\)</span>
+的非负整数。建成后，神犇星球的居民可从一座小城出发经过一个或若干个传送通道到达另一座小城交流题目，花费的时间为所有经过的传送通道的传送时间之和。</p>
+<p>cxy 还没有决定每一个传送通道的传送时间取值，只是对于任意两座小城
+<span class="math inline">\(v, u\)</span>，决定了从 <span
+class="math inline">\(v\)</span> 出发到达 <span
+class="math inline">\(u\)</span> 的最短时间要恰好等于 <span
+class="math inline">\(d(v, u)\)</span>。但 cxy 日理万机，于是他找到了你
+—— IOI AKer，请你帮助 cxy
+数一数有多少种不同的满足条件的传送通道建设方案吧！</p>
+<p>由于方案数可能很大，你只用输出方案数对 <span
+class="math inline">\(998244353\)</span>（<span class="math inline">\(7
+\times 17 \times 2^{23}+1\)</span>，一个质数）取模后的结果。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个整数 $n, k$。保证 $n \ge 1, k \ge 0$。</p>
-<p>接下来 $n$ 行，每行有 $n$ 个非负整数，第 $i$ 行的 第 $j$ 个数表示 $d(i,j)$ 的值。</p>
+<p>第一行两个整数 <span class="math inline">\(n, k\)</span>。保证 <span
+class="math inline">\(n \ge 1, k \ge 0\)</span>。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，每行有 <span
+class="math inline">\(n\)</span> 个非负整数，第 <span
+class="math inline">\(i\)</span> 行的 第 <span
+class="math inline">\(j\)</span> 个数表示 <span
+class="math inline">\(d(i,j)\)</span> 的值。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行，一个整数，表示方案数对 $998244353$ 取模的结果。如果无解，则方案数为 $0$。</p>
+<p>输出一行，一个整数，表示方案数对 <span
+class="math inline">\(998244353\)</span>
+取模的结果。如果无解，则方案数为 <span
+class="math inline">\(0\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 400, ~0\le k \le 10^9,~0\leq d(u,v)\leq 10^{9}$</p>
+<p><span class="math inline">\(1 \le n \le 400, ~0\le k \le 10^9,~0\leq
+d(u,v)\leq 10^{9}\)</span></p>
 </blockquote>
 <p>计数型 dp + Floyd 好题。</p>
-<p>首先如果下面三个条件不满足，那么一定是无解的</p>
-<script type="math/tex; mode=display">
-d(i,i)=0,~d(i,j)=d(j,i),~d(i,j) \le d(i,k) + d(k,j)</script><p>接着考虑 $d(i,j) \ge 1 (i\ne j)$ 的情况。</p>
-<p>根据 $\mathrm{Floyd}$ 算法的性质可知</p>
+<p>首先如果下面三个条件不满足，那么一定是无解的 <span
+class="math display">\[
+d(i,i)=0,~d(i,j)=d(j,i),~d(i,j) \le d(i,k) + d(k,j)
+\]</span> 接着考虑 <span class="math inline">\(d(i,j) \ge 1 (i\ne
+j)\)</span> 的情况。</p>
+<p>根据 <span class="math inline">\(\mathrm{Floyd}\)</span>
+算法的性质可知</p>
 <ul>
-<li>如果存在点 $k$ 使得 $d(i,j) = d(i,k) + d(k,j)$ ，则只需要满足 $w(i,j) \ge d(i,j)$ 即可</li>
-<li>否则，一定有 $d(i,j) = w(i,j)$ 。</li>
+<li>如果存在点 <span class="math inline">\(k\)</span> 使得 <span
+class="math inline">\(d(i,j) = d(i,k) + d(k,j)\)</span> ，则只需要满足
+<span class="math inline">\(w(i,j) \ge d(i,j)\)</span> 即可</li>
+<li>否则，一定有 <span class="math inline">\(d(i,j) = w(i,j)\)</span>
+。</li>
 </ul>
-<p>因此对于这样的情况，直接跑 $\mathrm{Floyd}$ 算答案即可。具体计算方法见下文。</p>
+<p>因此对于这样的情况，直接跑 <span
+class="math inline">\(\mathrm{Floyd}\)</span>
+算答案即可。具体计算方法见下文。</p>
 <p><br></p>
-<p>然后考虑 $d(i,j) \ge 0$ 的情况。</p>
+<p>然后考虑 <span class="math inline">\(d(i,j) \ge 0\)</span>
+的情况。</p>
 <p>为什么要单独考虑这种情况呢？</p>
-<p>因为此时「存在 $k$ 使得 $d(i,j) = d(i,k) + d(k,j)$ 」<strong>并不能保证</strong> $w(i,j)$ 可以大于 $d(i,j)$ 。</p>
-<p>举个例子，当 $d(i,k)=0$ 时，显然有 $d(i,j) = d(k,j)$ 。</p>
-<p>但如果所有的 $k$ 都有 $w(k,j) &gt; d(k,j)=d(i,j)$ ，此时 $w(i,j)$ 就不能取除 $d(i,j)$ 以外的任何值。</p>
-<p>那么怎么办呢？仔细思考可以发现，这些满足 $d(i,k)=0$ 的 $k$ 一定与 $i$ 处在一个「两两距离为 $0$ 的连通块」内。</p>
-<p>因此我们可以考虑<strong>缩点</strong>。不妨假设缩点后，$i$ 在新点 $I$ 中， $j$ 在新点 $J$ 中。则此时一定有 $d(I,J) \ge 0$  。</p>
-<p>现在我们来考虑如何计算缩点后 $w(I,J)$ 的贡献。</p>
-<p>首先如果存在 $K$ 使得 $d(I,J) = d(I,K) + d(K,J)$ ，则只要满足 $w(I,J) \ge d(I,J)$ 即可</p>
-<script type="math/tex; mode=display">
-[w_{\max} - d(I,J)+1]^{\mathrm{size}(I)\times \mathrm{size}(J)}</script><p>否则，还要满足至少要有一条边 $w(I,J)=d(I,J)$ ，根据容斥可知（也就是去掉全大于的情况）</p>
-<script type="math/tex; mode=display">
-[w_{\max} - d(I,J)+1]^{\mathrm{size}(I)\times \mathrm{size}(J)} - [w_{\max} - d(I,J)]^{\mathrm{size}(I)\times \mathrm{size}(J)}</script><p><br></p>
-<p>最后考虑「两两距离为 $0$ 的连通块」内部的贡献。</p>
+<p>因为此时「存在 <span class="math inline">\(k\)</span> 使得 <span
+class="math inline">\(d(i,j) = d(i,k) + d(k,j)\)</span>
+」<strong>并不能保证</strong> <span
+class="math inline">\(w(i,j)\)</span> 可以大于 <span
+class="math inline">\(d(i,j)\)</span> 。</p>
+<p>举个例子，当 <span class="math inline">\(d(i,k)=0\)</span> 时，显然有
+<span class="math inline">\(d(i,j) = d(k,j)\)</span> 。</p>
+<p>但如果所有的 <span class="math inline">\(k\)</span> 都有 <span
+class="math inline">\(w(k,j) &gt; d(k,j)=d(i,j)\)</span> ，此时 <span
+class="math inline">\(w(i,j)\)</span> 就不能取除 <span
+class="math inline">\(d(i,j)\)</span> 以外的任何值。</p>
+<p>那么怎么办呢？仔细思考可以发现，这些满足 <span
+class="math inline">\(d(i,k)=0\)</span> 的 <span
+class="math inline">\(k\)</span> 一定与 <span
+class="math inline">\(i\)</span> 处在一个「两两距离为 <span
+class="math inline">\(0\)</span> 的连通块」内。</p>
+<p>因此我们可以考虑<strong>缩点</strong>。不妨假设缩点后，<span
+class="math inline">\(i\)</span> 在新点 <span
+class="math inline">\(I\)</span> 中， <span
+class="math inline">\(j\)</span> 在新点 <span
+class="math inline">\(J\)</span> 中。则此时一定有 <span
+class="math inline">\(d(I,J) \ge 0\)</span> 。</p>
+<p>现在我们来考虑如何计算缩点后 <span
+class="math inline">\(w(I,J)\)</span> 的贡献。</p>
+<p>首先如果存在 <span class="math inline">\(K\)</span> 使得 <span
+class="math inline">\(d(I,J) = d(I,K) + d(K,J)\)</span> ，则只要满足
+<span class="math inline">\(w(I,J) \ge d(I,J)\)</span> 即可 <span
+class="math display">\[
+[w_{\max} - d(I,J)+1]^{\mathrm{size}(I)\times \mathrm{size}(J)}
+\]</span> 否则，还要满足至少要有一条边 <span
+class="math inline">\(w(I,J)=d(I,J)\)</span>
+，根据容斥可知（也就是去掉全大于的情况） <span class="math display">\[
+[w_{\max} - d(I,J)+1]^{\mathrm{size}(I)\times \mathrm{size}(J)} -
+[w_{\max} - d(I,J)]^{\mathrm{size}(I)\times \mathrm{size}(J)}
+\]</span> <br></p>
+<p>最后考虑「两两距离为 <span class="math inline">\(0\)</span>
+的连通块」内部的贡献。</p>
 <p><del>据说这是一个经典的容斥，反正我之前没碰到过</del>。</p>
-<p>设 $F_n$ 表示 $n$ 个点的「两两距离为 $0$ 的连通块」的不同方案数。</p>
-<p>设 $G_n$ 表示 $i$ 个点<strong>仅考虑 $w_{\max}$ 时</strong>所有合法图的方案数，即 $G_n = (w_{\max} + 1)^{\binom{n}{2}}$</p>
-<p>根据容斥， $F_n$ 就等于 $G_n$ 减去所有不符合条件的方案数。</p>
-<p>枚举 $1$ 号点所在的「两两距离为 $0$ 的连通块」的大小 $i$ ，则</p>
-<script type="math/tex; mode=display">
-F_n = G_n - \sum_{i=1}^{n-1}\dbinom{n-1}{i-1}F_{i}G_{n-i}\times w_{\max}^{i(n-i)}</script><p>这里枚举 $1$ 号点是因为<strong>不枚举会重复计数</strong>，重复类似于 <a href="https://q779.github.io/2022/09/02/luo-gu-p4547-thuwc2017-sui-ji-er-fen-tu-ti-jie/">洛谷P4547 [THUWC2017]随机二分图</a> 。</p>
+<p>设 <span class="math inline">\(F_n\)</span> 表示 <span
+class="math inline">\(n\)</span> 个点的「两两距离为 <span
+class="math inline">\(0\)</span> 的连通块」的不同方案数。</p>
+<p>设 <span class="math inline">\(G_n\)</span> 表示 <span
+class="math inline">\(i\)</span> 个点<strong>仅考虑 <span
+class="math inline">\(w_{\max}\)</span>
+时</strong>所有合法图的方案数，即 <span class="math inline">\(G_n =
+(w_{\max} + 1)^{\binom{n}{2}}\)</span></p>
+<p>根据容斥， <span class="math inline">\(F_n\)</span> 就等于 <span
+class="math inline">\(G_n\)</span> 减去所有不符合条件的方案数。</p>
+<p>枚举 <span class="math inline">\(1\)</span> 号点所在的「两两距离为
+<span class="math inline">\(0\)</span> 的连通块」的大小 <span
+class="math inline">\(i\)</span> ，则 <span class="math display">\[
+F_n = G_n - \sum_{i=1}^{n-1}\dbinom{n-1}{i-1}F_{i}G_{n-i}\times
+w_{\max}^{i(n-i)}
+\]</span> 这里枚举 <span class="math inline">\(1\)</span>
+号点是因为<strong>不枚举会重复计数</strong>，重复类似于 <a
+href="https://q779.github.io/2022/09/02/luo-gu-p4547-thuwc2017-sui-ji-er-fen-tu-ti-jie/">洛谷P4547
+[THUWC2017]随机二分图</a> 。</p>
 <p>然后解释一下后面那个东西是啥含义。</p>
 <ul>
-<li>$\binom{n-1}{i-1}F_{i}G_{n-i}$ 这个是因为枚举的块内部要保证合法，其他点随便怎么搞都行。</li>
-<li>$w_{\max}^{i(n-i)}$ 这个是因为两个团之间不能有 $0$ 边，即连接的 $i \times (n-i)$ 条边只能选 $1\sim w_{\max}$ 。</li>
+<li><span class="math inline">\(\binom{n-1}{i-1}F_{i}G_{n-i}\)</span>
+这个是因为枚举的块内部要保证合法，其他点随便怎么搞都行。</li>
+<li><span class="math inline">\(w_{\max}^{i(n-i)}\)</span>
+这个是因为两个团之间不能有 <span class="math inline">\(0\)</span>
+边，即连接的 <span class="math inline">\(i \times (n-i)\)</span>
+条边只能选 <span class="math inline">\(1\sim w_{\max}\)</span> 。</li>
 </ul>
-<p>那么最后只要对每个连通块 $I$ （即缩点后的新点），令 $\mathtt{ans} \gets \mathtt{ans}  \times F_{\mathrm{size}(I)}$ 即可。</p>
-<p>时间复杂度 $O(n^3)$ </p>
+<p>那么最后只要对每个连通块 <span class="math inline">\(I\)</span>
+（即缩点后的新点），令 <span class="math inline">\(\mathtt{ans} \gets
+\mathtt{ans} \times F_{\mathrm{size}(I)}\)</span> 即可。</p>
+<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -651,11 +746,14 @@ F_n = G_n - \sum_{i=1}^{n-1}\dbinom{n-1}{i-1}F_{i}G_{n-i}\times w_{\max}^{i(n-i)
 <p>就在写的时候知道这很可能是AFO前最后一篇题解了。球球了。</p>
 <p>upd. 也不是没有可能进呢，就是说 qwq ，祈祷🙏祈祷🙏祈祷🙏</p>
 <p><strong>upd.2022年09月22日 进了！！！！！！</strong></p>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/uoj279.html">https://yhx-12243.github.io/OI-transit/records/uoj279.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yimmortal/p/10160848.html">https://www.cnblogs.com/yimmortal/p/10160848.html</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://jiry-2.blog.uoj.ac/blog/2242">https://jiry-2.blog.uoj.ac/blog/2242</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/uoj279.html">https://yhx-12243.github.io/OI-transit/records/uoj279.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/yimmortal/p/10160848.html">https://www.cnblogs.com/yimmortal/p/10160848.html</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://jiry-2.blog.uoj.ac/blog/2242">https://jiry-2.blog.uoj.ac/blog/2242</a></p>
 
                 
             </div>
@@ -1029,7 +1127,7 @@ F_n = G_n - \sum_{i=1}^{n-1}\dbinom{n-1}{i-1}F_{i}G_{n-i}\times w_{\max}^{i(n-i)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">457.5k</span>&nbsp;字
+                class="white-color">463.8k</span>&nbsp;字
             
             
             

@@ -312,6 +312,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -494,47 +507,66 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈高斯消元"><a href="#浅谈高斯消元" class="headerlink" title="浅谈高斯消元"></a>浅谈高斯消元</h1><p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3389">P3389 【模板】高斯消元法</a></p>
-<p>本文采用<strong>高斯-约旦消元法</strong>（英语：Gauss-Jordan Elimination）。</p>
+                <h1 id="浅谈高斯消元">浅谈高斯消元</h1>
+<p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3389">P3389
+【模板】高斯消元法</a></p>
+<p>本文采用<strong>高斯-约旦消元法</strong>（英语：Gauss-Jordan
+Elimination）。</p>
 <p>相较传统的高斯消元，它不需要回代的过程，所以比较方便。</p>
-<p>高斯消元通常用于求解 $n$ 元线性方程组的解（或返回无解），下面是 $n=3$ 的例子</p>
-<script type="math/tex; mode=display">
+<p>高斯消元通常用于求解 <span class="math inline">\(n\)</span>
+元线性方程组的解（或返回无解），下面是 <span
+class="math inline">\(n=3\)</span> 的例子 <span class="math display">\[
 \begin{cases}
 3 x+2 y+z=10
 \\[6pt]5 x+y+6z=25
 \\[6pt]2 x+3 y+4 z=20
-\end{cases}</script><p>我们可以把它写成矩阵的形式</p>
-<script type="math/tex; mode=display">
+\end{cases}
+\]</span> 我们可以把它写成矩阵的形式 <span class="math display">\[
 \begin{bmatrix}
-&3&2&1&10&
-\\[6pt]&5&1&6&25&
-\\[6pt]&2&3&4&20&
-\end{bmatrix}</script><p>一般地，考虑 $n$ 元线性方程组</p>
-<script type="math/tex; mode=display">
+&amp;3&amp;2&amp;1&amp;10&amp;
+\\[6pt]&amp;5&amp;1&amp;6&amp;25&amp;
+\\[6pt]&amp;2&amp;3&amp;4&amp;20&amp;
+\end{bmatrix}
+\]</span> 一般地，考虑 <span class="math inline">\(n\)</span>
+元线性方程组 <span class="math display">\[
 \begin{cases}
 a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1
 \\[6pt]a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2
 \\[6pt]\quad\vdots
 \\[6pt]a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n = b_2
-\end{cases}</script><p>其矩阵形式为</p>
-<script type="math/tex; mode=display">
+\end{cases}
+\]</span> 其矩阵形式为 <span class="math display">\[
 \begin{bmatrix}
-&a_{11}&a_{12}&\cdots&a_{1n}&b_1&
-\\[6pt]&a_{21}&a_{22}&\cdots&a_{2n}&b_2&
-\\[6pt]&\vdots&\vdots&\ddots&\vdots&\vdots
-\\[6pt]&a_{n1}&a_{n2}&\cdots&a_{nn}&b_n&
-\end{bmatrix}</script><p>依次考虑每个 $a_{ii}$ ，将除第 $i$ 行的每一行第 $i$ 列都变为 $0$ 。</p>
-<p>具体操作为，对于每个 $a_{jk}$ ，使其变为 $a_{jk} - a_{ik} \times \frac{a_{ji}}{a_{ii}}$ 。</p>
-<p>最后 $x_i$ 的解就是 $\frac{b_i}{a_{ii}}$ ，且最后的矩阵应该长这样（空白处为 $0$ ）</p>
-<script type="math/tex; mode=display">
+&amp;a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n}&amp;b_1&amp;
+\\[6pt]&amp;a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n}&amp;b_2&amp;
+\\[6pt]&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots&amp;\vdots
+\\[6pt]&amp;a_{n1}&amp;a_{n2}&amp;\cdots&amp;a_{nn}&amp;b_n&amp;
+\end{bmatrix}
+\]</span> 依次考虑每个 <span class="math inline">\(a_{ii}\)</span>
+，将除第 <span class="math inline">\(i\)</span> 行的每一行第 <span
+class="math inline">\(i\)</span> 列都变为 <span
+class="math inline">\(0\)</span> 。</p>
+<p>具体操作为，对于每个 <span class="math inline">\(a_{jk}\)</span>
+，使其变为 <span class="math inline">\(a_{jk} - a_{ik} \times
+\frac{a_{ji}}{a_{ii}}\)</span> 。</p>
+<p>最后 <span class="math inline">\(x_i\)</span> 的解就是 <span
+class="math inline">\(\frac{b_i}{a_{ii}}\)</span>
+，且最后的矩阵应该长这样（空白处为 <span
+class="math inline">\(0\)</span> ） <span class="math display">\[
 \begin{bmatrix}
-&a_{11}&&&&b_1&
-\\[6pt]&&a_{22}&&&b_2&
-\\[6pt]&&&\ddots&&\vdots
-\\[6pt]&&&&a_{nn}&b_n&
-\end{bmatrix}</script><p>实现时有一些细节，每次把第 $i \sim n$ 行的第 $i$ 列的系数最大值找出来</p>
-<p>把它与第 $i$ 行交换，这样可以保证算法的稳定性。（如果最后 $a_{ii}=0$ 则无解）</p>
-<p>时间复杂度 $\mathcal{O}(n^3)$  </p>
+&amp;a_{11}&amp;&amp;&amp;&amp;b_1&amp;
+\\[6pt]&amp;&amp;a_{22}&amp;&amp;&amp;b_2&amp;
+\\[6pt]&amp;&amp;&amp;\ddots&amp;&amp;\vdots
+\\[6pt]&amp;&amp;&amp;&amp;a_{nn}&amp;b_n&amp;
+\end{bmatrix}
+\]</span></p>
+<p>实现时有一些细节，每次把第 <span class="math inline">\(i \sim
+n\)</span> 行的第 <span class="math inline">\(i\)</span>
+列的系数最大值找出来</p>
+<p>把它与第 <span class="math inline">\(i\)</span>
+行交换，这样可以保证算法的稳定性。（如果最后 <span
+class="math inline">\(a_{ii}=0\)</span> 则无解）</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -582,9 +614,10 @@ a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1
         cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/tbr-blog/solution-p3389">https://www.luogu.com.cn/blog/tbr-blog/solution-p3389</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/tbr-blog/solution-p3389">https://www.luogu.com.cn/blog/tbr-blog/solution-p3389</a></p>
 
                 
             </div>
@@ -949,7 +982,7 @@ a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">457.5k</span>&nbsp;字
+                class="white-color">463.8k</span>&nbsp;字
             
             
             
