@@ -511,87 +511,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf398b-painting-the-wall-题解">CF398B Painting The Wall
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF398B">CF398B
-Painting The Wall</a></p>
+                <h1 id="CF398B-Painting-The-Wall-题解"><a href="#CF398B-Painting-The-Wall-题解" class="headerlink" title="CF398B Painting The Wall 题解"></a>CF398B Painting The Wall 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF398B">CF398B Painting The Wall</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 打算漆一堵墙。这个墙由 <span class="math inline">\(n^2\)</span>
-块瓷砖构成，它们构成 <span class="math inline">\(n \times n\)</span>
-的表。有些瓷砖是被涂上颜色的，还有些则没有。她想要将这堵墙漆得漂亮，她会按照以下四个步骤进行：</p>
-<ol type="1">
-<li><p>首先，cxy
-会检查这堵墙，如果每行、每列均有涂上颜色的瓷砖，则停止刷墙，否则跳转到步骤
-2。</p></li>
-<li><p>cxy 从这 <span class="math inline">\(n^2\)</span>
-块瓷砖中均匀随机地选择一块瓷砖。</p></li>
-<li><p>如果该瓷砖没有被涂色，则她将那块瓷砖涂色，否则，她什么都不用干。</p></li>
-<li><p>然后，她休息 <span class="math inline">\(1\)</span>
-分钟，然后回到步骤 1。</p></li>
+<p>cxy 打算漆一堵墙。这个墙由 $n^2$ 块瓷砖构成，它们构成 $n \times n$ 的表。有些瓷砖是被涂上颜色的，还有些则没有。她想要将这堵墙漆得漂亮，她会按照以下四个步骤进行：</p>
+<ol>
+<li><p>首先，cxy 会检查这堵墙，如果每行、每列均有涂上颜色的瓷砖，则停止刷墙，否则跳转到步骤 2。</p>
+</li>
+<li><p>cxy 从这 $n^2$ 块瓷砖中均匀随机地选择一块瓷砖。</p>
+</li>
+<li><p>如果该瓷砖没有被涂色，则她将那块瓷砖涂色，否则，她什么都不用干。</p>
+</li>
+<li><p>然后，她休息 $1$ 分钟，然后回到步骤 1。</p>
+</li>
 </ol>
-<p>cxy
-觉得，她会花费太多时间在砌墙上。所以，她想知道，她按照上面的方法砌墙所需的时间的期望。你可以假设涂一块瓷砖不用花费任何时间。</p>
+<p>cxy 觉得，她会花费太多时间在砌墙上。所以，她想知道，她按照上面的方法砌墙所需的时间的期望。你可以假设涂一块瓷砖不用花费任何时间。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 <span class="math inline">\(n, m~(1 \leq n \leq
-2000,~0 \leq m \leq \min \{n^2,
-20000\})\)</span>，表示墙的大小和已经涂色的瓷砖的个数。</p>
-<p>接下来的 <span class="math inline">\(m\)</span>
-行，每行包含两个正整数 <span class="math inline">\(r, c~(1 \leq r_i, c_i
-\leq n)\)</span>，表示被涂色的瓷砖的位置。保证这些位置互异，且行列均为
-<span class="math inline">\(1 \sim n\)</span> 编号。</p>
+<p>第一行包含两个正整数 $n, m~(1 \leq n \leq 2000,~0 \leq m \leq \min \{n^2, 20000\})$，表示墙的大小和已经涂色的瓷砖的个数。</p>
+<p>接下来的 $m$ 行，每行包含两个正整数 $r, c~(1 \leq r_i, c_i \leq n)$，表示被涂色的瓷砖的位置。保证这些位置互异，且行列均为 $1 \sim n$ 编号。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个实数，表示砌墙的期望时间。答案被认为正确当且仅当相对或绝对误差不超过
-<span class="math inline">\(10^{-4}\)</span>。</p>
+<p>输出一行一个实数，表示砌墙的期望时间。答案被认为正确当且仅当相对或绝对误差不超过 $10^{-4}$。</p>
 </blockquote>
-<p>考虑概率dp。设 <span class="math inline">\(f_{i,j}\)</span> 表示还有
-<span class="math inline">\(i\)</span> 行 <span
-class="math inline">\(j\)</span> 列没有涂颜色时剩下的时间的期望。</p>
-<p>边界 <span class="math inline">\(f_{0,0} = 0\)</span>
-，最后的答案即为 <span class="math inline">\(f_{r,c}\)</span> ，其中
-<span class="math inline">\(r,c\)</span>
-分别表示初始未染色的行数和列数。</p>
-<p>考虑 <span class="math inline">\(f_{i,j}\)</span> 的转移。设 <span
-class="math inline">\(f_{i,j}\)</span> 的这些未染色的行和列为 <span
-class="math inline">\(\mathcal{R}\)</span> 和 <span
-class="math inline">\(\mathcal{C}\)</span>
-，则他们把整个网格图分成了四个子集</p>
+<p>考虑概率dp。设 $f_{i,j}$ 表示还有 $i$ 行 $j$ 列没有涂颜色时剩下的时间的期望。</p>
+<p>边界 $f_{0,0} = 0$ ，最后的答案即为 $f_{r,c}$ ，其中 $r,c$ 分别表示初始未染色的行数和列数。</p>
+<p>考虑 $f_{i,j}$ 的转移。设 $f_{i,j}$ 的这些未染色的行和列为 $\mathcal{R}$ 和 $\mathcal{C}$ ，则他们把整个网格图分成了四个子集</p>
 <ul>
-<li>该行、该列均未上色的<span class="math inline">\(S_1 = \left\{ (x, y)
-\mid x \in \mathcal{R}, ~y \in \mathcal{C} \right\}\)</span></li>
-<li>行上色列未上色的 <span class="math inline">\(S_2 = \left\{ (x, y)
-\mid x \notin \mathcal{R},~ y \in \mathcal{C} \right\}\)</span></li>
-<li>列上色行未上色的 <span class="math inline">\(S_3 = \left\{ (x, y)
-\mid x \in \mathcal{R}, ~y \notin \mathcal{C} \right\}\)</span></li>
-<li>行列均已上色的<span class="math inline">\(S_4 = \left\{ (x, y) \mid
-x \notin \mathcal{R}, ~y \notin \mathcal{C} \right\}\)</span></li>
+<li>该行、该列均未上色的$S_1 = \left\{ (x, y) \mid x \in \mathcal{R}, ~y \in \mathcal{C} \right\}$</li>
+<li>行上色列未上色的 $S_2 = \left\{ (x, y) \mid x \notin \mathcal{R},~ y \in \mathcal{C} \right\}$</li>
+<li>列上色行未上色的 $S_3 = \left\{ (x, y) \mid x \in \mathcal{R}, ~y \notin \mathcal{C} \right\}$</li>
+<li>行列均已上色的$S_4 = \left\{ (x, y) \mid x \notin \mathcal{R}, ~y \notin \mathcal{C} \right\}$</li>
 </ul>
-<p>考虑下一步随机选的格子 <span class="math inline">\(k\)</span> 。</p>
+<p>考虑下一步随机选的格子 $k$ 。</p>
 <ul>
-<li><p>首先有 <span
-class="math inline">\(\frac{\left|S_1\right|}{\left|S_1\right|+\left|S_2\right|+\left|S_3\right|+\left|S_4\right|}=\frac{i
-j}{n m}\)</span> 的概率满足 <span class="math inline">\(k \in
-S_1\)</span></p>
-<p>此时未上色的行数变为 <span class="math inline">\(i-1\)</span>
-，列数变为 <span class="math inline">\(j-1\)</span> ，剩下的期望时间为
-<span class="math inline">\(f_{i-1,j-1}\)</span> 。</p></li>
-<li><p>类似的，有 <span
-class="math inline">\(\frac{\left|S_2\right|}{\left|S_1\right|+\left|S_2\right|+\left|S_3\right|+\left|S_4\right|}=\frac{(n-i)
-j}{n m}\)</span> 的概率满足 <span class="math inline">\(k \in
-S_2\)</span></p>
-<p>此时未上色的行数变为 <span class="math inline">\(i\)</span>
-，列数变为 <span class="math inline">\(j-1\)</span> ，剩下的期望时间为
-<span class="math inline">\(f_{i,j-1}\)</span> 。</p></li>
-<li><p>......（其他两种情况类似）</p></li>
+<li><p>首先有 $\frac{\left|S_1\right|}{\left|S_1\right|+\left|S_2\right|+\left|S_3\right|+\left|S_4\right|}=\frac{i j}{n m}$ 的概率满足 $k \in S_1$ </p>
+<p>此时未上色的行数变为 $i-1$ ，列数变为 $j-1$ ，剩下的期望时间为 $f_{i-1,j-1}$ 。</p>
+</li>
+<li><p>类似的，有 $\frac{\left|S_2\right|}{\left|S_1\right|+\left|S_2\right|+\left|S_3\right|+\left|S_4\right|}=\frac{(n-i) j}{n m}$ 的概率满足 $k \in S_2$ </p>
+<p>此时未上色的行数变为 $i$ ，列数变为 $j-1$ ，剩下的期望时间为 $f_{i,j-1}$ 。</p>
+</li>
+<li><p>……（其他两种情况类似）</p>
+</li>
 </ul>
-<p>则转移方程为 <span class="math display">\[
-f_{i, j}=1+\frac{1}{n m}\left[i j \times f_{i-1, j-1}+i(n-j) \times
-f_{i-1, j}+(n-i) j \times f_{i, j-1}+(n-i)(n-j) \times f_{i, j}\right]
-\]</span> 然后解一下这个 <span class="math inline">\(f_{i,j}\)</span>
-的一元一次方程，就可以得到 <span class="math inline">\(f_{i,j}\)</span>
-的转移方程了。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2 +
-m)\)</span></p>
+<p>则转移方程为</p>
+<script type="math/tex; mode=display">
+f_{i, j}=1+\frac{1}{n m}\left[i j \times f_{i-1, j-1}+i(n-j) \times f_{i-1, j}+(n-i) j \times f_{i, j-1}+(n-i)(n-j) \times f_{i, j}\right]</script><p>然后解一下这个 $f_{i,j}$ 的一元一次方程，就可以得到 $f_{i,j}$ 的转移方程了。</p>
+<p>时间复杂度 $\mathcal{O}(n^2 + m)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -629,10 +593,9 @@ m)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>R<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>C<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=343">https://yhx-12243.github.io/OI-transit/?redirect=343</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=343">https://yhx-12243.github.io/OI-transit/?redirect=343</a></p>
 
                 
             </div>
@@ -1006,7 +969,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?red
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">478.9k</span>&nbsp;字
+                class="white-color">492.6k</span>&nbsp;字
             
             
             

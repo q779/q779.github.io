@@ -511,151 +511,77 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf354d-transferring-pyramid-题解">CF354D Transferring Pyramid
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF354D">CF354D
-Transferring Pyramid</a></p>
+                <h1 id="CF354D-Transferring-Pyramid-题解"><a href="#CF354D-Transferring-Pyramid-题解" class="headerlink" title="CF354D Transferring Pyramid 题解"></a>CF354D Transferring Pyramid 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF354D">CF354D Transferring Pyramid</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>cxy 正在使用一个有趣的数据结构——金字塔。</p>
-<p>金字塔由 <span class="math inline">\(n\)</span> 行组成，其中第 <span
-class="math inline">\(i\)</span> 行有 <span
-class="math inline">\(i\)</span>
-个格子组成。每一行的最左端相对于上一行<strong>左移了半个格子的宽度</strong>，金字塔上的格子由
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(\binom
-{n+1}{2}\)</span>，从上至下，从左至右的编号。</p>
-<p>下图是一个 <span class="math inline">\(n = 5\)</span> 的例子：</p>
-<p><img
-src="http://codeforces.com/predownloaded/15/d1/15d17ab7bc490e052ed16eb5f8ff876c9951449c.png" /></p>
+<p>金字塔由 $n$ 行组成，其中第 $i$ 行有 $i$ 个格子组成。每一行的最左端相对于上一行<strong>左移了半个格子的宽度</strong>，金字塔上的格子由 $1$ 到 $\binom {n+1}{2}$，从上至下，从左至右的编号。</p>
+<p>下图是一个 $n = 5$ 的例子：</p>
+<p><img src="http://codeforces.com/predownloaded/15/d1/15d17ab7bc490e052ed16eb5f8ff876c9951449c.png" alt=""></p>
 <p>这个神奇的数据结构能接受下列两种操作：</p>
-<ol type="1">
-<li>改变一个特定位置上的值。它需要用 <span
-class="math inline">\(3\)</span> 个数作为指令：<code>1 i v</code>。其中
-<span class="math inline">\(i\)</span> 为格子的编号，<span
-class="math inline">\(v\)</span> 为改变后的值。</li>
-<li>改变一个子金字塔的值。上图蓝色部分显示的是以 <span
-class="math inline">\(5\)</span> 号格子为顶的子金字塔，它需要用 <span
-class="math inline">\(s + 2\)</span>
-个数作为指令：<code>2 i v1 v2 ... vs</code>，其中 <span
-class="math inline">\(i\)</span> 为子金字塔顶的格子的编号，<span
-class="math inline">\(s\)</span> 为子金字塔的大小 (如上图中是 <span
-class="math inline">\(6\)</span>)，<span
-class="math inline">\(v_i\)</span> 为对应修改后的值。(可以不改变，即
-<span class="math inline">\(v_i\)</span> 为之前的值)</li>
+<ol>
+<li>改变一个特定位置上的值。它需要用 $3$ 个数作为指令：<code>1 i v</code>。其中 $i$ 为格子的编号，$v$ 为改变后的值。</li>
+<li>改变一个子金字塔的值。上图蓝色部分显示的是以 $5$ 号格子为顶的子金字塔，它需要用 $s + 2$ 个数作为指令：<code>2 i v1 v2 ... vs</code>，其中 $i$ 为子金字塔顶的格子的编号，$s$ 为子金字塔的大小 (如上图中是 $6$)，$v_i$ 为对应修改后的值。(可以不改变，即 $v_i$ 为之前的值)</li>
 </ol>
-<p>正式地，一个以 <span class="math inline">\(i\)</span> 行 <span
-class="math inline">\(j\)</span> 列为顶的子金字塔会包含行 <span
-class="math inline">\(i \sim n\)</span>，其中第 <span
-class="math inline">\((i + p)\)</span> 行包含格子 <span
-class="math inline">\(j \sim (j + p)\quad(0 \leq p \leq n -
-i)\)</span>。</p>
-<p>现在有两个金字塔，金字塔 <span class="math inline">\(A\)</span> 的
-<span class="math inline">\(k\)</span> 个格子已经有非 <span
-class="math inline">\(0\)</span> 的数，而金字塔 <span
-class="math inline">\(B\)</span> 的所有格子都是 <span
-class="math inline">\(0\)</span>。cxy
-需要寻找一个操作序列，使得当它施加在 <span
-class="math inline">\(B\)</span> 上后，能使 <span
-class="math inline">\(B\)</span> 中的所有格子与 <span
-class="math inline">\(A\)</span> 中的对应格子均相等。</p>
+<p>正式地，一个以 $i$ 行 $j$ 列为顶的子金字塔会包含行 $i \sim n$，其中第 $(i + p)$ 行包含格子 $j \sim (j + p)\quad(0 \leq p \leq n - i)$。</p>
+<p>现在有两个金字塔，金字塔 $A$ 的 $k$ 个格子已经有非 $0$ 的数，而金字塔 $B$ 的所有格子都是 $0$。cxy 需要寻找一个操作序列，使得当它施加在 $B$ 上后，能使 $B$ 中的所有格子与 $A$ 中的对应格子均相等。</p>
 <p>在她的计算机中，执行一条指令的时钟周期数等于该操作序列的长度。因此，在众多合法操作序列中，她希望找到一条长度最短的操作序列（时钟周期最短的），请你帮她求出操作序列的长度的最小可能值。</p>
 <p><strong>输入格式</strong></p>
-<p>第一行包含两个正整数 <span class="math inline">\(n, k\)</span> <span
-class="math inline">\((n, k \leq 10^5)\)</span>
-，分别表示金字塔的行数与非 <span class="math inline">\(0\)</span>
-数的个数。</p>
-<p>接下来的 <span class="math inline">\(k\)</span>
-行，每行包含两个正整数，第 <span class="math inline">\(i + 1\)</span>
-行的整数 <span class="math inline">\(r_i, c_i (1 \leq c_i \leq r_i \leq
-n)\)</span> 描述其中一个非 <span class="math inline">\(0\)</span>
-数所在的格子的行数和列数，保证同一个格子不会被描述超过一遍。</p>
+<p>第一行包含两个正整数 $n, k$ $(n, k \leq 10^5)$ ，分别表示金字塔的行数与非 $0$ 数的个数。</p>
+<p>接下来的 $k$ 行，每行包含两个正整数，第 $i + 1$ 行的整数 $r_i, c_i (1 \leq c_i \leq r_i \leq n)$ 描述其中一个非 $0$ 数所在的格子的行数和列数，保证同一个格子不会被描述超过一遍。</p>
 <p><strong>输出格式</strong></p>
 <p>输出一行一个整数，表示操作序列的长度的最小可能值。</p>
 </blockquote>
 <p>首先我们先把它转成方便维护的形式</p>
 <p><img src="https://s2.loli.net/2022/08/22/qh3nJErUbI29ymY.png" style="zoom:50%;" /></p>
-<p>容易发现，原来的 <span class="math inline">\(r_i,c_i\)</span> 对应的
-<span class="math inline">\(x_i,y_i\)</span> 满足 <span
-class="math display">\[
+<p>容易发现，原来的 $r_i,c_i$ 对应的 $x_i,y_i$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;x_i = n - r_i + c_i
-\\&amp;y_i = n -r_i + 1
-\end{aligned}
-\]</span> 同时可以发现，原来的赋值就变成了一个类似直角三角形的赋值</p>
-<p>设 <span class="math inline">\(f_{i,j}(0 \le j \le i \le n)\)</span>
-表示正准备使用操作2粉刷<strong>第 <span class="math inline">\(i\)</span>
-列高度为 <span class="math inline">\(j\)</span>
-的金字塔</strong>，它上面<strong>类似梯形的区域</strong>的最小花费</p>
+&x_i = n - r_i + c_i
+\\&y_i = n -r_i + 1
+\end{aligned}</script><p>同时可以发现，原来的赋值就变成了一个类似直角三角形的赋值</p>
+<p>设 $f_{i,j}(0 \le j \le i \le n)$ 表示正准备使用操作2粉刷<strong>第 $i$ 列高度为 $j$ 的金字塔</strong>，它上面<strong>类似梯形的区域</strong>的最小花费</p>
 <p>例如下图中的黄色部分，就是当前准备使用操作2粉刷的金字塔</p>
-<p>而上面的蓝色部分就是 <span class="math inline">\(f_{i,j}\)</span></p>
+<p>而上面的蓝色部分就是 $f_{i,j}$ </p>
 <p><img src="https://s2.loli.net/2022/08/22/DvE8AVfoRFM5PNi.png" style="zoom:50%;" /></p>
-<p>则最终答案就是 <span class="math inline">\(f_{n,0}\)</span> 。</p>
-<p>记第 <span class="math inline">\(i\)</span> 列高度（<span
-class="math inline">\(y\)</span> 坐标）大于等于 <span
-class="math inline">\(j\)</span> 的 <span
-class="math inline">\(i-j+1\)</span> 个格子中，有 <span
-class="math inline">\(s_{i,j}\)</span> 个非 <span
-class="math inline">\(0\)</span> 格，则 <span class="math display">\[
+<p>则最终答案就是 $f_{n,0}$ 。</p>
+<p>记第 $i$ 列高度（$y$ 坐标）大于等于 $j$ 的 $i-j+1$ 个格子中，有 $s_{i,j}$ 个非 $0$ 格，则</p>
+<script type="math/tex; mode=display">
 f_{i,0} = \min \left\{
     f_{i-1,0} + 3s_{i,1},
     \min_{1 \le k \le i} \left\{
-    f_{i-1,k-1} + \left(\dfrac{1}{2}k^2 + \dfrac{1}{2}k + 2\right) +
-3_{i,k+1}
+    f_{i-1,k-1} + \left(\dfrac{1}{2}k^2 + \dfrac{1}{2}k + 2\right) + 3_{i,k+1}
     \right\}
-\right\}
-\]</span> 注意：这里是 <span class="math inline">\(f_{i,0}\)</span>
-，因为这个状态比较麻烦，单独提出来讲。</p>
-<p>yhx巨佬太强了<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>，<del>其实这个方程并不是那么显然就能推出来的（</del></p>
+\right\}</script><p>注意：这里是 $f_{i,0}$ ，因为这个状态比较麻烦，单独提出来讲。</p>
+<p>yhx巨佬太强了<sup><a href="#fn_1" id="reffn_1">1</a></sup>，<del>其实这个方程并不是那么显然就能推出来的（</del></p>
 <p>因为时间有限，这里就不画图说明了，仅作描述</p>
 <ul>
-<li><p><span class="math inline">\(f_{i-1,0} + 3s_{i,1}\)</span> 表示「
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(i-1\)</span>
-构成的完整三角形的花费」加上「填涂大于等于 <span
-class="math inline">\(j\)</span> 的 <span
-class="math inline">\(i-j+1\)</span> 个格子的花费」</p></li>
-<li><p><span class="math inline">\(\min\limits_{1 \le k \le
-i}\)</span>是枚举从 <span class="math inline">\(i-1\)</span>
-的哪个地方转移，这个比较好懂吧（</p></li>
-<li><p>先解释后面的 <span class="math inline">\(3_{i,k+1}\)</span>
-，这个指的是 <span class="math inline">\(i\)</span> 上面的那 <span
-class="math inline">\(i-j+1\)</span> 个格子的花费</p></li>
-<li><p><span class="math inline">\(\left(\dfrac{1}{2}k^2 + \dfrac{1}{2}k
-+ 2\right)\)</span>
-比较麻烦，建议画一画图（<del>我时间有限，对不住了</del></p></li>
+<li><p>$f_{i-1,0} + 3s_{i,1}$ 表示「 $1$ 到 $i-1$ 构成的完整三角形的花费」加上「填涂大于等于 $j$ 的 $i-j+1$ 个格子的花费」</p>
+</li>
+<li><p>$\min\limits_{1 \le k \le i}$是枚举从 $i-1$ 的哪个地方转移，这个比较好懂吧（</p>
+</li>
+<li><p>先解释后面的 $3_{i,k+1}$ ，这个指的是 $i$ 上面的那 $i-j+1$ 个格子的花费</p>
+</li>
+<li><p>$\left(\dfrac{1}{2}k^2 + \dfrac{1}{2}k + 2\right)$ 比较麻烦，建议画一画图（<del>我时间有限，对不住了</del></p>
+<p>这个指的是除了 $f_{i-1,k-1}$ 和 $i$ 上面那一段，剩下的一个小三角形的花费，其实原来的柿子是 $\frac{k(k+1)}{2} + 2$ 。</p>
+</li>
 </ul>
-<p>这个指的是除了 <span class="math inline">\(f_{i-1,k-1}\)</span> 和
-<span class="math inline">\(i\)</span>
-上面那一段，剩下的一个小三角形的花费，其实原来的柿子是 <span
-class="math inline">\(\frac{k(k+1)}{2} + 2\)</span> 。</p>
-<p>终于解释完了 <span class="math inline">\(j=0\)</span> 的情况。</p>
-<p>对于 <span class="math inline">\(j \ge 1\)</span> 的情况，有 <span
-class="math display">\[
+<p>终于解释完了 $j=0$ 的情况。</p>
+<p>对于 $j \ge 1$ 的情况，有</p>
+<script type="math/tex; mode=display">
 f_{i,j} = \min \left\{
     f_{i,j-1},~f_{i-1,j-1}+3s_{i,j+1}
-\right\}
-\]</span> 这个就很显然了，不解释了。</p>
-<p>说了半天，这还只是一个 <span class="math inline">\(O(n^2)\)</span>
-的暴力</p>
+\right\}</script><p>这个就很显然了，不解释了。</p>
+<p>说了半天，这还只是一个 $O(n^2)$ 的暴力</p>
 <p>考虑继续优化，当然这需要善于观察性质。</p>
 <p>注意到其实很多时候粉刷整个大三角形是很浪费的</p>
-<p>全部单点修改的花费也只有 <span class="math inline">\(3k\)</span></p>
+<p>全部单点修改的花费也只有 $3k$ </p>
 <p>因此我们可以发现，判断一个三角形是否有必要粉刷</p>
-<p>或者具体地， <span class="math inline">\(f_{i,j}\)</span> 在 <span
-class="math inline">\(j\)</span>
-大于某个边界时，没有必要转移了，一定是不优的</p>
-<p>高度为 <span class="math inline">\(h\)</span>
-的三角形，粉刷所需的花费为 <span class="math inline">\(\dfrac{1}{2}h^2 +
-\dfrac{1}{2}h + 2\)</span></p>
-<p>则有不等式，<span class="math inline">\(\dfrac{1}{2}h^2 +
-\dfrac{1}{2}h + 2 &gt; 3k\)</span> ，即 <span class="math inline">\(h
-&lt; O(\sqrt{6k})\)</span></p>
-<p>因此第二维只要枚举到 <span
-class="math inline">\(O(\sqrt{6k})\)</span> 就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(n \sqrt{k})\)</span> ，然后
-<span class="math inline">\(f_{i,j}\)</span> 滚动一下就能过了</p>
+<p>或者具体地， $f_{i,j}$ 在 $j$ 大于某个边界时，没有必要转移了，一定是不优的</p>
+<p>高度为 $h$ 的三角形，粉刷所需的花费为 $\dfrac{1}{2}h^2 + \dfrac{1}{2}h + 2$ </p>
+<p>则有不等式，$\dfrac{1}{2}h^2 + \dfrac{1}{2}h + 2 &gt; 3k$ ，即 $h &lt; O(\sqrt{6k})$</p>
+<p>因此第二维只要枚举到 $O(\sqrt{6k})$ 就好了</p>
+<p>时间复杂度 $O(n \sqrt{k})$ ，然后 $f_{i,j}$ 滚动一下就能过了</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -738,15 +664,9 @@ pair<span class="token operator">&lt;</span><span class="token keyword">int</spa
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p><a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf354D.html">https://yhx-12243.github.io/OI-transit/records/cf354D.html</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<blockquote id="fn_1">
+<sup>1</sup>. <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf354D.html">https://yhx-12243.github.io/OI-transit/records/cf354D.html</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 
                 
             </div>
@@ -1124,7 +1044,7 @@ href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">478.9k</span>&nbsp;字
+                class="white-color">492.6k</span>&nbsp;字
             
             
             

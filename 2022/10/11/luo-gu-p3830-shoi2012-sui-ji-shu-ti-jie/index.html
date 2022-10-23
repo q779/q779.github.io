@@ -515,75 +515,41 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3830-shoi2012随机树-题解">洛谷P3830 [SHOI2012]随机树
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3830">P3830
-[SHOI2012]随机树</a></p>
+                <h1 id="洛谷P3830-SHOI2012-随机树-题解"><a href="#洛谷P3830-SHOI2012-随机树-题解" class="headerlink" title="洛谷P3830 [SHOI2012]随机树 题解"></a>洛谷P3830 [SHOI2012]随机树 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3830">P3830 [SHOI2012]随机树</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>给定一棵有根随机树和，求</p>
-<ol type="1">
+<ol>
 <li>叶子结点深度的期望</li>
-<li>树深度的期望（根节点深度为 <span class="math inline">\(0\)</span>
-）</li>
+<li>树深度的期望（根节点深度为 $0$ ）</li>
 </ol>
-<p>每组数据将给出 <span class="math inline">\(\mathtt{op=1/2}\)</span>
-，表示询问的子问题。</p>
+<p>每组数据将给出 $\mathtt{op=1/2}$ ，表示询问的子问题。</p>
 <p>随机方式如下</p>
-<ol type="1">
+<ol>
 <li>初始只有根节点</li>
 <li>每次选择一个<strong>叶结点</strong>，为其添加两个子结点</li>
-<li>重复步骤 2 （共 <span class="math inline">\(n-1\)</span>
-次），得到一棵随机树。</li>
+<li>重复步骤 2 （共 $n-1$ 次），得到一棵随机树。</li>
 </ol>
-<p>例如下图为 <span class="math inline">\(n=5\)</span>
-的一种生成方式。</p>
+<p>例如下图为 $n=5$ 的一种生成方式。</p>
 <p><img src="https://s2.loli.net/2022/10/11/QPpE835rbOKzdJa.png" style="zoom:50%;" /></p>
 <p><strong>输入格式</strong>：</p>
-<p>输入仅有一行，包含两个正整数 <span
-class="math inline">\(\mathtt{op},n\)</span>
-，分别表示问题编号以及叶结点的个数。</p>
+<p>输入仅有一行，包含两个正整数 $\mathtt{op},n$ ，分别表示问题编号以及叶结点的个数。</p>
 <p><strong>输出格式</strong>:</p>
-<p>输出仅有一行，包含一个实数 <span
-class="math inline">\(d\)</span>，四舍五入精确到小数点后 <span
-class="math inline">\(6\)</span> 位。如果 <span
-class="math inline">\(\mathtt{op = 1}\)</span>，则 d
-表示叶结点平均深度的数学期望值；如果 <span
-class="math inline">\(\mathtt{op = 2}\)</span> ，则 <span
-class="math inline">\(d\)</span> 表示树深度的数学期望值。</p>
+<p>输出仅有一行，包含一个实数 $d$，四舍五入精确到小数点后 $6$ 位。如果 $\mathtt{op = 1}$，则 d 表示叶结点平均深度的数学期望值；如果 $\mathtt{op = 2}$ ，则 $d$ 表示树深度的数学期望值。 </p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(\mathtt{op=1/2}, ~2 \le n \le
-100\)</span> 。</p>
+<p>$\mathtt{op=1/2}, ~2 \le n \le 100$ 。</p>
 </blockquote>
 <p>注意到生成这棵树的方式于叶结点数量有关，因此可以围绕叶结点设计状态。</p>
-<p>首先第一问，设 <span class="math inline">\(f_i\)</span> 表示 <span
-class="math inline">\(i\)</span>
-个叶子结点的树的「叶子结点深度期望」，则总深度为 <span
-class="math inline">\(i\times f_i\)</span> 。</p>
-<p>考虑在 <span class="math inline">\(i-1\)</span>
-个叶子结点的树中随机展开一个叶子，那么深度总和会增加 <span
-class="math inline">\(f_{i-1} + 2\)</span> ，则 <span
-class="math display">\[
-f_i = \frac{1}{i}\times \left[f_{i-1}\times (i-1) + f_{i-1} + 2\right] =
-f_{i-1} + \frac{2}{i}
-\]</span> 然后第二问。设 <span class="math inline">\(f_{i,j}\)</span>
-表示 <span class="math inline">\(i\)</span> 个叶子结点的树，深度大于等于
-<span class="math inline">\(j\)</span> 的概率。则最终答案为 <span
-class="math inline">\(\sum_{i=1}^{n-1}f_{n,i}\)</span> 。</p>
+<p>首先第一问，设 $f_i$ 表示 $i$ 个叶子结点的树的「叶子结点深度期望」，则总深度为 $i\times f_i$ 。</p>
+<p>考虑在 $i-1$ 个叶子结点的树中随机展开一个叶子，那么深度总和会增加 $f_{i-1} + 2$ ，则</p>
+<script type="math/tex; mode=display">
+f_i = \frac{1}{i}\times \left[f_{i-1}\times (i-1) + f_{i-1} + 2\right] = f_{i-1} + \frac{2}{i}</script><p>然后第二问。设 $f_{i,j}$ 表示 $i$ 个叶子结点的树，深度大于等于 $j$ 的概率。则最终答案为 $\sum_{i=1}^{n-1}f_{n,i}$ 。</p>
 <blockquote>
-<p>注：记 <span class="math inline">\(p_i\)</span> 表示 <span
-class="math inline">\(n\)</span> 个叶子结点的树深度为 <span
-class="math inline">\(i\)</span> 的概率，则 <span
-class="math inline">\(\sum_{i=1}^{n-1}f_{n,i} =
-\sum_{i=1}^{n-1}p_i\times i\)</span> 。</p>
+<p>注：记 $p_i$ 表示 $n$ 个叶子结点的树深度为 $i$ 的概率，则 $\sum_{i=1}^{n-1}f_{n,i} = \sum_{i=1}^{n-1}p_i\times i$ 。</p>
 </blockquote>
-<p>考虑转移，这里需要用到基本的容斥原理。下面的 <span
-class="math inline">\(\frac{1}{i-1}\)</span> 是每一种情况的出现概率
-<span class="math display">\[
-f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} -
-f_{k,j-1}f_{i-k,j-1})
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<p>考虑转移，这里需要用到基本的容斥原理。下面的 $\frac{1}{i-1}$ 是每一种情况的出现概率</p>
+<script type="math/tex; mode=display">
+f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-1}f_{i-k,j-1})</script><p>时间复杂度 $\mathcal{O}(n^2)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -620,10 +586,9 @@ class="math inline">\(\mathcal{O}(n^2)\)</span></p>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fizzmy/solution-p3830">https://www.luogu.com.cn/blog/Fizzmy/solution-p3830</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fizzmy/solution-p3830">https://www.luogu.com.cn/blog/Fizzmy/solution-p3830</a></p>
 
                 
             </div>
@@ -1001,7 +966,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fizzmy/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">478.9k</span>&nbsp;字
+                class="white-color">492.6k</span>&nbsp;字
             
             
             
