@@ -503,37 +503,72 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4552-Poetize6-IncDec-Sequence-题解"><a href="#洛谷P4552-Poetize6-IncDec-Sequence-题解" class="headerlink" title="洛谷P4552 [Poetize6] IncDec Sequence 题解"></a>洛谷P4552 [Poetize6] IncDec Sequence 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4552">P4552 [Poetize6] IncDec Sequence</a></p>
+                <h1 id="洛谷p4552-poetize6-incdec-sequence-题解">洛谷P4552 [Poetize6]
+IncDec Sequence 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4552">P4552
+[Poetize6] IncDec Sequence</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 $n$ 的数列 ${a_1,a_2,\cdots,a_n}$，每次可以选择一个区间$[l,r]$，使这个区间内的数都加 $1$ 或者都减 $1$。 </p>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的数列 <span
+class="math inline">\({a_1,a_2,\cdots,a_n}\)</span>，每次可以选择一个区间<span
+class="math inline">\([l,r]\)</span>，使这个区间内的数都加 <span
+class="math inline">\(1\)</span> 或者都减 <span
+class="math inline">\(1\)</span>。</p>
 <p>请问至少需要多少次操作才能使数列中的所有数都一样，并求出在保证最少次数的前提下，最终得到的数列有多少种。</p>
-<p>对于 $100\%$ 的数据，$n\le 100000, 0 \le a_i \le 2^{31}$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(n\le 100000, 0 \le a_i \le 2^{31}\)</span>。</p>
 </blockquote>
 <p>这道题思路比较有趣，代码很简单但是相对来说不好想</p>
-<p>本文比较长，建议耐心阅读（<del>当然也可以直接 <code>⌘+w</code> 或者 <code>ctrl+w</code> 啦</del>）</p>
-<p>差分，常用于 $O(1)$ 区间加减，全局询问</p>
+<p>本文比较长，建议耐心阅读（<del>当然也可以直接 <code>⌘+w</code> 或者
+<code>ctrl+w</code> 啦</del>）</p>
+<p>差分，常用于 <span class="math inline">\(O(1)\)</span>
+区间加减，全局询问</p>
 <p>对于这种看上去也不是用数据结构做的题目，</p>
-<p>考虑差分。差分数组 $b_i$ 的定义为 $b_i = a_i-a_{i-1}$</p>
-<p>容易发现 $a_i = \sum_{1 \le j \le i}b_i$ ，值得注意的是， $a_1 = b_1$  </p>
-<p>对于区间 $[l,r]$ 加 $1$ 的修改，只要把 $b_l$ 加上 $1$ ，$b_{r+1}$ 减去 $1$ 就可以了</p>
-<p>然后问题就转化为了将 $b_2,b_3,\dots,b_n$ 都变成 $0$ 的最小花费</p>
-<p>观察差分的性质，其实每次修改就是在搬运一个 $1$ ，</p>
-<p>也就是把它从 $b_l$ 搬到 $b_{r+1}$ ，或者反过来搬</p>
+<p>考虑差分。差分数组 <span class="math inline">\(b_i\)</span> 的定义为
+<span class="math inline">\(b_i = a_i-a_{i-1}\)</span></p>
+<p>容易发现 <span class="math inline">\(a_i = \sum_{1 \le j \le
+i}b_i\)</span> ，值得注意的是， <span class="math inline">\(a_1 =
+b_1\)</span></p>
+<p>对于区间 <span class="math inline">\([l,r]\)</span> 加 <span
+class="math inline">\(1\)</span> 的修改，只要把 <span
+class="math inline">\(b_l\)</span> 加上 <span
+class="math inline">\(1\)</span> ，<span
+class="math inline">\(b_{r+1}\)</span> 减去 <span
+class="math inline">\(1\)</span> 就可以了</p>
+<p>然后问题就转化为了将 <span
+class="math inline">\(b_2,b_3,\dots,b_n\)</span> 都变成 <span
+class="math inline">\(0\)</span> 的最小花费</p>
+<p>观察差分的性质，其实每次修改就是在搬运一个 <span
+class="math inline">\(1\)</span> ，</p>
+<p>也就是把它从 <span class="math inline">\(b_l\)</span> 搬到 <span
+class="math inline">\(b_{r+1}\)</span> ，或者反过来搬</p>
 <p>对于每个合法的修改，一定可以完成这样的操作</p>
-<p>可以发现当 $r=n$ 时会出现从外面搬过来或者搬到外面去的情况</p>
-<p>先不急，我们先考虑 $r&lt;n$ 时</p>
-<p>显然我们可以把所有的 $b_i<0$ 和 $b_j >0$ 配对（ $2 \le i \le j \le n$ ），然后相互抵消</p>
-<p>可以发现这样配对消去的最小花费为 $\min(p,q)$ </p>
-<p>其中 $p= \sum_{1 \le i \le n} [b_i<0],~q= \sum_{1 \le i \le n} [b_i>0]$</p>
+<p>可以发现当 <span class="math inline">\(r=n\)</span>
+时会出现从外面搬过来或者搬到外面去的情况</p>
+<p>先不急，我们先考虑 <span class="math inline">\(r&lt;n\)</span> 时</p>
+<p>显然我们可以把所有的 <span class="math inline">\(b_i&lt;0\)</span> 和
+<span class="math inline">\(b_j &gt;0\)</span> 配对（ <span
+class="math inline">\(2 \le i \le j \le n\)</span> ），然后相互抵消</p>
+<p>可以发现这样配对消去的最小花费为 <span
+class="math inline">\(\min(p,q)\)</span></p>
+<p>其中 <span class="math inline">\(p= \sum_{1 \le i \le n}
+[b_i&lt;0],~q= \sum_{1 \le i \le n} [b_i&gt;0]\)</span></p>
 <p>这样配对也会出现最后消不完的情况，</p>
-<p>这个时候我们就可以把它们与 $n+1$ 配对，或者 $b_1$ </p>
-<p>这样的答案是 $\operatorname{abs}(p-q)$</p>
-<p>则最后的答案就是 $\min(p,q)+\operatorname{abs}(p-q)=\max(p,q)$</p>
+<p>这个时候我们就可以把它们与 <span class="math inline">\(n+1\)</span>
+配对，或者 <span class="math inline">\(b_1\)</span></p>
+<p>这样的答案是 <span
+class="math inline">\(\operatorname{abs}(p-q)\)</span></p>
+<p>则最后的答案就是 <span
+class="math inline">\(\min(p,q)+\operatorname{abs}(p-q)=\max(p,q)\)</span></p>
 <p>再看第二问，其实很简单</p>
-<p>看我们的最后一步，如果和 $b_1$ 配对 $k$ 次，最后的 $a_i$ 就会变成 $b_1+k$ </p>
-<p>所以方案数就是 $\operatorname{abs}(p-q)+1$ （不与 $b_1$ 配对也是一种情况） </p>
-<p>然后就好了，时间复杂度 $O(n)$ </p>
+<p>看我们的最后一步，如果和 <span class="math inline">\(b_1\)</span>
+配对 <span class="math inline">\(k\)</span> 次，最后的 <span
+class="math inline">\(a_i\)</span> 就会变成 <span
+class="math inline">\(b_1+k\)</span></p>
+<p>所以方案数就是 <span
+class="math inline">\(\operatorname{abs}(p-q)+1\)</span> （不与 <span
+class="math inline">\(b_1\)</span> 配对也是一种情况）</p>
+<p>然后就好了，时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -591,7 +626,7 @@
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://q779.github.io/2022/06/16/luo-gu-p4552-poetize6-incdec-sequence-ti-jie/">https://q779.github.io/2022/06/16/luo-gu-p4552-poetize6-incdec-sequence-ti-jie/</a>
                 </span>
@@ -604,7 +639,7 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
                     !
@@ -928,7 +963,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">516.6k</span>&nbsp;字
+                class="white-color">525.9k</span>&nbsp;字
             
             
             

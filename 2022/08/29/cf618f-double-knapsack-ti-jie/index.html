@@ -515,37 +515,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF618F-Double-Knapsack-题解"><a href="#CF618F-Double-Knapsack-题解" class="headerlink" title="CF618F Double Knapsack 题解"></a>CF618F Double Knapsack 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF618F">CF618F Double Knapsack</a></p>
+                <h1 id="cf618f-double-knapsack-题解">CF618F Double Knapsack 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF618F">CF618F
+Double Knapsack</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给你两个可重集 $A, B$，$A, B$ 的元素个数都为 $n$，它们中每个元素的大小 $x\in [1,n]$。请你分别找出 $A, B$ 的子集，使得它们中的元素之和相等。</p>
-<p>$n\leq 10^6$。</p>
+<p>给你两个可重集 <span class="math inline">\(A, B\)</span>，<span
+class="math inline">\(A, B\)</span> 的元素个数都为 <span
+class="math inline">\(n\)</span>，它们中每个元素的大小 <span
+class="math inline">\(x\in [1,n]\)</span>。请你分别找出 <span
+class="math inline">\(A, B\)</span>
+的子集，使得它们中的元素之和相等。</p>
+<p><span class="math inline">\(n\leq 10^6\)</span>。</p>
 </blockquote>
 <p><del>什么神仙构造题</del> 姑且认为是打表找规律的构造题吧</p>
 <p>结论：<strong>一定有解</strong>，并且存在<strong>连续子序列</strong>（子段）的解。</p>
-<p>这里的连续子序列甚至不用排序，就是 $A,B$ 任意排列中的某个连续子序列</p>
+<p>这里的连续子序列甚至不用排序，就是 <span
+class="math inline">\(A,B\)</span> 任意排列中的某个连续子序列</p>
 <p>证明：（鸽巢原理）</p>
-<p>设 $A_i = \sum_{j=1}^{i}a_j,B_i=\sum_{j=1}^{i}b_j$ ，并定义 $A_0 = B_0=0$ </p>
-<p>不失一般性<sup><a href="#fn_1" id="reffn_1">1</a></sup>，我们假设 $A_n \le B_n$ 。</p>
-<p>定义 $f : \mathbb{N} \to \mathbb{N}$ ， $f(i)~(0\le i \le n)$ 表示满足 $A_i \ge B_{f(i)}$ 的最大整数，显然 $0\le f(i) \le n$ 。</p>
-<p>由于 $A_i &lt; B_{f(i)+1}$ ，则</p>
-<script type="math/tex; mode=display">
-A_i < B_{f(i)} + b_{f(i)+1}</script><p>移项得</p>
-<script type="math/tex; mode=display">
-A_i -B_{f(i)} < b_{f(i)+1}</script><p>因为 $1\le b_{f(i)+1} \le n$ ，所以</p>
-<script type="math/tex; mode=display">
-0 \le A_i - B_{f(i)} < n</script><p>则 $A_i - B_{f(i)}$ 有 $n$ 种取值，而 $0\le i \le n$ ，即 $i$ 有 $n+1$ 种取值</p>
-<p>根据鸽巢原理，可知<strong>至少有两个 $A_i - B_{f(i)}$ 是相等的</strong>。</p>
-<p>这意味着，存在 $l_1&lt;r_1$ 满足</p>
-<script type="math/tex; mode=display">
-A_{l_1} - B_{f(l_1)} = A_{r_1} - B_{f(r_1)}</script><p> 记 $l_2=f(l_1),r_2=f(r_1)$ ，移项可得</p>
-<script type="math/tex; mode=display">
-A_{r_1}-A_{l_1}=B_{r_2}-B_{l_2}</script><p>故结论成立。</p>
-<p>那么怎么求出 $f(i)$ 呢，显然这个 $f(i)$ 是单调不降的，于是直接维护一个指针就好了</p>
-<p>然后我们用个桶，边跑边记录每个 $A_i - B_{f(i)}$ 对应的 $i$ 和 $f(i)$ </p>
-<p>直到碰到一个 $A_i -B_{f(i)}$ ，之前出现过了，就输出答案。</p>
-<p>注意要单独开个数组判断 $A_i - B_{f(i)}$ ，因为 $i$ 可以为 $0$ 。</p>
-<p>时间复杂度 $O(n)$ </p>
+<p>设 <span class="math inline">\(A_i =
+\sum_{j=1}^{i}a_j,B_i=\sum_{j=1}^{i}b_j\)</span> ，并定义 <span
+class="math inline">\(A_0 = B_0=0\)</span></p>
+<p>不失一般性<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>，我们假设 <span
+class="math inline">\(A_n \le B_n\)</span> 。</p>
+<p>定义 <span class="math inline">\(f : \mathbb{N} \to
+\mathbb{N}\)</span> ， <span class="math inline">\(f(i)~(0\le i \le
+n)\)</span> 表示满足 <span class="math inline">\(A_i \ge
+B_{f(i)}\)</span> 的最大整数，显然 <span class="math inline">\(0\le f(i)
+\le n\)</span> 。</p>
+<p>由于 <span class="math inline">\(A_i &lt; B_{f(i)+1}\)</span> ，则
+<span class="math display">\[
+A_i &lt; B_{f(i)} + b_{f(i)+1}
+\]</span></p>
+<p>移项得 <span class="math display">\[
+A_i -B_{f(i)} &lt; b_{f(i)+1}
+\]</span> 因为 <span class="math inline">\(1\le b_{f(i)+1} \le
+n\)</span> ，所以 <span class="math display">\[
+0 \le A_i - B_{f(i)} &lt; n
+\]</span> 则 <span class="math inline">\(A_i - B_{f(i)}\)</span> 有
+<span class="math inline">\(n\)</span> 种取值，而 <span
+class="math inline">\(0\le i \le n\)</span> ，即 <span
+class="math inline">\(i\)</span> 有 <span
+class="math inline">\(n+1\)</span> 种取值</p>
+<p>根据鸽巢原理，可知<strong>至少有两个 <span class="math inline">\(A_i
+- B_{f(i)}\)</span> 是相等的</strong>。</p>
+<p>这意味着，存在 <span class="math inline">\(l_1&lt;r_1\)</span> 满足
+<span class="math display">\[
+A_{l_1} - B_{f(l_1)} = A_{r_1} - B_{f(r_1)}
+\]</span> 记 <span class="math inline">\(l_2=f(l_1),r_2=f(r_1)\)</span>
+，移项可得 <span class="math display">\[
+A_{r_1}-A_{l_1}=B_{r_2}-B_{l_2}
+\]</span> 故结论成立。</p>
+<p>那么怎么求出 <span class="math inline">\(f(i)\)</span> 呢，显然这个
+<span class="math inline">\(f(i)\)</span>
+是单调不降的，于是直接维护一个指针就好了</p>
+<p>然后我们用个桶，边跑边记录每个 <span class="math inline">\(A_i -
+B_{f(i)}\)</span> 对应的 <span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(f(i)\)</span></p>
+<p>直到碰到一个 <span class="math inline">\(A_i -B_{f(i)}\)</span>
+，之前出现过了，就输出答案。</p>
+<p>注意要单独开个数组判断 <span class="math inline">\(A_i -
+B_{f(i)}\)</span> ，因为 <span class="math inline">\(i\)</span> 可以为
+<span class="math inline">\(0\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -596,10 +629,23 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注释</strong>：</p>
-<p><sup><a href="#fn_1" id="reffn_1">1</a></sup>:<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%A4%B1%E4%B8%80%E8%88%AC%E6%80%A7">不失一般性</a>（without loss of generality，缩写：WLOG、WOLOG或w.l.o.g.）是数学中一个常见的表达。 其被用在证明中将前提条件明确到个例上时，说明该个例能代表普遍情况，而非一种特例。</p>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Sham-Devour/solution-cf618f">https://www.luogu.com.cn/blog/Sham-Devour/solution-cf618f</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/nizhuan/solution-cf618f">https://www.luogu.com.cn/blog/nizhuan/solution-cf618f</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Sham-Devour/solution-cf618f">https://www.luogu.com.cn/blog/Sham-Devour/solution-cf618f</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/nizhuan/solution-cf618f">https://www.luogu.com.cn/blog/nizhuan/solution-cf618f</a></p>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%A4%B1%E4%B8%80%E8%88%AC%E6%80%A7">不失一般性</a>（without
+loss of
+generality，缩写：WLOG、WOLOG或w.l.o.g.）是数学中一个常见的表达。
+其被用在证明中将前提条件明确到个例上时，说明该个例能代表普遍情况，而非一种特例。<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
                 
             </div>
@@ -624,7 +670,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://q779.github.io/2022/08/29/cf618f-double-knapsack-ti-jie/">https://q779.github.io/2022/08/29/cf618f-double-knapsack-ti-jie/</a>
                 </span>
@@ -637,7 +683,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
                     !
@@ -972,7 +1018,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">516.6k</span>&nbsp;字
+                class="white-color">525.9k</span>&nbsp;字
             
             
             
