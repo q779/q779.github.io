@@ -328,7 +328,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p120.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p219.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,23 +511,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3698-CQOI2017-小Q的棋盘-题解"><a href="#洛谷P3698-CQOI2017-小Q的棋盘-题解" class="headerlink" title="洛谷P3698 [CQOI2017]小Q的棋盘 题解"></a>洛谷P3698 [CQOI2017]小Q的棋盘 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3698">P3698 [CQOI2017]小Q的棋盘</a></p>
+                <h1 id="洛谷p3698-cqoi2017小q的棋盘-题解">洛谷P3698 [CQOI2017]小Q的棋盘
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3698">P3698
+[CQOI2017]小Q的棋盘</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小 Q 正在设计一种棋类游戏。</p>
-<p>在小 Q 设计的游戏中，棋子可以放在棋盘上的格点中。某些格点之间有连线，棋子只能在有连线的格点之间移动。整个棋盘上共有 $V$ 个格点，编号为$0,1,2,\dots , V−1$，它们是连通的，也就是说棋子从任意格点出发，总能到达所有的格点。小 Q 在设计棋盘时，还保证棋子从一个格点移动到另外任一格点的路径是唯一的。</p>
-<p>小 Q 现在想知道，当棋子从格点 $0$ 出发，移动 $N$ 步最多能经过多少格点。格点可以重复经过多次，但不重复计数。</p>
-<p>对于 $100\%$ 的测试点，$N,V \le 100,~0 \le a_i,b_i&lt; V$ 。</p>
+<p>在小 Q
+设计的游戏中，棋子可以放在棋盘上的格点中。某些格点之间有连线，棋子只能在有连线的格点之间移动。整个棋盘上共有
+<span class="math inline">\(V\)</span> 个格点，编号为<span
+class="math inline">\(0,1,2,\dots ,
+V−1\)</span>，它们是连通的，也就是说棋子从任意格点出发，总能到达所有的格点。小
+Q
+在设计棋盘时，还保证棋子从一个格点移动到另外任一格点的路径是唯一的。</p>
+<p>小 Q 现在想知道，当棋子从格点 <span class="math inline">\(0\)</span>
+出发，移动 <span class="math inline">\(N\)</span>
+步最多能经过多少格点。格点可以重复经过多次，但不重复计数。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的测试点，<span
+class="math inline">\(N,V \le 100,~0 \le a_i,b_i&lt; V\)</span> 。</p>
 </blockquote>
 <p>显然树上背包</p>
-<p>值得注意的是，我们并不知道走的路线有没有回到 $u$ </p>
+<p>值得注意的是，我们并不知道走的路线有没有回到 <span
+class="math inline">\(u\)</span></p>
 <p>因此要多加一维</p>
-<p>设 $f_{u,j,0/1}$ 表示 $u$ 所在子树，走了 $j$ 步，$0/1$ 表示是/否回到 $u$ </p>
-<p>不难发现</p>
-<script type="math/tex; mode=display">
-f_{u,j,0}=\max_{v \in \text{son}(u)}\left\{f_{u,j,0},f_{u,j-k,0}+f_{v,k-2,0}\right\}
-\\f_{u,j,1}=\max_{v \in \text{son}(u)}\left\{f_{u,j,1},f_{u,j-k,1}+f_{v,k-2,0},f_{u,j-k,0}+f_{v,k-1,1}\right\}</script><p>注意一下边界问题就好了</p>
-<p>时间复杂度 $O(nm^2)$ </p>
+<p>设 <span class="math inline">\(f_{u,j,0/1}\)</span> 表示 <span
+class="math inline">\(u\)</span> 所在子树，走了 <span
+class="math inline">\(j\)</span> 步，<span
+class="math inline">\(0/1\)</span> 表示是/否回到 <span
+class="math inline">\(u\)</span></p>
+<p>不难发现 <span class="math display">\[
+f_{u,j,0}=\max_{v \in
+\text{son}(u)}\left\{f_{u,j,0},f_{u,j-k,0}+f_{v,k-2,0}\right\}
+\\f_{u,j,1}=\max_{v \in
+\text{son}(u)}\left\{f_{u,j,1},f_{u,j-k,1}+f_{v,k-2,0},f_{u,j-k,0}+f_{v,k-1,1}\right\}
+\]</span> 注意一下边界问题就好了</p>
+<p>时间复杂度 <span class="math inline">\(O(nm^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -601,8 +620,10 @@ f_{u,j,0}=\max_{v \in \text{son}(u)}\left\{f_{u,j,0},f_{u,j-k,0}+f_{v,k-2,0}\rig
 cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>而不用</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cout <span class="token operator">&lt;&lt;</span> g<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>从 $m$ 的角度看，多走肯定不会减少答案</p>
-<p>但是如果 $m &gt; 2(n-1)$ ，那么按照正常的dp是走不出这样的步数的</p>
+<p>从 <span class="math inline">\(m\)</span>
+的角度看，多走肯定不会减少答案</p>
+<p>但是如果 <span class="math inline">\(m &gt; 2(n-1)\)</span>
+，那么按照正常的dp是走不出这样的步数的</p>
 <p>所以可以用前者输出答案，或者读入后加一句</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">m<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后其实<code>memset</code>没什么必要，具体看下面代码</p>
@@ -795,7 +816,7 @@ cout <span class="token operator">&lt;&lt;</span> res <span class="token operato
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p96.png" class="responsive-img" alt="洛谷P4551 最长异或路径 题解">
+                        <img src="/medias/featureimages/p137.jpg" class="responsive-img" alt="洛谷P4551 最长异或路径 题解">
                         
                         <span class="card-title">洛谷P4551 最长异或路径 题解</span>
                     </div>
@@ -852,7 +873,7 @@ cout <span class="token operator">&lt;&lt;</span> res <span class="token operato
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p43.jpg" class="responsive-img" alt="洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解">
+                        <img src="/medias/featureimages/p141.jpg" class="responsive-img" alt="洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解">
                         
                         <span class="card-title">洛谷P1005 [NOIP2007 提高组] 矩阵取数游戏 题解</span>
                     </div>
@@ -1043,7 +1064,7 @@ cout <span class="token operator">&lt;&lt;</span> res <span class="token operato
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">543.8k</span>&nbsp;字
+                class="white-color">556.8k</span>&nbsp;字
             
             
             

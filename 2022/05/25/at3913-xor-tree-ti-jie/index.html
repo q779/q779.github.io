@@ -328,7 +328,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p221.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p149.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -507,64 +507,102 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AT3913-XOR-Tree-题解"><a href="#AT3913-XOR-Tree-题解" class="headerlink" title="AT3913 XOR Tree 题解"></a>AT3913 XOR Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT3913">AT3913 XOR Tree</a></p>
+                <h1 id="at3913-xor-tree-题解">AT3913 XOR Tree 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT3913">AT3913
+XOR Tree</a></p>
 <blockquote>
-<p><strong>题意</strong>：给你一棵有 $N$ 个节点的树，节点编号从 $0$ 到 $N-1$ ， 树边编号从 $1$ 到 $N-1$ 。第 $i$ 条边连接节点 $x_i$ 和 $y_i$ ，其权值为 $a_i$。</p>
-<p>你可以对树执行任意次操作，每次操作选取一条链和一个非负整数 $x$，将链上的边的权值与 $x$ 异或成为该边的新权值。</p>
-<p>问最少需要多少次操作，使得所有边的权值都为 $0$ 。</p>
-<p>$2\le N \le10^5,0\le x_i,y_i \le N-1,0\le a_i \le 15$</p>
+<p><strong>题意</strong>：给你一棵有 <span
+class="math inline">\(N\)</span> 个节点的树，节点编号从 <span
+class="math inline">\(0\)</span> 到 <span
+class="math inline">\(N-1\)</span> ， 树边编号从 <span
+class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N-1\)</span> 。第 <span
+class="math inline">\(i\)</span> 条边连接节点 <span
+class="math inline">\(x_i\)</span> 和 <span
+class="math inline">\(y_i\)</span> ，其权值为 <span
+class="math inline">\(a_i\)</span>。</p>
+<p>你可以对树执行任意次操作，每次操作选取一条链和一个非负整数 <span
+class="math inline">\(x\)</span>，将链上的边的权值与 <span
+class="math inline">\(x\)</span> 异或成为该边的新权值。</p>
+<p>问最少需要多少次操作，使得所有边的权值都为 <span
+class="math inline">\(0\)</span> 。</p>
+<p><span class="math inline">\(2\le N \le10^5,0\le x_i,y_i \le N-1,0\le
+a_i \le 15\)</span></p>
 </blockquote>
 <p>首先可以想到：</p>
 <p>边权不好处理，将其转化为点权</p>
 <p>不过如果直接转化为点权似乎还是不好弄 <del>q779想到这就没了</del></p>
-<p>我们知道异或有自反性 $(p\oplus q \oplus p = q )$ 等性质</p>
-<p>则考虑将点权定义为 $\text{val}(u) = \bigoplus\limits_{v_i \in V \land (u,v_i) \in E}w(u,v_i)$</p>
+<p>我们知道异或有自反性 <span class="math inline">\((p\oplus q \oplus p
+= q )\)</span> 等性质</p>
+<p>则考虑将点权定义为 <span class="math inline">\(\text{val}(u) =
+\bigoplus\limits_{v_i \in V \land (u,v_i) \in E}w(u,v_i)\)</span></p>
 <p>也就是<strong>和每个结点直接相邻的边的边权的异或和</strong></p>
 <p>此时我们就将边权映射到了点权上（注意本题可以看作一棵无向无根树）</p>
-<p>路径 $u-v$ 的修改转化为了 $u,v$ 两个点的修改</p>
+<p>路径 <span class="math inline">\(u-v\)</span> 的修改转化为了 <span
+class="math inline">\(u,v\)</span> 两个点的修改</p>
 <p>因为点权是异或和</p>
 <p>所以同时修改路径上某个非端点结点所连的两条边，异或和不变（自反性）</p>
 <p>首先，我们来证明几个结论</p>
-<hr>
+<hr />
 <blockquote>
-<p><strong>命题1</strong> ：当且仅当 $\sum_{u_i\in V} \text{val}(u_i)=0$ 时，$\sum_{l_i\in E} w(l_i) = 0$。</p>
+<p><strong>命题1</strong> ：当且仅当 <span
+class="math inline">\(\sum_{u_i\in V} \text{val}(u_i)=0\)</span>
+时，<span class="math inline">\(\sum_{l_i\in E} w(l_i) =
+0\)</span>。</p>
 </blockquote>
 <p><strong>证明</strong>：</p>
 <ul>
-<li><p>必要性证明：显然当边权和为 $0$ 时，点权和也为 $0$ 。</p>
-</li>
-<li><p>充分性证明：设树上的结点数为 $n$ ，若叶子结点 $u$ 的点权为 $0$ </p>
-<p>则与其相连的边的边权也为 $0$ ，因此这条边不会影响到 $u$ 的父结点，归纳可得</p>
-</li>
+<li><p>必要性证明：显然当边权和为 <span class="math inline">\(0\)</span>
+时，点权和也为 <span class="math inline">\(0\)</span> 。</p></li>
+<li><p>充分性证明：设树上的结点数为 <span
+class="math inline">\(n\)</span> ，若叶子结点 <span
+class="math inline">\(u\)</span> 的点权为 <span
+class="math inline">\(0\)</span></p></li>
 </ul>
-<script type="math/tex; mode=display">
-\sum_{u_i\in V} \text{val}(u_i)=0 \Rightarrow \sum_{l_i\in E} w(l_i) = 0</script><hr>
+<p>则与其相连的边的边权也为 <span class="math inline">\(0\)</span>
+，因此这条边不会影响到 <span class="math inline">\(u\)</span>
+的父结点，归纳可得</p>
+<p><span class="math display">\[
+\sum_{u_i\in V} \text{val}(u_i)=0 \Rightarrow \sum_{l_i\in E} w(l_i) = 0
+\]</span></p>
+<hr />
 <blockquote>
-<p><strong>命题2</strong>：一个数字集合通过不断取两个数字并异或上同一个数有解，当且仅当这个数字集合异或和为 $0$ 。</p>
+<p><strong>命题2</strong>：一个数字集合通过不断取两个数字并异或上同一个数有解，当且仅当这个数字集合异或和为
+<span class="math inline">\(0\)</span> 。</p>
 </blockquote>
 <p><strong>证明</strong>：显然，因为每次修改不会改变该集合的异或和。</p>
-<hr>
+<hr />
 <blockquote>
-<p><strong>命题3</strong>：$\bigoplus\limits_{u_i\in V} \text{val}(u_i) = 0$ 。</p>
+<p><strong>命题3</strong>：<span
+class="math inline">\(\bigoplus\limits_{u_i\in V} \text{val}(u_i) =
+0\)</span> 。</p>
 </blockquote>
 <p><strong>证明</strong>：显然，每条边都有两个端点，根据自反性可得。</p>
-<hr>
+<hr />
 <p>这样，我们就可以贪心地选择两个点权相同的结点消掉了</p>
 <p>可是如果没有没有点权相同的结点了怎么办呢？</p>
-<p>可以发现，此时最多有 $16$ 个互不相同的数字，而 $0$ 不用考虑，因此最多只有 $15$ 个数字</p>
+<p>可以发现，此时最多有 <span class="math inline">\(16\)</span>
+个互不相同的数字，而 <span class="math inline">\(0\)</span>
+不用考虑，因此最多只有 <span class="math inline">\(15\)</span>
+个数字</p>
 <p>考虑状压dp</p>
-<p>令 $dp_s$ 为将数字集合 $s$ 全部变为 $0$ 的最小操作数</p>
-<p>显然至多要 $|s|-1$ 次操作（也就是原图中一条条边消）</p>
+<p>令 <span class="math inline">\(dp_s\)</span> 为将数字集合 <span
+class="math inline">\(s\)</span> 全部变为 <span
+class="math inline">\(0\)</span> 的最小操作数</p>
+<p>显然至多要 <span class="math inline">\(|s|-1\)</span>
+次操作（也就是原图中一条条边消）</p>
 <p>直接去搞是有后效性的，所以考虑如何转移</p>
-<p>我们可以枚举 $s$ 的一个子集 $k$ ，则有 $dp_s = \min(dp_s,dp_k+dp_{s/k})$</p>
-<p>复杂度怎么样呢？</p>
-<script type="math/tex; mode=display">
+<p>我们可以枚举 <span class="math inline">\(s\)</span> 的一个子集 <span
+class="math inline">\(k\)</span> ，则有 <span class="math inline">\(dp_s
+= \min(dp_s,dp_k+dp_{s/k})\)</span></p>
+<p>复杂度怎么样呢？ <span class="math display">\[
 \begin{aligned}
-O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right) 
-&= O\left((1+2)^{15}-1 + n\right) \\
-&= O(3^{15}+n) \\\\
-&= O(n)
-\end{aligned}</script><p>代码如下</p>
+O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right)
+&amp;= O\left((1+2)^{15}-1 + n\right) \\
+&amp;= O(3^{15}+n) \\\\
+&amp;= O(n)
+\end{aligned}
+\]</span> 代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -595,8 +633,10 @@ O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right)
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><del>讲个笑话，写完自己读一遍差点没读懂</del></p>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-at3913">https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-at3913</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xzc/solution-at3913">https://www.luogu.com.cn/blog/xzc/solution-at3913</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-at3913">https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-at3913</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xzc/solution-at3913">https://www.luogu.com.cn/blog/xzc/solution-at3913</a></p>
 
                 
             </div>
@@ -718,7 +758,7 @@ O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right)
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p168.jpg" class="responsive-img" alt="洛谷P4170 [CQOI2007]涂色 题解">
+                        <img src="/medias/featureimages/p122.jpg" class="responsive-img" alt="洛谷P4170 [CQOI2007]涂色 题解">
                         
                         <span class="card-title">洛谷P4170 [CQOI2007]涂色 题解</span>
                     </div>
@@ -771,7 +811,7 @@ O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right)
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p5.jpg" class="responsive-img" alt="CF19B Checkout Assistant 题解">
+                        <img src="/medias/featureimages/p70.jpg" class="responsive-img" alt="CF19B Checkout Assistant 题解">
                         
                         <span class="card-title">CF19B Checkout Assistant 题解</span>
                     </div>
@@ -962,7 +1002,7 @@ O\left( \sum\limits_{i=1}^{15}\operatorname{C}_{15}^i2^i + n\right)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">543.8k</span>&nbsp;字
+                class="white-color">556.8k</span>&nbsp;字
             
             
             

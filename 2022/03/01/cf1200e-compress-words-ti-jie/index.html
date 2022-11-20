@@ -328,7 +328,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p129.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p31.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -507,11 +507,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1200E-Compress-Words-题解"><a href="#CF1200E-Compress-Words-题解" class="headerlink" title="CF1200E Compress Words 题解"></a>CF1200E Compress Words 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1200E">CF1200E Compress Words</a></p>
+                <h1 id="cf1200e-compress-words-题解">CF1200E Compress Words 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1200E">CF1200E
+Compress Words</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定一堆字符串，依次插入答案串尾部，每次删掉答案串的后缀 与 待插入串的前缀的最大匹配串</p>
+<p><strong>题意</strong>：给定一堆字符串，依次插入答案串尾部，每次删掉答案串的后缀
+与 待插入串的前缀的最大匹配串</p>
 </blockquote>
-<h2 id="解法一-KMP"><a href="#解法一-KMP" class="headerlink" title="解法一 KMP"></a>解法一 KMP</h2><p>这个解法常数比较大</p>
+<h2 id="解法一-kmp">解法一 KMP</h2>
+<p>这个解法常数比较大</p>
 <p>可以想到，暂时把待插入串放到答案串前，然后跑一遍KMP</p>
 <p>最后一个值就是新串的最长前后缀，也就是我们要求的最大匹配串的长度</p>
 <p>由于直接拼接新串会导致某些时候答案超出原长</p>
@@ -519,7 +523,8 @@
 <p>注意不能自带border</p>
 <p>而这样的算法还是不行的，因为答案串中有很多字符其实用不到</p>
 <p>因此我们只要截取答案串后面的拼接即可</p>
-<p>时间复杂度 $O(\sum |s_i|) = O(n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(\sum |s_i|) =
+O(n)\)</span></p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -555,31 +560,52 @@
     cout <span class="token operator">&lt;&lt;</span> ans<span class="token operator">+</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="解法二-字符串哈希"><a href="#解法二-字符串哈希" class="headerlink" title="解法二 字符串哈希"></a>解法二 字符串哈希</h2><p>这里主要扯扯字符串哈希的东西</p>
+<h2 id="解法二-字符串哈希">解法二 字符串哈希</h2>
+<p>这里主要扯扯字符串哈希的东西</p>
 <p>虽然之前没怎么研究，一直用的<code>unordered_map&lt;string,int&gt;mp</code></p>
 <p>但是这次就手写个字符串哈希吧</p>
-<p>一般字符串哈希有两种写法，这里就按照<a target="_blank" rel="noopener" href="https://oi-wiki.org/string/hash/">OI WIKI</a>默认的写法来讲了</p>
-<p>定义哈希函数 $f(s) = \sum\limits_{i=1}^{l}s[i]\times b^{l-i} \mod M$ </p>
-<p>一般来讲我们不会只用一个大质数 $M$ ，而是一堆 qwq</p>
-<p>因为这样它的 $n$ 次比较的错误率会降到  $1-\left(1-\dfrac{1}{\prod M_i}\right)^n$</p>
+<p>一般字符串哈希有两种写法，这里就按照<a
+target="_blank" rel="noopener" href="https://oi-wiki.org/string/hash/">OI WIKI</a>默认的写法来讲了</p>
+<p>定义哈希函数 <span class="math inline">\(f(s) =
+\sum\limits_{i=1}^{l}s[i]\times b^{l-i} \mod M\)</span></p>
+<p>一般来讲我们不会只用一个大质数 <span class="math inline">\(M\)</span>
+，而是一堆 qwq</p>
+<p>因为这样它的 <span class="math inline">\(n\)</span>
+次比较的错误率会降到 <span
+class="math inline">\(1-\left(1-\dfrac{1}{\prod
+M_i}\right)^n\)</span></p>
 <blockquote>
-<p>这个数有多小呢？我们假设只有两个大质数 <code>1e9+7,998244353</code>，比较<code>1e6</code>次</p>
-<p>那么它的值约为 $0.00000000000100175873$ </p>
+<p>这个数有多小呢？我们假设只有两个大质数
+<code>1e9+7,998244353</code>，比较<code>1e6</code>次</p>
+<p>那么它的值约为 <span
+class="math inline">\(0.00000000000100175873\)</span></p>
 <p>这错误的概率还没计算机出故障的几率高吧</p>
 <p>因此我们直接忽略不计</p>
 </blockquote>
-<p>那么对于一个字符串 $\tt{xyz}$，它的值就等于 $(xb^2+yb+z) \mod M$ </p>
-<p>类比于一个 $b$ 进制的数，应该还算比较好理解的</p>
-<p>根据这个式子，如果我们要求它的一个子串 $s[l\dots r]$ 的哈希值怎么办</p>
-<p>注意到 $f(s[l\dots r]) = \sum\limits_{i=l}^{r}s[i]\times b^{r-i} \mod M$ </p>
-<p>因此可以得到结论 $f(s[l\dots r]) = f(s[1\dots r]))-f(s[1\dots l-1])\times b^{r-l+1} \mod M$ </p>
-<p>注意这里，由于做了取模操作，$f(s[l\dots r])$ 的值可能为负数，要注意把它转成正的</p>
-<p>这样我们就可以 $O(n)$ 预处理 $b$ ， $O(1)$ 查询了（也可以就快速幂 $O(\log n)$ 查询）</p>
+<p>那么对于一个字符串 <span
+class="math inline">\(\tt{xyz}\)</span>，它的值就等于 <span
+class="math inline">\((xb^2+yb+z) \mod M\)</span></p>
+<p>类比于一个 <span class="math inline">\(b\)</span>
+进制的数，应该还算比较好理解的</p>
+<p>根据这个式子，如果我们要求它的一个子串 <span
+class="math inline">\(s[l\dots r]\)</span> 的哈希值怎么办</p>
+<p>注意到 <span class="math inline">\(f(s[l\dots r]) =
+\sum\limits_{i=l}^{r}s[i]\times b^{r-i} \mod M\)</span></p>
+<p>因此可以得到结论 <span class="math inline">\(f(s[l\dots r]) =
+f(s[1\dots r]))-f(s[1\dots l-1])\times b^{r-l+1} \mod M\)</span></p>
+<p>注意这里，由于做了取模操作，<span class="math inline">\(f(s[l\dots
+r])\)</span> 的值可能为负数，要注意把它转成正的</p>
+<p>这样我们就可以 <span class="math inline">\(O(n)\)</span> 预处理 <span
+class="math inline">\(b\)</span> ， <span
+class="math inline">\(O(1)\)</span> 查询了（也可以就快速幂 <span
+class="math inline">\(O(\log n)\)</span> 查询）</p>
 <p>好的相信你已经理解了字符串哈希的一些基本东西，下面来做个简单的小例题</p>
 <p>好吧就是这题，看它题意</p>
 <p>很简单，直接暴力枚举+哈希就OK了，</p>
-<p>而朴素的解法，语句 <code>str1==str2</code> ，它实质上是 $O(n)$ 级别的</p>
-<p>因此我们把朴素解法的 $O(n^2)$ 就可以压到 $O(n)$ 了</p>
+<p>而朴素的解法，语句 <code>str1==str2</code> ，它实质上是 <span
+class="math inline">\(O(n)\)</span> 级别的</p>
+<p>因此我们把朴素解法的 <span class="math inline">\(O(n^2)\)</span>
+就可以压到 <span class="math inline">\(O(n)\)</span> 了</p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -782,7 +808,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p46.jpg" class="responsive-img" alt="洛谷P4357 [CQOI2016]K 远点对 题解">
+                        <img src="/medias/featureimages/p163.jpg" class="responsive-img" alt="洛谷P4357 [CQOI2016]K 远点对 题解">
                         
                         <span class="card-title">洛谷P4357 [CQOI2016]K 远点对 题解</span>
                     </div>
@@ -839,7 +865,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p25.png" class="responsive-img" alt="洛谷P2387 [NOI2014] 魔法森林 题解">
+                        <img src="/medias/featureimages/p34.png" class="responsive-img" alt="洛谷P2387 [NOI2014] 魔法森林 题解">
                         
                         <span class="card-title">洛谷P2387 [NOI2014] 魔法森林 题解</span>
                     </div>
@@ -1034,7 +1060,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">543.8k</span>&nbsp;字
+                class="white-color">556.8k</span>&nbsp;字
             
             
             
