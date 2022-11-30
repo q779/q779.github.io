@@ -507,94 +507,67 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="放球问题">放球问题</h1>
-<p>关键词：子集划分</p>
+                <h1 id="放球问题"><a href="#放球问题" class="headerlink" title="放球问题"></a>放球问题</h1><p>关键词：子集划分</p>
 <p><strong>题目</strong>：</p>
 <ul>
-<li>给定 <span class="math inline">\(n\)</span>
-个（有标号/无标号）的球</li>
-<li>放到 <span class="math inline">\(m\)</span>
-个（有标号/无标号）的盒子里</li>
+<li>给定 $n$ 个（有标号/无标号）的球</li>
+<li>放到 $m$ 个（有标号/无标号）的盒子里</li>
 <li>每个盒子（可空/不可空）</li>
 </ul>
 <p>注：“可空”表示可以有空的盒子，但不能全是空的盒子。</p>
 <p><br></p>
 <p>一些可能会出现的东西：</p>
-<p><span class="math inline">\(A_{m}^n\)</span> ：<span
-class="math inline">\(n\)</span> 个元素选 <span
-class="math inline">\(m\)</span> 个元素的排列。</p>
-<p><span class="math inline">\(S(n,m)\)</span> 为<a
-href="/2022/07/29/oi-shu-xue-zong-jie-zu-he-shu-xue/#toc-heading-12">第二类斯特林数</a>，表示将
-<span class="math inline">\(n\)</span> 个<strong>不同</strong>元素划分为
-<span class="math inline">\(m\)</span>
-个<strong>无区别</strong>的<strong>非空子集</strong>的方案数，有 <span
-class="math display">\[
+<p>$A_{m}^n$ ：$n$ 个元素选 $m$ 个元素的排列。</p>
+<p>$S(n,m)$ 为<a href="/2022/07/29/oi-shu-xue-zong-jie-zu-he-shu-xue/#toc-heading-12">第二类斯特林数</a>，表示将 $n$ 个<strong>不同</strong>元素划分为 $m$ 个<strong>无区别</strong>的<strong>非空子集</strong>的方案数，有</p>
+<script type="math/tex; mode=display">
 S(n,0)=[n=0]
-\\[6pt] S(n,m) = S(n-1,m-1) + mS(n-1,m)
-\]</span></p>
-<hr />
+\\[6pt] S(n,m) = S(n-1,m-1) + mS(n-1,m)</script><hr>
 <p><strong>题解</strong>：</p>
-<ol type="1">
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「无标号」的球，放到 <span class="math inline">\(m\)</span>
-个「无标号」的盒子里，每个盒子「不可空」</p>
-<p>解：生成函数，咕咕咕。</p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「无标号」的球，放到 <span class="math inline">\(m\)</span>
-个「无标号」的盒子里，每个盒子「可空」</p>
-<p>解：生成函数，咕咕咕。</p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「无标号」的球，放到 <span class="math inline">\(m\)</span>
-个「有标号」的盒子里，每个盒子「不可空」</p>
-<p>解：问题等价于求解下面方程的解的个数 <span class="math display">\[
-x_1 + x_2 + \cdots + x_m = n \qquad(x_i \in \mathbb{Z}_+)
-\]</span> 考虑插空法。将 <span class="math inline">\(m-1\)</span>
-个隔板插到 <span class="math inline">\(n-1\)</span>
-个空隙中（空隙只能放至多一个）</p>
-<p>则方案数为 <span class="math display">\[
-\dbinom{n-1}{m-1}
-\]</span> <br></p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「无标号」的球，放到 <span class="math inline">\(m\)</span>
-个「有标号」的盒子里，每个盒子「可空」</p>
-<p>解：和上一题差不多，只不过 <span class="math inline">\(x_i \in
-\mathbb{N}\)</span> ，我们只要令 <span class="math inline">\(y_i =
-x_i+1\)</span> ，就i转化为了 <span class="math display">\[
-y_1 + y_2 + \cdots + y_m = n + m\qquad(y_i \in \mathbb{Z_+})
-\]</span> 则方案数为 <span class="math display">\[
-\dbinom{n+m-1}{m-1}
-\]</span> <br></p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「有标号」的球，放到 <span class="math inline">\(m\)</span>
-个「无标号」的盒子里，每个盒子「不可空」</p>
-<p>解：根据第二类斯特林数的定义易得 <span class="math display">\[
-S(n,m)
-\]</span> <br></p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「有标号」的球，放到 <span class="math inline">\(m\)</span>
-个「无标号」的盒子里，每个盒子「可空」</p>
-<p>解：枚举非空盒子的个数，注意不能全为空 <span class="math display">\[
-\sum_{i=1}^{m}S(n,i)
-\]</span> <br></p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「有标号」的球，放到 <span class="math inline">\(m\)</span>
-个「有标号」的盒子里，每个盒子「不可空」</p>
-<p>解：枚举 <span class="math inline">\(m\)</span> 个盒子的全排列即可
-<span class="math display">\[
-m!S(n,m)
-\]</span> <br></p></li>
-<li><p>给定 <span class="math inline">\(n\)</span>
-个「有标号」的球，放到 <span class="math inline">\(m\)</span>
-个「有标号」的盒子里，每个盒子「可空」</p>
-<p>解：枚举非空盒子的个数，对于个数相同的情况，乘上一个排列数 <span
-class="math display">\[
-\sum_{i=1}^{m}A_{m}^{i}S(n,i)
-\]</span></p></li>
+<ol>
+<li><p>给定 $n$ 个「无标号」的球，放到 $m$ 个「无标号」的盒子里，每个盒子「不可空」</p>
+<p>解：生成函数，咕咕咕。</p>
+</li>
+<li><p>给定 $n$ 个「无标号」的球，放到 $m$ 个「无标号」的盒子里，每个盒子「可空」</p>
+<p>解：生成函数，咕咕咕。</p>
+</li>
+<li><p>给定 $n$ 个「无标号」的球，放到 $m$ 个「有标号」的盒子里，每个盒子「不可空」</p>
+<p>解：问题等价于求解下面方程的解的个数</p>
+<script type="math/tex; mode=display">
+x_1 + x_2 + \cdots + x_m = n \qquad(x_i \in \mathbb{Z}_+)</script><p>考虑插空法。将 $m-1$ 个隔板插到 $n-1$ 个空隙中（空隙只能放至多一个）</p>
+<p>则方案数为</p>
+<script type="math/tex; mode=display">
+\dbinom{n-1}{m-1}</script><p><br></p>
+</li>
+<li><p>给定 $n$ 个「无标号」的球，放到 $m$ 个「有标号」的盒子里，每个盒子「可空」</p>
+<p>解：和上一题差不多，只不过 $x_i \in \mathbb{N}$ ，我们只要令 $y_i = x_i+1$ ，就i转化为了</p>
+<script type="math/tex; mode=display">
+y_1 + y_2 + \cdots + y_m = n + m\qquad(y_i \in \mathbb{Z_+})</script><p>则方案数为</p>
+<script type="math/tex; mode=display">
+\dbinom{n+m-1}{m-1}</script><p><br></p>
+</li>
+<li><p>给定 $n$ 个「有标号」的球，放到 $m$ 个「无标号」的盒子里，每个盒子「不可空」</p>
+<p>解：根据第二类斯特林数的定义易得</p>
+<script type="math/tex; mode=display">
+S(n,m)</script><p><br></p>
+</li>
+<li><p>给定 $n$ 个「有标号」的球，放到 $m$ 个「无标号」的盒子里，每个盒子「可空」</p>
+<p>解：枚举非空盒子的个数，注意不能全为空</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{m}S(n,i)</script><p><br></p>
+</li>
+<li><p>给定 $n$ 个「有标号」的球，放到 $m$ 个「有标号」的盒子里，每个盒子「不可空」</p>
+<p>解：枚举 $m$ 个盒子的全排列即可</p>
+<script type="math/tex; mode=display">
+m!S(n,m)</script><p><br></p>
+</li>
+<li><p>给定 $n$ 个「有标号」的球，放到 $m$ 个「有标号」的盒子里，每个盒子「可空」</p>
+<p>解：枚举非空盒子的个数，对于个数相同的情况，乘上一个排列数</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{m}A_{m}^{i}S(n,i)</script></li>
 </ol>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706">https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706">https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706</a></p>
 
                 
             </div>
@@ -959,7 +932,7 @@ target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%9
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">580.9k</span>&nbsp;字
+                class="white-color">581.6k</span>&nbsp;字
             
             
             

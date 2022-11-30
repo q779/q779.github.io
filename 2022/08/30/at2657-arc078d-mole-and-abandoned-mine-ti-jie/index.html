@@ -511,25 +511,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="at2657-arc078d-mole-and-abandoned-mine-题解">AT2657 [ARC078D]
-Mole and Abandoned Mine 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT2657">AT2657
-[ARC078D] Mole and Abandoned Mine</a></p>
+                <h1 id="AT2657-ARC078D-Mole-and-Abandoned-Mine-题解"><a href="#AT2657-ARC078D-Mole-and-Abandoned-Mine-题解" class="headerlink" title="AT2657 [ARC078D] Mole and Abandoned Mine 题解"></a>AT2657 [ARC078D] Mole and Abandoned Mine 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT2657">AT2657 [ARC078D] Mole and Abandoned Mine</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p><del>cxy 准备住在一个废弃的矿洞里</del>，矿洞的结构可以用一个包含
-<span class="math inline">\(n\)</span> 个点，<span
-class="math inline">\(m\)</span> 条边的连通无向简单图来表示，其中点以
-<span class="math inline">\(1,2,\cdots,n\)</span> 编号。第 <span
-class="math inline">\(i\)</span> 条边连接点 <span
-class="math inline">\(a_i\)</span> 和 <span
-class="math inline">\(b_i\)</span>，并且移除它需要花费 <span
-class="math inline">\(c_i\)</span> 元。</p>
-<p>cxy 想要移除一些边，使得点 <span class="math inline">\(1\)</span>
-和点 <span class="math inline">\(n\)</span>
-之间有且仅有唯一的<strong>路径</strong>，请你帮她寻找满足要求所需的最小花费。</p>
-<p><strong>注：一条路径 (path) 指的是不能经过重复点的途径 (walk)，一条迹
-(trail) 指的是不能经过重复边的途径。</strong></p>
+<p><del>cxy 准备住在一个废弃的矿洞里</del>，矿洞的结构可以用一个包含 $n$ 个点，$m$ 条边的连通无向简单图来表示，其中点以 $1,2,\cdots,n$ 编号。第 $i$ 条边连接点 $a_i$ 和 $b_i$，并且移除它需要花费 $c_i$ 元。</p>
+<p>cxy 想要移除一些边，使得点 $1$ 和点 $n$ 之间有且仅有唯一的<strong>路径</strong>，请你帮她寻找满足要求所需的最小花费。</p>
+<p><strong>注：一条路径 (path) 指的是不能经过重复点的途径 (walk)，一条迹 (trail) 指的是不能经过重复边的途径。</strong></p>
 <p><strong>输入格式</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">n m
 a1 b1 c1
@@ -539,55 +526,32 @@ am bm cm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>一行，即答案。</p>
 <p><strong>数据范围</strong>：</p>
 <p>保证是连通简单图。</p>
-<p><span class="math inline">\(2 \leq n \leq 15,~n - 1 \leq m \leq
-\dbinom n2,~1 \leq a_i, b_i \leq n ,~1 \leq c_i \leq 10^6\)</span></p>
+<p>$2 \leq n \leq 15,~n - 1 \leq m \leq \dbinom n2,~1 \leq a_i, b_i \leq n ,~1 \leq c_i \leq 10^6$</p>
 </blockquote>
-<p>它要求 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 只有 <span
-class="math inline">\(1\)</span> 条路径，并且不用经过所有点</p>
+<p>它要求 $1$ 到 $n$ 只有 $1$ 条路径，并且不用经过所有点</p>
 <p>因此这张图应该长成这样</p>
 <p><img src="https://s2.loli.net/2022/08/30/sardEtqW9g2FLzN.png" style="zoom:67%;" /></p>
 <p>也就是每个保留路径上的结点都挂着一些结点。</p>
 <p>删除的边权值和最小并不是很好处理，可以反过来计算<strong>保留的边权值和最大</strong>。</p>
-<p>注意到 <span class="math inline">\(n\le 15\)</span> ，考虑状压dp</p>
-<p>设 <span class="math inline">\(f_{A,u}~(u \in A)\)</span>
-表示可以到达的点集为 <span class="math inline">\(A\)</span>
-，主路上现在走到 <span class="math inline">\(u\)</span>
-，保留的边权值和的最大值。</p>
-<p>结合下图，其中蓝色部分表示 <span
-class="math inline">\(f_{A,u}\)</span> 。</p>
+<p>注意到 $n\le 15$ ，考虑状压dp</p>
+<p>设 $f_{A,u}~(u \in A)$ 表示可以到达的点集为 $A$ ，主路上现在走到 $u$ ，保留的边权值和的最大值。</p>
+<p>结合下图，其中蓝色部分表示 $f_{A,u}$ 。</p>
 <p><img src="https://s2.loli.net/2022/08/30/hgxWqZdHtnwFbNU.png" style="zoom:50%;" /></p>
 <p>考虑转移。</p>
-<p>下文中使用 <span class="math inline">\(a\uparrow b+c\)</span> 表示
-<span class="math inline">\(a \leftarrow \max\{a,b+c\}\)</span></p>
-<p>第一种，在主路上加入与 <span class="math inline">\(u\)</span> 连通的
-<span class="math inline">\(v\)</span> ，也就是图中的红色部分，则 <span
-class="math display">\[
-f_{A\cup \{v\},v} \uparrow f_{A,u} + w(u,v)
-\]</span> 第二种，在 <span class="math inline">\(u\)</span>
-下面挂一个连通块，如果把上面的 <span class="math inline">\(v\)</span>
-看成 <span class="math inline">\(u\)</span> ，那连通块就是绿色部分，则
-<span class="math display">\[
-f_{A \cup B,u} \uparrow f_{A,u} + \mathtt{out}(u,B) + \mathtt{in}(B)
-\]</span> 其中，</p>
-<p><span class="math inline">\(\mathtt{out}(u,B)\)</span> 表示 <span
-class="math inline">\(B\)</span> 中所有与 <span
-class="math inline">\(u\)</span> 直接相连的点的边权和，即 <span
-class="math display">\[
-\mathtt{out}(u,B)=\sum_{v \in B} w(u,v)
-\]</span> <span class="math inline">\(\mathtt{in}(B)\)</span> 表示原图
-<span class="math inline">\(G\)</span> 的导出子图 <span
-class="math inline">\(G[B]\)</span> 中所有点的边权和，即 <span
-class="math display">\[
-\mathtt{in}(B) = \dfrac{1}{2} \sum_{u,v\in B} w(u,v)
-\]</span> <span class="math inline">\(\mathtt{in},\mathtt{out}\)</span>
-都是可以在 <span class="math inline">\(O(2^nn^2)\)</span>
-的时间内处理出来的</p>
-<p>dp转移的复杂度为 <span class="math inline">\(O(3^n n)\)</span></p>
-<p>总时间复杂度 <span class="math inline">\(O(2^nn^2 + 3^nn)\)</span>
-，看上去后者是瓶颈。</p>
-<p>代码：（不明白的话可以参考<a
-href="https://q779.github.io/2022/08/30/dp-zong-jie-zhuang-ya-dp/">DP总结-状压dp</a>）</p>
+<p>下文中使用 $a\uparrow b+c$ 表示 $a \leftarrow \max\{a,b+c\}$  </p>
+<p>第一种，在主路上加入与 $u$ 连通的 $v$ ，也就是图中的红色部分，则</p>
+<script type="math/tex; mode=display">
+f_{A\cup \{v\},v} \uparrow f_{A,u} + w(u,v)</script><p>第二种，在 $u$ 下面挂一个连通块，如果把上面的 $v$ 看成 $u$ ，那连通块就是绿色部分，则</p>
+<script type="math/tex; mode=display">
+f_{A \cup B,u} \uparrow f_{A,u} + \mathtt{out}(u,B) + \mathtt{in}(B)</script><p>其中，</p>
+<p>$\mathtt{out}(u,B)$ 表示 $B$ 中所有与 $u$ 直接相连的点的边权和，即</p>
+<script type="math/tex; mode=display">
+\mathtt{out}(u,B)=\sum_{v \in B} w(u,v)</script><p>$\mathtt{in}(B)$ 表示原图 $G$ 的导出子图 $G[B]$ 中所有点的边权和，即</p>
+<script type="math/tex; mode=display">
+\mathtt{in}(B) = \dfrac{1}{2} \sum_{u,v\in B} w(u,v)</script><p>$\mathtt{in},\mathtt{out}$ 都是可以在 $O(2^nn^2)$ 的时间内处理出来的</p>
+<p>dp转移的复杂度为 $O(3^n n)$ </p>
+<p>总时间复杂度 $O(2^nn^2 + 3^nn)$ ，看上去后者是瓶颈。</p>
+<p>代码：（不明白的话可以参考<a href="https://q779.github.io/2022/08/30/dp-zong-jie-zhuang-ya-dp/">DP总结-状压dp</a>）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
@@ -647,8 +611,7 @@ href="https://q779.github.io/2022/08/30/dp-zong-jie-zhuang-ya-dp/">DP总结-状�
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html">https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html">https://yhx-12243.github.io/OI-transit/records/ac2657%3Barc078F.html</a></p>
 
                 
             </div>
@@ -1017,7 +980,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">580.9k</span>&nbsp;字
+                class="white-color">581.6k</span>&nbsp;字
             
             
             

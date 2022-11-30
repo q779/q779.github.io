@@ -507,69 +507,28 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1399e1-weights-division-easy-version-题解">CF1399E1 Weights
-Division (easy version) 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1399E1">CF1399E1 Weights
-Division (easy version)</a></p>
+                <h1 id="CF1399E1-Weights-Division-easy-version-题解"><a href="#CF1399E1-Weights-Division-easy-version-题解" class="headerlink" title="CF1399E1 Weights Division (easy version) 题解"></a>CF1399E1 Weights Division (easy version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1399E1">CF1399E1 Weights Division (easy version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵以 <span class="math inline">\(1\)</span>
-号点为根的带权有根树。</p>
-<p>树是一个无环连通图。有根树有一个被称作根的特殊节点。在从根到节点
-<span class="math inline">\(v\)</span> 的路径上，最后一个不同于 <span
-class="math inline">\(v\)</span> 的节点被称作节点 <span
-class="math inline">\(v\)</span> 的父亲节点。以节点 <span
-class="math inline">\(v\)</span> 为父亲的节点称为节点 <span
-class="math inline">\(v\)</span>
-的儿子节点。若一个节点没有任何儿子，则称它为叶子节点。带权树上的边带有权值。</p>
-<p>定义一条路径的权值为这条路径上所有边的权值之和。特别地，一条从某个节点到它自己的路径权值为
-<span class="math inline">\(0\)</span>。</p>
-<p>你可以进行一系列的操作，操作零次或多次。对于每次操作，你可以选择任意一条边，将其权值除以
-<span
-class="math inline">\(2\)</span>（向下取整）。更正式地说，在每次操作中，你可以选择一条边
-<span class="math inline">\(i\)</span>，使得这条边的权值 <span
-class="math inline">\(w_i\)</span> 变成 <span
-class="math inline">\(\lfloor \frac{w_i}{2} \rfloor\)</span>。</p>
-<p>你的任务是找到最小操作数，以满足所有从根到叶子的路径的权值之和不超过
-<span class="math inline">\(S\)</span>。换句话说，如果设 <span
-class="math inline">\(w(i,j)\)</span> 为从节点 <span
-class="math inline">\(i\)</span> 到节点 <span
-class="math inline">\(j\)</span> 的路径的权值，那么你需要使得 <span
-class="math inline">\(\sum_{v \in \mathtt{leaves}} w(\mathtt{root},v)
-\leq S\)</span>，其中 <span
-class="math inline">\(\mathtt{leaves}\)</span>
-是所有叶子组成的集合。</p>
-<p>你需要回答 <span class="math inline">\(t\)</span> 组独立的数据。</p>
+<p>给定一棵以 $1$ 号点为根的带权有根树。</p>
+<p>树是一个无环连通图。有根树有一个被称作根的特殊节点。在从根到节点 $v$ 的路径上，最后一个不同于 $v$ 的节点被称作节点 $v$ 的父亲节点。以节点 $v$ 为父亲的节点称为节点 $v$ 的儿子节点。若一个节点没有任何儿子，则称它为叶子节点。带权树上的边带有权值。</p>
+<p>定义一条路径的权值为这条路径上所有边的权值之和。特别地，一条从某个节点到它自己的路径权值为 $0$。</p>
+<p>你可以进行一系列的操作，操作零次或多次。对于每次操作，你可以选择任意一条边，将其权值除以 $2$（向下取整）。更正式地说，在每次操作中，你可以选择一条边 $i$，使得这条边的权值 $w_i$ 变成 $\lfloor \frac{w_i}{2} \rfloor$。</p>
+<p>你的任务是找到最小操作数，以满足所有从根到叶子的路径的权值之和不超过 $S$。换句话说，如果设 $w(i,j)$ 为从节点 $i$ 到节点 $j$ 的路径的权值，那么你需要使得 $\sum_{v \in \mathtt{leaves}} w(\mathtt{root},v) \leq S$，其中 $\mathtt{leaves}$ 是所有叶子组成的集合。</p>
+<p>你需要回答 $t$ 组独立的数据。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入第一行包含一个整数 <span class="math inline">\(t\;(1 \leq t \leq
-2 \cdot 10^4)\)</span>，表示数据组数。</p>
-<p>接着输入 <span class="math inline">\(t\)</span> 组数据。</p>
-<p>每组数据的第一行包含两个整数 <span class="math inline">\(n\)</span>
-和 <span class="math inline">\(S~(2 \leq n \leq 10^5,1 \leq S \leq
-10^{16})\)</span>，分别表示树上节点数，和你需要满足的最大可能的权值和。</p>
-<p>紧接着 <span class="math inline">\(n-1\)</span> 行描述树上的边。边
-<span class="math inline">\(i\)</span> 会以三个整数 <span
-class="math inline">\(v_i,u_i\)</span> 和 <span
-class="math inline">\(w_i~(1 \leq v_i,u_i \leq n,1 \leq w_i \leq
-10^6)\)</span> 进行描述，其中 <span class="math inline">\(v_i\)</span>
-和 <span class="math inline">\(u_i\)</span> 是连接边 <span
-class="math inline">\(i\)</span> 的两个端点，<span
-class="math inline">\(w_i\)</span> 是这条边的权值。</p>
-<p>保证所有 <span class="math inline">\(n\)</span> 的和不超过 <span
-class="math inline">\(10^5\;(\sum n \leq 10^5)\)</span>。</p>
+<p>输入第一行包含一个整数 $t\;(1 \leq t \leq 2 \cdot 10^4)$，表示数据组数。  </p>
+<p>接着输入 $t$ 组数据。</p>
+<p>每组数据的第一行包含两个整数 $n$ 和 $S~(2 \leq n \leq 10^5,1 \leq S \leq 10^{16})$，分别表示树上节点数，和你需要满足的最大可能的权值和。  </p>
+<p>紧接着 $n-1$ 行描述树上的边。边 $i$ 会以三个整数 $v_i,u_i$ 和 $w_i~(1 \leq v_i,u_i \leq n,1 \leq w_i \leq 10^6)$ 进行描述，其中 $v_i$ 和 $u_i$ 是连接边 $i$ 的两个端点，$w_i$ 是这条边的权值。</p>
+<p>保证所有 $n$ 的和不超过 $10^5\;(\sum n \leq 10^5)$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每组数据，输出一行答案，表示能满足所有从根到叶子的路径的权值之和不超过
-<span class="math inline">\(S\)</span> 的最小操作数。</p>
+<p>对于每组数据，输出一行答案，表示能满足所有从根到叶子的路径的权值之和不超过 $S$ 的最小操作数。</p>
 </blockquote>
 <p>这道题告诉我们一个道理，我们贪心选择不是基于某个值域贪心，而是基于最大化利益贪心。</p>
-<p>说人话就是，这题不是按「边权 <span
-class="math inline">\(\times\)</span> 经过次数」贪心，而是按照 「 <span
-class="math inline">\(\left(\texttt{边权}-\left\lfloor\texttt{边权} /
-2\right\rfloor\right) \times \texttt{出现次数}\)</span> 」贪心。</p>
+<p>说人话就是，这题不是按「边权 $\times$ 经过次数」贪心，而是按照 「 $\left(\texttt{边权}-\left\lfloor\texttt{边权} / 2\right\rfloor\right) \times \texttt{出现次数}$ 」贪心。</p>
 <p>要搞清楚到底为什么贪心，不是盲猜什么最大值什么的。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -629,14 +588,11 @@ priority_queue<span class="token operator">&lt;</span>Pii<span class="token oper
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>瞎叨叨。。（雾</p>
 <p><img src="https://s2.loli.net/2022/11/23/8KECxLJ9nhdS4sR.png" style="zoom:50%;" /></p>
-<hr />
+<hr>
 <p><strong>题外话</strong>：</p>
-<p>对了，最近博客的封面翻新过啦！使用的是 <a
-target="_blank" rel="noopener" href="https://app.aimages.ai/login?referral=yGCotK3fPZoagS9q">Aimages</a>
-AI 智能修复，强烈推荐！</p>
+<p>对了，最近博客的封面翻新过啦！使用的是 <a target="_blank" rel="noopener" href="https://app.aimages.ai/login?referral=yGCotK3fPZoagS9q">Aimages</a> AI 智能修复，强烈推荐！</p>
 <p>上面那个链接好像是点了以后我们都可以收获 10 个点数用于 AI 合成的</p>
-<p><del>所以点一点注册吧，我想白嫖点数修一些好看但糊的壁纸</del>
-<del>（真的有人看我 blog 嘛）</del></p>
+<p><del>所以点一点注册吧，我想白嫖点数修一些好看但糊的壁纸</del> <del>（真的有人看我 blog 嘛）</del> </p>
 
                 
             </div>
@@ -750,18 +706,16 @@ AI 智能修复，强烈推荐！</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/11/23/cf1399e1-weights-division-easy-version-ti-jie/">
+                <a href="/2022/11/24/noip2022-you-ji/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/p230.jpg" class="responsive-img" alt="NOIP2022 游记">
                         
-                        <img src="/medias/featureimages/p30.png" class="responsive-img" alt="CF1399E1 Weights Division (easy version) 题解">
-                        
-                        <span class="card-title">CF1399E1 Weights Division (easy version) 题解</span>
+                        <span class="card-title">NOIP2022 游记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -771,9 +725,9 @@ AI 智能修复，强烈推荐！</p>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-24
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -786,16 +740,11 @@ AI 智能修复，强烈推荐！</p>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
+                    <a href="/tags/OI%E7%9B%B8%E5%85%B3/">
+                        <span class="chip bg-color">OI相关</span>
                     </a>
                     
                 </div>
@@ -1003,7 +952,7 @@ AI 智能修复，强烈推荐！</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">580.9k</span>&nbsp;字
+                class="white-color">581.6k</span>&nbsp;字
             
             
             
