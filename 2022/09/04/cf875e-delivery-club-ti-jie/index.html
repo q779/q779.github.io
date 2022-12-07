@@ -507,71 +507,144 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF875E-Delivery-Club-题解"><a href="#CF875E-Delivery-Club-题解" class="headerlink" title="CF875E Delivery Club 题解"></a>CF875E Delivery Club 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF875E">CF875E Delivery Club</a></p>
+                <h1 id="cf875e-delivery-club-题解">CF875E Delivery Club 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF875E">CF875E
+Delivery Club</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Petya 和 Vasya 是两个快递员。他们每天需要去 $n$ 个地点送信，其中这 $n$ 个点在同一条直线上。</p>
-<p>由于公司内部的规定，送包裹必须按照某种<strong>特定的顺序依次送达</strong>。初始时 Petya 在位置 $s_1$，Vasya 在位置 $s_2$，并且送包裹的顺序为 $x_1, x_2, \cdots, x_n$。</p>
-<p>他们以如下形式送包裹：当前 $i$ 个包裹均送达后，他们中的一个去送第 $i+1$ 个包裹 (可以和送第 $i$ 个包裹的人是同一个人，也可以是不同的人)，另一个人则在原地等候。</p>
-<p>由于他们需要互相交流，他们带了一对通讯设备。这对通讯设备在距离比较远时通讯功能较差。因此 Petya 和 Vasya 想找到一种合适的送包裹方案 (假如顺序是预先知道的)，使得他们之间的最大距离尽可能的小。帮助他们确定在不违反规定的情况下，最大距离的最小可能值。</p>
+<p>Petya 和 Vasya 是两个快递员。他们每天需要去 <span
+class="math inline">\(n\)</span> 个地点送信，其中这 <span
+class="math inline">\(n\)</span> 个点在同一条直线上。</p>
+<p>由于公司内部的规定，送包裹必须按照某种<strong>特定的顺序依次送达</strong>。初始时
+Petya 在位置 <span class="math inline">\(s_1\)</span>，Vasya 在位置
+<span class="math inline">\(s_2\)</span>，并且送包裹的顺序为 <span
+class="math inline">\(x_1, x_2, \cdots, x_n\)</span>。</p>
+<p>他们以如下形式送包裹：当前 <span class="math inline">\(i\)</span>
+个包裹均送达后，他们中的一个去送第 <span
+class="math inline">\(i+1\)</span> 个包裹 (可以和送第 <span
+class="math inline">\(i\)</span>
+个包裹的人是同一个人，也可以是不同的人)，另一个人则在原地等候。</p>
+<p>由于他们需要互相交流，他们带了一对通讯设备。这对通讯设备在距离比较远时通讯功能较差。因此
+Petya 和 Vasya 想找到一种合适的送包裹方案
+(假如顺序是预先知道的)，使得他们之间的最大距离尽可能的小。帮助他们确定在不违反规定的情况下，最大距离的最小可能值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含三个非负整数 $n, s_1, s_2,~(1 \leq n \leq 10^5, 0 \leq s_1, s_2 \leq 10^9)$，表示送信地点的个数与 Petya 和 Vasya 的初始位置。</p>
-<p>第二行包含 $n$ 个非负整数 $x_1, x_2, \cdots, x_n,~(x_i \leq 10^9)$，表示送包裹的规定顺序。</p>
-<p>保证 $s_1, s_2, x_1, x_2, \cdots, x_n$ 互不相同。</p>
+<p>第一行包含三个非负整数 <span class="math inline">\(n, s_1, s_2,~(1
+\leq n \leq 10^5, 0 \leq s_1, s_2 \leq
+10^9)\)</span>，表示送信地点的个数与 Petya 和 Vasya 的初始位置。</p>
+<p>第二行包含 <span class="math inline">\(n\)</span> 个非负整数 <span
+class="math inline">\(x_1, x_2, \cdots, x_n,~(x_i \leq
+10^9)\)</span>，表示送包裹的规定顺序。</p>
+<p>保证 <span class="math inline">\(s_1, s_2, x_1, x_2, \cdots,
+x_n\)</span> 互不相同。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示最大距离的最小可能值。</p>
 </blockquote>
-<p>考虑二分这个最长距离 $d$ ，然后判断能否成立。</p>
+<p>考虑二分这个最长距离 <span class="math inline">\(d\)</span>
+，然后判断能否成立。</p>
 <p>仔细观察可以发现，</p>
-<p>这两个快递员一定是一个在某个 $x_i$ ，另一个去送下一个包裹（不一定是 $x_{i+1}$ 哦）</p>
+<p>这两个快递员一定是一个在某个 <span class="math inline">\(x_i\)</span>
+，另一个去送下一个包裹（不一定是 <span
+class="math inline">\(x_{i+1}\)</span> 哦）</p>
 <p>在最长距离的约束下存在两个不同的可行域，分别对应这俩人能不能送下一个包裹</p>
 <p>但是这个可行域由之前的决策决定，而我们不知道最优决策是什么。</p>
 <p>考虑反推（可能叫<strong>逆向推理</strong>比较好）。</p>
-<p>下文中记 $A,B$ 以区分两个人，但是这个 $A,B$ 是相对的两者。</p>
+<p>下文中记 <span class="math inline">\(A,B\)</span>
+以区分两个人，但是这个 <span class="math inline">\(A,B\)</span>
+是相对的两者。</p>
 <blockquote>
 <p>注：其实就是「一个人」和「另一个人」，为了语言上便于区分加的记号</p>
 </blockquote>
-<p>定义可行域 $R_i$ 表示 $A$ 送掉第 $i$ 个包裹的后，$B$ 应处于的位置。</p>
-<p>可以发现在 $A$ 送第 $i$ 个包裹前，如果 $B$ 不在 $R_i$ 内，$A$ 无法移动。</p>
-<p>显然在 $A$ 送掉第 $n$ 个包裹的时候， $B$ 的可行域为 $R_n = [x_n-d,x_n+d]$ 。</p>
+<p>定义可行域 <span class="math inline">\(R_i\)</span> 表示 <span
+class="math inline">\(A\)</span> 送掉第 <span
+class="math inline">\(i\)</span> 个包裹的后，<span
+class="math inline">\(B\)</span> 应处于的位置。</p>
+<p>可以发现在 <span class="math inline">\(A\)</span> 送第 <span
+class="math inline">\(i\)</span> 个包裹前，如果 <span
+class="math inline">\(B\)</span> 不在 <span
+class="math inline">\(R_i\)</span> 内，<span
+class="math inline">\(A\)</span> 无法移动。</p>
+<p>显然在 <span class="math inline">\(A\)</span> 送掉第 <span
+class="math inline">\(n\)</span> 个包裹的时候， <span
+class="math inline">\(B\)</span> 的可行域为 <span
+class="math inline">\(R_n = [x_n-d,x_n+d]\)</span> 。</p>
 <blockquote>
-<p> 注：你是否好奇为什么不能是 $B$ 送掉最后一个包裹？</p>
-<p>那说明你没有理解这个相对性。这里的 $A$ 就是两者中的某个人， $B$ 就是不同于他的那个人。</p>
+<p>注：你是否好奇为什么不能是 <span class="math inline">\(B\)</span>
+送掉最后一个包裹？</p>
+<p>那说明你没有理解这个相对性。这里的 <span
+class="math inline">\(A\)</span> 就是两者中的某个人， <span
+class="math inline">\(B\)</span> 就是不同于他的那个人。</p>
 </blockquote>
-<p>然后考虑 $x_{n-1}$ 。</p>
+<p>然后考虑 <span class="math inline">\(x_{n-1}\)</span> 。</p>
 <ul>
-<li><p>如果 $x_{n-1} \in R_n$ ，也就是第 $n-1$ 个包裹在 $B$ 的可行域</p>
-<p>那么我们直接让 $B$ 来送掉第 $n-1$ 个包裹就好了，然后让 $A$ 送掉第 $n$ 个包裹。</p>
-<p>因为当 $B$ 送掉第 $n-1$ 个包裹后，它在第 $n$ 个包裹的可行域，于是 $A$ 可以送第 $n$ 个包裹</p>
-<p>故此时 $A$ 的可行域为 $R_{n-1} = [x_{n-1}-d,x_{n-1}+d]$ 。</p>
-<p>因为它要保证 $B$ 能送掉第 $n-1$ 个包裹。</p>
-</li>
-<li><p>如果 $x_{n-1} \not\in R_{n}$ ，也就是第 $n-1$ 个包裹不在 $B$ 的可行域</p>
-<p>这说明 $x_{n-1}$ 肯定不能由 $B$ 来送，只能由 $A$ 来送。</p>
-<p>不然 $B$ 送了第 $n-1$ 个包裹后，$A$ 无法送第 $n$ 个包裹（别忘了假设哦）</p>
-<p>于是此时的情况就是 $A$ 送掉第 $n-1$ 个和第 $n$ 个包裹。</p>
-<p>故 $B$ 的可行域为 $R_{n-1} = R_n \cap [x_{n-1}-d,x_{n-1}+d]$ 。</p>
-<p>因为它要保证在 $A$ 能送掉第 $n-1$ 个包裹（对应后面那个），并且要让 $A$ 能送掉第 $n$ 个包裹（对应前面的 $R_n$ ）。</p>
-</li>
+<li><p>如果 <span class="math inline">\(x_{n-1} \in R_n\)</span>
+，也就是第 <span class="math inline">\(n-1\)</span> 个包裹在 <span
+class="math inline">\(B\)</span> 的可行域</p>
+<p>那么我们直接让 <span class="math inline">\(B\)</span> 来送掉第 <span
+class="math inline">\(n-1\)</span> 个包裹就好了，然后让 <span
+class="math inline">\(A\)</span> 送掉第 <span
+class="math inline">\(n\)</span> 个包裹。</p>
+<p>因为当 <span class="math inline">\(B\)</span> 送掉第 <span
+class="math inline">\(n-1\)</span> 个包裹后，它在第 <span
+class="math inline">\(n\)</span> 个包裹的可行域，于是 <span
+class="math inline">\(A\)</span> 可以送第 <span
+class="math inline">\(n\)</span> 个包裹</p>
+<p>故此时 <span class="math inline">\(A\)</span> 的可行域为 <span
+class="math inline">\(R_{n-1} = [x_{n-1}-d,x_{n-1}+d]\)</span> 。</p>
+<p>因为它要保证 <span class="math inline">\(B\)</span> 能送掉第 <span
+class="math inline">\(n-1\)</span> 个包裹。</p></li>
+<li><p>如果 <span class="math inline">\(x_{n-1} \not\in R_{n}\)</span>
+，也就是第 <span class="math inline">\(n-1\)</span> 个包裹不在 <span
+class="math inline">\(B\)</span> 的可行域</p>
+<p>这说明 <span class="math inline">\(x_{n-1}\)</span> 肯定不能由 <span
+class="math inline">\(B\)</span> 来送，只能由 <span
+class="math inline">\(A\)</span> 来送。</p>
+<p>不然 <span class="math inline">\(B\)</span> 送了第 <span
+class="math inline">\(n-1\)</span> 个包裹后，<span
+class="math inline">\(A\)</span> 无法送第 <span
+class="math inline">\(n\)</span> 个包裹（别忘了假设哦）</p>
+<p>于是此时的情况就是 <span class="math inline">\(A\)</span> 送掉第
+<span class="math inline">\(n-1\)</span> 个和第 <span
+class="math inline">\(n\)</span> 个包裹。</p>
+<p>故 <span class="math inline">\(B\)</span> 的可行域为 <span
+class="math inline">\(R_{n-1} = R_n \cap [x_{n-1}-d,x_{n-1}+d]\)</span>
+。</p>
+<p>因为它要保证在 <span class="math inline">\(A\)</span> 能送掉第 <span
+class="math inline">\(n-1\)</span> 个包裹（对应后面那个），并且要让
+<span class="math inline">\(A\)</span> 能送掉第 <span
+class="math inline">\(n\)</span> 个包裹（对应前面的 <span
+class="math inline">\(R_n\)</span> ）。</p></li>
 </ul>
-<p>不难发现这样的推理对于任意的 $i \le n$ 都成立</p>
-<p>于是我们通过归纳法得到了 $A$ 送完第 $1$ 个包裹后 $B$ 的可行域 $R_1$ 。</p>
+<p>不难发现这样的推理对于任意的 <span class="math inline">\(i \le
+n\)</span> 都成立</p>
+<p>于是我们通过归纳法得到了 <span class="math inline">\(A\)</span>
+送完第 <span class="math inline">\(1\)</span> 个包裹后 <span
+class="math inline">\(B\)</span> 的可行域 <span
+class="math inline">\(R_1\)</span> 。</p>
 <blockquote>
-<p>注：依旧不要忘了相对性。这里的 $A$ 就是指某个人。</p>
+<p>注：依旧不要忘了相对性。这里的 <span class="math inline">\(A\)</span>
+就是指某个人。</p>
 <p>因为这个确实很绕，我自己写的时候都有点绕。</p>
 </blockquote>
 <ul>
-<li><p>如果 $B$ 都不在 $R_1$ 中，那么 $A$ 是送不了第 $1$ 个包裹滴，那么一定无解。</p>
-</li>
-<li><p>如果 $B$ 在 $R_1$ 中，因为 $B$ 在送第 $1$ 个包裹前后没有动</p>
-<p>所以还要保证 $A$ 与 $B$ 在初始状态下距离不超过 $d$ ，即 $|s_1-s_2| \le d$</p>
-</li>
+<li><p>如果 <span class="math inline">\(B\)</span> 都不在 <span
+class="math inline">\(R_1\)</span> 中，那么 <span
+class="math inline">\(A\)</span> 是送不了第 <span
+class="math inline">\(1\)</span> 个包裹滴，那么一定无解。</p></li>
+<li><p>如果 <span class="math inline">\(B\)</span> 在 <span
+class="math inline">\(R_1\)</span> 中，因为 <span
+class="math inline">\(B\)</span> 在送第 <span
+class="math inline">\(1\)</span> 个包裹前后没有动</p>
+<p>所以还要保证 <span class="math inline">\(A\)</span> 与 <span
+class="math inline">\(B\)</span> 在初始状态下距离不超过 <span
+class="math inline">\(d\)</span> ，即 <span
+class="math inline">\(|s_1-s_2| \le d\)</span></p></li>
 </ul>
 <p>然后对于过程中出现的空集（交集为空），一定无解。</p>
 <p>否则一定存在某种方法使得这两个人可以送掉这些快递。</p>
 <p>至此，我们做完了这题。</p>
-<p>时间复杂度 $O(n \log \max_{x_i})$</p>
-<p>代码：<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<p>时间复杂度 <span class="math inline">\(O(n \log
+\max_{x_i})\)</span></p>
+<p>代码： <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -984,7 +1057,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">581.6k</span>&nbsp;字
+                class="white-color">605.9k</span>&nbsp;字
             
             
             

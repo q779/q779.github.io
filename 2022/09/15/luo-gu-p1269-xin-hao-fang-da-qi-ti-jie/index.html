@@ -507,20 +507,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1269-信号放大器-题解"><a href="#洛谷P1269-信号放大器-题解" class="headerlink" title="洛谷P1269 信号放大器 题解"></a>洛谷P1269 信号放大器 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P1269">P1269 信号放大器</a></p>
+                <h1 id="洛谷p1269-信号放大器-题解">洛谷P1269 信号放大器 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P1269">P1269
+信号放大器</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>树型网络是最节省材料的网络。所谓树型网络，是指一个无环的连通网络，网络中任意两个结点间有且仅有一条通信道路。</p>
-<p>网络中有一个结点是服务器，负责将信号直接或间接地发送到各终端机。如图上方，server结点发出一个信号给结点 $a$ 和 $c$ ，$a$ 再转发给 $b$ 。如此，整个网络都收到这个信号了。</p>
-<p> <img src="https://cdn.luogu.com.cn/upload/pic/84.png" alt=""> </p>
+<p>网络中有一个结点是服务器，负责将信号直接或间接地发送到各终端机。如图上方，server结点发出一个信号给结点
+<span class="math inline">\(a\)</span> 和 <span
+class="math inline">\(c\)</span> ，<span
+class="math inline">\(a\)</span> 再转发给 <span
+class="math inline">\(b\)</span> 。如此，整个网络都收到这个信号了。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/84.png" /></p>
 <p>但是，实际操作中，信号从一个结点发到另一个结点，会出现信号强度的衰减。衰减量一般由线路长度决定。</p>
-<p>如图下方，边上所标的数字为边的衰减量。假设从server出发一个强度为 $4$ 个单位的信号，发到结点a后强度衰减为 $4-3=1$ 个单位。结点 $a$ 再将其转发给结点 $b$ 。由于信号强度为 $1$ ，衰减量为 $2$ ，因此信号无法发送到 $b$ 。</p>
+<p>如图下方，边上所标的数字为边的衰减量。假设从server出发一个强度为
+<span class="math inline">\(4\)</span>
+个单位的信号，发到结点a后强度衰减为 <span
+class="math inline">\(4-3=1\)</span> 个单位。结点 <span
+class="math inline">\(a\)</span> 再将其转发给结点 <span
+class="math inline">\(b\)</span> 。由于信号强度为 <span
+class="math inline">\(1\)</span> ，衰减量为 <span
+class="math inline">\(2\)</span> ，因此信号无法发送到 <span
+class="math inline">\(b\)</span> 。</p>
 <p>一个解决这一问题的方法是，安装信号放大器。信号放大器的作用是将强度大于零的信号还原成初始强度（从服务器出发时的强度）。</p>
-<p>上图中，若在结点 $a$ 处安装一个信号放大器，则强度为 $4$ 的信号发到 $a$ 处，即被放大至 $4$ 。这样，信号就可以被发送的网络中的任意一个节点了。为了简化问题，我们假定每个结点只处理一次信号，当它第二次收到某个信号时，就忽略此信号。</p>
+<p>上图中，若在结点 <span class="math inline">\(a\)</span>
+处安装一个信号放大器，则强度为 <span class="math inline">\(4\)</span>
+的信号发到 <span class="math inline">\(a\)</span> 处，即被放大至 <span
+class="math inline">\(4\)</span>
+。这样，信号就可以被发送的网络中的任意一个节点了。为了简化问题，我们假定每个结点只处理一次信号，当它第二次收到某个信号时，就忽略此信号。</p>
 <p>你的任务是根据给出的树型网络，计算出最少需要安装的信号放大器数量。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 $n ~(n \le 2\times 10^4)$，表示网络中结点的数量。</p>
-<p>第 $2\sim n+1$ 行，每行描述一个节点的连接关系。其中第 $i+1$ 行，描述的是结点 $i$ 的连接关系：首先一个整数 $k$ ，表示与结点 $i$ 相连的结点的数量。此后 $2k$ 个数，每两个描述一个与结点 $i$ 相连的结点，分别表示结点的编号（编号在 $1\sim n$ 之间）和该结点与结点 $i$ 之间的边的信号衰减量。结点 $1$ 表示服务器。</p>
+<p>第一行一个整数 <span class="math inline">\(n ~(n \le 2\times
+10^4)\)</span>，表示网络中结点的数量。</p>
+<p>第 <span class="math inline">\(2\sim n+1\)</span>
+行，每行描述一个节点的连接关系。其中第 <span
+class="math inline">\(i+1\)</span> 行，描述的是结点 <span
+class="math inline">\(i\)</span> 的连接关系：首先一个整数 <span
+class="math inline">\(k\)</span> ，表示与结点 <span
+class="math inline">\(i\)</span> 相连的结点的数量。此后 <span
+class="math inline">\(2k\)</span> 个数，每两个描述一个与结点 <span
+class="math inline">\(i\)</span> 相连的结点，分别表示结点的编号（编号在
+<span class="math inline">\(1\sim n\)</span> 之间）和该结点与结点 <span
+class="math inline">\(i\)</span> 之间的边的信号衰减量。结点 <span
+class="math inline">\(1\)</span> 表示服务器。</p>
 <p>最后一行，一个整数，表示从服务器上出发信号的强度。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一个整数，表示要使信号能够传遍整个网络，需要安装的最少的信号放大器数量。</p>
@@ -528,11 +558,15 @@
 </blockquote>
 <p>考虑贪心。</p>
 <p>按深度从大到小依次考虑每个结点。</p>
-<p>如果 $u$ 连的某个结点 $v$ 所在子树没法全部传递成功，则在 $u$ 放一个</p>
-<p>正确性显然。因为如果你不放， $v$ 的子树一定传递不了。</p>
+<p>如果 <span class="math inline">\(u\)</span> 连的某个结点 <span
+class="math inline">\(v\)</span> 所在子树没法全部传递成功，则在 <span
+class="math inline">\(u\)</span> 放一个</p>
+<p>正确性显然。因为如果你不放， <span class="math inline">\(v\)</span>
+的子树一定传递不了。</p>
 <p>而我们是从下往上递归处理的，根据数学归纳法，显然正确</p>
-<p>注意这道题信号强度为 $0$ 时也是可以传递信息的。</p>
-<p>时间复杂度 $\mathcal{O}(n)$ </p>
+<p>注意这道题信号强度为 <span class="math inline">\(0\)</span>
+时也是可以传递信息的。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -573,15 +607,21 @@
     <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p>一开始我在题目给的双向边的基础上又建了双向边，然后挂了。。。（属于眼瞎的。）</p>
 <p>WA倒是很正常，但是TLE是我百思不得其解的。改动如下（数组我开大了，所以不是越界问题）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>cnt<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span> cin <span class="token operator">>></span> v <span class="token operator">>></span> w<span class="token punctuation">;</span> <span class="token function">addEdge</span><span class="token punctuation">(</span>u<span class="token punctuation">,</span>v<span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">addEdge</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span>u<span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">up</span><span class="token punctuation">(</span>mx<span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>感谢Roundgod老师的再次帮助 Orz</strong></p>
-<p>因为这样建图之后，我的代码会把每个点跑 $2$ 遍，所以<strong>复杂度会飙升到指数级</strong>。</p>
-<p>比如某个结点跑了 $2$ 次，那它的每个子结点每次都会跑 $2$ 次，则每个子结点会跑 $4$ 次。</p>
-<p>因此它子树最深的结点（记深度为 $d$ ）会跑 $\mathcal{O}(2^d)$ 次，显然会超时。<del>所以其实不是有环的问题。</del></p>
+<p>因为这样建图之后，我的代码会把每个点跑 <span
+class="math inline">\(2\)</span>
+遍，所以<strong>复杂度会飙升到指数级</strong>。</p>
+<p>比如某个结点跑了 <span class="math inline">\(2\)</span>
+次，那它的每个子结点每次都会跑 <span class="math inline">\(2\)</span>
+次，则每个子结点会跑 <span class="math inline">\(4\)</span> 次。</p>
+<p>因此它子树最深的结点（记深度为 <span class="math inline">\(d\)</span>
+）会跑 <span class="math inline">\(\mathcal{O}(2^d)\)</span>
+次，显然会超时。<del>所以其实不是有环的问题。</del></p>
 
                 
             </div>
@@ -946,7 +986,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">581.6k</span>&nbsp;字
+                class="white-color">605.9k</span>&nbsp;字
             
             
             

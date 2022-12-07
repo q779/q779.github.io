@@ -515,66 +515,145 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF913F-Strongly-Connected-Tournament-题解"><a href="#CF913F-Strongly-Connected-Tournament-题解" class="headerlink" title="CF913F Strongly Connected Tournament 题解"></a>CF913F Strongly Connected Tournament 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF913F">CF913F Strongly Connected Tournament</a></p>
+                <h1 id="cf913f-strongly-connected-tournament-题解">CF913F Strongly
+Connected Tournament 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF913F">CF913F
+Strongly Connected Tournament</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n$ 个人，编号为 $1, 2, \cdots, n$ ，他们想要通过打架的方式决定他们的排名。</p>
-<p>具体地，对于 $i &lt; j$，$i$ 获胜的概率恒为 $p$。$p$ 通过给你两个非负整数 $A, B~(A \leq B),~p = \frac{A}{B}$ 的方式给出。</p>
-<p>初始时，所有人都还没决出胜负。每一轮，对还未决出胜负的<strong>每一对人</strong>进行打架，得到一张竞赛图。将其进行缩点后，得到若干个 SCC（强连通分量）。</p>
-<p>此时，如果两个人处在不同的 SCC 中，则它们已经决出胜负。否则，它们还未决出胜负 (下一轮还要继续)。</p>
+<p>有 <span class="math inline">\(n\)</span> 个人，编号为 <span
+class="math inline">\(1, 2, \cdots, n\)</span>
+，他们想要通过打架的方式决定他们的排名。</p>
+<p>具体地，对于 <span class="math inline">\(i &lt; j\)</span>，<span
+class="math inline">\(i\)</span> 获胜的概率恒为 <span
+class="math inline">\(p\)</span>。<span class="math inline">\(p\)</span>
+通过给你两个非负整数 <span class="math inline">\(A, B~(A \leq B),~p =
+\frac{A}{B}\)</span> 的方式给出。</p>
+<p>初始时，所有人都还没决出胜负。每一轮，对还未决出胜负的<strong>每一对人</strong>进行打架，得到一张竞赛图。将其进行缩点后，得到若干个
+SCC（强连通分量）。</p>
+<p>此时，如果两个人处在不同的 SCC
+中，则它们已经决出胜负。否则，它们还未决出胜负 (下一轮还要继续)。</p>
 <p>如果某一时刻所有人都决出胜负，则比赛结束，否则进行下一轮比赛。</p>
-<p>你需要求出，这 $n$ 个人的比赛中<strong>打架次数</strong>的期望。</p>
+<p>你需要求出，这 <span class="math inline">\(n\)</span>
+个人的比赛中<strong>打架次数</strong>的期望。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含一个正整数 $n~(n\le 3000)$，表示总人数。</p>
-<p>第二行包含两个非负整数 $A, B~(0 \le A \le 100,B \neq 0)$ ，表示概率为 $p = \frac{A}{B}$。</p>
+<p>第一行包含一个正整数 <span class="math inline">\(n~(n\le
+3000)\)</span>，表示总人数。</p>
+<p>第二行包含两个非负整数 <span class="math inline">\(A, B~(0 \le A \le
+100,B \neq 0)\)</span> ，表示概率为 <span class="math inline">\(p =
+\frac{A}{B}\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示打架次数的期望在模 $998244353$ 意义下的结果。</p>
+<p>输出一行一个整数，表示打架次数的期望在模 <span
+class="math inline">\(998244353\)</span> 意义下的结果。</p>
 </blockquote>
 <p>综合性很强的dp题。</p>
 <p>注意到每一轮比赛其实就相当于给无向完全图定向。</p>
 <p>不难发现定向后一定是一张竞赛图。<del>众所周知</del>竞赛图缩点后为呈单向链状，每个点向其后<strong>所有点</strong>连边</p>
-<p>因此我们可以根据套路（防止重复计算贡献），考虑拓扑序最靠前的那个 SCC（就是缩点后的点）。</p>
-<p>具体地，设 $E_n$ 表示 $n$ 个点的<strong>无向完全图</strong>期望的打架次数， $F_n$ 表示 $n$ 个点的<strong>带权随机竞赛图</strong>的期望打架次数</p>
-<p>这里的带权随机竞赛图指的就是 $p$ 概率定向为 $u\to v$ ，$q=1-p$ 概率定向为 $v \to u$ 的竞赛图</p>
-<p>注意到一张无向完全图在一轮比赛后会增加 $\binom{n}{2}$ 次打架，然后转化为一张带权随机竞赛图，则</p>
-<script type="math/tex; mode=display">
-E_n = F_n + \dbinom{n}{2}\tag{1} \label{1}</script><p>考虑 $F_n$ 的转移。记刚刚提到的那个「拓扑序最靠前的那个 SCC」为 $S$ ，并记 $k = |S|$ 。</p>
-<p>显然 $S$ 中的所有点构成了一个 SCC ，并且容易发现<strong>带权随机竞赛图的强连通性仅与其点数有关</strong>。</p>
-<p>于是设 $n$ 个点的带权随机竞赛图<strong>强连通的概率</strong>为 $C_n$ 。</p>
-<p>同时，注意到任意 $S$ 中的点与 $V \setminus S$ 中的点的连边一定为 $S$ 指向 $V \setminus S$ ，即</p>
-<script type="math/tex; mode=display">
-\forall u \in S, ~\forall v \in (V \setminus S),~\exists!( u \to v) \tag{2}\label{2}</script><p>记这个概率为 $\mathtt{cross}(S,~V\setminus S)$ 。</p>
-<p>接着考虑 $V \setminus S$ 内部的连边，显然只与 $|V \setminus S|$ 有关，则它的打架次数期望应为 $F_{|V\setminus S|}$ </p>
-<script type="math/tex; mode=display">
-F_i=\sum_{S \subseteq V \land S \neq \varnothing} C_{|S|} 
-\cdot \mathtt{cross}\left(S, ~V\setminus S\right) \cdot\left(E_{|S|}+F_{|V \setminus S|}\right)
-\tag{3} \label{3}</script><p>注意到这里只有 $\mathtt{cross}(S,~V\setminus S)$ 与 $S$ 的具体构造有关，而其它项均与 $|S|$ 有关。</p>
-<p>因此如果我们求出了以下式子</p>
-<script type="math/tex; mode=display">
-\mathtt{cro}(k,~|V| - k) = \sum_{S \subseteq V \land |S| = k} \mathtt{cross}(S,~V\setminus S)
-\tag{4}\label{4}</script><p>则原转移方程就转化为了仅与 $|S|$ 有关的式子，即</p>
-<script type="math/tex; mode=display">
+<p>因此我们可以根据套路（防止重复计算贡献），考虑拓扑序最靠前的那个
+SCC（就是缩点后的点）。</p>
+<p>具体地，设 <span class="math inline">\(E_n\)</span> 表示 <span
+class="math inline">\(n\)</span>
+个点的<strong>无向完全图</strong>期望的打架次数， <span
+class="math inline">\(F_n\)</span> 表示 <span
+class="math inline">\(n\)</span>
+个点的<strong>带权随机竞赛图</strong>的期望打架次数</p>
+<p>这里的带权随机竞赛图指的就是 <span class="math inline">\(p\)</span>
+概率定向为 <span class="math inline">\(u\to v\)</span> ，<span
+class="math inline">\(q=1-p\)</span> 概率定向为 <span
+class="math inline">\(v \to u\)</span> 的竞赛图</p>
+<p>注意到一张无向完全图在一轮比赛后会增加 <span
+class="math inline">\(\binom{n}{2}\)</span>
+次打架，然后转化为一张带权随机竞赛图，则 <span class="math display">\[
+E_n = F_n + \dbinom{n}{2}\tag{1} \label{1}
+\]</span> 考虑 <span class="math inline">\(F_n\)</span>
+的转移。记刚刚提到的那个「拓扑序最靠前的那个 SCC」为 <span
+class="math inline">\(S\)</span> ，并记 <span class="math inline">\(k =
+|S|\)</span> 。</p>
+<p>显然 <span class="math inline">\(S\)</span> 中的所有点构成了一个 SCC
+，并且容易发现<strong>带权随机竞赛图的强连通性仅与其点数有关</strong>。</p>
+<p>于是设 <span class="math inline">\(n\)</span>
+个点的带权随机竞赛图<strong>强连通的概率</strong>为 <span
+class="math inline">\(C_n\)</span> 。</p>
+<p>同时，注意到任意 <span class="math inline">\(S\)</span> 中的点与
+<span class="math inline">\(V \setminus S\)</span> 中的点的连边一定为
+<span class="math inline">\(S\)</span> 指向 <span
+class="math inline">\(V \setminus S\)</span> ，即 <span
+class="math display">\[
+\forall u \in S, ~\forall v \in (V \setminus S),~\exists!( u \to v)
+\tag{2}\label{2}
+\]</span> 记这个概率为 <span
+class="math inline">\(\mathtt{cross}(S,~V\setminus S)\)</span> 。</p>
+<p>接着考虑 <span class="math inline">\(V \setminus S\)</span>
+内部的连边，显然只与 <span class="math inline">\(|V \setminus
+S|\)</span> 有关，则它的打架次数期望应为 <span
+class="math inline">\(F_{|V\setminus S|}\)</span> <span
+class="math display">\[
+F_i=\sum_{S \subseteq V \land S \neq \varnothing} C_{|S|}
+\cdot \mathtt{cross}\left(S, ~V\setminus S\right)
+\cdot\left(E_{|S|}+F_{|V \setminus S|}\right)
+\tag{3} \label{3}
+\]</span> 注意到这里只有 <span
+class="math inline">\(\mathtt{cross}(S,~V\setminus S)\)</span> 与 <span
+class="math inline">\(S\)</span> 的具体构造有关，而其它项均与 <span
+class="math inline">\(|S|\)</span> 有关。</p>
+<p>因此如果我们求出了以下式子 <span class="math display">\[
+\mathtt{cro}(k,~|V| - k) = \sum_{S \subseteq V \land |S| = k}
+\mathtt{cross}(S,~V\setminus S)
+\tag{4}\label{4}
+\]</span> 则原转移方程就转化为了仅与 <span
+class="math inline">\(|S|\)</span> 有关的式子，即 <span
+class="math display">\[
 F_i = \sum_{k = 1}^{i} C_k \cdot \mathtt{cro}(k,i-k)\cdot(E_k + F_{i-k})
-\tag{5}\label{5}</script><p>把 $\eqref{1}$ 代入 $\eqref {5}$ ，就能做到 $\mathcal{O}(n^2)$ 求 $F_n$ 了。</p>
-<p>考虑如何求解 $\mathtt{cro}(n,m)$ 和 $C_n$ 。 </p>
-<p>首先 $C_n$ 是一个经典的容斥，考虑不强连通的情况，用 $1$ 减掉就好了（这里用 $\subset$ 表示真子集）</p>
-<script type="math/tex; mode=display">
+\tag{5}\label{5}
+\]</span> 把 <span class="math inline">\(\eqref{1}\)</span> 代入 <span
+class="math inline">\(\eqref {5}\)</span> ，就能做到 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 求 <span
+class="math inline">\(F_n\)</span> 了。</p>
+<p>考虑如何求解 <span class="math inline">\(\mathtt{cro}(n,m)\)</span>
+和 <span class="math inline">\(C_n\)</span> 。</p>
+<p>首先 <span class="math inline">\(C_n\)</span>
+是一个经典的容斥，考虑不强连通的情况，用 <span
+class="math inline">\(1\)</span> 减掉就好了（这里用 <span
+class="math inline">\(\subset\)</span> 表示真子集） <span
+class="math display">\[
 C_i = 1 - \sum_{S\subset V \land S \ne \varnothing}C_{|S|}
-\,\cdot\,\mathtt{cross}(S,~V\setminus S) \tag{6} \label{6}</script><p>也就是（<del>拜拜容斥 qwq</del>）</p>
-<script type="math/tex; mode=display">
-C_i = \sum_{k=1}^{i-1}C_k \cdot \mathtt{cro}(k,i-k) \tag{7} \label{7}</script><p>也可以在 $\mathcal{O}(n^2)$ 的时间内求出。最后就是 $\mathtt{cro}(n,m)$ 了，定义见 $\eqref{4}$ 。</p>
-<p>显然一共有 $\binom{n+m}{n}$ 种情况，考虑其中最大的元素 $n+m$ 是属于 $S$ 还是属于 $V \setminus S$ 。</p>
-<p>对于 $n+m$ 属于 $S$ 的 $\binom{n+m-1}{n-1}$ 种情况，与 $m$ 关联的边中，每条边方向正确的概率为 $q$ ，则概率为 $q^m$ 。</p>
-<p>对于 $n+m$ 属于 $V \setminus S$ 的 $\binom{n+m-1}{m-1}$ 种情况，与 $m$ 关联的边中，每条边方向正确的概率为 $p$ ，则概率为 $p^n$ 。</p>
-<p>则有</p>
-<script type="math/tex; mode=display">
-\mathtt{cro}(n,m) = p^n\cdot\mathtt{cro}(n,m-1) + q^m\cdot \mathtt{cro}(n-1,m)\tag{8}\label{8}</script><p>边界： $\mathtt{cro}(n,0) = \mathtt{cro}(0,n) = 1$ 。</p>
-<p>然后这东西是有个封闭形式的。记</p>
-<script type="math/tex; mode=display">
-u_1=1,~u_n = p^{n-1} + p^{n-2}q + \cdots + pq^{n-2} + q^{n-1} \tag{9}</script><p>令 $U_n = \prod_{1 \le i \le n}u_i$ ，则有</p>
-<script type="math/tex; mode=display">
-\mathtt{cro}(n,m) = \frac{U_{n+m}}{U_nU_m} \tag{10}</script><p>证明用归纳法就可以了，<del>不过怎么推出来的我也不清楚</del></p>
-<p>时间复杂度 $\mathcal{O}(n^2)$ </p>
+\,\cdot\,\mathtt{cross}(S,~V\setminus S) \tag{6} \label{6}
+\]</span> 也就是（<del>拜拜容斥 qwq</del>） <span
+class="math display">\[
+C_i = \sum_{k=1}^{i-1}C_k \cdot \mathtt{cro}(k,i-k) \tag{7} \label{7}
+\]</span> 也可以在 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
+的时间内求出。最后就是 <span
+class="math inline">\(\mathtt{cro}(n,m)\)</span> 了，定义见 <span
+class="math inline">\(\eqref{4}\)</span> 。</p>
+<p>显然一共有 <span class="math inline">\(\binom{n+m}{n}\)</span>
+种情况，考虑其中最大的元素 <span class="math inline">\(n+m\)</span>
+是属于 <span class="math inline">\(S\)</span> 还是属于 <span
+class="math inline">\(V \setminus S\)</span> 。</p>
+<p>对于 <span class="math inline">\(n+m\)</span> 属于 <span
+class="math inline">\(S\)</span> 的 <span
+class="math inline">\(\binom{n+m-1}{n-1}\)</span> 种情况，与 <span
+class="math inline">\(m\)</span> 关联的边中，每条边方向正确的概率为
+<span class="math inline">\(q\)</span> ，则概率为 <span
+class="math inline">\(q^m\)</span> 。</p>
+<p>对于 <span class="math inline">\(n+m\)</span> 属于 <span
+class="math inline">\(V \setminus S\)</span> 的 <span
+class="math inline">\(\binom{n+m-1}{m-1}\)</span> 种情况，与 <span
+class="math inline">\(m\)</span> 关联的边中，每条边方向正确的概率为
+<span class="math inline">\(p\)</span> ，则概率为 <span
+class="math inline">\(p^n\)</span> 。</p>
+<p>则有 <span class="math display">\[
+\mathtt{cro}(n,m) = p^n\cdot\mathtt{cro}(n,m-1) + q^m\cdot
+\mathtt{cro}(n-1,m)\tag{8}\label{8}
+\]</span> 边界： <span class="math inline">\(\mathtt{cro}(n,0) =
+\mathtt{cro}(0,n) = 1\)</span> 。</p>
+<p>然后这东西是有个封闭形式的。记 <span class="math display">\[
+u_1=1,~u_n = p^{n-1} + p^{n-2}q + \cdots + pq^{n-2} + q^{n-1} \tag{9}
+\]</span> 令 <span class="math inline">\(U_n = \prod_{1 \le i \le
+n}u_i\)</span> ，则有 <span class="math display">\[
+\mathtt{cro}(n,m) = \frac{U_{n+m}}{U_nU_m} \tag{10}
+\]</span>
+证明用归纳法就可以了，<del>不过怎么推出来的我也不清楚</del></p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -642,9 +721,10 @@ u_1=1,~u_n = p^{n-1} + p^{n-2}q + \cdots + pq^{n-2} + q^{n-1} \tag{9}</script><p
     cout <span class="token operator">&lt;&lt;</span> E<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=545">https://yhx-12243.github.io/OI-transit/?redirect=545</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=545">https://yhx-12243.github.io/OI-transit/?redirect=545</a></p>
 
                 
             </div>
@@ -1017,7 +1097,7 @@ u_1=1,~u_n = p^{n-1} + p^{n-2}q + \cdots + pq^{n-2} + q^{n-1} \tag{9}</script><p
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">581.6k</span>&nbsp;字
+                class="white-color">605.9k</span>&nbsp;字
             
             
             
