@@ -535,82 +535,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5292-hnoi2019校园旅行-题解">洛谷P5292 [HNOI2019]校园旅行
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5292">P5292
-[HNOI2019]校园旅行</a></p>
+                <h1 id="洛谷P5292-HNOI2019-校园旅行-题解"><a href="#洛谷P5292-HNOI2019-校园旅行-题解" class="headerlink" title="洛谷P5292 [HNOI2019]校园旅行 题解"></a>洛谷P5292 [HNOI2019]校园旅行 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5292">P5292 [HNOI2019]校园旅行</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p><del>HNOI2019 day2t1就这么难了，好珂怕</del></p>
 <p>某学校的每个建筑都有一个独特的编号。一天你在校园里无聊，决定在校园内随意地漫步。</p>
-<p>你已经在校园里呆过一段时间，对校园内每个建筑的编号非常熟悉，于是你情不自禁的把周围每个建筑的编号都记了下来——但其实你没有真的记下来，而是把每个建筑的编号除以
-<span class="math inline">\(2\)</span> 取余数得到 <span
-class="math inline">\(\mathtt{0}\)</span> 或 <span
-class="math inline">\(\mathtt{1}\)</span>，作为该建筑的标记，多个建筑物的标记连在一起形成一个
-<span class="math inline">\(\mathtt{01}\)</span> 串。</p>
+<p>你已经在校园里呆过一段时间，对校园内每个建筑的编号非常熟悉，于是你情不自禁的把周围每个建筑的编号都记了下来——但其实你没有真的记下来，而是把每个建筑的编号除以 $2$ 取余数得到 $\mathtt{0}$ 或 $\mathtt{1}$，作为该建筑的标记，多个建筑物的标记连在一起形成一个 $\mathtt{01}$ 串。</p>
 <p>你对这个串很感兴趣，尤其是对于这个串是回文串的情况，于是你决定研究这个问题。</p>
-<p>学校可以看成一张图，建筑是图中的顶点，而某些顶点之间存在无向边。对于每个顶点我们有一个标记（<span
-class="math inline">\(\mathtt{0}\)</span> 或者 <span
-class="math inline">\(\mathtt{1}\)</span>
-）。每次你会选择图中两个顶点，你想知道这两个顶点之间是否存在一条路径使得路上经过的点的标记形成一个回文串。</p>
-<p>一个回文串是一个字符串使得它逆序之后形成的字符串和它自己相同，比如
-<span class="math inline">\(\mathtt{010}\)</span> ，<span
-class="math inline">\(\mathtt{1001}\)</span> 都是回文串，而 <span
-class="math inline">\(\mathtt{01}\)</span> ，<span
-class="math inline">\(\mathtt{110}\)</span> 不是。注意长度为 <span
-class="math inline">\(1\)</span>
-的串总是回文串，因此如果询问的两个顶点相同，这样的路径总是存在。此外注意，经过的路径不一定为简单路径，也就是说每条边每个顶点都可以经过任意多次。</p>
+<p>学校可以看成一张图，建筑是图中的顶点，而某些顶点之间存在无向边。对于每个顶点我们有一个标记（$\mathtt{0}$ 或者 $\mathtt{1}$ ）。每次你会选择图中两个顶点，你想知道这两个顶点之间是否存在一条路径使得路上经过的点的标记形成一个回文串。</p>
+<p>一个回文串是一个字符串使得它逆序之后形成的字符串和它自己相同，比如 $\mathtt{010}$ ，$\mathtt{1001}$ 都是回文串，而 $\mathtt{01}$ ，$\mathtt{110}$ 不是。注意长度为 $1$ 的串总是回文串，因此如果询问的两个顶点相同，这样的路径总是存在。此外注意，经过的路径不一定为简单路径，也就是说每条边每个顶点都可以经过任意多次。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行三个整数 <span class="math inline">\(n,m,q\)</span>
-，表示图中的顶点数和边数，以及询问数。</p>
-<p>第二行为一个长度为 <span class="math inline">\(n\)</span> 的 <span
-class="math inline">\(\mathtt{01}\)</span> 串，其中第 <span
-class="math inline">\(i\)</span> 个字符表示第 <span
-class="math inline">\(i\)</span> 个顶点（即顶点 <span
-class="math inline">\(i\)</span>）的标记，点从 <span
-class="math inline">\(1\)</span> 开始编号。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行，每一行是两个整数
-<span class="math inline">\(u_i,v_i\)</span>，表示顶点 <span
-class="math inline">\(u_i\)</span> 和顶点 <span
-class="math inline">\(v_i\)</span>
-之间有一条无向边，不存在自环或者重边。</p>
-<p>接下来 <span class="math inline">\(q\)</span> 行，每一行存在两个整数
-<span class="math inline">\(x_i,y_i\)</span>，表示询问顶点 <span
-class="math inline">\(x_i\)</span> 和顶点 <span
-class="math inline">\(y_i\)</span>
-的点之间是否有一条满足条件的路径。</p>
+<p>第一行三个整数 $n,m,q$ ，表示图中的顶点数和边数，以及询问数。</p>
+<p>第二行为一个长度为 $n$ 的 $\mathtt{01}$ 串，其中第 $i$ 个字符表示第 $i$ 个顶点（即顶点 $i$）的标记，点从 $1$ 开始编号。</p>
+<p>接下来 $m$ 行，每一行是两个整数 $u_i,v_i$，表示顶点 $u_i$ 和顶点 $v_i$ 之间有一条无向边，不存在自环或者重边。</p>
+<p>接下来 $q$ 行，每一行存在两个整数 $x_i,y_i$，表示询问顶点 $x_i$ 和顶点 $y_i$ 的点之间是否有一条满足条件的路径。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 <span class="math inline">\(q\)</span> 行，每行一个字符串
-<code>YES</code> ，或者 <code>NO</code> 。</p>
-<p>输出 <code>YES</code> 表示满足条件的路径存在，输出 <code>NO</code>
-表示不存在。</p>
+<p>输出 $q$ 行，每行一个字符串 <code>YES</code> ，或者 <code>NO</code> 。</p>
+<p>输出 <code>YES</code> 表示满足条件的路径存在，输出 <code>NO</code> 表示不存在。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 5000,~1 \le m \le 5\times
-10^5,~1 \le q \le 10^5\)</span>。</p>
+<p>$1 \le n \le 5000,~1 \le m \le 5\times 10^5,~1 \le q \le 10^5$。</p>
 </blockquote>
-<p>考虑 <span class="math inline">\(30\)</span> 分的 dp 。设 <span
-class="math inline">\(f_{i,j}\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 是否存在一条合法的路径。</p>
-<p>转移就是枚举 <span class="math inline">\(i,j\)</span>
-的出边，然后转移，每个点至多被访问 <span
-class="math inline">\(\mathcal{O}(1)\)</span> 次，时间复杂度 <span
-class="math inline">\(\mathcal{O}(m^2)\)</span> 。</p>
-<p>考虑减少边数。首先对于 <span class="math inline">\(\mathtt{col}(u)
-\ne \mathtt{col}(v)\)</span> 的边，可以发现它构成一个二分图。</p>
-<p>因此我们只需要保留其一棵生成树即可，因为其他的均可以通过 <span
-class="math inline">\(u\to v \to u\)</span> 达到。</p>
-<p>对于 <span class="math inline">\(\mathtt{col}(u) =
-\mathtt{col}(v)\)</span>
-的边，如果它构成了一个二分图，那么也可以仅保留其生成树。</p>
+<p>考虑 $30$ 分的 dp 。设 $f_{i,j}$ 表示 $i$ 到 $j$ 是否存在一条合法的路径。</p>
+<p>转移就是枚举 $i,j$ 的出边，然后转移，每个点至多被访问 $\mathcal{O}(1)$ 次，时间复杂度 $\mathcal{O}(m^2)$ 。</p>
+<p>考虑减少边数。首先对于 $\mathtt{col}(u) \ne \mathtt{col}(v)$ 的边，可以发现它构成一个二分图。</p>
+<p>因此我们只需要保留其一棵生成树即可，因为其他的均可以通过 $u\to v \to u$ 达到。</p>
+<p>对于 $\mathtt{col}(u) = \mathtt{col}(v)$ 的边，如果它构成了一个二分图，那么也可以仅保留其生成树。</p>
 <p>如果不是二分图，我们可以在生成树上加一个自环。</p>
-<p>为什么可以加一个自环呢？因为 <span class="math inline">\(u,v\)</span>
-颜色相同，所以两侧只需要匹配数量相等即可。</p>
+<p>为什么可以加一个自环呢？因为 $u,v$ 颜色相同，所以两侧只需要匹配数量相等即可。</p>
 <p>如果两侧匹配的都是奇环，那加不加都能匹配。</p>
 <p>如果其中一侧是二分图，那我们可以通过在奇环上绕圈绕到偶数的情况。（根据乘法的性质可知）</p>
 <p>加一个自环就相当于加速了<del>这个没啥意义的跑圈过程</del>。因此是正确的。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
-，因为边数至多 <span class="math inline">\(2n-2\)</span> 条。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$ ，因为边数至多 $2n-2$ 条。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -758,10 +713,9 @@ queue<span class="token operator">&lt;</span>pii<span class="token operator">></
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Imakf/solution-p5292">https://www.luogu.com.cn/blog/Imakf/solution-p5292</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Imakf/solution-p5292">https://www.luogu.com.cn/blog/Imakf/solution-p5292</a></p>
 
                 
             </div>
@@ -1154,7 +1108,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Imakf/solutio
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p206.jpg" class="responsive-img" alt="CF1119G Get Ready for the Battle 题解">
+                        <img src="/medias/featureimages/p151.jpg" class="responsive-img" alt="CF1119G Get Ready for the Battle 题解">
                         
                         <span class="card-title">CF1119G Get Ready for the Battle 题解</span>
                     </div>
@@ -1211,7 +1165,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Imakf/solutio
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p124.jpg" class="responsive-img" alt="洛谷P3420 [POI2005]SKA-Piggy Banks 题解">
+                        <img src="/medias/featureimages/p151.jpg" class="responsive-img" alt="洛谷P3420 [POI2005]SKA-Piggy Banks 题解">
                         
                         <span class="card-title">洛谷P3420 [POI2005]SKA-Piggy Banks 题解</span>
                     </div>
@@ -1402,7 +1356,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Imakf/solutio
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">662.4k</span>&nbsp;字
+                class="white-color">674k</span>&nbsp;字
             
             
             

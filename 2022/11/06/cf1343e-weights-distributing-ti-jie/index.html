@@ -348,7 +348,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p55.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p161.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -527,50 +527,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1343e-weights-distributing-题解">CF1343E Weights Distributing
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1343E">CF1343E
-Weights Distributing</a></p>
+                <h1 id="CF1343E-Weights-Distributing-题解"><a href="#CF1343E-Weights-Distributing-题解" class="headerlink" title="CF1343E Weights Distributing 题解"></a>CF1343E Weights Distributing 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1343E">CF1343E Weights Distributing</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个有 <span class="math inline">\(n\)</span> 个点，<span
-class="math inline">\(m\)</span> 条边的无向图和一个长为 <span
-class="math inline">\(m\)</span> 的权值序列 <span
-class="math inline">\(w\)</span>。</p>
-<p>你可以随意安排边权（每条边权对应 <span
-class="math inline">\(w\)</span> 中的一个数，不可以重复）。</p>
-<p>求 <span class="math inline">\(a\)</span> 到 <span
-class="math inline">\(b\)</span> 的最短路与 <span
-class="math inline">\(b\)</span> 到 <span
-class="math inline">\(c\)</span> 的最短路的和的最小值。</p>
+<p>给出一个有 $n$ 个点，$m$ 条边的无向图和一个长为 $m$ 的权值序列 $w$。</p>
+<p>你可以随意安排边权（每条边权对应 $w$ 中的一个数，不可以重复）。</p>
+<p>求 $a$ 到 $b$ 的最短路与 $b$ 到 $c$ 的最短路的和的最小值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>多组数据。每次给出 <span class="math inline">\(n,m,a,b,c\)</span>
-。第一行给出 <span class="math inline">\(n\)</span> 个整数 <span
-class="math inline">\(w_i\)</span> 。接下来 <span
-class="math inline">\(m\)</span> 行给出边 <span
-class="math inline">\((u,v)\)</span> 。</p>
+<p>多组数据。每次给出 $n,m,a,b,c$ 。第一行给出 $n$ 个整数 $w_i$ 。接下来 $m$ 行给出边 $(u,v)$  。</p>
 <p><strong>输出格式</strong>：</p>
 <p>对于每组数据，输出最小值。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n-1 \le m \le
-\min\left\{\frac{n(n-1)}{2},~2\times 10^5\right\},~1 \le \sum n,\sum m
-\le 2 \times 10^5,~ 1 \le w_i \le 10^9\)</span> 。</p>
+<p>$1\le n-1 \le m \le \min\left\{\frac{n(n-1)}{2},~2\times 10^5\right\},~1 \le \sum n,\sum m \le 2 \times 10^5,~ 1 \le w_i \le 10^9$ 。</p>
 </blockquote>
-<p>注意到 <span class="math inline">\(a\leadsto b\)</span> 和 <span
-class="math inline">\(b \leadsto c\)</span>
-的最短路径可能重合，会有一些边被算两遍。</p>
+<p>注意到 $a\leadsto b$ 和 $b \leadsto c$ 的最短路径可能重合，会有一些边被算两遍。</p>
 <p>根据贪心的思想，我们会优先把小的边分配给他们。</p>
 <p>但是这个重合的路径怎么找呢？</p>
 <p>一个错误的做法是直接找两条最短路径的交集，<del>反例懒得构造</del>，很容易卡。</p>
-<p>答案是枚举一个 <span class="math inline">\(d\)</span> ，然后答案就是
-<span class="math display">\[
-\mathtt{dis}(a,d) + 2\times\mathtt{dis}(b,d) + \mathtt{dis}(d,c)
-\]</span> 因为边权是可以自己加的，所以我们用 <span
-class="math inline">\(\mathtt{bfs}\)</span> 把边权当成 <span
-class="math inline">\(1\)</span>
-预处理一下最少经过几条边啥的，具体看代码。</p>
-<p>单组数据时间复杂度 <span class="math inline">\(\mathcal{O}(n + m \log
-m)\)</span> ，瓶颈在排序。</p>
+<p>答案是枚举一个 $d$ ，然后答案就是</p>
+<script type="math/tex; mode=display">
+\mathtt{dis}(a,d) + 2\times\mathtt{dis}(b,d) + \mathtt{dis}(d,c)</script><p>因为边权是可以自己加的，所以我们用 $\mathtt{bfs}$ 把边权当成 $1$ 预处理一下最少经过几条边啥的，具体看代码。</p>
+<p>单组数据时间复杂度 $\mathcal{O}(n + m \log m)$  ，瓶颈在排序。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1010,7 +987,7 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p30.png" class="responsive-img" alt="CF1360E Polygon 题解">
+                        <img src="/medias/featureimages/p190.jpg" class="responsive-img" alt="CF1360E Polygon 题解">
                         
                         <span class="card-title">CF1360E Polygon 题解</span>
                     </div>
@@ -1253,7 +1230,7 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">662.4k</span>&nbsp;字
+                class="white-color">674k</span>&nbsp;字
             
             
             

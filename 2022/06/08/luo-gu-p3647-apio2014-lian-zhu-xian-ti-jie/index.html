@@ -348,7 +348,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p45.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p201.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -531,88 +531,45 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3647-apio2014-连珠线-题解">洛谷P3647 [APIO2014] 连珠线
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3647">P3647
-[APIO2014] 连珠线</a></p>
+                <h1 id="洛谷P3647-APIO2014-连珠线-题解"><a href="#洛谷P3647-APIO2014-连珠线-题解" class="headerlink" title="洛谷P3647 [APIO2014] 连珠线 题解"></a>洛谷P3647 [APIO2014] 连珠线 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3647">P3647 [APIO2014] 连珠线</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>在达芬奇时代，有一个流行的儿童游戏称为连珠线。当然，这个游戏是关于珠子和线的。线是红色或蓝色的，珠子被编号为
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span>。这个游戏从一个珠子开始，每次会用如下方式添加一个新的珠子：</p>
-<p><code>Append(w, v)</code>：一个新的珠子 <span
-class="math inline">\(w\)</span> 和一个已经添加的珠子 <span
-class="math inline">\(v\)</span> 用红线连接起来。</p>
-<p><code>Insert(w, u, v)</code>：一个新的珠子 <span
-class="math inline">\(w\)</span> 插入到用红线连起来的两个珠子 <span
-class="math inline">\(u, v\)</span> 之间。具体过程是删去 <span
-class="math inline">\(u, v\)</span> 之间红线，分别用蓝线连接 <span
-class="math inline">\(u, w\)</span> 和 <span class="math inline">\(w,
-v\)</span>。</p>
+<p>在达芬奇时代，有一个流行的儿童游戏称为连珠线。当然，这个游戏是关于珠子和线的。线是红色或蓝色的，珠子被编号为 $1$ 到 $n$。这个游戏从一个珠子开始，每次会用如下方式添加一个新的珠子：</p>
+<p><code>Append(w, v)</code>：一个新的珠子 $w$ 和一个已经添加的珠子 $v$ 用红线连接起来。</p>
+<p><code>Insert(w, u, v)</code>：一个新的珠子 $w$ 插入到用红线连起来的两个珠子 $u, v$ 之间。具体过程是删去 $u, v$ 之间红线，分别用蓝线连接 $u, w$ 和 $w, v$。</p>
 <p>每条线都有一个长度。游戏结束后，你的最终得分为蓝线长度之和。</p>
 <p>给你连珠线游戏结束后的游戏局面，只告诉了你珠子和链的连接方式以及每条线的长度，没有告诉你每条线分别是什么颜色。</p>
 <p>你需要写一个程序来找出最大可能得分。即，在所有以给出的最终局面结束的连珠线游戏中找出那个得分最大的，然后输出最大可能得分。</p>
-<p><span class="math inline">\(1 \leq n \leq 200000\)</span>。</p>
+<p>$1 \leq n \leq 200000$。</p>
 </blockquote>
 <p><del>开学前两天准备狂刷题，结果在这题上卡了一下午（😭</del></p>
-<p>本文主要参考了<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fighter/solution-p3647">link</a>，所以主要是自己的总结型题解（q779太菜了</p>
+<p>本文主要参考了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fighter/solution-p3647">link</a>，所以主要是自己的总结型题解（q779太菜了</p>
 <p>容易发现这是一道树形dp</p>
-<p>首先可以想到一个瞎七搭八的dp，也就是设结点 <span
-class="math inline">\(u\)</span> 和父亲的连边涂什么颜色</p>
-<p>但是这个dp不好判断合法性，<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/infinity-dimension/solution-p3647">这篇博客</a>讲的比较详细，不过这个也比较容易发现</p>
+<p>首先可以想到一个瞎七搭八的dp，也就是设结点 $u$ 和父亲的连边涂什么颜色</p>
+<p>但是这个dp不好判断合法性，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/infinity-dimension/solution-p3647">这篇博客</a>讲的比较详细，不过这个也比较容易发现</p>
 <p>于是考虑避免那种“<code>/\</code>形”的蓝色边，只考虑“<code>\</code>类型”的，也就是fa[u]-u-son[u]的</p>
 <p>可以发现此时如果<strong>固定了一个结点做根</strong>，就可以避免“<code>/\</code>形”的蓝色边出现</p>
 <p>同时也方便dp了（<del>并且有一种经典换根dp的感觉了，虽然我当时看不出</del>）</p>
-<p>设 <span class="math inline">\(f[u][0/1]\)</span> 表示 <span
-class="math inline">\(u\)</span> 所在子树中，<span
-class="math inline">\(u\)</span>
-作为或不作为蓝线的中点是能得到的最大价值</p>
-<p>前者比较简单，不是蓝线中点，则可以连蓝线中点，也可以连红线。 <span
-class="math display">\[
-f[u][0]=\sum_{v \in \text{son}[u]} \max(f[v][0],f[v][1]+w(u,v)) \tag{1}
-\]</span>
-后者较为麻烦，首先它和前者唯一的区别在于，它必须有一个儿子作为这条蓝线的终点。显然这个儿子是某个
-<span class="math inline">\(f[v][0]\)</span> 。因此我们可以把 <span
-class="math inline">\(f[u][0]\)</span> 的直接初始化到 <span
-class="math inline">\(f[u][1]\)</span> 上，然后去掉这个 <span
-class="math inline">\(v\)</span> 的贡献，并加上它的新贡献。 <span
-class="math display">\[
-f[u][1]=f[u][0]+\max_{v \in
-\text{son}[u]}(f[v][0]+w(u,v)-\max(f[v][0],f[v][1]+w(u,v))) \tag{2}
-\]</span> 有点长，不过后面那个max就是 <span
-class="math inline">\(f[u][0]\)</span> 里面的那个max</p>
-<p>然后我们就有了一个固定根情况下的dp，时间复杂度 <span
-class="math inline">\(O(n^2)\)</span> ，还过不了</p>
+<p>设 $f[u][0/1]$ 表示 $u$ 所在子树中，$u$ 作为或不作为蓝线的中点是能得到的最大价值</p>
+<p>前者比较简单，不是蓝线中点，则可以连蓝线中点，也可以连红线。</p>
+<script type="math/tex; mode=display">
+f[u][0]=\sum_{v \in \text{son}[u]} \max(f[v][0],f[v][1]+w(u,v)) \tag{1}</script><p>后者较为麻烦，首先它和前者唯一的区别在于，它必须有一个儿子作为这条蓝线的终点。显然这个儿子是某个 $f[v][0]$ 。因此我们可以把 $f[u][0]$ 的直接初始化到 $f[u][1]$ 上，然后去掉这个 $v$ 的贡献，并加上它的新贡献。</p>
+<script type="math/tex; mode=display">
+f[u][1]=f[u][0]+\max_{v \in \text{son}[u]}(f[v][0]+w(u,v)-\max(f[v][0],f[v][1]+w(u,v))) \tag{2}</script><p>有点长，不过后面那个max就是 $f[u][0]$ 里面的那个max</p>
+<p>然后我们就有了一个固定根情况下的dp，时间复杂度 $O(n^2)$ ，还过不了</p>
 <p>然后这里就要换根dp发挥作用了。</p>
-<p>我们考虑一个点 <span class="math inline">\(u\)</span> 的儿子变成了
-<span class="math inline">\(u\)</span> 的父亲会有什么影响</p>
-<p>首先这个儿子对 <span class="math inline">\(u\)</span>
-的贡献没了，并且有可能转移方程中的最大值也没了。</p>
+<p>我们考虑一个点 $u$ 的儿子变成了 $u$ 的父亲会有什么影响</p>
+<p>首先这个儿子对 $u$ 的贡献没了，并且有可能转移方程中的最大值也没了。</p>
 <p>（于是我们记录一个次大值，貌似是经典套路）</p>
-<p>然后 <span class="math inline">\(u\)</span>
-会变成新的儿子给原来的儿子（现在的父亲）贡献</p>
-<p>方便起见，我们在第一遍dp的时候用vector记录一个 <span
-class="math inline">\(g[u][0/1][j]\)</span></p>
-<p>表示对于 <span class="math inline">\(u\)</span> ，不考虑第 <span
-class="math inline">\(j\)</span> 个儿子的贡献时能获得的最大价值</p>
-<p><span class="math inline">\(g[u][0][j]\)</span> 直接减去 <span
-class="math inline">\(j\)</span> 的贡献就好了，</p>
-<p>对于 <span class="math inline">\(g[u][1][j]\)</span> ，如果 <span
-class="math inline">\(j\)</span>
-恰好是最大值，那就加上次大值，否则不变</p>
-<p>这里的最大值、次大值就是指 <span class="math inline">\((2)\)</span>
-里的 <span class="math display">\[
-\max\limits_{v \in
-\text{son}[u]}(f[v][0]+w(u,v)-\max(f[v][0],f[v][1]+w(u,v)))
-\]</span> 换根的过程中，枚举 <span class="math inline">\(u\)</span>
-的儿子作为整棵树的根。值得注意的是，换根以后 <span
-class="math inline">\(u\)</span> 的父亲就会变成 <span
-class="math inline">\(u\)</span> 的儿子。因此我们要先重新算出 <span
-class="math inline">\(u\)</span> 的父亲对 <span
-class="math inline">\(u\)</span> 的贡献，然后再换根</p>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
+<p>然后 $u$ 会变成新的儿子给原来的儿子（现在的父亲）贡献</p>
+<p>方便起见，我们在第一遍dp的时候用vector记录一个 $g[u][0/1][j]$ </p>
+<p>表示对于 $u$ ，不考虑第 $j$ 个儿子的贡献时能获得的最大价值</p>
+<p>$g[u][0][j]$ 直接减去 $j$ 的贡献就好了，</p>
+<p>对于 $g[u][1][j]$ ，如果 $j$ 恰好是最大值，那就加上次大值，否则不变</p>
+<p>这里的最大值、次大值就是指 $(2)$ 里的</p>
+<script type="math/tex; mode=display">
+\max\limits_{v \in \text{son}[u]}(f[v][0]+w(u,v)-\max(f[v][0],f[v][1]+w(u,v)))</script><p>换根的过程中，枚举 $u$ 的儿子作为整棵树的根。值得注意的是，换根以后 $u$ 的父亲就会变成 $u$ 的儿子。因此我们要先重新算出 $u$ 的父亲对 $u$ 的贡献，然后再换根</p>
+<p>时间复杂度 $O(n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1091,7 +1048,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p215.jpg" class="responsive-img" alt="洛谷P1314 [NOIP2011 提高组] 聪明的质监员 题解">
+                        <img src="/medias/featureimages/p172.jpg" class="responsive-img" alt="洛谷P1314 [NOIP2011 提高组] 聪明的质监员 题解">
                         
                         <span class="card-title">洛谷P1314 [NOIP2011 提高组] 聪明的质监员 题解</span>
                     </div>
@@ -1144,7 +1101,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p1.jpg" class="responsive-img" alt="洛谷P3047 [USACO12FEB]Nearby Cows G 题解">
+                        <img src="/medias/featureimages/p195.jpg" class="responsive-img" alt="洛谷P3047 [USACO12FEB]Nearby Cows G 题解">
                         
                         <span class="card-title">洛谷P3047 [USACO12FEB]Nearby Cows G 题解</span>
                     </div>
@@ -1339,7 +1296,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">662.4k</span>&nbsp;字
+                class="white-color">674k</span>&nbsp;字
             
             
             
