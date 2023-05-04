@@ -531,33 +531,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4550-收集邮票-题解"><a href="#洛谷P4550-收集邮票-题解" class="headerlink" title="洛谷P4550 收集邮票 题解"></a>洛谷P4550 收集邮票 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4550">P4550 收集邮票</a></p>
+                <h1 id="洛谷p4550-收集邮票-题解">洛谷P4550 收集邮票 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4550">P4550
+收集邮票</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n$ 种不同的邮票，皮皮想收集所有种类的邮票。唯一的收集方法是到同学凡凡那里购买，每次只能买一张，并且买到的邮票究竟是 $n$ 种邮票中的哪一种是等概率的，概率均为 $1/n$。但是由于凡凡也很喜欢邮票，所以皮皮购买第 $k$ 次邮票需要支付 $k$ 元钱。</p>
+<p>有 <span class="math inline">\(n\)</span>
+种不同的邮票，皮皮想收集所有种类的邮票。唯一的收集方法是到同学凡凡那里购买，每次只能买一张，并且买到的邮票究竟是
+<span class="math inline">\(n\)</span>
+种邮票中的哪一种是等概率的，概率均为 <span
+class="math inline">\(1/n\)</span>。但是由于凡凡也很喜欢邮票，所以皮皮购买第
+<span class="math inline">\(k\)</span> 次邮票需要支付 <span
+class="math inline">\(k\)</span> 元钱。</p>
 <p>现在皮皮手中没有邮票，皮皮想知道自己得到所有种类的邮票需要花费的钱数目的期望。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行，一个数字 $N$（$N \le 10000$）。</p>
+<p>一行，一个数字 <span class="math inline">\(N\)</span>（<span
+class="math inline">\(N \le 10000\)</span>）。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出要付出多少钱，保留二位小数。</p>
 </blockquote>
 <p>直接求花费比较麻烦，因为不知道确切次数什么的。</p>
 <p>俗话说，概率要顺推，<strong>期望要逆推</strong>。</p>
-<p>考虑设 $f_i$ 表示取了 $i$ 种邮票，取完剩下的期望次数。显然 $f_n = 0$ 。</p>
-<script type="math/tex; mode=display">
-f_i = \frac{i}{n}\times f_i + \frac{n-i}{n} \times f_{i+1} + 1</script><p>解下方程就是</p>
-<script type="math/tex; mode=display">
-f_i = f_{i+1} + \frac{n}{n-i}</script><p>设 $g_i$ 表示现在取了 $i$ 种邮票，取完剩下的期望花费。显然 $g_n = 0$ 。考虑转移。</p>
-<script type="math/tex; mode=display">
-g_i = \frac{i}{n}\times(g_i + f_i + 1) + \frac{n-i}{n} \times(g_{i+1}+f_{i+1} + 1)</script><p>解下方程就是</p>
-<script type="math/tex; mode=display">
-g_i = \frac{i}{n-i}\times f_i + g_{i+1} + f_{i+1} + \frac{n}{n-i}</script><p>最后答案就是 $g_0$ ，时间复杂度 $\mathcal{O}(n)$ 。</p>
+<p>考虑设 <span class="math inline">\(f_i\)</span> 表示取了 <span
+class="math inline">\(i\)</span> 种邮票，取完剩下的期望次数。显然 <span
+class="math inline">\(f_n = 0\)</span> 。 <span class="math display">\[
+f_i = \frac{i}{n}\times f_i + \frac{n-i}{n} \times f_{i+1} + 1
+\]</span> 解下方程就是 <span class="math display">\[
+f_i = f_{i+1} + \frac{n}{n-i}
+\]</span> 设 <span class="math inline">\(g_i\)</span> 表示现在取了 <span
+class="math inline">\(i\)</span> 种邮票，取完剩下的期望花费。显然 <span
+class="math inline">\(g_n = 0\)</span> 。考虑转移。 <span
+class="math display">\[
+g_i = \frac{i}{n}\times(g_i + f_i + 1) + \frac{n-i}{n}
+\times(g_{i+1}+f_{i+1} + 1)
+\]</span> 解下方程就是 <span class="math display">\[
+g_i = \frac{i}{n-i}\times f_i + g_{i+1} + f_{i+1} + \frac{n}{n-i}
+\]</span> 最后答案就是 <span class="math inline">\(g_0\)</span>
+，时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span> 。</p>
 <p><br></p>
 <p>做完了这题，不妨思考一下，<strong>为什么期望要逆推？概率为什么又是顺推？</strong></p>
-<p>这题逆推的原因在于这题中初始状态是不知道的，但是结束状态是知道的，即 $f_n = 0$ 和 $g_n = 0$ 。</p>
-<p>概率dp题顺推是因为一般初始状态是知道的，比如多次抛硬币，初始状态就是不扔，显然概率为 $0$ 。</p>
+<p>这题逆推的原因在于这题中初始状态是不知道的，但是结束状态是知道的，即
+<span class="math inline">\(f_n = 0\)</span> 和 <span
+class="math inline">\(g_n = 0\)</span> 。</p>
+<p>概率dp题顺推是因为一般初始状态是知道的，比如多次抛硬币，初始状态就是不扔，显然概率为
+<span class="math inline">\(0\)</span> 。</p>
 <p>当然这个顺序也不是绝对的，要看到底是初始状态知道还是结束状态知道。</p>
-<p>总结一下，就是 <strong>初始状态确定时可用顺推，终止状态确定时可用逆推</strong> 。</p>
+<p>总结一下，就是
+<strong>初始状态确定时可用顺推，终止状态确定时可用逆推</strong> 。</p>
 <p><br></p>
 <p><del>嗨害嘿，代码来咯</del>：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -584,13 +604,21 @@ g_i = \frac{i}{n-i}\times f_i + g_{i+1} + f_{i+1} + \frac{n}{n-i}</script><p>最
     cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> g<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>关于参考文献 [1] 提到的 $n \times \frac{f_0 \times (f_0 + 1)}{2}$ 为什么不对，我觉得应该这么说明（参考了评论区）</p>
-<p>设随机变量 $x$ 为凑齐邮票所需的花费，则我们要求的是 $E\left[\frac{1}{2}x(x+1)\right]$ ，而</p>
-<script type="math/tex; mode=display">
-\mathrm{E}\left[\frac{1}{2}x(x+1)\right]\ne \frac{1}{2}\times (\mathrm{E}[x]+1)\times \mathrm{E}[x]</script><p>因此直接用 $n \times \frac{f_0 \times (f_0 + 1)}{2}$ 算出来的是不对的。</p>
-<hr>
+<p>关于参考文献 [1] 提到的 <span class="math inline">\(n \times
+\frac{f_0 \times (f_0 + 1)}{2}\)</span>
+为什么不对，我觉得应该这么说明（参考了评论区）</p>
+<p>设随机变量 <span class="math inline">\(x\)</span>
+为凑齐邮票所需的花费，则我们要求的是 <span
+class="math inline">\(E\left[\frac{1}{2}x(x+1)\right]\)</span> ，而
+<span class="math display">\[
+\mathrm{E}\left[\frac{1}{2}x(x+1)\right]\ne \frac{1}{2}\times
+(\mathrm{E}[x]+1)\times \mathrm{E}[x]
+\]</span> 因此直接用 <span class="math inline">\(n \times \frac{f_0
+\times (f_0 + 1)}{2}\)</span> 算出来的是不对的。</p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/league/solution-p4550">https://www.luogu.com.cn/blog/league/solution-p4550</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/league/solution-p4550">https://www.luogu.com.cn/blog/league/solution-p4550</a></p>
 
                 
             </div>
@@ -1239,7 +1267,7 @@ g_i = \frac{i}{n-i}\times f_i + g_{i+1} + f_{i+1} + \frac{n}{n-i}</script><p>最
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             

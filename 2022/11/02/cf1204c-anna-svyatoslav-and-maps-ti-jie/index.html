@@ -527,23 +527,67 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1204C-Anna-Svyatoslav-and-Maps-题解"><a href="#CF1204C-Anna-Svyatoslav-and-Maps-题解" class="headerlink" title="CF1204C Anna, Svyatoslav and Maps 题解"></a>CF1204C Anna, Svyatoslav and Maps 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1204C">CF1204C Anna, Svyatoslav and Maps</a></p>
+                <h1 id="cf1204c-anna-svyatoslav-and-maps-题解">CF1204C Anna, Svyatoslav
+and Maps 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1204C">CF1204C
+Anna, Svyatoslav and Maps</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于 $n(n \le 100)$ 个点有向无环图，给出一个由 $m(m \le 10^6)$ 个点组成的的路径 $p$（不保证是简单路径，但保证对于 $1 \le i &lt; m,p_i$ 与 $p_{i+1}$ 之间有边），<br>要求从 $p$ 中选出一个最短的子序列 $v$（假设长度为 $k$ ），满足 $v_1=p_1,v_k=p_m$ ，并且 $p$ 是按顺序经过 $v$ 的最短路径之一。</p>
+<p>对于 <span class="math inline">\(n(n \le 100)\)</span>
+个点有向无环图，给出一个由 <span class="math inline">\(m(m \le
+10^6)\)</span> 个点组成的的路径 <span
+class="math inline">\(p\)</span>（不保证是简单路径，但保证对于 <span
+class="math inline">\(1 \le i &lt; m,p_i\)</span> 与 <span
+class="math inline">\(p_{i+1}\)</span> 之间有边）， 要求从 <span
+class="math inline">\(p\)</span> 中选出一个最短的子序列 <span
+class="math inline">\(v\)</span>（假设长度为 <span
+class="math inline">\(k\)</span> ），满足 <span
+class="math inline">\(v_1=p_1,v_k=p_m\)</span> ，并且 <span
+class="math inline">\(p\)</span> 是按顺序经过 <span
+class="math inline">\(v\)</span> 的最短路径之一。</p>
 <p><strong>输入格式</strong>:</p>
-<p>The first line contains a single integer $n$ ( $2 \le n \le 100$ ) — the number of vertexes in a graph.</p>
-<p>The next $n$ lines define the graph by an adjacency matrix: the $j$ -th character in the $i$ -st line is equal to $1$ if there is an arc from vertex $i$ to the vertex $j$ else it is equal to $0$ . It is guaranteed that the graph doesn’t contain loops.</p>
-<p>The next line contains a single integer $m$ ( $2 \le m \le 10^6$ ) — the number of vertexes in the path.</p>
-<p>The next line contains $m$ integers $p_1, p_2, \ldots, p_m$ ( $1 \le p_i \le n$ ) — the sequence of vertexes in the path. It is guaranteed that for any $1 \leq i &lt; m$ there is an arc from $p_i$ to $p_{i+1}$ .</p>
+<p>The first line contains a single integer <span
+class="math inline">\(n\)</span> ( <span class="math inline">\(2 \le n
+\le 100\)</span> ) — the number of vertexes in a graph.</p>
+<p>The next <span class="math inline">\(n\)</span> lines define the
+graph by an adjacency matrix: the <span class="math inline">\(j\)</span>
+-th character in the <span class="math inline">\(i\)</span> -st line is
+equal to <span class="math inline">\(1\)</span> if there is an arc from
+vertex <span class="math inline">\(i\)</span> to the vertex <span
+class="math inline">\(j\)</span> else it is equal to <span
+class="math inline">\(0\)</span> . It is guaranteed that the graph
+doesn't contain loops.</p>
+<p>The next line contains a single integer <span
+class="math inline">\(m\)</span> ( <span class="math inline">\(2 \le m
+\le 10^6\)</span> ) — the number of vertexes in the path.</p>
+<p>The next line contains <span class="math inline">\(m\)</span>
+integers <span class="math inline">\(p_1, p_2, \ldots, p_m\)</span> (
+<span class="math inline">\(1 \le p_i \le n\)</span> ) — the sequence of
+vertexes in the path. It is guaranteed that for any <span
+class="math inline">\(1 \leq i &lt; m\)</span> there is an arc from
+<span class="math inline">\(p_i\)</span> to <span
+class="math inline">\(p_{i+1}\)</span> .</p>
 <p><strong>输出格式</strong>：</p>
-<p>In the first line output a single integer $k$ ( $2 \leq k \leq m$ ) — the length of the shortest good subsequence. In the second line output $k$ integers $v_1,\ldots,v_k$ ( $1 \leq v_i \leq n$ ) — the vertexes in the subsequence. If there are multiple shortest subsequences, print any. Any two consecutive numbers should be distinct.</p>
+<p>In the first line output a single integer <span
+class="math inline">\(k\)</span> ( <span class="math inline">\(2 \leq k
+\leq m\)</span> ) — the length of the shortest good subsequence. In the
+second line output <span class="math inline">\(k\)</span> integers <span
+class="math inline">\(v_1,\ldots,v_k\)</span> ( <span
+class="math inline">\(1 \leq v_i \leq n\)</span> ) — the vertexes in the
+subsequence. If there are multiple shortest subsequences, print any. Any
+two consecutive numbers should be distinct.</p>
 </blockquote>
 <p>题目的意思有点鬼畜，其实就是问你这个最短路径构成的路线中有多少个点是可以删掉的。</p>
-<p>注意到如果 $d(i,j) &gt; d(i,k) + d(k,j)$ ，则点 $k$ 就不能删除。</p>
-<p>也就是说在 $i,j$ 最短路径上的非 $i,j$ 点可以删除。</p>
-<p>注意到 $n$ 非常小，所以我们可以用 $\mathtt{Floyd}$ 预处理一下最短路，然后扫一遍就好了。</p>
-<p>时间复杂度 $\mathcal{O}(n^3 + |p|)$</p>
+<p>注意到如果 <span class="math inline">\(d(i,j) &gt; d(i,k) +
+d(k,j)\)</span> ，则点 <span class="math inline">\(k\)</span>
+就不能删除。</p>
+<p>也就是说在 <span class="math inline">\(i,j\)</span> 最短路径上的非
+<span class="math inline">\(i,j\)</span> 点可以删除。</p>
+<p>注意到 <span class="math inline">\(n\)</span> 非常小，所以我们可以用
+<span class="math inline">\(\mathtt{Floyd}\)</span>
+预处理一下最短路，然后扫一遍就好了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3 +
+|p|)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -591,9 +635,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i<span class="token operator">==</span>vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://te5555.blog.luogu.org/solution-cf1204c">https://te5555.blog.luogu.org/solution-cf1204c</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://te5555.blog.luogu.org/solution-cf1204c">https://te5555.blog.luogu.org/solution-cf1204c</a></p>
 
                 
             </div>
@@ -1222,7 +1267,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             

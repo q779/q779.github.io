@@ -527,32 +527,75 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4229-某位歌姬的故事-题解"><a href="#洛谷P4229-某位歌姬的故事-题解" class="headerlink" title="洛谷P4229 某位歌姬的故事 题解"></a>洛谷P4229 某位歌姬的故事 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4229">P4229 某位歌姬的故事</a></p>
+                <h1 id="洛谷p4229-某位歌姬的故事-题解">洛谷P4229 某位歌姬的故事
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4229">P4229
+某位歌姬的故事</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>IA 是一名会唱歌的女孩子。</p>
-<p>IOI2018 就要来了，IA 决定给参赛选手们写一首歌，以表达美好的祝愿。这首歌一共有 $n$ 个音符，第 $i$ 个音符的音高为 $h_i$。IA 的音域是 $A$，她只能唱出 $1\sim A$ 中的正整数音高。因此 $1\le h_i\le A$。</p>
-<p>在写歌之前，IA 需要确定下这首歌的结构，于是她写下了 $Q$ 条限制，其中第 $i$ 条为：编号在 $l_i$ 到 $r_i$ 之间的音符的最高音高为 $m_i$。在确定了结构之后，她就可以开始写歌了。不过她还是想知道，一共有多少种可能的歌曲满足她的所有限制？她听说你还有 9 个月就要去 IOI 了，于是希望你帮她计算一下这个值。</p>
+<p>IOI2018 就要来了，IA
+决定给参赛选手们写一首歌，以表达美好的祝愿。这首歌一共有 <span
+class="math inline">\(n\)</span> 个音符，第 <span
+class="math inline">\(i\)</span> 个音符的音高为 <span
+class="math inline">\(h_i\)</span>。IA 的音域是 <span
+class="math inline">\(A\)</span>，她只能唱出 <span
+class="math inline">\(1\sim A\)</span> 中的正整数音高。因此 <span
+class="math inline">\(1\le h_i\le A\)</span>。</p>
+<p>在写歌之前，IA 需要确定下这首歌的结构，于是她写下了 <span
+class="math inline">\(Q\)</span> 条限制，其中第 <span
+class="math inline">\(i\)</span> 条为：编号在 <span
+class="math inline">\(l_i\)</span> 到 <span
+class="math inline">\(r_i\)</span> 之间的音符的最高音高为 <span
+class="math inline">\(m_i\)</span>。在确定了结构之后，她就可以开始写歌了。不过她还是想知道，一共有多少种可能的歌曲满足她的所有限制？她听说你还有
+9 个月就要去 IOI 了，于是希望你帮她计算一下这个值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含一个整数 $T(T\le 20)$，代表测试数据的组数。</p>
-<p>每组数据的第一行包含三个正整数 $n,Q,A$。接下来 $Q$ 行，每行三个整数 $l_i,r_i,m_i$，表示一条限制。保证 $1\le l_i\le r_i\le n, 1\le m_i\le A$。</p>
+<p>输入的第一行包含一个整数 <span class="math inline">\(T(T\le
+20)\)</span>，代表测试数据的组数。</p>
+<p>每组数据的第一行包含三个正整数 <span
+class="math inline">\(n,Q,A\)</span>。接下来 <span
+class="math inline">\(Q\)</span> 行，每行三个整数 <span
+class="math inline">\(l_i,r_i,m_i\)</span>，表示一条限制。保证 <span
+class="math inline">\(1\le l_i\le r_i\le n, 1\le m_i\le A\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出只有一行，表示可能的歌曲数目。这个数可能很大，请将答案模 $998244353$ 输出。</p>
+<p>输出只有一行，表示可能的歌曲数目。这个数可能很大，请将答案模 <span
+class="math inline">\(998244353\)</span> 输出。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$0\le n,A \le 9\times 10^{8},~ 0 \le Q \le 500$ 。</p>
+<p><span class="math inline">\(0\le n,A \le 9\times 10^{8},~ 0 \le Q \le
+500\)</span> 。</p>
 </blockquote>
 <p>没完全懂，待研究。咕咕咕。。</p>
-<p>首先可以把端点离散化一下，则以下可以认为 $n,Q$ 同阶。</p>
-<p>设 $\mathtt{mx[i]}$ 表示第 $i$ 个位置的元素可以达到的最大值。</p>
-<p>这可以通过对覆盖当前位置的每个限制暴力取 $\min$ 得到。</p>
-<p>对于一个限制 $(l_i,r_i,m_i)$ ，显然只有区间 $[l_i,r_i]$ 中，$\mathtt{mx[x]}=m_i$ 的位置 $x$ 可能使得限制满足。</p>
-<p>因为当 $\mathtt{mx[x]}&lt;m_i$ 时，说明这个位置被一个更紧的限制卡住了；</p>
-<p>当 $\mathtt{mx[x]} &gt; m_i$ 时，说明区间 $i$ 根本没有覆盖到 $x$ 。这说明 $\mathtt{mx[]}$ 取值不同的位置互不影响。</p>
-<p>考虑枚举 $\mathtt{mx[x]}$ 的值 $k$ ，将 $\mathtt{mx[x]}=k$ 的下标 $x$ 拿出来dp。</p>
-<p>则限制转化为： $[l_i,r_i]$ 中存在一个元素顶到 $k$ 的上界。</p>
-<p>设 $f_{i,j}$ 表示填了前 $i$ 个位置，最后一个顶到 $k$ 的位置是 $j$ 时的方案数。</p>
-<p>转移时枚举一个新的位置 $i$ ，预先维护出所有右端点为 $i$ 的区间中左端点的最大值进行转移即可。</p>
-<p>时间复杂度 $\mathcal{O}(TQ^2)$</p>
+<p>首先可以把端点离散化一下，则以下可以认为 <span
+class="math inline">\(n,Q\)</span> 同阶。</p>
+<p>设 <span class="math inline">\(\mathtt{mx[i]}\)</span> 表示第 <span
+class="math inline">\(i\)</span> 个位置的元素可以达到的最大值。</p>
+<p>这可以通过对覆盖当前位置的每个限制暴力取 <span
+class="math inline">\(\min\)</span> 得到。</p>
+<p>对于一个限制 <span class="math inline">\((l_i,r_i,m_i)\)</span>
+，显然只有区间 <span class="math inline">\([l_i,r_i]\)</span> 中，<span
+class="math inline">\(\mathtt{mx[x]}=m_i\)</span> 的位置 <span
+class="math inline">\(x\)</span> 可能使得限制满足。</p>
+<p>因为当 <span class="math inline">\(\mathtt{mx[x]}&lt;m_i\)</span>
+时，说明这个位置被一个更紧的限制卡住了；</p>
+<p>当 <span class="math inline">\(\mathtt{mx[x]} &gt; m_i\)</span>
+时，说明区间 <span class="math inline">\(i\)</span> 根本没有覆盖到 <span
+class="math inline">\(x\)</span> 。这说明 <span
+class="math inline">\(\mathtt{mx[]}\)</span>
+取值不同的位置互不影响。</p>
+<p>考虑枚举 <span class="math inline">\(\mathtt{mx[x]}\)</span> 的值
+<span class="math inline">\(k\)</span> ，将 <span
+class="math inline">\(\mathtt{mx[x]}=k\)</span> 的下标 <span
+class="math inline">\(x\)</span> 拿出来dp。</p>
+<p>则限制转化为： <span class="math inline">\([l_i,r_i]\)</span>
+中存在一个元素顶到 <span class="math inline">\(k\)</span> 的上界。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示填了前 <span
+class="math inline">\(i\)</span> 个位置，最后一个顶到 <span
+class="math inline">\(k\)</span> 的位置是 <span
+class="math inline">\(j\)</span> 时的方案数。</p>
+<p>转移时枚举一个新的位置 <span class="math inline">\(i\)</span>
+，预先维护出所有右端点为 <span class="math inline">\(i\)</span>
+的区间中左端点的最大值进行转移即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(TQ^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -683,10 +726,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token keyword">int</span> _Q<span class="token punctuation">;</span> <span class="token function">read</span><span class="token punctuation">(</span>_Q<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>_Q<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/CXY07/solution-p4229">https://www.luogu.com.cn/blog/CXY07/solution-p4229</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=680">https://yhx-12243.github.io/OI-transit/?redirect=680</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/CXY07/solution-p4229">https://www.luogu.com.cn/blog/CXY07/solution-p4229</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=680">https://yhx-12243.github.io/OI-transit/?redirect=680</a></p>
 
                 
             </div>
@@ -1319,7 +1364,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             

@@ -527,37 +527,80 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UOJ21-【UR-1】缩进优化-题解"><a href="#UOJ21-【UR-1】缩进优化-题解" class="headerlink" title="UOJ21 【UR #1】缩进优化 题解"></a>UOJ21 【UR #1】缩进优化 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/21">#21. 【UR #1】缩进优化</a></p>
+                <h1 id="uoj21-ur-1缩进优化-题解">UOJ21 【UR #1】缩进优化 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/21">#21. 【UR
+#1】缩进优化</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>小 O 是一个热爱短代码的选手。在缩代码方面，他是一位身经百战的老手。世界各地的 OJ 上，很多题的最短解答排行榜都有他的身影。这令他感到十分愉悦。</p>
+<p>小 O
+是一个热爱短代码的选手。在缩代码方面，他是一位身经百战的老手。世界各地的
+OJ 上，很多题的最短解答排行榜都有他的身影。这令他感到十分愉悦。</p>
 <p>最近，他突然发现，很多时候自己的程序明明看起来比别人的更短，实际代码量却更长。这令他感到很费解。经过一番研究，原来是因为他每一行的缩进都全是由空格组成的，大量的空格让代码量随之增大。</p>
-<p>现在设小 O 有一份 $n$ 行的代码，第 $i$ 行有 $a_i$ 个空格作为缩进。</p>
-<p>为解决这一问题，小 O 要给自己文本编辑器设定一个正整数的默认 <kbd>Tab</kbd> 宽度 $x$，然后对于每一行，编辑器从头至尾不断把连续 $x$ 个空格替换成一个 <kbd>Tab</kbd>，直到剩余空格数不足 $x$ 个。</p>
-<p>最终缩进所占代码量为空格数与 <kbd>Tab</kbd> 数的和。请你帮小 O 选择一个合适的 $x$ ，使得缩进所占代码量最小。</p>
+<p>现在设小 O 有一份 <span class="math inline">\(n\)</span> 行的代码，第
+<span class="math inline">\(i\)</span> 行有 <span
+class="math inline">\(a_i\)</span> 个空格作为缩进。</p>
+<p>为解决这一问题，小 O 要给自己文本编辑器设定一个正整数的默认
+<kbd>Tab</kbd> 宽度 <span
+class="math inline">\(x\)</span>，然后对于每一行，编辑器从头至尾不断把连续
+<span class="math inline">\(x\)</span> 个空格替换成一个
+<kbd>Tab</kbd>，直到剩余空格数不足 <span
+class="math inline">\(x\)</span> 个。</p>
+<p>最终缩进所占代码量为空格数与 <kbd>Tab</kbd> 数的和。请你帮小 O
+选择一个合适的 <span class="math inline">\(x\)</span>
+，使得缩进所占代码量最小。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含一个正整数 $n(n \leq 10^6)$，表示代码行数。</p>
-<p>接下来 $n$ 行，第 $i$ 行包含一个正整数 $a_i(a_i \leq 10^6)$，为初始时第 $i$ 行缩进的空格个数。</p>
+<p>第一行包含一个正整数 <span class="math inline">\(n(n \leq
+10^6)\)</span>，表示代码行数。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，第 <span
+class="math inline">\(i\)</span> 行包含一个正整数 <span
+class="math inline">\(a_i(a_i \leq 10^6)\)</span>，为初始时第 <span
+class="math inline">\(i\)</span> 行缩进的空格个数。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示缩进所占代码量最小是多少。</p>
-<p>C/C++ 输入输出 long long 时请用 <code>%lld</code>。C++ 可以直接使用 cin/cout 输入输出。</p>
+<p>C/C++ 输入输出 long long 时请用 <code>%lld</code>。C++ 可以直接使用
+cin/cout 输入输出。</p>
 </blockquote>
 <p>关键词：调和级数</p>
-<p>简单推推柿子可以发现，我们要求的是下面这个东西的最小值</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n} \left\lfloor\dfrac{a_i}{T}\right\rfloor + \sum_{i=1}^{n} \left(a_i \bmod T\right)</script><p>根据常见套路 $a_i \bmod T = a_i - T\left\lfloor{\frac{a_i}{T}}\right\rfloor$，有</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n} a_i-(T-1)\sum_{i=1}^{n}\left\lfloor\dfrac{a_i}{T}\right\rfloor</script><p>显然前面是不变的，要最大化 $(T-1)\sum_{i=1}^{n}\left\lfloor\frac{a_i}{T}\right\rfloor$</p>
-<p>显然 $T \in \left[1,\max\{a_i\}\right]$ ，考虑枚举 $T$ 。 </p>
-<p>注意到 $\left\lfloor\frac{a_i}{T}\right\rfloor$ 只有至多 $\left\lfloor\frac{\max\{a_i\}}{T}\right\rfloor$ 种取值，即</p>
-<script type="math/tex; mode=display">
-\forall a_i \in [kT-T,kT-1],~\left\lfloor\frac{a_i}{T}\right\rfloor=k-1\quad 1 \le k \le \left\lfloor\frac{\max\{a_i\}}{T}\right\rfloor \land k \in \mathbb{N}</script><p>比如 $\forall a_i \in [T,2T-1],~\left\lfloor\frac{a_i}{T}\right\rfloor=1$ 。 </p>
-<p>暴力处理所有的区间 $[kT-T,kT-1]$ ，然后看看每一段区间里面有多少个 $a_i$ 。</p>
-<p>然后分析一下时间复杂度。记 $M=\max\{a_i\}$ 。</p>
-<p>对于每个枚举的 $T$ ，区间个数为 $\left\lfloor\frac{M}{T}\right\rfloor$ ，则</p>
-<script type="math/tex; mode=display">
- M + \frac{M}{2} + \frac{M}{3} + \cdots + \frac{M}{M} = M\sum_{x=1}^{M}x^{-1} = \Theta(M \ln M)</script><p>这就是调和级数。不过其实 $T=1$ 的情况不枚举也无所谓（</p>
-<p>故时间复杂度 $O(M \log M)$（更精确点就是 $\Theta(M \ln M)$ 啦） </p>
+<p>简单推推柿子可以发现，我们要求的是下面这个东西的最小值 <span
+class="math display">\[
+\sum_{i=1}^{n} \left\lfloor\dfrac{a_i}{T}\right\rfloor + \sum_{i=1}^{n}
+\left(a_i \bmod T\right)
+\]</span> 根据常见套路 <span class="math inline">\(a_i \bmod T = a_i -
+T\left\lfloor{\frac{a_i}{T}}\right\rfloor\)</span>，有 <span
+class="math display">\[
+\sum_{i=1}^{n}
+a_i-(T-1)\sum_{i=1}^{n}\left\lfloor\dfrac{a_i}{T}\right\rfloor
+\]</span> 显然前面是不变的，要最大化 <span
+class="math inline">\((T-1)\sum_{i=1}^{n}\left\lfloor\frac{a_i}{T}\right\rfloor\)</span></p>
+<p>显然 <span class="math inline">\(T \in
+\left[1,\max\{a_i\}\right]\)</span> ，考虑枚举 <span
+class="math inline">\(T\)</span> 。</p>
+<p>注意到 <span
+class="math inline">\(\left\lfloor\frac{a_i}{T}\right\rfloor\)</span>
+只有至多 <span
+class="math inline">\(\left\lfloor\frac{\max\{a_i\}}{T}\right\rfloor\)</span>
+种取值，即 <span class="math display">\[
+\forall a_i \in
+[kT-T,kT-1],~\left\lfloor\frac{a_i}{T}\right\rfloor=k-1\quad 1 \le k \le
+\left\lfloor\frac{\max\{a_i\}}{T}\right\rfloor \land k \in \mathbb{N}
+\]</span> 比如 <span class="math inline">\(\forall a_i \in
+[T,2T-1],~\left\lfloor\frac{a_i}{T}\right\rfloor=1\)</span> 。</p>
+<p>暴力处理所有的区间 <span class="math inline">\([kT-T,kT-1]\)</span>
+，然后看看每一段区间里面有多少个 <span
+class="math inline">\(a_i\)</span> 。</p>
+<p>然后分析一下时间复杂度。记 <span
+class="math inline">\(M=\max\{a_i\}\)</span> 。</p>
+<p>对于每个枚举的 <span class="math inline">\(T\)</span> ，区间个数为
+<span
+class="math inline">\(\left\lfloor\frac{M}{T}\right\rfloor\)</span> ，则
+<span class="math display">\[
+M + \frac{M}{2} + \frac{M}{3} + \cdots + \frac{M}{M} =
+M\sum_{x=1}^{M}x^{-1} = \Theta(M \ln M)
+\]</span> 这就是调和级数。不过其实 <span
+class="math inline">\(T=1\)</span> 的情况不枚举也无所谓（</p>
+<p>故时间复杂度 <span class="math inline">\(O(M \log
+M)\)</span>（更精确点就是 <span class="math inline">\(\Theta(M \ln
+M)\)</span> 啦）</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -601,7 +644,8 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/asuldb/p/11455826.html">https://www.cnblogs.com/asuldb/p/11455826.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/asuldb/p/11455826.html">https://www.cnblogs.com/asuldb/p/11455826.html</a></p>
 
                 
             </div>
@@ -1242,7 +1286,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             

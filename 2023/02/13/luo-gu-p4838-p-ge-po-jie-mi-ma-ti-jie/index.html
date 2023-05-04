@@ -535,38 +535,57 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4838-P哥破解密码-题解"><a href="#洛谷P4838-P哥破解密码-题解" class="headerlink" title="洛谷P4838 P哥破解密码 题解"></a>洛谷P4838 P哥破解密码 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4838">P4838 P哥破解密码</a></p>
+                <h1 id="洛谷p4838-p哥破解密码-题解">洛谷P4838 P哥破解密码 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4838">P4838
+P哥破解密码</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>定义一个串合法，当且仅当串只由 $\tt{A}$ 和 $\tt{B}$ 构成，且没有连续的 $3$ 个 $\tt{A}$ 。</p>
-<p>P哥知道，密码就是长度为 $N$ 的合法字符串数量对$19260817$取模的结果。</p>
-<p>但是P哥不会算，所以他只能把 $N$ 告诉你，让你来算</p>
+<p>定义一个串合法，当且仅当串只由 <span
+class="math inline">\(\tt{A}\)</span> 和 <span
+class="math inline">\(\tt{B}\)</span> 构成，且没有连续的 <span
+class="math inline">\(3\)</span> 个 <span
+class="math inline">\(\tt{A}\)</span> 。</p>
+<p>P哥知道，密码就是长度为 <span class="math inline">\(N\)</span>
+的合法字符串数量对<span
+class="math inline">\(19260817\)</span>取模的结果。</p>
+<p>但是P哥不会算，所以他只能把 <span class="math inline">\(N\)</span>
+告诉你，让你来算</p>
 <p>至于为什么要对这个数取模，好像是因为纪念某个人，但到底是谁，P哥也不记得了</p>
-<p>然而他忘记字符串长度 $N$ 应该是多少了，于是他准备试 $M$ 组数据。</p>
+<p>然而他忘记字符串长度 <span class="math inline">\(N\)</span>
+应该是多少了，于是他准备试 <span class="math inline">\(M\)</span>
+组数据。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行给出一个整数 $M$ 表示询问次数</p>
-<p>接下来M行每行给出一个正整数 $N$ ，表示该组询问中字符串的长度</p>
+<p>第一行给出一个整数 <span class="math inline">\(M\)</span>
+表示询问次数</p>
+<p>接下来M行每行给出一个正整数 <span class="math inline">\(N\)</span>
+，表示该组询问中字符串的长度</p>
 <p><strong>输出格式</strong>：</p>
 <p>对于每一次询问输出一行一个整数表示答案</p>
 <p><strong>数据范围</strong>：</p>
-<p>$N\leq 10^9,~M\leq 10$</p>
+<p><span class="math inline">\(N\leq 10^9,~M\leq 10\)</span></p>
 </blockquote>
-<p>设 $f_{i,j}$ 表示长度为 $i$ 的字符串，有长为 $j(j = 0,1,2)$ 的后缀全为 $\tt{A}$ ，则</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示长度为 <span
+class="math inline">\(i\)</span> 的字符串，有长为 <span
+class="math inline">\(j(j = 0,1,2)\)</span> 的后缀全为 <span
+class="math inline">\(\tt{A}\)</span> ，则 <span class="math display">\[
 f_{i,0} = f_{i - 1,0} + f_{i - 1,1} + f_{i - 1,2}
 \\ f_{i,1} = f_{i - 1,0}
-\\ f_{i,2} = f_{i - 1,1}</script><p>边界：$f_{0,0} = 1, f_{0,1} = f_{0,2} = 0$ 。</p>
-<p>注意到 $N$ 很大，考虑使用矩阵快速幂优化，如下</p>
-<script type="math/tex; mode=display">
+\\ f_{i,2} = f_{i - 1,1}
+\]</span> 边界：<span class="math inline">\(f_{0,0} = 1, f_{0,1} =
+f_{0,2} = 0\)</span> 。</p>
+<p>注意到 <span class="math inline">\(N\)</span>
+很大，考虑使用矩阵快速幂优化，如下 <span class="math display">\[
 \left[\begin{array}{lll}
-f_{0,2} & f_{0,1} & f_{0,0}
+f_{0,2} &amp; f_{0,1} &amp; f_{0,0}
 \end{array}\right] \times\left[\begin{array}{lll}
-0 & 0 & 1 \\
-1 & 0 & 1 \\
-0 & 1 & 1
+0 &amp; 0 &amp; 1 \\
+1 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 1
 \end{array}\right]^n=\left[\begin{array}{lll}
-f_{n, 2} & f_{n, 1} & f_{n, 0}
-\end{array}\right]</script><p>时间复杂度 $\mathcal{O}(m\log n)$ </p>
+f_{n, 2} &amp; f_{n, 1} &amp; f_{n, 0}
+\end{array}\right]
+\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(m\log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1272,7 +1291,7 @@ mat <span class="token function">A</span><span class="token punctuation">(</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             

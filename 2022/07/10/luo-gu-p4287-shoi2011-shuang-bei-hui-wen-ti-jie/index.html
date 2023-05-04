@@ -527,27 +527,64 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4287-SHOI2011-双倍回文-题解"><a href="#洛谷P4287-SHOI2011-双倍回文-题解" class="headerlink" title="洛谷P4287 [SHOI2011]双倍回文 题解"></a>洛谷P4287 [SHOI2011]双倍回文 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4287">P4287 [SHOI2011]双倍回文</a></p>
+                <h1 id="洛谷p4287-shoi2011双倍回文-题解">洛谷P4287 [SHOI2011]双倍回文
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4287">P4287
+[SHOI2011]双倍回文</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>记字符串 $w$ 的倒置为 $w^R$ 。例如 $(\tt{abcd})^R=\tt{dcba}$ ， $(\tt{abba})^R=\tt{abba}$ 。</p>
-<p>对字符串 $x$ ，如果 $x$ 满足 $x^R=x$ ，则称之为回文；例如 $\tt{abba}$ 是一个回文，而 $\tt{abed}$ 不是。</p>
-<p>如果 $x$ 能够写成的 $ww^Rww^R$ 形式，则称它是一个“双倍回文”。换句话说，若要 $x$ 是双倍回文，它的长度必须是 $4$ 的倍数，而且 $x$ ， $x$ 的前半部分， $x$ 的后半部分都要是回文。例如 $\tt{abbaabba}$ 是一个双倍回文，而 $\tt{abaaba}$ 不是，因为它的长度不是 $4$ 的倍数。</p>
-<p>$x$ 的子串是指在$x$中连续的一段字符所组成的字符串。例如 $\tt{be}$ 是 $\tt{abed}$ 的子串，而 $\tt{ac}$ 不是。</p>
-<p>$x$ 的回文子串，就是指满足回文性质的 $x$ 的子串。</p>
-<p>$x$ 的双倍回文子串，就是指满足双倍回文性质的 $x$ 的子串。</p>
+<p>记字符串 <span class="math inline">\(w\)</span> 的倒置为 <span
+class="math inline">\(w^R\)</span> 。例如 <span
+class="math inline">\((\tt{abcd})^R=\tt{dcba}\)</span> ， <span
+class="math inline">\((\tt{abba})^R=\tt{abba}\)</span> 。</p>
+<p>对字符串 <span class="math inline">\(x\)</span> ，如果 <span
+class="math inline">\(x\)</span> 满足 <span
+class="math inline">\(x^R=x\)</span> ，则称之为回文；例如 <span
+class="math inline">\(\tt{abba}\)</span> 是一个回文，而 <span
+class="math inline">\(\tt{abed}\)</span> 不是。</p>
+<p>如果 <span class="math inline">\(x\)</span> 能够写成的 <span
+class="math inline">\(ww^Rww^R\)</span>
+形式，则称它是一个“双倍回文”。换句话说，若要 <span
+class="math inline">\(x\)</span> 是双倍回文，它的长度必须是 <span
+class="math inline">\(4\)</span> 的倍数，而且 <span
+class="math inline">\(x\)</span> ， <span
+class="math inline">\(x\)</span> 的前半部分， <span
+class="math inline">\(x\)</span> 的后半部分都要是回文。例如 <span
+class="math inline">\(\tt{abbaabba}\)</span> 是一个双倍回文，而 <span
+class="math inline">\(\tt{abaaba}\)</span> 不是，因为它的长度不是 <span
+class="math inline">\(4\)</span> 的倍数。</p>
+<p><span class="math inline">\(x\)</span> 的子串是指在<span
+class="math inline">\(x\)</span>中连续的一段字符所组成的字符串。例如
+<span class="math inline">\(\tt{be}\)</span> 是 <span
+class="math inline">\(\tt{abed}\)</span> 的子串，而 <span
+class="math inline">\(\tt{ac}\)</span> 不是。</p>
+<p><span class="math inline">\(x\)</span>
+的回文子串，就是指满足回文性质的 <span class="math inline">\(x\)</span>
+的子串。</p>
+<p><span class="math inline">\(x\)</span>
+的双倍回文子串，就是指满足双倍回文性质的 <span
+class="math inline">\(x\)</span> 的子串。</p>
 <p>你的任务是，对于给定的字符串，计算它的最长双倍回文子串的长度。</p>
-<p>$n \le 500000$</p>
+<p><span class="math inline">\(n \le 500000\)</span></p>
 </blockquote>
 <p>考虑Manacher求解</p>
-<p>对于修改后字符串的 $i$ 位置的初始回文半径 $p_i$ （暴力拓展前的半径）</p>
-<p>如果 $i-p_i+1 \le \text{mid}$ ，则存在一个极大双倍回文子串</p>
+<p>对于修改后字符串的 <span class="math inline">\(i\)</span>
+位置的初始回文半径 <span class="math inline">\(p_i\)</span>
+（暴力拓展前的半径）</p>
+<p>如果 <span class="math inline">\(i-p_i+1 \le \text{mid}\)</span>
+，则存在一个极大双倍回文子串</p>
 <p>这个极大双倍回文子串在修改后的串中，</p>
-<p>以「以 $\text{mid}$ 为中心的回文串」的形式存在</p>
-<p>注意题目要求的是 $4$ 倍数的串，则对于刚才的求解方法，</p>
-<p>只要限制 $i$ 为奇数时更新答案、$\text{mid}$ 和 $r$ </p>
-<p>此时 $i$ 的回文半径 $p_i^{\prime}-1$ 一定是偶串的长度</p>
-<p>注意 $r$ 相同时，不要优先更新 $\text{mid}$ </p>
+<p>以「以 <span class="math inline">\(\text{mid}\)</span>
+为中心的回文串」的形式存在</p>
+<p>注意题目要求的是 <span class="math inline">\(4\)</span>
+倍数的串，则对于刚才的求解方法，</p>
+<p>只要限制 <span class="math inline">\(i\)</span>
+为奇数时更新答案、<span class="math inline">\(\text{mid}\)</span> 和
+<span class="math inline">\(r\)</span></p>
+<p>此时 <span class="math inline">\(i\)</span> 的回文半径 <span
+class="math inline">\(p_i^{\prime}-1\)</span> 一定是偶串的长度</p>
+<p>注意 <span class="math inline">\(r\)</span> 相同时，不要优先更新
+<span class="math inline">\(\text{mid}\)</span></p>
 <p>否则根据贪心，不难发现会失去某些极大值，导致答案出错</p>
 <p>这里给个hack（<del>想了我几个小时才想出来</del>）</p>
 <pre class="line-numbers language-none"><code class="language-none">input:
@@ -556,7 +593,7 @@ abcbbbbbbbba
 
 output:
 8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>时间复杂度 $O(n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1235,7 +1272,7 @@ output:
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">674k</span>&nbsp;字
+                class="white-color">693.1k</span>&nbsp;字
             
             
             
