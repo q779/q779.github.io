@@ -473,16 +473,16 @@
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
+                            </a>
+                        
                             <a href="/tags/DP/">
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -535,7 +535,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1273-有线电视网-题解"><a href="#洛谷P1273-有线电视网-题解" class="headerlink" title="洛谷P1273 有线电视网 题解"></a>洛谷P1273 有线电视网 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1273">P1273 有线电视网</a></p>
+                <h1 id="洛谷p1273-有线电视网-题解">洛谷P1273 有线电视网 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1273">P1273
+有线电视网</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>某收费有线电视网计划转播一场重要的足球比赛。他们的转播网和用户终端构成一棵树状结构，这棵树的根结点位于足球比赛的现场，树叶为各个用户终端，其他中转站为该树的内部节点。</p>
@@ -546,24 +548,31 @@
 <p>如果直接去想怎么保证不超过边权和什么的不太好搞</p>
 <p>考虑把每个用户数是否能够承担都算出来即可</p>
 <p>也就是</p>
-<p>设 $dp[i][u][j]$ 表示以 $u$ 为根的子树，仅用前 $i$ 个儿子，满足 $j$ 个客户能获得的最大价值</p>
+<p>设 <span class="math inline">\(dp[i][u][j]\)</span> 表示以 <span
+class="math inline">\(u\)</span> 为根的子树，仅用前 <span
+class="math inline">\(i\)</span> 个儿子，满足 <span
+class="math inline">\(j\)</span> 个客户能获得的最大价值</p>
 <blockquote>
-<p> 事实上我们并不是非常关心是否能获得的最大价值，我们只要不亏本的情况下尽可能多让人看罢了（<del>好良心有没有</del>）</p>
+<p>事实上我们并不是非常关心是否能获得的最大价值，我们只要不亏本的情况下尽可能多让人看罢了（<del>好良心有没有</del>）</p>
 </blockquote>
-<p>则有转移方程</p>
-<script type="math/tex; mode=display">
-dp[i][u][j]=\max(dp[i][u][j],dp[i-1][u][j-k]+dp[\text{sz}[v]][v][k]-w(u,v))</script><p>可以发现这个东西可以滚动数组优化</p>
-<p>然后就有</p>
-<script type="math/tex; mode=display">
-dp[u][j]=\max(dp[u][j],dp[u][j-k]+dp[v][k]-w(u,v))</script><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">+=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<p>则有转移方程 <span class="math display">\[
+dp[i][u][j]=\max(dp[i][u][j],dp[i-1][u][j-k]+dp[\text{sz}[v]][v][k]-w(u,v))
+\]</span> 可以发现这个东西可以滚动数组优化</p>
+<p>然后就有 <span class="math display">\[
+dp[u][j]=\max(dp[u][j],dp[u][j-k]+dp[v][k]-w(u,v))
+\]</span></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">+=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">&lt;=</span><span class="token function">min</span><span class="token punctuation">(</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
         dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span>k<span class="token punctuation">]</span><span class="token operator">+</span>dp<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">-</span>e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>AC？不，这样会TLE。参考讨论 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/251664">link</a></p>
-<p>因为这样的复杂度并不能保证为严格 $O(n^2)$ 的，这也就是所谓的实现不好。</p>
-<p>改成下面的刷表法就好了</p>
-<script type="math/tex; mode=display">
-dp[u][j+k]=\max(dp[u][j+k],dp[u][j]+dp[v][k]-w(u,v))</script><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+<p>AC？不，这样会TLE。参考讨论 <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/251664">link</a></p>
+<p>因为这样的复杂度并不能保证为严格 <span
+class="math inline">\(O(n^2)\)</span> 的，这也就是所谓的实现不好。</p>
+<p>改成下面的刷表法就好了 <span class="math display">\[
+dp[u][j+k]=\max(dp[u][j+k],dp[u][j]+dp[v][k]-w(u,v))
+\]</span></p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
     tmp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -711,16 +720,16 @@ dp[u][j+k]=\max(dp[u][j+k],dp[u][j]+dp[v][k]-w(u,v))</script><pre class="line-nu
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
+                                </a>
+                            
                                 <a href="/tags/DP/">
                                     <span class="chip bg-color">DP</span>
                                 </a>
                             
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -1283,7 +1292,7 @@ dp[u][j+k]=\max(dp[u][j+k],dp[u][j]+dp[v][k]-w(u,v))</script><pre class="line-nu
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">708.7k</span>&nbsp;字
+                class="white-color">727.8k</span>&nbsp;字
             
             
             
@@ -1551,6 +1560,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

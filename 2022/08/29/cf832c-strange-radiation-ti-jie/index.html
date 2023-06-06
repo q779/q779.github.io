@@ -531,53 +531,99 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF832C-Strange-Radiation-题解"><a href="#CF832C-Strange-Radiation-题解" class="headerlink" title="CF832C Strange Radiation 题解"></a>CF832C Strange Radiation 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF832C">CF832C Strange Radiation</a></p>
+                <h1 id="cf832c-strange-radiation-题解">CF832C Strange Radiation
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF832C">CF832C
+Strange Radiation</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$n$ 个人站在一个数轴上，它们的坐标均为正整数，且小于 $10^6$。对于每个人，都有一个面对的方向 (左和右) 以及它的速度。</p>
-<p>你可以在一个坐标为<strong>非负整数</strong>，且不超过 $10^6$ 的位置上放置一个炸弹 ，并引爆它，这时，所有的人都会按照他们面对的方向以他们的速度跑起来。与此同时，两条奇怪的射线（<del>应该是气流吧</del>）会以 $v$ 的速度从炸弹的位置发射出来——一条向右、一条向左。当然，速度 $v$ <strong>严格大于</strong>人的跑步速度。</p>
-<p>这些射线之所以奇怪，是因为如果某一个时刻，射线的位置与某个人的位置重合，且该射线的方向与那个人跑步的方向一致，则他跑步的速度会立即<strong>增加</strong>射线的速度 $v$。</p>
-<p>你需要在一个地方放置一个炸弹，使得目标时间——即<strong>有一个人到达过</strong>位置 $0$，且<strong>还有一个人到达过</strong>位置 $10^6$ 的时间——尽可能地小。换句话说，找到最小的时间 $t$，使得存在那么一个放炸弹的位置，使得前 $t$ 个单位时间内有人到达过位置 $0$，且有人到达过位置 $10^6$ （不必同时）。</p>
+<p><span class="math inline">\(n\)</span>
+个人站在一个数轴上，它们的坐标均为正整数，且小于 <span
+class="math inline">\(10^6\)</span>。对于每个人，都有一个面对的方向
+(左和右) 以及它的速度。</p>
+<p>你可以在一个坐标为<strong>非负整数</strong>，且不超过 <span
+class="math inline">\(10^6\)</span> 的位置上放置一个炸弹
+，并引爆它，这时，所有的人都会按照他们面对的方向以他们的速度跑起来。与此同时，两条奇怪的射线（<del>应该是气流吧</del>）会以
+<span class="math inline">\(v\)</span>
+的速度从炸弹的位置发射出来——一条向右、一条向左。当然，速度 <span
+class="math inline">\(v\)</span>
+<strong>严格大于</strong>人的跑步速度。</p>
+<p>这些射线之所以奇怪，是因为如果某一个时刻，射线的位置与某个人的位置重合，且该射线的方向与那个人跑步的方向一致，则他跑步的速度会立即<strong>增加</strong>射线的速度
+<span class="math inline">\(v\)</span>。</p>
+<p>你需要在一个地方放置一个炸弹，使得目标时间——即<strong>有一个人到达过</strong>位置
+<span
+class="math inline">\(0\)</span>，且<strong>还有一个人到达过</strong>位置
+<span class="math inline">\(10^6\)</span>
+的时间——尽可能地小。换句话说，找到最小的时间 <span
+class="math inline">\(t\)</span>，使得存在那么一个放炸弹的位置，使得前
+<span class="math inline">\(t\)</span> 个单位时间内有人到达过位置 <span
+class="math inline">\(0\)</span>，且有人到达过位置 <span
+class="math inline">\(10^6\)</span> （不必同时）。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 $n, s~(2 \leq n \leq 10^5, ~2 \leq s \leq 10^6)$，表示人的个数和射线的速度。</p>
-<p>接下来的 $n$ 行描述每个人。其中第 $i$ 行包含三个正整数 $x_i, v_i, t_i,(0 &lt; x_i &lt; 10^6,~v_i &lt; s,~ t_i \in \{1, 2\})$，分别表示第 $i$ 个人的坐标、他跑步的速度以及他跑步的方向，其中 $1$ 为左（负方向），$2$ 为右（正方向）。</p>
+<p>第一行包含两个正整数 <span class="math inline">\(n, s~(2 \leq n \leq
+10^5, ~2 \leq s \leq 10^6)\)</span>，表示人的个数和射线的速度。</p>
+<p>接下来的 <span class="math inline">\(n\)</span> 行描述每个人。其中第
+<span class="math inline">\(i\)</span> 行包含三个正整数 <span
+class="math inline">\(x_i, v_i, t_i,(0 &lt; x_i &lt; 10^6,~v_i &lt; s,~
+t_i \in \{1, 2\})\)</span>，分别表示第 <span
+class="math inline">\(i\)</span>
+个人的坐标、他跑步的速度以及他跑步的方向，其中 <span
+class="math inline">\(1\)</span> 为左（负方向），<span
+class="math inline">\(2\)</span> 为右（正方向）。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出目标时间的最小值。你的答案被判定为正确当且仅当绝对误差或相对误差不超过 $10^{-6}$。</p>
+<p>输出目标时间的最小值。你的答案被判定为正确当且仅当绝对误差或相对误差不超过
+<span class="math inline">\(10^{-6}\)</span>。</p>
 </blockquote>
-<p>目标时间最小值 $t$ ，肯定是考虑二分啦</p>
+<p>目标时间最小值 <span class="math inline">\(t\)</span>
+，肯定是考虑二分啦</p>
 <p>然后就变成了如何判断是否存在有效的放炸弹的位置</p>
 <p>考虑如何检验两边有没有人到达</p>
-<p>先考虑某个向左走的人 cxy ，并假设她就是那个先走到 $0$ 的人</p>
-<p>则她的坐标 $x_0$ 就是它要走的距离，设她速度为 $v_0$ 。</p>
-<p>如果她本来就很快，即 $x_0 \le v_0t$ ，那她根本不用<del>吃炸弹灰</del>就能跑到</p>
-<p>接下来考虑 $x_0 &gt; v_0t$ 。但是我们不知道炸弹在哪里！<del>俗话说得好，不知道就设出来</del></p>
-<p>设炸弹的位置为 $x$ ，显然有 $x_0 \le x \le 10^6$ </p>
+<p>先考虑某个向左走的人 cxy ，并假设她就是那个先走到 <span
+class="math inline">\(0\)</span> 的人</p>
+<p>则她的坐标 <span class="math inline">\(x_0\)</span>
+就是它要走的距离，设她速度为 <span class="math inline">\(v_0\)</span>
+。</p>
+<p>如果她本来就很快，即 <span class="math inline">\(x_0 \le
+v_0t\)</span> ，那她根本不用<del>吃炸弹灰</del>就能跑到</p>
+<p>接下来考虑 <span class="math inline">\(x_0 &gt; v_0t\)</span>
+。但是我们不知道炸弹在哪里！<del>俗话说得好，不知道就设出来</del></p>
+<p>设炸弹的位置为 <span class="math inline">\(x\)</span> ，显然有 <span
+class="math inline">\(x_0 \le x \le 10^6\)</span></p>
 <p>然后就是个追及问题</p>
-<p>射线追到人的时间为</p>
-<script type="math/tex; mode=display">
-t_1=\dfrac{x-x_0}{v-v_0}</script><p>追到的位置为</p>
-<script type="math/tex; mode=display">
+<p>射线追到人的时间为 <span class="math display">\[
+t_1=\dfrac{x-x_0}{v-v_0}
+\]</span></p>
+<p>追到的位置为 <span class="math display">\[
 \begin{aligned}
-x_1 &=x-vt_1 
-\\ &=x-v\dfrac{x-x_0}{v-v_0}
-\\ &=\dfrac{x_0v-v_0x}{v-v_0}
-\end{aligned}</script><p>因为 $x_1 \ge 0$ ，所以 $x_0v - v_0x$ ，即</p>
-<script type="math/tex; mode=display">
-x \le v\dfrac{x_0}{v_0}</script><p>然后吃到射线后，速度变为 $v_1 = v_0 + v$ ，要走的距离就是</p>
-<script type="math/tex; mode=display">
-x_1 = \dfrac{x_0 v - v_0 x}{v-v_0}</script><p>故时间</p>
-<script type="math/tex; mode=display">
-t_2 = \dfrac{x_1}{v_1} = \dfrac{x_0v-v_0x}{v^2-v_0^2}</script><p>总时间</p>
-<script type="math/tex; mode=display">
-t_{\texttt{总}} = t_1 + t_2 = \dfrac{xv - x_0v_0}{v^2-v_0^2} \le t</script><p>则</p>
-<script type="math/tex; mode=display">
-x \le \dfrac{1}{v} \left(x_0v_0 + (v^2-v_0^2)t\right)</script><p>故综上所述</p>
-<script type="math/tex; mode=display">
-x_0 \le x \le \min\left\{10^6, ~\dfrac{x_0 v}{v_0},~ \dfrac{1}{v} \left(x_0v_0 + (v^2-v_0^2)t\right)\right\}</script><p>对于每个向左走的人，我们都可以得到一个范围 $l_i \le x \le r_i$ （注意特判空集！）</p>
+x_1 &amp;=x-vt_1
+\\ &amp;=x-v\dfrac{x-x_0}{v-v_0}
+\\ &amp;=\dfrac{x_0v-v_0x}{v-v_0}
+\end{aligned}
+\]</span> 因为 <span class="math inline">\(x_1 \ge 0\)</span> ，所以
+<span class="math inline">\(x_0v - v_0x\)</span> ，即 <span
+class="math display">\[
+x \le v\dfrac{x_0}{v_0}
+\]</span> 然后吃到射线后，速度变为 <span class="math inline">\(v_1 = v_0
++ v\)</span> ，要走的距离就是 <span class="math display">\[
+x_1 = \dfrac{x_0 v - v_0 x}{v-v_0}
+\]</span></p>
+<p>故时间 <span class="math display">\[
+t_2 = \dfrac{x_1}{v_1} = \dfrac{x_0v-v_0x}{v^2-v_0^2}
+\]</span> 总时间 <span class="math display">\[
+t_{\texttt{总}} = t_1 + t_2 = \dfrac{xv - x_0v_0}{v^2-v_0^2} \le t
+\]</span> 则 <span class="math display">\[
+x \le \dfrac{1}{v} \left(x_0v_0 + (v^2-v_0^2)t\right)
+\]</span> 故综上所述 <span class="math display">\[
+x_0 \le x \le \min\left\{10^6, ~\dfrac{x_0 v}{v_0},~ \dfrac{1}{v}
+\left(x_0v_0 + (v^2-v_0^2)t\right)\right\}
+\]</span> 对于每个向左走的人，我们都可以得到一个范围 <span
+class="math inline">\(l_i \le x \le r_i\)</span> （注意特判空集！）</p>
 <p>然后我们取一个并集就好了。对于向右走的人，同样可以推出类似的式子</p>
 <p>然后把两个并集求交，如果有交，则有解</p>
-<p>判断方法：「两个下界的 $\max$ 」小于等于「两个上界的 $\min$ 」</p>
-<p>时间复杂度 $O(-n \log \epsilon)$</p>
+<p>判断方法：「两个下界的 <span class="math inline">\(\max\)</span>
+」小于等于「两个上界的 <span class="math inline">\(\min\)</span> 」</p>
+<p>时间复杂度 <span class="math inline">\(O(-n \log
+\epsilon)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -648,7 +694,8 @@ x_0 \le x \le \min\left\{10^6, ~\dfrac{x_0 v}{v_0},~ \dfrac{1}{v} \left(x_0v_0 +
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf832C.html">https://yhx-12243.github.io/OI-transit/records/cf832C.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf832C.html">https://yhx-12243.github.io/OI-transit/records/cf832C.html</a></p>
 
                 
             </div>
@@ -1289,7 +1336,7 @@ x_0 \le x \le \min\left\{10^6, ~\dfrac{x_0 v}{v_0},~ \dfrac{1}{v} \left(x_0v_0 +
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">708.7k</span>&nbsp;字
+                class="white-color">727.8k</span>&nbsp;字
             
             
             
@@ -1557,6 +1604,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
