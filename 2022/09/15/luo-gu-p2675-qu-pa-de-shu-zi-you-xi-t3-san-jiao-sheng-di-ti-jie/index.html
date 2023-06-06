@@ -527,66 +527,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2675-瞿葩的数字游戏t3-三角圣地-题解">洛谷P2675
-《瞿葩的数字游戏》T3-三角圣地 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2675">P2675
-《瞿葩的数字游戏》T3-三角圣地</a></p>
+                <h1 id="洛谷P2675-《瞿葩的数字游戏》T3-三角圣地-题解"><a href="#洛谷P2675-《瞿葩的数字游戏》T3-三角圣地-题解" class="headerlink" title="洛谷P2675 《瞿葩的数字游戏》T3-三角圣地 题解"></a>洛谷P2675 《瞿葩的数字游戏》T3-三角圣地 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2675">P2675 《瞿葩的数字游戏》T3-三角圣地</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>不是说三角形是最稳定的图形嘛，数字王国的中心便是由一个倒三角构成。这个倒三角的顶端有一排数字，分别是
-<span class="math inline">\(1\sim n\)</span>。<span
-class="math inline">\(1\sim n\)</span>
-可以交换位置。之后的每一行的数字都是上一行相邻两个数字相加得到的。这样下来，最底端就是一个比较大的数字啦！数字王国称这个数字为“基”。cxy
-希望“基”越大越好，可是每次都自己去做加法太繁琐了，他希望你能帮他通过编程计算出这个数的最大值。但是这个值可能很大，所以请你输出它
-<span class="math inline">\(\bmod 10007\)</span> 的结果。</p>
-<p>任务：给定 <span class="math inline">\(n\)</span> ，求三角形 <span
-class="math inline">\(1\sim n\)</span> 的基的最大值 再去 <span
-class="math inline">\(\bmod 10007\)</span>。</p>
+<p>不是说三角形是最稳定的图形嘛，数字王国的中心便是由一个倒三角构成。这个倒三角的顶端有一排数字，分别是 $1\sim n$。$1\sim n$ 可以交换位置。之后的每一行的数字都是上一行相邻两个数字相加得到的。这样下来，最底端就是一个比较大的数字啦！数字王国称这个数字为“基”。cxy 希望“基”越大越好，可是每次都自己去做加法太繁琐了，他希望你能帮他通过编程计算出这个数的最大值。但是这个值可能很大，所以请你输出它 $\bmod 10007$ 的结果。</p>
+<p>任务：给定 $n$ ，求三角形 $1\sim n$ 的基的最大值 再去 $\bmod 10007$。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一个整数 <span class="math inline">\(n\)</span> 。</p>
+<p>一个整数 $n$ 。</p>
 <p><strong>输出格式</strong>:</p>
-<p>一个整数，表示 <span class="math inline">\(1 \sim n\)</span>
-构成的三角形的最大的“基” 。</p>
+<p>一个整数，表示 $1 \sim n$ 构成的三角形的最大的“基” 。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(0 \le n \le 10^6\)</span></p>
+<p>$0 \le n \le 10^6$</p>
 </blockquote>
-<p>首先观察这个贡献是怎么算的 <span class="math display">\[
+<p>首先观察这个贡献是怎么算的</p>
+<script type="math/tex; mode=display">
 \begin{array}{}
-a&amp;b&amp;c&amp;d
-\\a+b&amp;b+c&amp;c+d
-\\a+2b+c&amp;b+2c+d
+a&b&c&d
+\\a+b&b+c&c+d
+\\a+2b+c&b+2c+d
 \\a+3b+3c+d
-\end{array}
-\]</span> 可以发现「每个数的贡献系数」就是杨辉三角第 <span
-class="math inline">\(n\)</span> 层 <span class="math display">\[
+\end{array}</script><p>可以发现「每个数的贡献系数」就是杨辉三角第 $n$ 层</p>
+<script type="math/tex; mode=display">
 \begin{array}{}
 1
-\\1&amp;1
-\\1&amp;2&amp;1
-\\1&amp;3&amp;3&amp;1
-\\1&amp;4&amp;6&amp;4&amp;1
-\end{array}
-\]</span> 显然杨辉三角第 <span class="math inline">\(n\)</span> 层第
-<span class="math inline">\(m\)</span> 个数为 <span
-class="math inline">\(\mathrm{C}_{n-1}^{m-1}\)</span> 。</p>
+\\1&1
+\\1&2&1
+\\1&3&3&1
+\\1&4&6&4&1
+\end{array}</script><p>显然杨辉三角第 $n$ 层第 $m$ 个数为 $\mathrm{C}_{n-1}^{m-1}$ 。</p>
 <p>根据贪心，我们一定会把较大的数放在中间。</p>
-<p>因此最后的答案为 <span class="math display">\[
-\sum_{i=1}^{n} i\times
-\mathrm{C}_{n-1}^{\left\lfloor{(i+1)/2}\right\rfloor-1}
-\]</span></p>
-<p>但是因为 <span class="math inline">\(n\le 10^6\)</span>
-，所以我们要用 <span class="math inline">\(\mathrm{Lucas}\)</span>
-定理来算组合数。</p>
-<p>这里可以预处理出 <span class="math inline">\(1\sim p-1\)</span>
-每个数的逆元，然后加快运算。</p>
+<p>因此最后的答案为</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n} i\times \mathrm{C}_{n-1}^{\left\lfloor{(i+1)/2}\right\rfloor-1}</script><p>但是因为 $n\le 10^6$ ，所以我们要用 $\mathrm{Lucas}$ 定理来算组合数。</p>
+<p>这里可以预处理出 $1\sim p-1$ 每个数的逆元，然后加快运算。</p>
 <blockquote>
-<p>注意，这里不能用 <span class="math inline">\(\mathcal{O}(n)\)</span>
-预处理 <span class="math inline">\(n!\)</span> 的逆元</p>
-<p>因为 <span class="math inline">\(n = p\)</span>
-时不存在逆元，会导致线性推导挂掉。</p>
+<p>注意，这里不能用 $\mathcal{O}(n)$ 预处理 $n!$ 的逆元</p>
+<p>因为 $n = p$ 时不存在逆元，会导致线性推导挂掉。</p>
 </blockquote>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log_p
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log_p n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1246,7 +1224,7 @@ n)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">693.1k</span>&nbsp;字
+                class="white-color">708.7k</span>&nbsp;字
             
             
             
@@ -1514,21 +1492,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -527,46 +527,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1485c-floor-and-mod-题解">CF1485C Floor and Mod 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1485C">CF1485C
-Floor and Mod</a></p>
+                <h1 id="CF1485C-Floor-and-Mod-题解"><a href="#CF1485C-Floor-and-Mod-题解" class="headerlink" title="CF1485C Floor and Mod 题解"></a>CF1485C Floor and Mod 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1485C">CF1485C Floor and Mod</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>多组询问。给定 <span class="math inline">\(x,y\)</span> ，求 <span
-class="math inline">\(1\le a\le x,1\le b\le y\)</span> 且 <span
-class="math inline">\(\lfloor\frac{a}{b}\rfloor =a\bmod b\)</span>
-的<span class="math inline">\((a,b)\)</span> 个数。</p>
+<p>多组询问。给定 $x,y$ ，求 $1\le a\le x,1\le b\le y$ 且 $\lfloor\frac{a}{b}\rfloor =a\bmod b$ 的$(a,b)$ 个数。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le Q \le 100,~1 \leq x, y \leq
-10^9\)</span> 。</p>
+<p>$1\le Q \le 100,~1 \leq x, y \leq 10^9$ 。</p>
 </blockquote>
-<p>这道题有点麻烦 QAQ</p>
-<p>先推一波柿子 <span class="math display">\[
+<p>这道题有点麻烦 QAQ </p>
+<p>先推一波柿子</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\left\lfloor{\frac{a}{b}}\right\rfloor &amp;= a \bmod b
-\\\\\left\lfloor{\frac{a}{b}}\right\rfloor &amp;=
-a-\left\lfloor{\frac{a}{b}}\right\rfloor\times b
-\\\\\left\lfloor{\frac{a}{b}}\right\rfloor &amp;=\frac{a}{b+1}
-\end{aligned}
-\]</span> 显然 <span class="math inline">\(b +1 \mid a\)</span>
-，同时因为 <span class="math inline">\(a \bmod b &lt;b\)</span></p>
-<p>所以 <span class="math inline">\(\dfrac{a}{b+1} &lt; b \Rightarrow
-a&lt;b^2 + b \Rightarrow a \in [0,b^2+b-1]\)</span></p>
-<p>则满足条件的 <span class="math inline">\(a\)</span> 的个数为 <span
-class="math inline">\(\left\lfloor\dfrac{\min\{x,b^2+b-1\}}{b+1}\right\rfloor\)</span></p>
-<p>答案就是 <span class="math display">\[
-\sum_{b=1}^{y}\left\lfloor\dfrac{\min\{x,b^2+b-1\}}{b+1}\right\rfloor
-\]</span> 但是这个东西好像不好用数论分块</p>
-<p>仔细观察，当 <span class="math inline">\(b \ge
-\sqrt{x}-\epsilon,\epsilon\in \mathbb{N}\)</span> 时，柿子是这样的 <span
-class="math display">\[
-\sum_{b=1}^{y}\left\lfloor\dfrac{x}{b+1}\right\rfloor
-\]</span> 其实写成 <span
-class="math inline">\(\sum\limits_{b=2}^{y+1}\left\lfloor\dfrac{x}
-{b}\right\rfloor\)</span> 可以更明显地看出这是个数论分块的板子</p>
-<p>对于 <span class="math inline">\(b &lt; \sqrt{x}-\epsilon,\epsilon\in
-\mathbb{N}\)</span> 的情况，直接暴力枚举即好了</p>
-<p>时间复杂度 <span class="math inline">\(O(Q \sqrt{x})\)</span></p>
+\left\lfloor{\frac{a}{b}}\right\rfloor &= a \bmod b
+\\\\\left\lfloor{\frac{a}{b}}\right\rfloor &= a-\left\lfloor{\frac{a}{b}}\right\rfloor\times b
+\\\\\left\lfloor{\frac{a}{b}}\right\rfloor &=\frac{a}{b+1}
+\end{aligned}</script><p>显然 $b +1 \mid a$ ，同时因为 $a \bmod b &lt;b$</p>
+<p>所以 $\dfrac{a}{b+1} &lt; b \Rightarrow a&lt;b^2 + b \Rightarrow a \in [0,b^2+b-1]$</p>
+<p>则满足条件的 $a$ 的个数为 $\left\lfloor\dfrac{\min\{x,b^2+b-1\}}{b+1}\right\rfloor$</p>
+<p>答案就是</p>
+<script type="math/tex; mode=display">
+\sum_{b=1}^{y}\left\lfloor\dfrac{\min\{x,b^2+b-1\}}{b+1}\right\rfloor</script><p>但是这个东西好像不好用数论分块</p>
+<p>仔细观察，当 $b \ge \sqrt{x}-\epsilon,\epsilon\in \mathbb{N}$ 时，柿子是这样的</p>
+<script type="math/tex; mode=display">
+\sum_{b=1}^{y}\left\lfloor\dfrac{x}{b+1}\right\rfloor</script><p>其实写成 $\sum\limits_{b=2}^{y+1}\left\lfloor\dfrac{x} {b}\right\rfloor$ 可以更明显地看出这是个数论分块的板子</p>
+<p>对于 $b &lt; \sqrt{x}-\epsilon,\epsilon\in \mathbb{N}$ 的情况，直接暴力枚举即好了</p>
+<p>时间复杂度 $O(Q \sqrt{x})$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1230,7 +1215,7 @@ class="math inline">\(\sum\limits_{b=2}^{y+1}\left\lfloor\dfrac{x}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">693.1k</span>&nbsp;字
+                class="white-color">708.7k</span>&nbsp;字
             
             
             
@@ -1498,21 +1483,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -473,12 +473,12 @@
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/DP/">
                                 <span class="chip bg-color">DP</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -531,54 +531,28 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1613-跑路-题解">洛谷P1613 跑路 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1613">P1613
-跑路</a></p>
+                <h1 id="洛谷P1613-跑路-题解"><a href="#洛谷P1613-跑路-题解" class="headerlink" title="洛谷P1613 跑路 题解"></a>洛谷P1613 跑路 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1613">P1613 跑路</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 买了一个空间跑路器，每秒钟可以跑 <span
-class="math inline">\(2^k\)</span> 千米（<span
-class="math inline">\(k\)</span> 是任意自然数）。</p>
-<p>当然，这个机器是用 <code>long long</code>
-存的，所以总跑路长度不能超过 <span
-class="math inline">\(2^{63}-1\)</span> 千米。</p>
-<p>cxy 的家到公司的路可以看做一个有向图，cxy 家为点 <span
-class="math inline">\(1\)</span>，公司为点 <span
-class="math inline">\(n\)</span>，每条边长度均为一千米。</p>
-<p>cxy
-想每天能醒地尽量晚，所以让你帮他算算，他最少需要几秒才能到学校。</p>
-<p>数据保证 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 至少有一条路径。</p>
+<p>cxy 买了一个空间跑路器，每秒钟可以跑 $2^k$ 千米（$k$ 是任意自然数）。</p>
+<p>当然，这个机器是用 <code>long long</code> 存的，所以总跑路长度不能超过 $2^{63}-1$ 千米。</p>
+<p>cxy 的家到公司的路可以看做一个有向图，cxy 家为点 $1$，公司为点 $n$，每条边长度均为一千米。</p>
+<p>cxy 想每天能醒地尽量晚，所以让你帮他算算，他最少需要几秒才能到学校。</p>
+<p>数据保证 $1$ 到 $n$ 至少有一条路径。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个整数 <span
-class="math inline">\(n,m\)</span>，表示点的个数和边的个数。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行每行两个数字 <span
-class="math inline">\(u,v\)</span>，表示一条 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 的边。</p>
+<p>第一行两个整数 $n,m$，表示点的个数和边的个数。</p>
+<p>接下来 $m$ 行每行两个数字 $u,v$，表示一条 $u$ 到 $v$ 的边。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个数字，表示到公司的最少秒数。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(n \le 50,~m \le
-10000\)</span>，最优解路径长度 <span class="math inline">\(\le
-2^{63}-1\)</span>。</p>
+<p>$n \le 50,~m \le 10000$，最优解路径长度 $\le 2^{63}-1$。</p>
 </blockquote>
 <p>倍增好题。注意到贪心不一定是最优的，因此考虑dp。</p>
-<p>设 <span class="math inline">\(g_{i,j,k}\)</span> 表示 <span
-class="math inline">\(i,j\)</span> 之间是否存在恰好 <span
-class="math inline">\(2^k\)</span> 的路径，则 <span
-class="math display">\[
-g_{i,j,k} = \bigvee_{l=1}^{n} \left(g_{i,l,k-1} \land g_{l,j,k-1}\right)
-\]</span> 设 <span class="math inline">\(d_{i,j}\)</span> 为 <span
-class="math inline">\(i,j\)</span> 间的最短路，则 <span
-class="math inline">\(d_{i,j} = 1\)</span> 的充分条件为「原图存在边
-<span class="math inline">\(i \to j\)</span> 或 <span
-class="math inline">\(g_{i,j,k} = \mathtt{True}\)</span>」</p>
-<p>注意到 <span class="math inline">\(n\)</span> 很小，所以直接 <span
-class="math inline">\(\mathtt{Floyd}\)</span>
-即可（<del>不会有人到这一步都没发现吧</del>）</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(kn^3)\)</span> ，
-<span class="math inline">\(k = 63\)</span></p>
+<p>设 $g_{i,j,k}$ 表示 $i,j$ 之间是否存在恰好 $2^k$ 的路径，则</p>
+<script type="math/tex; mode=display">
+g_{i,j,k} = \bigvee_{l=1}^{n} \left(g_{i,l,k-1} \land g_{l,j,k-1}\right)</script><p>设 $d_{i,j}$ 为 $i,j$ 间的最短路，则 $d_{i,j} = 1$ 的充分条件为「原图存在边 $i \to j$ 或 $g_{i,j,k} = \mathtt{True}$」</p>
+<p>注意到 $n$ 很小，所以直接 $\mathtt{Floyd}$ 即可（<del>不会有人到这一步都没发现吧</del>）</p>
+<p>时间复杂度 $\mathcal{O}(kn^3)$ ， $k = 63$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -612,7 +586,6 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
     cout <span class="token operator">&lt;&lt;</span> d<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
                 
             </div>
             <hr/>
@@ -680,12 +653,12 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/DP/">
                                     <span class="chip bg-color">DP</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -1247,7 +1220,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">693.1k</span>&nbsp;字
+                class="white-color">708.7k</span>&nbsp;字
             
             
             
@@ -1515,21 +1488,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
