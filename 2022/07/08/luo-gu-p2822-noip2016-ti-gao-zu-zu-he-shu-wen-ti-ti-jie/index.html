@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p157.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p59.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -552,43 +552,23 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2822-noip2016-提高组-组合数问题-题解">洛谷P2822 [NOIP2016
-提高组] 组合数问题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2822">P2822
-[NOIP2016 提高组] 组合数问题</a></p>
+                <h1 id="洛谷P2822-NOIP2016-提高组-组合数问题-题解"><a href="#洛谷P2822-NOIP2016-提高组-组合数问题-题解" class="headerlink" title="洛谷P2822 [NOIP2016 提高组] 组合数问题 题解"></a>洛谷P2822 [NOIP2016 提高组] 组合数问题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2822">P2822 [NOIP2016 提高组] 组合数问题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>组合数 <span class="math inline">\(\binom{n}{m}\)</span> 表示的是从
-<span class="math inline">\(n\)</span> 个物品中选出 <span
-class="math inline">\(m\)</span> 个物品的方案数。举个例子，从 <span
-class="math inline">\((1,2,3)\)</span> 三个物品中选择两个物品可以有
-<span class="math inline">\((1,2),(1,3),(2,3)\)</span>
-这三种选择方法。根据组合数的定义，我们可以给出计算组合数 <span
-class="math inline">\(\binom{n}{m}\)</span> 的一般公式：</p>
-<p><span class="math display">\[
-\binom{n}{m}=\frac{n!}{m!(n-m)!}
-\]</span> 其中 <span class="math inline">\(n!=1\times2\times\cdots\times
-n\)</span>；特别地，定义 <span class="math inline">\(0!=1\)</span>。</p>
-<p>小葱想知道如果给定 <span class="math inline">\(n,m\)</span> 和 <span
-class="math inline">\(k\)</span>，对于所有的 <span
-class="math inline">\(0\leq i\leq n,0\leq j\leq \min \left ( i, m \right
-)\)</span> 有多少对 <span class="math inline">\((i,j)\)</span> 满足
-<span class="math inline">\(k|\binom{i}{j}\)</span>。</p>
+<p>组合数 $\binom{n}{m}$ 表示的是从 $n$ 个物品中选出 $m$ 个物品的方案数。举个例子，从 $(1,2,3)$ 三个物品中选择两个物品可以有 $(1,2),(1,3),(2,3)$ 这三种选择方法。根据组合数的定义，我们可以给出计算组合数 $\binom{n}{m}$ 的一般公式：</p>
+<script type="math/tex; mode=display">
+\binom{n}{m}=\frac{n!}{m!(n-m)!}</script><p>其中 $n!=1\times2\times\cdots\times n$；特别地，定义 $0!=1$。</p>
+<p>小葱想知道如果给定 $n,m$ 和 $k$，对于所有的 $0\leq i\leq n,0\leq j\leq \min \left ( i, m \right )$ 有多少对 $(i,j)$ 满足 $k|\binom{i}{j}$。</p>
 <ul>
-<li>对于全部的测试点，保证 <span class="math inline">\(0 \leq n, m \leq
-2 \times 10^3\)</span>，<span class="math inline">\(1 \leq t \leq
-10^4\)</span>。</li>
+<li>对于全部的测试点，保证 $0 \leq n, m \leq 2 \times 10^3$，$1 \leq t \leq 10^4$。</li>
 </ul>
 </blockquote>
 <p>显然杨辉三角的那个预处理</p>
 <p>询问可以用二维前缀和来搞</p>
 <p>这里的前缀和有个有趣的地方</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>s<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">-</span>s<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里在获取 <span class="math inline">\(s_{i-1,j}\)</span>
-的时候，如果 <span class="math inline">\(j=i\)</span> ，那 <span
-class="math inline">\(s_{i-1,j}\)</span> 就没有算，会导致出错</p>
-<p>解决的方法很简单，直接在每次计算时把 <span
-class="math inline">\(s_{i,i+1}\leftarrow s_{i,i}\)</span> 就好了</p>
+<p>这里在获取 $s_{i-1,j}$ 的时候，如果 $j=i$ ，那 $s_{i-1,j}$ 就没有算，会导致出错</p>
+<p>解决的方法很简单，直接在每次计算时把 $s_{i,i+1}\leftarrow s_{i,i}$ 就好了 </p>
 <p>这样的话没有影响前缀和数组的意义，蛮好</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -1016,7 +996,7 @@ class="math inline">\(s_{i,i+1}\leftarrow s_{i,i}\)</span> 就好了</p>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p159.jpg" class="responsive-img" alt="洛谷P5520 [yLOI2019] 青原樱 题解">
+                        <img src="/medias/featureimages/p189.jpg" class="responsive-img" alt="洛谷P5520 [yLOI2019] 青原樱 题解">
                         
                         <span class="card-title">洛谷P5520 [yLOI2019] 青原樱 题解</span>
                     </div>
@@ -1069,7 +1049,7 @@ class="math inline">\(s_{i,i+1}\leftarrow s_{i,i}\)</span> 就好了</p>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p131.jpg" class="responsive-img" alt="洛谷P4127 [AHOI2009]同类分布 题解">
+                        <img src="/medias/featureimages/p152.jpg" class="responsive-img" alt="洛谷P4127 [AHOI2009]同类分布 题解">
                         
                         <span class="card-title">洛谷P4127 [AHOI2009]同类分布 题解</span>
                     </div>
@@ -1253,14 +1233,13 @@ class="math inline">\(s_{i,i+1}\leftarrow s_{i,i}\)</span> 就好了</p>
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1507,6 +1486,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1608,21 +1589,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

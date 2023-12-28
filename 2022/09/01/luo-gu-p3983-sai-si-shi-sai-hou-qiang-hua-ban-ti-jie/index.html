@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p193.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p57.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -556,29 +556,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3983-赛斯石赛后强化版-题解">洛谷P3983 赛斯石（赛后强化版）
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3983">P3983
-赛斯石（赛后强化版）</a></p>
+                <h1 id="洛谷P3983-赛斯石（赛后强化版）-题解"><a href="#洛谷P3983-赛斯石（赛后强化版）-题解" class="headerlink" title="洛谷P3983 赛斯石（赛后强化版） 题解"></a>洛谷P3983 赛斯石（赛后强化版） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3983">P3983 赛斯石（赛后强化版）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>现需上市 <span class="math inline">\(\mathtt{Need}\)</span>
-赛斯重量的赛斯石，卖家想算出这些赛斯石经过某种合并方式来获得的最大收益。然而目前有一个问题，市场在真程大殿附近（真程海洋中心位置），卖家需要租船送赛斯石过去（即不考虑卖家自己租船过去的费用），目前有十种船可以租，载重量从
-<span class="math inline">\(1\mathtt{si}\)</span> 到 <span
-class="math inline">\(10\mathtt{si}\)</span>
-，每艘船的租价也是有所不同的，如下表所示：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/pic/10663.png" /></p>
+<p>现需上市 $\mathtt{Need}$ 赛斯重量的赛斯石，卖家想算出这些赛斯石经过某种合并方式来获得的最大收益。然而目前有一个问题，市场在真程大殿附近（真程海洋中心位置），卖家需要租船送赛斯石过去（即不考虑卖家自己租船过去的费用），目前有十种船可以租，载重量从 $1\mathtt{si}$ 到 $10\mathtt{si}$ ，每艘船的租价也是有所不同的，如下表所示：</p>
+<p> <img src="https://cdn.luogu.com.cn/upload/pic/10663.png" alt=""> </p>
 <p>由于真程大殿附近有强烈的赛斯力，导致<strong>无法对赛斯石进行任何操作</strong>，商家将赛斯石运过来之后就只能按照之前合并好的卖。假设卖家不返回，且这些赛斯石全部能卖出去。现在卖家他要计算总盈利（设总盈利=赛斯石的总收益-租船所需总费用），请你设计一个程序，算出一种最佳方案，以获得<strong>最大总盈利</strong>。</p>
 <p><strong>输入格式</strong>：</p>
 <p>输入一共有两行</p>
-<p>第一行有一个数据 <span
-class="math inline">\(\mathtt{Need}\)</span>（赛斯石的总量，单位：<span
-class="math inline">\(\mathtt{si}\)</span> ）</p>
-<p>第二行有十个数据 <span class="math inline">\(a_1,a_2,\dots,
-a_{10}\)</span>（分别为 <span
-class="math inline">\(1\mathtt{si}\)</span> 到 <span
-class="math inline">\(10\mathtt{si}\)</span>
-的赛斯石市场价格，单位：元）</p>
+<p>第一行有一个数据 $\mathtt{Need}$（赛斯石的总量，单位：$\mathtt{si}$ ）</p>
+<p>第二行有十个数据 $a_1,a_2,\dots, a_{10}$（分别为 $1\mathtt{si}$ 到 $10\mathtt{si}$ 的赛斯石市场价格，单位：元）</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出仅一行，包含一个整数，表示最大总盈利。</p>
 <p><strong>数据范围</strong>：</p>
@@ -586,28 +573,17 @@ class="math inline">\(10\mathtt{si}\)</span>
 <p>保证卖家最大总盈利为正；</p>
 <p>同一行中，每两个数据之间有一个空格。</p>
 </blockquote>
-<p>值得注意的是，<strong>每艘载重为 <span
-class="math inline">\(k\)</span> 的船并非只能装一块重 <span
-class="math inline">\(k\)</span> 的</strong></p>
-<p>所以我们还要预处理出载重为 <span class="math inline">\(k\)</span>
-的船能获得的最大收益</p>
-<p>设 <span class="math inline">\(b_i\)</span> 表示使用载重为 <span
-class="math inline">\(i\)</span> 的船所得收益的最大值，则 <span
-class="math display">\[
-b_i = \max\left\{a_i,~\max_{1\le j &lt; i} \{b_{i-j} + b_j\}\right\}-c_i
-\]</span> 其中 <span class="math inline">\(c_i\)</span>
-表示租这个船的价格，就是上面表里的价格。</p>
+<p>值得注意的是，<strong>每艘载重为 $k$ 的船并非只能装一块重 $k$ 的</strong></p>
+<p>所以我们还要预处理出载重为 $k$ 的船能获得的最大收益</p>
+<p>设 $b_i$ 表示使用载重为 $i$ 的船所得收益的最大值，则</p>
+<script type="math/tex; mode=display">
+b_i = \max\left\{a_i,~\max_{1\le j < i} \{b_{i-j} + b_j\}\right\}-c_i</script><p>其中 $c_i$ 表示租这个船的价格，就是上面表里的价格。</p>
 <p>然后就是朴素的完全背包啦！</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示只考虑前 <span
-class="math inline">\(i\)</span> 种船，一共运了 <span
-class="math inline">\(j \,\mathtt{si}\)</span> 的石头的最大收益 <span
-class="math display">\[
-f_{i,j} = \max \left\{f_{i-1,j},~(f_{i,j-i} + b_i)\times [i \le
-j]\right\}
-\]</span> 最终的答案就是 <span class="math inline">\(f_{10,n}\)</span>
-，然后滚一滚空间啥的。</p>
-<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
-<p>代码： <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<p>设 $f_{i,j}$ 表示只考虑前 $i$ 种船，一共运了 $j \,\mathtt{si}$ 的石头的最大收益</p>
+<script type="math/tex; mode=display">
+f_{i,j} = \max \left\{f_{i-1,j},~(f_{i,j-i} + b_i)\times [i \le j]\right\}</script><p>最终的答案就是 $f_{10,n}$ ，然后滚一滚空间啥的。</p>
+<p>时间复杂度 $O(nm)$ </p>
+<p>代码：<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -673,8 +649,7 @@ j]\right\}
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lg3983.html">https://yhx-12243.github.io/OI-transit/records/lg3983.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lg3983.html">https://yhx-12243.github.io/OI-transit/records/lg3983.html</a></p>
 
                 
             </div>
@@ -1059,7 +1034,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p190.jpg" class="responsive-img" alt="UOJ48 【UR #3】核聚变反应强度 题解">
+                        <img src="/medias/featureimages/p119.jpg" class="responsive-img" alt="UOJ48 【UR #3】核聚变反应强度 题解">
                         
                         <span class="card-title">UOJ48 【UR #3】核聚变反应强度 题解</span>
                     </div>
@@ -1112,7 +1087,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p28.png" class="responsive-img" alt="UOJ14 【UER #1】DZY Loves Graph 题解">
+                        <img src="/medias/featureimages/p88.png" class="responsive-img" alt="UOJ14 【UER #1】DZY Loves Graph 题解">
                         
                         <span class="card-title">UOJ14 【UER #1】DZY Loves Graph 题解</span>
                     </div>
@@ -1300,14 +1275,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1554,6 +1528,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1655,21 +1631,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

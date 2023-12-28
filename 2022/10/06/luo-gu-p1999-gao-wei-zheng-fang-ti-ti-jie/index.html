@@ -560,82 +560,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1999-高维正方体-题解">洛谷P1999 高维正方体 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1999">P1999
-高维正方体</a></p>
+                <h1 id="洛谷P1999-高维正方体-题解"><a href="#洛谷P1999-高维正方体-题解" class="headerlink" title="洛谷P1999 高维正方体 题解"></a>洛谷P1999 高维正方体 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1999">P1999 高维正方体</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p><span class="math inline">\(0\)</span>
-维空间的元素是点，这个毋庸置疑。</p>
-<p><span class="math inline">\(2\)</span> 个 <span
-class="math inline">\(0\)</span> 维空间的元素可以围成一个 <span
-class="math inline">\(1\)</span> 维空间的元素，线段。</p>
-<p><span class="math inline">\(4\)</span> 个 <span
-class="math inline">\(1\)</span> 维空间的元素可以围成一个 <span
-class="math inline">\(2\)</span> 维空间的元素，正方形。</p>
-<p><span class="math inline">\(6\)</span> 个 <span
-class="math inline">\(2\)</span> 维空间的元素可以围成一个 <span
-class="math inline">\(3\)</span> 维空间的元素，正方体。</p>
-<p><span class="math inline">\(8\)</span> 个 <span
-class="math inline">\(3\)</span> 维空间的元素可以围成一个 <span
-class="math inline">\(4\)</span> 维空间的元素，超正方体。</p>
+<p>$0$ 维空间的元素是点，这个毋庸置疑。</p>
+<p>$2$ 个 $0$ 维空间的元素可以围成一个 $1$ 维空间的元素，线段。</p>
+<p>$4$ 个 $1$ 维空间的元素可以围成一个 $2$ 维空间的元素，正方形。</p>
+<p>$6$ 个 $2$ 维空间的元素可以围成一个 $3$ 维空间的元素，正方体。</p>
+<p>$8$ 个 $3$ 维空间的元素可以围成一个 $4$ 维空间的元素，超正方体。</p>
 <p>……</p>
-<p>一个正方形中，有 <span class="math inline">\(4\)</span>
-个（顶）点，<span class="math inline">\(4\)</span> 条线段（边），<span
-class="math inline">\(1\)</span> 个正方形。</p>
-<p>一个正方体中，有 <span class="math inline">\(8\)</span>
-个（顶）点，<span class="math inline">\(12\)</span> 条线段（棱），<span
-class="math inline">\(6\)</span> 个正方形（面），<span
-class="math inline">\(1\)</span> 个正方体。</p>
+<p>一个正方形中，有 $4$ 个（顶）点，$4$ 条线段（边），$1$ 个正方形。</p>
+<p>一个正方体中，有 $8$ 个（顶）点，$12$ 条线段（棱），$6$ 个正方形（面），$1$ 个正方体。</p>
 <p>……</p>
-<p>我们的问题是：给出 <span class="math inline">\(a\)</span> 与 <span
-class="math inline">\(b\)</span> ，请求出：在 <span
-class="math inline">\(a\)</span> 维空间的元素中，包含着多少个 <span
-class="math inline">\(b\)</span>
-维空间的元素。答案可能很大，只需要输出它除以 <span
-class="math inline">\(10^9 + 7\)</span> 的余数。</p>
+<p>我们的问题是：给出 $a$ 与 $b$ ，请求出：在 $a$ 维空间的元素中，包含着多少个 $b$ 维空间的元素。答案可能很大，只需要输出它除以 $10^9 + 7$ 的余数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>两个整数 <span class="math inline">\(a,b\)</span> ，以空格隔开。</p>
+<p>两个整数 $a,b$ ，以空格隔开。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一个整数，即答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(0 \le a,b \le 10^5\)</span></p>
+<p>$0 \le a,b \le 10^5$ </p>
 </blockquote>
-<p><del>画过 <span class="math inline">\(4\)</span>
-维超立方体的平面图的，应该都秒了dp方程吧</del></p>
+<p><del>画过 $4$ 维超立方体的平面图的，应该都秒了dp方程吧</del></p>
 <p>我们先画一个正方体，再画一个它的平移，然后把顶点相连。如图：</p>
 <p><img src="https://s2.loli.net/2022/10/06/KwHnCIV36pcWteD.png" style="zoom:50%;" /></p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示第 <span
-class="math inline">\(i\)</span> 维空间中第 <span
-class="math inline">\(j\)</span> 维物品的个数，则有 <span
-class="math display">\[
+<p>设 $f_{i,j}$ 表示第 $i$ 维空间中第 $j$ 维物品的个数，则有</p>
+<script type="math/tex; mode=display">
 f_{0,0} = 1
-\\[6pt] f_{i,j} = 2f_{i-1,j} + f_{i-1,j-1}
-\]</span> 但这是一个 <span
-class="math inline">\(\mathcal{O}(n^2)\)</span>
-的dp，因此考虑dp方程的通项</p>
-<p>设 <span class="math inline">\(F_i(x)\)</span> 表示第 <span
-class="math inline">\(i\)</span> 维的生成函数，则 <span
-class="math display">\[
-F_i(x) = \sum_{n\ge 0}f_{i,n}x^n
-\]</span> 规定负下标的 <span class="math inline">\(f\)</span> 为 <span
-class="math inline">\(0\)</span> ，并将 <span
-class="math inline">\(F_i(x)\)</span> 代入转移方程里 <span
-class="math display">\[
+\\[6pt] f_{i,j} = 2f_{i-1,j} + f_{i-1,j-1}</script><p>但这是一个 $\mathcal{O}(n^2)$ 的dp，因此考虑dp方程的通项</p>
+<p>设 $F_i(x)$ 表示第 $i$ 维的生成函数，则</p>
+<script type="math/tex; mode=display">
+F_i(x) = \sum_{n\ge 0}f_{i,n}x^n</script><p>规定负下标的 $f$ 为 $0$ ，并将 $F_i(x)$ 代入转移方程里</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-F_i(x) &amp;= (2 + x) F_{i-1}(x)
-\\[6pt]&amp;=(2+x)^i
-\end{aligned}
-\]</span> 则 <span class="math display">\[
+F_i(x) &= (2 + x) F_{i-1}(x)
+\\[6pt]&=(2+x)^i
+\end{aligned}</script><p>则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f_{i,j} &amp;= [x^j]F_i(x)
-\\[6pt] &amp;=[x^j] (2+x)^i
-\\[6pt] &amp;= [x^j]\sum_{r=0}^{i} \dbinom{r}{i}2^rx^{i-r}
-\\[6pt] &amp;= \dbinom{i}{j}\times 2^{i-j}
-\\[6pt] &amp;= 2^{i-j} \times \frac{i!}{j!\,(i-j)!}
-\end{aligned}
-\]</span> 然后求个阶乘，求个逆元就好啦</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+f_{i,j} &= [x^j]F_i(x)
+\\[6pt] &=[x^j] (2+x)^i
+\\[6pt] &= [x^j]\sum_{r=0}^{i} \dbinom{r}{i}2^rx^{i-r}
+\\[6pt] &= \dbinom{i}{j}\times 2^{i-j}
+\\[6pt] &= 2^{i-j} \times \frac{i!}{j!\,(i-j)!}
+\end{aligned}</script><p>然后求个阶乘，求个逆元就好啦</p>
+<p>时间复杂度 $\mathcal{O}(n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1064,7 +1032,7 @@ f_{i,j} &amp;= [x^j]F_i(x)
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p30.png" class="responsive-img" alt="洛谷P1895 数字序列 题解">
+                        <img src="/medias/featureimages/p144.jpg" class="responsive-img" alt="洛谷P1895 数字序列 题解">
                         
                         <span class="card-title">洛谷P1895 数字序列 题解</span>
                     </div>
@@ -1300,14 +1268,13 @@ f_{i,j} &amp;= [x^j]F_i(x)
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1554,6 +1521,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1655,21 +1624,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

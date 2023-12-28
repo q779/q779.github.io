@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p204.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -560,55 +560,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1468j-road-reform-题解">CF1468J Road Reform 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1468J">CF1468J
-Road Reform</a></p>
+                <h1 id="CF1468J-Road-Reform-题解"><a href="#CF1468J-Road-Reform-题解" class="headerlink" title="CF1468J Road Reform 题解"></a>CF1468J Road Reform 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1468J">CF1468J Road Reform</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个有 <span class="math inline">\(n\)</span> 个节点，<span
-class="math inline">\(m\)</span> 条无向带权边的图，和一个参数 <span
-class="math inline">\(k\)</span>，第 <span
-class="math inline">\(i\)</span> 条边权值为 <span
-class="math inline">\(s_i\)</span>。</p>
-<p>现在你要保留这个图中的 <span class="math inline">\(n-1\)</span>
-条边使得这个图变成一棵树，然后你可以对这棵树上的任意边进行修改，每次修改可以使这个边的权值加上一或减去一。</p>
-<p>现在你需要使所有边权的最大值<strong>正好等于</strong> <span
-class="math inline">\(k\)</span>，求所有保留方案的最小操作数。</p>
-<p><span class="math inline">\(T\)</span> 组询问。</p>
+<p>给定一个有 $n$ 个节点，$m$ 条无向带权边的图，和一个参数 $k$，第 $i$ 条边权值为 $s_i$。</p>
+<p>现在你要保留这个图中的 $n-1$ 条边使得这个图变成一棵树，然后你可以对这棵树上的任意边进行修改，每次修改可以使这个边的权值加上一或减去一。</p>
+<p>现在你需要使所有边权的最大值<strong>正好等于</strong> $k$，求所有保留方案的最小操作数。</p>
+<p>$T$ 组询问。</p>
 <p>保证初始时给定的图满足任意两个点互相可达，没有重边或自环。</p>
-<p><span class="math inline">\(1\leq T\leq 10^3\)</span></p>
-<p><span class="math inline">\(1\leq n\leq2\times10^5,n-1\leq m\leq
-\min(\frac{n(n+1)}{2},2\times10^5)\)</span></p>
-<p><span class="math inline">\(\sum n,\sum m\leq2\times10^5,~1\leq
-k,s_i\leq 10^9\)</span></p>
+<p>$1\leq T\leq 10^3$</p>
+<p>$1\leq n\leq2\times10^5,n-1\leq m\leq \min(\frac{n(n+1)}{2},2\times10^5)$</p>
+<p>$\sum n,\sum m\leq2\times10^5,~1\leq k,s_i\leq 10^9$</p>
 </blockquote>
 <p><del>模拟赛A题爆零，于是有了这篇题解</del></p>
-<p>感谢 <a target="_blank" rel="noopener" href="https://codeforces.com/profile/Roundgod"><span
-class="citation"
-data-cites="Roundgod">@Roundgod</span></a>老师的耐心解释 Orz</p>
+<p>感谢 <a target="_blank" rel="noopener" href="https://codeforces.com/profile/Roundgod">@Roundgod </a>老师的耐心解释 Orz</p>
 <p>本题要根据最小生成树的情况分类讨论</p>
 <ul>
-<li><p>如果最小生成树的最大边超过 <span
-class="math inline">\(k\)</span></p>
-<p>则此时的最优方案即，将最小生成树上所有大于 <span
-class="math inline">\(k\)</span> 的边都减成 <span
-class="math inline">\(k\)</span></p></li>
-<li><p>如果最小生成树的最大边不超过 <span
-class="math inline">\(k\)</span></p>
+<li><p>如果最小生成树的最大边超过 $k$ </p>
+<p>则此时的最优方案即，将最小生成树上所有大于 $k$ 的边都减成 $k$ </p>
+</li>
+<li><p>如果最小生成树的最大边不超过 $k$ </p>
 <p>此时有<strong>两种选择</strong></p>
 <ul>
-<li>第一种，把最小生成树中的最大边抬到 <span
-class="math inline">\(k\)</span></li>
-<li>第二种，把<strong>不在最小生成树中的一条比 <span
-class="math inline">\(k\)</span>
-大的边</strong>（显然要尽可能小些）加入最小生成树，然后去掉任意一条环上的边</li>
+<li>第一种，把最小生成树中的最大边抬到 $k$ </li>
+<li>第二种，把<strong>不在最小生成树中的一条比 $k$ 大的边</strong>（显然要尽可能小些）加入最小生成树，然后去掉任意一条环上的边</li>
 </ul>
-<p>实现的时候，用<code>mni</code>和<code>mxi</code>记录这两个值，最后去个
-<span class="math inline">\(\min\)</span> 就好了</p>
-<p>注意，这是在<strong>最小生成树的最大边不超过 <span
-class="math inline">\(k\)</span></strong> 的前提下！</p></li>
+<p>实现的时候，用<code>mni</code>和<code>mxi</code>记录这两个值，最后去个 $\min$ 就好了</p>
+<p>注意，这是在<strong>最小生成树的最大边不超过 $k$</strong> 的前提下！</p>
+</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(O(m \log m)\)</span></p>
+<p>时间复杂度 $O(m \log m)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1095,7 +1076,7 @@ class="math inline">\(k\)</span></strong> 的前提下！</p></li>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p229.jpg" class="responsive-img" alt="模拟赛题讲解[1]">
+                        <img src="/medias/featureimages/p203.jpg" class="responsive-img" alt="模拟赛题讲解[1]">
                         
                         <span class="card-title">模拟赛题讲解[1]</span>
                     </div>
@@ -1148,7 +1129,7 @@ class="math inline">\(k\)</span></strong> 的前提下！</p></li>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p225.jpg" class="responsive-img" alt="CF1304E 1-Trees and Queries 题解">
+                        <img src="/medias/featureimages/p127.jpg" class="responsive-img" alt="CF1304E 1-Trees and Queries 题解">
                         
                         <span class="card-title">CF1304E 1-Trees and Queries 题解</span>
                     </div>
@@ -1332,14 +1313,13 @@ class="math inline">\(k\)</span></strong> 的前提下！</p></li>
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1586,6 +1566,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1687,21 +1669,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p27.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -556,60 +556,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf117c-cycle-题解">CF117C Cycle 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF117C">CF117C
-Cycle</a></p>
+                <h1 id="CF117C-Cycle-题解"><a href="#CF117C-Cycle-题解" class="headerlink" title="CF117C Cycle 题解"></a>CF117C Cycle 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF117C">CF117C Cycle</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一个 <span class="math inline">\(\texttt{tournament}\)</span>
-是一个没有自环的有向图，同时，每两个点之间有一条边连接。这就是说，对于两个点
-<span class="math inline">\(u,v (u\neq v)\)</span>，有一条从 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 的边或一条从 <span
-class="math inline">\(v\)</span> 到 <span
-class="math inline">\(u\)</span> 的边。</p>
-<p>给你一个 <span
-class="math inline">\(\texttt{tournament}\)</span>，请找出一个长度为
-<span class="math inline">\(3\)</span> 的环。</p>
+<p>一个 $\texttt{tournament}$ 是一个没有自环的有向图，同时，每两个点之间有一条边连接。这就是说，对于两个点 $u,v (u\neq v)$，有一条从 $u$ 到 $v$ 的边或一条从 $v$ 到 $u$ 的边。</p>
+<p>给你一个 $\texttt{tournament}$，请找出一个长度为 $3$ 的环。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个正整数 <span class="math inline">\(n(n \le 5\times
-10^3)\)</span>。</p>
-<p>接下来 <span class="math inline">\(n\)</span> 行：一个 <span
-class="math inline">\(n \times n\)</span> 的邻接矩阵 <span
-class="math inline">\(a\)</span>，由 <code>0</code> 和 <code>1</code>
-组成。</p>
-<p>若 <span class="math inline">\(a_{i,j}=1\)</span>，表示有一条路从
-<span class="math inline">\(i\)</span> 通往 <span
-class="math inline">\(j\)</span>。</p>
-<p>数据保证 <span class="math inline">\(a_{i,i}=0\)</span> 并且 <span
-class="math inline">\(a_{i,j} \neq a_{j,i}\)</span>。</p>
+<p>第一行一个正整数 $n(n \le 5\times 10^3)$。</p>
+<p>接下来 $n$ 行：一个 $n \times n$ 的邻接矩阵 $a$，由 <code>0</code> 和 <code>1</code> 组成。</p>
+<p>若 $a_{i,j}=1$，表示有一条路从 $i$ 通往 $j$。</p>
+<p>数据保证 $a_{i,i}=0$ 并且 $a_{i,j} \neq a_{j,i}$。</p>
 <p><strong>输出格式</strong></p>
 <p>仅一行：任意一种解决方案；若没有，输出 <code>-1</code>。</p>
 </blockquote>
 <p>容易发现这个图就是有向完全图，也就是竞赛图。</p>
 <p>根据竞赛题的性质可知，竞赛题如果存在环则一定存在三元环。</p>
 <p>于是这道题就是一个简单的判环题，不过我们可以考虑用一种常数更小的判环方法<del>来增加难度</del></p>
-<p>考虑对于一个点 <span class="math inline">\(x\)</span>
-，我们能找到两个点 <span class="math inline">\(y,z\)</span>
-满足以下形式：</p>
+<p>考虑对于一个点 $x$ ，我们能找到两个点 $y,z$ 满足以下形式：</p>
 <p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202306201658316.png" style="zoom:40%;" /></p>
-<p>可以证明边 <span class="math inline">\((x,z)\)</span>
-是没有用的，即如果存在包含 <span class="math inline">\((x,z)\)</span>
-的三元环，那么一定存在一个不包含 <span
-class="math inline">\((x,z)\)</span> 的三元环。</p>
-<p>考虑枚举一个点 <span class="math inline">\(a\)</span> ，其与 <span
-class="math inline">\(x,z\)</span> 构成了一个三元环，如下图所示。</p>
+<p>可以证明边 $(x,z)$ 是没有用的，即如果存在包含 $(x,z)$ 的三元环，那么一定存在一个不包含 $(x,z)$ 的三元环。</p>
+<p>考虑枚举一个点 $a$ ，其与 $x,z$ 构成了一个三元环，如下图所示。</p>
 <p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202306201703345.png" style="zoom:40%;" /></p>
-<p>可以发现无论 <span class="math inline">\(y,a\)</span>
-连边的方向如何，均可产生一个不包含边 <span
-class="math inline">\((x,z)\)</span> 的三元环。</p>
-<p>则根据归纳法，对于每个节点 <span
-class="math inline">\(x\)</span>，我们只需要记录它的一个 <span
-class="math inline">\(\mathrm{to}(x)\)</span> 。</p>
-<p>接着我们枚举 <span class="math inline">\(x,y\)</span> 并检查 <span
-class="math inline">\(x,\mathrm{to}(x),y\)</span>
-是否构成一个三元环即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<p>可以发现无论 $y,a$ 连边的方向如何，均可产生一个不包含边 $(x,z)$ 的三元环。</p>
+<p>则根据归纳法，对于每个节点 $x$，我们只需要记录它的一个 $\mathrm{to}(x)$ 。</p>
+<p>接着我们枚举 $x,y$ 并检查 $x,\mathrm{to}(x),y$ 是否构成一个三元环即可。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -638,10 +609,9 @@ class="math inline">\(x,\mathrm{to}(x),y\)</span>
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"-1"</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/stoorz/solution-cf117c">https://www.luogu.com.cn/blog/stoorz/solution-cf117c</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/stoorz/solution-cf117c">https://www.luogu.com.cn/blog/stoorz/solution-cf117c</a></p>
 
                 
             </div>
@@ -1026,7 +996,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/stoorz/soluti
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p18.jpg" class="responsive-img" alt="[ABC127E] Cell Distance 题解">
+                        <img src="/medias/featureimages/p2.jpg" class="responsive-img" alt="[ABC127E] Cell Distance 题解">
                         
                         <span class="card-title">[ABC127E] Cell Distance 题解</span>
                     </div>
@@ -1079,7 +1049,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/stoorz/soluti
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p128.jpg" class="responsive-img" alt="UVA208 Firetruck 题解">
+                        <img src="/medias/featureimages/p161.jpg" class="responsive-img" alt="UVA208 Firetruck 题解">
                         
                         <span class="card-title">UVA208 Firetruck 题解</span>
                     </div>
@@ -1263,14 +1233,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/stoorz/soluti
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1517,6 +1486,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1618,21 +1589,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

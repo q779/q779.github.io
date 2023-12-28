@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p114.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p121.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -560,55 +560,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5142-区间方差-题解">洛谷P5142 区间方差 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5142">P5142
-区间方差</a></p>
+                <h1 id="洛谷P5142-区间方差-题解"><a href="#洛谷P5142-区间方差-题解" class="headerlink" title="洛谷P5142 区间方差 题解"></a>洛谷P5142 区间方差 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5142">P5142 区间方差</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于一个长度为 <span class="math inline">\(n\)</span> 的序列 <span
-class="math inline">\(a_1,a_2,a_3\cdots a_n\)</span>，我们定义它的平均数
-<span class="math inline">\(a\)</span> 为:</p>
-<p><span class="math display">\[
-a=\frac{1}{n}\sum_{i=1}^{n}a_i
-\]</span></p>
-<p>并定义它的方差 <span class="math inline">\(d\)</span> 为:</p>
-<p><span class="math display">\[
-d=\frac{1}{n}\sum_{i=1}^{n}(a_i-a)^2
-\]</span> 现在给定一个长度为 <span class="math inline">\(n\)</span>
-的序列 <span class="math inline">\(a_1,a_2\cdots
-a_n\)</span>。你需要支持两种操作。每种操作的格式为
-<code>c x y</code>。</p>
-<p>若 <span class="math inline">\(c=1\)</span>，为修改操作，代表将 <span
-class="math inline">\(a_x\)</span> 赋值为 <span
-class="math inline">\(y\)</span>。</p>
-<p>若 <span class="math inline">\(c=2\)</span>，为查询操作，代表查询
-<span class="math inline">\(a_x\)</span> 到 <span
-class="math inline">\(a_y\)</span> 的方差。</p>
-<p>为了避免浮点数误差，请以分数取模形式输出结果（对 1000000007（<span
-class="math inline">\(10^9+7\)</span>）取模）。</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1\leq n,m\leq 1\times 10^5\)</span>，<span
-class="math inline">\(1\leq a_i\leq 1\times 10^9\)</span>，<span
-class="math inline">\(1\leq x\leq n\)</span>。对于操作 1，<span
-class="math inline">\(1\leq y\leq 1\times
-10^9\)</span>。对于操作2，<span class="math inline">\(x\leq y\leq
-n\)</span>。</p>
+<p>对于一个长度为 $n$ 的序列 $a_1,a_2,a_3\cdots a_n$，我们定义它的平均数 $a$ 为:</p>
+<script type="math/tex; mode=display">
+a=\frac{1}{n}\sum_{i=1}^{n}a_i</script><p>并定义它的方差 $d$ 为:</p>
+<script type="math/tex; mode=display">
+d=\frac{1}{n}\sum_{i=1}^{n}(a_i-a)^2</script><p>现在给定一个长度为 $n$ 的序列 $a_1,a_2\cdots a_n$。你需要支持两种操作。每种操作的格式为 <code>c x y</code>。</p>
+<p>若 $c=1$，为修改操作，代表将 $a_x$ 赋值为 $y$。</p>
+<p>若 $c=2$，为查询操作，代表查询 $a_x$ 到 $a_y$ 的方差。</p>
+<p>为了避免浮点数误差，请以分数取模形式输出结果（对 1000000007（$10^9+7$）取模）。</p>
+<p>对于 $100\%$ 的数据，$1\leq n,m\leq 1\times 10^5$，$1\leq a_i\leq 1\times 10^9$，$1\leq x\leq n$。对于操作 1，$1\leq y\leq 1\times 10^9$。对于操作2，$x\leq y\leq n$。</p>
 </blockquote>
-<p>方差有个更快的公式 <span class="math display">\[
-\dfrac{\sum_{i=1}^{n} a_i^2}{n} - a^2
-\]</span> 推导过程很简单，只要把那个 <span
-class="math inline">\((a-a_i)^2\)</span> 展开就好了</p>
-<p>这样我们就只要维护两个数组 <span class="math display">\[
+<p>方差有个更快的公式</p>
+<script type="math/tex; mode=display">
+\dfrac{\sum_{i=1}^{n} a_i^2}{n} - a^2</script><p>推导过程很简单，只要把那个 $(a-a_i)^2$ 展开就好了</p>
+<p>这样我们就只要维护两个数组</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-S_1 &amp;= \sum_{i=l}^{r}a_i
-\\S_2&amp;= \sum_{i=l}^{r}a_i^2
-\end{aligned}
-\]</span> 单点修改都不需要懒标记，很水吧</p>
+S_1 &= \sum_{i=l}^{r}a_i
+\\S_2&= \sum_{i=l}^{r}a_i^2
+\end{aligned}</script><p>单点修改都不需要懒标记，很水吧</p>
 <p>不过这个取模除法，所以要算个逆元</p>
-<p>因为 <span class="math inline">\(10^9+7\)</span> 是个质数，而且 <span
-class="math inline">\(a_i \le 10^9\)</span></p>
+<p>因为 $10^9+7$ 是个质数，而且 $a_i \le 10^9$ </p>
 <p>所以直接用费马小定理那个东西求个逆元就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(m \log (na_i))\)</span></p>
+<p>时间复杂度 $O(m \log (na_i))$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1130,7 +1107,7 @@ class="math inline">\(a_i \le 10^9\)</span></p>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p71.jpg" class="responsive-img" alt="时间戳优化树状数组的频繁清空">
+                        <img src="/medias/featureimages/p72.jpg" class="responsive-img" alt="时间戳优化树状数组的频繁清空">
                         
                         <span class="card-title">时间戳优化树状数组的频繁清空</span>
                     </div>
@@ -1358,14 +1335,13 @@ class="math inline">\(a_i \le 10^9\)</span></p>
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1612,6 +1588,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1713,21 +1691,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

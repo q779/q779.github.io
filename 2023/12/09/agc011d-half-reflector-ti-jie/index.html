@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="AT2038 [ARC060B] 桁和 / Digit Sum 题解, Q779的博客">
+    <meta name="keywords" content="[AGC011D] Half Reflector 题解, Q779的博客">
     <meta name="description" content="欢迎您的访问！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>AT2038 [ARC060B] 桁和 / Digit Sum 题解 | Q779的博客</title>
+    <title>[AGC011D] Half Reflector 题解 | Q779的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -377,12 +377,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p199.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">AT2038 [ARC060B] 桁和 / Digit Sum 题解</h1>
+                    <h1 class="description center-align post-title">[AGC011D] Half Reflector 题解</h1>
                 </div>
             </div>
         </div>
@@ -502,10 +502,6 @@
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -527,14 +523,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-29
+                    2023-12-09
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-29
+                    2023-12-09
                 </div>
                 
 
@@ -556,106 +552,91 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="at2038-arc060b-桁和-digit-sum-题解">AT2038 [ARC060B] 桁和 /
-Digit Sum 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://atcoder.jp/contests/arc060/tasks/arc060_b">ARC060B Digit
-Sum</a> &amp; <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT2038">AT2038
-[ARC060B] 桁和 / Digit Sum</a></p>
+                <h1 id="AGC011D-Half-Reflector-题解"><a href="#AGC011D-Half-Reflector-题解" class="headerlink" title="[AGC011D] Half Reflector 题解"></a>[AGC011D] Half Reflector 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc011_d">[AGC011D] Half Reflector</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于任意非负整数 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(m(2\le m)\)</span> ，定义 <span
-class="math inline">\(f_m(x)\)</span> 为 <span
-class="math inline">\(x\)</span> 在 <span
-class="math inline">\(m\)</span> 进制下的各位数字之和。</p>
-<p>例如<span
-class="math inline">\(f_{10}(87654)=8+7+6+5+4=30,~f_{100}(87654)=8+76+54=138\)</span>
-。给定两个整数 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(n\)</span> 。</p>
-<p>你需要计算是否存在某个 <span class="math inline">\(m\ge 2\)</span>
-使得 <span class="math inline">\(f_m(x)=n\)</span> 。</p>
-<p>如果存在，输出最小的满足条件的 <span class="math inline">\(m\)</span>
-；如果不存在，输出 <span class="math inline">\(−1\)</span> 。</p>
-<p><strong>数据范围</strong>：</p>
-<p>$ 1 x,n ^{11}$</p>
+<p>有 $N$ 个装置排成一排，组成一个系统。每个装置有两种状态 $\mathtt{A}$ 和 $\mathtt{B}$ 。具体地，假想有一个小球从最左侧进入这个系统，则两种状态的行为如下：</p>
+<ol>
+<li>$\mathtt{A}$ ：将球<strong>反弹回原方向</strong>。</li>
+<li>$\mathtt{B}$ ：让球通过，<strong>不改变方向</strong>。</li>
+</ol>
+<p>当然，每当一个小球经过一个装置后，无论是以 $\mathtt{A}$ 状态还是 $\mathtt{B}$ 状态经过，装置都将改变原来的状态 (即 $\mathtt{A}$ 变 $\mathtt{B}$ ，$\mathtt{B}$ 变 $\mathtt{A}$ )。现在给定初始情况下所有装置的状态，求 $K$ 个小球经过后装置的状态。</p>
+<p><strong>输入格式</strong>：</p>
+<p>第一行包含两个正整数 $N,K\left(N \leq 2 \times 10^5,~K \leq 10^9\right)$，分别表示装置的个数和经过的小球数。</p>
+<p>第二行包含一个由 $\mathtt{A}$ 和 $\mathtt{B}$ 构成的字符串 $S(|S|=N)$，其中第 $i$ 个字符表示左起第 $i$ 个装置的状态。</p>
+<p><strong>输出格式</strong>：</p>
+<p>输出一行，包含一个字符串 $S_K$，表示 $K$ 次小球经过后状态的状态，具体格式同输入。</p>
 </blockquote>
-<p>设 <span class="math inline">\(x\)</span> 化为 <span
-class="math inline">\(m\)</span> 进制后为 <span
-class="math inline">\(\overline{x_1x_2\dots x_t}\)</span></p>
-<p>不难发现当 <span class="math inline">\(t \ge 3\)</span> 时， <span
-class="math inline">\(m\le \sqrt{x}-\epsilon,\epsilon \in
-\mathbb{N}\)</span></p>
-<p>例如当 <span class="math inline">\(t=3\)</span> 时，设 <span
-class="math inline">\(x\)</span> 化为 <span
-class="math inline">\(m\)</span> 进制后为 <span
-class="math inline">\(\overline{abc}\)</span> ，则 <span
-class="math display">\[
-x=am^2+bm+c
-\]</span> 显然有 <span class="math inline">\(m\le
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span></p>
-<p>因此我们暴力枚举所有 <span class="math inline">\(m\le
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span> ，对应 <span
-class="math inline">\(t\ge 3\)</span> 的情况</p>
-<p>接下来 <span class="math inline">\(m &gt; \sqrt{x}-\epsilon,\epsilon
-\in \mathbb{N}\)</span> 的情况，直接枚举 <span
-class="math inline">\(m\)</span> 肯定是不行的</p>
-<p>注意到此时 <span class="math inline">\(x\)</span> 满足 <span
-class="math display">\[
-x=am+b
-\]</span> 因为有 <span class="math inline">\(m &gt;
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span> ，因此 <span
-class="math inline">\(a \le \sqrt{x}-\epsilon^{\prime},\epsilon^{\prime}
-\in \mathbb{N}\)</span></p>
-<p>于是我们只要枚举这个 <span class="math inline">\(a\)</span>
-，然后判断此时的 <span
-class="math inline">\(m=\frac{x-(n-a)}{a}\)</span> 是否合法即可</p>
-<p>这里的合法指 <span class="math inline">\(x\)</span> 在当前 <span
-class="math inline">\(m\)</span> 进制下是 <span
-class="math inline">\(am+b\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(\sqrt{x})\)</span></p>
+<p>可以发现，对于很多情况，小球会来回弹来弹去，以至于对原串进行了类似于翻转的操作</p>
+<p>不妨对 $S_1$ 的情况进行讨论，方便起见，称 $\mathtt{A}$ 为「墙」，$\mathtt{B}$ 为「地」。</p>
+<ol>
+<li><p>若 $S_1$ 为「墙」，此时小球弹回，$S_1$ 变为地。</p>
+</li>
+<li><p>若 $S_1$ 为「地」，通过对较小情况的尝试，不难发现一个结论：记 $\bar{x}$ 为与 $x$ 相反的状态，</p>
+<p>则<strong>当 $S_1$ 为「地」时，$S$ 的新状态 $T$ 有 $T_i=\overline{S_{i+1}}(i&lt;n)$ ， $T_n$ 为「墙」，且小球一定从右边离开系统</strong>。</p>
+</li>
+</ol>
+<p>尝试证明这个结论：</p>
+<p>对 $|S|$ 归纳证明。显然当 $|S|\le 3$ 时成立。于是设 $|S|$ 在 $n-1$ 处成立，尝试验证 $|S|=n$ 的情形</p>
+<p>不妨考虑 $S_2$ 的情况。</p>
+<ol>
+<li><p>若 $S_2$ 为「墙」</p>
+<p>（图例：<code>&gt;&gt;&gt;</code> 表示向右运动的球，<code>&lt;&lt;&lt;</code> 表示向左运动的球，<code>|</code> 表示「墙」，<code>_</code> 表示「地」）</p>
+<pre class="line-numbers language-none"><code class="language-none">(a) &gt;&gt;&gt; _     |     ……
+(b)     | &gt;&gt;&gt; |     ……
+(c)     | &lt;&lt;&lt; _     ……
+(d)     _ &gt;&gt;&gt; _     ……<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>(d) 表明了之后 $T_1=\overline{S_2}=$ 「地」，考虑到右边 $n-1$ 个位置</p>
+<p>而他们恰好构成原问题的大小为 $n-1$ 的子问题，由归纳法可知 $T_2,T_3,\cdots T_n$ 亦均满足结论。</p>
+</li>
+<li><p>若 $S_2$ 为「地」</p>
+<pre class="line-numbers language-none"><code class="language-none">(a) &gt;&gt;&gt; _     _     ……
+(b)     | &gt;&gt;&gt; _     ……<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>同样的，(b) 显然已经满足命题条件了，从而可以用归纳假设，且 $T_1=\overline{S_2}=$ 「墙」，从而该情况成立。</p>
+</li>
+</ol>
+<p>综上，由归纳原理知，原命题成立。$\square$</p>
+<p>于是我们要快速模拟这个过程。考虑到每次小球移动，要么是将 $S_1$ 翻转，或者整体平移一位</p>
+<p>显然这个翻转是不用进行实际操作的，当且仅当进行了奇数次平移最终答案才会翻转。</p>
+<p>而在平移的过程中，后面补充的字符依次为「墙」「地」「墙」…（交替出现）</p>
+<p>因此我们考虑如何计算平移的次数。</p>
+<p>对于 $S_1$ 是「墙」，则不会发生平移，而 $S_1$ 是「地」时会发生平移</p>
+<p>那么只需要统计每个位置是否是「墙」即可。</p>
+<p>注意，由于我们取消了取反操作，所以应该判断奇数位是否为「墙」，偶数位是否为「地」</p>
+<p>特别地，对于 $k\ge n$ 的部分，不难发现，当 $n$ 为奇数时两步一平移，否则一步一平移，可以 $\mathcal{O}(1)$ 计算</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdlib></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstring></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cmath></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iomanip></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;random></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2e5</span> <span class="token operator">+</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 
-<span class="token keyword">int</span> x<span class="token punctuation">,</span>n<span class="token punctuation">,</span>ans<span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>m<span class="token operator">&lt;</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>tmp<span class="token operator">=</span>x<span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        res<span class="token operator">+=</span>tmp<span class="token operator">%</span>m<span class="token punctuation">;</span>
-        tmp<span class="token operator">/=</span>m<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token operator">==</span>n<span class="token punctuation">)</span> ans<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>k<span class="token punctuation">;</span> <span class="token keyword">char</span> s<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>t<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>x <span class="token operator">&lt;</span> n <span class="token operator">?</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>s<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token punctuation">(</span>x <span class="token operator">^</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 <span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">// freopen("check.in","r",stdin);</span>
     <span class="token comment">// freopen("check.out","w",stdout);</span>
-    cin <span class="token operator">>></span> x <span class="token operator">>></span> n<span class="token punctuation">;</span> ans<span class="token operator">=</span>INF<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span> m<span class="token operator">*</span>m<span class="token operator">&lt;=</span>x<span class="token punctuation">;</span> m<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">check</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token operator">==</span>n<span class="token punctuation">)</span> ans<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> a<span class="token operator">*</span>a<span class="token operator">&lt;=</span>x<span class="token punctuation">;</span> a<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">(</span>x<span class="token operator">-</span><span class="token punctuation">(</span>n<span class="token operator">-</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">/</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>ans<span class="token operator">==</span>INF<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"-1\n"</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> c<span class="token punctuation">;</span> cin <span class="token operator">>></span> n <span class="token operator">>></span> k <span class="token operator">>></span> s<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">&amp;&amp;</span> k<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        c <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">^</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>k <span class="token operator">>=</span> c<span class="token punctuation">)</span> k <span class="token operator">-=</span> c<span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">==</span> n <span class="token operator">&amp;&amp;</span> k<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> c <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token punctuation">(</span>n <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">+=</span> k <span class="token operator">/</span> c<span class="token punctuation">;</span> k <span class="token operator">%=</span> c<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> t<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">get</span><span class="token punctuation">(</span>i <span class="token operator">+</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>t<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">^=</span> k<span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> t<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>i <span class="token operator">&amp;</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token char">'A'</span> <span class="token operator">+</span> t<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token char">'A'</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> t<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> t <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2340%3Bagc011D.html">https://yhx-12243.github.io/OI-transit/records/ac2340%3Bagc011D.html</a></p>
 
                 
             </div>
@@ -682,7 +663,7 @@ class="math inline">\(am+b\)</span></p>
                     </i>
                     </span>
                 <span class="reprint-info">
-                    <a href="https://q779.github.io/2022/07/29/at2038-arc060b-hang-he-digit-sum-ti-jie/">https://q779.github.io/2022/07/29/at2038-arc060b-hang-he-digit-sum-ti-jie/</a>
+                    <a href="https://q779.github.io/2023/12/09/agc011d-half-reflector-ti-jie/">https://q779.github.io/2023/12/09/agc011d-half-reflector-ti-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -722,10 +703,6 @@ class="math inline">\(am+b\)</span></p>
                             
                                 <a href="/tags/%E7%AE%97%E6%B3%95/">
                                     <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                         </div>
@@ -1036,13 +1013,13 @@ class="math inline">\(am+b\)</span></p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/29/abc210e-ring-mst-ti-jie/">
+                <a href="/2023/12/09/abc045d-snuke-s-coloring-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p4.jpg" class="responsive-img" alt="ABC210E Ring MST 题解">
+                        <img src="/medias/featureimages/p174.png" class="responsive-img" alt="[ABC045D] Snuke&#39;s Coloring 题解">
                         
-                        <span class="card-title">ABC210E Ring MST 题解</span>
+                        <span class="card-title">[ABC045D] Snuke&#39;s Coloring 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1053,7 +1030,7 @@ class="math inline">\(am+b\)</span></p>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-09
                         </span>
                         <span class="publish-author">
                             
@@ -1074,14 +1051,6 @@ class="math inline">\(am+b\)</span></p>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1093,24 +1062,24 @@ class="math inline">\(am+b\)</span></p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/28/shu-xue-chang-shu-biao/">
+                <a href="/2023/12/08/arc060e-tak-and-hotels-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p74.jpg" class="responsive-img" alt="数学常数表">
+                        <img src="/medias/featureimages/p232.jpg" class="responsive-img" alt="[ARC060E] Tak and Hotels 题解">
                         
-                        <span class="card-title">数学常数表</span>
+                        <span class="card-title">[ARC060E] Tak and Hotels 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一些闲着无聊可以瞎背背的常数，比如$e = \tt{2.718281828}$,$\pi = \tt{3.141592654}$,$\ln \pi = \tt{1.1447}$,$\sqrt{\pi} = \tt{1.7725}$等等...
+                            
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-08
                             </span>
                         <span class="publish-author">
                             
@@ -1127,8 +1096,8 @@ class="math inline">\(am+b\)</span></p>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
                 </div>
@@ -1277,14 +1246,13 @@ class="math inline">\(am+b\)</span></p>
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1531,6 +1499,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1632,21 +1602,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

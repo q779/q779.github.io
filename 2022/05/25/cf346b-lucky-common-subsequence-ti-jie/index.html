@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p22.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -506,6 +506,10 @@
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -534,7 +538,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-22
+                    2023-12-26
                 </div>
                 
 
@@ -556,42 +560,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf346b-lucky-common-subsequence-题解">CF346B Lucky Common
-Subsequence 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF346B">CF346B
-Lucky Common Subsequence</a></p>
+                <h1 id="CF346B-Lucky-Common-Subsequence-题解"><a href="#CF346B-Lucky-Common-Subsequence-题解" class="headerlink" title="CF346B Lucky Common Subsequence 题解"></a>CF346B Lucky Common Subsequence 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF346B">CF346B Lucky Common Subsequence</a></p>
 <blockquote>
-<p><strong>题意</strong>：通过删除一个字符串中的某些元素而不改变其余元素的顺序，可以派生出该字符串的一个子序列。
-例如，序列BDF是ABCDEF的子序列。 字符串的子字符串是该字符串的连续子序列。
-例如，BCD是ABCDEF的子串。
-你得到了两个字符串s1,s2和另一个名为virus的字符串。你的任务是找到s1和s2的最长公共子序列，同时不包含virus子字符串。</p>
+<p><strong>题意</strong>：</p>
+<p>通过删除一个字符串中的某些元素而不改变其余元素的顺序，可以派生出该字符串的一个子序列。例如，序列 <code>BDF</code> 是 <code>ABCDEF</code> 的子序列。 </p>
+<p>字符串的子字符串是该字符串的连续子序列。 例如，BCD是ABCDEF的子串。 </p>
+<p>现在你得到了两个字符串 $s_1,s_2$ 和另一个名为 <code>virus</code> 的字符串。你的任务是找到 $s_1$ 和 $s_2$ 的最长公共子序列，同时不包含 <code>virus</code> 子字符串。</p>
+<p>串长均小于等于 $100$ 。</p>
 </blockquote>
 <p>升级版的最长公共子序列问题（LCS问题）</p>
-<p>考虑增加一维，称为与 <span class="math inline">\(c\)</span>
-串匹配度，即</p>
-<p><span class="math inline">\(dp[i][j][k]\)</span> 表示：</p>
-<p><span class="math inline">\(a\)</span> 串匹配到第 <span
-class="math inline">\(i\)</span> 位，<span
-class="math inline">\(b\)</span> 串匹配到第 <span
-class="math inline">\(j\)</span> 位最长公共子序列与 <span
-class="math inline">\(c\)</span> 串匹配到第 <span
-class="math inline">\(k\)</span> 位。</p>
-<p>显然当 <span class="math inline">\(a[i]\ne b[j]\)</span> 时，有 <span
-class="math inline">\(dp[i][j][k]=\max(dp[i][j][k],dp[i][j-1][k],dp[i-1][j][k])\)</span></p>
-<p>当 <span class="math inline">\(a[i]=b[j]\)</span> 时，直接去想 <span
-class="math inline">\(dp[i][j][k]\)</span> 怎么转移不太好搞</p>
-<p>考虑反过来想此时 <span class="math inline">\(dp[i-1][j-1][k]\)</span>
-的贡献</p>
-<p>显然此时在最长公共子序列上增加一个 <span
-class="math inline">\(a[i]\)</span> ，可能会改变匹配的程度</p>
-<p>设加上 <span class="math inline">\(a[i]\)</span> 后的最长公共子序列与
-<span class="math inline">\(c\)</span> 串匹配到第 <span
-class="math inline">\(p\)</span> 位</p>
-<p>则有 <span class="math inline">\(dp[i][j][p] =
-dp[i][j][p],dp[i-1][j-1][k]+a[i]\)</span></p>
-<p>注意到这个 <span class="math inline">\(p\)</span>
-可以通过跳fail数组得到，考虑KMP</p>
-<p>则时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
+<p>考虑增加一维，称为「与 $c$ 串的匹配度」，即：</p>
+<p>设 $f(i,j,k)$ 表示 $a$ 串匹配到第 $i$ 位，$b$ 串匹配到第 $j$ 位，且最长公共子序列与 $c$ 串匹配到第 $k$ 位的某个串。</p>
+<p>显然当 $a_i \ne b_j$ 时，有</p>
+<script type="math/tex; mode=display">
+f(i,j,k) \uparrow \max\left\{f(i,j-1,k),~f(i-1,j,k)\right\}</script><p>其中 $a\uparrow b$ 表示取 <code>a = max(a, b)</code> ，并且定义字符串 $a&gt;b$ 当且仅当 $|a| &gt; |b|$ 。</p>
+<p>当 $a_i=b_j$ 时，直接去想 $f(i,j,k)$ 怎么转移不太好搞</p>
+<p>考虑反过来想此时 $f(i-1,j-1,k)$ 的贡献</p>
+<p>显然此时在最长公共子序列上增加一个 $a_i$ ，可能会改变匹配的程度</p>
+<p>设加上 $a_i$ 后的最长公共子序列与 $c$ 串匹配到第 $p$ 位，则</p>
+<script type="math/tex; mode=display">
+f(i,j,p) \uparrow f(i-1,j-1,k) + a_i</script><p>其中 $+$ 表示字符串的直接拼接。</p>
+<p>注意到这个 $p$ 可以通过跳 fail 数组得到，考虑 KMP。</p>
+<p>时间复杂度 $O(n^3)$ </p>
+<p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -640,6 +631,9 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
     <span class="token keyword">else</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s\n"</span><span class="token punctuation">,</span>res<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<p><strong>upd.20231226</strong>：</p>
+<p>更新了题解的排版，并修复了一些小问题。</p>
 
                 
             </div>
@@ -710,6 +704,10 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                             
                                 <a href="/tags/DP/">
                                     <span class="chip bg-color">DP</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -1020,13 +1018,13 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/cf294b-shaass-and-bookshelf-ti-jie/">
+                <a href="/2022/05/25/cf41d-pawn-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p130.jpg" class="responsive-img" alt="CF294B Shaass and Bookshelf 题解">
+                        <img src="/medias/featureimages/p59.jpg" class="responsive-img" alt="CF41D Pawn 题解">
                         
-                        <span class="card-title">CF294B Shaass and Bookshelf 题解</span>
+                        <span class="card-title">CF41D Pawn 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1058,8 +1056,8 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
                 </div>
@@ -1073,13 +1071,13 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/cf219d-choosing-capital-for-treeland-ti-jie/">
+                <a href="/2022/05/25/cf294b-shaass-and-bookshelf-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p224.jpg" class="responsive-img" alt="CF219D Choosing Capital for Treeland 题解">
+                        <img src="/medias/featureimages/p149.jpg" class="responsive-img" alt="CF294B Shaass and Bookshelf 题解">
                         
-                        <span class="card-title">CF219D Choosing Capital for Treeland 题解</span>
+                        <span class="card-title">CF294B Shaass and Bookshelf 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1111,8 +1109,8 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/DP/">
-                        <span class="chip bg-color">DP</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1261,14 +1259,13 @@ string dp<span class="token punctuation">[</span>N<span class="token punctuation
             
                 <span id="year">2022-2023</span>
             
-            <span id="year">2022</span>
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">810.2k</span>&nbsp;字
+                class="white-color">818.9k</span>&nbsp;字
             
             
             
@@ -1515,6 +1512,8 @@ $(function () {
 </script>
 
     
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1616,21 +1615,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
