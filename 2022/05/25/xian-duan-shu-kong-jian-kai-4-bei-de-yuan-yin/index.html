@@ -556,61 +556,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="线段树空间开4倍的原因">线段树空间开4倍的原因</h1>
-<p>如果证明有错欢迎指出。</p>
-<p>对于长为 <span class="math inline">\(n\)</span>
-的序列，显然以其构建的线段树有 <span class="math inline">\(n\)</span>
-个叶子节点</p>
-<p>此时线段树的高度为 <span class="math inline">\(k=\left\lceil{\log_2
-n}\right\rceil+1\)</span> （第一层的高度为 <span
-class="math inline">\(1\)</span> ）</p>
-<p>通过等比数列求和公式 <span class="math display">\[
+                <h1 id="线段树空间开4倍的原因"><a href="#线段树空间开4倍的原因" class="headerlink" title="线段树空间开4倍的原因"></a>线段树空间开4倍的原因</h1><p>如果证明有错欢迎指出。</p>
+<p>对于长为 $n$ 的序列，显然以其构建的线段树有 $n$ 个叶子节点</p>
+<p>此时线段树的高度为 $k=\left\lceil{\log_2 n}\right\rceil+1$ （第一层的高度为 $1$ ）</p>
+<p>通过等比数列求和公式 </p>
+<script type="math/tex; mode=display">
 \begin{aligned}
 S_n=
 \begin{cases}
-na_1,&amp;q=1
+na_1,&q=1
 \\\\
-\dfrac{a_1\left(1-q^n\right)}{1-q}
+\dfrac{a_1\left(1-q^n\right)}{1-q} 
 = \dfrac{a_1-a_nq}{1-q}
-,&amp;q\ne 1
+,&q\ne 1
 \end{cases}
-\end{aligned}
-\]</span> 可知</p>
-<p>至多有 <span class="math inline">\(\dfrac{1\times(1-2^k)}{1-2} =
-2^k-1\)</span> 个结点</p>
-<p>即有 <span class="math inline">\(2^{\left\lceil{\log_2
-n}\right\rceil+1}-1\)</span> 个结点</p>
-<p>根据 <span class="math display">\[
+\end{aligned}</script><p>可知</p>
+<p>至多有 $\dfrac{1\times(1-2^k)}{1-2} = 2^k-1$ 个结点</p>
+<p>即有 $2^{\left\lceil{\log_2 n}\right\rceil+1}-1$ 个结点 </p>
+<p>根据</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\left\lceil{x}\right\rceil-
+&\left\lceil{x}\right\rceil-
 \left\lfloor{x}\right\rfloor=\begin{cases}
-0,&amp;\text{if } x \in \mathbb{Z},\\\\
-1,&amp;\text{if }x \notin \mathbb{Z}.
-\end{cases}\end{aligned}
-\]</span> 可知</p>
+0,&\text{if } x \in \mathbb{Z},\\\\
+1,&\text{if }x \notin \mathbb{Z}.
+\end{cases}\end{aligned}</script><p>可知</p>
 <ul>
-<li><p>当 <span class="math inline">\(\log_2 n\)</span>
-为整数时，结点数为 <span class="math inline">\(2n-1\)</span>
-个节点</p></li>
-<li><p>当 <span class="math inline">\(\log_2 n\)</span>
-不为整数时，结点数为 <span class="math inline">\(4 \times
-2^{\left\lfloor{\log_2 n}\right\rfloor}-1\)</span></p>
-<p><span class="math inline">\(\because \left\lfloor{\log_2
-n}\right\rfloor &lt; \log_2 n\)</span></p>
-<p><span class="math inline">\(\therefore 4 \times
-2^{\left\lfloor{\log_2 n}\right\rfloor}-1 &lt; 4n-1 &lt;
-4n\)</span></p></li>
+<li><p>当 $\log_2 n$ 为整数时，结点数为 $2n-1$ 个节点</p>
+</li>
+<li><p>当 $\log_2 n$ 不为整数时，结点数为 $4 \times 2^{\left\lfloor{\log_2 n}\right\rfloor}-1$</p>
+<p>$\because \left\lfloor{\log_2 n}\right\rfloor &lt; \log_2 n$</p>
+<p>$\therefore 4 \times 2^{\left\lfloor{\log_2 n}\right\rfloor}-1 &lt; 4n-1 &lt; 4n$</p>
+</li>
 </ul>
-<p>很多时候 <span class="math inline">\(n\)</span> 并不恰好为 <span
-class="math inline">\(2^k\)</span> ，因此开 <span
-class="math inline">\(4\)</span> 倍空间正好</p>
+<p>很多时候 $n$ 并不恰好为 $2^k$ ，因此开 $4$ 倍空间正好</p>
 <p>值得注意的是，对于 <code>ls(at) = at*2</code> 的这种写法</p>
-<p>一定要避免在叶子结点调用 <code>ls(at)</code></p>
-<p>因为此时有可能会越界到 <span class="math inline">\(8n\)</span>
-的位置</p>
-<p>这里贴一个<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线段树1</a>的代码
-<del>卡了点常啥的，无视它（逃</del></p>
+<p>一定要避免在叶子结点调用 <code>ls(at)</code> </p>
+<p>因为此时有可能会越界到 $8n$ 的位置</p>
+<p>这里贴一个<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线段树1</a>的代码 <del>卡了点常啥的，无视它（逃</del></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -1104,13 +1087,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p6327-qu-jian-jia-qu-jian-sin-he-ti-jie/">
+                <a href="/2022/05/25/deng-chai-shu-lie-deng-bi-shu-lie-xiao-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p209.jpg" class="responsive-img" alt="洛谷P6327 区间加区间sin和 题解">
+                        <img src="/medias/featureimages/p17.jpg" class="responsive-img" alt="等差数列&amp;等比数列小结">
                         
-                        <span class="card-title">洛谷P6327 区间加区间sin和 题解</span>
+                        <span class="card-title">等差数列&amp;等比数列小结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1138,8 +1121,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1153,13 +1136,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/deng-chai-shu-lie-deng-bi-shu-lie-xiao-jie/">
+                <a href="/2022/05/25/zhu-ding-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p17.jpg" class="responsive-img" alt="等差数列&amp;等比数列小结">
+                        <img src="/medias/featureimages/p46.jpg" class="responsive-img" alt="主定理">
                         
-                        <span class="card-title">等差数列&amp;等比数列小结</span>
+                        <span class="card-title">主定理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1189,6 +1172,10 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线
                     
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E6%80%A7%E7%90%86%E8%AE%BA/">
+                        <span class="chip bg-color">计算复杂性理论</span>
                     </a>
                     
                 </div>
@@ -1343,7 +1330,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

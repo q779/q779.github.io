@@ -556,42 +556,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="uva11424-gcd---extreme-i-题解">UVA11424 GCD - Extreme (I)
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11424">UVA11424 GCD - Extreme
-(I)</a></p>
+                <h1 id="UVA11424-GCD-Extreme-I-题解"><a href="#UVA11424-GCD-Extreme-I-题解" class="headerlink" title="UVA11424 GCD - Extreme (I) 题解"></a>UVA11424 GCD - Extreme (I) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11424">UVA11424 GCD - Extreme (I)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 <span class="math inline">\(n\)</span> ，求 <span
-class="math display">\[
-\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n\gcd(i,j)
-\]</span> <span class="math inline">\(1 &lt; n \le 2\times 10^5\)</span>
-，最多 <span class="math inline">\(2 \times 10^4\)</span> 组数据。</p>
+<p>给定 $n$ ，求</p>
+<script type="math/tex; mode=display">
+\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n\gcd(i,j)</script><p>$1 &lt; n \le 2\times 10^5$ ，最多 $2 \times 10^4$ 组数据。</p>
 </blockquote>
 <p>据说是「7倍经验」，那我干脆一并写了吧。</p>
 <p>这道题有很多种解法，常见的解法是欧拉函数和莫比乌斯反演。</p>
-<h2 id="解法1欧拉函数">解法1：欧拉函数</h2>
-<p>正解解法。记 <span class="math inline">\(f(n) = \sum_{i = 1} ^ {n}
-\gcd(i,n)\)</span> ，则答案为 <span class="math inline">\(\sum_{i =
-1}^{n}f(i)\)</span></p>
-<p>考虑怎么快速计算 <span class="math inline">\(f\)</span> 。设 <span
-class="math inline">\(g(i,n)\)</span> 为对于所有的 <span
-class="math inline">\(x(1\le x &lt; n)\)</span> ，<span
-class="math inline">\(\gcd(x,n) = i\)</span> 的 <span
-class="math inline">\(x\)</span> 的个数，则 <span
-class="math display">\[
-f(n) = \sum_{d \mid n}g(d,n)
-\]</span> 注意到 <span class="math inline">\(\gcd(x,n)=i\)</span>
-，意味着 <span class="math inline">\(\gcd(x/i, n/i) = 1\)</span>
-，也就是 <span class="math inline">\(x/i\)</span> 与 <span
-class="math inline">\(n/i\)</span> 互质，故 <span
-class="math display">\[
-f(n) = \sum_{d \mid n}\varphi(n / i)
-\]</span>
-<del>感觉有点对劲，但好像又不是很对劲</del>。直接枚举因数会比较慢，因此我们可以反过来计算贡献。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<h2 id="解法1：欧拉函数"><a href="#解法1：欧拉函数" class="headerlink" title="解法1：欧拉函数"></a>解法1：欧拉函数</h2><p>正解解法。记 $f(n) = \sum_{i = 1} ^ {n} \gcd(i,n)$ ，则答案为 $\sum_{i = 1}^{n}f(i)$</p>
+<p>考虑怎么快速计算 $f$ 。设 $g(i,n)$ 为对于所有的 $x(1\le x &lt; n)$ ，$\gcd(x,n) = i$ 的 $x$ 的个数，则</p>
+<script type="math/tex; mode=display">
+f(n) = \sum_{d \mid n}g(d,n)</script><p>注意到 $\gcd(x,n)=i$ ，意味着 $\gcd(x/i, n/i) = 1$ ，也就是 $x/i$ 与 $n/i$ 互质，故</p>
+<script type="math/tex; mode=display">
+f(n) = \sum_{d \mid n}\varphi(n / i)</script><p><del>感觉有点对劲，但好像又不是很对劲</del>。直接枚举因数会比较慢，因此我们可以反过来计算贡献。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -632,44 +612,25 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">;</span> cin <span class="token operator">>></span> n <span class="token operator">&amp;&amp;</span> n <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> sum<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
-<h2 id="解法2莫比乌斯反演">解法2：莫比乌斯反演</h2>
-<p>这个也是我自己想到的解法（不是正解），不过在这道题就需要卡一卡常。</p>
-<p>我们先来推推式子：（这个式子的结果 <span
-class="math inline">\(x\)</span> 与原答案 <span
-class="math inline">\(x_0\)</span> 的关系为 <span
-class="math inline">\(x=2x_0+\frac{n(n+1)}{2}\)</span> ） <span
-class="math display">\[
+<hr>
+<h2 id="解法2：莫比乌斯反演"><a href="#解法2：莫比乌斯反演" class="headerlink" title="解法2：莫比乌斯反演"></a>解法2：莫比乌斯反演</h2><p>这个也是我自己想到的解法（不是正解），不过在这道题就需要卡一卡常。</p>
+<p>我们先来推推式子：（这个式子的结果 $x$ 与原答案 $x_0$ 的关系为 $x=2x_0+\frac{n(n+1)}{2}$ ）</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
 \sum_{i=1}^n \sum_{j=1}^n \operatorname{gcd}(i, j)
-    &amp;= \sum_{k=1}^{n}k\sum_{i=1}^n \sum_{j=1}^{n}[\gcd(i,j)=k]
-    \\[6pt]&amp;= \sum_{k=1}^{n}k\sum_{i=1}^{n / k} \sum_{j=1}^{n /
-k}[\gcd(i,j)=1]
-    \\[6pt]&amp;= \sum_{k=1}^{n}k\sum_{i=1}^{n / k} \sum_{j=1}^{n /
-k}\sum_{d\mid \gcd(i,j)}\mu(d)
-    \\[6pt]&amp;= \sum_{k=1}^{n}k\sum_{d=1}^{n / k} \mu(d) \sum_{i=1}^{n
-/k}[d \mid i] \sum_{j=1}^{n / k}[d \mid j]
-    \\[6pt]&amp;= \sum_{k=1}^{n}k\sum_{d=1}^{n /
-k}\mu(d)\left\lfloor\frac{n}{k d}\right\rfloor^2
-\end{aligned}
-\]</span> 然而直接搞是过不了的，因为数据组数太多： <span
-class="math display">\[
-\mathcal{O}\left(\sqrt{\frac{n}{1}} +
-\sqrt{\frac{n}{2}}+\cdots+\sqrt{\frac{n}{n}} \right)
-= \mathcal{O}\left(\sqrt{n}\left(1 +
-\frac{1}{\sqrt{2}}+\cdots+\frac{1}{\sqrt{n}}\right)\right) =
-\mathcal{O}\left(n\right)
-\]</span> 考虑设 <span class="math inline">\(m = n / k\)</span> ，则
-<span class="math display">\[
-\sum_{k=1}^{n}k\sum_{d=1}^{m}\mu(d)\left\lfloor\frac{m}{d}\right\rfloor^2
-\]</span> 后面的部分在 <span class="math inline">\(m\)</span> 固定时与
-<span class="math inline">\(k\)</span> 无关，考虑预处理为 <span
-class="math inline">\(f(m)\)</span> ，则 <span class="math display">\[
-\sum_{k=1}^{n}k\cdot f\left(n/k\right)
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(N\sqrt{N})\)</span>
-，但是需要卡常，原理参考<a
-target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sqrt-decomposition/#%E5%BC%95%E7%90%86-2">link</a>。</p>
+    &= \sum_{k=1}^{n}k\sum_{i=1}^n \sum_{j=1}^{n}[\gcd(i,j)=k]
+    \\[6pt]&= \sum_{k=1}^{n}k\sum_{i=1}^{n / k} \sum_{j=1}^{n / k}[\gcd(i,j)=1]
+    \\[6pt]&= \sum_{k=1}^{n}k\sum_{i=1}^{n / k} \sum_{j=1}^{n / k}\sum_{d\mid \gcd(i,j)}\mu(d)
+    \\[6pt]&= \sum_{k=1}^{n}k\sum_{d=1}^{n / k} \mu(d) \sum_{i=1}^{n /k}[d \mid i] \sum_{j=1}^{n / k}[d \mid j]
+    \\[6pt]&= \sum_{k=1}^{n}k\sum_{d=1}^{n / k}\mu(d)\left\lfloor\frac{n}{k d}\right\rfloor^2
+\end{aligned}</script><p>然而直接搞是过不了的，因为数据组数太多：</p>
+<script type="math/tex; mode=display">
+\mathcal{O}\left(\sqrt{\frac{n}{1}} + \sqrt{\frac{n}{2}}+\cdots+\sqrt{\frac{n}{n}} \right)
+= \mathcal{O}\left(\sqrt{n}\left(1 + \frac{1}{\sqrt{2}}+\cdots+\frac{1}{\sqrt{n}}\right)\right) = \mathcal{O}\left(n\right)</script><p>考虑设 $m = n / k$ ，则</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{n}k\sum_{d=1}^{m}\mu(d)\left\lfloor\frac{m}{d}\right\rfloor^2</script><p>后面的部分在 $m$ 固定时与 $k$ 无关，考虑预处理为 $f(m)$ ，则</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{n}k\cdot f\left(n/k\right)</script><p>时间复杂度 $\mathcal{O}(N\sqrt{N})$ ，但是需要卡常，原理参考<a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sqrt-decomposition/#%E5%BC%95%E7%90%86-2">link</a>。</p>
 <p>代码：（用时 1.17s ）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -748,22 +709,14 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
-<h2 id="其他题">其他题</h2>
-<ol type="1">
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11426">UVA11426
-拿行李（极限版） GCD - Extreme (II)</a> 只需要把 N 改一下就能过了。</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1390">洛谷P1390
-公约数的和</a> 删掉多组询问，然后把 N 改一下就能过了。</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2398">洛谷P2398 GCD
-SUM</a> 删掉多组询问，把 N 改一下，把输出改一下就能过了。</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2568">洛谷P2568 GCD</a>
-写过题解，看这边 <a
-href="/2022/05/25/luo-gu-p2568-gcd-ti-jie/">link</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP3871">SP3871 GCDEX - GCD
-Extreme</a> 只需要把 N 改一下就能过了（搬题小能手SPOJ）</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11417">UVA11417 GCD</a>
-本题简化版，直接交</li>
+<hr>
+<h2 id="其他题"><a href="#其他题" class="headerlink" title="其他题"></a>其他题</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11426">UVA11426 拿行李（极限版） GCD - Extreme (II)</a> 只需要把 N 改一下就能过了。</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1390">洛谷P1390 公约数的和</a> 删掉多组询问，然后把 N 改一下就能过了。</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2398">洛谷P2398 GCD SUM</a> 删掉多组询问，把 N 改一下，把输出改一下就能过了。</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2568">洛谷P2568 GCD</a> 写过题解，看这边 <a href="/2022/05/25/luo-gu-p2568-gcd-ti-jie/">link</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP3871">SP3871 GCDEX - GCD Extreme</a> 只需要把 N 改一下就能过了（搬题小能手SPOJ）</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11417">UVA11417 GCD</a> 本题简化版，直接交</li>
 <li>算上本题，正好7倍经验，蛮好的。</li>
 </ol>
 
@@ -1397,7 +1350,7 @@ Extreme</a> 只需要把 N 改一下就能过了（搬题小能手SPOJ）</li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

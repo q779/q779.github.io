@@ -560,64 +560,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf689d-friends-and-subsequences-题解">CF689D Friends and
-Subsequences 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF689D">CF689D
-Friends and Subsequences</a></p>
+                <h1 id="CF689D-Friends-and-Subsequences-题解"><a href="#CF689D-Friends-and-Subsequences-题解" class="headerlink" title="CF689D Friends and Subsequences 题解"></a>CF689D Friends and Subsequences 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF689D">CF689D Friends and Subsequences</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <ul>
-<li>给定序列 <span class="math inline">\(a\)</span> 和序列 <span
-class="math inline">\(b\)</span>，长度均为 <span
-class="math inline">\(n\)</span>。问有多少组 <span
-class="math inline">\((l,r)\)</span>，满足 <span
-class="math inline">\(1\le l\le r\le n\)</span> 且 <span
-class="math inline">\(\displaystyle \max_{i=l}^r a_i=\min_{i=l}^r
-b_i\)</span></li>
-<li><span class="math inline">\(1\le n\le 2\times 10^5\)</span>，<span
-class="math inline">\(|a_i|,|b_i|\le 10^9\)</span>。</li>
+<li>给定序列 $a$ 和序列 $b$，长度均为 $n$。问有多少组 $(l,r)$，满足 $1\le l\le r\le n$ 且<br>$\displaystyle \max_{i=l}^r a_i=\min_{i=l}^r b_i$</li>
+<li>$1\le n\le 2\times 10^5$，$|a_i|,|b_i|\le 10^9$。</li>
 </ul>
 <p><strong>输入格式</strong>：</p>
-<p>The first line contains only integer <span
-class="math inline">\(n\)</span> (<span class="math inline">\(1\leq
-n\leq 200000\)</span>).</p>
-<p>The second line contains <span class="math inline">\(n\)</span>
-integer numbers <span class="math inline">\(a_{1}, a_{2}, \ldots,
-a_{n}\)</span> (<span class="math inline">\(-10^9 \leq a_i \leq
-10^9\)</span>) — the sequence <span
-class="math inline">\(a\)</span>.</p>
-<p>The third line contains <span class="math inline">\(n\)</span>
-integer numbers <span class="math inline">\(b_{1}, b_{2}, \ldots,
-b_{n}\)</span> (<span class="math inline">\(-10^9 \leq b_i \leq
-10^9\)</span>) — the sequence <span
-class="math inline">\(b\)</span>.</p>
+<p>The first line contains only integer $n$ ($1\leq n\leq 200000$).</p>
+<p>The second line contains $n$ integer numbers $a_{1}, a_{2}, \ldots, a_{n}$ ($-10^9 \leq a_i \leq 10^9$) — the sequence $a$.</p>
+<p>The third line contains $n$ integer numbers $b_{1}, b_{2}, \ldots, b_{n}$ ($-10^9 \leq b_i \leq 10^9$) — the sequence $b$.</p>
 <p><strong>输出格式</strong>：</p>
-<p>Print the only integer number — the number of occasions the robot
-will count, thus for how many pairs <span
-class="math inline">\(\displaystyle \max _{i=l}^r a_i=\min _{i=l}^r
-b_i\)</span> is satisfied.</p>
+<p>Print the only integer number — the number of occasions the robot will count, thus for how many pairs $\displaystyle \max _{i=l}^r a_i=\min _{i=l}^r b_i$ is satisfied.</p>
 </blockquote>
-<p>注意到当左端点固定时，<span class="math inline">\(a\)</span> 最大值减
-<span class="math inline">\(b\)</span> 最小值的差会单调不降。</p>
+<p>注意到当左端点固定时，$a$ 最大值减 $b$ 最小值的差会单调不降。</p>
 <p>容易想到这样的做法：枚举合法区间的左端点，然后二分一个右端点。然而这个做法是错的。</p>
-<p>假设 <span class="math inline">\([l,r]\)</span>
-是一个极大合法的区间，且区间 <span
-class="math inline">\([p,l-1]\)</span> 不合法。而此时 <span
-class="math inline">\([p,l]\)</span>
-却<strong>可能</strong>是一个合法区间。</p>
-<p>于是考虑枚举左端点 <span class="math inline">\(l\)</span>
-，接着做两个二分，得到以 <span class="math inline">\(l\)</span>
-为左端点的极大合法区间的范围 <span
-class="math inline">\([l^{\prime},r^{\prime}]\)</span> ，</p>
-<p>则对于任意整数 <span class="math inline">\(x \in [l^{\prime},
-r^{\prime}]\)</span> ，区间 <span class="math inline">\([l,x]\)</span>
-为合法区间，并且 <span class="math inline">\(l^{\prime}\)</span>
-是最左侧的那个，<span class="math inline">\(r^{\prime}\)</span>
-是最右侧的那个。</p>
-<p>实现的话，因为不带修改，所以可以用 ST表
-解决，<del>线段树二分有空再写吧</del>。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>假设 $[l,r]$ 是一个极大合法的区间，且区间 $[p,l-1]$ 不合法。而此时 $[p,l]$ 却<strong>可能</strong>是一个合法区间。</p>
+<p>于是考虑枚举左端点 $l$ ，接着做两个二分，得到以 $l$ 为左端点的极大合法区间的范围 $[l^{\prime},r^{\prime}]$ ，</p>
+<p>则对于任意整数 $x \in [l^{\prime}, r^{\prime}]$ ，区间 $[l,x]$ 为合法区间，并且 $l^{\prime}$ 是最左侧的那个，$r^{\prime}$ 是最右侧的那个。</p>
+<p>实现的话，因为不带修改，所以可以用 ST表 解决，<del>线段树二分有空再写吧</del>。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1322,7 +1285,7 @@ n)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

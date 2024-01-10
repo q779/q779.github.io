@@ -560,70 +560,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1387b2-village-maximum-题解">CF1387B2 Village (Maximum)
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1387B2">CF1387B2 Village
-(Maximum)</a></p>
+                <h1 id="CF1387B2-Village-Maximum-题解"><a href="#CF1387B2-Village-Maximum-题解" class="headerlink" title="CF1387B2 Village (Maximum) 题解"></a>CF1387B2 Village (Maximum) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1387B2">CF1387B2 Village (Maximum)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>村里 <span class="math inline">\(n\)</span> 个房子构成了一个 <span
-class="math inline">\(n\)</span> 点 <span
-class="math inline">\(n-1\)</span> 条边的<strong>树</strong>结构（下标从
-<span class="math inline">\(1\)</span> 开始），每条边长度均为 <span
-class="math inline">\(1\)</span>。一开始每个房子里分别有一个村民。</p>
-<p>现在所有村民都需要搬家（改变自己所在的点），搬家后依然需要满足每个房子里<strong>有且只有一个</strong>村民。也就是说，如果原本位于点
-<span class="math inline">\(i\)</span> 的村民搬到了点 <span
-class="math inline">\(v_i\)</span>，那么应当满足：</p>
+<p>村里 $n$ 个房子构成了一个 $n$ 点 $n-1$ 条边的<strong>树</strong>结构（下标从 $1$ 开始），每条边长度均为 $1$。一开始每个房子里分别有一个村民。</p>
+<p>现在所有村民都需要搬家（改变自己所在的点），搬家后依然需要满足每个房子里<strong>有且只有一个</strong>村民。也就是说，如果原本位于点 $i$ 的村民搬到了点 $v_i$，那么应当满足：</p>
 <ul>
-<li><p>对于任意点 <span class="math inline">\(i\)</span>，有 <span
-class="math inline">\(i \neq v_i\)</span>。</p></li>
-<li><p>对于任意两个不同的点 <span class="math inline">\(i\)</span> 与
-<span class="math inline">\(j\)</span>，有 <span
-class="math inline">\(v_i \neq v_j\)</span>。</p></li>
+<li><p>对于任意点 $i$，有 $i \neq v_i$。</p>
+</li>
+<li><p>对于任意两个不同的点 $i$ 与 $j$，有 $v_i \neq v_j$。</p>
+</li>
 </ul>
-<p>村民 <span class="math inline">\(i\)</span> 搬家的花费是点 <span
-class="math inline">\(i\)</span> 到点 <span
-class="math inline">\(v_i\)</span>
-的树上距离（即树上二点间相隔的边数），总花费为所有村民花费之和。求总花费的<strong>最大值</strong>及其方案。</p>
+<p>村民 $i$ 搬家的花费是点 $i$ 到点 $v_i$ 的树上距离（即树上二点间相隔的边数），总花费为所有村民花费之和。求总花费的<strong>最大值</strong>及其方案。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个正整数 <span
-class="math inline">\(n\)</span>，表示树的点数。</p>
-<p>接下来 <span class="math inline">\(n-1\)</span> 行每行二整数 <span
-class="math inline">\(a\)</span> 和 <span
-class="math inline">\(b\)</span>，表示树上有一条连接 <span
-class="math inline">\(a\)</span> 和 <span
-class="math inline">\(b\)</span>，长度为 <span
-class="math inline">\(1\)</span> 的边。</p>
+<p>第一行一个正整数 $n$，表示树的点数。</p>
+<p>接下来 $n-1$ 行每行二整数 $a$ 和 $b$，表示树上有一条连接 $a$ 和 $b$，长度为 $1$ 的边。</p>
 <p><strong>输出格式</strong>：</p>
 <p>第一行一个整数，表示总花费的<strong>最大值</strong>。</p>
-<p>第二行 <span class="math inline">\(n\)</span> 个整数 <span
-class="math inline">\(v_1 \dots
-v_n\)</span>，表示搬家的方案：如果原本位于点 <span
-class="math inline">\(i\)</span> 的村民搬到了点 <span
-class="math inline">\(v_i\)</span>。</p>
+<p>第二行 $n$ 个整数 $v_1 \dots v_n$，表示搬家的方案：如果原本位于点 $i$ 的村民搬到了点 $v_i$。</p>
 <p>输出<strong>任意一组</strong>合法方案即可。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2 \leq n \leq 10^5,~1 \leq a,b \leq
-n\)</span></p>
+<p>$2 \leq n \leq 10^5,~1 \leq a,b \leq n$</p>
 </blockquote>
-<p>贪心地考虑每条边如何贡献尽可能多的经过次数，则不难发现边 <span
-class="math inline">\((u,v)\)</span> 至多贡献 <span
-class="math inline">\(2 \cdot \min (\operatorname{size}(u),
-\operatorname{size}(v))\)</span> 。</p>
-<p>考虑如何构造能够达到这个最大值。首先我们以树的重心为根，然后将所有
-<span class="math inline">\(u(u \le
-\left\lfloor\frac{n}{2}\right\rfloor)\)</span> ，</p>
-<p>与 <span class="math inline">\(u +
-\left\lfloor\frac{n}{2}\right\rfloor\)</span>
-配对。因为以重心为分界线的两棵子树均不超过 <span
-class="math inline">\(\left\lfloor\frac{n}{2}\right\rfloor\)</span> ，则
-<span class="math inline">\(u\)</span> 和 <span class="math inline">\(u
-+ \left\lfloor\frac{n}{2}\right\rfloor\)</span> 位于不同子树内。</p>
-<p>这样做为什么对呢？因为在此种匹配方式的构造中，左子树的任意 <span
-class="math inline">\(u,v\)</span>
-交换不会改变经过的边数（甚至是边）</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>贪心地考虑每条边如何贡献尽可能多的经过次数，则不难发现边 $(u,v)$ 至多贡献 $2 \cdot \min (\operatorname{size}(u), \operatorname{size}(v))$ 。</p>
+<p>考虑如何构造能够达到这个最大值。首先我们以树的重心为根，然后将所有 $u(u \le \left\lfloor\frac{n}{2}\right\rfloor)$ ，</p>
+<p>与 $u + \left\lfloor\frac{n}{2}\right\rfloor$ 配对。因为以重心为分界线的两棵子树均不超过 $\left\lfloor\frac{n}{2}\right\rfloor$ ，则 $u$ 和 $u + \left\lfloor\frac{n}{2}\right\rfloor$ 位于不同子树内。</p>
+<p>这样做为什么对呢？因为在此种匹配方式的构造中，左子树的任意 $u,v$ 交换不会改变经过的边数（甚至是边）</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -681,10 +644,9 @@ class="math inline">\(u,v\)</span>
         cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://dfsafdsgaksgh.blog.luogu.org/solution-cf1387b2">https://dfsafdsgaksgh.blog.luogu.org/solution-cf1387b2</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://dfsafdsgaksgh.blog.luogu.org/solution-cf1387b2">https://dfsafdsgaksgh.blog.luogu.org/solution-cf1387b2</a></p>
 
                 
             </div>
@@ -1316,7 +1278,7 @@ target="_blank" rel="noopener" href="https://dfsafdsgaksgh.blog.luogu.org/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

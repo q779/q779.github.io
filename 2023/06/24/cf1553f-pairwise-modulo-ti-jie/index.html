@@ -560,63 +560,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1553f-pairwise-modulo-题解">CF1553F Pairwise Modulo 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1553F">CF1553F
-Pairwise Modulo</a></p>
+                <h1 id="CF1553F-Pairwise-Modulo-题解"><a href="#CF1553F-Pairwise-Modulo-题解" class="headerlink" title="CF1553F Pairwise Modulo 题解"></a>CF1553F Pairwise Modulo 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1553F">CF1553F Pairwise Modulo</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个由<strong>不同</strong>数组成的序列 <span
-class="math inline">\(a\)</span>，定义 <span
-class="math inline">\(p_k\)</span> 为：</p>
-<p><span class="math display">\[
-p_k = \sum_{i=1}^k \sum_{j=1}^k a_i \bmod a_j
-\]</span></p>
-<p>其中 <span class="math inline">\(a_i \bmod a_j\)</span> 表示 <span
-class="math inline">\(a_i\)</span> 除以 <span
-class="math inline">\(a_j\)</span> 的余数。对于每个 <span
-class="math inline">\(i \in [1,n]\)</span>，求出 <span
-class="math inline">\(p_i\)</span>。</p>
+<p>给定一个由<strong>不同</strong>数组成的序列 $a$，定义 $p_k$ 为：</p>
+<script type="math/tex; mode=display">
+p_k = \sum_{i=1}^k \sum_{j=1}^k a_i \bmod a_j</script><p>其中 $a_i \bmod a_j$ 表示 $a_i$ 除以 $a_j$ 的余数。对于每个 $i \in [1,n]$，求出 $p_i$。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2 \le n \le 2 \times 10^5,~1 \le a_i \le
-3\times 10^5\)</span> 。</p>
+<p>$2 \le n \le 2 \times 10^5,~1 \le a_i \le 3\times 10^5$ 。</p>
 </blockquote>
-<p>先来推推式子： <span class="math display">\[
+<p>先来推推式子：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-p_{k+1} &amp;= \sum_{i=1}^{k + 1} \sum_{j=1}^{k + 1} a_i \bmod a_j
-\\[3pt]&amp;= \sum_{i=1}^{k} \sum_{j=1}^{k + 1} a_i \bmod a_j +
-\sum_{j=1}^{k + 1} a_{k+1} \bmod a_j
-\\[3pt]&amp;=\sum_{i=1}^k \sum_{j=1}^k a_i \bmod a_j +\sum_{i=1}^{k}
-a_i\bmod a_{k+1}+\sum_{j=1}^{k + 1} a_{k+1} \bmod a_j
-\\[3pt]&amp;= p_k +\sum_{i=1}^{k} a_i\bmod a_{k+1}+\sum_{j=1}^{k + 1}
-a_{k+1} \bmod a_j
-\end{aligned}
-\]</span> 方便起见，我们记 <span class="math inline">\(M=\max
-a_i\)</span></p>
+p_{k+1} &= \sum_{i=1}^{k + 1} \sum_{j=1}^{k + 1} a_i \bmod a_j
+\\[3pt]&= \sum_{i=1}^{k} \sum_{j=1}^{k + 1} a_i \bmod a_j + \sum_{j=1}^{k + 1} a_{k+1} \bmod a_j
+\\[3pt]&=\sum_{i=1}^k \sum_{j=1}^k a_i \bmod a_j +\sum_{i=1}^{k} a_i\bmod a_{k+1}+\sum_{j=1}^{k + 1} a_{k+1} \bmod a_j
+\\[3pt]&= p_k +\sum_{i=1}^{k} a_i\bmod a_{k+1}+\sum_{j=1}^{k + 1} a_{k+1} \bmod a_j
+\end{aligned}</script><p>方便起见，我们记 $M=\max a_i$</p>
 <p>考虑用树状数组维护第三部分。不过在此之前，我们可以先尝试用树状数组维护第二部分。</p>
-<p>首先总和先加上 <span class="math inline">\(\sum_{j=1}^{i-1}
-a_j\)</span> ，接着对于所有 <span class="math inline">\(ca_i \le
-M\)</span> ，查询 <span class="math inline">\(\left[ca_i,(c+1)
-a_i\right)\)</span> 内的数的个数 <span
-class="math inline">\(c\)</span></p>
-<p>然后总和减去 <span class="math inline">\(xca_i\)</span>
-。这是因为，如果 <span class="math inline">\(a_j\)</span> 在 <span
-class="math inline">\(\left[ca_i,(c+1) a_i\right)\)</span> 内，则 <span
-class="math inline">\(a_j \bmod a_i = a_j - ca_i\)</span> 。</p>
-<p>类似地，考虑如何维护第三部分。定义数组 <span
-class="math inline">\(b\)</span> ，对于所有 <span
-class="math inline">\(ca_i\le M\)</span> 的正整数 <span
-class="math inline">\(c\)</span> ，给 <span
-class="math inline">\(b_{ca_i}\)</span> 加上 <span
-class="math inline">\(a_i\)</span></p>
-<p>然后总和加上 <span class="math inline">\(ia_i - \sum _{ j = 1} ^
-{a_i} b_j\)</span> 。这是因为 <span class="math inline">\(a_i \bmod
-a_j=a_i-\left\lfloor a_i / a_j\right\rfloor\times a_j\)</span> 。</p>
-<p>因为 <span class="math inline">\(a_i\)</span>
-互不相同，所以我们枚举的区间总数为 <span
-class="math inline">\(\mathcal{O}(\sum
-\frac{M}{a_i})\approx\mathcal{O}(M\ln M)\)</span> ，参考调和级数。</p>
-<p>因此时间复杂度 <span class="math inline">\(\mathcal{O}(n\log^2
-n)\)</span></p>
+<p>首先总和先加上 $\sum_{j=1}^{i-1} a_j$ ，接着对于所有 $ca_i \le M$ ，查询 $\left[ca_i,(c+1) a_i\right)$ 内的数的个数 $c$ </p>
+<p>然后总和减去 $xca_i$ 。这是因为，如果 $a_j$ 在 $\left[ca_i,(c+1) a_i\right)$ 内，则 $a_j \bmod a_i = a_j - ca_i$ 。</p>
+<p>类似地，考虑如何维护第三部分。定义数组 $b$ ，对于所有 $ca_i\le M$ 的正整数 $c$ ，给 $b_{ca_i}$ 加上 $a_i$ </p>
+<p>然后总和加上 $ia_i - \sum _{ j = 1} ^ {a_i} b_j$ 。这是因为 $a_i \bmod a_j=a_i-\left\lfloor a_i / a_j\right\rfloor\times a_j$ 。</p>
+<p>因为 $a_i$ 互不相同，所以我们枚举的区间总数为 $\mathcal{O}(\sum \frac{M}{a_i})\approx\mathcal{O}(M\ln M)$ ，参考调和级数。</p>
+<p>因此时间复杂度 $\mathcal{O}(n\log^2 n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -659,12 +626,10 @@ n)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/AlexWei/solution-cf1553f">https://www.luogu.com.cn/blog/AlexWei/solution-cf1553f</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zankizero/solution-cf1553f">https://www.luogu.com.cn/blog/zankizero/solution-cf1553f</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/AlexWei/solution-cf1553f">https://www.luogu.com.cn/blog/AlexWei/solution-cf1553f</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zankizero/solution-cf1553f">https://www.luogu.com.cn/blog/zankizero/solution-cf1553f</a></p>
 
                 
             </div>
@@ -1296,7 +1261,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zankizero/sol
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

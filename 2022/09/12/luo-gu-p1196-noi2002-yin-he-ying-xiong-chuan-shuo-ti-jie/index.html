@@ -552,23 +552,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1196-noi2002-银河英雄传说-题解">洛谷P1196 [NOI2002]
-银河英雄传说 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1196">P1196
-[NOI2002] 银河英雄传说</a></p>
+                <h1 id="洛谷P1196-NOI2002-银河英雄传说-题解"><a href="#洛谷P1196-NOI2002-银河英雄传说-题解" class="headerlink" title="洛谷P1196 [NOI2002] 银河英雄传说 题解"></a>洛谷P1196 [NOI2002] 银河英雄传说 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1196">P1196 [NOI2002] 银河英雄传说</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一共有 <span class="math inline">\(n=30000\)</span> 个人，给定 <span
-class="math inline">\(Q ~(1\le Q \le 5\times 10^5)\)</span> 次操作</p>
+<p>一共有 $n=30000$ 个人，给定 $Q ~(1\le Q \le 5\times 10^5)$ 次操作</p>
 <ul>
-<li><p><code>M i j</code> 表示将 <span class="math inline">\(i\)</span>
-所在队伍<strong>拼接到</strong> <span class="math inline">\(j\)</span>
-所在队伍队尾。</p></li>
-<li><p><code>C i j</code> 表示询问 <span
-class="math inline">\(i,j\)</span> 在队伍中相差多少个人（ <span
-class="math inline">\(i,j\)</span> 不算在内）</p>
-<p>如果他们不在一个队伍中，请输出 <span
-class="math inline">\(-1\)</span> 。</p></li>
+<li><p><code>M i j</code> 表示将 $i$ 所在队伍<strong>拼接到</strong> $j$ 所在队伍队尾。</p>
+</li>
+<li><p><code>C i j</code> 表示询问 $i,j$ 在队伍中相差多少个人（ $i,j$ 不算在内）</p>
+<p>如果他们不在一个队伍中，请输出 $-1$ 。</p>
+</li>
 </ul>
 </blockquote>
 <p><strong>带权并查集模板题</strong>，<del>欠了快大半年才去研究</del></p>
@@ -576,55 +569,37 @@ class="math inline">\(-1\)</span> 。</p></li>
 <p>第一个操作显然是可以用并查集维护的（<del>难不成你用左偏树？</del>）</p>
 <p>考虑如何维护第二个操作。注意到并查集其实维护了一个森林。</p>
 <p>而带权并查集，实际上就是把普通并查集维护的森林<strong>带上了边权</strong>。</p>
-<p>我们记录两个数组 <span class="math inline">\(d_i\)</span> 和 <span
-class="math inline">\(s_i\)</span> （代码里是 <code>d[]</code> 和
-<code>sz[]</code>）</p>
+<p>我们记录两个数组 $d_i$ 和 $s_i$ （代码里是 <code>d[]</code> 和 <code>sz[]</code>）</p>
 <ul>
-<li><span class="math inline">\(d_i\)</span> 表示当前结点到根的距离</li>
-<li><span class="math inline">\(s_i\)</span>
-表示它所在的树的结点个数</li>
+<li>$d_i$ 表示当前结点到根的距离</li>
+<li>$s_i$ 表示它所在的树的结点个数</li>
 </ul>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
         f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">,</span> sz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span> <span class="token comment">// 初始化很好理解吧...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>考虑将 <span class="math inline">\(u\)</span> 所在的树与 <span
-class="math inline">\(v\)</span> 所在的树合并。</p>
-<p>也就是把 <span class="math inline">\(u\)</span> 所在队伍拼到 <span
-class="math inline">\(v\)</span> 所在队伍的后面。</p>
+<p>考虑将 $u$ 所在的树与 $v$ 所在的树合并。</p>
+<p>也就是把 $u$ 所在队伍拼到 $v$ 所在队伍的后面。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span><span class="token keyword">int</span> v<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     u<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span> v<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 找到它们对应的根</span>
     f<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> v<span class="token punctuation">;</span> d<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+=</span> sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// rt(u) -> rt(v) 连一条边权为 sz[v] 的边</span>
     sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">+=</span> sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// rt(v)拼上rt(u)后 sz[rt(v)] 会加上 sz[rt(u)]</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>（ cxy：「第二行」为什么要连上一条边权为 <span
-class="math inline">\(s_i\)</span> 的边呢？QAQ）</p>
-<p>仔细观察可以发现，<span class="math inline">\(\mathtt{rt}(u)\)</span>
-到 <span class="math inline">\(\mathtt{rt}(v)\)</span>
-之间正好相距（修改前的） <span class="math inline">\(s_v-1\)</span>
-个人</p>
-<p>但是为了方便维护，这里连 <span class="math inline">\(s_v\)</span></p>
-<p>因为如果有个 <span class="math inline">\(\mathtt{rt}(k)\)</span>
-又连上了 <span class="math inline">\(\mathtt{rt}(u)\)</span> ，它到
-<span class="math inline">\(\mathtt{rt}(v)\)</span> 的距离为 <span
-class="math display">\[
-s_u+s_v+s_k-1
-\]</span></p>
-<blockquote>
-<p>注：这里的 <span class="math inline">\(s\)</span>
-均指合并前的大小。</p>
+<p>（ cxy：「第二行」为什么要连上一条边权为 $s_i$ 的边呢？QAQ）</p>
+<p>仔细观察可以发现，$\mathtt{rt}(u)$ 到 $\mathtt{rt}(v)$ 之间正好相距（修改前的） $s_v-1$ 个人</p>
+<p>但是为了方便维护，这里连 $s_v$ </p>
+<p>因为如果有个 $\mathtt{rt}(k)$ 又连上了 $\mathtt{rt}(u)$ ，它到 $\mathtt{rt}(v)$ 的距离为</p>
+<script type="math/tex; mode=display">
+s_u+s_v+s_k-1</script><blockquote>
+<p>注：这里的 $s$ 均指合并前的大小。</p>
 </blockquote>
 <p>（ cxy：「第三行」又是在干什么呢？QAQ）</p>
-<p>这里其实是做了一个边权的前缀和，压缩前的样子可以看下图（ <span
-class="math inline">\(U,V\)</span> 指 <span
-class="math inline">\(\mathtt{rt}(u),\mathtt{rt}(v)\)</span> ）</p>
-<p>请注意，这张图省略了 <span class="math inline">\(v\)</span>
-子树间的边权，实际上每条边都有边权。</p>
-<p><img src="https://s2.loli.net/2022/09/12/tXrKgoxpd2uJimT.png" /></p>
-<p>不难发现这个边权前缀和的过程其实就是令 <span
-class="math inline">\(s_{v} \gets s_{v}+s_{u}\)</span> 。</p>
+<p>这里其实是做了一个边权的前缀和，压缩前的样子可以看下图（ $U,V$ 指 $\mathtt{rt}(u),\mathtt{rt}(v)$ ）</p>
+<p>请注意，这张图省略了 $v$ 子树间的边权，实际上每条边都有边权。</p>
+<p><img src="https://s2.loli.net/2022/09/12/tXrKgoxpd2uJimT.png" alt=""></p>
+<p>不难发现这个边权前缀和的过程其实就是令 $s_{v} \gets  s_{v}+s_{u}$ 。</p>
 <p>然后考虑查询操作。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -642,20 +617,12 @@ class="math inline">\(s_{v} \gets s_{v}+s_{u}\)</span> 。</p>
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token operator">!=</span><span class="token function">find</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"-1\n"</span><span class="token punctuation">;</span> <span class="token comment">// 不在同一个树（连通块）里</span>
     <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token function">abs</span><span class="token punctuation">(</span>d<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token operator">-</span>d<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token comment">// -1是因为x,y中至少有一个会被算进去</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>（ cxy：为什么要再把 <span class="math inline">\(x\)</span>
-的父亲算一遍什么的啊？QAQ）</p>
-<p>因为像上图中 <span class="math inline">\(\mathtt{rt}(u)\)</span> 连到
-<span class="math inline">\(\mathtt{rt}(v)\)</span> 后，<span
-class="math inline">\(u\)</span> 所在子树的 <span
-class="math inline">\(d_i\)</span> 显然会变</p>
-<p>实际上我们在查询的时候并不知道查询的 <span
-class="math inline">\(x\)</span> 是不是被修改过根的</p>
-<p>但是如果没被修改，<span
-class="math inline">\(d_{\mathtt{rt}(x)}=0\)</span> ，故
-<code>d[x] += d[f[x]]</code> 不会有什么影响。</p>
+<p>（ cxy：为什么要再把 $x$ 的父亲算一遍什么的啊？QAQ）</p>
+<p>因为像上图中 $\mathtt{rt}(u)$ 连到 $\mathtt{rt}(v)$ 后，$u$ 所在子树的 $d_i$ 显然会变</p>
+<p>实际上我们在查询的时候并不知道查询的 $x$ 是不是被修改过根的</p>
+<p>但是如果没被修改，$d_{\mathtt{rt}(x)}=0$ ，故 <code>d[x] += d[f[x]]</code> 不会有什么影响。</p>
 <p>到此为止，本题就做出来了。</p>
-<p>时间复杂度 <span class="math inline">\(O(Q \log n)\)</span>
-（没有按秩合并那肯定是log咯）</p>
+<p>时间复杂度 $O(Q \log n)$ （没有按秩合并那肯定是log咯）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
@@ -1342,7 +1309,7 @@ class="math inline">\(d_{\mathtt{rt}(x)}=0\)</span> ，故
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

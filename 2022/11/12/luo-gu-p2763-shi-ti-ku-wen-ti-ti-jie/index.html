@@ -568,55 +568,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2763-试题库问题-题解">洛谷P2763 试题库问题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2763">P2763
-试题库问题</a></p>
+                <h1 id="洛谷P2763-试题库问题-题解"><a href="#洛谷P2763-试题库问题-题解" class="headerlink" title="洛谷P2763 试题库问题 题解"></a>洛谷P2763 试题库问题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2763">P2763 试题库问题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>假设一个试题库中有 <span class="math inline">\(n\)</span>
-道试题。每道试题都标明了所属类别。</p>
-<p>现要从题库中抽取 <span class="math inline">\(m\)</span>
-道题组成试卷。</p>
+<p>假设一个试题库中有 $n$ 道试题。每道试题都标明了所属类别。</p>
+<p>现要从题库中抽取 $m$ 道题组成试卷。</p>
 <p>并要求试卷包含指定类型的试题。试设计一个满足要求的组卷算法。</p>
 <p>注意，同一道题可能有多个类别属性，但是每道题在组卷时<strong>只能归类于一种类型</strong>。</p>
 <p>对于给定的组卷要求，计算满足要求的组卷方案。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行有两个正整数 <span class="math inline">\(k\)</span> 和 <span
-class="math inline">\(n\)</span>。<span class="math inline">\(k\)</span>
-表示题库中试题类型总数，<span class="math inline">\(n\)</span>
-表示题库中试题总数。</p>
-<p>第二行有 <span class="math inline">\(k\)</span> 个正整数，第 <span
-class="math inline">\(i\)</span> 个正整数表示要选出的类型 <span
-class="math inline">\(i\)</span> 的题数。这 <span
-class="math inline">\(k\)</span> 个数相加就是要选出的总题数 <span
-class="math inline">\(m\)</span>。</p>
-<p>接下来的 <span class="math inline">\(n\)</span>
-行给出了题库中每个试题的类型信息。每行的第一个正整数 <span
-class="math inline">\(p\)</span> 表明该题可以属于 <span
-class="math inline">\(p\)</span> 类，接着的 <span
-class="math inline">\(p\)</span> 个数是该题所属的类型号。</p>
+<p>第一行有两个正整数 $k$ 和 $n$。$k$ 表示题库中试题类型总数，$n$ 表示题库中试题总数。</p>
+<p>第二行有 $k$ 个正整数，第 $i$ 个正整数表示要选出的类型 $i$ 的题数。这 $k$ 个数相加就是要选出的总题数 $m$。</p>
+<p>接下来的 $n$ 行给出了题库中每个试题的类型信息。每行的第一个正整数 $p$ 表明该题可以属于 $p$ 类，接着的 $p$ 个数是该题所属的类型号。</p>
 <p><strong>输出格式</strong>:</p>
-<p>输出共 <span class="math inline">\(k\)</span> 行，第 <span
-class="math inline">\(i\)</span> 行输出 <code>i:</code> 后接类型 <span
-class="math inline">\(i\)</span> 的题号。</p>
-<p>如果有多个满足要求的方案，只要输出一个方案。</p>
+<p>输出共 $k$ 行，第 $i$ 行输出 <code>i:</code> 后接类型 $i$ 的题号。  </p>
+<p>如果有多个满足要求的方案，只要输出一个方案。  </p>
 <p>如果问题无解，则输出<code>No Solution!</code>。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2\leq k \leq 20\)</span>，<span
-class="math inline">\(k \leq n \leq 10^3\)</span>。</p>
+<p>$2\leq k \leq 20$，$k \leq n \leq 10^3$。</p>
 </blockquote>
 <p>网络最大流基础题。</p>
-<p>源点 <span class="math inline">\(s\)</span> 向每道题连边，流量为
-<span class="math inline">\(1\)</span> 。</p>
-<p>每道题向对应的类型连边，流量为 <span class="math inline">\(1\)</span>
-。可以把题目的点当作“左部点”。</p>
-<p>每种类型向汇点 <span class="math inline">\(t\)</span>
-连边，流量为该类型所需要的题数。把类型当作“右部点”。</p>
-<p>跑了最大流之后，如果类型向 <span class="math inline">\(t\)</span>
-的边满流，则存在合法解。</p>
+<p>源点 $s$ 向每道题连边，流量为 $1$ 。</p>
+<p>每道题向对应的类型连边，流量为 $1$ 。可以把题目的点当作“左部点”。</p>
+<p>每种类型向汇点 $t$ 连边，流量为该类型所需要的题数。把类型当作“右部点”。</p>
+<p>跑了最大流之后，如果类型向 $t$ 的边满流，则存在合法解。</p>
 <p>输出方案只需要遍历“右部点”的出边即可（其实就是“左部点”的反向边）</p>
-<p>理论时间复杂度 <span
-class="math inline">\(\mathcal{O}(n^3k)\)</span></p>
+<p>理论时间复杂度 $\mathcal{O}(n^3k)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1362,7 +1339,7 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             

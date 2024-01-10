@@ -556,61 +556,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p8940-ssoi-2023-easy-round-c.-不见故人-题解">洛谷P8940 [SSOI
-2023 easy Round] C. 不见故人 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8940">P8940
-[SSOI 2023 easy Round] C. 不见故人</a></p>
+                <h1 id="洛谷P8940-SSOI-2023-easy-Round-C-不见故人-题解"><a href="#洛谷P8940-SSOI-2023-easy-Round-C-不见故人-题解" class="headerlink" title="洛谷P8940 [SSOI 2023 easy Round] C. 不见故人 题解"></a>洛谷P8940 [SSOI 2023 easy Round] C. 不见故人 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8940">P8940 [SSOI 2023 easy Round] C. 不见故人</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 <span class="math inline">\(n, k\)</span> 和序列 <span
-class="math inline">\(\{a_n\}\)</span>，你同时有一个临时变量 <span
-class="math inline">\(x\)</span>，你可以进行以下操作若干次（也可以是
-<span class="math inline">\(0\)</span> 次），一次操作的流程是： 1.
-选定一个区间 <span class="math inline">\([l,r]\)</span>，<span
-class="math inline">\(\forall i\in[l,r]\)</span>，<span
-class="math inline">\(x\leftarrow
-\gcd(a_l,a_{l+1},\cdots,a_r)\)</span>。 2. <span
-class="math inline">\(\forall i\in[l,r]\)</span>，<span
-class="math inline">\(a_i\leftarrow x\)</span>。</p>
-<p>简而言之，你每次可以选定一个区间并将其中每个数变成这个区间的 <span
-class="math inline">\(\gcd\)</span>。</p>
-<p>一次操作的代价是 <span
-class="math inline">\(r-l+1+k\)</span>，现在你希望把这个序列的每个数都变成相等的，求最小代价和。</p>
+<p>给定 $n, k$ 和序列 $\{a_n\}$，你同时有一个临时变量 $x$，你可以进行以下操作若干次（也可以是 $0$ 次），一次操作的流程是：</p>
+<ol>
+<li>选定一个区间 $[l,r]$，$\forall i\in[l,r]$，$x\leftarrow \gcd(a_l,a_{l+1},\cdots,a_r)$。</li>
+<li>$\forall i\in[l,r]$，$a_i\leftarrow x$。</li>
+</ol>
+<p>简而言之，你每次可以选定一个区间并将其中每个数变成这个区间的 $\gcd$。</p>
+<p>一次操作的代价是 $r-l+1+k$，现在你希望把这个序列的每个数都变成相等的，求最小代价和。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个非负整数 <span class="math inline">\(n,k\)</span>。</p>
-<p>第二行 <span class="math inline">\(n\)</span> 个数，表示 <span
-class="math inline">\(\{a_n\}\)</span>。</p>
+<p>第一行两个非负整数 $n,k$。</p>
+<p>第二行 $n$ 个数，表示 $\{a_n\}$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个数，表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有数据，保证 <span class="math inline">\(1\leq n\leq 4\times
-10^6\)</span>，<span class="math inline">\(0\leq k\leq
-10^9\)</span>，<span class="math inline">\(1\leq a_i\leq
-10^9\)</span>。</p>
+<p>对于所有数据，保证 $1\leq n\leq 4\times 10^6$，$0\leq k\leq 10^9$，$1\leq a_i\leq 10^9$。</p>
 </blockquote>
 <p>感觉这道题在各方面都非常有迷惑性，其实非常简单</p>
-<p>这个 <span class="math inline">\(k\)</span>
-的数据范围不禁让人怀疑，这个题跟 <span class="math inline">\(k\)</span>
-有什么关系？</p>
-<p>在这之前，我们先明确一个非常显然的性质：最终所有的数一定为 <span
-class="math inline">\(c=\operatorname{gcd}\left(a_1, a_2, \ldots,
-a_n\right)\)</span> 。</p>
-<p>容易发现，<span class="math inline">\(k\ge n\)</span>
-时，我们做任何多余操作都是浪费的，因此我们直接一步到位，答案就是 <span
-class="math inline">\(n+k\)</span> 。</p>
-<p>接着考虑当 <span class="math inline">\(k &lt; n\)</span>
-时有什么影响。可以发现，每个数至多修改一次，否则一定不优。</p>
-<p>那么我们就可以将原数组视为被连续若干个 <span
-class="math inline">\(c\)</span> 分隔的若干个需要修改的段。</p>
-<p>这些段会通过吃掉隔壁的某个 <span class="math inline">\(c\)</span>
-以完成修改，也可能直接与另一个段（包括中间的分隔段）合并以完成修改</p>
-<p>可以明确的是，当分隔段长度小于 <span
-class="math inline">\(k+1\)</span> 时，它应当与两侧的修改段合并。</p>
-<p>另外，即使长度没问题，如果两侧的修改段都有对它的要求（吃掉一个 <span
-class="math inline">\(c\)</span> ），它也应当与两侧的修改段合并。</p>
+<p>这个 $k$ 的数据范围不禁让人怀疑，这个题跟 $k$ 有什么关系？</p>
+<p>在这之前，我们先明确一个非常显然的性质：最终所有的数一定为 $c=\operatorname{gcd}\left(a_1, a_2, \ldots, a_n\right)$ 。</p>
+<p>容易发现，$k\ge n$ 时，我们做任何多余操作都是浪费的，因此我们直接一步到位，答案就是 $n+k$ 。</p>
+<p>接着考虑当 $k &lt; n$ 时有什么影响。可以发现，每个数至多修改一次，否则一定不优。</p>
+<p>那么我们就可以将原数组视为被连续若干个 $c$ 分隔的若干个需要修改的段。</p>
+<p>这些段会通过吃掉隔壁的某个 $c$ 以完成修改，也可能直接与另一个段（包括中间的分隔段）合并以完成修改</p>
+<p>可以明确的是，当分隔段长度小于 $k+1$ 时，它应当与两侧的修改段合并。</p>
+<p>另外，即使长度没问题，如果两侧的修改段都有对它的要求（吃掉一个 $c$ ），它也应当与两侧的修改段合并。</p>
 <p>然后这题就做完啦！（<del>插图纯属无端联想</del>）</p>
 <p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202311301836876.png" style="zoom:20%;" /></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -667,11 +642,9 @@ class="math inline">\(c\)</span> ），它也应当与两侧的修改段合并�
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">+</span> k <span class="token operator">*</span> <span class="token punctuation">(</span>cnt <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Ehuan/p8940-fou-jian-gu-ren-ti-xie">P8940
-不见故人 题解 - E_huan 的博客 - 洛谷博客</a></p>
+<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Ehuan/p8940-fou-jian-gu-ren-ti-xie">P8940 不见故人 题解 - E_huan 的博客 - 洛谷博客</a> </p>
 
                 
             </div>
@@ -1303,7 +1276,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Ehuan/p8940-f
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">859.1k</span>&nbsp;字
+                class="white-color">837.7k</span>&nbsp;字
             
             
             
