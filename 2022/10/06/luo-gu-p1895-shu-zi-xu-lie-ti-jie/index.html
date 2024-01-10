@@ -556,28 +556,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1895-数字序列-题解"><a href="#洛谷P1895-数字序列-题解" class="headerlink" title="洛谷P1895 数字序列 题解"></a>洛谷P1895 数字序列 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1895">P1895 数字序列</a></p>
+                <h1 id="洛谷p1895-数字序列-题解">洛谷P1895 数字序列 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1895">P1895
+数字序列</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$Q$ 组询问 $n$ 在下列的无穷数字序列的数码（ 显然是 $1 \sim 9$ ）</p>
-<p>1121231234123451234561234567123456781234567891234567 8910123456789101112345678910…</p>
+<p><span class="math inline">\(Q\)</span> 组询问 <span
+class="math inline">\(n\)</span> 在下列的无穷数字序列的数码（ 显然是
+<span class="math inline">\(1 \sim 9\)</span> ）</p>
+<p>1121231234123451234561234567123456781234567891234567
+8910123456789101112345678910...</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行为正整数 $Q(1\le Q\le 10)$ ，表示测试数据组数。</p>
-<p>接下来 $Q$ 行，每行一个正整数 $n~(1\le n\le 2^{31}-1)$ 。</p>
+<p>第一行为正整数 <span class="math inline">\(Q(1\le Q\le 10)\)</span>
+，表示测试数据组数。</p>
+<p>接下来 <span class="math inline">\(Q\)</span> 行，每行一个正整数
+<span class="math inline">\(n~(1\le n\le 2^{31}-1)\)</span> 。</p>
 <p><strong>输出格式</strong>:</p>
-<p>对于每一个 $n$ ，输出对应位置上的数字。</p>
+<p>对于每一个 <span class="math inline">\(n\)</span>
+，输出对应位置上的数字。</p>
 </blockquote>
-<p>我们可以把 <code>12345</code> 和 <code>123456</code> 这种子串记作 $f(5),f(6)$ </p>
-<p>并定义 $f(x) + f(x+1)$ 表示将 $f(x)$ 与 $f(x+1)$ 拼接起来，则原序列就是 $\sum_{x = 1}^{\infty} f(x)$ </p>
-<p>记 $\operatorname{size} \left(\sum_{i=1}^{n}f(i)\right)$ 为 $\sum_{i=1}^{n}f(i)$ 的长度。</p>
-<p>注意到 $\operatorname{size}\left(\sum f\right)$ 的增长速度是极快的，而 $n \le 2^{31} -1$ </p>
-<p>因此存在阈值 $N$ 使得 $f(N)$ 后面的所有字符都没有意义。</p>
-<p>打个表可以发现 $N = 31268$ ，且 $\operatorname{size}f(N) = 145234$ 。</p>
-<p>因此对于每个询问，我们可以先预处理 $S_k = \operatorname{size} \left(\sum_{i=1}^{m}f(i)\right)$ </p>
-<p>然后二分出一个 $p$ 使得 $S_p \le n$ 。</p>
-<p>由于 $\operatorname{size}f(N) = \mathcal{O}(10^5)$ ，因此我们可以直接暴力计算 $f(p+1)$ </p>
+<p>我们可以把 <code>12345</code> 和 <code>123456</code> 这种子串记作
+<span class="math inline">\(f(5),f(6)\)</span></p>
+<p>并定义 <span class="math inline">\(f(x) + f(x+1)\)</span> 表示将
+<span class="math inline">\(f(x)\)</span> 与 <span
+class="math inline">\(f(x+1)\)</span> 拼接起来，则原序列就是 <span
+class="math inline">\(\sum_{x = 1}^{\infty} f(x)\)</span></p>
+<p>记 <span class="math inline">\(\operatorname{size}
+\left(\sum_{i=1}^{n}f(i)\right)\)</span> 为 <span
+class="math inline">\(\sum_{i=1}^{n}f(i)\)</span> 的长度。</p>
+<p>注意到 <span class="math inline">\(\operatorname{size}\left(\sum
+f\right)\)</span> 的增长速度是极快的，而 <span class="math inline">\(n
+\le 2^{31} -1\)</span></p>
+<p>因此存在阈值 <span class="math inline">\(N\)</span> 使得 <span
+class="math inline">\(f(N)\)</span> 后面的所有字符都没有意义。</p>
+<p>打个表可以发现 <span class="math inline">\(N = 31268\)</span> ，且
+<span class="math inline">\(\operatorname{size}f(N) = 145234\)</span>
+。</p>
+<p>因此对于每个询问，我们可以先预处理 <span class="math inline">\(S_k =
+\operatorname{size} \left(\sum_{i=1}^{m}f(i)\right)\)</span></p>
+<p>然后二分出一个 <span class="math inline">\(p\)</span> 使得 <span
+class="math inline">\(S_p \le n\)</span> 。</p>
+<p>由于 <span class="math inline">\(\operatorname{size}f(N) =
+\mathcal{O}(10^5)\)</span> ，因此我们可以直接暴力计算 <span
+class="math inline">\(f(p+1)\)</span></p>
 <p>在计算的过程中判断一下超没超就好了。</p>
-<p>时间复杂度 $\mathcal{O}(Q \times 10^5)$ </p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(Q \times
+10^5)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1248,7 +1272,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1256,7 +1280,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1606,6 +1630,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

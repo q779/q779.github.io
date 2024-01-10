@@ -556,26 +556,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="LOJ6671-EntropyIncreaser-与-Minecraft-题解"><a href="#LOJ6671-EntropyIncreaser-与-Minecraft-题解" class="headerlink" title="LOJ6671 EntropyIncreaser 与 Minecraft 题解"></a>LOJ6671 EntropyIncreaser 与 Minecraft 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://loj.ac/p/6671">#6671. EntropyIncreaser 与 Minecraft</a></p>
+                <h1 id="loj6671-entropyincreaser-与-minecraft-题解">LOJ6671
+EntropyIncreaser 与 Minecraft 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://loj.ac/p/6671">#6671. EntropyIncreaser 与
+Minecraft</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>求方程 $\left|x_1\right|+\left|x_2\right|+\cdots+\left|x_n\right| \leq p$ 的整数解的组数。</p>
+<p>求方程 <span
+class="math inline">\(\left|x_1\right|+\left|x_2\right|+\cdots+\left|x_n\right|
+\leq p\)</span> 的整数解的组数。</p>
 <p><strong>输入格式</strong></p>
-<p>共一行, 包含两个正整数 $n, p\left(n \leq 10^6 ; p \leq 10^9\right)$ ，含义见题目描述。</p>
+<p>共一行, 包含两个正整数 <span class="math inline">\(n, p\left(n \leq
+10^6 ; p \leq 10^9\right)\)</span> ，含义见题目描述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数, 表示方程的整数解的组数模 $10^9+7$ 的值。</p>
+<p>输出一行一个整数, 表示方程的整数解的组数模 <span
+class="math inline">\(10^9+7\)</span> 的值。</p>
 </blockquote>
-<p>注意到除了 $0$ 以外每个整数都会提供两次贡献，考虑枚举 $0$ 的个数 $n-k$ ，</p>
-<p>那么剩下的数要求绝对值大于 $0$ ，这样方案数要先乘上符号位的 $2^k$ 。</p>
-<p>设 $y_i = x_i + 1$ ，其中 $x_i \ge 0$ ，则需要求如下方程的方案数：</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^k y_i \leq p \Rightarrow \sum_{i=1}^k x_i \leq p-k</script><p>根据插板法，$\sum_{i=1}^{k}x_i=p$ 的方案数为 $\binom{k+p-1}{k-1}$ ，则总方案数为</p>
-<script type="math/tex; mode=display">
-\sum_{k = 0}^n \binom{n}{k}2^k\sum_{i=0}^p\binom{k+i-k-1}{k-1}</script><p>看上去要特判 $k=0$ 时答案为 $1$ 。那么我们继续化简</p>
-<script type="math/tex; mode=display">
-\sum_{k = 0}^n \binom{n}{k}2^k\sum_{i=0}^{p-1}\binom{i}{k-1}</script><p>因为 $\sum_{i=0}^n\binom{i}{m} = \binom{n+1}{m+1}$ 所以</p>
-<script type="math/tex; mode=display">
-\sum_{k=0}^n2^k\dbinom{n}{k}\dbinom{p}{k}</script><p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>注意到除了 <span class="math inline">\(0\)</span>
+以外每个整数都会提供两次贡献，考虑枚举 <span
+class="math inline">\(0\)</span> 的个数 <span
+class="math inline">\(n-k\)</span> ，</p>
+<p>那么剩下的数要求绝对值大于 <span class="math inline">\(0\)</span>
+，这样方案数要先乘上符号位的 <span class="math inline">\(2^k\)</span>
+。</p>
+<p>设 <span class="math inline">\(y_i = x_i + 1\)</span> ，其中 <span
+class="math inline">\(x_i \ge 0\)</span> ，则需要求如下方程的方案数：
+<span class="math display">\[
+\sum_{i=1}^k y_i \leq p \Rightarrow \sum_{i=1}^k x_i \leq p-k
+\]</span> 根据插板法，<span
+class="math inline">\(\sum_{i=1}^{k}x_i=p\)</span> 的方案数为 <span
+class="math inline">\(\binom{k+p-1}{k-1}\)</span> ，则总方案数为 <span
+class="math display">\[
+\sum_{k = 0}^n \binom{n}{k}2^k\sum_{i=0}^p\binom{k+i-k-1}{k-1}
+\]</span> 看上去要特判 <span class="math inline">\(k=0\)</span> 时答案为
+<span class="math inline">\(1\)</span> 。那么我们继续化简 <span
+class="math display">\[
+\sum_{k = 0}^n \binom{n}{k}2^k\sum_{i=0}^{p-1}\binom{i}{k-1}
+\]</span> 因为 <span class="math inline">\(\sum_{i=0}^n\binom{i}{m} =
+\binom{n+1}{m+1}\)</span> 所以 <span class="math display">\[
+\sum_{k=0}^n2^k\dbinom{n}{k}\dbinom{p}{k}
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1230,7 +1251,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1238,7 +1259,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1588,6 +1609,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

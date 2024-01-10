@@ -560,25 +560,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P7973-KSN2021-Binary-Land-题解"><a href="#洛谷P7973-KSN2021-Binary-Land-题解" class="headerlink" title="洛谷P7973 [KSN2021] Binary Land 题解"></a>洛谷P7973 [KSN2021] Binary Land 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7973">P7973 [KSN2021] Binary Land</a></p>
+                <h1 id="洛谷p7973-ksn2021-binary-land-题解">洛谷P7973 [KSN2021] Binary
+Land 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7973">P7973
+[KSN2021] Binary Land</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一张 $N$ 个点的图，每个点有权值 $A_i$ 和价值 $B_i$。</p>
-<p>两个点 $x,y$ 之间存在一条无向边当且仅当 $A_x\text{ xor }A_y&gt;\max(A_x,A_y)$。</p>
-<p>你需要对于 $i=1,2,\cdots n$ 依次求出点 $i$ 所在连通块中所有点的价值和。</p>
+<p>给定一张 <span class="math inline">\(N\)</span>
+个点的图，每个点有权值 <span class="math inline">\(A_i\)</span> 和价值
+<span class="math inline">\(B_i\)</span>。</p>
+<p>两个点 <span class="math inline">\(x,y\)</span>
+之间存在一条无向边当且仅当 <span class="math inline">\(A_x\text{ xor
+}A_y&gt;\max(A_x,A_y)\)</span>。</p>
+<p>你需要对于 <span class="math inline">\(i=1,2,\cdots n\)</span>
+依次求出点 <span class="math inline">\(i\)</span>
+所在连通块中所有点的价值和。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入一个正整数 $N$。</p>
-<p>第二行输入 $N$ 个正整数 $A_i$。</p>
-<p>第三行输入 $N$ 个正整数 $B_i$。</p>
+<p>第一行输入一个正整数 <span class="math inline">\(N\)</span>。</p>
+<p>第二行输入 <span class="math inline">\(N\)</span> 个正整数 <span
+class="math inline">\(A_i\)</span>。</p>
+<p>第三行输入 <span class="math inline">\(N\)</span> 个正整数 <span
+class="math inline">\(B_i\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $N$ 行，第 $i$ 行包含一个整数，代表点 $i$ 所在连通块中所有点的价值和。</p>
+<p>输出 <span class="math inline">\(N\)</span> 行，第 <span
+class="math inline">\(i\)</span> 行包含一个整数，代表点 <span
+class="math inline">\(i\)</span> 所在连通块中所有点的价值和。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有数据，$1 \leq N \leq 10^5$，$1 \leq A_i \leq 2^{30}-1$，$1 \leq B_i \leq 10^9$。</p>
+<p>对于所有数据，<span class="math inline">\(1 \leq N \leq
+10^5\)</span>，<span class="math inline">\(1 \leq A_i \leq
+2^{30}-1\)</span>，<span class="math inline">\(1 \leq B_i \leq
+10^9\)</span>。</p>
 </blockquote>
-<p>根据常规套路，钦定 $A_x \ge A_y$ ，则边 $(x,y)$ 存在的充要条件为：$A_x$ 的第 「 $A_y$ 的最高位 」位为 $0$ 。</p>
-<p>容易证明这种情况下，$A_x \operatorname{xor} A_y &gt; A_x$ 。但是因为 $y$ 的数量很多，所以考虑用并查集维护连通性。</p>
-<p>直接把 $x,y$ 合并并不是很方便统计，我们可以加入 $64$ 个点，表示每一个二进制位，然后通过他们连接 $x,y$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log^2 n)$</p>
+<p>根据常规套路，钦定 <span class="math inline">\(A_x \ge A_y\)</span>
+，则边 <span class="math inline">\((x,y)\)</span>
+存在的充要条件为：<span class="math inline">\(A_x\)</span> 的第 「 <span
+class="math inline">\(A_y\)</span> 的最高位 」位为 <span
+class="math inline">\(0\)</span> 。</p>
+<p>容易证明这种情况下，<span class="math inline">\(A_x
+\operatorname{xor} A_y &gt; A_x\)</span> 。但是因为 <span
+class="math inline">\(y\)</span>
+的数量很多，所以考虑用并查集维护连通性。</p>
+<p>直接把 <span class="math inline">\(x,y\)</span>
+合并并不是很方便统计，我们可以加入 <span
+class="math inline">\(64\)</span>
+个点，表示每一个二进制位，然后通过他们连接 <span
+class="math inline">\(x,y\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log^2
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1247,7 +1275,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1255,7 +1283,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1605,6 +1633,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -556,24 +556,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1043-NOIP2003-普及组-数字游戏"><a href="#洛谷P1043-NOIP2003-普及组-数字游戏" class="headerlink" title="洛谷P1043 [NOIP2003 普及组] 数字游戏"></a>洛谷P1043 [NOIP2003 普及组] 数字游戏</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1043">P1043 [NOIP2003 普及组] 数字游戏</a></p>
+                <h1 id="洛谷p1043-noip2003-普及组-数字游戏">洛谷P1043 [NOIP2003 普及组]
+数字游戏</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1043">P1043
+[NOIP2003 普及组] 数字游戏</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 最近沉迷于一个数字游戏之中。这个游戏看似简单，但 cxy 在研究了许多天之后却发觉原来在简单的规则下想要赢得这个游戏并不那么容易。游戏是这样的，在你面前有一圈整数（一共 $n$ 个），你要按顺序将其分为 $m$ 个部分，各部分内的数字相加，相加所得的 $m$ 个结果对 $10$ 取模后再相乘，最终得到一个数 $k$。游戏的要求是使你所得的 $k$ 最大或者最小。</p>
-<p>例如，对于下面这圈数字（ $n=4,~m=2$ ）：</p>
-<p> <img src="https://cdn.luogu.com.cn/upload/pic/17.png" alt=""> </p>
-<p>要求最小值时，$((2-1)\bmod10)\times ((4+3)\bmod10)=1\times 7=7$，要求最大值时，为 $((2+4+3)\bmod10)\times (-1\bmod10)=9\times 9=81$。特别值得注意的是，无论是负数还是正数，对 $10$ 取模的结果均为非负值。</p>
+<p>cxy 最近沉迷于一个数字游戏之中。这个游戏看似简单，但 cxy
+在研究了许多天之后却发觉原来在简单的规则下想要赢得这个游戏并不那么容易。游戏是这样的，在你面前有一圈整数（一共
+<span class="math inline">\(n\)</span> 个），你要按顺序将其分为 <span
+class="math inline">\(m\)</span> 个部分，各部分内的数字相加，相加所得的
+<span class="math inline">\(m\)</span> 个结果对 <span
+class="math inline">\(10\)</span> 取模后再相乘，最终得到一个数 <span
+class="math inline">\(k\)</span>。游戏的要求是使你所得的 <span
+class="math inline">\(k\)</span> 最大或者最小。</p>
+<p>例如，对于下面这圈数字（ <span
+class="math inline">\(n=4,~m=2\)</span> ）：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/17.png" /></p>
+<p>要求最小值时，<span class="math inline">\(((2-1)\bmod10)\times
+((4+3)\bmod10)=1\times 7=7\)</span>，要求最大值时，为 <span
+class="math inline">\(((2+4+3)\bmod10)\times (-1\bmod10)=9\times
+9=81\)</span>。特别值得注意的是，无论是负数还是正数，对 <span
+class="math inline">\(10\)</span> 取模的结果均为非负值。</p>
 <p>cxy 请你编写程序帮他赢得这个游戏。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入文件第一行有两个整数，$n$ （$1\le n\le 50$） 和 $m$ （$1\le m\le 9$）。以下 $n$ 行每行有个整数，其绝对值 $\le10^4$，按顺序给出圈中的数字，首尾相接。</p>
+<p>输入文件第一行有两个整数，<span class="math inline">\(n\)</span>
+（<span class="math inline">\(1\le n\le 50\)</span>） 和 <span
+class="math inline">\(m\)</span> （<span class="math inline">\(1\le m\le
+9\)</span>）。以下 <span class="math inline">\(n\)</span>
+行每行有个整数，其绝对值 <span
+class="math inline">\(\le10^4\)</span>，按顺序给出圈中的数字，首尾相接。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出文件有 $2$ 行，各包含 $1$ 个非负整数。第 $1$ 行是你程序得到的最小值，第 $2$ 行是最大值。</p>
+<p>输出文件有 <span class="math inline">\(2\)</span> 行，各包含 <span
+class="math inline">\(1\)</span> 个非负整数。第 <span
+class="math inline">\(1\)</span> 行是你程序得到的最小值，第 <span
+class="math inline">\(2\)</span> 行是最大值。</p>
 </blockquote>
 <p>显然环形dp，也就是区间dp的升级版。环形dp重点在于断环为链。</p>
 <p>一般的处理方式就是把原序列复制一遍，这样选择的最优的起点就是断环的位置。</p>
-<p>那么考虑序列的怎么做。设 $f_{i,j,k}$ 表示区间 $[i,j]$ 内分成 $k$ 段的最小值。</p>
-<p>转移的话，枚举一个断点 $l$ 并尝试更新，即 $f_{i,l,k-1}\times (S_r - S_l)$ 。其中 $S$ 表示前缀和。</p>
-<p>时间复杂度 $\mathcal{O}(n^3m)$</p>
+<p>那么考虑序列的怎么做。设 <span
+class="math inline">\(f_{i,j,k}\)</span> 表示区间 <span
+class="math inline">\([i,j]\)</span> 内分成 <span
+class="math inline">\(k\)</span> 段的最小值。</p>
+<p>转移的话，枚举一个断点 <span class="math inline">\(l\)</span>
+并尝试更新，即 <span class="math inline">\(f_{i,l,k-1}\times (S_r -
+S_l)\)</span> 。其中 <span class="math inline">\(S\)</span>
+表示前缀和。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3m)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1241,7 +1270,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1249,7 +1278,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1599,6 +1628,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -556,33 +556,64 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF825G-Tree-Queries-题解"><a href="#CF825G-Tree-Queries-题解" class="headerlink" title="CF825G Tree Queries 题解"></a>CF825G Tree Queries 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF825G">CF825G Tree Queries</a></p>
+                <h1 id="cf825g-tree-queries-题解">CF825G Tree Queries 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF825G">CF825G
+Tree Queries</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p><strong>题目描述</strong>：</p>
-<p>给定一棵包含 $n$ 个节点的树（从 1 到 $n$ 编号），初始所有节点都是白色的。</p>
-<p>你需要处理以下两种类型的 $n$ 个询问:</p>
-<ol>
-<li><code>1 x</code> 将节点 $x$ 的颜色变成黑色。保证第一个询问为这种类型。</li>
-<li><code>2 x</code> 对于顶点 $x$ ，找到最小的下标 $y$ ，使得顶点 $y$ 在一条从 $x$ 到某个黑点的简单路径上。</li>
+<p>给定一棵包含 <span class="math inline">\(n\)</span> 个节点的树（从 1
+到 <span class="math inline">\(n\)</span>
+编号），初始所有节点都是白色的。</p>
+<p>你需要处理以下两种类型的 <span class="math inline">\(n\)</span>
+个询问:</p>
+<ol type="1">
+<li><code>1 x</code> 将节点 <span class="math inline">\(x\)</span>
+的颜色变成黑色。保证第一个询问为这种类型。</li>
+<li><code>2 x</code> 对于顶点 <span class="math inline">\(x\)</span>
+，找到最小的下标 <span class="math inline">\(y\)</span> ，使得顶点 <span
+class="math inline">\(y\)</span> 在一条从 <span
+class="math inline">\(x\)</span> 到某个黑点的简单路径上。</li>
 </ol>
-<p>对于每个第 $2$ 种类型的询问，输出对应的下标 $y$ 。注意询问是强制在线的。</p>
+<p>对于每个第 <span class="math inline">\(2\)</span>
+种类型的询问，输出对应的下标 <span class="math inline">\(y\)</span>
+。注意询问是强制在线的。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 $n, q(3 \leq n, q \leq 10^6)$ 。</p>
-<p>接下来的 $n-1$ 行，每行包含两个正整数 $x_i, y_i\left(1 \leq x_i&lt;y_i \leq n\right)$，表示有一条边连接顶点 $x_i$ 和 顶点 $y_i$ 。</p>
+<p>第一行包含两个正整数 <span class="math inline">\(n, q(3 \leq n, q
+\leq 10^6)\)</span> 。</p>
+<p>接下来的 <span class="math inline">\(n-1\)</span>
+行，每行包含两个正整数 <span class="math inline">\(x_i, y_i\left(1 \leq
+x_i&lt;y_i \leq n\right)\)</span>，表示有一条边连接顶点 <span
+class="math inline">\(x_i\)</span> 和 顶点 <span
+class="math inline">\(y_i\)</span> 。</p>
 <p>保证给出的图是一棵树。</p>
-<p>保证第一个询问为类型 $1\left(t_1=1\right)$ ，且至少有一个询问为类型 $2$。</p>
+<p>保证第一个询问为类型 <span
+class="math inline">\(1\left(t_1=1\right)\)</span>
+，且至少有一个询问为类型 <span class="math inline">\(2\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每个类型 $2$ 的询问, 输出一行一个整数, 表示最小的 $y$ 值。</p>
+<p>对于每个类型 <span class="math inline">\(2\)</span> 的询问,
+输出一行一个整数, 表示最小的 <span class="math inline">\(y\)</span>
+值。</p>
 </blockquote>
 <p>第一眼以为是数据结构题。<del>然后什么树剖啊线段树维护括号序啊都冒出来了</del></p>
-<p>实际上就是个小 <code>trick</code> 题。注意到在第一个点染了黑色之后，任何结点都与这个黑点连通。</p>
+<p>实际上就是个小 <code>trick</code>
+题。注意到在第一个点染了黑色之后，任何结点都与这个黑点连通。</p>
 <p>而一条路径的子段肯定不如它本身，所以我们在第一次操作之后就把这个点提作根。</p>
-<p>然后从根扫一遍，维护一个 $f_u$ 表示 $u$ 到根的路径上的最小编号。</p>
-<p>再用一个变量 $\mathtt{res}$ 表示当前的答案。</p>
-<p>那么操作一就变成了 $\mathtt{res} \downarrow f_x$ ，因为此时 $x$ 到 $\mathtt{rt}$ 的路径上每一个点无论如何都可以产生贡献。</p>
-<p>操作二直接输出 $\min\{\mathtt{res},f_x\}$ 即可，注意这里不改变 $\mathtt{res}$ 的值。</p>
-<p>时间复杂度 $\mathcal{O}(n + q)$ </p>
+<p>然后从根扫一遍，维护一个 <span class="math inline">\(f_u\)</span>
+表示 <span class="math inline">\(u\)</span> 到根的路径上的最小编号。</p>
+<p>再用一个变量 <span class="math inline">\(\mathtt{res}\)</span>
+表示当前的答案。</p>
+<p>那么操作一就变成了 <span class="math inline">\(\mathtt{res}
+\downarrow f_x\)</span> ，因为此时 <span
+class="math inline">\(x\)</span> 到 <span
+class="math inline">\(\mathtt{rt}\)</span>
+的路径上每一个点无论如何都可以产生贡献。</p>
+<p>操作二直接输出 <span
+class="math inline">\(\min\{\mathtt{res},f_x\}\)</span>
+即可，注意这里不改变 <span class="math inline">\(\mathtt{res}\)</span>
+的值。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n +
+q)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -631,9 +662,10 @@
 <p><del>难道你没发现我大部分树形dp的题都加上了这个tag吗！（恼</del></p>
 <p><strong>我不认为树是一种数据结构</strong>，但是当数据产生了类似树的结构，我认为它是数据结构。</p>
 <p><del>欢迎加我QQ和我对线</del>（大雾</p>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=241">https://yhx-12243.github.io/OI-transit/?redirect=241</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=241">https://yhx-12243.github.io/OI-transit/?redirect=241</a></p>
 
                 
             </div>
@@ -1255,7 +1287,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1263,7 +1295,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1613,6 +1645,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -560,20 +560,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6134-JSOI2015-最小表示-题解"><a href="#洛谷P6134-JSOI2015-最小表示-题解" class="headerlink" title="洛谷P6134 [JSOI2015]最小表示 题解"></a>洛谷P6134 [JSOI2015]最小表示 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6134">P6134 [JSOI2015]最小表示</a></p>
+                <h1 id="洛谷p6134-jsoi2015最小表示-题解">洛谷P6134 [JSOI2015]最小表示
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6134">P6134
+[JSOI2015]最小表示</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于一个 $N$ 个点（每个点从 $1$ 到 $N$ 编号），$M$ 条边的有向图，cxy 发现，如果从图中删去一些边，那么原图的连通性会发生改变；而也有一些边，删去之后图的连通性并不会发生改变。</p>
-<p>cxy 想知道，如果想要使得原图任意两点的连通性保持不变，我们最多能删掉多少条边呢？</p>
-<p>为了简化一下大家的工作量，这次 cxy 保证他给定的有向图一定是一个有向无环图（cxy：大家都知道对于给任意有向图的问题，最后都能转化为有向无环图上的问题，所以就干脆简化一下大家的工作）。</p>
+<p>对于一个 <span class="math inline">\(N\)</span> 个点（每个点从 <span
+class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span> 编号），<span
+class="math inline">\(M\)</span> 条边的有向图，cxy
+发现，如果从图中删去一些边，那么原图的连通性会发生改变；而也有一些边，删去之后图的连通性并不会发生改变。</p>
+<p>cxy
+想知道，如果想要使得原图任意两点的连通性保持不变，我们最多能删掉多少条边呢？</p>
+<p>为了简化一下大家的工作量，这次 cxy
+保证他给定的有向图一定是一个有向无环图（cxy：大家都知道对于给任意有向图的问题，最后都能转化为有向无环图上的问题，所以就干脆简化一下大家的工作）。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 $N$ 和 $M$。</p>
-<p>接下来 $M$ 行，每行包含两个 $1$ 到 $N$ 之间的正整数 $x_i$ 和 $y_i$，表示图中存在一条从 $x_i$ 到 $y_i$ 的有向边。</p>
+<p>第一行包含两个正整数 <span class="math inline">\(N\)</span> 和 <span
+class="math inline">\(M\)</span>。</p>
+<p>接下来 <span class="math inline">\(M\)</span> 行，每行包含两个 <span
+class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span> 之间的正整数 <span
+class="math inline">\(x_i\)</span> 和 <span
+class="math inline">\(y_i\)</span>，表示图中存在一条从 <span
+class="math inline">\(x_i\)</span> 到 <span
+class="math inline">\(y_i\)</span> 的有向边。</p>
 <p>输入数据保证，任意两点间只会有至多一条边存在。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行包含一个整数，表示cxy最多可以删掉的边数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1 \leq N\leq 3\times 10^4$，$0 \leq M\leq 10^5$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1 \leq N\leq 3\times 10^4\)</span>，<span
+class="math inline">\(0 \leq M\leq 10^5\)</span>。</p>
 </blockquote>
 <p>不难发现每对节点保留其最长的路径一定可以得到最优解。</p>
 <p>证明：</p>
@@ -581,17 +599,29 @@
 <p>考虑原图的一个拓扑序，显然它构成一棵树，且边均由子结点指向父结点</p>
 <p>当然拓扑序不能反映原图的连通性，实际上这棵树上还有一些“返祖边”</p>
 <p>这里“返祖边”类似于dfs树的返祖边，由某个结点指向它的某个祖先或祖先的兄弟。</p>
-<p>如果 $u$ 为叶子结点，显然仅留“返祖边”是最优的。</p>
-<p>如果 $u$ 不为叶子结点，我们首先会尝试让 $u$ 的儿子连上 $u$ ，然后尝试 $u$ 的孙子…</p>
+<p>如果 <span class="math inline">\(u\)</span>
+为叶子结点，显然仅留“返祖边”是最优的。</p>
+<p>如果 <span class="math inline">\(u\)</span>
+不为叶子结点，我们首先会尝试让 <span class="math inline">\(u\)</span>
+的儿子连上 <span class="math inline">\(u\)</span> ，然后尝试 <span
+class="math inline">\(u\)</span> 的孙子...</p>
 <p>不难发现这样一定是优的，因为连深度较大的结点只会让答案增大。</p>
-<p>至此，我们证明了算法的正确性。$\square$</p>
-<p>考虑用 $\mathtt{bitset}$ 维护结点的连通性。</p>
-<p>设 $u$ 向 $v$ 连了一条有向边。</p>
+<p>至此，我们证明了算法的正确性。<span
+class="math inline">\(\square\)</span></p>
+<p>考虑用 <span class="math inline">\(\mathtt{bitset}\)</span>
+维护结点的连通性。</p>
+<p>设 <span class="math inline">\(u\)</span> 向 <span
+class="math inline">\(v\)</span> 连了一条有向边。</p>
 <ul>
-<li>我们用 <code>link[u][v]</code> 表示 $u$ 与 $v$ 连通</li>
-<li>因为 $v$ 能到达的结点 $u$ 也能到达，因此我们可以直接 <code>link[u] |= link[v]</code></li>
+<li>我们用 <code>link[u][v]</code> 表示 <span
+class="math inline">\(u\)</span> 与 <span
+class="math inline">\(v\)</span> 连通</li>
+<li>因为 <span class="math inline">\(v\)</span> 能到达的结点 <span
+class="math inline">\(u\)</span> 也能到达，因此我们可以直接
+<code>link[u] |= link[v]</code></li>
 </ul>
-<p>时间复杂度 $\mathcal{O}\left(\frac{n^2\log n}{32}\right)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}\left(\frac{n^2\log
+n}{32}\right)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -644,9 +674,10 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
     cout <span class="token operator">&lt;&lt;</span> <span class="token function">topo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jasony/p6134-jsoi2015-zui-xiao-biao-shi">https://www.luogu.com.cn/blog/jasony/p6134-jsoi2015-zui-xiao-biao-shi</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jasony/p6134-jsoi2015-zui-xiao-biao-shi">https://www.luogu.com.cn/blog/jasony/p6134-jsoi2015-zui-xiao-biao-shi</a></p>
 
                 
             </div>
@@ -1265,7 +1296,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1273,7 +1304,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1623,6 +1654,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

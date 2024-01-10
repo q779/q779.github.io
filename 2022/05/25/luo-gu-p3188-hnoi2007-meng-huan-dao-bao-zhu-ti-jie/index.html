@@ -556,36 +556,81 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3188-HNOI2007-梦幻岛宝珠-题解"><a href="#洛谷P3188-HNOI2007-梦幻岛宝珠-题解" class="headerlink" title="洛谷P3188 [HNOI2007]梦幻岛宝珠 题解"></a>洛谷P3188 [HNOI2007]梦幻岛宝珠 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3188">P3188 [HNOI2007]梦幻岛宝珠</a></p>
+                <h1 id="洛谷p3188-hnoi2007梦幻岛宝珠-题解">洛谷P3188
+[HNOI2007]梦幻岛宝珠 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3188">P3188
+[HNOI2007]梦幻岛宝珠</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给你 $n$ 颗宝石，每颗宝石都有重量和价值。要你从这些宝石中选取一些宝石，保证总重量不超过 $W$，且总价值最大，并输出最大的总价值。</p>
-<p>【数据范围】<br>对于 $100\%$ 的数据，$1\le n \le 100$，$1\le W,w_i,v_i \le 2^{30}$。<br>保证每个 $w_i$ 能写成 $a \times 2^b\space (a,b \in \mathbb N)$ 的形式，$a \leq 10$ , $b \leq 30$，且答案不超过 $2^{30}$。</p>
+<p>给你 <span class="math inline">\(n\)</span>
+颗宝石，每颗宝石都有重量和价值。要你从这些宝石中选取一些宝石，保证总重量不超过
+<span
+class="math inline">\(W\)</span>，且总价值最大，并输出最大的总价值。</p>
+<p>【数据范围】 对于 <span class="math inline">\(100\%\)</span>
+的数据，<span class="math inline">\(1\le n \le 100\)</span>，<span
+class="math inline">\(1\le W,w_i,v_i \le 2^{30}\)</span>。 保证每个
+<span class="math inline">\(w_i\)</span> 能写成 <span
+class="math inline">\(a \times 2^b\space (a,b \in \mathbb N)\)</span>
+的形式，<span class="math inline">\(a \leq 10\)</span> , <span
+class="math inline">\(b \leq 30\)</span>，且答案不超过 <span
+class="math inline">\(2^{30}\)</span>。</p>
 </blockquote>
-<p><strong>注：下文中将使用 $m$ 代替 $W$</strong>。</p>
+<p><strong>注：下文中将使用 <span class="math inline">\(m\)</span> 代替
+<span class="math inline">\(W\)</span></strong>。</p>
 <p>这么大的背包容量，肯定不是朴素的背包问题</p>
-<p>可以发现数据范围里强调了 “保证每个 $w_i$ 能写成 $a \times 2^b\space (a,b \in \mathbb N)$ 的形式”</p>
-<p>尽管有</p>
-<script type="math/tex; mode=display">
-\forall\, x \in \mathbb{N},\exist\, a,b \in \mathbb{N},\ \bold{s.t. }\ \ x=a\times 2^b</script><p>但是这里的 $a\le 10$ 却十分特殊，这意味着我们可以从这个角度思考解法</p>
+<p>可以发现数据范围里强调了 "保证每个 <span
+class="math inline">\(w_i\)</span> 能写成 <span class="math inline">\(a
+\times 2^b\space (a,b \in \mathbb N)\)</span> 的形式"</p>
+<p>尽管有 <span class="math display">\[
+\forall\, x \in \mathbb{N},\exist\, a,b \in \mathbb{N},\ \bold{s.t. }\ \
+x=a\times 2^b
+\]</span> 但是这里的 <span class="math inline">\(a\le 10\)</span>
+却十分特殊，这意味着我们可以从这个角度思考解法</p>
 <p>考虑利用泛化物品的思想</p>
-<p>首先将每件物品按 $b$ 进行分组，在每一组内dp</p>
-<p>设 $f[i][j]$ 为在所有满足 $b=i$ 的物品中选择若干（不妨设为 $k$ ）件物品，且总体积 $j^{\prime}$ 满足</p>
-<script type="math/tex; mode=display">
-\sum{a_k}\times 2^i \le j \times 2^i \Rightarrow \sum a_k \le j \Rightarrow j^{\prime} \le j</script><p>时的最大价值。</p>
-<p>然后考虑合并泛化物品，即 $b$ 不同的物品之间的转移</p>
-<p>令 $g[i][j]$ 表示仅使用 $b \in [0,i]$ 的物品，且 $b=i$ 的物品所占空间为 $j$ ，$b\in [0,i-1]$ 的物品所占空间为 $m\&amp;(2^i-1)$ 时的最大价值</p>
-<p>这里的 $\&amp;$ 表示二进制按位与，不难发现 $m\&amp;(2^i-1)$ 就是 $m$ 的第 $1$ 到 $i-1$ 位</p>
-<p>转移方程如下</p>
-<script type="math/tex; mode=display">
-g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m \text{ 第 }i\text{ 位为 }1]])</script><p>注：这里的第 $i$ 位是从第 $1$ 位开始数的</p>
+<p>首先将每件物品按 <span class="math inline">\(b\)</span>
+进行分组，在每一组内dp</p>
+<p>设 <span class="math inline">\(f[i][j]\)</span> 为在所有满足 <span
+class="math inline">\(b=i\)</span> 的物品中选择若干（不妨设为 <span
+class="math inline">\(k\)</span> ）件物品，且总体积 <span
+class="math inline">\(j^{\prime}\)</span> 满足 <span
+class="math display">\[
+\sum{a_k}\times 2^i \le j \times 2^i \Rightarrow \sum a_k \le j
+\Rightarrow j^{\prime} \le j
+\]</span> 时的最大价值。</p>
+<p>然后考虑合并泛化物品，即 <span class="math inline">\(b\)</span>
+不同的物品之间的转移</p>
+<p>令 <span class="math inline">\(g[i][j]\)</span> 表示仅使用 <span
+class="math inline">\(b \in [0,i]\)</span> 的物品，且 <span
+class="math inline">\(b=i\)</span> 的物品所占空间为 <span
+class="math inline">\(j\)</span> ，<span class="math inline">\(b\in
+[0,i-1]\)</span> 的物品所占空间为 <span
+class="math inline">\(m\&amp;(2^i-1)\)</span> 时的最大价值</p>
+<p>这里的 <span class="math inline">\(\&amp;\)</span>
+表示二进制按位与，不难发现 <span
+class="math inline">\(m\&amp;(2^i-1)\)</span> 就是 <span
+class="math inline">\(m\)</span> 的第 <span
+class="math inline">\(1\)</span> 到 <span
+class="math inline">\(i-1\)</span> 位</p>
+<p>转移方程如下 <span class="math display">\[
+g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m
+\text{ 第 }i\text{ 位为 }1]])
+\]</span> 注：这里的第 <span class="math inline">\(i\)</span> 位是从第
+<span class="math inline">\(1\)</span> 位开始数的</p>
 <p>写成代码就是</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">g<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>g<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span>k<span class="token punctuation">]</span><span class="token operator">+</span>g<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token operator">*</span>n<span class="token punctuation">,</span>k<span class="token operator">*</span><span class="token number">2</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token punctuation">(</span>m<span class="token operator">>></span><span class="token punctuation">(</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>即从 $j\times 2^i$ 中抽出来 $k\times 2^i$ 的体积给 $b \in[0,i-1]$ 的物品</p>
-<p>这里加上 $\min(10n,\dots)$ 的原因是 $(\dots)$ 处可能超出了 $\sum\limits_{0\le k \le i-1} j_k$ 的一个较宽松的上限 $10n$ </p>
-<p>但是这个上界并不容易达到，因此为了避免讨论，使用 $\min$ 即可</p>
-<p>因此答案为 $g[m\text{ 的位数}][1]$ </p>
-<p>时间复杂度 $O(Qn^2\log m)$ ，但是常数巨大无比（别急，后面还有…</p>
+<p>即从 <span class="math inline">\(j\times 2^i\)</span> 中抽出来 <span
+class="math inline">\(k\times 2^i\)</span> 的体积给 <span
+class="math inline">\(b \in[0,i-1]\)</span> 的物品</p>
+<p>这里加上 <span class="math inline">\(\min(10n,\dots)\)</span>
+的原因是 <span class="math inline">\((\dots)\)</span> 处可能超出了 <span
+class="math inline">\(\sum\limits_{0\le k \le i-1} j_k\)</span>
+的一个较宽松的上限 <span class="math inline">\(10n\)</span></p>
+<p>但是这个上界并不容易达到，因此为了避免讨论，使用 <span
+class="math inline">\(\min\)</span> 即可</p>
+<p>因此答案为 <span class="math inline">\(g[m\text{
+的位数}][1]\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(Qn^2\log m)\)</span>
+，但是常数巨大无比（别急，后面还有...</p>
 <p>代码1：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -657,10 +702,14 @@ g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m \text{ 第
 <p>注意到上面的代码，虽然可以过</p>
 <p>但是一共跑了<code>1.20s</code>，<del>这是不可接受的</del>（逃</p>
 <p>考虑优化一下</p>
-<p>注意到这个上界 $10n$ 一般不容易达到（前面提到过</p>
+<p>注意到这个上界 <span class="math inline">\(10n\)</span>
+一般不容易达到（前面提到过</p>
 <p>因此我们会做很多无效枚举</p>
-<p>可以开一个数组 $s[i]$ 表示所有 $b=i$ 的物品的 $a$ 之和</p>
-<p>同时，注意到 $f$ 其实可以重复利用，考虑改变一下枚举顺序</p>
+<p>可以开一个数组 <span class="math inline">\(s[i]\)</span> 表示所有
+<span class="math inline">\(b=i\)</span> 的物品的 <span
+class="math inline">\(a\)</span> 之和</p>
+<p>同时，注意到 <span class="math inline">\(f\)</span>
+其实可以重复利用，考虑改变一下枚举顺序</p>
 <p>这样就可以在 <code>39ms</code> 左右跑出来啦！</p>
 <p>代码2：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -736,8 +785,10 @@ g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m \text{ 第
 <p>希望这篇可以帮助到你们</p>
 <p>如果有错欢迎指出！</p>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/youare251-1/solution-p3188">https://www.luogu.com.cn/blog/youare251-1/solution-p3188</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/50047">https://www.luogu.com.cn/user/50047</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/youare251-1/solution-p3188">https://www.luogu.com.cn/blog/youare251-1/solution-p3188</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/50047">https://www.luogu.com.cn/user/50047</a></p>
 
                 
             </div>
@@ -1361,7 +1412,7 @@ g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m \text{ 第
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1369,7 +1420,7 @@ g[i][j]=\max_{0\le k \le j}(g[i][j],f[i][j-k]+g[i-1][\min(10n,2k + [m \text{ 第
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1719,6 +1770,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -564,27 +564,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1202E-You-Are-Given-Some-Strings…-题解"><a href="#CF1202E-You-Are-Given-Some-Strings…-题解" class="headerlink" title="CF1202E You Are Given Some Strings… 题解"></a>CF1202E You Are Given Some Strings… 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1202E">CF1202E You Are Given Some Strings…</a></p>
+                <h1 id="cf1202e-you-are-given-some-strings...-题解">CF1202E You Are
+Given Some Strings... 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1202E">CF1202E
+You Are Given Some Strings...</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定文本串 $t$ 和 $n$ 个模式串 $s_i$ ，求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n\sum_{j=1}^nf(s_i + s_j)</script><p>$f(s)$ 定义为 $s$ 在 $t$ 中出现的次数，$s_i+s_j$ 定义为拼接字符串 $s_i$ 和 $s_j$ 。</p>
+<p>给定文本串 <span class="math inline">\(t\)</span> 和 <span
+class="math inline">\(n\)</span> 个模式串 <span
+class="math inline">\(s_i\)</span> ，求 <span class="math display">\[
+\sum_{i=1}^n\sum_{j=1}^nf(s_i + s_j)
+\]</span> <span class="math inline">\(f(s)\)</span> 定义为 <span
+class="math inline">\(s\)</span> 在 <span
+class="math inline">\(t\)</span> 中出现的次数，<span
+class="math inline">\(s_i+s_j\)</span> 定义为拼接字符串 <span
+class="math inline">\(s_i\)</span> 和 <span
+class="math inline">\(s_j\)</span> 。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行 $t$ ，一行 $n$ ，接下来 $n$ 行 $s_i$ 。</p>
+<p>一行 <span class="math inline">\(t\)</span> ，一行 <span
+class="math inline">\(n\)</span> ，接下来 <span
+class="math inline">\(n\)</span> 行 <span
+class="math inline">\(s_i\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le |t|,\sum |s_i| \le 2\times 10^5$ 。</p>
+<p><span class="math inline">\(1\le |t|,\sum |s_i| \le 2\times
+10^5\)</span> 。</p>
 </blockquote>
 <p>这种题肯定是考虑某个串的贡献啦。</p>
-<p>这里我们考虑枚举划分点 $x$ 。记该点前为 $s_i$ ，该点后为 $s_j$</p>
-<p>统计出每个 $x$ 的 $f(x),g(x+1)$ 分别表示前后的个数。</p>
-<p>怎么统计呢？注意到 $f(x)$ 其实就是 $t_{1 \cdots x}$ 的后缀中有几个已知子串，$g(x)$ 就是反串的 $f(x)$</p>
-<p>这个东西可以用 AC 自动机来搞。就是直接在模式串上建 AC 自动机然后跑一遍 $t$ 。</p>
-<p>考虑 fail 指针指向的是根到当前串的最长后缀，则所求等价于为模式串的后缀的数量。</p>
+<p>这里我们考虑枚举划分点 <span class="math inline">\(x\)</span>
+。记该点前为 <span class="math inline">\(s_i\)</span> ，该点后为 <span
+class="math inline">\(s_j\)</span></p>
+<p>统计出每个 <span class="math inline">\(x\)</span> 的 <span
+class="math inline">\(f(x),g(x+1)\)</span> 分别表示前后的个数。</p>
+<p>怎么统计呢？注意到 <span class="math inline">\(f(x)\)</span> 其实就是
+<span class="math inline">\(t_{1 \cdots x}\)</span>
+的后缀中有几个已知子串，<span class="math inline">\(g(x)\)</span>
+就是反串的 <span class="math inline">\(f(x)\)</span></p>
+<p>这个东西可以用 AC 自动机来搞。就是直接在模式串上建 AC
+自动机然后跑一遍 <span class="math inline">\(t\)</span> 。</p>
+<p>考虑 fail
+指针指向的是根到当前串的最长后缀，则所求等价于为模式串的后缀的数量。</p>
 <p>根据 AC 自动机的板子可以知道，这个只要在 fail 树上求个和就好了。</p>
-<p>时间复杂度 $\mathcal{O}(\sum |s_i| \times |\Sigma|)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(\sum |s_i| \times
+|\Sigma|)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -654,9 +677,10 @@
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e">https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e">https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e</a></p>
 
                 
             </div>
@@ -1295,7 +1319,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1303,7 +1327,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1653,6 +1677,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

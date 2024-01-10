@@ -564,21 +564,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="BZOJ4242-水壶-题解"><a href="#BZOJ4242-水壶-题解" class="headerlink" title="BZOJ4242 水壶 题解"></a>BZOJ4242 水壶 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://darkbzoj.cc/problem/4242">#4242. 水壶</a></p>
+                <h1 id="bzoj4242-水壶-题解">BZOJ4242 水壶 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://darkbzoj.cc/problem/4242">#4242.
+水壶</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>cxy 所居住的 IOI 市以一年四季都十分炎热著称。</p>
-<p>IOI 市是一个被分成纵 $H$ $\times$ 横 $W$ 块区域的长方形，每个区域都是建筑物、原野、墙壁之一。建筑物的区域有 $P$ 个，编号为 $1,2,\cdots ,P$。</p>
-<p>cxy 只能进入建筑物与原野，而且每次只能走到相邻的区域中，且不能移动到市外。</p>
-<p>cxy 因为各种各样的事情，必须在各个建筑物之间往返。虽然建筑物中的冷气设备非常好，但原野上的日光十分强烈，因此在原野上每走过一个区域都需要 $1$ 单位的水。此外，原野上没有诸如自动售货机、饮水处之类的东西，因此 IOI 市的市民一般都携带水壶出行。大小为 $x$ 的水壶最多可以装 $x$ 单位的水，建筑物里有自来水可以将水壶装满。</p>
-<p>由于携带大水壶是一件很困难的事情，因此 cxy 决定携带尽量小的水壶移动。因此，为了随时能在建筑物之间移动，请你帮他写一个程序来计算最少需要多大的水壶。</p>
-<p>现在给出 IOI 市的地图和 $Q$ 个询问，第 $i$ 个询问 $(1\le i\le Q)$ 为 “在建筑物 $S_i$ 和 $T_i$ 之间移动，最小需要多大的水壶？”，请你对于每个询问输出对应的答案。</p>
+<p>IOI 市是一个被分成纵 <span class="math inline">\(H\)</span> <span
+class="math inline">\(\times\)</span> 横 <span
+class="math inline">\(W\)</span>
+块区域的长方形，每个区域都是建筑物、原野、墙壁之一。建筑物的区域有 <span
+class="math inline">\(P\)</span> 个，编号为 <span
+class="math inline">\(1,2,\cdots ,P\)</span>。</p>
+<p>cxy
+只能进入建筑物与原野，而且每次只能走到相邻的区域中，且不能移动到市外。</p>
+<p>cxy
+因为各种各样的事情，必须在各个建筑物之间往返。虽然建筑物中的冷气设备非常好，但原野上的日光十分强烈，因此在原野上每走过一个区域都需要
+<span class="math inline">\(1\)</span>
+单位的水。此外，原野上没有诸如自动售货机、饮水处之类的东西，因此 IOI
+市的市民一般都携带水壶出行。大小为 <span
+class="math inline">\(x\)</span> 的水壶最多可以装 <span
+class="math inline">\(x\)</span>
+单位的水，建筑物里有自来水可以将水壶装满。</p>
+<p>由于携带大水壶是一件很困难的事情，因此 cxy
+决定携带尽量小的水壶移动。因此，为了随时能在建筑物之间移动，请你帮他写一个程序来计算最少需要多大的水壶。</p>
+<p>现在给出 IOI 市的地图和 <span class="math inline">\(Q\)</span>
+个询问，第 <span class="math inline">\(i\)</span> 个询问 <span
+class="math inline">\((1\le i\le Q)\)</span> 为 “在建筑物 <span
+class="math inline">\(S_i\)</span> 和 <span
+class="math inline">\(T_i\)</span>
+之间移动，最小需要多大的水壶？”，请你对于每个询问输出对应的答案。</p>
 </blockquote>
-<p>如果我们把 $n$ 个建筑物当做 $n$ 个结点</p>
-<p>不难发现这个答案就是最小生成树中 $S_i$ 与 $T_i$ 的路径中最大边的权值。</p>
-<p>注意到这是一张平面图，显然有 $|E| \le 3|V| - 6$ 。</p>
+<p>如果我们把 <span class="math inline">\(n\)</span> 个建筑物当做 <span
+class="math inline">\(n\)</span> 个结点</p>
+<p>不难发现这个答案就是最小生成树中 <span
+class="math inline">\(S_i\)</span> 与 <span
+class="math inline">\(T_i\)</span> 的路径中最大边的权值。</p>
+<p>注意到这是一张平面图，显然有 <span class="math inline">\(|E| \le 3|V|
+- 6\)</span> 。</p>
 <p>那么问题就转化了树上路径最大值询问，采用倍增。</p>
-<p>时间复杂度 $\mathcal{O}(Q \log n)$ ，这题有点卡常。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(Q \log n)\)</span>
+，这题有点卡常。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -765,9 +791,10 @@ queue<span class="token operator">&lt;</span>node<span class="token operator">><
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span>v<span class="token punctuation">;</span> Q<span class="token operator">--</span><span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> fin <span class="token operator">>></span> u <span class="token operator">>></span> v<span class="token punctuation">;</span> fout <span class="token operator">&lt;&lt;</span> <span class="token function">query</span><span class="token punctuation">(</span>u<span class="token punctuation">,</span>v<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy4242.html">https://yhx-12243.github.io/OI-transit/records/lydsy4242.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy4242.html">https://yhx-12243.github.io/OI-transit/records/lydsy4242.html</a></p>
 
                 
             </div>
@@ -1386,7 +1413,7 @@ queue<span class="token operator">&lt;</span>node<span class="token operator">><
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2023</span>
+                <span id="year">2022-2024</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1394,7 +1421,7 @@ queue<span class="token operator">&lt;</span>node<span class="token operator">><
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">818.9k</span>&nbsp;字
+                class="white-color">859.1k</span>&nbsp;字
             
             
             
@@ -1744,6 +1771,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
