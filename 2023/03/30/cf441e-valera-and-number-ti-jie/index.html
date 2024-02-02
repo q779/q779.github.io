@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p92.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p190.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -560,27 +560,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF441E-Valera-and-Number-题解"><a href="#CF441E-Valera-and-Number-题解" class="headerlink" title="CF441E Valera and Number 题解"></a>CF441E Valera and Number 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF441E">CF441E Valera and Number</a></p>
+                <h1 id="cf441e-valera-and-number-题解">CF441E Valera and Number
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF441E">CF441E
+Valera and Number</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个数 $x$，对它进行 $k$ 次操作，每次操作：</p>
+<p>给出一个数 <span class="math inline">\(x\)</span>，对它进行 <span
+class="math inline">\(k\)</span> 次操作，每次操作：</p>
 <ul>
-<li>以 $p \%$ 的概率对它乘以 $2$。</li>
-<li>以 $(100 - p) \%$ 的概率对它加上 $1$。</li>
+<li>以 <span class="math inline">\(p \%\)</span> 的概率对它乘以 <span
+class="math inline">\(2\)</span>。</li>
+<li>以 <span class="math inline">\((100 - p) \%\)</span> 的概率对它加上
+<span class="math inline">\(1\)</span>。</li>
 </ul>
-<p>求该数最终二进制下末尾 $0$ 个数的期望。</p>
+<p>求该数最终二进制下末尾 <span class="math inline">\(0\)</span>
+个数的期望。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The first line of the input contains three integers $x,k,p(1\le x\le 10^{9}, 1\le k\le 200, 0\le p\le 100)$ .</p>
+<p>The first line of the input contains three integers <span
+class="math inline">\(x,k,p(1\le x\le 10^{9}, 1\le k\le 200, 0\le p\le
+100)\)</span> .</p>
 <p><strong>输出格式</strong>：</p>
-<p>Print the required expected value. Your answer will be considered correct if the absolute or relative error doesn’t exceed $10^{-6}$ .</p>
+<p>Print the required expected value. Your answer will be considered
+correct if the absolute or relative error doesn't exceed <span
+class="math inline">\(10^{-6}\)</span> .</p>
 </blockquote>
-<p>设 $f_{i,j}$ 表示 $x$ 经过执行过 $i$ 次后， $x+j$ 的期望答案，则</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示 <span
+class="math inline">\(x\)</span> 经过执行过 <span
+class="math inline">\(i\)</span> 次后， <span
+class="math inline">\(x+j\)</span> 的期望答案，则 <span
+class="math display">\[
 f_{0,j} = \mathrm{ctz}(x+j) \\[6pt]
-f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right) \cdot p</script><p>最后答案就是 $f_{k,0}$ 。说实话这个转移的前一部分还是有点晕的，我想了好一会。</p>
-<p>分析下复杂度。考虑 dp 中一条贡献路径的 $j$ ，显然贡献的过程会使 $j$ 乘 $2$ 或者加 $1$ 。</p>
-<p>而当 $j &gt; k$ 时，减 $1$ 操作是不可能使得 $j=0$ 的，因为至多 $k$ 次操作，因此这样的 $j$ 对答案没有贡献</p>
-<p>综上，时间复杂度 $\mathcal{O}(k^2)$ </p>
+f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right)
+\cdot p
+\]</span> 最后答案就是 <span class="math inline">\(f_{k,0}\)</span>
+。说实话这个转移的前一部分还是有点晕的，我想了好一会。</p>
+<p>分析下复杂度。考虑 dp 中一条贡献路径的 <span
+class="math inline">\(j\)</span> ，显然贡献的过程会使 <span
+class="math inline">\(j\)</span> 乘 <span
+class="math inline">\(2\)</span> 或者加 <span
+class="math inline">\(1\)</span> 。</p>
+<p>而当 <span class="math inline">\(j &gt; k\)</span> 时，减 <span
+class="math inline">\(1\)</span> 操作是不可能使得 <span
+class="math inline">\(j=0\)</span> 的，因为至多 <span
+class="math inline">\(k\)</span> 次操作，因此这样的 <span
+class="math inline">\(j\)</span> 对答案没有贡献</p>
+<p>综上，时间复杂度 <span
+class="math inline">\(\mathcal{O}(k^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -610,10 +636,12 @@ f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right) \cdot p</s
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf441E.html">https://yhx-12243.github.io/OI-transit/records/cf441E.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/dowhiletrue/solution-cf441e">https://www.luogu.com.cn/blog/dowhiletrue/solution-cf441e</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf441E.html">https://yhx-12243.github.io/OI-transit/records/cf441E.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/dowhiletrue/solution-cf441e">https://www.luogu.com.cn/blog/dowhiletrue/solution-cf441e</a></p>
 
                 
             </div>
@@ -1002,7 +1030,7 @@ f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right) \cdot p</s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p156.jpg" class="responsive-img" alt="洛谷P4163 [SCOI2007]排列 题解">
+                        <img src="/medias/featureimages/p63.jpg" class="responsive-img" alt="洛谷P4163 [SCOI2007]排列 题解">
                         
                         <span class="card-title">洛谷P4163 [SCOI2007]排列 题解</span>
                     </div>
@@ -1059,7 +1087,7 @@ f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right) \cdot p</s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p59.jpg" class="responsive-img" alt="CF477D Dreamoon and Binary 题解">
+                        <img src="/medias/featureimages/p210.jpg" class="responsive-img" alt="CF477D Dreamoon and Binary 题解">
                         
                         <span class="card-title">CF477D Dreamoon and Binary 题解</span>
                     </div>
@@ -1253,7 +1281,7 @@ f_{i, j}=f_{i-1, j+1} \cdot q+[2 \mid j]\left(f_{i-1, j / 2}+1\right) \cdot p</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">837.7k</span>&nbsp;字
+                class="white-color">897.5k</span>&nbsp;字
             
             
             

@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p30.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p59.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -556,26 +556,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF913C-Party-Lemonade-题解"><a href="#CF913C-Party-Lemonade-题解" class="headerlink" title="CF913C Party Lemonade 题解"></a>CF913C Party Lemonade 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF913C">CF913C Party Lemonade</a></p>
+                <h1 id="cf913c-party-lemonade-题解">CF913C Party Lemonade 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF913C">CF913C
+Party Lemonade</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>新年派对少了柠檬水就不是真正的新年派对！</p>
-<p>如往常一样，你期望有很多客人，购买柠檬水已成为一种愉快的必需品。 </p>
+<p>如往常一样，你期望有很多客人，购买柠檬水已成为一种愉快的必需品。</p>
 <p>你最喜欢的商店以不同容量和不同价格销售柠檬水。</p>
-<p>一瓶第 $i$ 类型的柠檬水容量为 $2^{i-1}$ 升，价格为 $c_i$ 卢布。商店中每种类型的柠檬水瓶数可以被认为是无限的。 </p>
-<p>你想购买至少 $L$ 升的柠檬水。你需要花费多少卢布呢？ </p>
+<p>一瓶第 <span class="math inline">\(i\)</span> 类型的柠檬水容量为
+<span class="math inline">\(2^{i-1}\)</span> 升，价格为 <span
+class="math inline">\(c_i\)</span>
+卢布。商店中每种类型的柠檬水瓶数可以被认为是无限的。</p>
+<p>你想购买至少 <span class="math inline">\(L\)</span>
+升的柠檬水。你需要花费多少卢布呢？</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 $n$ 和 $L\left(1 \leq n \leq 30 ; 1 \leq L \leq 10^9\right)$ - 商店中瓶子类型的数量和所需的柠檬水数量（升）。 第二行包含 $n$ 个整数 $c_1, c_2, \ldots, c_n\left(1 \leq c_i \leq 10^9\right)$ - 不同类型柠檬水瓶子的价格。 </p>
+<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(L\left(1 \leq n \leq 30 ; 1 \leq L \leq
+10^9\right)\)</span> - 商店中瓶子类型的数量和所需的柠檬水数量（升）。
+第二行包含 <span class="math inline">\(n\)</span> 个整数 <span
+class="math inline">\(c_1, c_2, \ldots, c_n\left(1 \leq c_i \leq
+10^9\right)\)</span> - 不同类型柠檬水瓶子的价格。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个整数 - 为了购买至少 $L$ 升柠檬水，你需要支付的最少卢布数。</p>
+<p>输出一个整数 - 为了购买至少 <span class="math inline">\(L\)</span>
+升柠檬水，你需要支付的最少卢布数。</p>
 </blockquote>
-<p>注意到如果 $2w_{i - 1} &lt; w_i$ ，我们会用 $2w_{i - 1}$ 替代，因此可以预处理出每个 $i$ 的最小花费。</p>
-<p>题目要求的是体积不小于 $L$ 的柠檬汁最少要多少钱，这种二维的问题还是套路地去二分钱数。</p>
-<p>由于我们已经预处理过 $w_i$ 了，所以一定有 $2w_{i-1} \ge w_i$ ，也就是说我们只需要从大到小贪心买。</p>
+<p>注意到如果 <span class="math inline">\(2w_{i - 1} &lt; w_i\)</span>
+，我们会用 <span class="math inline">\(2w_{i - 1}\)</span>
+替代，因此可以预处理出每个 <span class="math inline">\(i\)</span>
+的最小花费。</p>
+<p>题目要求的是体积不小于 <span class="math inline">\(L\)</span>
+的柠檬汁最少要多少钱，这种二维的问题还是套路地去二分钱数。</p>
+<p>由于我们已经预处理过 <span class="math inline">\(w_i\)</span>
+了，所以一定有 <span class="math inline">\(2w_{i-1} \ge w_i\)</span>
+，也就是说我们只需要从大到小贪心买。</p>
 <p>在题解区学了一个新的二分写法，挺有意思的，原理稍微讲一下吧。</p>
-<p>每次探索的范围是 $(p,~p+2^{k+1}]$ ，如果 $p + 2^k$ 够，那就在 $(p,p + 2^k]$ 里找，否则在 $(p + 2^k, p + 2^{k + 2}]$ 里</p>
-<p>找到最后会卡在 $(p,p+1]$ ，所以答案就是 $p + 1$ 。大概意思懂了就好（<del>因为我也不知道这个有啥用</del>）</p>
-<p>时间复杂度 $\mathcal{O}(n+\log^2M)$</p>
+<p>每次探索的范围是 <span class="math inline">\((p,~p+2^{k+1}]\)</span>
+，如果 <span class="math inline">\(p + 2^k\)</span> 够，那就在 <span
+class="math inline">\((p,p + 2^k]\)</span> 里找，否则在 <span
+class="math inline">\((p + 2^k, p + 2^{k + 2}]\)</span> 里</p>
+<p>找到最后会卡在 <span class="math inline">\((p,p+1]\)</span>
+，所以答案就是 <span class="math inline">\(p + 1\)</span>
+。大概意思懂了就好（<del>因为我也不知道这个有啥用</del>）</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n+\log^2M)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1044,7 +1068,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p197.jpg" class="responsive-img" alt="洛谷P6015 [CSGRound3]游戏 题解">
+                        <img src="/medias/featureimages/p94.jpg" class="responsive-img" alt="洛谷P6015 [CSGRound3]游戏 题解">
                         
                         <span class="card-title">洛谷P6015 [CSGRound3]游戏 题解</span>
                     </div>
@@ -1230,7 +1254,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">837.7k</span>&nbsp;字
+                class="white-color">897.5k</span>&nbsp;字
             
             
             

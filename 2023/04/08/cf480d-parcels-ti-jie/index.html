@@ -377,7 +377,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p87.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p177.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -560,37 +560,79 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF480D-Parcels-题解"><a href="#CF480D-Parcels-题解" class="headerlink" title="CF480D Parcels 题解"></a>CF480D Parcels 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF480D">CF480D Parcels</a></p>
+                <h1 id="cf480d-parcels-题解">CF480D Parcels 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF480D">CF480D
+Parcels</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n$ 件包裹，每个包裹是一个盒子，都有它自身的质量和载重 (即它上方能承受的最大质量)。cxy 最近得到了一个新的包裹处理系统，这个系统以如下方式工作。初始时，有一个（可以堆放盒子的）平台，它的载重为 $S$，接下来，你能以如下的规则在平台上堆放盒子：</p>
-<ol>
+<p>有 <span class="math inline">\(n\)</span>
+件包裹，每个包裹是一个盒子，都有它自身的质量和载重
+(即它上方能承受的最大质量)。cxy
+最近得到了一个新的包裹处理系统，这个系统以如下方式工作。初始时，有一个（可以堆放盒子的）平台，它的载重为
+<span
+class="math inline">\(S\)</span>，接下来，你能以如下的规则在平台上堆放盒子：</p>
+<ol type="1">
 <li>如果平台是空的，你可以将盒子堆放在平台上，否则，你只能在新的盒子放在最高的盒子上面。</li>
-<li>任何时刻，（平台上）所有盒子的总质量不能超过 $S$ （即平台的载重）。</li>
+<li>任何时刻，（平台上）所有盒子的总质量不能超过 <span
+class="math inline">\(S\)</span> （即平台的载重）。</li>
 <li>对任意一个盒子，任何时刻，在它上面的所有盒子的总质量不能超过这个盒子的载重。</li>
 <li>并且你只能取走当前位于最上面的盒子（即形成栈型结构）。</li>
 </ol>
-<p>系统接收到了这 $n$ 件包裹，已知第 $i$ 个包裹在时刻 $\text{in}_i$ 出现，它的质量和载重分别为 $w_i,s_i$，每个包裹都有它的价值，其中第 $i$ 个包裹的价值为 $v_i$。然而，为了获得（赚得）这 $v_i$ 的价值，这个系统要求它刚好在时刻 $\text{out}_i$ 被出售，否则将无法获得任何价值。于是，cxy 可以选择跳过部分包裹（即不接收这些包裹），当然她也无法获得任何价值。</p>
+<p>系统接收到了这 <span class="math inline">\(n\)</span> 件包裹，已知第
+<span class="math inline">\(i\)</span> 个包裹在时刻 <span
+class="math inline">\(\text{in}_i\)</span> 出现，它的质量和载重分别为
+<span
+class="math inline">\(w_i,s_i\)</span>，每个包裹都有它的价值，其中第
+<span class="math inline">\(i\)</span> 个包裹的价值为 <span
+class="math inline">\(v_i\)</span>。然而，为了获得（赚得）这 <span
+class="math inline">\(v_i\)</span> 的价值，这个系统要求它刚好在时刻
+<span class="math inline">\(\text{out}_i\)</span>
+被出售，否则将无法获得任何价值。于是，cxy
+可以选择跳过部分包裹（即不接收这些包裹），当然她也无法获得任何价值。</p>
 <p>任何操作所花费的时间可以忽略不计，这意味着你可以在一个时刻做多件事情（比如取走若干包裹，在堆放若干包裹）。</p>
 <p>注意一旦一个包裹被取走后，它就不会影响后续对包裹的操作。</p>
-<p>由于这系统非常复杂，并且包裹数有很多，cxy 想要知道如果她合理利用这个系统，她最多能得到多少钱。</p>
+<p>由于这系统非常复杂，并且包裹数有很多，cxy
+想要知道如果她合理利用这个系统，她最多能得到多少钱。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个非负整数 $n,S(n≤500,S≤1000)$ ，表示包裹的个数和平台的载重。</p>
-<p>接下来的 $n$ 行，每行包含 $5$ 个非负整数 $\text{in}_i,\text{out}_i,w_i,s_i,v_i(0\le\text{in}_i&lt;\text{out}_i&lt;2n,~0 \le w_i,s_i\le 1000,~1\le v_i\le 10^6)$，</p>
-<p>保证不存在两个包裹的出现时间 ($\text{in}_i$) 和出售时间 ($\text{out}_i$) 均相同。</p>
+<p>第一行包含两个非负整数 <span
+class="math inline">\(n,S(n≤500,S≤1000)\)</span>
+，表示包裹的个数和平台的载重。</p>
+<p>接下来的 <span class="math inline">\(n\)</span> 行，每行包含 <span
+class="math inline">\(5\)</span> 个非负整数 <span
+class="math inline">\(\text{in}_i,\text{out}_i,w_i,s_i,v_i(0\le\text{in}_i&lt;\text{out}_i&lt;2n,~0
+\le w_i,s_i\le 1000,~1\le v_i\le 10^6)\)</span>，</p>
+<p>保证不存在两个包裹的出现时间 (<span
+class="math inline">\(\text{in}_i\)</span>) 和出售时间 (<span
+class="math inline">\(\text{out}_i\)</span>) 均相同。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示 cxy 能得到的价值的最大值。</p>
 </blockquote>
 <p>容易发现，时间有交集的两个包裹，如果他们不是包含关系，则一定只能二选一。</p>
 <p>但如果是包含关系，这俩就都可以选。并且在一个大集合内，可以选若干个小的。</p>
 <p>再加上这个栈的性质，很容易把它和树联系到一起。</p>
-<p>我们把每个包裹按右端点排序，则若 $v$ 是 $u$ 的子节点，$v$ 一定出现的比 $u$ 早，这就方便dp了。</p>
-<p>设 $f_{i,j}$ 表示对于第 $i$ 个包裹（节点），当前剩余的最大载重量为 $j$ ，$i$ 所在子树中的最大价值。</p>
+<p>我们把每个包裹按右端点排序，则若 <span
+class="math inline">\(v\)</span> 是 <span
+class="math inline">\(u\)</span> 的子节点，<span
+class="math inline">\(v\)</span> 一定出现的比 <span
+class="math inline">\(u\)</span> 早，这就方便dp了。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示对于第 <span
+class="math inline">\(i\)</span> 个包裹（节点），当前剩余的最大载重量为
+<span class="math inline">\(j\)</span> ，<span
+class="math inline">\(i\)</span> 所在子树中的最大价值。</p>
 <p>注意，由于原图可能是个森林，所以我们要加个虚拟节点（平台）把它们连起来。</p>
-<p>考虑转移。设 $g_b (\text{in}_i \le b \le \text{out}_i)$ 表示到时刻 $b$ 位置的最大价值，则对于 $i$ 的某个子节点 $u$ ，当 $b = \text{out}_u$ 时</p>
-<script type="math/tex; mode=display">
-\large g_b \uparrow g_{\text{in}_u} + f_{u,\min \left\{j-w_i, s_i\right\}}</script><p>最后别忘了它自己， $f_{i,j}=g_{\text{out}_i} + v_i$ 。最终答案就是虚拟点载重为 $S$ 的答案。</p>
-<p>时间复杂度 $\mathcal{O}(n^3)$</p>
+<p>考虑转移。设 <span class="math inline">\(g_b (\text{in}_i \le b \le
+\text{out}_i)\)</span> 表示到时刻 <span class="math inline">\(b\)</span>
+位置的最大价值，则对于 <span class="math inline">\(i\)</span>
+的某个子节点 <span class="math inline">\(u\)</span> ，当 <span
+class="math inline">\(b = \text{out}_u\)</span> 时 <span
+class="math display">\[
+\large g_b \uparrow g_{\text{in}_u} + f_{u,\min \left\{j-w_i,
+s_i\right\}}
+\]</span> 最后别忘了它自己， <span
+class="math inline">\(f_{i,j}=g_{\text{out}_i} + v_i\)</span>
+。最终答案就是虚拟点载重为 <span class="math inline">\(S\)</span>
+的答案。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -633,9 +675,10 @@
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>S<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf480D.html">https://yhx-12243.github.io/OI-transit/records/cf480D.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf480D.html">https://yhx-12243.github.io/OI-transit/records/cf480D.html</a></p>
 
                 
             </div>
@@ -1080,7 +1123,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p228.jpg" class="responsive-img" alt="洛谷P3451 [POI2007]ATR-Tourist Attractions 题解">
+                        <img src="/medias/featureimages/p95.jpg" class="responsive-img" alt="洛谷P3451 [POI2007]ATR-Tourist Attractions 题解">
                         
                         <span class="card-title">洛谷P3451 [POI2007]ATR-Tourist Attractions 题解</span>
                     </div>
@@ -1114,12 +1157,12 @@
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/DP/">
                         <span class="chip bg-color">DP</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -1274,7 +1317,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">837.7k</span>&nbsp;字
+                class="white-color">897.5k</span>&nbsp;字
             
             
             
