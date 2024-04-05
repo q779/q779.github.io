@@ -502,10 +502,6 @@
                                 <span class="chip bg-color">数学</span>
                             </a>
                         
-                            <a href="/tags/%E5%92%95%E5%92%95/">
-                                <span class="chip bg-color">咕咕</span>
-                            </a>
-                        
                             <a href="/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/">
                                 <span class="chip bg-color">生成函数</span>
                             </a>
@@ -538,7 +534,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-02-02
+                    2024-02-04
                 </div>
                 
 
@@ -688,6 +684,10 @@ x^n\right) dx &amp;&amp;=\sum_{n&gt;0} \frac{f_{n-1}}{n} x^n+C
 \\[3pt]&amp;\sum_{n \geq 0} \frac{1}{n !} x^n &amp;&amp;=e^x
 \end{aligned}
 \]</span></p>
+<h3 id="例题">例题</h3>
+<p><a
+href="/2024/01/31/luo-gu-p2000-zheng-jiu-shi-jie-ti-jie/">洛谷P2000
+拯救世界</a> 一道比较基础的生成函数的题</p>
 <h2 id="指数生成函数-egf">指数生成函数 EGF</h2>
 <blockquote>
 <p>指数生成函数（exponential generating function，EGF）</p>
@@ -732,16 +732,200 @@ A^{\prime}(x) = \sum_{n \geq 0} n \frac{a_n}{n !} x^{n-1}=\sum_{n \geq
 <p><span class="math inline">\(A^{\prime}(x)\)</span> 对应的数列为 <span
 class="math inline">\(\{a_1,a_2,\cdots,a_n\}\)</span> 。</p>
 <p>也就是说，指数生成函数上的求导相当于普通生成函数的左移。同理，积分相当于右移。</p>
+<h3 id="例题-1">例题</h3>
+<p><a
+href="/2024/02/02/luo-gu-p2012-zheng-jiu-shi-jie-2-ti-jie/">洛谷P2012
+拯救世界2</a> 一道比较基础的指数生成函数题</p>
 <h2 id="狄利克雷生成函数-dgf">狄利克雷生成函数 DGF</h2>
 <blockquote>
 <p>狄利克雷生成函数（Dirichlet series generating function，DGF）</p>
 </blockquote>
+<p>对于无穷序列 <span class="math inline">\(f_1,f_2,\cdots\)</span>
+定义其狄利克雷生成函数为 <span class="math display">\[
+\tilde{F}(x)=\sum_{i \geq 1} \frac{f_i}{i^x}
+\]</span> 如果序列 <span class="math inline">\(f\)</span> 满足积性，即
+<span class="math inline">\(\forall i,j,\gcd(i,j),f_{i\cdot
+j}=f_if_j\)</span> ，那么其 DGF 可以由质数幂处的取值表示 <span
+class="math display">\[
+\tilde{F}(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{f_p}{p^x}+\frac{f_{p^2}}{p^{2
+x}}+\frac{f_{p^3}}{p^{3 x}}+\cdots\right)
+\]</span> 对于两个序列 <span class="math inline">\(f,g\)</span> ，其 DGF
+之积对应的是两者的狄利克雷卷积序列的 DGF： <span class="math display">\[
+\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1}
+\frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid
+i}f_dg_{\frac{i}{d}}
+\]</span></p>
+<h3 id="常见积性函数的-dgf">常见积性函数的 DGF</h3>
 <p>DGF
-的应用主要体现在构造积性序列的狄利克雷卷积序列。研究方向通常是质数处的取值。</p>
-<p>咕咕咕，暂时写不动了.....</p>
+最适合用于研究与积性函数的狄利克雷卷积相关的问题。因此首先我们要了解常见积性函数的
+DGF。</p>
+<h4 id="黎曼函数">1. 黎曼函数</h4>
+<p>序列 <span class="math inline">\([1,1,1,\cdots]\)</span> 的 DGF 是
+<span class="math inline">\(\sum_{i\ge 1}\frac{1}{i^x} =
+\zeta(x)\)</span> ，其中 <span class="math inline">\(\zeta\)</span>
+即为黎曼函数。</p>
+<p>由于其满足积性，因此我们可以得到 <span
+class="math inline">\([1,1,1,\cdots]\)</span> 的 DGF 的另一种形式 <span
+class="math display">\[
+\zeta(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{1}{p^x}+\frac{1}{p^{2
+x}}+\ldots\right)=\prod_{p \in \mathcal{P}} \frac{1}{1-p^{-x}}
+\]</span></p>
+<h4 id="莫比乌斯函数">2. 莫比乌斯函数</h4>
+<p>对于莫比乌斯函数 <span class="math inline">\(\mu\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{M}(x)=\prod_{p \in
+\mathcal{P}}\left(1-\frac{1}{p^x}\right)=\prod_{p \in
+\mathcal{P}}\left(1-p^{-x}\right)
+\]</span> 容易发现 <span class="math inline">\(\zeta(x)
+\tilde{M}(x)=1\)</span> ，也就是说 <span
+class="math inline">\(\tilde{M}(x)=\frac{1}{\zeta(x)}\)</span></p>
+<h4 id="欧拉函数">3. 欧拉函数</h4>
+<p>对于欧拉函数 <span class="math inline">\(\varphi\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{\Phi}(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{p-1}{p^x}+\frac{p(p-1)}{p^{2
+x}}+\frac{p^2(p-1)}{p^{3 x}}+\ldots\right)=\prod_{p \in \mathcal{P}}
+\frac{1-p^{-x}}{1-p^{1-x}}
+\]</span> 因此有 <span
+class="math inline">\(\tilde{\Phi}(x)=\frac{\zeta(x-1)}{\zeta(x)}\)</span></p>
+<h4 id="幂函数">4. 幂函数</h4>
+<p>对于函数 <span class="math inline">\(I_k(n)=n^k\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{I}_k(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{p^k}{p^x}+\frac{p^{2 k}}{p^{2
+x}}+\ldots\right)=\prod_{p \in \mathcal{P}}
+\frac{1}{1-p^{k-x}}=\zeta(x-k)
+\]</span> 根据这些定义，容易推导出 <span class="math inline">\(\varphi *
+1 = I\)</span> （<span class="math inline">\(*\)</span>
+表示狄利克雷卷积），因为 <span class="math inline">\(\tilde{\Phi}(x)
+\zeta(x)=\zeta(x-1)\)</span> 。</p>
+<h4 id="其他函数">5. 其他函数</h4>
+<p>对于约数幂函数 <span class="math inline">\(\sigma_k(n)=\sum_{d \mid
+n} d^k\)</span> ，它的 DGF 可以表示为狄利克雷卷积的形式</p>
+<h3 id="狄利克雷卷积dirichlet-卷积">狄利克雷卷积（Dirichlet 卷积）</h3>
+<h4 id="定义">定义</h4>
+<p>对于两个数论函数 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> ，它们的狄利克雷卷积定义为 <span
+class="math display">\[
+h(x)=\sum_{d \mid x} f(d) g\left(\frac{x}{d}\right)=\sum_{a b=x} f(a)
+g(b)
+\]</span> 上式可以简记为 <span class="math display">\[
+h = f*g
+\]</span>
+狄利克雷卷积是数论函数的重要运算，数论函数的许多性质都是通过这个运算挖掘出来的。</p>
+<p>上面我们提到了，狄利克雷卷积与狄利克雷生成函数 DGF 事实上密切相关
+<span class="math display">\[
+\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1}
+\frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid
+i}f_dg_{\frac{i}{d}}
+\]</span> 即对于两个序列 <span class="math inline">\(f,g\)</span>
+，其狄利克雷生成函数之积，对应的是两者的狄利克雷卷积序列的狄利克雷生成函数</p>
+<h4 id="性质">性质</h4>
+<p>交换律：<span class="math inline">\(f * g=g * f\)</span></p>
+<p>结合律：<span class="math inline">\((f*g)*h=f*(g*h)\)</span></p>
+<p>分配律： <span class="math inline">\((f+g)*h = f * h + g *
+h\)</span></p>
+<p><strong>等式的性质</strong>：<span class="math inline">\(f=g\)</span>
+的重要条件是 <span class="math inline">\(f*h = g*h\)</span>
+，其中数论函数 <span class="math inline">\(h(x)\)</span> 要满足 <span
+class="math inline">\(h(1) \ne 0\)</span> 。</p>
+<p><strong>单位元</strong>：单位函数 <span
+class="math inline">\(\varepsilon\)</span>
+是狄利克雷卷积运算中的单位元，即对于任何数论函数 <span
+class="math inline">\(f\)</span> 都有 <span class="math inline">\(f *
+\varepsilon = f\)</span> 。</p>
+<blockquote>
+<p>狄利克雷卷积运算中的单位元不是常函数，但是在狄利克雷生成函数中等价于常数
+<span class="math inline">\(1\)</span> 。</p>
+<p>狄利克雷卷积运算中的数论函数常函数 <span
+class="math inline">\(1\)</span>，在狄利克雷生成函数中等价于黎曼函数
+<span class="math inline">\(\zeta\)</span>​ 。</p>
+</blockquote>
+<p><strong>逆元</strong>：对于任何一个满足 <span
+class="math inline">\(f(x) \ne 0\)</span>
+的数论函数，如果有另一个数论函数 <span
+class="math inline">\(g(x)\)</span> 满足 <span class="math inline">\(f*g
+= \varepsilon\)</span>​ ，</p>
+<p>则称 <span class="math inline">\(g(x)\)</span> 为 <span
+class="math inline">\(f(x)\)</span>
+的逆元。由等式的性质可知，逆元是唯一的。</p>
+<blockquote>
+<p>狄利克雷卷积运算中的逆元，在狄利克雷生成函数中相当于倒数运算。</p>
+</blockquote>
+<p>容易构造出 <span class="math inline">\(g(x)\)</span> 的表达式 <span
+class="math display">\[
+g(x)=\frac{\varepsilon(x)-\sum_{d \mid x, d \neq 1} f(d)
+g\left(\frac{x}{d}\right)}{f(1)}
+\]</span></p>
+<h4 id="重要结论">重要结论</h4>
+<p><strong>结论1</strong>：两个积性函数的狄利克雷卷积也是积性函数。</p>
+<blockquote>
+<p><strong>证明</strong>：设两个积性函数为 $f(x) $和 <span
+class="math inline">\(g(x)\)</span> ，再记 <span class="math inline">\(h
+= f*g\)</span> 。</p>
+<p>设 <span class="math inline">\(\gcd(a,b) = 1\)</span> ，则 <span
+class="math display">\[
+h(a)=\sum_{d_1 \mid a} f\left(d_1\right) g\left(\frac{a}{d_1}\right),
+h(b)=\sum_{d_2 \mid b} f\left(d_2\right) g\left(\frac{b}{d_2}\right)
+\]</span> 所以 <span class="math display">\[
+\begin{aligned}
+h(a) h(b) &amp; =\sum_{d_1 \mid a} f\left(d_1\right)
+g\left(\frac{a}{d_1}\right) \sum_{d_2 \mid b} f\left(d_2\right)
+g\left(\frac{b}{d_2}\right) \\
+&amp; =\sum_{d \mid a b} f(d) g\left(\frac{a b}{d}\right) \\
+&amp; =h(a b)
+\end{aligned}
+\]</span> 证毕。</p>
+</blockquote>
+<p><strong>结论2</strong>：积性函数的逆元也是积性函数</p>
+<blockquote>
+<p><strong>证明</strong>：设 <span class="math inline">\(f*g =
+\varepsilon\)</span> ，并且不妨设 <span
+class="math inline">\(f(1)=1\)</span> 。考虑归纳法证明：</p>
+<ul>
+<li><p>若 <span class="math inline">\(nm=1\)</span> ，则 <span
+class="math inline">\(g(nm)=g(1) = 1\)</span> ，显然成立</p></li>
+<li><p>若 <span class="math inline">\(nm &gt; 1(\gcd(n,m) = 1)\)</span>
+，设现在对于所有的 <span class="math inline">\(xy &lt; nm(\gcd(x,y) =
+1)\)</span> 结论成立，则 <span class="math display">\[
+g(n m)=-\sum_{d \mid n m, d \neq 1} f(d) g\left(\frac{n
+m}{d}\right)=-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a
+b}\right)
+\]</span> 又因为 <span class="math inline">\(\frac{n m}{a b}&lt;n
+m\)</span> ，所以有 <span class="math display">\[
+\begin{aligned}
+g(n m) &amp; =-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a
+b}\right)
+\\[8pt]&amp; =-\sum_{a|n, b| m, a b \neq 1} f(a) f(b)
+g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =f(1) f(1) g(n) g(m)-\sum_{a|n, b| m} f(a) f(b)
+g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =g(n) g(m)-\sum_{a \mid n} f(a) g\left(\frac{n}{a}\right)
+\sum_{b \mid m} f(b) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =g(n) g(m)-\varepsilon(n)-\varepsilon(m)
+\\[8pt]&amp; =g(n) g(m)
+\end{aligned}
+\]</span></p></li>
+</ul>
+<p>综上可知，结论成立。<span class="math inline">\(\square\)</span></p>
+<p>同时这也说明，数论函数的积性，在狄利克雷生成函数中的对应具有封闭性。</p>
+</blockquote>
+<h5 id="例子">例子</h5>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \varepsilon=\mu * 1 \Longleftrightarrow \varepsilon(n)=\sum_{d
+\mid n} \mu(d) \\
+&amp; d=1 * 1 \Longleftrightarrow d(n)=\sum_{d \mid n} 1 \\
+&amp; \sigma=\mathrm{id} * 1 \Longleftrightarrow \sigma(n)=\sum_{d \mid
+n} d \\
+&amp; \varphi=\mu * \mathrm{id} \Longleftrightarrow \varphi(n)=\sum_{d
+\mid n} d \cdot \mu\left(\frac{n}{d}\right)
+\end{aligned}
+\]</span></p>
 <hr />
 <p><strong>参考文献&amp;鸣谢</strong>：</p>
-<p>[0] 感谢 Roundgod 对我的帮助 Orz （upd.
+<p>[0] 感谢 Roundgod 对我无数的帮助 Orz （upd.
 尤其是提醒我不要<del>超前点科技</del>）</p>
 <p>[1] <a
 target="_blank" rel="noopener" href="https://www.cnblogs.com/birchtree/p/11575252.html">https://www.cnblogs.com/birchtree/p/11575252.html</a></p>
@@ -749,6 +933,8 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/birchtree/p/1157525
 target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52817010">https://zhuanlan.zhihu.com/p/52817010</a></p>
 <p>[3] <a
 target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41357771/article/details/83449481">https://blog.csdn.net/qq_41357771/article/details/83449481</a></p>
+<p>[4] <a
+target="_blank" rel="noopener" href="https://oiwiki.org/math/poly/dgf">https://oiwiki.org/math/poly/dgf</a></p>
 
                 
             </div>
@@ -815,10 +1001,6 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41357771/article/d
                             
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%92%95%E5%92%95/">
-                                    <span class="chip bg-color">咕咕</span>
                                 </a>
                             
                                 <a href="/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/">
@@ -1383,7 +1565,7 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41357771/article/d
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">897.5k</span>&nbsp;字
+                class="white-color">948.7k</span>&nbsp;字
             
             
             
