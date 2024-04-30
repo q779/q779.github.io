@@ -560,78 +560,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="快速数论变换-ntt">快速数论变换 NTT</h1>
-<p><strong>模板题</strong>：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">P3803 【模板】多项式乘法
-(FFT)</a></p>
-<p>建议配合 <a
-href="/2024/01/27/kuai-su-fu-li-xie-bian-huan-fft/">快速傅里叶变换
-FFT</a> 和 <a href="/2024/01/25/jie-yu-yuan-gen/">阶与原根</a>
-两篇文章使用。</p>
-<p>在前两篇我们介绍了 FFT 算法如何利用单位根 <span
-class="math inline">\(\omega_n^k\)</span> 的性质以快速计算 DFT
-，以及原根的性质。</p>
+                <h1 id="快速数论变换-NTT"><a href="#快速数论变换-NTT" class="headerlink" title="快速数论变换 NTT"></a>快速数论变换 NTT</h1><p><strong>模板题</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">P3803 【模板】多项式乘法 (FFT) </a></p>
+<p>建议配合 <a href="/2024/01/27/kuai-su-fu-li-xie-bian-huan-fft/">快速傅里叶变换 FFT</a> 和 <a href="/2024/01/25/jie-yu-yuan-gen/">阶与原根</a> 两篇文章使用。</p>
+<p>在前两篇我们介绍了 FFT 算法如何利用单位根 $\omega_n^k$ 的性质以快速计算 DFT ，以及原根的性质。</p>
 <blockquote>
-<p>提示：鉴于 FFT 算法的特点，以下默认 <span
-class="math inline">\(n\)</span> 为 <span
-class="math inline">\(2\)</span> 的幂，即 <span class="math inline">\(n
-= 2^m\,(m \in \mathbb{N})\)</span> 。</p>
+<p>提示：鉴于 FFT 算法的特点，以下默认 $n$ 为 $2$ 的幂，即 $n = 2^m\,(m \in \mathbb{N})$ 。</p>
 </blockquote>
-<p>FFT
-那篇可能写的比较复杂，总结一下可以发现，无非就是以下两个重要性质。</p>
+<p>FFT 那篇可能写的比较复杂，总结一下可以发现，无非就是以下两个重要性质。</p>
 <ul>
-<li><span class="math inline">\(\omega_n^k\,(0\le k \le n-1)\)</span>
-互不相同。</li>
-<li><span class="math inline">\(\omega_n^{k+\frac{n}{2}} =
--\omega_n^k\)</span> 。</li>
-<li><span
-class="math inline">\(1+\omega_n^k+\left(\omega_n^k\right)^2+\cdots+\left(\omega_n^k\right)^{n-1}=0\)</span>
-。</li>
+<li>$\omega_n^k\,(0\le k \le n-1)$ 互不相同。</li>
+<li>$\omega_n^{k+\frac{n}{2}} = -\omega_n^k$ 。</li>
+<li>$1+\omega_n^k+\left(\omega_n^k\right)^2+\cdots+\left(\omega_n^k\right)^{n-1}=0$ 。</li>
 </ul>
 <p>第二条结论我没有给出证明，有兴趣的读者可以自行查阅资料。</p>
 <p>接着我们在原根的诸多性质中找出几个特别的</p>
 <ul>
-<li>对于质数 <span class="math inline">\(p=qn+1\,(n=2^m)\)</span> ，原根
-<span class="math inline">\(g\)</span> 满足 <span
-class="math inline">\(g^{qn} \equiv 1 \pmod{p}\)</span> 。</li>
-<li>对于质数 <span class="math inline">\(p\)</span> ，设 <span
-class="math inline">\(g\)</span> 为 <span
-class="math inline">\(p\)</span> 的原根，则 <span
-class="math inline">\(g^k \bmod p\,(0 &lt; k &lt; p)\)</span>
-的结果两两不同。</li>
-<li>由第二条结论可知，<span class="math inline">\(g^{k/2}\equiv -1
-\pmod{p}\)</span> 。</li>
+<li>对于质数 $p=qn+1\,(n=2^m)$ ，原根 $g$ 满足 $g^{qn} \equiv 1 \pmod{p}$ 。</li>
+<li>对于质数 $p$ ，设 $g$ 为 $p$ 的原根，则 $g^k \bmod p\,(0 &lt; k &lt; p)$  的结果两两不同。</li>
+<li>由第二条结论可知，$g^{k/2}\equiv -1 \pmod{p}$ 。</li>
 </ul>
 <p>巧合的是，这里第二条结论我在之前的文章中也没有提到（以及证明），下面我们来简单说明一下。</p>
 <blockquote>
-<p>证明：考虑反证法。设 <span class="math inline">\(g^{i}\equiv g^j
-\pmod{p}\,(0 &lt; i &lt; j &lt; p)\)</span> ，则 <span
-class="math inline">\(g^{j-i}(g^i-1) \equiv 0 \pmod{p}\)</span></p>
-<p>由此可知 <span class="math inline">\(g^i \equiv 0 \pmod{p}\)</span>
-，根据定义 <span class="math inline">\(i\)</span> 只可能等于 <span
-class="math inline">\(p-1\)</span> ，而此时不存在合法的 <span
-class="math inline">\(j\)</span> ，与假设矛盾。<span
-class="math inline">\(\square\)</span></p>
+<p>证明：考虑反证法。设 $g^{i}\equiv g^j \pmod{p}\,(0 &lt; i &lt; j &lt; p)$ ，则 $g^{j-i}(g^i-1) \equiv 0 \pmod{p}$ </p>
+<p>由此可知 $g^i \equiv 0 \pmod{p}$ ，根据定义 $i$ 只可能等于 $p-1$ ，而此时不存在合法的 $j$ ，与假设矛盾。$\square$ </p>
 </blockquote>
-<p>于是我们发现，原根满足作为 FFT 算法核心的条件，即 <span
-class="math display">\[
-\omega_n \equiv g^{(p-1) / n} \pmod{p}
-\]</span> 这里 <span class="math inline">\(p\)</span>
-的定义和上面的一样。</p>
-<p>那么我们只需要把所有的 <span class="math inline">\(\omega_n\)</span>
-全部换成 <span class="math inline">\(g^{(p-1)/n}\)</span>
-就好了，这便是<strong>快速数论变换 NTT</strong> (FNTT) 。</p>
-<p>最后，因为任意 <span class="math inline">\(n_0 \le n\)</span>
-均可以以 <span class="math inline">\(p\)</span> 作为模数，所以我们一般取
-<span class="math inline">\(998244353\)</span> 作为 <a
-href="/2024/01/30/ntt-mo-shu-biao/">NTT 模数</a>。</p>
-<p>那么，我们为什么要用 NTT 呢？因为 NTT
-可以在整数范围内计算，较好的免去了精度问题。</p>
-<p>然而普通的 NTT
-仅能解决特定模数的多项式乘法，或者值域有限的多项式乘法。于是有了
-[任意模数 NTT] 。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>于是我们发现，原根满足作为 FFT 算法核心的条件，即</p>
+<script type="math/tex; mode=display">
+\omega_n \equiv g^{(p-1) / n} \pmod{p}</script><p>这里 $p$ 的定义和上面的一样。</p>
+<p>那么我们只需要把所有的 $\omega_n$ 全部换成 $g^{(p-1)/n}$ 就好了，这便是<strong>快速数论变换 NTT</strong> (FNTT) 。</p>
+<p>最后，因为任意 $n_0 \le n$ 均可以以 $p$ 作为模数，所以我们一般取 $998244353$ 作为 <a href="/2024/01/30/ntt-mo-shu-biao/">NTT 模数</a>。</p>
+<p>那么，我们为什么要用 NTT 呢？因为 NTT 可以在整数范围内计算，较好的免去了精度问题。</p>
+<p>然而普通的 NTT 仅能解决特定模数的多项式乘法，或者值域有限的多项式乘法。于是有了 [任意模数 NTT] 。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -691,10 +651,9 @@ n)\)</span></p>
         cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> Inv <span class="token operator">%</span> P <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">+</span> m<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/solution-p38032">https://www.luogu.com.cn/blog/attack/solution-p38032</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/solution-p38032">https://www.luogu.com.cn/blog/attack/solution-p38032</a></p>
 
                 
             </div>
@@ -1326,7 +1285,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">948.7k</span>&nbsp;字
+                class="white-color">968.7k</span>&nbsp;字
             
             
             
@@ -1676,21 +1635,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

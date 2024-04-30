@@ -556,70 +556,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模拟赛题讲解28">模拟赛题讲解[28]</h1>
-<p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/52518">s_r_f</a>
-2023-08-03 <a target="_blank" rel="noopener" href="http://www.noi.ac/problem/3196">noi.ac #3196</a></p>
+                <h1 id="模拟赛题讲解-28"><a href="#模拟赛题讲解-28" class="headerlink" title="模拟赛题讲解[28]"></a>模拟赛题讲解[28]</h1><p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/52518">s_r_f</a> 2023-08-03 <a target="_blank" rel="noopener" href="http://www.noi.ac/problem/3196">noi.ac #3196</a></p>
 <p><strong>题目描述</strong>:</p>
-<p>定义函数 <span class="math inline">\(f(S) =
-\dfrac{1}{|S|}\sum\limits_{x\in S} x\)</span>，即可重集 <span
-class="math inline">\(S\)</span> 的<strong>均值</strong>；</p>
-<p><span class="math inline">\(g(S) = \dfrac{1}{|S|}\sum\limits_{x\in S}
-(x-f(S))^2\)</span>，即可重集 <span class="math inline">\(S\)</span>
-的<strong>方差</strong>。</p>
-<p>小 B 有一个大小为 <span class="math inline">\(n\)</span> 的可重整数集
-<span class="math inline">\(S = \{a_1,a_2,\cdots ,a_n\}\)</span>.</p>
-<p>小 B 想知道，从 <span class="math inline">\(S\)</span> 中任选一个子集
-<span class="math inline">\(T\)</span> 满足 <span
-class="math inline">\(L \leq |T| \leq R\)</span>，最小的 <span
-class="math inline">\(g(T)\)</span> 的值。</p>
+<p>定义函数 $f(S) = \dfrac{1}{|S|}\sum\limits_{x\in S} x$，即可重集 $S$ 的<strong>均值</strong>；</p>
+<p>$g(S) = \dfrac{1}{|S|}\sum\limits_{x\in S} (x-f(S))^2$，即可重集 $S$ 的<strong>方差</strong>。</p>
+<p>小 B 有一个大小为 $n$ 的可重整数集 $S = \{a_1,a_2,\cdots ,a_n\}$.</p>
+<p>小 B 想知道，从 $S$ 中任选一个子集 $T$ 满足 $L \leq |T| \leq R$，最小的 $g(T)$ 的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，三个整数 <span class="math inline">\(n\)</span> <span
-class="math inline">\(L\)</span> <span
-class="math inline">\(R\)</span></p>
-<p>第二行，<span class="math inline">\(n\)</span> 个整数 <span
-class="math inline">\(a_1,\cdots a_n\)</span></p>
+<p>第一行，三个整数 $n$ $L$ $R$</p>
+<p>第二行，$n$ 个整数 $a_1,\cdots a_n$</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个实数表示答案。</p>
-<p>答案的相对误差或绝对误差不超过 <span
-class="math inline">\(10^{-6}\)</span> 会被判为正确答案。</p>
+<p>答案的相对误差或绝对误差不超过 $10^{-6}$ 会被判为正确答案。</p>
 <p><strong>输入样例1</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">5 3 4
 2 12 9 8 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>输出样例2</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">2.8888888889<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>数据范围</strong>：</p>
-<p>子任务 1(10pts) : <span class="math inline">\(n \leq 20\)</span></p>
-<p>子任务 2(20pts) : <span class="math inline">\(n \leq
-2000\)</span></p>
-<p>子任务 3(20pts) <span class="math inline">\(:\)</span> <span
-class="math inline">\(R-L \leq 10\)</span></p>
-<p>子任务 4(50pts) : <span class="math inline">\(1 \leq n \leq 2 \times
-10^5,1 \leq L \leq R \leq n,0 \leq a_i \leq 10^{3}\)</span></p>
-<p>提示：一部分写法可能需要用到 long
-double。但在正式比赛时谨慎使用。</p>
+<p>子任务 1(10pts) : $n \leq 20$</p>
+<p>子任务 2(20pts) : $n \leq 2000$</p>
+<p>子任务 3(20pts) $:$ $R-L \leq 10$</p>
+<p>子任务 4(50pts) : $1 \leq n \leq 2 \times 10^5,1 \leq L \leq R \leq n,0 \leq a_i \leq 10^{3}$</p>
+<p>提示：一部分写法可能需要用到 long double。但在正式比赛时谨慎使用。</p>
 <p><strong>题解</strong>：</p>
 <p>说好的难度 ABCD ，结果我只会 AD （哭哭</p>
-<p>一个常见的 trick
-是，选方差尽可能小的集合，一定是排序后的一个区间。</p>
-<p>我们考察一个长为 <span class="math inline">\(L\)</span>
-区间，在加入一个更大的元素后，对方差的影响。</p>
-<p>不妨设 <span class="math inline">\(a_1&lt;a_2&lt; \dots&lt;a_n,~
-a=\frac{1}{n} \sum a_i\)</span> ，则 <span class="math display">\[
-\sigma=\frac{1}{n} \sum\left(a_i-a\right)^2=\frac{1}{n} \sum a_i^2-a^2
-\]</span> 若 <span class="math inline">\(a_n \gets a_n + nd(d &gt;
-0)\)</span> ，则 <span class="math inline">\(a&#39; = a+d\)</span>
-，并且 <span class="math display">\[
+<p>一个常见的 trick 是，选方差尽可能小的集合，一定是排序后的一个区间。</p>
+<p>我们考察一个长为 $L$ 区间，在加入一个更大的元素后，对方差的影响。</p>
+<p>不妨设 $a_1&lt;a_2&lt; \dots&lt;a_n,~ a=\frac{1}{n} \sum a_i$ ，则</p>
+<script type="math/tex; mode=display">
+\sigma=\frac{1}{n} \sum\left(a_i-a\right)^2=\frac{1}{n} \sum a_i^2-a^2</script><p>若 $a_n \gets a_n + nd(d &gt; 0)$ ，则 $a’ = a+d$ ，并且</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\sigma^{\prime} &amp; =\left(\frac{1}{n} \sum a_i^2\right)+n d^2+2 d
-a_n-\left(a^2+d^2+2 a d\right) \\
-&amp; =\sigma+(n-1) d^2+2 d\left(a_n-a\right)
-\end{aligned}
-\]</span> 显然方差变大了，因此一个长度大于 <span
-class="math inline">\(L\)</span> 的区间是不优的，即 <span
-class="math inline">\(R\)</span> 在本题中毫无意义。</p>
+\sigma^{\prime} & =\left(\frac{1}{n} \sum a_i^2\right)+n d^2+2 d a_n-\left(a^2+d^2+2 a d\right) \\
+& =\sigma+(n-1) d^2+2 d\left(a_n-a\right)
+\end{aligned}</script><p>显然方差变大了，因此一个长度大于 $L$ 的区间是不优的，即 $R$ 在本题中毫无意义。</p>
 <p>所以我们只需要算个方差就好啦！</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1122,12 +1095,12 @@ n)\)</span></p>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">
-                        <span class="chip bg-color">博弈论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%89%93%E8%A1%A8/">
                         <span class="chip bg-color">打表</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">
+                        <span class="chip bg-color">博弈论</span>
                     </a>
                     
                 </div>
@@ -1282,7 +1255,7 @@ n)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">948.7k</span>&nbsp;字
+                class="white-color">968.7k</span>&nbsp;字
             
             
             
@@ -1632,21 +1605,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

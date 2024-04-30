@@ -556,10 +556,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3237-hnoi2014米特运输-题解">洛谷P3237 [HNOI2014]米特运输
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3237">P3237
-[HNOI2014]米特运输</a></p>
+                <h1 id="洛谷P3237-HNOI2014-米特运输-题解"><a href="#洛谷P3237-HNOI2014-米特运输-题解" class="headerlink" title="洛谷P3237 [HNOI2014]米特运输 题解"></a>洛谷P3237 [HNOI2014]米特运输 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3237">P3237 [HNOI2014]米特运输</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>米特是D星球上一种非常神秘的物质，蕴含着巨大的能量。在以米特为主要能源的D星上，这种米特能源的运输和储存一直是一个大问题。</p>
@@ -569,43 +566,40 @@
 <p>早上六点到七点间，根节点城市（1号城市）会将其储存器里的米特消耗殆尽。根节点不会自动搜集米特，它只接受子节点传输来的米特。</p>
 <p>早上七点，城市之间启动米特传输过程，传输过程逐层递进：先是第2层节点城市向第1层（根节点城市，即1号城市）传输，直到第1层的储存器满或第2层的储存器全为空；然后是第3层向第2层传输，直到对于第2层的每个节点，其储存器满或其予节点（位于第3层）的储存器全为空；依此类推，直到最后一层传输完成。传输过程一定会在晚上六点前完成。</p>
 <p>由于技术原因，运输方案需要满足以下条件：</p>
-<ol type="1">
-<li><p>不能让某个储存器到了晚上六点传输结束时还处于非空但又未满的状态，这个时候储存器仍然会启动自动收集米特的程序，而给已经储存有米特的储存器启动收集程序可能导致危险，也就是说要让储存器到了晚上六点时要么空要么满；</p></li>
-<li><p>关于首都——即1号城市的特殊情况，
-每天早上六点到七点间1号城市中的米特储存器里的米特会自动被消耗殆尽，即运输方案不需要考虑首都的米特怎么运走；</p></li>
-<li><p>除了1号城市，每个节点必须在其子节点城市向它运输米特之前将这座城市的米特储存器中原本存有的米特全部运出去给父节点，不允许储存器中残存的米特与外来的米特发生混合；</p></li>
-<li><p>运向某一个城市的若干个来源的米特数量必须完全相同，不然，这些来源不同的米特按不同比例混合之后可能发生危险。</p></li>
+<ol>
+<li><p>不能让某个储存器到了晚上六点传输结束时还处于非空但又未满的状态，这个时候储存器仍然会启动自动收集米特的程序，而给已经储存有米特的储存器启动收集程序可能导致危险，也就是说要让储存器到了晚上六点时要么空要么满；</p>
+</li>
+<li><p>关于首都——即1号城市的特殊情况，  每天早上六点到七点间1号城市中的米特储存器里的米特会自动被消耗殆尽，即运输方案不需要考虑首都的米特怎么运走；</p>
+</li>
+<li><p>除了1号城市，每个节点必须在其子节点城市向它运输米特之前将这座城市的米特储存器中原本存有的米特全部运出去给父节点，不允许储存器中残存的米特与外来的米特发生混合；</p>
+</li>
+<li><p>运向某一个城市的若干个来源的米特数量必须完全相同，不然，这些来源不同的米特按不同比例混合之后可能发生危险。</p>
+</li>
 </ol>
 <p>现在D星人已经建立好高速通道，每个城市也有了一定储存容量的米特储存器。为了满足上面的限制条件，可能需要重建一些城市中的米特储存器。你可以，也只能，将某一座城市（包括首都）中原来存在的米特储存器摧毁，再新建一座任意容量的新的米特储存器，其容量可以是小数（在输入数据中，储存器原始容量是正整数，但重建后可以是小数），不能是负数或零，使得需要被重建的米特储存器的数目尽量少。</p>
 </blockquote>
 <p>题目讲了半天其实就是说</p>
 <ul>
-<li><p>给定一棵树，树上每个结点有权值</p></li>
-<li><p>求最少修改结点权值的次数，使得 <span
-class="math inline">\(\text{val}[u]=\sum \text{val}[v]\)</span></p>
-<p>其中 <span class="math inline">\(v\)</span> 为 <span
-class="math inline">\(u\)</span> 的儿子。</p></li>
+<li><p>给定一棵树，树上每个结点有权值</p>
+</li>
+<li><p>求最少修改结点权值的次数，使得 $\text{val}[u]=\sum \text{val}[v]$</p>
+<p>其中 $v$ 为 $u$ 的儿子。</p>
+</li>
 </ul>
 <p><del>不知道谁把它放在树形dp题单里的（恼</del></p>
 <p>手推一下就可以发现，只要确定了一个结点，其他所有的结点都可以确定了</p>
 <p>考虑把<strong>每个结点确定后形成的树</strong>都给算出来</p>
-<p>然后在这一堆树里面找到相同树的个数的最大值 <span
-class="math inline">\(\text{mx}\)</span></p>
-<p>答案就是 <span class="math inline">\(n-\text{mx}\)</span></p>
-<p>这个树怎么算呢，这里有一张图，来自<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/_post/15135">link</a></p>
+<p>然后在这一堆树里面找到相同树的个数的最大值 $\text{mx}$ </p>
+<p>答案就是 $n-\text{mx}$ </p>
+<p>这个树怎么算呢，这里有一张图，来自<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/_post/15135">link</a></p>
 <p>。。。</p>
-<p>即设 <span class="math inline">\(f[u]\)</span> 为 <span
-class="math inline">\(u\)</span> 所形成的树的"特征值"，则有 <span
-class="math display">\[
-f[u]=\prod \text{sz}[d] \times \text{val}[u]
-\]</span> 其中 <span class="math inline">\(d\)</span> 为 <span
-class="math inline">\(u\)</span> 的祖先结点。</p>
+<p>即设 $f[u]$ 为 $u$ 所形成的树的”特征值”，则有</p>
+<script type="math/tex; mode=display">
+f[u]=\prod \text{sz}[d] \times \text{val}[u]</script><p>其中 $d$  为 $u$ 的祖先结点。</p>
 <p>似乎只要把这个值算出来就好了，不过它会爆<code>long long</code></p>
-<p>考虑用 <span class="math inline">\(\log\)</span> 转化计算（ <span
-class="math inline">\(\log (ab) = \log a + \log b\)</span> ）</p>
+<p>考虑用 $\log$ 转化计算（ $\log (ab) = \log a + \log b$ ）</p>
 <p>然后比较的时候只要排序一下就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(n\log n)\)</span></p>
+<p>时间复杂度 $O(n\log n)$ </p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1306,7 +1300,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">948.7k</span>&nbsp;字
+                class="white-color">968.7k</span>&nbsp;字
             
             
             
@@ -1656,21 +1650,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
