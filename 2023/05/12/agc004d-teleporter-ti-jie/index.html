@@ -556,30 +556,53 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC004D-Teleporter-题解"><a href="#AGC004D-Teleporter-题解" class="headerlink" title="[AGC004D] Teleporter 题解"></a>[AGC004D] Teleporter 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc004/tasks/agc004_d">[AGC004D] Teleporter</a></p>
+                <h1 id="agc004d-teleporter-题解">[AGC004D] Teleporter 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc004/tasks/agc004_d">[AGC004D]
+Teleporter</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 王国中有 $N$ 个城镇，方便地从 $1$ 到 $N$ 编号。城镇 $1$ 是首都。</p>
-<p>该王国中的每个城镇都有一个传送门，该设施可立即将人传送到另一个地方。城镇 $i$ 的传送门的目的地是城镇 $a_i$（$1\leq a_i\leq N$）。保证可以通过使用传送门从任何城镇到达首都。</p>
-<p>国王 cxy 喜欢整数 $K$。<del>自私</del>的国王希望更改传送门的目的地，以满足以下条件：</p>
-<p>从任何城镇开始，使用传送门正好 $K$ 次后，将到达首都。</p>
+<p>cxy 王国中有 <span class="math inline">\(N\)</span> 个城镇，方便地从
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span> 编号。城镇 <span
+class="math inline">\(1\)</span> 是首都。</p>
+<p>该王国中的每个城镇都有一个传送门，该设施可立即将人传送到另一个地方。城镇
+<span class="math inline">\(i\)</span> 的传送门的目的地是城镇 <span
+class="math inline">\(a_i\)</span>（<span class="math inline">\(1\leq
+a_i\leq N\)</span>）。保证可以通过使用传送门从任何城镇到达首都。</p>
+<p>国王 cxy 喜欢整数 <span
+class="math inline">\(K\)</span>。<del>自私</del>的国王希望更改传送门的目的地，以满足以下条件：</p>
+<p>从任何城镇开始，使用传送门正好 <span class="math inline">\(K\)</span>
+次后，将到达首都。</p>
 <p>找到需要更改目的地的传送门的最小数量，以满足国王的愿望。</p>
 <p><strong>输入格式</strong>：</p>
 <p>输入以以下格式从标准输入中给出：</p>
-<p>$N$ $K$</p>
-<p>$a_1$ $a_2$ … $a_N$</p>
+<p><span class="math inline">\(N\)</span> <span
+class="math inline">\(K\)</span></p>
+<p><span class="math inline">\(a_1\)</span> <span
+class="math inline">\(a_2\)</span> ... <span
+class="math inline">\(a_N\)</span></p>
 <p><strong>数据范围</strong>：</p>
-<p>$2\leq N\leq 10^5,~1\leq a_i\leq N,~1\leq K\leq 10^9$</p>
+<p><span class="math inline">\(2\leq N\leq 10^5,~1\leq a_i\leq N,~1\leq
+K\leq 10^9\)</span></p>
 <p>数据保证可以通过使用传送门从任何城镇到达首都。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出需要更改目的地的传送门的最小数量，以满足 cxy 国王的愿望。</p>
 </blockquote>
-<p>首先容易发现，当 $1$ 指向的不是自己时，会出现一个环，进而原图变成基环树。</p>
+<p>首先容易发现，当 <span class="math inline">\(1\)</span>
+指向的不是自己时，会出现一个环，进而原图变成基环树。</p>
 <p>这个环的存在没有任何好处，首先可能导致奇偶性问题，其次可能会增加调整奇偶性的花费。</p>
-<p>因此最好的办法就是把 $1$ 变成一个自环，这样只需要考虑路线超过 $k$ 的情况怎么办了。</p>
-<p>不难发现，如果 $u$ 到 $1$ 的距离为 $k + 1$ ，则我们直接把 $u$ 所在子树挂到 $1$ 上，</p>
-<p>即 $u$ 指向 $1$ 一定是最优的选择，其正确性显然。因此我们只需遍历一遍原树即可。</p>
-<p>时间复杂度 $\mathcal{O}(n)$ </p>
+<p>因此最好的办法就是把 <span class="math inline">\(1\)</span>
+变成一个自环，这样只需要考虑路线超过 <span
+class="math inline">\(k\)</span> 的情况怎么办了。</p>
+<p>不难发现，如果 <span class="math inline">\(u\)</span> 到 <span
+class="math inline">\(1\)</span> 的距离为 <span class="math inline">\(k
++ 1\)</span> ，则我们直接把 <span class="math inline">\(u\)</span>
+所在子树挂到 <span class="math inline">\(1\)</span> 上，</p>
+<p>即 <span class="math inline">\(u\)</span> 指向 <span
+class="math inline">\(1\)</span>
+一定是最优的选择，其正确性显然。因此我们只需遍历一遍原树即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1244,7 +1267,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

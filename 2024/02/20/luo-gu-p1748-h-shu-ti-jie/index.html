@@ -560,25 +560,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1748-H数-题解"><a href="#洛谷P1748-H数-题解" class="headerlink" title="洛谷P1748 H数 题解"></a>洛谷P1748 H数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1748">P1748 H数</a></p>
+                <h1 id="洛谷p1748-h数-题解">洛谷P1748 H数 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1748">P1748
+H数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>所谓 $H$ 数，是指只含有 $2,3,5,7$ 这些质因数的数，如 $630$ 是 $H$ 数，而 $22$ 不是。</p>
-<p>现在要求输出第 $n$ 个 $H$ 数，即 $H_n$ （为了方便起见将 $H_1$ 定为 $1$ ）。</p>
-<p>已知 $n$ 不超过 $10000$，最后数据在 int64 范围之内。</p>
+<p>所谓 <span class="math inline">\(H\)</span> 数，是指只含有 <span
+class="math inline">\(2,3,5,7\)</span> 这些质因数的数，如 <span
+class="math inline">\(630\)</span> 是 <span
+class="math inline">\(H\)</span> 数，而 <span
+class="math inline">\(22\)</span> 不是。</p>
+<p>现在要求输出第 <span class="math inline">\(n\)</span> 个 <span
+class="math inline">\(H\)</span> 数，即 <span
+class="math inline">\(H_n\)</span> （为了方便起见将 <span
+class="math inline">\(H_1\)</span> 定为 <span
+class="math inline">\(1\)</span> ）。</p>
+<p>已知 <span class="math inline">\(n\)</span> 不超过 <span
+class="math inline">\(10000\)</span>，最后数据在 int64 范围之内。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行， $n$ 。</p>
+<p>一行， <span class="math inline">\(n\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行，输出 $H_n$​ 。</p>
+<p>一行，输出 <span class="math inline">\(H_n\)</span>​ 。</p>
 </blockquote>
 <p>虽说是 普及/提高− 的题，但是它的思路还是挺有意思的。</p>
-<p>考虑dp，或者说考察 $H_n$ 的递推方式。</p>
-<script type="math/tex; mode=display">
-H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其中 $a,b,c,d$ 均满足特定形式，例如 $H_{a-1}\times 2 \le H_i &lt; H_a \times 2$ 。</p>
-<p>一种暴力的转移方式是，枚举 $j$ ，并钦定：例如当 $j$ 满足 $a$ 的条件时尝试用 $H_a$ 更新 $H_i$ 。</p>
-<p>这样只需扫一遍 $[1,~i-1]$ 即可。注意到 $a,b,c,d$ 均随着 $i$ 的增长而不减。</p>
-<p>因此我们可以直接维护四个指针 $a,b,c,d$ ，每次算出 $H_i$ 后，更新 $a,b,c,d$ 使他们重新满足条件。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>考虑dp，或者说考察 <span class="math inline">\(H_n\)</span>
+的递推方式。 <span class="math display">\[
+H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}
+\]</span> 其中 <span class="math inline">\(a,b,c,d\)</span>
+均满足特定形式，例如 <span class="math inline">\(H_{a-1}\times 2 \le H_i
+&lt; H_a \times 2\)</span> 。</p>
+<p>一种暴力的转移方式是，枚举 <span class="math inline">\(j\)</span>
+，并钦定：例如当 <span class="math inline">\(j\)</span> 满足 <span
+class="math inline">\(a\)</span> 的条件时尝试用 <span
+class="math inline">\(H_a\)</span> 更新 <span
+class="math inline">\(H_i\)</span> 。</p>
+<p>这样只需扫一遍 <span class="math inline">\([1,~i-1]\)</span>
+即可。注意到 <span class="math inline">\(a,b,c,d\)</span> 均随着 <span
+class="math inline">\(i\)</span> 的增长而不减。</p>
+<p>因此我们可以直接维护四个指针 <span
+class="math inline">\(a,b,c,d\)</span> ，每次算出 <span
+class="math inline">\(H_i\)</span> 后，更新 <span
+class="math inline">\(a,b,c,d\)</span> 使他们重新满足条件。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -610,13 +633,15 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
     cout <span class="token operator">&lt;&lt;</span> x<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user41920/solution-p1748">https://www.luogu.com.cn/blog/user41920/solution-p1748</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user41920/solution-p1748">https://www.luogu.com.cn/blog/user41920/solution-p1748</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><del>这和 H 有什么关系</del>？</p>
-<p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202402201802560.png" alt=""></p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202402201802560.png" /></p>
 
                 
             </div>
@@ -1248,7 +1273,7 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

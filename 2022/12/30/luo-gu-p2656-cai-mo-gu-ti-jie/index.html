@@ -560,26 +560,45 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2656-采蘑菇-题解"><a href="#洛谷P2656-采蘑菇-题解" class="headerlink" title="洛谷P2656 采蘑菇 题解"></a>洛谷P2656 采蘑菇 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2656">P2656 采蘑菇</a></p>
+                <h1 id="洛谷p2656-采蘑菇-题解">洛谷P2656 采蘑菇 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2656">P2656
+采蘑菇</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>q779 和 cxy 要去森林采蘑菇。</p>
-<p>森林间有 $N$ 个小树丛，$M$ 条小径，每条小径都是单向的，连接两个小树丛，上面都有一定数量的蘑菇。q779 和 cxy 经过某条小径一次，可以采走这条路上所有的蘑菇。由于森林是一片神奇的沃土，所以一条路上的蘑菇被采过后，又会长出一些新的蘑菇，数量为原来蘑菇的数量乘上这条路的“恢复系数” $c$ ，再下取整。</p>
-<p>比如，一条路上有 $4$ 个蘑菇，这条路的“恢复系数”为 $c = 0.7$，则第一~四次经过这条路径所能采到的蘑菇数量分别为 $4,2,1,0$ 。</p>
-<p>现在，q779 和 cxy 从 $S$ 号小树丛出发，求他们最多能采到多少蘑菇。</p>
+<p>森林间有 <span class="math inline">\(N\)</span> 个小树丛，<span
+class="math inline">\(M\)</span>
+条小径，每条小径都是单向的，连接两个小树丛，上面都有一定数量的蘑菇。q779
+和 cxy
+经过某条小径一次，可以采走这条路上所有的蘑菇。由于森林是一片神奇的沃土，所以一条路上的蘑菇被采过后，又会长出一些新的蘑菇，数量为原来蘑菇的数量乘上这条路的“恢复系数”
+<span class="math inline">\(c\)</span> ，再下取整。</p>
+<p>比如，一条路上有 <span class="math inline">\(4\)</span>
+个蘑菇，这条路的“恢复系数”为 <span class="math inline">\(c =
+0.7\)</span>，则第一~四次经过这条路径所能采到的蘑菇数量分别为 <span
+class="math inline">\(4,2,1,0\)</span> 。</p>
+<p>现在，q779 和 cxy 从 <span class="math inline">\(S\)</span>
+号小树丛出发，求他们最多能采到多少蘑菇。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个整数，$N$ 和 $M$。</p>
-<p>第二行到第 $M+1$ 行，每行四个数，分别表示一条小路的起点、终点、初始蘑菇数和恢复系数。</p>
-<p>第 $M+2$ 行，一个整数 $S$。</p>
+<p>第一行两个整数，<span class="math inline">\(N\)</span> 和 <span
+class="math inline">\(M\)</span>。</p>
+<p>第二行到第 <span class="math inline">\(M+1\)</span>
+行，每行四个数，分别表示一条小路的起点、终点、初始蘑菇数和恢复系数。</p>
+<p>第 <span class="math inline">\(M+2\)</span> 行，一个整数 <span
+class="math inline">\(S\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行一个整数，表示最多能采到多少蘑菇，保证答案不超过 $2^{31}-1$。</p>
+<p>一行一个整数，表示最多能采到多少蘑菇，保证答案不超过 <span
+class="math inline">\(2^{31}-1\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le N\le 8\times 10^4,~1\le M\le 2\times 10^5,~0\le c\le 0.8$ 且最多有一位小数， $1\le S\le N$。</p>
+<p><span class="math inline">\(1 \le N\le 8\times 10^4,~1\le M\le
+2\times 10^5,~0\le c\le 0.8\)</span> 且最多有一位小数， <span
+class="math inline">\(1\le S\le N\)</span>。</p>
 </blockquote>
 <p>复活后的第一篇题解，<del>也是一道热身题</del>。无论如何，愿我圆梦NOIP。</p>
 <p>注意到一条边可以走无数遍，那么任何强连通分量都可以走到不长蘑菇为止。</p>
-<p>考虑缩点并预处理每个强连通分量的答案，然后就变成简单的 DAG 上跑 topo+dp 了</p>
-<p>时间复杂度 $\mathcal{O}(m \log_{\frac{4}{5}} M)$ ，总之能过</p>
+<p>考虑缩点并预处理每个强连通分量的答案，然后就变成简单的 DAG 上跑
+topo+dp 了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(m
+\log_{\frac{4}{5}} M)\)</span> ，总之能过</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1269,7 +1288,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

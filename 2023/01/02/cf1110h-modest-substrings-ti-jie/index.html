@@ -568,45 +568,102 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1110H-Modest-Substrings-题解"><a href="#CF1110H-Modest-Substrings-题解" class="headerlink" title="CF1110H Modest Substrings 题解"></a>CF1110H Modest Substrings 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1110H">CF1110H Modest Substrings</a></p>
+                <h1 id="cf1110h-modest-substrings-题解">CF1110H Modest Substrings
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1110H">CF1110H
+Modest Substrings</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个正整数 $l, r$ ，称整数 $x$ 为好的，当且仅当 $l \leq x \leq r$ 。</p>
-<p>对一个由 $\texttt{0-9}$ 中数字构成的字符串，定义它的权值为这样的非空子串个数：</p>
+<p>给定两个正整数 <span class="math inline">\(l, r\)</span> ，称整数
+<span class="math inline">\(x\)</span> 为好的，当且仅当 <span
+class="math inline">\(l \leq x \leq r\)</span> 。</p>
+<p>对一个由 <span class="math inline">\(\texttt{0-9}\)</span>
+中数字构成的字符串，定义它的权值为这样的非空子串个数：</p>
 <ul>
-<li>它不以 $\texttt{0}$ 开头，且将其看成数字后是好的。</li>
+<li>它不以 <span class="math inline">\(\texttt{0}\)</span>
+开头，且将其看成数字后是好的。</li>
 </ul>
-<p>你需要找到一个长度为 $n$ 的字符串，使得它的权值最大。</p>
-<p>如果有多个字符串, 你需要寻找字典序最小的一个。同时，字符串可以有前导零。</p>
+<p>你需要找到一个长度为 <span class="math inline">\(n\)</span>
+的字符串，使得它的权值最大。</p>
+<p>如果有多个字符串,
+你需要寻找字典序最小的一个。同时，字符串可以有前导零。</p>
 <p><strong>输入格式</strong>：</p>
-<p>三行，每行一个正整数，第一行为 $l$ ，第二行为 $r$ ，第三行为 $n$ 。</p>
+<p>三行，每行一个正整数，第一行为 <span class="math inline">\(l\)</span>
+，第二行为 <span class="math inline">\(r\)</span> ，第三行为 <span
+class="math inline">\(n\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>两行，第一行表示最大权值，第二行表示权值等于最大权值的最小大数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \leq l,r \leq 10^{800} , 1 \leq n \leq 2000$ 。</p>
+<p><span class="math inline">\(1 \leq l,r \leq 10^{800} , 1 \leq n \leq
+2000\)</span> 。</p>
 </blockquote>
 <p>复活后的第一道黑题，有一说一难度确实很高。</p>
-<p>首先考虑 $l,r$ 相差较小的情况，可以考虑对 $[l,r]$ 间的所有数字建 $\mathtt{AC}$ 自动机，然后在上面跑 dp 统计答案。</p>
-<p>考虑节点 $i$ 代表的串对答案的贡献 $g_i$ ，则 $g_i$ 为节点 $i$ 跳失配指针能到的点的贡献总和，即</p>
-<script type="math/tex; mode=display">
+<p>首先考虑 <span class="math inline">\(l,r\)</span>
+相差较小的情况，可以考虑对 <span class="math inline">\([l,r]\)</span>
+间的所有数字建 <span class="math inline">\(\mathtt{AC}\)</span>
+自动机，然后在上面跑 dp 统计答案。</p>
+<p>考虑节点 <span class="math inline">\(i\)</span> 代表的串对答案的贡献
+<span class="math inline">\(g_i\)</span> ，则 <span
+class="math inline">\(g_i\)</span> 为节点 <span
+class="math inline">\(i\)</span> 跳失配指针能到的点的贡献总和，即 <span
+class="math display">\[
 \begin{aligned}
-g_v \uparrow g_{\texttt{fail}_v} &&&&\big(a\uparrow b := a \gets a + b\big)
-\end{aligned}</script><p>设 $f_{i,j}$ 表示在节点 $j$ 上组成 $i$ 位数的方案数，显然可以拿 $f_{l,u} + g_v$ 来更新 $f_{l+1,v}$ ，答案就是 $\max f_{n,i}$</p>
-<p>但是这里 $l,r$ 相差巨大，所以不能直接暴力建 $\mathtt{AC}$ 自动机。</p>
-<p>容易发现，暴力 $\mathtt{AC}$ 自动机中有很多节点，以它为根的子树都是一个<strong>满十叉树</strong>，而这些树并不那么有用。</p>
-<p>例如 $[1000,2333]$ 间，枚举到 $11_\,_$ 时，后面怎么填都行，而我们朴素dp会把每个都跑一次。 </p>
-<p>显然我们会想到把这些节点缩起来。考虑将一个深度为 $l$ 的满十叉树缩成一个点（有 $10^{l}$ 个叶结点的满十叉树）</p>
-<p>于是，当走到这个点的时候，再任意走 $l$ 步（但是至少走 $l$ 步才能产生贡献），就一定能产生一个匹配</p>
-<p>也就是说我们对这个根节点打上一个长度为 $l$ 的标记，表示只要再走 $l$ 步就可以得到 $1$ 的贡献</p>
-<p>当然，一个点可能被打上多个标记。因此实际上，我们对一个点存储的信息是：长度为 $l$ 的标记的数量。</p>
-<p>这样就比刚才的更好更早多了，可以通过 $\mathtt{dfs}$ 构造，思想类似于数位dp，详见代码。</p>
-<p>对于 dp 的转移，只需要枚举下一个字符是 $\mathtt{0 \sim 9}$ 中的哪一个，然后去 $\mathtt{AC}$ 自动机上跑，</p>
-<p>再根据当前串长 $l$ 决定加入哪些标记。具体地，设串长为 $l$ ，则长度小于 $l$ 的标记都是有效的，考虑前缀和处理。</p>
+g_v \uparrow g_{\texttt{fail}_v} &amp;&amp;&amp;&amp;\big(a\uparrow b :=
+a \gets a + b\big)
+\end{aligned}
+\]</span> 设 <span class="math inline">\(f_{i,j}\)</span> 表示在节点
+<span class="math inline">\(j\)</span> 上组成 <span
+class="math inline">\(i\)</span> 位数的方案数，显然可以拿 <span
+class="math inline">\(f_{l,u} + g_v\)</span> 来更新 <span
+class="math inline">\(f_{l+1,v}\)</span> ，答案就是 <span
+class="math inline">\(\max f_{n,i}\)</span></p>
+<p>但是这里 <span class="math inline">\(l,r\)</span>
+相差巨大，所以不能直接暴力建 <span
+class="math inline">\(\mathtt{AC}\)</span> 自动机。</p>
+<p>容易发现，暴力 <span class="math inline">\(\mathtt{AC}\)</span>
+自动机中有很多节点，以它为根的子树都是一个<strong>满十叉树</strong>，而这些树并不那么有用。</p>
+<p>例如 <span class="math inline">\([1000,2333]\)</span> 间，枚举到
+<span class="math inline">\(11\_\,\_\)</span>
+时，后面怎么填都行，而我们朴素dp会把每个都跑一次。</p>
+<p>显然我们会想到把这些节点缩起来。考虑将一个深度为 <span
+class="math inline">\(l\)</span> 的满十叉树缩成一个点（有 <span
+class="math inline">\(10^{l}\)</span> 个叶结点的满十叉树）</p>
+<p>于是，当走到这个点的时候，再任意走 <span
+class="math inline">\(l\)</span> 步（但是至少走 <span
+class="math inline">\(l\)</span>
+步才能产生贡献），就一定能产生一个匹配</p>
+<p>也就是说我们对这个根节点打上一个长度为 <span
+class="math inline">\(l\)</span> 的标记，表示只要再走 <span
+class="math inline">\(l\)</span> 步就可以得到 <span
+class="math inline">\(1\)</span> 的贡献</p>
+<p>当然，一个点可能被打上多个标记。因此实际上，我们对一个点存储的信息是：长度为
+<span class="math inline">\(l\)</span> 的标记的数量。</p>
+<p>这样就比刚才的更好更早多了，可以通过 <span
+class="math inline">\(\mathtt{dfs}\)</span>
+构造，思想类似于数位dp，详见代码。</p>
+<p>对于 dp 的转移，只需要枚举下一个字符是 <span
+class="math inline">\(\mathtt{0 \sim 9}\)</span> 中的哪一个，然后去
+<span class="math inline">\(\mathtt{AC}\)</span> 自动机上跑，</p>
+<p>再根据当前串长 <span class="math inline">\(l\)</span>
+决定加入哪些标记。具体地，设串长为 <span
+class="math inline">\(l\)</span> ，则长度小于 <span
+class="math inline">\(l\)</span> 的标记都是有效的，考虑前缀和处理。</p>
 <p>最后就是输出方案的问题，因为要求字典序最小，而传统的转移方向会求出翻转后字典序最小的串。</p>
-<p>因此考虑换一个转移方向。用 $f_{i,j}$ 表示总长度为 $i$ 的串，<strong>初始时自动机在位置 $j$</strong> 所可以获得的最大权值。</p>
-<p>这里的区别在于：一般是默认从 $\mathtt{AC}$ 自动机的根出发，枚举最后到了哪里。</p>
-<p>设自动机转移 $j \to k$ ，则我们用 $f_{i+1,k}$ 去更新 $f_{i,j}$ ，这样就可以顺便记录选哪个字符更优，从而输出方案</p>
-<p>时间复杂度 $\mathcal{O}(n \log r \cdot \Sigma^2)$ ，其中 $\Sigma=10$ 为字符集大小，$r = 10^{800}$ 为值域。</p>
+<p>因此考虑换一个转移方向。用 <span
+class="math inline">\(f_{i,j}\)</span> 表示总长度为 <span
+class="math inline">\(i\)</span> 的串，<strong>初始时自动机在位置 <span
+class="math inline">\(j\)</span></strong> 所可以获得的最大权值。</p>
+<p>这里的区别在于：一般是默认从 <span
+class="math inline">\(\mathtt{AC}\)</span>
+自动机的根出发，枚举最后到了哪里。</p>
+<p>设自动机转移 <span class="math inline">\(j \to k\)</span> ，则我们用
+<span class="math inline">\(f_{i+1,k}\)</span> 去更新 <span
+class="math inline">\(f_{i,j}\)</span>
+，这样就可以顺便记录选哪个字符更优，从而输出方案</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log r \cdot
+\Sigma^2)\)</span> ，其中 <span class="math inline">\(\Sigma=10\)</span>
+为字符集大小，<span class="math inline">\(r = 10^{800}\)</span>
+为值域。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -675,10 +732,12 @@ g_v \uparrow g_{\texttt{fail}_v} &&&&\big(a\uparrow b := a \gets a + b\big)
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> n<span class="token punctuation">;</span> i<span class="token punctuation">;</span> t <span class="token operator">=</span> AC<span class="token double-colon punctuation">::</span>d<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">[</span>fr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">--</span>i<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>fr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>t<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token char">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf1110H.html">https://yhx-12243.github.io/OI-transit/records/cf1110H.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zhouyixian/cf1110h-modest-substrings-ti-xie">https://www.luogu.com.cn/blog/zhouyixian/cf1110h-modest-substrings-ti-xie</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf1110H.html">https://yhx-12243.github.io/OI-transit/records/cf1110H.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/zhouyixian/cf1110h-modest-substrings-ti-xie">https://www.luogu.com.cn/blog/zhouyixian/cf1110h-modest-substrings-ti-xie</a></p>
 
                 
             </div>
@@ -1308,7 +1367,7 @@ g_v \uparrow g_{\texttt{fail}_v} &&&&\big(a\uparrow b := a \gets a + b\big)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

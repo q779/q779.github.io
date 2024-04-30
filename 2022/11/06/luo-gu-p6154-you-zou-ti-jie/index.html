@@ -564,29 +564,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6154-游走-题解"><a href="#洛谷P6154-游走-题解" class="headerlink" title="洛谷P6154 游走 题解"></a>洛谷P6154 游走 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6154">P6154 游走</a></p>
+                <h1 id="洛谷p6154-游走-题解">洛谷P6154 游走 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6154">P6154
+游走</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>S 城可以看作一个有 $n$ 个点 $m$ 条边的<strong>有向无环图</strong>。<strong>可能存在重边</strong>。</p>
-<p>cxy 在 S 城随机游走，她会在所有路径中随机选择一条路径，选择所有路径的概率相等。路径的起点和终点可以相同。</p>
-<p>定义一条路径的长度为经过的边数，你需要求出 cxy 走的路径长度的期望，答案对 $998244353$ 取模。</p>
+<p>S 城可以看作一个有 <span class="math inline">\(n\)</span> 个点 <span
+class="math inline">\(m\)</span>
+条边的<strong>有向无环图</strong>。<strong>可能存在重边</strong>。</p>
+<p>cxy 在 S
+城随机游走，她会在所有路径中随机选择一条路径，选择所有路径的概率相等。路径的起点和终点可以相同。</p>
+<p>定义一条路径的长度为经过的边数，你需要求出 cxy
+走的路径长度的期望，答案对 <span
+class="math inline">\(998244353\)</span> 取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个整数 $n,m$。</p>
-<p>接下来 $m$ 行，每行两个整数 $x,y$，表示存在一条从 $x$ 到 $y$ 的有向边。</p>
+<p>第一行两个整数 <span class="math inline">\(n,m\)</span>。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行两个整数 <span
+class="math inline">\(x,y\)</span>，表示存在一条从 <span
+class="math inline">\(x\)</span> 到 <span
+class="math inline">\(y\)</span> 的有向边。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行一个整数，表示答案对 $998244353$ 取模后的值。</p>
+<p>一行一个整数，表示答案对 <span
+class="math inline">\(998244353\)</span> 取模后的值。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n \le 10^5,~0 \le m \le 7\times 10^5$ 。</p>
+<p><span class="math inline">\(1\le n \le 10^5,~0 \le m \le 7\times
+10^5\)</span> 。</p>
 </blockquote>
 <p>期望dp + topo 小清新题~</p>
-<p>设 $f_u$ 表示以 $u$ 为终点的路径总长度，$g_u$ 表示以 $u$ 为终点的路径总条数。</p>
-<p>考虑以拓扑序转移。对于边 $(u,v)$ ，有转移（其中 $a \uparrow b + c$ 表示 <code>a += b+c</code> 。）</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f_u\)</span> 表示以 <span
+class="math inline">\(u\)</span> 为终点的路径总长度，<span
+class="math inline">\(g_u\)</span> 表示以 <span
+class="math inline">\(u\)</span> 为终点的路径总条数。</p>
+<p>考虑以拓扑序转移。对于边 <span class="math inline">\((u,v)\)</span>
+，有转移（其中 <span class="math inline">\(a \uparrow b + c\)</span>
+表示 <code>a += b+c</code> 。） <span class="math display">\[
 f_v \uparrow f_u + g_u\\
-g_v \uparrow g_u</script><p>第一个式子是因为 $f_v$ 为所有以 $u$ 为终点的路径的总长度加上一个增量。</p>
-<p>这个增量就是 $1\ \times$ 以 $u$ 为终点的路径数量，也就是 $g_u$ 。</p>
-<p>那么答案就是 $\frac{\sum f_u}{\sum g_u}$ ，要算个逆元。</p>
-<p>时间复杂度 $\mathcal{O}(n+m)$</p>
+g_v \uparrow g_u
+\]</span> 第一个式子是因为 <span class="math inline">\(f_v\)</span>
+为所有以 <span class="math inline">\(u\)</span>
+为终点的路径的总长度加上一个增量。</p>
+<p>这个增量就是 <span class="math inline">\(1\ \times\)</span> 以 <span
+class="math inline">\(u\)</span> 为终点的路径数量，也就是 <span
+class="math inline">\(g_u\)</span> 。</p>
+<p>那么答案就是 <span class="math inline">\(\frac{\sum f_u}{\sum
+g_u}\)</span> ，要算个逆元。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n+m)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -642,9 +664,10 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
     cout <span class="token operator">&lt;&lt;</span> A <span class="token operator">*</span> <span class="token function">inv</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/80049/solution-p6154">https://www.luogu.com.cn/blog/80049/solution-p6154</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/80049/solution-p6154">https://www.luogu.com.cn/blog/80049/solution-p6154</a></p>
 
                 
             </div>
@@ -1279,7 +1302,7 @@ queue<span class="token operator">&lt;</span><span class="token keyword">int</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

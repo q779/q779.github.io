@@ -560,28 +560,46 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1572B-Xor-of-3-题解"><a href="#CF1572B-Xor-of-3-题解" class="headerlink" title="CF1572B Xor of 3 题解"></a>CF1572B Xor of 3 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1572B">Xor of 3</a></p>
+                <h1 id="cf1572b-xor-of-3-题解">CF1572B Xor of 3 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1572B">Xor of
+3</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个 $01$ 序列，一次操作可以选择连续的三个数，把它们<strong>都变成</strong>它们的异或和。</p>
-<p>问能否在 $n$ 次以内把所有数变成 $0$​，输出方案（操作 $i$ 则修改 $a_i,~a_{i+1},~a_{i+2}$ ）</p>
+<p>给出一个 <span class="math inline">\(01\)</span>
+序列，一次操作可以选择连续的三个数，把它们<strong>都变成</strong>它们的异或和。</p>
+<p>问能否在 <span class="math inline">\(n\)</span> 次以内把所有数变成
+<span class="math inline">\(0\)</span>​，输出方案（操作 <span
+class="math inline">\(i\)</span> 则修改 <span
+class="math inline">\(a_i,~a_{i+1},~a_{i+2}\)</span> ）</p>
 <p><strong>输入格式</strong>：</p>
-<p>多组数据，每组数据给出 $n$ 和 $n$ 个数。</p>
+<p>多组数据，每组数据给出 <span class="math inline">\(n\)</span> 和
+<span class="math inline">\(n\)</span> 个数。</p>
 <p><strong>输出格式</strong>：</p>
 <p>有解输出一行 <code>YES</code> ，否则输出 <code>NO</code> 。</p>
 <p>如果有解，输出一行表示步骤数（可以不是最少次数），接着一行若干个数表示操作位置</p>
 <p><strong>数据范围</strong>：</p>
-<p>$3 \le \sum n \le 2\times10^5$</p>
+<p><span class="math inline">\(3 \le \sum n \le 2\times10^5\)</span></p>
 </blockquote>
-<p>感觉这道题在哪里听过思路了，今天找到原题了。思路还是比较有意思的。（upd.其实是 <a href="/2024/04/10/cf1438d-powerful-ksenia-ti-jie/">CF1438D</a>）</p>
-<p>因为题目要全部变成 $0$ ，所以与异或和性质就显得十分关键。</p>
-<p>容易发现，每次操作后所有数的异或和不会改变，因此异或和为 $0$ 是有解的一个必要条件（但是不充分）</p>
-<p>首先考虑 $n$ 为奇数的情况，如果我们在 $n-2,~n-4,~\cdots,~1$​ 分别操作一次</p>
-<p>此时 $a_1=0$ ，且其他的数呈现 <code>AABBCCDD</code> 的状态，即 $a_{2k}=a_{2k+1}$ 。</p>
-<p>接着我们再对 $1,~3,~\cdots,~n-2$ 分别操作一次，则序列就会变成全 $0$​ 。</p>
-<p>$n$ 为偶数的情况也很简单。我们只需要找到一个长度为奇数的前缀，使其变成全 $0$​ 即可套用奇数的情况</p>
+<p>感觉这道题在哪里听过思路了，今天找到原题了。思路还是比较有意思的。（upd.其实是
+<a href="/2024/04/10/cf1438d-powerful-ksenia-ti-jie/">CF1438D</a>）</p>
+<p>因为题目要全部变成 <span class="math inline">\(0\)</span>
+，所以与异或和性质就显得十分关键。</p>
+<p>容易发现，每次操作后所有数的异或和不会改变，因此异或和为 <span
+class="math inline">\(0\)</span> 是有解的一个必要条件（但是不充分）</p>
+<p>首先考虑 <span class="math inline">\(n\)</span>
+为奇数的情况，如果我们在 <span
+class="math inline">\(n-2,~n-4,~\cdots,~1\)</span>​ 分别操作一次</p>
+<p>此时 <span class="math inline">\(a_1=0\)</span> ，且其他的数呈现
+<code>AABBCCDD</code> 的状态，即 <span
+class="math inline">\(a_{2k}=a_{2k+1}\)</span> 。</p>
+<p>接着我们再对 <span class="math inline">\(1,~3,~\cdots,~n-2\)</span>
+分别操作一次，则序列就会变成全 <span class="math inline">\(0\)</span>​
+。</p>
+<p><span class="math inline">\(n\)</span>
+为偶数的情况也很简单。我们只需要找到一个长度为奇数的前缀，使其变成全
+<span class="math inline">\(0\)</span>​ 即可套用奇数的情况</p>
 <p>说实话我觉得这道题有那么点构造的感觉，实际上手玩玩就会发现这些性质，只是可能没想到怎么做罢了</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -633,10 +651,12 @@
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6c8rr6ql">https://www.luogu.com.cn/article/6c8rr6ql</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/afj6tai5">https://www.luogu.com.cn/article/afj6tai5</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6c8rr6ql">https://www.luogu.com.cn/article/6c8rr6ql</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/afj6tai5">https://www.luogu.com.cn/article/afj6tai5</a></p>
 
                 
             </div>
@@ -1272,7 +1292,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

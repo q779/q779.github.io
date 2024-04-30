@@ -564,34 +564,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4322-JSOI2016-最佳团体-题解"><a href="#洛谷P4322-JSOI2016-最佳团体-题解" class="headerlink" title="洛谷P4322 [JSOI2016]最佳团体 题解"></a>洛谷P4322 [JSOI2016]最佳团体 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4322">P4322 [JSOI2016]最佳团体</a></p>
+                <h1 id="洛谷p4322-jsoi2016最佳团体-题解">洛谷P4322 [JSOI2016]最佳团体
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4322">P4322
+[JSOI2016]最佳团体</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>JSOI 信息学代表队一共有 $N$ 名候选人，这些候选人从 $1$ 到 $N$ 编号。方便起见，JYY 的编号是 $0$ 号。每个候选人都由一位编号比他小的候选人$R_i$ 推荐。如果 $R_i = 0$，则说明这个候选人是 JYY 自己看上的。</p>
-<p>为了保证团队的和谐，JYY 需要保证，如果招募了候选人 $i$，那么候选人 $R_i$ 也一定需要在团队中。当然了，JYY 自己总是在团队里的。每一个候选人都有一个战斗值 $P_i$ ，也有一个招募费用 $S_i$ 。JYY 希望招募 $K$ 个候选人（JYY 自己不算），组成一个性价比最高的团队。也就是，这 $K$ 个被 JYY 选择的候选人的总战斗值与总招募费用的比值最大。</p>
-<p>对于100%的数据满足$1≤K≤N≤2500$,$0&lt;S_i,P_i≤10^4$ ,<br>$0$ $≤$ $R_i$ $&lt;$ $i$</p>
-<p>下面的讲述用 $m$ 代替 $K$ ，$n$ 代替 $N$ 。</p>
+<p>JSOI 信息学代表队一共有 <span class="math inline">\(N\)</span>
+名候选人，这些候选人从 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span> 编号。方便起见，JYY 的编号是 <span
+class="math inline">\(0\)</span>
+号。每个候选人都由一位编号比他小的候选人<span
+class="math inline">\(R_i\)</span> 推荐。如果 <span
+class="math inline">\(R_i = 0\)</span>，则说明这个候选人是 JYY
+自己看上的。</p>
+<p>为了保证团队的和谐，JYY 需要保证，如果招募了候选人 <span
+class="math inline">\(i\)</span>，那么候选人 <span
+class="math inline">\(R_i\)</span> 也一定需要在团队中。当然了，JYY
+自己总是在团队里的。每一个候选人都有一个战斗值 <span
+class="math inline">\(P_i\)</span> ，也有一个招募费用 <span
+class="math inline">\(S_i\)</span> 。JYY 希望招募 <span
+class="math inline">\(K\)</span> 个候选人（JYY
+自己不算），组成一个性价比最高的团队。也就是，这 <span
+class="math inline">\(K\)</span> 个被 JYY
+选择的候选人的总战斗值与总招募费用的比值最大。</p>
+<p>对于100%的数据满足<span
+class="math inline">\(1≤K≤N≤2500\)</span>,<span
+class="math inline">\(0&lt;S_i,P_i≤10^4\)</span> , <span
+class="math inline">\(0\)</span> <span class="math inline">\(≤\)</span>
+<span class="math inline">\(R_i\)</span> <span
+class="math inline">\(&lt;\)</span> <span
+class="math inline">\(i\)</span></p>
+<p>下面的讲述用 <span class="math inline">\(m\)</span> 代替 <span
+class="math inline">\(K\)</span> ，<span
+class="math inline">\(n\)</span> 代替 <span
+class="math inline">\(N\)</span> 。</p>
 </blockquote>
 <p>这个分数怎么dp呢？</p>
 <p>其实这题就是01分数规划+树上背包的<del>简单</del>有趣题</p>
-<p>设某次选择的答案为</p>
-<script type="math/tex; mode=display">
-\sum P_i \times \dfrac{1}{\sum S_i}</script><p>设</p>
-<script type="math/tex; mode=display">
-\sum P_i \times \dfrac{1}{\sum S_i} \ge x</script><p>移项可得</p>
-<script type="math/tex; mode=display">
-\sum(P_i-xS_i) \ge 0</script><p>二分一个 $x$ ，注意 $x$ 为<strong>实数</strong>且 $x \in [1,10^4]$</p>
-<p>则dp的价值就变成了价值为 $C_i = P_i - x S_i$ 的人 $i$ </p>
-<p>设 $dp[u][j]$ 表示 $u$ 子树选恰好 $j$ 个人时能获得的最大价值</p>
-<p>则有转移方程</p>
-<script type="math/tex; mode=display">
-dp[u][j+k]=\max_{1 \le j \le \min(m,\text{sz}[u]),0 \le k \le \min(m,\text{sz}[v])}(dp[u][j+k],\text{tmp}[j] + dp[v][k])</script><p>其中 $\text{tmp}[j]$ 为上一轮的 $dp[u][j]$ </p>
-<p>因为选了儿子一定要选父亲，因此转移时 $j$ 要从 $1$ 开始</p>
-<p>然后我们直接把 $0$ 当做一个没有价值的人，然后把<code>m=m+1</code></p>
-<p>每次二分时判断 $dp[u][m]\ge0$ 是否成立，成立就<code>l=mid</code></p>
+<p>设某次选择的答案为 <span class="math display">\[
+\sum P_i \times \dfrac{1}{\sum S_i}
+\]</span> 设 <span class="math display">\[
+\sum P_i \times \dfrac{1}{\sum S_i} \ge x
+\]</span> 移项可得 <span class="math display">\[
+\sum(P_i-xS_i) \ge 0
+\]</span> 二分一个 <span class="math inline">\(x\)</span> ，注意 <span
+class="math inline">\(x\)</span> 为<strong>实数</strong>且 <span
+class="math inline">\(x \in [1,10^4]\)</span></p>
+<p>则dp的价值就变成了价值为 <span class="math inline">\(C_i = P_i - x
+S_i\)</span> 的人 <span class="math inline">\(i\)</span></p>
+<p>设 <span class="math inline">\(dp[u][j]\)</span> 表示 <span
+class="math inline">\(u\)</span> 子树选恰好 <span
+class="math inline">\(j\)</span> 个人时能获得的最大价值</p>
+<p>则有转移方程 <span class="math display">\[
+dp[u][j+k]=\max_{1 \le j \le \min(m,\text{sz}[u]),0 \le k \le
+\min(m,\text{sz}[v])}(dp[u][j+k],\text{tmp}[j] + dp[v][k])
+\]</span> 其中 <span class="math inline">\(\text{tmp}[j]\)</span>
+为上一轮的 <span class="math inline">\(dp[u][j]\)</span></p>
+<p>因为选了儿子一定要选父亲，因此转移时 <span
+class="math inline">\(j\)</span> 要从 <span
+class="math inline">\(1\)</span> 开始</p>
+<p>然后我们直接把 <span class="math inline">\(0\)</span>
+当做一个没有价值的人，然后把<code>m=m+1</code></p>
+<p>每次二分时判断 <span class="math inline">\(dp[u][m]\ge0\)</span>
+是否成立，成立就<code>l=mid</code></p>
 <p>然后每次dp的时候sz都要重新算，否则复杂度是假的。</p>
 <p>细节比较多，详见代码。</p>
-<p>时间复杂度 $O(\log_2 10^4 \times nm)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(\log_2 10^4 \times
+nm)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1301,7 +1341,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

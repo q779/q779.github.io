@@ -556,127 +556,195 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="放球问题"><a href="#放球问题" class="headerlink" title="放球问题"></a>放球问题</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><ul>
-<li>给定 $n$ 个（有标号/无标号）的球</li>
-<li>放到 $m$ 个（有标号/无标号）的盒子里</li>
+                <h1 id="放球问题">放球问题</h1>
+<h2 id="题目描述">题目描述</h2>
+<ul>
+<li>给定 <span class="math inline">\(n\)</span>
+个（有标号/无标号）的球</li>
+<li>放到 <span class="math inline">\(m\)</span>
+个（有标号/无标号）的盒子里</li>
 <li>每个盒子（可空/不可空）</li>
 </ul>
 <p>注：“可空”表示可以有空的盒子，但不能全是空的盒子。</p>
 <p><br></p>
 <p>一些可能会出现的东西：</p>
-<p>$A_{m}^n$ ：$n$ 个元素选 $m$ 个元素的排列。</p>
-<p>$S(n,m)$ 为<a href="/2022/07/29/oi-shu-xue-zong-jie-zu-he-shu-xue/#toc-heading-12">第二类斯特林数</a>，表示将 $n$ 个<strong>不同</strong>元素划分为 $m$ 个<strong>无区别</strong>的<strong>非空子集</strong>的方案数，有</p>
-<script type="math/tex; mode=display">
+<p><span class="math inline">\(A_{m}^n\)</span> ：<span
+class="math inline">\(n\)</span> 个元素选 <span
+class="math inline">\(m\)</span> 个元素的排列。</p>
+<p><span class="math inline">\(S(n,m)\)</span> 为<a
+href="/2022/07/29/oi-shu-xue-zong-jie-zu-he-shu-xue/#toc-heading-12">第二类斯特林数</a>，表示将
+<span class="math inline">\(n\)</span> 个<strong>不同</strong>元素划分为
+<span class="math inline">\(m\)</span>
+个<strong>无区别</strong>的<strong>非空子集</strong>的方案数，有 <span
+class="math display">\[
 S(n,0)=[n=0]
-\\[6pt] S(n,m) = S(n-1,m-1) + mS(n-1,m)</script><hr>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><ol>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n \ge m)$ 个「无标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：可以把原问题看作：有 $m$ 种质量为 $1,2,\cdots,m$ 的砝码若干，求质量为 $n-m$ 的方案数。</p>
-<p>定义生成函数 $F(x)$ </p>
-<script type="math/tex; mode=display">
+\\[6pt] S(n,m) = S(n-1,m-1) + mS(n-1,m)
+\]</span></p>
+<hr />
+<h2 id="解法">解法</h2>
+<ol type="1">
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n \ge m)\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：可以把原问题看作：有 <span
+class="math inline">\(m\)</span> 种质量为 <span
+class="math inline">\(1,2,\cdots,m\)</span> 的砝码若干，求质量为 <span
+class="math inline">\(n-m\)</span> 的方案数。</p>
+<p>定义生成函数 <span class="math inline">\(F(x)\)</span> <span
+class="math display">\[
 \begin{aligned}
-F(x) &= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots) 
+F(x) &amp;= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots)
 \times \cdots \times (1 + x^m + x^{2m} + \cdots)
-\\[6pt]&=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^m\right)}
-\end{aligned}</script><p>答案即为 $[x^{n-m}]F(x)$ ，即生成函数第 $n-m$ 项的系数。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n &lt; m)$ 个「无标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：显然此时答案为 $0$ 。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n\ge m)$ 个「无标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：可以把原问题看作：有 $m$ 种质量为 $1,2,\cdots,m$ 的砝码若干，求质量为 $n$ 的方案数。</p>
-<p>定义生成函数 $F(x)$ </p>
-<script type="math/tex; mode=display">
+\\[6pt]&amp;=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^m\right)}
+\end{aligned}
+\]</span> 答案即为 <span class="math inline">\([x^{n-m}]F(x)\)</span>
+，即生成函数第 <span class="math inline">\(n-m\)</span> 项的系数。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：显然此时答案为 <span
+class="math inline">\(0\)</span> 。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n\ge m)\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：可以把原问题看作：有 <span
+class="math inline">\(m\)</span> 种质量为 <span
+class="math inline">\(1,2,\cdots,m\)</span> 的砝码若干，求质量为 <span
+class="math inline">\(n\)</span> 的方案数。</p>
+<p>定义生成函数 <span class="math inline">\(F(x)\)</span> <span
+class="math display">\[
 \begin{aligned}
-F(x) &= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots) 
+F(x) &amp;= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots)
 \times \cdots \times (1 + x^m + x^{2m} + \cdots)
-\\[6pt]&=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^m\right)}
-\end{aligned}</script><p>答案即为 $[x^n]F(x)$ ，即生成函数第 $n$ 项的系数。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n&lt; m)$ 个「无标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：可以把原问题看作：有 $n$ 种质量为 $1,2,\cdots,n$ 的砝码若干，求质量为 $n$ 的方案数。</p>
-<p>为什么是 $1$ 到 $n$ 的砝码呢？因为 $m &gt; n$ 时质量为 $n$ 的砝码不存在。</p>
-<p>定义生成函数 $F(x)$ </p>
-<script type="math/tex; mode=display">
+\\[6pt]&amp;=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^m\right)}
+\end{aligned}
+\]</span> 答案即为 <span class="math inline">\([x^n]F(x)\)</span>
+，即生成函数第 <span class="math inline">\(n\)</span> 项的系数。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n&lt; m)\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：可以把原问题看作：有 <span
+class="math inline">\(n\)</span> 种质量为 <span
+class="math inline">\(1,2,\cdots,n\)</span> 的砝码若干，求质量为 <span
+class="math inline">\(n\)</span> 的方案数。</p>
+<p>为什么是 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span> 的砝码呢？因为 <span
+class="math inline">\(m &gt; n\)</span> 时质量为 <span
+class="math inline">\(n\)</span> 的砝码不存在。</p>
+<p>定义生成函数 <span class="math inline">\(F(x)\)</span> <span
+class="math display">\[
 \begin{aligned}
-F(x) &= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots) 
+F(x) &amp;= (1 + x^1 + x^2 + \cdots)\times(1+x^2 + x^4 + \cdots)
 \times \cdots \times (1 + x^n + x^{2n} + \cdots)
-\\[6pt]&=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^n\right)}
-\end{aligned}</script><p>答案即为 $[x^n]F(x)$ ，即生成函数第 $n$ 项的系数。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n\ge m)$ 个「有标号」的盒子里，每个盒子「不可空」</p>
-<p>解：问题等价于求解下面方程的解的个数</p>
-<script type="math/tex; mode=display">
-x_1 + x_2 + \cdots + x_m = n \qquad(x_i \in \mathbb{Z}_+)</script><p>考虑插空法。将 $m-1$ 个隔板插到 $n-1$ 个空隙中（空隙只能放至多一个）</p>
-<p>则方案数为</p>
-<script type="math/tex; mode=display">
-\dbinom{n-1}{m-1}</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n &lt; m)$ 个「有标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：显然此时答案为 $0$ 。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n \ge m)$ 个「有标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：和问题5差不多，只不过 $x_i \in \mathbb{N}$ ，我们只要令 $y_i = x_i+1$ ，就i转化为了</p>
-<script type="math/tex; mode=display">
-y_1 + y_2 + \cdots + y_m = n + m\qquad(y_i \in \mathbb{Z_+})</script><p>则方案数为</p>
-<script type="math/tex; mode=display">
-\dbinom{n+m-1}{m-1}</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「无标号」的球，放到 $m(n &lt; m)$ 个「有标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：此问题和问题7等价，方案数同样为</p>
-<script type="math/tex; mode=display">
-\dbinom{n+m-1}{m-1}</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n\ge m)$ 个「无标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：根据第二类斯特林数的定义易得</p>
-<script type="math/tex; mode=display">
-S(n,m)</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n &lt; m)$ 个「无标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：显然此时答案为 $0$ 。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n \ge m)$ 个「无标号」的盒子里，每个盒子「可空」</p>
-<p>解：枚举非空盒子的个数，注意不能全为空</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{m}S(n,i)</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n &lt; m)$ 个「无标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：和问题11一样，只不过可以去掉贡献为 $0$ 的情况</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}S(n,i)</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n\ge m)$ 个「有标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：枚举 $m$ 个盒子的全排列即可</p>
-<script type="math/tex; mode=display">
-m!S(n,m)</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n &lt; m)$ 个「有标号」的盒子里，每个盒子「不可空」</p>
-<p><strong>解</strong>：显然此时答案为 $0$ 。</p>
-<p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n \ge m)$ 个「有标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：这等价于给每个球染色，可以有颜色没有被用到</p>
-<script type="math/tex; mode=display">
-m^n</script><p><br></p>
-</li>
-<li><p>给定 $n$ 个「有标号」的球，放到 $m(n &lt; m)$ 个「有标号」的盒子里，每个盒子「可空」</p>
-<p><strong>解</strong>：这等价于给每个球染色，可以有颜色没有被用到</p>
-<script type="math/tex; mode=display">
-m^n</script></li>
+\\[6pt]&amp;=\frac{1}{(1-x)\left(1-x^2\right) \ldots\left(1-x^n\right)}
+\end{aligned}
+\]</span> 答案即为 <span class="math inline">\([x^n]F(x)\)</span>
+，即生成函数第 <span class="math inline">\(n\)</span> 项的系数。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n\ge m)\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p>解：问题等价于求解下面方程的解的个数 <span class="math display">\[
+x_1 + x_2 + \cdots + x_m = n \qquad(x_i \in \mathbb{Z}_+)
+\]</span> 考虑插空法。将 <span class="math inline">\(m-1\)</span>
+个隔板插到 <span class="math inline">\(n-1\)</span>
+个空隙中（空隙只能放至多一个）</p>
+<p>则方案数为 <span class="math display">\[
+\dbinom{n-1}{m-1}
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：显然此时答案为 <span
+class="math inline">\(0\)</span> 。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n \ge m)\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：和问题5差不多，只不过 <span
+class="math inline">\(x_i \in \mathbb{N}\)</span> ，我们只要令 <span
+class="math inline">\(y_i = x_i+1\)</span> ，就i转化为了 <span
+class="math display">\[
+y_1 + y_2 + \cdots + y_m = n + m\qquad(y_i \in \mathbb{Z_+})
+\]</span> 则方案数为 <span class="math display">\[
+\dbinom{n+m-1}{m-1}
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「无标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：此问题和问题7等价，方案数同样为 <span
+class="math display">\[
+\dbinom{n+m-1}{m-1}
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n\ge m)\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：根据第二类斯特林数的定义易得 <span
+class="math display">\[
+S(n,m)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「无标号」的盒子里，每个盒子「不可空」</p></li>
 </ol>
-<hr>
-<h2 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h2><p>懒得自己画了，看看百度百科的吧。</p>
-<p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202401312112957.png" alt=""></p>
-<hr>
+<p><strong>解</strong>：显然此时答案为 <span
+class="math inline">\(0\)</span> 。</p>
+<p><br></p>
+<ol start="11" type="1">
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n \ge m)\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p>解：枚举非空盒子的个数，注意不能全为空 <span class="math display">\[
+\sum_{i=1}^{m}S(n,i)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「无标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：和问题11一样，只不过可以去掉贡献为 <span
+class="math inline">\(0\)</span> 的情况 <span class="math display">\[
+\sum_{i=1}^{n}S(n,i)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n\ge m)\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：枚举 <span class="math inline">\(m\)</span>
+个盒子的全排列即可 <span class="math display">\[
+m!S(n,m)
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「有标号」的盒子里，每个盒子「不可空」</p>
+<p><strong>解</strong>：显然此时答案为 <span
+class="math inline">\(0\)</span> 。</p>
+<p><br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n \ge m)\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：这等价于给每个球染色，可以有颜色没有被用到 <span
+class="math display">\[
+m^n
+\]</span> <br></p></li>
+<li><p>给定 <span class="math inline">\(n\)</span>
+个「有标号」的球，放到 <span class="math inline">\(m(n &lt; m)\)</span>
+个「有标号」的盒子里，每个盒子「可空」</p>
+<p><strong>解</strong>：这等价于给每个球染色，可以有颜色没有被用到 <span
+class="math display">\[
+m^n
+\]</span></p></li>
+</ol>
+<hr />
+<h2 id="总结表格">总结表格</h2>
+<p>懒得自己画了，看看百度百科的吧。</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202401312112957.png" /></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
 <p>难得百度百科写的还算全。</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706">https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706">https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706</a></p>
 
                 
             </div>
@@ -1299,7 +1367,7 @@ m^n</script></li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             

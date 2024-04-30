@@ -556,39 +556,67 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P9087-「SvR-2」音符-题解"><a href="#洛谷P9087-「SvR-2」音符-题解" class="headerlink" title="洛谷P9087 「SvR-2」音符 题解"></a>洛谷P9087 「SvR-2」音符 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9087">P9087 「SvR-2」音符</a></p>
+                <h1 id="洛谷p9087-svr-2音符-题解">洛谷P9087 「SvR-2」音符 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9087">P9087
+「SvR-2」音符</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>我们用一个字符串代替一份乐谱，用字符代替每一个音符。</p>
-<p>我们定义「重音」表示乐谱中出现了两个<strong>连续</strong>的相同字符，如 $\tt eeeee$ 中存在 $4$ 个「重音」。</p>
-<p>现在 Sept 准备写一份长度为 $n$ 的乐谱给 Tpes 看，他对乐谱的评价标准如下：</p>
+<p>我们定义「重音」表示乐谱中出现了两个<strong>连续</strong>的相同字符，如
+<span class="math inline">\(\tt eeeee\)</span> 中存在 <span
+class="math inline">\(4\)</span> 个「重音」。</p>
+<p>现在 Sept 准备写一份长度为 <span class="math inline">\(n\)</span>
+的乐谱给 Tpes 看，他对乐谱的评价标准如下：</p>
 <ul>
-<li>乐谱中每出现一个「重音」，他的愤怒值就会增加 $a$。</li>
-<li>乐谱中每有一段长度为 $k$ 的<strong>子串</strong>中不存在「重音」，他的愤怒值就会增加 $b$。</li>
+<li>乐谱中每出现一个「重音」，他的愤怒值就会增加 <span
+class="math inline">\(a\)</span>。</li>
+<li>乐谱中每有一段长度为 <span class="math inline">\(k\)</span>
+的<strong>子串</strong>中不存在「重音」，他的愤怒值就会增加 <span
+class="math inline">\(b\)</span>。</li>
 </ul>
-<p>现在已知 $n,k,a,b$，请你帮 Sept 构造出一份乐谱，使得 Tpes 的愤怒值 $x$ <strong>最小</strong>。</p>
+<p>现在已知 <span class="math inline">\(n,k,a,b\)</span>，请你帮 Sept
+构造出一份乐谱，使得 Tpes 的愤怒值 <span
+class="math inline">\(x\)</span> <strong>最小</strong>。</p>
 <p><strong>输入格式</strong>:</p>
 <p>本题有多组数据。</p>
-<p>第一行一个整数 $T$，表示数据组数。</p>
-<p>接下来 $T$ 行，每行两个整数 $n,k,a,b$，意义如题目所述。</p>
+<p>第一行一个整数 <span
+class="math inline">\(T\)</span>，表示数据组数。</p>
+<p>接下来 <span class="math inline">\(T\)</span> 行，每行两个整数 <span
+class="math inline">\(n,k,a,b\)</span>，意义如题目所述。</p>
 <p>输出格式</p>
-<p>共 $2 \cdot T$ 行，对于每组数据都输出两行：</p>
+<p>共 <span class="math inline">\(2 \cdot T\)</span>
+行，对于每组数据都输出两行：</p>
 <ul>
-<li>第 1 行表示 Tpes 最小的愤怒值 $x$。</li>
+<li>第 1 行表示 Tpes 最小的愤怒值 <span
+class="math inline">\(x\)</span>。</li>
 <li>第 2 行表示你构造出的乐谱。</li>
 </ul>
 <p><strong>数据范围</strong>：</p>
-<p>$2\le T\le 100$，$2\le n,k\le 10^5$，$1\le a,b\le 10^9$。单组数据内保证 $\sum n\le 2\times 10^5$。</p>
+<p><span class="math inline">\(2\le T\le 100\)</span>，<span
+class="math inline">\(2\le n,k\le 10^5\)</span>，<span
+class="math inline">\(1\le a,b\le 10^9\)</span>。单组数据内保证 <span
+class="math inline">\(\sum n\le 2\times 10^5\)</span>。</p>
 <p><strong>输出注意事项</strong>：</p>
-<p>输出 $x$ 和构造乐谱可以看作是两个子问题，如果你只会完成其中的一个，请在另一个子问题对应的地方用<strong>符合要求的字符或数字</strong>占位。</p>
+<p>输出 <span class="math inline">\(x\)</span>
+和构造乐谱可以看作是两个子问题，如果你只会完成其中的一个，请在另一个子问题对应的地方用<strong>符合要求的字符或数字</strong>占位。</p>
 <p>乐谱中你可以输出任意字符，包括数字、大小写字母等，但<strong>不能出现空格</strong>。</p>
 </blockquote>
 <p>勉强可以算一个简单构造题吧。</p>
-<p>考虑一个 $\mathrm{XX}$ 放到字符串中至多可以拯救多少长为 $k$ 的区间。</p>
-<p>根据经验，我们把每个 $\mathrm{XX}$ 相距 $k-2$ 放置，则一个 $\mathrm{XX}$ 刚好可以救下 $k-1$ 个区间。</p>
-<p>那么如果我们不放的花费就是 $k-1\times b~(\le a)$ ，否则如果大于 $a$ 一定会放一个 $\mathrm{XX}$ 。</p>
-<p>可以发现，这里的 $k-2$ 在 $k=2$ 时会有些不同，于是我们对其特判一下即可。</p>
-<p>时间复杂度 $\mathcal{O}(\sum n_i)$</p>
+<p>考虑一个 <span class="math inline">\(\mathrm{XX}\)</span>
+放到字符串中至多可以拯救多少长为 <span class="math inline">\(k\)</span>
+的区间。</p>
+<p>根据经验，我们把每个 <span class="math inline">\(\mathrm{XX}\)</span>
+相距 <span class="math inline">\(k-2\)</span> 放置，则一个 <span
+class="math inline">\(\mathrm{XX}\)</span> 刚好可以救下 <span
+class="math inline">\(k-1\)</span> 个区间。</p>
+<p>那么如果我们不放的花费就是 <span class="math inline">\(k-1\times
+b~(\le a)\)</span> ，否则如果大于 <span class="math inline">\(a\)</span>
+一定会放一个 <span class="math inline">\(\mathrm{XX}\)</span> 。</p>
+<p>可以发现，这里的 <span class="math inline">\(k-2\)</span> 在 <span
+class="math inline">\(k=2\)</span>
+时会有些不同，于是我们对其特判一下即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(\sum
+n_i)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -620,9 +648,10 @@
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/MarchKidJoe/post-114514-post">https://www.luogu.com.cn/blog/MarchKidJoe/post-114514-post</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/MarchKidJoe/post-114514-post">https://www.luogu.com.cn/blog/MarchKidJoe/post-114514-post</a></p>
 
                 
             </div>
@@ -1241,7 +1270,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">968.7k</span>&nbsp;字
+                class="white-color">993.1k</span>&nbsp;字
             
             
             
