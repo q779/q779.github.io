@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         background: 
-#FFF;
+#FCEEF8;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
     }
     .loading-image{
         width: 120px;
@@ -91,7 +91,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -102,7 +102,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -128,7 +128,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#49b1f5;
+#9400D3;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -173,7 +173,7 @@ rgba(0,0,0,0.2);
             // document.getElementById("body-wrap").style.display="flex";
             setTimeout(function(){
                 loader.style.display="none";
-            },2500); 
+            },200); 
         },1000);//强制显示loading page 1s  
     };
     loaded();
@@ -724,44 +724,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2024-noi2001-食物链-题解">洛谷P2024 [NOI2001] 食物链
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2024">P2024
-[NOI2001] 食物链</a></p>
+                <h1 id="洛谷P2024-NOI2001-食物链-题解"><a href="#洛谷P2024-NOI2001-食物链-题解" class="headerlink" title="洛谷P2024 [NOI2001] 食物链 题解"></a>洛谷P2024 [NOI2001] 食物链 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2024">P2024 [NOI2001] 食物链</a></p>
 <blockquote>
-<p><strong>题意</strong>：动物王国中有三类动物
-A,B,C，这三类动物的食物链构成了有趣的环形。A 吃 B，B 吃 C，C 吃 A。</p>
-<p>现有 N 个动物，以 1 － N 编号。每个动物都是 A,B,C
-中的一种，但是我们并不知道它到底是哪一种。</p>
+<p><strong>题意</strong>：动物王国中有三类动物 A,B,C，这三类动物的食物链构成了有趣的环形。A 吃 B，B 吃 C，C 吃 A。</p>
+<p>现有 N 个动物，以 1 － N 编号。每个动物都是 A,B,C 中的一种，但是我们并不知道它到底是哪一种。</p>
 <p>有人用两种说法对这 N 个动物所构成的食物链关系进行描述：</p>
 <ul>
 <li>第一种说法是<code>1 X Y</code>，表示 X 和 Y 是同类。</li>
 <li>第二种说法是<code>2 X Y</code>，表示 X 吃 Y 。</li>
 </ul>
-<p>此人对 N 个动物，用上述两种说法，一句接一句地说出 K 句话，这 K
-句话有的是真的，有的是假的。当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
+<p>此人对 N 个动物，用上述两种说法，一句接一句地说出 K 句话，这 K 句话有的是真的，有的是假的。当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
 <ul>
 <li>当前的话与前面的某些真的话冲突，就是假话</li>
 <li>当前的话中 X 或 Y 比 N 大，就是假话</li>
 <li>当前的话表示 X 吃 X，就是假话</li>
 </ul>
 <p>你的任务是根据给定的 N 和 K 句话，输出假话的总数。</p>
-<p><span class="math inline">\(1 \le N \le 5\times10^4,~1 \le K \le
-10^5\)</span></p>
+<p>$1 \le N \le 5\times10^4,~1 \le K \le 10^5$</p>
 </blockquote>
 <p>考虑种类并查集。</p>
 <p>我们维护三个并查集，分别存同类、食物和天敌</p>
-<p>这里可以用1倍~3倍来划分，即
-<code>x</code>，<code>x+n</code>，<code>x+2*n</code></p>
-<p>例如 <code>x</code> 和 <code>x+n</code> 合并，表示 <code>x</code>
-及其同类均能吃 <code>x+n</code> 及其同类</p>
+<p>这里可以用1倍~3倍来划分，即 <code>x</code>，<code>x+n</code>，<code>x+2*n</code></p>
+<p>例如 <code>x</code> 和 <code>x+n</code> 合并，表示 <code>x</code> 及其同类均能吃 <code>x+n</code> 及其同类</p>
 <p>不用A,B,C作为划分依据是因为题目没说每个动物的种类</p>
 <p>并且在本题中，准确的种类并没有什么用处。</p>
 <p>对于「X和Y是同类」，看上去只要把同类的并查集合并</p>
 <p>但其实其他两个并查集也要合并，因为有可能X存在已知的天敌</p>
 <p>而X和Y是同类，所以Y也有这个(些)天敌</p>
 <p>同样的，对于「X吃Y」，也需要对两两关系进行处理</p>
-<p>时间复杂度 <span class="math inline">\(O(m)\)</span></p>
+<p>时间复杂度 $O(m)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -808,8 +799,7 @@ A,B,C，这三类动物的食物链构成了有趣的环形。A 吃 B，B 吃 C�
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong></p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/DanKuroto/solution-p2024">https://www.luogu.com.cn/blog/DanKuroto/solution-p2024</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/DanKuroto/solution-p2024">https://www.luogu.com.cn/blog/DanKuroto/solution-p2024</a></p>
 
                 
             </div>
@@ -1446,7 +1436,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/DanKuroto/sol
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1011.1k</span>&nbsp;字
+                class="white-color">986.9k</span>&nbsp;字
             
             
             
@@ -1805,21 +1795,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

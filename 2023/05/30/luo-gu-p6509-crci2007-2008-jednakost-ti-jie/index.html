@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         background: 
-#FFF;
+#FCEEF8;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
     }
     .loading-image{
         width: 120px;
@@ -91,7 +91,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -102,7 +102,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -128,7 +128,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#49b1f5;
+#9400D3;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -173,7 +173,7 @@ rgba(0,0,0,0.2);
             // document.getElementById("body-wrap").style.display="flex";
             setTimeout(function(){
                 loader.style.display="none";
-            },2500); 
+            },200); 
         },1000);//强制显示loading page 1s  
     };
     loaded();
@@ -704,7 +704,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    648
+                    641
                 </div>
                 
 
@@ -724,22 +724,11 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p6509-crci2007-2008-jednakost-题解">洛谷P6509
-[CRCI2007-2008] JEDNAKOST 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6509">洛谷P6509
-[CRCI2007-2008] JEDNAKOST</a></p>
+                <h1 id="洛谷P6509-CRCI2007-2008-JEDNAKOST-题解"><a href="#洛谷P6509-CRCI2007-2008-JEDNAKOST-题解" class="headerlink" title="洛谷P6509 [CRCI2007-2008] JEDNAKOST 题解"></a>洛谷P6509 [CRCI2007-2008] JEDNAKOST 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6509">洛谷P6509 [CRCI2007-2008] JEDNAKOST</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个形如 <code>A=B</code> 的字符串，其中 <span
-class="math inline">\(A\)</span> 和 <span
-class="math inline">\(B\)</span> 都是不含前导零的正整数。请给 <span
-class="math inline">\(A\)</span>
-的一些相邻数位之间加上加号，要求添加的加号数量最少，使得等式成立。</p>
-<p>在 <span class="math inline">\(A\)</span>
-加上加号后，每个加数允许有多个前导 <span
-class="math inline">\(0\)</span>。包括 <span
-class="math inline">\(0\)</span> 在内。也即允许形如 <span
-class="math inline">\(000 \ldots\)</span> 的数作为加数。</p>
+<p>给定一个形如 <code>A=B</code> 的字符串，其中 $A$ 和 $B$ 都是不含前导零的正整数。请给 $A$ 的一些相邻数位之间加上加号，要求添加的加号数量最少，使得等式成立。</p>
+<p>在 $A$ 加上加号后，每个加数允许有多个前导 $0$。包括 $0$ 在内。也即允许形如 $000 \ldots$ 的数作为加数。</p>
 <p>数据保证有解。</p>
 <p><strong>输入格式</strong>：</p>
 <p>输入只有一行一个形如 <code>A=B</code> 字符串，表示给定的等式。</p>
@@ -747,30 +736,23 @@ class="math inline">\(000 \ldots\)</span> 的数作为加数。</p>
 <p>本题存在 Special Judge。</p>
 <p>输出一行一个字符串，表示加上加号以后的成立的等式。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 <span class="math inline">\(1 \leq A \lt
-10^{1000}\)</span>，<span class="math inline">\(1 \leq B \leq 5 \times
-10^3\)</span>，<span class="math inline">\(A \neq B\)</span>。</p>
+<p>保证 $1 \leq A \lt 10^{1000}$，$1 \leq B \leq 5 \times 10^3$，$A \neq B$。</p>
 </blockquote>
 <p>看上去只有 dfs 能解，因此考虑记忆化搜索。</p>
-<p>设 <span class="math inline">\(f(i,j)\)</span> 表示走到 <span
-class="math inline">\(i\)</span> ，还差 <span
-class="math inline">\(j\)</span> 就能使式子的和等于 <span
-class="math inline">\(B\)</span> ，则 <span class="math display">\[
+<p>设 $f(i,j)$ 表示走到 $i$ ，还差 $j$ 就能使式子的和等于 $B$ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f(i,j) \downarrow f(k,j - \operatorname{Num}[\mathrm{pre}(i)..k])
-&amp;&amp; k \ge \mathrm{pre}(i)
-\end{aligned}
-\]</span> 其中 <span class="math display">\[
+f(i,j) \downarrow f(k,j - \operatorname{Num}[\mathrm{pre}(i)..k]) && k \ge \mathrm{pre}(i)
+\end{aligned}</script><p>其中</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
     \mathrm{pre}(i) = \begin{cases}
-        n - 1 &amp; i = n-1
-        \\[6pt]i &amp; i \ne n-1\land A_i \ne 0
-        \\[6pt] \mathrm{pre}(i+1) &amp; i \ne n-1\land A_i = 0
-    \end{cases} &amp;&amp; (0\le i\le n-1)
-\end{aligned}
-\]</span> 用于特判前导零。其原理可以考虑 <code>xx+0+xx</code> 和
-<code>xx+0xx</code> ，显然后者更优。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+        n - 1 & i = n-1
+        \\[6pt]i & i \ne n-1\land A_i \ne 0 
+        \\[6pt] \mathrm{pre}(i+1) & i \ne n-1\land A_i = 0
+    \end{cases} && (0\le i\le n-1)
+\end{aligned}</script><p>用于特判前导零。其原理可以考虑 <code>xx+0+xx</code> 和 <code>xx+0xx</code> ，显然后者更优。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -822,10 +804,9 @@ string A<span class="token punctuation">;</span> <span class="token keyword">int
     <span class="token function">memset</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://you-can-do-it.blog.luogu.org/solution-p6509">https://you-can-do-it.blog.luogu.org/solution-p6509</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://you-can-do-it.blog.luogu.org/solution-p6509">https://you-can-do-it.blog.luogu.org/solution-p6509</a></p>
 
                 
             </div>
@@ -1462,7 +1443,7 @@ target="_blank" rel="noopener" href="https://you-can-do-it.blog.luogu.org/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1011.1k</span>&nbsp;字
+                class="white-color">986.9k</span>&nbsp;字
             
             
             
@@ -1821,21 +1802,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

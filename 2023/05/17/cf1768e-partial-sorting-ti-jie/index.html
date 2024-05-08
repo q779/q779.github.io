@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         background: 
-#FFF;
+#FCEEF8;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
     }
     .loading-image{
         width: 120px;
@@ -91,7 +91,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -102,7 +102,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -128,7 +128,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#49b1f5;
+#9400D3;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -173,7 +173,7 @@ rgba(0,0,0,0.2);
             // document.getElementById("body-wrap").style.display="flex";
             setTimeout(function(){
                 loader.style.display="none";
-            },2500); 
+            },200); 
         },1000);//强制显示loading page 1s  
     };
     loaded();
@@ -720,124 +720,71 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1768e-partial-sorting-题解">CF1768E Partial Sorting 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1768E">CF1768E
-Partial Sorting</a></p>
+                <h1 id="CF1768E-Partial-Sorting-题解"><a href="#CF1768E-Partial-Sorting-题解" class="headerlink" title="CF1768E Partial Sorting 题解"></a>CF1768E Partial Sorting 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1768E">CF1768E Partial Sorting</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定整数 <span class="math inline">\(n\)</span> 和质数 <span
-class="math inline">\(M\)</span>。</p>
-<p>对于一个 <span class="math inline">\(1\sim 3n\)</span> 的排列 <span
-class="math inline">\(p\)</span>，你可以进行下列操作：</p>
+<p>给定整数 $n$ 和质数 $M$。  </p>
+<p>对于一个 $1\sim 3n$ 的排列 $p$，你可以进行下列操作：</p>
 <ul>
-<li>将 <span class="math inline">\(p\)</span> 的前 <span
-class="math inline">\(2n\)</span> 个元素从小到大排序。</li>
-<li>将 <span class="math inline">\(p\)</span> 的后 <span
-class="math inline">\(2n\)</span> 个元素从小到大排序。</li>
+<li>将 $p$ 的前 $2n$ 个元素从小到大排序。</li>
+<li>将 $p$ 的后 $2n$ 个元素从小到大排序。</li>
 </ul>
-<p>可以证明任意 <span class="math inline">\(1\sim 3n\)</span>
-的排列都能通过若干次上述操作从小到大排序。</p>
-<p>记 <span class="math inline">\(f(p)\)</span> 表示将 <span
-class="math inline">\(p\)</span> 从小到大排序所需的最小总操作次数。</p>
-<p>你需要求出对于所有 <span class="math inline">\(1\sim 3n\)</span>
-的排列 <span class="math inline">\(p\)</span>，其 <span
-class="math inline">\(f(p)\)</span> 总和对 <span
-class="math inline">\(M\)</span> 取模后的值。</p>
+<p>可以证明任意 $1\sim 3n$ 的排列都能通过若干次上述操作从小到大排序。  </p>
+<p>记 $f(p)$ 表示将 $p$ 从小到大排序所需的最小总操作次数。  </p>
+<p>你需要求出对于所有 $1\sim 3n$ 的排列 $p$，其 $f(p)$ 总和对 $M$ 取模后的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入一行两个整数 <span class="math inline">\(n,M(1\leq
-n\leq10^6;10^8\leq M\leq10^9)\)</span>，保证 <span
-class="math inline">\(M\)</span> 是质数。</p>
+<p>输入一行两个整数 $n,M(1\leq n\leq10^6;10^8\leq M\leq10^9)$，保证 $M$ 是质数。  </p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数表示 <span class="math inline">\(f(p)\)</span>
-的总和对 <span class="math inline">\(M\)</span> 取模后的值。</p>
+<p>输出一行一个整数表示 $f(p)$ 的总和对 $M$ 取模后的值。</p>
 </blockquote>
-<p>一个显然的操作上界是 <span class="math inline">\(3\)</span>
-次。下面我们来依次考虑 <span class="math inline">\(f(p)\)</span>
-的取值：</p>
-<ol type="1">
-<li><p><span class="math inline">\(f(p) \le 0\)</span> ，即 <span
-class="math inline">\(f(p) = 0\)</span> 。这种情况只有一种，答案为 <span
-class="math inline">\(1\)</span> <span class="math display">\[
-\mathrm{Ans}_0 = 1
-\]</span></p></li>
-<li><p><span class="math inline">\(f(p) \le 1\)</span> 。</p>
-<p>这种情况对应：前 <span class="math inline">\(n\)</span> 个数字，或后
-<span class="math inline">\(n\)</span> 个数字已经在正确位置上了。</p>
-<p>计算方法：对前 <span class="math inline">\(2n\)</span> 或后 <span
-class="math inline">\(2n\)</span>
-全排列，去掉两侧有序时重复计算的部分，也就是中间的全排列 <span
-class="math display">\[
-\mathrm{Ans}_1 = 2\times (2n)! - n! - \mathrm{Ans}_0
-\]</span> 注：我们用 <span class="math inline">\(\mathrm{Ans}_k\)</span>
-表示 <span class="math inline">\(f(p) = k\)</span> 的答案，但是讨论
-<span class="math inline">\(f(p) \le k\)</span>
-的方案，这样更方便一些。</p></li>
-<li><p><span class="math inline">\(f(p) \le 2\)</span> 。</p>
-<p>这种情况对应：最小的 <span class="math inline">\(n\)</span> 个元素在
-<span class="math inline">\([1,2n]\)</span> 分布，或最大的 <span
-class="math inline">\(n\)</span> 个元素在 <span
-class="math inline">\([n+1,3n]\)</span> 分布。（可同时满足）</p>
+<p>一个显然的操作上界是 $3$ 次。下面我们来依次考虑 $f(p)$ 的取值：</p>
+<ol>
+<li><p>$f(p) \le 0$ ，即 $f(p) = 0$ 。这种情况只有一种，答案为 $1$ </p>
+<script type="math/tex; mode=display">
+\mathrm{Ans}_0 = 1</script></li>
+<li><p>$f(p) \le 1$ 。</p>
+<p>这种情况对应：前 $n$ 个数字，或后 $n$ 个数字已经在正确位置上了。</p>
+<p>计算方法：对前 $2n$ 或后 $2n$ 全排列，去掉两侧有序时重复计算的部分，也就是中间的全排列</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans}_1 = 2\times (2n)! - n! - \mathrm{Ans}_0</script><p>注：我们用 $\mathrm{Ans}_k$ 表示 $f(p) = k$ 的答案，但是讨论 $f(p) \le k$ 的方案，这样更方便一些。</p>
+</li>
+<li><p>$f(p) \le 2$ 。</p>
+<p>这种情况对应：最小的 $n$ 个元素在 $[1,2n]$ 分布，或最大的 $n$ 个元素在 $[n+1,3n]$ 分布。（可同时满足）</p>
 <p>计算方法：考虑先分别计算两侧的答案，然后去掉重复部分：</p>
 <ul>
-<li><p>两侧的计算：在 <span class="math inline">\(2n\)</span> 中选 <span
-class="math inline">\(n\)</span> 个位置排列这最小的 <span
-class="math inline">\(n\)</span> 个元素，剩下的自由排列，有两种情况
-<span class="math display">\[
-2 \times \binom{2n}{n}\times n!\times (2n)!
-\]</span></p></li>
+<li><p>两侧的计算：在 $2n$ 中选 $n$ 个位置排列这最小的 $n$ 个元素，剩下的自由排列，有两种情况</p>
+<script type="math/tex; mode=display">
+2 \times \binom{2n}{n}\times n!\times (2n)!</script></li>
 <li><p>重复部分的计算：（不妨考虑去掉右侧的「与左侧重复计算的部分」）</p>
-<p>首先要明确什么情况会重复：最大的 <span
-class="math inline">\(n\)</span> 个数和最小的 <span
-class="math inline">\(n\)</span> 个数在 <span
-class="math inline">\([n+1,2n]\)</span> 均有分布。</p>
-<p>考虑枚举有 <span class="math inline">\(i(0\le i\le n)\)</span>
-个「最大的 <span class="math inline">\(n\)</span> 个数」分布在 <span
-class="math inline">\([n+1,2n]\)</span> 中：</p>
+<p>首先要明确什么情况会重复：最大的 $n$ 个数和最小的 $n$ 个数在 $[n+1,2n]$ 均有分布。</p>
+<p>考虑枚举有 $i(0\le i\le n)$ 个「最大的 $n$ 个数」分布在 $[n+1,2n]$ 中：</p>
 <ul>
-<li><p>有 <span class="math inline">\(i\)</span> 个数分布在 <span
-class="math inline">\([n+1,2n]\)</span> 中，对应方案数：<span
-class="math inline">\(\binom{n}{i}\times n!\)</span> （注： <span
-class="math inline">\(n!\)</span> 是对最大的 <span
-class="math inline">\(n\)</span> 个数的排列）</p></li>
-<li><p>有 <span class="math inline">\(n-i\)</span> 个数分布在 <span
-class="math inline">\([2n+1,3n]\)</span> 中，对应方案数 <span
-class="math inline">\(\binom{n}{n-i}\times n!\)</span></p></li>
-<li><p>此时 <span class="math inline">\([1,2n]\)</span> 还有 <span
-class="math inline">\(2n-i\)</span> 个空位，自由放最小的 <span
-class="math inline">\(n\)</span> 个数，对应方案数： <span
-class="math inline">\(\binom{2n-i}{n}\times n!\)</span></p>
-<p>这个时候我们不用要求 <span class="math inline">\(n\)</span> 一定在
-<span class="math inline">\([n+1,2n]\)</span>
-中，思考一下可以发现不要求的情况也会被左侧算到。</p>
-<p>并且这个时候方案数右侧的 <span class="math inline">\(n!\)</span>
-表示的是在 <span class="math inline">\(2n-i\)</span> 个位置中选 <span
-class="math inline">\(n\)</span> 个空格，并在空格内全排列。</p></li>
+<li><p>有 $i$ 个数分布在 $[n+1,2n]$ 中，对应方案数：$\binom{n}{i}\times n!$ （注： $n!$ 是对最大的 $n$ 个数的排列）</p>
+</li>
+<li><p>有 $n-i$ 个数分布在 $[2n+1,3n]$ 中，对应方案数 $\binom{n}{n-i}\times n!$ </p>
+</li>
+<li><p>此时 $[1,2n]$ 还有 $2n-i$ 个空位，自由放最小的 $n$ 个数，对应方案数： $\binom{2n-i}{n}\times n!$</p>
+<p>这个时候我们不用要求 $n$ 一定在 $[n+1,2n]$ 中，思考一下可以发现不要求的情况也会被左侧算到。</p>
+<p>并且这个时候方案数右侧的 $n!$ 表示的是在 $2n-i$ 个位置中选 $n$ 个空格，并在空格内全排列。</p>
+</li>
 </ul>
-<p>因此重复部分的方案数为 <span class="math display">\[
-\sum_{i=1}^{n}\binom{n}{i}\binom{n}{n-i}\binom{2n-i}{n}(n!)^3
-\]</span></p></li>
+<p>因此重复部分的方案数为</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\binom{n}{i}\binom{n}{n-i}\binom{2n-i}{n}(n!)^3</script></li>
 </ul>
-<p>综合以上分析可知： <span class="math display">\[
+<p>综合以上分析可知：</p>
+<script type="math/tex; mode=display">
 \mathrm{Ans}_2=
 \left(2 \times \binom{2n}{n}\times n!\times (2n)!\right)
--\left(\sum_{i=1}^{n}\binom{n}{i}\binom{n}{n-i}\binom{2n-i}{n}(n!)^3\right)-\mathrm{Ans}_0-\mathrm{Ans}_1
-\]</span></p></li>
-<li><p><span class="math inline">\(f(p) \le 3\)</span> 。</p>
-<p>这种情况对应「所有情况」，因为显然上界是 <span
-class="math inline">\(3\)</span> 。</p>
-<p><span class="math inline">\(f(p)=3\)</span> 其实就是 <span
-class="math inline">\(f(p)\le 2\)</span>
-剩下的一些情况，但是基本都有例如「最大的 <span
-class="math inline">\(n\)</span> 个数在 <span
-class="math inline">\([1,n]\)</span> 有分布」的特点 <span
-class="math display">\[
-\mathrm{Ans}_3 = (3n)! - \mathrm{Ans}_0-\mathrm{Ans}_1-\mathrm{Ans}_2
-\]</span></p></li>
+-\left(\sum_{i=1}^{n}\binom{n}{i}\binom{n}{n-i}\binom{2n-i}{n}(n!)^3\right)-\mathrm{Ans}_0-\mathrm{Ans}_1</script></li>
+<li><p>$f(p) \le 3$ 。</p>
+<p>这种情况对应「所有情况」，因为显然上界是 $3$ 。</p>
+<p>$f(p)=3$ 其实就是 $f(p)\le 2$ 剩下的一些情况，但是基本都有例如「最大的 $n$ 个数在 $[1,n]$ 有分布」的特点</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans}_3 = (3n)! - \mathrm{Ans}_0-\mathrm{Ans}_1-\mathrm{Ans}_2</script></li>
 </ol>
-<p>最后我们的答案就是 <span class="math inline">\(\sum_{0\le k\le 3}
-k\times \mathrm{Ans}_k\)</span></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(3n)\)</span>
-，主要是预处理组合数。</p>
+<p>最后我们的答案就是 $\sum_{0\le k\le 3} k\times \mathrm{Ans}_k$</p>
+<p>时间复杂度 $\mathcal{O}(3n)$ ，主要是预处理组合数。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -900,12 +847,10 @@ k\times \mathrm{Ans}_k\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/fx05willwincsp2022/cf1768e">https://www.luogu.com.cn/blog/fx05willwincsp2022/cf1768e</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/explodingkonjac/solution-cf1768e">https://www.luogu.com.cn/blog/explodingkonjac/solution-cf1768e</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/fx05willwincsp2022/cf1768e">https://www.luogu.com.cn/blog/fx05willwincsp2022/cf1768e</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/explodingkonjac/solution-cf1768e">https://www.luogu.com.cn/blog/explodingkonjac/solution-cf1768e</a></p>
 
                 
             </div>
@@ -1546,7 +1491,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/explodingkonj
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1011.1k</span>&nbsp;字
+                class="white-color">986.9k</span>&nbsp;字
             
             
             
@@ -1905,21 +1850,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

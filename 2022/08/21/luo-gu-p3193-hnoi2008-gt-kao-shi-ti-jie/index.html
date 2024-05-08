@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         background: 
-#FFF;
+#FCEEF8;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
     }
     .loading-image{
         width: 120px;
@@ -91,7 +91,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -102,7 +102,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -128,7 +128,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#49b1f5;
+#9400D3;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -173,7 +173,7 @@ rgba(0,0,0,0.2);
             // document.getElementById("body-wrap").style.display="flex";
             setTimeout(function(){
                 loader.style.display="none";
-            },2500); 
+            },200); 
         },1000);//强制显示loading page 1s  
     };
     loaded();
@@ -728,67 +728,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3193-hnoi2008gt考试-题解">洛谷P3193 [HNOI2008]GT考试
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3193">P3193
-[HNOI2008]GT考试</a></p>
+                <h1 id="洛谷P3193-HNOI2008-GT考试-题解"><a href="#洛谷P3193-HNOI2008-GT考试-题解" class="headerlink" title="洛谷P3193 [HNOI2008]GT考试 题解"></a>洛谷P3193 [HNOI2008]GT考试 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3193">P3193 [HNOI2008]GT考试</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>阿申准备报名参加 GT 考试，准考证号为 <span
-class="math inline">\(N\)</span> 位数<span
-class="math inline">\(X_1,X_2…X_n(0\le
-X_i\le9)\)</span>，他不希望准考证号上出现不吉利的数字。
-他的不吉利数字<span class="math inline">\(A_1,A_2…A_m(0\le A_i\le
-9)\)</span> 有 <span class="math inline">\(M\)</span> 位，不出现是指
-<span class="math inline">\(X_1,X_2…X_n\)</span> 中没有恰好一段等于
-<span class="math inline">\(A_1,A_2…A_m\)</span>，<span
-class="math inline">\(A_1\)</span> 和<span
-class="math inline">\(X_1\)</span> 可以为 <span
-class="math inline">\(0\)</span></p>
-<p><span class="math inline">\(N\leq10^9,M\leq20,K\leq1000\)</span></p>
+<p>阿申准备报名参加 GT 考试，准考证号为 $N$ 位数$X_1,X_2…X_n(0\le X_i\le9)$，他不希望准考证号上出现不吉利的数字。<br>他的不吉利数字$A_1,A_2…A_m(0\le A_i\le 9)$ 有 $M$ 位，不出现是指 $X_1,X_2…X_n$ 中没有恰好一段等于 $A_1,A_2…A_m$，$A_1$ 和$X_1$ 可以为 $0$</p>
+<p>$N\leq10^9,M\leq20,K\leq1000$</p>
 </blockquote>
 <p>显然是矩阵快速幂优化dp（<del>看数据范围</del>）。</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示考虑到第 <span
-class="math inline">\(i\)</span> 个数，匹配到 <span
-class="math inline">\(X\)</span> 的第 <span
-class="math inline">\(j\)</span> 位时的方案数，则 <span
-class="math display">\[
-f_{i,j} = \sum_{k=0}^{9}f_{i-1,p}
-\]</span> 注意这里的 <span class="math inline">\(0\le j &lt; m\)</span>
-，因为我们不能让它包含完整的 <span class="math inline">\(X\)</span>
-。</p>
-<p>这个 <span class="math inline">\(p\)</span> 不一定是 <span
-class="math inline">\(0\)</span> 或 <span
-class="math inline">\(j-1\)</span> ，根据KMP的性质可以很容易发现。</p>
+<p>设 $f_{i,j}$ 表示考虑到第 $i$ 个数，匹配到 $X$ 的第 $j$ 位时的方案数，则</p>
+<script type="math/tex; mode=display">
+f_{i,j} = \sum_{k=0}^{9}f_{i-1,p}</script><p>注意这里的 $0\le j &lt; m$ ，因为我们不能让它包含完整的 $X$ 。</p>
+<p>这个 $p$ 不一定是 $0$ 或 $j-1$ ，根据KMP的性质可以很容易发现。</p>
 <p>看上去这个可以用KMP来搞搞，又长的很像矩阵快速幂的题目</p>
-<p>于是尝试<del>套路地</del>构造出预处理数组 <span
-class="math inline">\(g_{i,j}\)</span> ，以产生矩阵快速幂的形式</p>
-<p>设 <span class="math inline">\(g_{i,j}\)</span> 表示匹配到 <span
-class="math inline">\(X\)</span> 的第 <span
-class="math inline">\(i\)</span> 位，<strong>有多少种</strong>加字符
-<span class="math inline">\(0\sim9\)</span> 的方法可以使其匹配到 <span
-class="math inline">\(j\)</span></p>
-<p>注意到题目中 <span class="math inline">\(X_1\)</span> 是可以为 <span
-class="math inline">\(0\)</span> 的，因此不用单独考虑前导零的问题，则
-<span class="math display">\[
-f_{i,j} = \sum_{k=0}^{m-1} f_{i-1,k}\times g_{k,j}
-\]</span> 注意这里 <span class="math inline">\(k\)</span>
-的意义改变为了：枚举已经匹配的长度，尝试加一个字符转移至 <span
-class="math inline">\(j\)</span> 。</p>
-<p>然后把式子看成这样的形式 <span class="math inline">\(f^{i}_{j} =\sum
-f^{i-1}_{k} \times g_{k,j}\)</span> ，显然与矩阵乘法的定义相同</p>
-<p>我们把 <span class="math inline">\(f\)</span> 和 <span
-class="math inline">\(g\)</span> 看作两个矩阵（<strong>注意 <span
-class="math inline">\(f\)</span> 是行矩阵</strong>），则有 <span
-class="math display">\[
-f^{k} = f^{k-1} \times g
-\]</span> 则 <span class="math display">\[
-f^k=g^k
-\]</span> 然后我们矩阵快速幂求一下就好啦</p>
-<p>最后答案就是 <span class="math inline">\(\sum\limits_{i=0}^{m-1}
-f^{n}_{i}\)</span> ，没有 <span class="math inline">\(m-1\)</span>
-的原因是，不能包含 <span class="math inline">\(m\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(m^3 \log n)\)</span></p>
+<p>于是尝试<del>套路地</del>构造出预处理数组 $g_{i,j}$ ，以产生矩阵快速幂的形式</p>
+<p>设 $g_{i,j}$ 表示匹配到 $X$ 的第 $i$ 位，<strong>有多少种</strong>加字符 $0\sim9$ 的方法可以使其匹配到 $j$ </p>
+<p>注意到题目中 $X_1$ 是可以为 $0$ 的，因此不用单独考虑前导零的问题，则</p>
+<script type="math/tex; mode=display">
+f_{i,j} = \sum_{k=0}^{m-1} f_{i-1,k}\times g_{k,j}</script><p>注意这里 $k$ 的意义改变为了：枚举已经匹配的长度，尝试加一个字符转移至 $j$ 。</p>
+<p>然后把式子看成这样的形式 $f^{i}_{j} =\sum f^{i-1}_{k} \times g_{k,j}$ ，显然与矩阵乘法的定义相同</p>
+<p>我们把 $f$ 和 $g$ 看作两个矩阵（<strong>注意 $f$ 是行矩阵</strong>），则有</p>
+<script type="math/tex; mode=display">
+f^{k} = f^{k-1} \times g</script><p>则</p>
+<script type="math/tex; mode=display">
+f^k=g^k</script><p>然后我们矩阵快速幂求一下就好啦</p>
+<p>最后答案就是 $\sum\limits_{i=0}^{m-1} f^{n}_{i}$ ，没有 $m-1$ 的原因是，不能包含 $m$ </p>
+<p>时间复杂度 $O(m^3 \log n)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1507,7 +1471,7 @@ mat <span class="token function">kmp</span><span class="token punctuation">(</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1011.1k</span>&nbsp;字
+                class="white-color">986.9k</span>&nbsp;字
             
             
             
@@ -1866,21 +1830,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

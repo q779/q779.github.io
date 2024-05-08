@@ -53,13 +53,13 @@
         justify-content: center;
         align-items: center;
         background: 
-#FFF;
+#FCEEF8;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
     }
     .loading-image{
         width: 120px;
@@ -91,7 +91,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -102,7 +102,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#49b1f5;
+#9400D3;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -128,7 +128,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#49b1f5;
+#9400D3;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -173,7 +173,7 @@ rgba(0,0,0,0.2);
             // document.getElementById("body-wrap").style.display="flex";
             setTimeout(function(){
                 loader.style.display="none";
-            },2500); 
+            },200); 
         },1000);//强制显示loading page 1s  
     };
     loaded();
@@ -720,276 +720,140 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="pólya-定理">Pólya 定理</h1>
-<p>Pólya 定理的中文名是波利亚计数定理。</p>
-<p>传送门：<a
-href="/2024/02/14/luo-gu-p4980-mo-ban-polya-ding-li-ti-jie/">洛谷P4980
-【模板】Polya 定理 题解</a> （在这篇文章里会讲解 Pólya 定理 的运用）</p>
-<hr />
-<h2 id="置换">置换</h2>
-<p>一个有限集合 <span class="math inline">\(S\)</span> 到自身的双射称为
-<span class="math inline">\(S\)</span> 的一个置换。集合 <span
-class="math inline">\(S=\{a_1,a_2,\cdots,a_n\}\)</span>
-上的置换可以表示为 <span class="math display">\[
+                <h1 id="Polya-定理"><a href="#Polya-定理" class="headerlink" title="Pólya 定理"></a>Pólya 定理</h1><p>Pólya 定理的中文名是波利亚计数定理。</p>
+<p>传送门：<a href="/2024/02/14/luo-gu-p4980-mo-ban-polya-ding-li-ti-jie/">洛谷P4980 【模板】Polya 定理 题解</a> （在这篇文章里会讲解 Pólya 定理 的运用）</p>
+<hr>
+<h2 id="置换"><a href="#置换" class="headerlink" title="置换"></a>置换</h2><p>一个有限集合 $S$ 到自身的双射称为 $S$ 的一个置换。集合 $S=\{a_1,a_2,\cdots,a_n\}$ 上的置换可以表示为</p>
+<script type="math/tex; mode=display">
 \varphi=\left(\begin{array}{c}
 a_1, a_2, \ldots, a_n \\
 a_{p_1}, a_{p_2}, \ldots, a_{p_n}
-\end{array}\right)
-\]</span> 意为将 <span class="math inline">\(a_i\)</span> 映射为 <span
-class="math inline">\(a_{p_i}\)</span> ，其中 <span
-class="math inline">\(p_1,p_2,\cdots,p_n\)</span> 是 <span
-class="math inline">\(1,2,\cdots,n\)</span> 是一个排列。显然 <span
-class="math inline">\(S\)</span> 上置换的总数为 <span
-class="math inline">\(n!\)</span>​​ 。</p>
+\end{array}\right)</script><p>意为将 $a_i$ 映射为 $a_{p_i}$ ，其中 $p_1,p_2,\cdots,p_n$ 是 $1,2,\cdots,n$ 是一个排列。显然 $S$ 上置换的总数为 $n!$​​ 。</p>
 <p><br></p>
-<p>对于两个置换 <span class="math inline">\(f =
-\left(\begin{array}{c}a_1, a_2, \ldots, a_n \\a_{p_1}, a_{p_2}, \ldots,
-a_{p_n}\end{array}\right)\)</span> 和 <span
-class="math inline">\(g=\left(\begin{array}{c}a_{p_1}, a_{p_2}, \ldots,
-a_{p_n} \\a_{q_1}, a_{q_2}, \ldots, a_{q_n}\end{array}\right)\)</span>
-，<span class="math inline">\(f\)</span> 和 <span
-class="math inline">\(g\)</span> 的乘积记为 <span
-class="math inline">\(f \circ g\)</span> ，其值为 <span
-class="math display">\[
+<p>对于两个置换 $f = \left(\begin{array}{c}a_1, a_2, \ldots, a_n \\a_{p_1}, a_{p_2}, \ldots, a_{p_n}\end{array}\right)$ 和 $g=\left(\begin{array}{c}a_{p_1}, a_{p_2}, \ldots, a_{p_n} \\a_{q_1}, a_{q_2}, \ldots, a_{q_n}\end{array}\right)$ ，$f$ 和 $g$ 的乘积记为 $f \circ g$ ，其值为</p>
+<script type="math/tex; mode=display">
 f \circ g=\left(\begin{array}{c}
 a_1, a_2, \ldots, a_n \\
 a_{q_1}, a_{q_2}, \ldots, a_{q_n}
-\end{array}\right)
-\]</span> 简单来说就是先经过 <span class="math inline">\(f\)</span>
-的映射，再经过 <span class="math inline">\(g\)</span> 的映射。</p>
+\end{array}\right)</script><p>简单来说就是先经过 $f$ 的映射，再经过 $g$ 的映射。</p>
 <blockquote>
-<p>这里也有人用 <span class="math inline">\(g\circ f\)</span>
-来表示同样含义的，<del>不愧是数学</del>。</p>
+<p>这里也有人用 $g\circ f$ 来表示同样含义的，<del>不愧是数学</del>。</p>
 </blockquote>
-<h3 id="置换群">置换群</h3>
-<p>集合 <span class="math inline">\(S\)</span>
-上的所有置换关于置换的乘法满足封闭性、结合律、有单位元、有逆元，因此构成一个群。</p>
+<h3 id="置换群"><a href="#置换群" class="headerlink" title="置换群"></a>置换群</h3><p>集合 $S$ 上的所有置换关于置换的乘法满足封闭性、结合律、有单位元、有逆元，因此构成一个群。</p>
 <p>这个群的任意一个子群即称为<strong>置换群</strong>。</p>
-<h3 id="循环置换">循环置换</h3>
-<p>循环置换是一类特殊的置换，可表示为 <span class="math display">\[
+<h3 id="循环置换"><a href="#循环置换" class="headerlink" title="循环置换"></a>循环置换</h3><p>循环置换是一类特殊的置换，可表示为</p>
+<script type="math/tex; mode=display">
 \left(a_1, a_2, \ldots, a_m\right)=\left(\begin{array}{c}
 a_1, a_2, \ldots, a_{m-1}, a_m \\
 a_2, a_3, \ldots, a_m, a_1
-\end{array}\right)
-\]</span>
-若两个循环置换<strong>不含有相同的元素</strong>，则称它们是<strong>不相交的</strong>。有如下定理：</p>
-<p>任意一个置换都可以分解为若干不相交的循环置换的乘积，例如 <span
-class="math display">\[
+\end{array}\right)</script><p>若两个循环置换<strong>不含有相同的元素</strong>，则称它们是<strong>不相交的</strong>。有如下定理：</p>
+<p>任意一个置换都可以分解为若干不相交的循环置换的乘积，例如</p>
+<script type="math/tex; mode=display">
 \left(\begin{array}{l}
 a_1, a_2, a_3, a_4, a_5 \\
 a_3, a_1, a_2, a_5, a_4
-\end{array}\right)=\left(a_1, a_3, a_2\right) \circ\left(a_4, a_5\right)
-\]</span>
-该定理的证明也非常简单。如果把元素视为图的节点，映射关系视为有向边，则每个节点的入度和出度都为
-<span
-class="math inline">\(1\)</span>​，因此形成的图形必定是若干个环的集合，而一个环即可用一个循环置换表示。</p>
-<hr />
-<h2 id="burnside-引理">Burnside 引理</h2>
-<h3 id="定义">定义</h3>
-<p>设 <span class="math inline">\(A,B\)</span> 为有限集合，<span
-class="math inline">\(X\)</span> 为一些从 <span
-class="math inline">\(A\)</span> 到 <span
-class="math inline">\(B\)</span> 的映射组成的集合。</p>
-<p><span class="math inline">\(G\)</span> 是 <span
-class="math inline">\(A\)</span> 上的置换群，且 <span
-class="math inline">\(X\)</span> 中的映射在 <span
-class="math inline">\(G\)</span> 中的置换作用下封闭。</p>
-<p><span class="math inline">\(X / G\)</span> 表示 <span
-class="math inline">\(G\)</span> 作用在 <span
-class="math inline">\(X\)</span>​ 上产生的所有等价类的集合<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，则
-<span class="math display">\[
-|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|
-\]</span> 其中 <span class="math inline">\(X^g=\{x \mid x \in
-X,~g(x)=x\}\)</span> 。</p>
-<h3 id="证明">证明</h3>
-<p>在这之前先引入轨道稳定子定理以及它的证明。</p>
-<p><strong>轨道稳定子定理</strong>：<span
-class="math inline">\(G\)</span> 和 <span
-class="math inline">\(X\)</span> 的定义同上，有 <span
-class="math display">\[
-\forall x \in X,~ G^x=\{g \mid g(x)=x, g \in G\}, ~G(x)=\{g(x) \mid g
-\in G\}
-\]</span> 其中 <span class="math inline">\(G^x\)</span> 称为 <span
-class="math inline">\(x\)</span> 的稳定子，<span
-class="math inline">\(G(x)\)</span> 称为 <span
-class="math inline">\(x\)</span> 的轨道，则有 <span
-class="math display">\[
-|G| = |G^x| \times |G(x)|
-\]</span></p>
-<blockquote>
+\end{array}\right)=\left(a_1, a_3, a_2\right) \circ\left(a_4, a_5\right)</script><p>该定理的证明也非常简单。如果把元素视为图的节点，映射关系视为有向边，则每个节点的入度和出度都为 $1$​，因此形成的图形必定是若干个环的集合，而一个环即可用一个循环置换表示。</p>
+<hr>
+<h2 id="Burnside-引理"><a href="#Burnside-引理" class="headerlink" title="Burnside 引理"></a>Burnside 引理</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>设 $A,B$ 为有限集合，$X$ 为一些从 $A$ 到 $B$ 的映射组成的集合。</p>
+<p>$G$ 是 $A$ 上的置换群，且 $X$ 中的映射在 $G$ 中的置换作用下封闭。</p>
+<p>$X / G$ 表示 $G$ 作用在 $X$​ 上产生的所有等价类的集合<sup><a href="#fn_1" id="reffn_1">1</a></sup>，则</p>
+<script type="math/tex; mode=display">
+|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|</script><p>其中 $X^g=\{x \mid x \in X,~g(x)=x\}$ 。</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>在这之前先引入轨道稳定子定理以及它的证明。</p>
+<p><strong>轨道稳定子定理</strong>：$G$ 和 $X$ 的定义同上，有</p>
+<script type="math/tex; mode=display">
+\forall x \in X,~ G^x=\{g \mid g(x)=x, g \in G\}, ~G(x)=\{g(x) \mid g \in G\}</script><p>其中 $G^x$ 称为 $x$ 的稳定子，$G(x)$ 称为 $x$ 的轨道，则有</p>
+<script type="math/tex; mode=display">
+|G| = |G^x| \times |G(x)|</script><blockquote>
 <p><strong>轨道稳定子定理的证明</strong>：</p>
-<p>首先可以证明 <span class="math inline">\(G^x\)</span> 是 <span
-class="math inline">\(G\)</span> 的子群，因为</p>
+<p>首先可以证明 $G^x$ 是 $G$ 的子群，因为</p>
 <ul>
-<li>封闭性：若 <span class="math inline">\(f,g \in G\)</span> ，则 <span
-class="math inline">\(f \circ g(x) = f(g(x)) = f(x) = x\)</span> ，所以
-<span class="math inline">\(f \circ g \in G^x\)</span></li>
+<li>封闭性：若 $f,g \in G$ ，则 $f \circ g(x) = f(g(x)) = f(x) = x$ ，所以 $f \circ g \in G^x$</li>
 <li>结合律：显然置换的乘法满足结合律。</li>
-<li>单位元：因为 <span class="math inline">\(I(x)=x\)</span> ，所以
-<span class="math inline">\(I \in G^x\)</span> （<span
-class="math inline">\(I\)</span>​ 为恒等置换）</li>
-<li>逆元：若 <span class="math inline">\(g \in G^x\)</span> ，则 <span
-class="math inline">\(g^{-1}(x) = g^{-1}(g(x)) = g^{-1}\circ g(x) = I(x)
-= x\)</span> ，所以 <span class="math inline">\(g^{-1} \in
-G^x\)</span>​</li>
+<li>单位元：因为 $I(x)=x$ ，所以 $I \in G^x$ （$I$​ 为恒等置换）</li>
+<li>逆元：若 $g \in G^x$ ，则 $g^{-1}(x) = g^{-1}(g(x)) = g^{-1}\circ g(x) = I(x) = x$ ，所以 $g^{-1} \in G^x$​</li>
 </ul>
-<p>则由群论中的拉格朗日定理可得 <span class="math display">\[
-|G| = |G^x|[G:G^x]
-\]</span> 其中 <span class="math inline">\([G:G^x]\)</span> 为 <span
-class="math inline">\(G^x\)</span> 不同的左陪集个数。</p>
-<p>接着仅需证明 <span class="math inline">\(|G(x)| = [G : G^x]\)</span>
-。</p>
-<p>我们将其转化为：证明存在一个从 <span
-class="math inline">\(G(x)\)</span> 到 <span
-class="math inline">\(G^x\)</span>​ 所有不同左陪集的双射。</p>
-<p>令 <span class="math inline">\(\varphi(g(x)) = gG^x\)</span> ，下证
-<span class="math inline">\(\varphi\)</span> 为双射</p>
+<p>则由群论中的拉格朗日定理可得</p>
+<script type="math/tex; mode=display">
+|G| = |G^x|[G:G^x]</script><p>其中 $[G:G^x]$ 为 $G^x$ 不同的左陪集个数。</p>
+<p>接着仅需证明 $|G(x)| = [G : G^x]$ 。</p>
+<p>我们将其转化为：证明存在一个从 $G(x)$ 到 $G^x$​ 所有不同左陪集的双射。</p>
+<p>令 $\varphi(g(x)) = gG^x$ ，下证 $\varphi$ 为双射</p>
 <ul>
-<li>若 <span class="math inline">\(g(x) = f(x)\)</span> ，两边同乘 <span
-class="math inline">\(f^{-1}\)</span> 可得 <span
-class="math inline">\(f^{-1} \circ g(x)=I(x)=x\)</span> ，所以 <span
-class="math inline">\(f^{-1} \circ g \in G^x\)</span> ，由陪集的性质可得
-<span class="math inline">\((f^{-1}\circ g)G^x = G^x\)</span> ，即 <span
-class="math inline">\(gG^x = fG^x\)</span></li>
-<li>反之可证，若 <span class="math inline">\(gG^x = fG^x\)</span> ，则有
-<span class="math inline">\(g(x) = f(x)\)</span></li>
-<li>以上两点说明对于一个 <span class="math inline">\(g(x)\)</span>
-，只有一个左陪集与其对应，即 <span
-class="math inline">\(\varphi\)</span> 是一个从 <span
-class="math inline">\(G(x)\)</span> 到左陪集的映射</li>
-<li>又显然 <span class="math inline">\(\varphi\)</span> 有逆映射，因此
-<span class="math inline">\(\varphi\)</span> 是一个双射。</li>
+<li>若 $g(x) = f(x)$ ，两边同乘 $f^{-1}$ 可得 $f^{-1} \circ g(x)=I(x)=x$ ，所以 $f^{-1} \circ g \in G^x$ ，由陪集的性质可得 $(f^{-1}\circ g)G^x = G^x$ ，即 $gG^x = fG^x$</li>
+<li>反之可证，若 $gG^x = fG^x$ ，则有 $g(x) = f(x)$</li>
+<li>以上两点说明对于一个 $g(x)$ ，只有一个左陪集与其对应，即 $\varphi$ 是一个从 $G(x)$ 到左陪集的映射</li>
+<li>又显然 $\varphi$ 有逆映射，因此 $\varphi$ 是一个双射。</li>
 </ul>
 </blockquote>
-<p>于是我们可以利用轨道稳定子定理来证明 Burnside 引理了 <span
-class="math display">\[
+<p>于是我们可以利用轨道稳定子定理来证明 Burnside 引理了</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\sum_{g \in G}\left|X^g\right| &amp; =|\{(g, x) \mid(g, x) \in G \times
-X, g(x)=x\}| \\
-&amp; =\sum_{x \in X}\left|G^x\right| \\
-&amp; =\sum_{x \in X} \frac{|G|}{|G(x)|}\\
-&amp; =|G| \sum_{x \in X} \frac{1}{|G(x)|} \\
-&amp; =|G| \sum_{Y \in X / G} \sum_{x \in Y} \frac{1}{|G(x)|} \\
-&amp; =|G| \sum_{Y \in X / G} \sum_{x \in Y} \frac{1}{|Y|} \\
-&amp; =|G| \sum_{Y \in X / G} 1 \\
-&amp; =|G||X / G|
-\end{aligned}
-\]</span> 即 <span class="math display">\[
-|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|
-\]</span></p>
-<h3 id="解释">解释</h3>
-<p>讲了半天这个定理到底有什么用呢？</p>
+\sum_{g \in G}\left|X^g\right| & =|\{(g, x) \mid(g, x) \in G \times X, g(x)=x\}| \\
+& =\sum_{x \in X}\left|G^x\right| \\
+& =\sum_{x \in X} \frac{|G|}{|G(x)|}\\
+& =|G| \sum_{x \in X} \frac{1}{|G(x)|} \\
+& =|G| \sum_{Y \in X / G} \sum_{x \in Y} \frac{1}{|G(x)|} \\
+& =|G| \sum_{Y \in X / G} \sum_{x \in Y} \frac{1}{|Y|} \\
+& =|G| \sum_{Y \in X / G} 1 \\
+& =|G||X / G|
+\end{aligned}</script><p>即</p>
+<script type="math/tex; mode=display">
+|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|</script><h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>讲了半天这个定理到底有什么用呢？</p>
 <p>我们以给立方体染色为例，来解释这个定理的用法。</p>
 <ul>
-<li><span class="math inline">\(A\)</span>​ ：立方体 <span
-class="math inline">\(6\)</span> 个面的集合。</li>
-<li><span class="math inline">\(B\)</span> ：<span
-class="math inline">\(3\)</span> 种颜色的集合。</li>
-<li><span class="math inline">\(X\)</span>
-：直接给每个面染色，不考虑本质不同的方案数的集合，共有 <span
-class="math inline">\(3^6\)</span> 种</li>
-<li><span class="math inline">\(G\)</span>
-：各种翻转操作构成的置换群</li>
-<li><span class="math inline">\(X/G\)</span>​
-：本质不同的染色方案的集合</li>
-<li><span class="math inline">\(X^g\)</span> ：对于翻转操作 <span
-class="math inline">\(g\)</span> ，所有直接染色方案中，经过 <span
-class="math inline">\(g\)</span>
-这种翻转后保持不变的染色方案的集合。</li>
+<li>$A$​ ：立方体 $6$ 个面的集合。</li>
+<li>$B$ ：$3$ 种颜色的集合。</li>
+<li>$X$ ：直接给每个面染色，不考虑本质不同的方案数的集合，共有 $3^6$ 种</li>
+<li>$G$ ：各种翻转操作构成的置换群</li>
+<li>$X/G$​ ：本质不同的染色方案的集合</li>
+<li>$X^g$ ：对于翻转操作 $g$ ，所有直接染色方案中，经过 $g$ 这种翻转后保持不变的染色方案的集合。</li>
 </ul>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202402130625705.png" /></p>
-<p>接着我们需要对 <span class="math inline">\(G\)</span>
-中的所有置换进行分析，它们可以分为以下几类：</p>
+<p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202402130625705.png" alt=""></p>
+<p>接着我们需要对 $G$ 中的所有置换进行分析，它们可以分为以下几类：</p>
 <ul>
-<li><p>不动：即恒等变换，显然有 <span class="math inline">\(|X^g| =
-3^6\)</span> 。</p></li>
-<li><p>以两个相对面的中心连线为轴旋转 <span
-class="math inline">\(90^{\circ}\)</span> ：相对面有 <span
-class="math inline">\(3\)</span> 种选择，旋转的方向有 <span
-class="math inline">\(2\)</span> 种选择，因此有 <span
-class="math inline">\(6\)</span> 个置换。</p>
-<p>假设选择了前后两个面的中心连线为轴，则必须要满足上下左右 <span
-class="math inline">\(4\)</span> 个面的颜色一样，因此有 <span
-class="math inline">\(|X^g|=3^3\)</span>​ 。</p></li>
-<li><p>以两个相对面的中心连线为轴旋转 <span
-class="math inline">\(180^{\circ}\)</span> ：相对面有 <span
-class="math inline">\(3\)</span> 种选择，旋转无影响，因此有 <span
-class="math inline">\(3\)</span> 个置换。</p>
-<p>假设选择了前后两个面的中心连线为轴，则必须要满足上下相同，左右相同，因此有
-<span class="math inline">\(|X^g| = 3^4\)</span> 。</p></li>
-<li><p>以两条相对棱的中点连线为轴旋转 <span
-class="math inline">\(180^{\circ}\)</span> ：相对棱有 <span
-class="math inline">\(6\)</span> 种选择，旋转无影响，因此有 <span
-class="math inline">\(6\)</span> 个置换。</p>
+<li><p>不动：即恒等变换，显然有 $|X^g| = 3^6$ 。</p>
+</li>
+<li><p>以两个相对面的中心连线为轴旋转 $90^{\circ}$ ：相对面有 $3$ 种选择，旋转的方向有 $2$ 种选择，因此有 $6$ 个置换。</p>
+<p>假设选择了前后两个面的中心连线为轴，则必须要满足上下左右 $4$ 个面的颜色一样，因此有 $|X^g|=3^3$​ 。</p>
+</li>
+<li><p>以两个相对面的中心连线为轴旋转 $180^{\circ}$ ：相对面有 $3$ 种选择，旋转无影响，因此有 $3$ 个置换。</p>
+<p>假设选择了前后两个面的中心连线为轴，则必须要满足上下相同，左右相同，因此有 $|X^g| = 3^4$ 。</p>
+</li>
+<li><p>以两条相对棱的中点连线为轴旋转 $180^{\circ}$ ：相对棱有 $6$ 种选择，旋转无影响，因此有 $6$ 个置换。</p>
 <p>假设选择了 前面与上面的交 和 下面与后面的交 作为相对棱，</p>
-<p>则必须要满足前、上两个面相同，下、后两个面相同，左右两个面相同，因此有
-<span class="math inline">\(|X^g|=3^3\)</span>​ 。</p></li>
-<li><p>以两个相对顶点的连线为轴旋转 <span
-class="math inline">\(120^{\circ}\)</span> ：相对顶点为 <span
-class="math inline">\(4\)</span> 种选择，旋转的方向有 <span
-class="math inline">\(2\)</span> 种选择，因此有 <span
-class="math inline">\(8\)</span> 个置换。</p></li>
+<p>则必须要满足前、上两个面相同，下、后两个面相同，左右两个面相同，因此有 $|X^g|=3^3$​ 。</p>
+</li>
+<li><p>以两个相对顶点的连线为轴旋转 $120^{\circ}$ ：相对顶点为 $4$ 种选择，旋转的方向有 $2$ 种选择，因此有 $8$ 个置换。</p>
+</li>
 <li><p>假设选择了 前面的右上角 和 后面的左下角 为相对顶点，</p>
-<p>则必须满足 前、上、右相同 且 后、下、左相同，因此有 <span
-class="math inline">\(|X^g| = 3^2\)</span>​ 。</p></li>
+<p>则必须满足 前、上、右相同 且 后、下、左相同，因此有 $|X^g| = 3^2$​ 。</p>
+</li>
 </ul>
-<p>因此，所有本质不同的方案数为 <span class="math display">\[
-\frac{1}{1+6+3+6+8}\left(3^6+6 \times 3^3+3 \times 3^4+6 \times 3^3+8
-\times 3^2\right)=57
-\]</span></p>
-<hr />
-<h2 id="pólya-定理-1">Pólya 定理</h2>
-<h3 id="定义-1">定义</h3>
-<p>在与 Burnside 引理相同的前置条件下， 若 <span
-class="math inline">\(X\)</span> 为<strong>所有</strong>从 <span
-class="math inline">\(A\)</span> 到 <span
-class="math inline">\(B\)</span> 的映射，则 <span
-class="math display">\[
-|X / G|=\frac{1}{|G|} \sum_{g \in G}|B|^{c(g)}
-\]</span> 其中 <span class="math inline">\(c(g)\)</span> 表示置换 <span
-class="math inline">\(g\)</span>
-能拆分成的<strong>不相交的循环置换</strong>的数量。</p>
-<h3 id="证明-1">证明</h3>
-<p>在 Burnside 引理中，显然 <span class="math inline">\(g(x)=x\)</span>
-的充要条件是 <span class="math inline">\(x\)</span> 将 <span
-class="math inline">\(g\)</span> 中每个循环置换的元素都映射到了 <span
-class="math inline">\(B\)</span> 中的同一元素</p>
-<p>所以 <span class="math inline">\(|X^g| = |B|^{c(g)}\)</span> ，即可得
-Pólya 定理。</p>
-<h3 id="解释-1">解释</h3>
-<p>依然考虑立方体染色问题。</p>
-<p>分析刚才提到的以相对棱的中点连线为轴旋转 <span
-class="math inline">\(180^{\circ}\)</span> 的情况。</p>
-<p>如果将前后上下左右 <span class="math inline">\(6\)</span> 个面编号
-<span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(6\)</span> ，则该置换可以表示为 <span
-class="math display">\[
+<p>因此，所有本质不同的方案数为</p>
+<script type="math/tex; mode=display">
+\frac{1}{1+6+3+6+8}\left(3^6+6 \times 3^3+3 \times 3^4+6 \times 3^3+8 \times 3^2\right)=57</script><hr>
+<h2 id="Polya-定理-1"><a href="#Polya-定理-1" class="headerlink" title="Pólya 定理"></a>Pólya 定理</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>在与 Burnside 引理相同的前置条件下， 若 $X$ 为<strong>所有</strong>从 $A$ 到 $B$ 的映射，则</p>
+<script type="math/tex; mode=display">
+|X / G|=\frac{1}{|G|} \sum_{g \in G}|B|^{c(g)}</script><p>其中 $c(g)$ 表示置换 $g$ 能拆分成的<strong>不相交的循环置换</strong>的数量。</p>
+<h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><p>在 Burnside 引理中，显然 $g(x)=x$ 的充要条件是 $x$ 将 $g$ 中每个循环置换的元素都映射到了 $B$ 中的同一元素</p>
+<p>所以 $|X^g| = |B|^{c(g)}$ ，即可得 Pólya 定理。</p>
+<h3 id="解释-1"><a href="#解释-1" class="headerlink" title="解释"></a>解释</h3><p>依然考虑立方体染色问题。</p>
+<p>分析刚才提到的以相对棱的中点连线为轴旋转 $180^{\circ}$ 的情况。</p>
+<p>如果将前后上下左右 $6$ 个面编号 $1$ 到 $6$ ，则该置换可以表示为</p>
+<script type="math/tex; mode=display">
 \left(\begin{array}{l}
 1,3,2,4,5,6 \\
 3,1,4,2,6,5
-\end{array}\right)=(1,3) \circ(2,4) \circ(5,6)
-\]</span> 因此 <span
-class="math inline">\(c(g)=3,|B|^{c(g)}=3^3\)</span> ，与 Burnside
-引理中的分析结果相同</p>
-<hr />
+\end{array}\right)=(1,3) \circ(2,4) \circ(5,6)</script><p>因此 $c(g)=3,|B|^{c(g)}=3^3$ ，与 Burnside 引理中的分析结果相同</p>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/math/permutation-group/">https://oi-wiki.org/math/permutation-group/</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/permutation-group/">https://oi-wiki.org/math/permutation-group/</a></p>
+<hr>
 <p><strong>注释</strong>：</p>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>若 <span
-class="math inline">\(X\)</span> 中的两个映射经过 <span
-class="math inline">\(G\)</span>
-中的置换作用后相等，则它们在同一等价类中<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<blockquote id="fn_1">
+<sup>1</sup>. 若 $X$ 中的两个映射经过 $G$ 中的置换作用后相等，则它们在同一等价类中<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 
                 
             </div>
@@ -1624,7 +1488,7 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1011.1k</span>&nbsp;字
+                class="white-color">986.9k</span>&nbsp;字
             
             
             
@@ -1983,21 +1847,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
