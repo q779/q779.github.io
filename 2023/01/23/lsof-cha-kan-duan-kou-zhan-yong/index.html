@@ -35,7 +35,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -709,7 +709,7 @@ rgba(0,0,0,0.2);
 
         
         <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
         
 
         
@@ -719,28 +719,28 @@ rgba(0,0,0,0.2);
                 <h1 id="lsof-查看端口占用">lsof 查看端口占用</h1>
 <p><code>lsof</code> 是一个 shell 指令，用于列出当前系统打开的文件。</p>
 <p><code>lsof</code> 查看端口占用的语法格式如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">lsof</span> -i:<span class="token punctuation">[</span>端口号<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">lsof</span> -i:<span class="token punctuation">[</span>端口号<span class="token punctuation">]</span></code></pre>
 <p>在 Linux 上需要 root 权限，而 MacOS 上不需要。</p>
 <p>例：查看电脑 4000 端口的占用情况：</p>
-<pre class="line-numbers language-none"><code class="language-none">% lsof -i:4000
+<pre class="language-none"><code class="language-none">% lsof -i:4000
 COMMAND   PID USER   FD   TYPE             DEVICE SIZE&#x2F;OFF NODE NAME
-node    64950  qry   42u  IPv6 0x71ca5fa9e8b96e4d      0t0  TCP *:terabase (LISTEN)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+node    64950  qry   42u  IPv6 0x71ca5fa9e8b96e4d      0t0  TCP *:terabase (LISTEN)</code></pre>
 <p>可以发现 4000 端口已经被 nodejs
 服务占用（其实是我博客的本地调试端口）</p>
 <p>输出信息的意义如下：</p>
 <p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202301231936446.png" style="zoom:30%;" /></p>
 <p>其他 lsof 的命令如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">lsof</span> -i:8080        <span class="token comment"># 查看 8080 端口的占用</span>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">lsof</span> <span class="token parameter variable">-i:8080</span>        <span class="token comment"># 查看 8080 端口的占用</span>
 <span class="token function">lsof</span> abc.txt        <span class="token comment"># 显示开启文件 abc.txt 的进程</span>
-<span class="token function">lsof</span> -c abc         <span class="token comment"># 显示 abc 进程现在打开的文件</span>
-<span class="token function">lsof</span> -c -p <span class="token number">1234</span>     <span class="token comment"># 列出进程号为 1234 的进程所打开的文件</span>
-<span class="token function">lsof</span> -g gid         <span class="token comment"># 显示归属 gid 的进程情况</span>
+<span class="token function">lsof</span> <span class="token parameter variable">-c</span> abc         <span class="token comment"># 显示 abc 进程现在打开的文件</span>
+<span class="token function">lsof</span> <span class="token parameter variable">-c</span> <span class="token parameter variable">-p</span> <span class="token number">1234</span>     <span class="token comment"># 列出进程号为 1234 的进程所打开的文件</span>
+<span class="token function">lsof</span> <span class="token parameter variable">-g</span> gid         <span class="token comment"># 显示归属 gid 的进程情况</span>
 <span class="token function">lsof</span> +d /usr/local/ <span class="token comment"># 显示目录下被进程开启的文件，</span>
 <span class="token function">lsof</span> +D /usr/local/ <span class="token comment"># 同上，但是会搜索所有子文件夹内的文件</span>
-<span class="token function">lsof</span> -d <span class="token number">4</span>           <span class="token comment"># 显示使用 FD 为 4 的进程</span>
-<span class="token function">lsof</span> -i -U          <span class="token comment"># 显示所有打开的端口和 UNIX domain 文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">lsof</span> <span class="token parameter variable">-d</span> <span class="token number">4</span>           <span class="token comment"># 显示使用 FD 为 4 的进程</span>
+<span class="token function">lsof</span> <span class="token parameter variable">-i</span> <span class="token parameter variable">-U</span>          <span class="token comment"># 显示所有打开的端口和 UNIX domain 文件</span></code></pre>
 <p>在查到端口占用的进程后，如果你要杀掉对应的进程，可以用以下指令</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">kill</span> -9 <span class="token punctuation">[</span>PID<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">kill</span> <span class="token parameter variable">-9</span> <span class="token punctuation">[</span>PID<span class="token punctuation">]</span></code></pre>
 
                 
             </div>
@@ -1225,6 +1225,11 @@ node    64950  qry   42u  IPv6 0x71ca5fa9e8b96e4d      0t0  TCP *:terabase (LIST
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
 <!-- 代码语言 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
@@ -1342,7 +1347,7 @@ node    64950  qry   42u  IPv6 0x71ca5fa9e8b96e4d      0t0  TCP *:terabase (LIST
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
     });
 </script>
 
@@ -1362,7 +1367,7 @@ node    64950  qry   42u  IPv6 0x71ca5fa9e8b96e4d      0t0  TCP *:terabase (LIST
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1009.2k</span>&nbsp;字
+                class="white-color">1011.1k</span>&nbsp;字
             
             
             

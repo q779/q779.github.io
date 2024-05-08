@@ -35,7 +35,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -713,7 +713,7 @@ rgba(0,0,0,0.2);
 
         
         <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
         
 
         
@@ -760,7 +760,7 @@ class="math inline">\(v\)</span></p>
 class="math inline">\(l=r=idx\)</span> ， <span
 class="math inline">\(idx\)</span> 指该元素在数组中的下标</p>
 <p>我们可以把这些结点按左端点顺序存储在一个<code>set</code>里</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token keyword">int</span> l<span class="token punctuation">,</span>r<span class="token punctuation">;</span> <span class="token comment">// 左、右端点</span>
 	<span class="token keyword">mutable</span> <span class="token keyword">int</span> v<span class="token punctuation">;</span> <span class="token comment">// 值</span>
@@ -768,7 +768,7 @@ class="math inline">\(idx\)</span> 指该元素在数组中的下标</p>
 	<span class="token punctuation">&#123;</span>
 		<span class="token keyword">return</span> l<span class="token operator">&lt;</span>o<span class="token punctuation">.</span>l<span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
 <p>注意 <code>int v</code>前的关键字
 <code>mutable</code>，这个关键字和<code>const</code>恰好相反，意思是使<code>v</code>始终允许修改，即使它是个常量</p>
 <p>那么我们为什么要多次一举呢？过会再说（</p>
@@ -798,7 +798,7 @@ class="math inline">\(pos\)</span>
 为左端点的结点，显然我们要把这个结点分割成 <span
 class="math inline">\(node\{l,pos-1,v\}\)</span> 和 <span
 class="math inline">\(node\{pos,r,v\}\)</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator <span class="token function">split</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> pos<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp">set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator <span class="token function">split</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> pos<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator it<span class="token operator">=</span>s<span class="token punctuation">.</span><span class="token function">lower_bound</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>pos<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">if</span><span class="token punctuation">(</span>it<span class="token operator">!=</span>s<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span>it<span class="token operator">-></span>l<span class="token operator">==</span>pos<span class="token punctuation">)</span><span class="token keyword">return</span> it<span class="token punctuation">;</span> <span class="token comment">// 情况1</span>
@@ -809,7 +809,7 @@ class="math inline">\(node\{pos,r,v\}\)</span></p>
 	s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>l<span class="token punctuation">,</span>pos<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>v<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>pos<span class="token punctuation">,</span>r<span class="token punctuation">,</span>v<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>first<span class="token punctuation">;</span> 
     <span class="token comment">// insert函数的返回值是pair类型的，而它的first恰好使我们需要的（新插入结点的指针）</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h4 id="c.推平">c.推平</h4>
 <p>解决了区间的端点问题，我们只要获取要求修改区间左、右端点的结点，把这一段删除，再插入要求赋的值和修改区间的左、右端点作为新的结点</p>
 <p><strong>注意</strong>一定要先找右端点所在结点，再找左端点所在结点</p>
@@ -820,21 +820,21 @@ class="math inline">\(node\{pos,r,v\}\)</span></p>
 <p>按先左再右的顺序，我们先会得到左端点所在结点</p>
 <p><span class="math inline">\(node\{l=1,r=5\}\)</span></p>
 <p>显然如果我们找右端点所在结点，会将左端点所在结点进行分割，那么原来的结点就没了，迭代器失效，然后RE</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">assign</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">assign</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator itr<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>itl<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 找结点</span>
 	s<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span>itl<span class="token punctuation">,</span>itr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删掉[itl,itr)中所有结点</span>
 	s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>k<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 插入新结点</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h4 id="d.剩余操作">d.剩余操作</h4>
 <p><strong>区间加</strong>，十分暴力，十分简单，我们只要找到左、右端点所在结点，然后直接把每个结点修改就行</p>
 <p>现在知道为什么要写<code>mutable</code>了吧！因为<code>split()</code>返回的是<strong>常量</strong>迭代器</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> k<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator itr<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>itl<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span>R set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator it<span class="token operator">=</span>itl<span class="token punctuation">;</span> it<span class="token operator">!=</span>itr<span class="token punctuation">;</span> it<span class="token operator">++</span><span class="token punctuation">)</span>
 		it<span class="token operator">-></span>v<span class="token operator">+=</span>k<span class="token punctuation">;</span> <span class="token comment">// 直接加</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p><strong>区间第 <span class="math inline">\(k\)</span>
 小数</strong>，我们只要把区间内的所有结点取出来从大到小排序即可</p>
 <p>注意每个结点指代的可能是一段区间，而我们要求的是第 <span
@@ -843,7 +843,7 @@ class="math inline">\(k\)</span> 大于该结点指代的区间长，则让 <spa
 class="math inline">\(k\)</span> 减去该结点指代的区间长，否则第 <span
 class="math inline">\(k\)</span>
 小的数就在该结点区间内，直接输出即可</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">Rank</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">Rank</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token keyword">int</span> num<span class="token punctuation">,</span>cnt<span class="token punctuation">;</span>
 	<span class="token keyword">const</span> <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token keyword">const</span> Rank <span class="token operator">&amp;</span>o<span class="token punctuation">)</span><span class="token keyword">const</span>
@@ -862,16 +862,16 @@ class="math inline">\(k\)</span>
 		<span class="token keyword">if</span><span class="token punctuation">(</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>cnt<span class="token operator">&lt;</span>k<span class="token punctuation">)</span>k<span class="token operator">-=</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>cnt<span class="token punctuation">;</span> <span class="token comment">// 减去区间长</span>
 		<span class="token keyword">else</span> <span class="token keyword">return</span> v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>num<span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// 这句显然在数据合法时没有任何用</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p><strong>区间求和</strong>，只要遍历一下，加一下乘一下取模一下就好</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">sum</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> x<span class="token punctuation">,</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">sum</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">,</span>R <span class="token keyword">int</span> x<span class="token punctuation">,</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	R <span class="token keyword">int</span> ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator itr<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>itl<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span>set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator it<span class="token operator">=</span>itl<span class="token punctuation">;</span> it<span class="token operator">!=</span>itr<span class="token punctuation">;</span> it<span class="token operator">++</span><span class="token punctuation">)</span>
 		ans<span class="token operator">=</span><span class="token punctuation">(</span>ans<span class="token operator">%</span>y<span class="token operator">+</span><span class="token function">qpow</span><span class="token punctuation">(</span>it<span class="token operator">-></span>v<span class="token punctuation">,</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token operator">*</span><span class="token punctuation">(</span>it<span class="token operator">-></span>r<span class="token operator">-</span>it<span class="token operator">-></span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token punctuation">)</span><span class="token operator">%</span>y<span class="token punctuation">;</span> <span class="token comment">// 快速幂qpow()就不贴了</span>
 	<span class="token keyword">return</span> ans<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h3 id="复杂度分析">3.复杂度分析</h3>
 <p><code>set</code>实现的珂朵莉树复杂度为 <span
 class="math inline">\(O(n\log^2n)\)</span></p>
@@ -879,7 +879,7 @@ class="math inline">\(O(n\log^2n)\)</span></p>
 target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/102786071">这篇文章</a>分析证明的很好，大家可以看看</p>
 <p>完整代码 （注：原题的随机数据是给定 <span
 class="math inline">\(seed\)</span> 等自行生成）</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1001,7 +1001,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 *	此时此刻的光辉，盼君勿忘
 *
 *							————世上最幸福的女孩
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span></code></pre>
 <HR>
 <h2 id="三珂朵莉树例题">三、珂朵莉树例题</h2>
 <p>（注：都是洛谷上的题~）</p>
@@ -1025,7 +1025,7 @@ N)\)</span>区间内的材料是否合法，合法输出<code>Yes</code>，不�
 <p>不过要注意的是，出题人卡了<strong>无优化的ODT</strong></p>
 <p>那么怎么优化呢？我们只要在每次查询时<strong>将相同值的相邻结点合并</strong>即可</p>
 <p>代码如下</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1111,7 +1111,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 		<span class="token punctuation">&#125;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h3 id="p5350-序列">2.P5350 序列</h3>
 <p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5350">P5350
 序列</a></p>
@@ -1141,7 +1141,7 @@ class="math inline">\([l_2,r_2]\)</span></strong></p>
 <p>我们可以把 <span class="math inline">\([l_1,r_1]\)</span>
 中所有结点记录，然后直接用这些结点推平 <span
 class="math inline">\([l_2,r_2]\)</span></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">THR</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">THR</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token keyword">int</span> l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>v<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
@@ -1154,21 +1154,21 @@ class="math inline">\([l_2,r_2]\)</span></p>
 		vec<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>it<span class="token operator">-></span>l<span class="token operator">+</span>tmp<span class="token punctuation">,</span>it<span class="token operator">-></span>r<span class="token operator">+</span>tmp<span class="token punctuation">,</span>it<span class="token operator">-></span>v<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 		<span class="token function">assign</span><span class="token punctuation">(</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>l<span class="token punctuation">,</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>r<span class="token punctuation">,</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p><strong>其次是将 <span class="math inline">\([l_1,r_1]\)</span> 和
 <span class="math inline">\([l_2,r_2]\)</span> 交换</strong></p>
 <p>我比较懒，直接把 <span class="math inline">\([l_1,r_1]\)</span>
 复制到 <span class="math inline">\([n+1,n+r_1-l_1+1]\)</span></p>
 <p>然后就像当年 <code>int c=a;a=b;b=c;</code>一样交换就行了</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Swap</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l1<span class="token punctuation">,</span>R <span class="token keyword">int</span> r1<span class="token punctuation">,</span>R <span class="token keyword">int</span> l2<span class="token punctuation">,</span>R <span class="token keyword">int</span> r2<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Swap</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l1<span class="token punctuation">,</span>R <span class="token keyword">int</span> r1<span class="token punctuation">,</span>R <span class="token keyword">int</span> l2<span class="token punctuation">,</span>R <span class="token keyword">int</span> r2<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token function">copy</span><span class="token punctuation">(</span>l1<span class="token punctuation">,</span>r1<span class="token punctuation">,</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>n<span class="token operator">+</span>r1<span class="token operator">-</span>l1<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token function">copy</span><span class="token punctuation">(</span>l2<span class="token punctuation">,</span>r2<span class="token punctuation">,</span>l1<span class="token punctuation">,</span>r1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token function">copy</span><span class="token punctuation">(</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>n<span class="token operator">+</span>r1<span class="token operator">-</span>l1<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>l2<span class="token punctuation">,</span>r2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p><strong>最后是区间翻转操作</strong></p>
 <p>这个不难，记录每个结点，然后改下左右端点插入就好</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">rev</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">)</span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">rev</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> l<span class="token punctuation">,</span>R <span class="token keyword">int</span> r<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	set<span class="token operator">&lt;</span>node<span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator itr<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>r<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>itl<span class="token operator">=</span><span class="token function">split</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	vector<span class="token operator">&lt;</span>THR<span class="token operator">></span>vec<span class="token punctuation">;</span>
@@ -1181,9 +1181,9 @@ class="math inline">\([l_2,r_2]\)</span></p>
 		s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>cnt<span class="token operator">-</span><span class="token punctuation">(</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>r<span class="token operator">-</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>l<span class="token punctuation">)</span><span class="token punctuation">,</span>cnt<span class="token punctuation">,</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>v<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 		cnt<span class="token operator">-=</span><span class="token punctuation">(</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>r<span class="token operator">-</span>vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p>完整代码</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1297,7 +1297,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 			<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld%c"</span><span class="token punctuation">,</span>it<span class="token operator">-></span>v<span class="token punctuation">,</span><span class="token string">" \n"</span><span class="token punctuation">[</span>idx<span class="token operator">==</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h3 id="cf343d-water-tree">3.CF343D Water Tree</h3>
 <p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF343D">CF343D
 Water Tree</a></p>
@@ -1319,7 +1319,7 @@ class="math inline">\(0\)</span></p>
 <p>简单的树链剖分+珂朵莉树</p>
 <p>单点查询只要<code>lower_bound()</code>就行了</p>
 <p>代码如下</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1441,7 +1441,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 		<span class="token keyword">if</span><span class="token punctuation">(</span>op<span class="token operator">==</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span><span class="token function">query</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <h3 id="cf915e-physical-education-lessons">4.CF915E Physical Education
 Lessons</h3>
 <p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915E">CF915E
@@ -1456,7 +1456,7 @@ class="math inline">\(1\)</span> 表示题目中的工作日）</p>
 <p>这题比板子题还要简单</p>
 <p>唯一要注意的是每次输出结果不能去扫一遍（复杂度爆炸），而是在每次修改时统计</p>
 <p>直接贴代码了（</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1510,7 +1510,7 @@ set<span class="token operator">&lt;</span>node<span class="token operator">></s
 		<span class="token function">assign</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>op<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <HR>
 <h2 id="总结">总结</h2>
 <p>本文简单介绍了珂朵莉树</p>
@@ -2019,6 +2019,11 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202301041311269.jp
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
 <!-- 代码语言 -->
 
 <script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
@@ -2136,7 +2141,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202301041311269.jp
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
     });
 </script>
 
@@ -2156,7 +2161,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202301041311269.jp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1009.2k</span>&nbsp;字
+                class="white-color">1011.1k</span>&nbsp;字
             
             
             
