@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF1228C Primes and Multiplication 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -720,32 +720,68 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1228C-Primes-and-Multiplication-题解"><a href="#CF1228C-Primes-and-Multiplication-题解" class="headerlink" title="CF1228C Primes and Multiplication 题解"></a>CF1228C Primes and Multiplication 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1228C">CF1228C Primes and Multiplication</a></p>
+                <h1 id="cf1228c-primes-and-multiplication-题解">CF1228C Primes and
+Multiplication 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1228C">CF1228C
+Primes and Multiplication</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>首先先介绍一些涉及到的定义：</p>
-<p>定义 $\mathbb{P}(x)$ 表示x的质因子集合。举例来说，$\mathbb{P}(140) = \{2, 5, 7\}$，$\mathbb{P}(169) = \{13\}$。</p>
-<p>定义 $g(x, p)$ 表示存在一个最大的 $k \in \mathbb{N}_+$ ，使得 $x$ 可以被 $p^k$ 整除（ 即$p^k \mid x \ \land\ p^{k+1}\not\mid x$ ），那么 $g(x, p) = p^k$ 。举例来说：</p>
+<p>定义 <span class="math inline">\(\mathbb{P}(x)\)</span>
+表示x的质因子集合。举例来说，<span class="math inline">\(\mathbb{P}(140)
+= \{2, 5, 7\}\)</span>，<span class="math inline">\(\mathbb{P}(169) =
+\{13\}\)</span>。</p>
+<p>定义 <span class="math inline">\(g(x, p)\)</span> 表示存在一个最大的
+<span class="math inline">\(k \in \mathbb{N}_+\)</span> ，使得 <span
+class="math inline">\(x\)</span> 可以被 <span
+class="math inline">\(p^k\)</span> 整除（ 即<span
+class="math inline">\(p^k \mid x \ \land\ p^{k+1}\not\mid x\)</span>
+），那么 <span class="math inline">\(g(x, p) = p^k\)</span>
+。举例来说：</p>
 <ul>
-<li>$g(45, 3) = 9$ （ $45$可以被 $3^2 = 9$ 整除但是不能被 $3^3=27$ 整除）</li>
-<li>$g(63, 7) = 7$ （ $63$ 可以被 $7^1 = 7$ 整除但是不能被 $7^2=49$ 整除）</li>
+<li><span class="math inline">\(g(45, 3) = 9\)</span> （ <span
+class="math inline">\(45\)</span>可以被 <span class="math inline">\(3^2
+= 9\)</span> 整除但是不能被 <span class="math inline">\(3^3=27\)</span>
+整除）</li>
+<li><span class="math inline">\(g(63, 7) = 7\)</span> （ <span
+class="math inline">\(63\)</span> 可以被 <span class="math inline">\(7^1
+= 7\)</span> 整除但是不能被 <span class="math inline">\(7^2=49\)</span>
+整除）</li>
 </ul>
-<p>定义 $f(x, y)$ 表示所有 $g(y, p)~(p \in \mathbb{P}(x))$ 的乘积，举例来说：</p>
+<p>定义 <span class="math inline">\(f(x, y)\)</span> 表示所有 <span
+class="math inline">\(g(y, p)~(p \in \mathbb{P}(x))\)</span>
+的乘积，举例来说：</p>
 <ul>
-<li>$f(30, 70) = g(70,2)·g(70,3)·g(70, 5) = 2^1·3^0·5^1 = 10$</li>
-<li>$f(525,63) = g(63,3)·g(63,5)·g(63,7) = 3^2·5^0·7^1 = 63$</li>
+<li><span class="math inline">\(f(30, 70) = g(70,2)·g(70,3)·g(70, 5) =
+2^1·3^0·5^1 = 10\)</span></li>
+<li><span class="math inline">\(f(525,63) = g(63,3)·g(63,5)·g(63,7) =
+3^2·5^0·7^1 = 63\)</span></li>
 </ul>
-<p>现在给出两个整数 $x$ 和 $n$ ，请计算出 $f(x,1)·f(x,2)\dots f(x,n)~\bmod~(10^9+7)$ 的值。</p>
+<p>现在给出两个整数 <span class="math inline">\(x\)</span> 和 <span
+class="math inline">\(n\)</span> ，请计算出 <span
+class="math inline">\(f(x,1)·f(x,2)\dots f(x,n)~\bmod~(10^9+7)\)</span>
+的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The only line contains integers $x$ and $n$ ( $2 \le x \le 10^{9}$ , $1 \le n \le 10^{18}$ ) — the numbers used in formula.</p>
+<p>The only line contains integers <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(n\)</span> ( <span class="math inline">\(2 \le x
+\le 10^{9}\)</span> , <span class="math inline">\(1 \le n \le
+10^{18}\)</span> ) — the numbers used in formula.</p>
 <p><strong>输出格式</strong>：</p>
 <p>Print the answer.</p>
 </blockquote>
-<p>可以发现其实就是给了我们一个 $\mathbb{P}$ ，然后让我们求 $\prod_{1 \le i \le n,~ p_j \in \mathbb{P}} g(i,p_j)$</p>
-<p>我们先来考虑 $|\mathbb{P}|=1$ 的情况，也就是只有一个质因子 $p$ 时的答案，容易发现其贡献为</p>
-<script type="math/tex; mode=display">
-p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots</script><p>由于贡献的计算是相互独立的，所以多个 $p$ 就多算几次就好了</p>
-<p>时间复杂度 $\mathcal{O}(\sqrt{n})$</p>
+<p>可以发现其实就是给了我们一个 <span
+class="math inline">\(\mathbb{P}\)</span> ，然后让我们求 <span
+class="math inline">\(\prod_{1 \le i \le n,~ p_j \in \mathbb{P}}
+g(i,p_j)\)</span></p>
+<p>我们先来考虑 <span class="math inline">\(|\mathbb{P}|=1\)</span>
+的情况，也就是只有一个质因子 <span class="math inline">\(p\)</span>
+时的答案，容易发现其贡献为 <span class="math display">\[
+p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots
+\]</span> 由于贡献的计算是相互独立的，所以多个 <span
+class="math inline">\(p\)</span> 就多算几次就好了</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -827,7 +863,7 @@ p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots</script><p>由于贡献的
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -894,268 +930,217 @@ p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots</script><p>由于贡献的
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1430,7 +1415,7 @@ p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots</script><p>由于贡献的
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1789,21 +1774,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

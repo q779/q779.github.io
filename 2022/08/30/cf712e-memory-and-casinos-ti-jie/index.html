@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF712E Memory and Casinos 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -708,7 +708,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    941
+                    943
                 </div>
                 
 
@@ -728,50 +728,79 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF712E-Memory-and-Casinos-题解"><a href="#CF712E-Memory-and-Casinos-题解" class="headerlink" title="CF712E Memory and Casinos 题解"></a>CF712E Memory and Casinos 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF712E">CF712E Memory and Casinos</a></p>
+                <h1 id="cf712e-memory-and-casinos-题解">CF712E Memory and Casinos
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF712E">CF712E
+Memory and Casinos</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>现有一排 $n$ 个赌场。</p>
-<p>cxy 在第 $i$ 个赌场时有 $p_i$ 的几率获胜并移动到第 $i+1$ 个赌场，如果 $i=n$ 则 cxy 会离开赌场；</p>
-<p>同时有 $1-p_i$的概率失败并移动到第 $i-1$ 个赌场，如果$i=1$ 则 cxy 会离开赌场。</p>
-<p>定义 cxy “掌控”一段区间 $[i,j]$ 当且仅当 cxy 完成以下过程：</p>
+<p>现有一排 <span class="math inline">\(n\)</span> 个赌场。</p>
+<p>cxy 在第 <span class="math inline">\(i\)</span> 个赌场时有 <span
+class="math inline">\(p_i\)</span> 的几率获胜并移动到第 <span
+class="math inline">\(i+1\)</span> 个赌场，如果 <span
+class="math inline">\(i=n\)</span> 则 cxy 会离开赌场；</p>
+<p>同时有 <span class="math inline">\(1-p_i\)</span>的概率失败并移动到第
+<span class="math inline">\(i-1\)</span> 个赌场，如果<span
+class="math inline">\(i=1\)</span> 则 cxy 会离开赌场。</p>
+<p>定义 cxy "掌控"一段区间 <span class="math inline">\([i,j]\)</span>
+当且仅当 cxy 完成以下过程：</p>
 <ul>
-<li>cxy 从 $i$ 号赌场出发；</li>
-<li>cxy 从未在 $i$ 号赌场失败；</li>
-<li>cxy 某一次在 $j$ 号赌场获胜并离开。</li>
+<li>cxy 从 <span class="math inline">\(i\)</span> 号赌场出发；</li>
+<li>cxy 从未在 <span class="math inline">\(i\)</span> 号赌场失败；</li>
+<li>cxy 某一次在 <span class="math inline">\(j\)</span>
+号赌场获胜并离开。</li>
 </ul>
-<p>现在有 $q$ 次操作，操作有以下两种：</p>
+<p>现在有 <span class="math inline">\(q\)</span>
+次操作，操作有以下两种：</p>
 <ul>
-<li>$1\ i\ a\ b$：令 $p_i = \frac{a}{b}$；</li>
-<li>$2\ l\ r$：询问 cxy “掌控”区间 $[l,r]$ 的概率。</li>
+<li><span class="math inline">\(1\ i\ a\ b\)</span>：令 <span
+class="math inline">\(p_i = \frac{a}{b}\)</span>；</li>
+<li><span class="math inline">\(2\ l\ r\)</span>：询问 cxy "掌控"区间
+<span class="math inline">\([l,r]\)</span> 的概率。</li>
 </ul>
-<p>保证在任意时刻 $p_i$ 构成的序列是单调不降的。</p>
+<p>保证在任意时刻 <span class="math inline">\(p_i\)</span>
+构成的序列是单调不降的。</p>
 </blockquote>
 <p><strong>关键词</strong>：线段树、等比数列求和、概率、DP（思想）</p>
-<p>设 $f(l,r)$ 表示在 $l$ ，不到达 $l-1$ ，并从 $r$ 走出的概率.</p>
-<p>为了方便转移，设 $g(l,r)$ 表示在 $r$ ，不到达 $r+1$ ，并从 $l$ 走出的概率</p>
+<p>设 <span class="math inline">\(f(l,r)\)</span> 表示在 <span
+class="math inline">\(l\)</span> ，不到达 <span
+class="math inline">\(l-1\)</span> ，并从 <span
+class="math inline">\(r\)</span> 走出的概率.</p>
+<p>为了方便转移，设 <span class="math inline">\(g(l,r)\)</span> 表示在
+<span class="math inline">\(r\)</span> ，不到达 <span
+class="math inline">\(r+1\)</span> ，并从 <span
+class="math inline">\(l\)</span> 走出的概率</p>
 <p>考虑线段树上怎么合并两个区间的答案</p>
-<p>不妨设左侧为 $(f_1,g_1)$ ，右侧为 $(f_2,g_2)$ ，最后的答案为 $(f,g)$ </p>
-<p>首先考虑 $f$ </p>
-<script type="math/tex; mode=display">
-f=f_1f_2\sum_{r=0}^{+\infty}\left[(1-f_2)(1-g_1)\right]^r</script><blockquote>
+<p>不妨设左侧为 <span class="math inline">\((f_1,g_1)\)</span> ，右侧为
+<span class="math inline">\((f_2,g_2)\)</span> ，最后的答案为 <span
+class="math inline">\((f,g)\)</span></p>
+<p>首先考虑 <span class="math inline">\(f\)</span> <span
+class="math display">\[
+f=f_1f_2\sum_{r=0}^{+\infty}\left[(1-f_2)(1-g_1)\right]^r
+\]</span></p>
+<blockquote>
 <p>这个看上去复杂，其实不然。</p>
 <ul>
-<li>$r=0$ ，就是直接一遍过</li>
-<li>$r=1$ ，就是中间转了一圈再过</li>
-<li>$r=k$ ，就是中间转了 $k$ 圈再过</li>
+<li><span class="math inline">\(r=0\)</span> ，就是直接一遍过</li>
+<li><span class="math inline">\(r=1\)</span> ，就是中间转了一圈再过</li>
+<li><span class="math inline">\(r=k\)</span> ，就是中间转了 <span
+class="math inline">\(k\)</span> 圈再过</li>
 </ul>
 </blockquote>
 <p>然后这个东西其实就是等比数列求和</p>
-<p>根据公式 $S(n) = \dfrac{a_1(1-q^n)}{1-q},q\ne 1$</p>
-<script type="math/tex; mode=display">
-f = \dfrac{f_1f_2\left\{1-\lim\limits_{r \to +\infty}\left[(1-f_2)(1-g_1)\right]^{r}\right\}}{1-(1-f_2)(1-g_1)} = \dfrac{f_1f_2}{1-(1-f_2)(1-g_1)}</script><p>同理，也能推出</p>
-<script type="math/tex; mode=display">
+<p>根据公式 <span class="math inline">\(S(n) =
+\dfrac{a_1(1-q^n)}{1-q},q\ne 1\)</span> <span class="math display">\[
+f = \dfrac{f_1f_2\left\{1-\lim\limits_{r \to
++\infty}\left[(1-f_2)(1-g_1)\right]^{r}\right\}}{1-(1-f_2)(1-g_1)} =
+\dfrac{f_1f_2}{1-(1-f_2)(1-g_1)}
+\]</span> 同理，也能推出 <span class="math display">\[
 \begin{aligned}
-g&=g_1g_2\sum_{r=0}^{+\infty}\left[ (1-g_1)(1-f_2)\right]^r
-\\&=\dfrac{g_1g_2}{1-(1-f_2)(1-g_1)}
-\end{aligned}</script><p>然后我们就能 $O(1)$ 合并两个子区间啦！</p>
-<p>时间复杂度 $O( (n + q)\log n)$</p>
+g&amp;=g_1g_2\sum_{r=0}^{+\infty}\left[ (1-g_1)(1-f_2)\right]^r
+\\&amp;=\dfrac{g_1g_2}{1-(1-f_2)(1-g_1)}
+\end{aligned}
+\]</span> 然后我们就能 <span class="math inline">\(O(1)\)</span>
+合并两个子区间啦！</p>
+<p>时间复杂度 <span class="math inline">\(O( (n + q)\log n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -892,7 +921,7 @@ P <span class="token function">query</span><span class="token punctuation">(</sp
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -967,268 +996,217 @@ P <span class="token function">query</span><span class="token punctuation">(</sp
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1503,7 +1481,7 @@ P <span class="token function">query</span><span class="token punctuation">(</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1862,21 +1840,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

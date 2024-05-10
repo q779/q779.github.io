@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3065 [USACO12DEC]First! G 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -661,12 +661,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -724,23 +724,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3065-USACO12DEC-First-G-题解"><a href="#洛谷P3065-USACO12DEC-First-G-题解" class="headerlink" title="洛谷P3065 [USACO12DEC]First! G 题解"></a>洛谷P3065 [USACO12DEC]First! G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3065">P3065 [USACO12DEC]First! G</a></p>
+                <h1 id="洛谷p3065-usaco12decfirst-g-题解">洛谷P3065 [USACO12DEC]First! G
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3065">P3065
+[USACO12DEC]First! G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>Bessie一直在研究字符串。她发现，通过改变字母表的顺序，她可以按改变后的字母表来排列字符串（字典序大小排列）。</p>
 <p>例如，Bessie发现，对于字符串串“omm”，“moo”，“mom”和“ommnom”，她可以使用标准字母表使“mom”排在第一个（即字典序最小），她也可以使用字母表“abcdefghijklonmpqrstuvwxyz”使得“omm”排在第一个。然而，Bessie想不出任何方法（改变字母表顺序）使得“moo”或“ommnom”排在第一个。</p>
 <p>接下来让我们通过重新排列字母表的顺序来计算输入中有哪些字符串可以排在第一个（即字典序最小），从而帮助Bessie。</p>
-<p>要计算字符串X和字符串Y按照重新排列过的字母表顺序来排列的顺序，先找到它们第一个不同的字母X[i]与Y[i]，按重排后的字母表顺序比较，若X[i]比Y[i]先，则X的字典序比Y小，即X排在Y前；若没有不同的字母，则比较X与Y长度，若X比Y短，则X的字典序比Y小，即X排在Y前。</p>
-<script type="math/tex; mode=display">
-\sum \left|S_i\right| \le 3 \times 10^5</script></blockquote>
+<p>要计算字符串X和字符串Y按照重新排列过的字母表顺序来排列的顺序，先找到它们第一个不同的字母X[i]与Y[i]，按重排后的字母表顺序比较，若X[i]比Y[i]先，则X的字典序比Y小，即X排在Y前；若没有不同的字母，则比较X与Y长度，若X比Y短，则X的字典序比Y小，即X排在Y前。
+<span class="math display">\[
+\sum \left|S_i\right| \le 3 \times 10^5
+\]</span></p>
+</blockquote>
 <p>显然trie树存字符串</p>
 <p>对于每个字符串，我们都假设它可以成为最小字典序的字符</p>
 <p>然后依次遍历它的每个字符，尽可能让它们成为最小的</p>
-<p>具体的，对于字符 $u$ ，如果我们想让它比 $v$ 字典序小，</p>
-<p>我们可以把 $u$ 向 $v$ 连一条有向边</p>
+<p>具体的，对于字符 <span class="math inline">\(u\)</span>
+，如果我们想让它比 <span class="math inline">\(v\)</span> 字典序小，</p>
+<p>我们可以把 <span class="math inline">\(u\)</span> 向 <span
+class="math inline">\(v\)</span> 连一条有向边</p>
 <p>显然无解的情况会成环，这个可以用topo来判</p>
 <p>值得注意的是，如果一个串的子串也在输入数据中存在，那么它一定无解</p>
-<p>时间复杂度 $O(26 \times \sum |S_i|)$</p>
+<p>时间复杂度 <span class="math inline">\(O(26 \times \sum
+|S_i|)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -869,7 +877,7 @@ string s<span class="token punctuation">[</span>N<span class="token punctuation"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -901,12 +909,12 @@ string s<span class="token punctuation">[</span>N<span class="token punctuation"
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -940,268 +948,217 @@ string s<span class="token punctuation">[</span>N<span class="token punctuation"
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1469,7 +1426,7 @@ string s<span class="token punctuation">[</span>N<span class="token punctuation"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1828,21 +1785,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

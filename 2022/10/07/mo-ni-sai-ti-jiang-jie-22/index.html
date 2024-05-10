@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="模拟赛题讲解[22], Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -700,7 +700,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2k
                 </div>
                 
 
@@ -720,22 +720,30 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模拟赛题讲解-22"><a href="#模拟赛题讲解-22" class="headerlink" title="模拟赛题讲解[22]"></a>模拟赛题讲解[22]</h1><p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a> 2022-10-07 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2851">noi.ac #2851</a></p>
+                <h1 id="模拟赛题讲解22">模拟赛题讲解[22]</h1>
+<p>来自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/11837">yukuai26</a>
+2022-10-07 <a target="_blank" rel="noopener" href="http://noi.ac/problem/2851">noi.ac #2851</a></p>
 <p><strong>题目描述</strong>：</p>
-<p>小明有一个 $3\times n$ 的方格, 每一格可能是 <code>o</code> 或者 <code>x</code></p>
+<p>小明有一个 <span class="math inline">\(3\times n\)</span> 的方格,
+每一格可能是 <code>o</code> 或者 <code>x</code></p>
 <p>小明想要把所有 <code>x</code> 变成 <code>o</code></p>
 <p>他每次会选择一个至少满足以下条件之之一的 <code>x</code></p>
 <ul>
-<li>与他水平相邻的格子中有 $2$ 个是 <code>o</code></li>
-<li>与他垂直相邻的格子中有 $2$ 个是 <code>o</code></li>
+<li>与他水平相邻的格子中有 <span class="math inline">\(2\)</span> 个是
+<code>o</code></li>
+<li>与他垂直相邻的格子中有 <span class="math inline">\(2\)</span> 个是
+<code>o</code></li>
 </ul>
 <p>之后他会把这个 <code>x</code> 变成 <code>o</code></p>
-<p>他想要知道把所有 <code>x</code> 变成 <code>o</code> 的方案数（如果变化 <code>x</code> 的位置的顺序不同，则是不同的方案）</p>
+<p>他想要知道把所有 <code>x</code> 变成 <code>o</code>
+的方案数（如果变化 <code>x</code> 的位置的顺序不同，则是不同的方案）</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个正整数 $n$ </p>
-<p>接下来 $3$ 行，每行一个长度为 $n$ 的字符串</p>
+<p>第一行一个正整数 <span class="math inline">\(n\)</span></p>
+<p>接下来 <span class="math inline">\(3\)</span> 行，每行一个长度为
+<span class="math inline">\(n\)</span> 的字符串</p>
 <p><strong>输出格式</strong>：</p>
-<p>一个整数表示答案。答案对  $10^9+7$ 取模</p>
+<p>一个整数表示答案。答案对 <span class="math inline">\(10^9+7\)</span>
+取模</p>
 <p><strong>样例输入 1</strong>：</p>
 <pre class="language-none"><code class="language-none">3
 oxo
@@ -759,52 +767,112 @@ oxooxoxooxooxooxoxoo</code></pre>
 <pre class="language-none"><code class="language-none">228518545</code></pre>
 <p><strong>数据范围</strong>：</p>
 <p>数据保证没有无解的情况。</p>
-<p>对于 $100\%$ 的数据，满足 $1 \leq n \leq 2000$ 。</p>
-<hr>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，满足 <span
+class="math inline">\(1 \leq n \leq 2000\)</span> 。</p>
+<hr />
 <p><strong>题解</strong>：</p>
 <p>毒瘤dp题。</p>
-<p>下文使用 $a \uparrow b+c$ 表示 <code>a += b+c</code> 。</p>
-<p>设 $f_{i,j,k}$ 表示在前 $i$ 列的所有格子中，$(2,i)$ 是第 $j$ 个被删掉的，</p>
-<p>且 $(2,i)$ 是否在 $(2,i+1)$ 之前被删除（ $k=0/1$ 表示 $(2,i)$ 在前/后被删除）时的方案数。</p>
-<p>考虑转移。我们用刷表法来递推，则前 $i$ 列所有 <code>x</code> 点删除顺序的序列我们已经知道了。</p>
-<p>我们钦定 $(2,i+1)$ 是第 $j$ 个被删除的，然后在原本的删除序列中插入第 $i+1$ 列的 $3$ 个元素。</p>
-<p>然后讨论 $(2,i+1)$ 是垂直删除的还是水平删除的。记前 $i$ 列有 $s$ 个 <code>x</code> 点，$w_i$ 表示 $(1,i)$ 和 $(3,i)$ 有几个 <code>x</code> 。</p>
+<p>下文使用 <span class="math inline">\(a \uparrow b+c\)</span> 表示
+<code>a += b+c</code> 。</p>
+<p>设 <span class="math inline">\(f_{i,j,k}\)</span> 表示在前 <span
+class="math inline">\(i\)</span> 列的所有格子中，<span
+class="math inline">\((2,i)\)</span> 是第 <span
+class="math inline">\(j\)</span> 个被删掉的，</p>
+<p>且 <span class="math inline">\((2,i)\)</span> 是否在 <span
+class="math inline">\((2,i+1)\)</span> 之前被删除（ <span
+class="math inline">\(k=0/1\)</span> 表示 <span
+class="math inline">\((2,i)\)</span> 在前/后被删除）时的方案数。</p>
+<p>考虑转移。我们用刷表法来递推，则前 <span
+class="math inline">\(i\)</span> 列所有 <code>x</code>
+点删除顺序的序列我们已经知道了。</p>
+<p>我们钦定 <span class="math inline">\((2,i+1)\)</span> 是第 <span
+class="math inline">\(j\)</span>
+个被删除的，然后在原本的删除序列中插入第 <span
+class="math inline">\(i+1\)</span> 列的 <span
+class="math inline">\(3\)</span> 个元素。</p>
+<p>然后讨论 <span class="math inline">\((2,i+1)\)</span>
+是垂直删除的还是水平删除的。记前 <span class="math inline">\(i\)</span>
+列有 <span class="math inline">\(s\)</span> 个 <code>x</code> 点，<span
+class="math inline">\(w_i\)</span> 表示 <span
+class="math inline">\((1,i)\)</span> 和 <span
+class="math inline">\((3,i)\)</span> 有几个 <code>x</code> 。</p>
 <p>但是可能存在「可以同时被两者之一删除」的情况，为了防止重复计数，不妨钦定垂直删除优先。</p>
-<p>为了方便转移，设 $g_{x,k}$ 表示将 $k$ 个数插入原来长为 $x$ 的序列的方案数，则有</p>
-<script type="math/tex; mode=display">
-g_{x,k} = k!\times \dbinom{x+k}{x} = \prod_{1\le i \le k} (x+i)</script><blockquote>
-<p>注：考虑最后的序列为 $x+k$ 个数，其中 $x$ 个是不能改变顺序的，因此 $\binom{x+k}{x}$ 。</p>
-<p>然后那 $k$ 个数是可以改变顺序放入剩下 $k$ 个空位的，即 $k!$ 。乘起来就是这个。</p>
+<p>为了方便转移，设 <span class="math inline">\(g_{x,k}\)</span> 表示将
+<span class="math inline">\(k\)</span> 个数插入原来长为 <span
+class="math inline">\(x\)</span> 的序列的方案数，则有 <span
+class="math display">\[
+g_{x,k} = k!\times \dbinom{x+k}{x} = \prod_{1\le i \le k} (x+i)
+\]</span></p>
+<blockquote>
+<p>注：考虑最后的序列为 <span class="math inline">\(x+k\)</span>
+个数，其中 <span class="math inline">\(x\)</span>
+个是不能改变顺序的，因此 <span
+class="math inline">\(\binom{x+k}{x}\)</span> 。</p>
+<p>然后那 <span class="math inline">\(k\)</span>
+个数是可以改变顺序放入剩下 <span class="math inline">\(k\)</span>
+个空位的，即 <span class="math inline">\(k!\)</span>
+。乘起来就是这个。</p>
 </blockquote>
 <ul>
-<li><p>如果是垂直删除，那么它上下两个格子都要在它前面删除，则</p>
-<script type="math/tex; mode=display">
+<li><p>如果是垂直删除，那么它上下两个格子都要在它前面删除，则 <span
+class="math display">\[
 \begin{aligned}
-f_{i+1,j,0} &\uparrow \sum_{j-w_i\le t \le s}f_{i,t,1}\times g_{j-w_i-1,w_i}
-\\[6pt]f_{i+1,j,0} &\uparrow \sum_{0\le t \le s} f_{i,t,0}\times g_{j-w_i-1,w_i}
-\end{aligned}</script></li>
+f_{i+1,j,0} &amp;\uparrow \sum_{j-w_i\le t \le s}f_{i,t,1}\times
+g_{j-w_i-1,w_i}
+\\[6pt]f_{i+1,j,0} &amp;\uparrow \sum_{0\le t \le s} f_{i,t,0}\times
+g_{j-w_i-1,w_i}
+\end{aligned}
+\]</span></p></li>
 <li><p>如果是水平删除，那么它左右两个格子要在它前面删除。</p>
-<p>同时，上下两个格子至少要有一个在它后面被删除，否则我们会优先垂直删除它。</p>
-<script type="math/tex; mode=display">
-f_{i+1,j,1} \uparrow \sum_{0 \le k < w_i}\dbinom{w_i}{k}\times \left(\sum_{0\le t<j}f_{i,t,0}\right) \times g_{j-1-k,k}\times g_{s-(j-1-k),w_i-k}</script><p>对于这种情况，显然 $f_{i+1,j,0}$ 是没有任何增量的。</p>
-<p>特别地，我们不考虑 $f_{i,t,1}$ 到 $f_{i+1,j,1}$ 的转移。</p>
-<p>因为 $k=1$ 就是为了能够让 $i+1$ 被水平删除才设置的</p>
-<p>正常情况下我们应当只转移 $\mathtt{ord}(i) &lt; \mathtt{ord}(i+1) &gt; \mathtt{ord}(i+2)$ 的到 $f_{i+1,j,1}$ 即它被水平删除</p>
-<p>但是这种 $1$ 到 $1$ 的转移，会出现 $\mathtt{ord}(i) &gt; \mathtt{ord}(i+1)&gt; \mathtt{ord}(i+2)$ ，这种情况是无法水平删除的</p>
-<p>总结一下就是说，$\mathtt{ord}(i)&gt;\mathtt{ord}(i+1)$ 的不能水平删除，但是会被错误地算进去（</p>
-</li>
+<p>同时，上下两个格子至少要有一个在它后面被删除，否则我们会优先垂直删除它。
+<span class="math display">\[
+f_{i+1,j,1} \uparrow \sum_{0 \le k &lt; w_i}\dbinom{w_i}{k}\times
+\left(\sum_{0\le t&lt;j}f_{i,t,0}\right) \times g_{j-1-k,k}\times
+g_{s-(j-1-k),w_i-k}
+\]</span> 对于这种情况，显然 <span
+class="math inline">\(f_{i+1,j,0}\)</span> 是没有任何增量的。</p>
+<p>特别地，我们不考虑 <span class="math inline">\(f_{i,t,1}\)</span> 到
+<span class="math inline">\(f_{i+1,j,1}\)</span> 的转移。</p>
+<p>因为 <span class="math inline">\(k=1\)</span> 就是为了能够让 <span
+class="math inline">\(i+1\)</span> 被水平删除才设置的</p>
+<p>正常情况下我们应当只转移 <span class="math inline">\(\mathtt{ord}(i)
+&lt; \mathtt{ord}(i+1) &gt; \mathtt{ord}(i+2)\)</span> 的到 <span
+class="math inline">\(f_{i+1,j,1}\)</span> 即它被水平删除</p>
+<p>但是这种 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(1\)</span> 的转移，会出现 <span
+class="math inline">\(\mathtt{ord}(i) &gt; \mathtt{ord}(i+1)&gt;
+\mathtt{ord}(i+2)\)</span> ，这种情况是无法水平删除的</p>
+<p>总结一下就是说，<span
+class="math inline">\(\mathtt{ord}(i)&gt;\mathtt{ord}(i+1)\)</span>
+的不能水平删除，但是会被错误地算进去（</p></li>
 </ul>
-<p>我们对于每个 $(2,l)$ 到 $(2,r)$ 均为 <code>x</code> 的子段做一遍dp。</p>
-<p>注意 $r=n$ 的时候，不能把 $k=1$ 的答案算进去。因为我们强制要求 $n$ 比 $n+1$ 先删除（显然）</p>
-<p>对于相邻的两个子段，考虑合并，设左侧的答案为 $r_1$ ，<code>x</code> 的个数为 $s_1$ ；右侧的答案为 $r_2$ ，<code>x</code> 的1个数为 $s_2$ ，则</p>
-<script type="math/tex; mode=display">
+<p>我们对于每个 <span class="math inline">\((2,l)\)</span> 到 <span
+class="math inline">\((2,r)\)</span> 均为 <code>x</code>
+的子段做一遍dp。</p>
+<p>注意 <span class="math inline">\(r=n\)</span> 的时候，不能把 <span
+class="math inline">\(k=1\)</span> 的答案算进去。因为我们强制要求 <span
+class="math inline">\(n\)</span> 比 <span
+class="math inline">\(n+1\)</span> 先删除（显然）</p>
+<p>对于相邻的两个子段，考虑合并，设左侧的答案为 <span
+class="math inline">\(r_1\)</span> ，<code>x</code> 的个数为 <span
+class="math inline">\(s_1\)</span> ；右侧的答案为 <span
+class="math inline">\(r_2\)</span> ，<code>x</code> 的1个数为 <span
+class="math inline">\(s_2\)</span> ，则 <span class="math display">\[
 \begin{aligned}
-s &= s_1 + s_2
-\\[6pt]r &= r_1 \times r_2 \times \dbinom{s_1 + s_2}{s_1}
-\end{aligned}</script><p>后面那个系数是因为段与段之间相互独立，用类似于 $g_{x,k}$ 的方法将左边序列不改变其顺序地放入空位。</p>
-<p>这样做的时间复杂度是 $\mathcal{O}(n^3)$ 的。注意到转移方程中的 $\sum f$ 长的就很前缀和优化，随便搞一搞就好了。</p>
-<p>但是这只是dp部分的答案，我们只dp了 $(2,i)$ 为 <code>x</code> 的列，其他的列的答案也要合并起来。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$ </p>
+s &amp;= s_1 + s_2
+\\[6pt]r &amp;= r_1 \times r_2 \times \dbinom{s_1 + s_2}{s_1}
+\end{aligned}
+\]</span> 后面那个系数是因为段与段之间相互独立，用类似于 <span
+class="math inline">\(g_{x,k}\)</span>
+的方法将左边序列不改变其顺序地放入空位。</p>
+<p>这样做的时间复杂度是 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span> 的。注意到转移方程中的
+<span class="math inline">\(\sum f\)</span>
+长的就很前缀和优化，随便搞一搞就好了。</p>
+<p>但是这只是dp部分的答案，我们只dp了 <span
+class="math inline">\((2,i)\)</span> 为 <code>x</code>
+的列，其他的列的答案也要合并起来。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -972,7 +1040,7 @@ pii <span class="token function">dp</span><span class="token punctuation">(</spa
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -1039,268 +1107,217 @@ pii <span class="token function">dp</span><span class="token punctuation">(</spa
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1568,7 +1585,7 @@ pii <span class="token function">dp</span><span class="token punctuation">(</spa
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1927,21 +1944,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

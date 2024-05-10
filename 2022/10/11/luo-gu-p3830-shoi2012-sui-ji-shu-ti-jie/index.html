@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3830 [SHOI2012]随机树 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -728,41 +728,76 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3830-SHOI2012-随机树-题解"><a href="#洛谷P3830-SHOI2012-随机树-题解" class="headerlink" title="洛谷P3830 [SHOI2012]随机树 题解"></a>洛谷P3830 [SHOI2012]随机树 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3830">P3830 [SHOI2012]随机树</a></p>
+                <h1 id="洛谷p3830-shoi2012随机树-题解">洛谷P3830 [SHOI2012]随机树
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3830">P3830
+[SHOI2012]随机树</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵随机有根二叉树的叶节点数 $n$ ，求</p>
-<ol>
+<p>给定一棵随机有根二叉树的叶节点数 <span
+class="math inline">\(n\)</span> ，求</p>
+<ol type="1">
 <li>叶子结点深度的期望</li>
-<li>树深度的期望（根节点深度为 $0$ ）</li>
+<li>树深度的期望（根节点深度为 <span class="math inline">\(0\)</span>
+）</li>
 </ol>
-<p>每组数据将给出 $\mathtt{op=1/2}$ ，表示询问的子问题。</p>
+<p>每组数据将给出 <span class="math inline">\(\mathtt{op=1/2}\)</span>
+，表示询问的子问题。</p>
 <p>随机方式如下</p>
-<ol>
+<ol type="1">
 <li>初始只有根节点</li>
 <li>每次选择一个<strong>叶结点</strong>，为其添加两个子结点</li>
-<li>重复步骤 2 （共 $n-1$ 次），得到一棵随机树。</li>
+<li>重复步骤 2 （共 <span class="math inline">\(n-1\)</span>
+次），得到一棵随机树。</li>
 </ol>
-<p>例如下图为 $n=5$ 的一种生成方式。</p>
+<p>例如下图为 <span class="math inline">\(n=5\)</span>
+的一种生成方式。</p>
 <p><img src="https://s2.loli.net/2022/10/11/QPpE835rbOKzdJa.png" style="zoom:50%;" /></p>
 <p><strong>输入格式</strong>：</p>
-<p>输入仅有一行，包含两个正整数 $\mathtt{op},n$ ，分别表示问题编号以及叶结点的个数。</p>
+<p>输入仅有一行，包含两个正整数 <span
+class="math inline">\(\mathtt{op},n\)</span>
+，分别表示问题编号以及叶结点的个数。</p>
 <p><strong>输出格式</strong>:</p>
-<p>输出仅有一行，包含一个实数 $d$，四舍五入精确到小数点后 $6$ 位。如果 $\mathtt{op = 1}$，则 d 表示叶结点平均深度的数学期望值；如果 $\mathtt{op = 2}$ ，则 $d$ 表示树深度的数学期望值。 </p>
+<p>输出仅有一行，包含一个实数 <span
+class="math inline">\(d\)</span>，四舍五入精确到小数点后 <span
+class="math inline">\(6\)</span> 位。如果 <span
+class="math inline">\(\mathtt{op = 1}\)</span>，则 d
+表示叶结点平均深度的数学期望值；如果 <span
+class="math inline">\(\mathtt{op = 2}\)</span> ，则 <span
+class="math inline">\(d\)</span> 表示树深度的数学期望值。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$\mathtt{op=1/2}, ~2 \le n \le 100$ 。</p>
+<p><span class="math inline">\(\mathtt{op=1/2}, ~2 \le n \le
+100\)</span> 。</p>
 </blockquote>
 <p>注意到生成这棵树的方式于叶结点数量有关，因此可以围绕叶结点设计状态。</p>
-<p>首先第一问，设 $f_i$ 表示 $i$ 个叶子结点的树的「叶子结点深度期望」，则总深度为 $i\times f_i$ 。</p>
-<p>考虑在 $i-1$ 个叶子结点的树中随机展开一个叶子，那么深度总和会增加 $f_{i-1} + 2$ ，则</p>
-<script type="math/tex; mode=display">
-f_i = \frac{1}{i}\times \left[f_{i-1}\times (i-1) + f_{i-1} + 2\right] = f_{i-1} + \frac{2}{i}</script><p>然后第二问。设 $f_{i,j}$ 表示 $i$ 个叶子结点的树，深度大于等于 $j$ 的概率。则最终答案为 $\sum_{i=1}^{n-1}f_{n,i}$ 。</p>
+<p>首先第一问，设 <span class="math inline">\(f_i\)</span> 表示 <span
+class="math inline">\(i\)</span>
+个叶子结点的树的「叶子结点深度期望」，则总深度为 <span
+class="math inline">\(i\times f_i\)</span> 。</p>
+<p>考虑在 <span class="math inline">\(i-1\)</span>
+个叶子结点的树中随机展开一个叶子，那么深度总和会增加 <span
+class="math inline">\(f_{i-1} + 2\)</span> ，则 <span
+class="math display">\[
+f_i = \frac{1}{i}\times \left[f_{i-1}\times (i-1) + f_{i-1} + 2\right] =
+f_{i-1} + \frac{2}{i}
+\]</span> 然后第二问。设 <span class="math inline">\(f_{i,j}\)</span>
+表示 <span class="math inline">\(i\)</span> 个叶子结点的树，深度大于等于
+<span class="math inline">\(j\)</span> 的概率。则最终答案为 <span
+class="math inline">\(\sum_{i=1}^{n-1}f_{n,i}\)</span> 。</p>
 <blockquote>
-<p>注：记 $p_i$ 表示 $n$ 个叶子结点的树深度为 $i$ 的概率，则 $\sum_{i=1}^{n-1}f_{n,i} = \sum_{i=1}^{n-1}p_i\times i$ 。</p>
+<p>注：记 <span class="math inline">\(p_i\)</span> 表示 <span
+class="math inline">\(n\)</span> 个叶子结点的树深度为 <span
+class="math inline">\(i\)</span> 的概率，则 <span
+class="math inline">\(\sum_{i=1}^{n-1}f_{n,i} =
+\sum_{i=1}^{n-1}p_i\times i\)</span> 。</p>
 </blockquote>
-<p>考虑转移，这里需要用到基本的容斥原理。下面的 $\frac{1}{i-1}$ 是每一种情况的出现概率</p>
-<script type="math/tex; mode=display">
-f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-1}f_{i-k,j-1})</script><p>时间复杂度 $\mathcal{O}(n^2)$ </p>
+<p>考虑转移，这里需要用到基本的容斥原理。下面的 <span
+class="math inline">\(\frac{1}{i-1}\)</span> 是每一种情况的出现概率
+<span class="math display">\[
+f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} -
+f_{k,j-1}f_{i-k,j-1})
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -799,9 +834,10 @@ f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fizzmy/solution-p3830">https://www.luogu.com.cn/blog/Fizzmy/solution-p3830</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Fizzmy/solution-p3830">https://www.luogu.com.cn/blog/Fizzmy/solution-p3830</a></p>
 
                 
             </div>
@@ -838,7 +874,7 @@ f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -913,268 +949,217 @@ f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1446,7 +1431,7 @@ f_{i,j} = \sum_{k=1}^{i-1} \frac{1}{i-1}\times(f_{k,j-1} + f_{i-k,j-1} - f_{k,j-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1805,21 +1790,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

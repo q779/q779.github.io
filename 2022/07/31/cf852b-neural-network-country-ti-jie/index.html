@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF852B Neural Network country 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -720,41 +720,87 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF852B-Neural-Network-country-题解"><a href="#CF852B-Neural-Network-country-题解" class="headerlink" title="CF852B Neural Network country 题解"></a>CF852B Neural Network country 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF852B">CF852B Neural Network country</a></p>
+                <h1 id="cf852b-neural-network-country-题解">CF852B Neural Network
+country 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF852B">CF852B
+Neural Network country</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个包含一个出发点 $s$ ，终止点 $t$ 以及 $L$ 层 $V_1,V_2,\dots,V_L$ ，每层都包含 $N$ 个顶点的带边权有向分层图。从出发点 $s$ 到第一层 $V_1$ 中每个顶点都有一条带权边，从最后一层 $V_L$ 到终止点 $t$ 中每个顶点也都有一条带权边。对于所有 $1\le i&lt;L$ ，第 $i$ 层的每个顶点到第 $i+1$ 层中的每个顶点都会连有一条带权有向边，且第 $i$ 层的每个顶点连出的边权完全相同，并且任意相邻两层之间所连边权完全相同。可以参照样例解释中链接内图示结合样例帮助理解。</p>
-<p>现给出该分层图，你需要计算有多少种从 $s$ 走到 $t$ 的路径，使得路径上经过边权值和能被 $M$ 整除？由于答案可能过大，你需要将答案对 $10^9+7$ 取模后输出。</p>
-<p>对于 $100\%$ 的数据，$1\le N\le 10^5,~2\le L\le 10^5,~2\le M\le 50,~0\le a_i,b_i,c_i&lt;M$</p>
+<p>给定一个包含一个出发点 <span class="math inline">\(s\)</span>
+，终止点 <span class="math inline">\(t\)</span> 以及 <span
+class="math inline">\(L\)</span> 层 <span
+class="math inline">\(V_1,V_2,\dots,V_L\)</span> ，每层都包含 <span
+class="math inline">\(N\)</span> 个顶点的带边权有向分层图。从出发点
+<span class="math inline">\(s\)</span> 到第一层 <span
+class="math inline">\(V_1\)</span> 中每个顶点都有一条带权边，从最后一层
+<span class="math inline">\(V_L\)</span> 到终止点 <span
+class="math inline">\(t\)</span> 中每个顶点也都有一条带权边。对于所有
+<span class="math inline">\(1\le i&lt;L\)</span> ，第 <span
+class="math inline">\(i\)</span> 层的每个顶点到第 <span
+class="math inline">\(i+1\)</span>
+层中的每个顶点都会连有一条带权有向边，且第 <span
+class="math inline">\(i\)</span>
+层的每个顶点连出的边权完全相同，并且任意相邻两层之间所连边权完全相同。可以参照样例解释中链接内图示结合样例帮助理解。</p>
+<p>现给出该分层图，你需要计算有多少种从 <span
+class="math inline">\(s\)</span> 走到 <span
+class="math inline">\(t\)</span> 的路径，使得路径上经过边权值和能被
+<span class="math inline">\(M\)</span>
+整除？由于答案可能过大，你需要将答案对 <span
+class="math inline">\(10^9+7\)</span> 取模后输出。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le N\le 10^5,~2\le L\le 10^5,~2\le M\le 50,~0\le
+a_i,b_i,c_i&lt;M\)</span></p>
 </blockquote>
 <p><del>感谢Roundgod老师的耐心指导，我还是太蠢了QAQ</del></p>
 <p>这道题其实就是给了一个<strong>有特殊性质</strong>的分层图</p>
-<p>然后用了 $s$ 和 $t$ 连上这个分层图</p>
+<p>然后用了 <span class="math inline">\(s\)</span> 和 <span
+class="math inline">\(t\)</span> 连上这个分层图</p>
 <p>这个分层图的特殊性质就是</p>
-<p>每个上一层的结点 $u_i$ 到下一层的结点 $v_i$ ，<strong>边权只由 $v_i$ 决定</strong></p>
+<p>每个上一层的结点 <span class="math inline">\(u_i\)</span>
+到下一层的结点 <span class="math inline">\(v_i\)</span>
+，<strong>边权只由 <span class="math inline">\(v_i\)</span>
+决定</strong></p>
 <p>因此对于分层图里面同一层的点，我们可以看作同一个点</p>
-<p>每个点和下一层的点都有 $n$ 中走法，也就对应了路径和的 $O(n)$ 种变化</p>
+<p>每个点和下一层的点都有 <span class="math inline">\(n\)</span>
+中走法，也就对应了路径和的 <span class="math inline">\(O(n)\)</span>
+种变化</p>
 <p>这种题的常见思路就是，算出不同路径和的答案</p>
-<p>然后把能被 $M$ 整除的答案加上，就是最终答案</p>
+<p>然后把能被 <span class="math inline">\(M\)</span>
+整除的答案加上，就是最终答案</p>
 <p>仔细思考一下，我们有没有必要记录整个路径和？</p>
-<p>注意到 $M \le 50$ ，这说明路径和模 $M$ 的剩余系很小</p>
-<p>而一条路径的边权和能否被 $M$ 整除，就等价于模 $M$ 等于 $0$ </p>
+<p>注意到 <span class="math inline">\(M \le 50\)</span> ，这说明路径和模
+<span class="math inline">\(M\)</span> 的剩余系很小</p>
+<p>而一条路径的边权和能否被 <span class="math inline">\(M\)</span>
+整除，就等价于模 <span class="math inline">\(M\)</span> 等于 <span
+class="math inline">\(0\)</span></p>
 <p>这样我们就可以很容易的设出dp状态了</p>
-<p>这里我们只算分层图上的 $1\sim L-1$ 层，因为第 $L$ 层显然不满足特殊性质</p>
-<p>因为第 $L$ 层每个点到 $t$ 的边权不同，我们要单独处理。</p>
-<p>设 $f_{i,j}$ 表示走到分层图上的第 $i$ 层，从第一层出发，边权和模 $M$ 为 $j$ 的方案数</p>
-<p>转移方程就是</p>
-<script type="math/tex; mode=display">
-f_{i,j}=\sum_{0\le k < M} f_{i-1,k} \times A_{k,j}</script><p>其中 $A_{k,j}$ 表示存在 $k$ 向 $j$ 的转移，这个可以预处理出来</p>
-<p>稍微整理一下，可得</p>
-<script type="math/tex; mode=display">
-f^{i}_j = \sum _{0 \le k < M} f^{i-1}_{k} \times A_{k,j}</script><p>可以发现这个柿子就是矩阵乘法的定义，只不过 $f$ 是个 $1 \times M$ 的矩阵</p>
-<p>于是写成矩阵乘法的形式，就是</p>
-<script type="math/tex; mode=display">
-f^k = f^{k-1} \times A = f^{k-2} \times A^2  = A^k</script><p>考虑矩阵快速幂计算</p>
-<p>实际上的答案是 $A \times B^{L-2} \times C$（和上面写的稍微有些区别） </p>
-<p>分别对应 $s \to V_1,V_1 \to V_{L-1},V_{L-1}\to t$</p>
-<p>时间复杂度 $O(M^3 \log n)$ </p>
+<p>这里我们只算分层图上的 <span class="math inline">\(1\sim L-1\)</span>
+层，因为第 <span class="math inline">\(L\)</span>
+层显然不满足特殊性质</p>
+<p>因为第 <span class="math inline">\(L\)</span> 层每个点到 <span
+class="math inline">\(t\)</span> 的边权不同，我们要单独处理。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示走到分层图上的第
+<span class="math inline">\(i\)</span> 层，从第一层出发，边权和模 <span
+class="math inline">\(M\)</span> 为 <span
+class="math inline">\(j\)</span> 的方案数</p>
+<p>转移方程就是 <span class="math display">\[
+f_{i,j}=\sum_{0\le k &lt; M} f_{i-1,k} \times A_{k,j}
+\]</span> 其中 <span class="math inline">\(A_{k,j}\)</span> 表示存在
+<span class="math inline">\(k\)</span> 向 <span
+class="math inline">\(j\)</span> 的转移，这个可以预处理出来</p>
+<p>稍微整理一下，可得 <span class="math display">\[
+f^{i}_j = \sum _{0 \le k &lt; M} f^{i-1}_{k} \times A_{k,j}
+\]</span> 可以发现这个柿子就是矩阵乘法的定义，只不过 <span
+class="math inline">\(f\)</span> 是个 <span class="math inline">\(1
+\times M\)</span> 的矩阵</p>
+<p>于是写成矩阵乘法的形式，就是 <span class="math display">\[
+f^k = f^{k-1} \times A = f^{k-2} \times A^2  = A^k
+\]</span> 考虑矩阵快速幂计算</p>
+<p>实际上的答案是 <span class="math inline">\(A \times B^{L-2} \times
+C\)</span>（和上面写的稍微有些区别）</p>
+<p>分别对应 <span class="math inline">\(s \to V_1,V_1 \to
+V_{L-1},V_{L-1}\to t\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(M^3 \log n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -893,7 +939,7 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -960,268 +1006,217 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1489,7 +1484,7 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1848,21 +1843,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

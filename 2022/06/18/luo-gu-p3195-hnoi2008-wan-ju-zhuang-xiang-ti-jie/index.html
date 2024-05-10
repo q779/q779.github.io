@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3195 [HNOI2008]玩具装箱 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -724,70 +724,108 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3195-HNOI2008-玩具装箱-题解"><a href="#洛谷P3195-HNOI2008-玩具装箱-题解" class="headerlink" title="洛谷P3195 [HNOI2008]玩具装箱 题解"></a>洛谷P3195 [HNOI2008]玩具装箱 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">P3195 [HNOI2008]玩具装箱</a></p>
+                <h1 id="洛谷p3195-hnoi2008玩具装箱-题解">洛谷P3195 [HNOI2008]玩具装箱
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">P3195
+[HNOI2008]玩具装箱</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n$ 个玩具，第 $i$ 个玩具的价值为 $c_i$ 。要求将这 $n$ 个玩具排成一排，分成若干段。对于一段 $[l,r]$ ，它的代价为 $(r-l+\sum_{i=l}^{r}c_i-L)^2$ ，其中 $L$ 为一个常量，求分段的最小代价。</p>
-<p>$1 \leq n \leq 5 \times 10^4$，$1 \leq L \leq 10^7$，$1 \leq C_i \leq 10^7$</p>
+<p>有 <span class="math inline">\(n\)</span> 个玩具，第 <span
+class="math inline">\(i\)</span> 个玩具的价值为 <span
+class="math inline">\(c_i\)</span> 。要求将这 <span
+class="math inline">\(n\)</span> 个玩具排成一排，分成若干段。对于一段
+<span class="math inline">\([l,r]\)</span> ，它的代价为 <span
+class="math inline">\((r-l+\sum_{i=l}^{r}c_i-L)^2\)</span> ，其中 <span
+class="math inline">\(L\)</span> 为一个常量，求分段的最小代价。</p>
+<p><span class="math inline">\(1 \leq n \leq 5 \times
+10^4\)</span>，<span class="math inline">\(1 \leq L \leq
+10^7\)</span>，<span class="math inline">\(1 \leq C_i \leq
+10^7\)</span></p>
 </blockquote>
 <p>upd. 新增斜率优化新的理解。</p>
-<p>令 $f_i$ 表示前 $i$ 个物品分成若干段的最小代价，则</p>
-<script type="math/tex; mode=display">
-f_i = \min_{j < i}\left\{f_j + (S_i + i -S_j -j -L-1)^2\right\}</script><p>其中 $S_i$ 为前 $i$ 个物品的价值和，即 $S_i = \sum_{j=1}^{i}c_j$</p>
-<p>直接去做是 $O(n^2)$ ，考虑斜率优化</p>
-<p>令 $a_i = S_i + i,~b_i = S_i + i + L+1$ ，则</p>
-<script type="math/tex; mode=display">
+<p>令 <span class="math inline">\(f_i\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个物品分成若干段的最小代价，则 <span
+class="math display">\[
+f_i = \min_{j &lt; i}\left\{f_j + (S_i + i -S_j -j -L-1)^2\right\}
+\]</span> 其中 <span class="math inline">\(S_i\)</span> 为前 <span
+class="math inline">\(i\)</span> 个物品的价值和，即 <span
+class="math inline">\(S_i = \sum_{j=1}^{i}c_j\)</span></p>
+<p>直接去做是 <span class="math inline">\(O(n^2)\)</span>
+，考虑斜率优化</p>
+<p>令 <span class="math inline">\(a_i = S_i + i,~b_i = S_i + i +
+L+1\)</span> ，则 <span class="math display">\[
 \begin{aligned}
-f_i &= \min_{j < i}\left\{ f_j + (a_i-b_j)^2 \right\}
-\\&=\min_{j < i}\left\{ f_j + a_i^2 - 2a_ib_j + b_j^2\right\}
-\end{aligned}</script><p>移项得</p>
-<script type="math/tex; mode=display">
-f_i - a_i^2  =  \min_{j < i}\left\{ f_j -2a_ib_j + b_j^2\right\}</script><p>注意到右边的部分有一个 $2a_i$ 导致我们无法单调队列优化</p>
-<p>但是我们可以斜率优化，也就是吧 $2a_i$ 看作 $k$ </p>
-<p>根据斜截式方程可得</p>
-<script type="math/tex; mode=display">
-b=y-kx</script><p>可知</p>
-<script type="math/tex; mode=display">
+f_i &amp;= \min_{j &lt; i}\left\{ f_j + (a_i-b_j)^2 \right\}
+\\&amp;=\min_{j &lt; i}\left\{ f_j + a_i^2 - 2a_ib_j + b_j^2\right\}
+\end{aligned}
+\]</span> 移项得 <span class="math display">\[
+f_i - a_i^2  =  \min_{j &lt; i}\left\{ f_j -2a_ib_j + b_j^2\right\}
+\]</span> 注意到右边的部分有一个 <span
+class="math inline">\(2a_i\)</span> 导致我们无法单调队列优化</p>
+<p>但是我们可以斜率优化，也就是吧 <span
+class="math inline">\(2a_i\)</span> 看作 <span
+class="math inline">\(k\)</span></p>
+<p>根据斜截式方程可得 <span class="math display">\[
+b=y-kx
+\]</span> 可知 <span class="math display">\[
 \begin{aligned}
-b^\prime_i&=f_i-a_i^2
-\\k_i&=2a_i
-\\x_j&=b_j
-\\y_j &= f_j + b_j^2
-\end{aligned}</script><p>则转移方程可以写成如下形式</p>
-<script type="math/tex; mode=display">
-b_i^\prime = \min\left\{ y_j-k_ix_j\right\}</script><p>把 $(x_j,y_j)$ 映射到平面上的点，那么问题就转化为了</p>
-<p>找到一个 $1\le j&lt;i$ <strong>最小化过点 $(x_j,y_j)$ 且斜率为 $k_i$ 的直线的 $y$ 轴截距</strong></p>
-<p>由于这个 $k_i$ 是严格单调递增的，</p>
-<p>不难发现这个点一定在 $(x_j,y_j)$ 点集形成的<strong>下凸壳</strong>上，</p>
-<p>并且这个点 $P_j$ 的 $j$ 是满足直线 $P_jP_{j+1}$ 的斜率 $k_j^{\prime}&gt;k_i$ 最小的 $j$ </p>
-<p>或者说，这个点和下一个在下凸壳上的点所连产生的直线是第一个斜率比 $k_i$ 大的</p>
+b^\prime_i&amp;=f_i-a_i^2
+\\k_i&amp;=2a_i
+\\x_j&amp;=b_j
+\\y_j &amp;= f_j + b_j^2
+\end{aligned}
+\]</span> 则转移方程可以写成如下形式 <span class="math display">\[
+b_i^\prime = \min\left\{ y_j-k_ix_j\right\}
+\]</span> 把 <span class="math inline">\((x_j,y_j)\)</span>
+映射到平面上的点，那么问题就转化为了</p>
+<p>找到一个 <span class="math inline">\(1\le j&lt;i\)</span>
+<strong>最小化过点 <span class="math inline">\((x_j,y_j)\)</span>
+且斜率为 <span class="math inline">\(k_i\)</span> 的直线的 <span
+class="math inline">\(y\)</span> 轴截距</strong></p>
+<p>由于这个 <span class="math inline">\(k_i\)</span>
+是严格单调递增的，</p>
+<p>不难发现这个点一定在 <span class="math inline">\((x_j,y_j)\)</span>
+点集形成的<strong>下凸壳</strong>上，</p>
+<p>并且这个点 <span class="math inline">\(P_j\)</span> 的 <span
+class="math inline">\(j\)</span> 是满足直线 <span
+class="math inline">\(P_jP_{j+1}\)</span> 的斜率 <span
+class="math inline">\(k_j^{\prime}&gt;k_i\)</span> 最小的 <span
+class="math inline">\(j\)</span></p>
+<p>或者说，这个点和下一个在下凸壳上的点所连产生的直线是第一个斜率比
+<span class="math inline">\(k_i\)</span> 大的</p>
 <p>考虑如何维护这个下凸壳</p>
-<p>刚才我们也说了 $k_i$ 是单调递增的，所以这个下凸壳是一个“动态”的</p>
-<p>当凸壳上的某个点 $u$ 和下一个点 $v$ 所成的直线斜率小于 $k_i$ 时，</p>
-<p>$u$ 就没用了，该被踢掉了</p>
+<p>刚才我们也说了 <span class="math inline">\(k_i\)</span>
+是单调递增的，所以这个下凸壳是一个“动态”的</p>
+<p>当凸壳上的某个点 <span class="math inline">\(u\)</span> 和下一个点
+<span class="math inline">\(v\)</span> 所成的直线斜率小于 <span
+class="math inline">\(k_i\)</span> 时，</p>
+<p><span class="math inline">\(u\)</span> 就没用了，该被踢掉了</p>
 <p>因此我们可以用单调队列来维护，而不是单调栈</p>
 <p>然后每次加点就和二维凸包那个差不多，这里不细讲了（</p>
-<hr>
+<hr />
 <p>对于斜率优化，还有另一种理解</p>
-<p>首先刚刚的柿子还是要用到的</p>
-<script type="math/tex; mode=display">
-f_i-a_i^2=\min_{j < i}\left\{ f_j - 2a_ib_j + b_j^2\right\}</script><p>我们不用刚刚那个</p>
-<p>考虑一个 $j~(j&gt;k)$ 在什么情况下比 $k$ 优</p>
-<p>显然有</p>
-<script type="math/tex; mode=display">
-f_j-2a_ib_j+b_j^2 < f_k-2a_ib_k+b_k^2</script><p>然后推推柿子</p>
-<script type="math/tex; mode=display">
-f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ 是单调递增的</p>
-<p>因此有 $b_j &gt; b_k$ </p>
-<p>则柿子可以化简为</p>
-<script type="math/tex; mode=display">
-\dfrac{f_j+b_j^2-f_k-b_k^2}{b_j-b_k} < 2a_i</script><p>左边这个东西长的很像斜率的定义</p>
+<p>首先刚刚的柿子还是要用到的 <span class="math display">\[
+f_i-a_i^2=\min_{j &lt; i}\left\{ f_j - 2a_ib_j + b_j^2\right\}
+\]</span> 我们不用刚刚那个</p>
+<p>考虑一个 <span class="math inline">\(j~(j&gt;k)\)</span>
+在什么情况下比 <span class="math inline">\(k\)</span> 优</p>
+<p>显然有 <span class="math display">\[
+f_j-2a_ib_j+b_j^2 &lt; f_k-2a_ib_k+b_k^2
+\]</span> 然后推推柿子 <span class="math display">\[
+f_j+b_j^2-f_k-b_k^2 &lt; 2a_i(b_j-b_k)
+\]</span> 注意到 <span class="math inline">\(b_i = S_i + i +
+L+1\)</span> 是单调递增的</p>
+<p>因此有 <span class="math inline">\(b_j &gt; b_k\)</span></p>
+<p>则柿子可以化简为 <span class="math display">\[
+\dfrac{f_j+b_j^2-f_k-b_k^2}{b_j-b_k} &lt; 2a_i
+\]</span> 左边这个东西长的很像斜率的定义</p>
 <p>因此我们可以维护一个点集，然后两两点去判断</p>
 <p>但是这样肯定是不优的</p>
-<p>仔细思考一下，可能成为答案的点一定在这个点集的下凸壳上（因为我们要最小化 $ f_j - 2a_ib_j + b_j^2$ ，所以是下凸壳）</p>
+<p>仔细思考一下，可能成为答案的点一定在这个点集的下凸壳上（因为我们要最小化
+$ f_j - 2a_ib_j + b_j^2$ ，所以是下凸壳）</p>
 <p>于是我们维护一个下凸壳，依次加入点，再踢出那些不优的点</p>
-<hr>
-<p>时间复杂度 $O(n)$ </p>
+<hr />
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -833,6 +871,7 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>dp<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
+
                 
             </div>
             <hr/>
@@ -868,7 +907,7 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -939,268 +978,217 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1472,7 +1460,7 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1831,21 +1819,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

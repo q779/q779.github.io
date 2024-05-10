@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P4099 [HEOI2013]SAO 题解, Q779的博客">
-    <meta name="description" content="一个文章超多的小破站。">
+    <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -347,7 +347,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            一个文章超多的小破站。
+            Hi, 这里是q779的博客。
             
         </div>
     </div>
@@ -724,55 +724,85 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4099-HEOI2013-SAO-题解"><a href="#洛谷P4099-HEOI2013-SAO-题解" class="headerlink" title="洛谷P4099 [HEOI2013]SAO 题解"></a>洛谷P4099 [HEOI2013]SAO 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4099">P4099 [HEOI2013]SAO</a></p>
+                <h1 id="洛谷p4099-heoi2013sao-题解">洛谷P4099 [HEOI2013]SAO 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4099">P4099
+[HEOI2013]SAO</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Welcome to SAO ( Strange and Abnormal Online)。这是一个 VR MMORPG， 含有 $n$ 个关卡。但是，挑战不同关卡的顺序是一个很大的问题。</p>
-<p>某款游戏有 $n-1$ 个对于挑战关卡的限制，诸如第 $i$ 个关卡必须在第 $j$ 个关卡前挑战，或者完成了第 $k$ 个关卡才能挑战第 $l$ 个关卡。并且，如果不考虑限制的方向性，那么在这 $n-1$ 个限制的情况下，任何两个关卡都存在某种程度的关联性。即，我们不能把所有关卡分成两个非空且不相交的子集，使得这两个子集之间没有任何限制。</p>
+<p>Welcome to SAO ( Strange and Abnormal Online)。这是一个 VR MMORPG，
+含有 <span class="math inline">\(n\)</span>
+个关卡。但是，挑战不同关卡的顺序是一个很大的问题。</p>
+<p>某款游戏有 <span class="math inline">\(n-1\)</span>
+个对于挑战关卡的限制，诸如第 <span class="math inline">\(i\)</span>
+个关卡必须在第 <span class="math inline">\(j\)</span>
+个关卡前挑战，或者完成了第 <span class="math inline">\(k\)</span>
+个关卡才能挑战第 <span class="math inline">\(l\)</span>
+个关卡。并且，如果不考虑限制的方向性，那么在这 <span
+class="math inline">\(n-1\)</span>
+个限制的情况下，任何两个关卡都存在某种程度的关联性。即，我们不能把所有关卡分成两个非空且不相交的子集，使得这两个子集之间没有任何限制。</p>
 </blockquote>
 <p>高质量好题👍 <del>做了我一下午+晚上</del></p>
 <p>首先这个题面的意思：<strong>给定一棵有方向的树，求拓扑序总数</strong></p>
 <p>注意到这个特殊的性质，可以从树形dp的角度去解决这个问题</p>
-<p>设 $dp[u][i]$ 表示结点 $u$ 在其子树的拓扑序中位于第 $i$ 位的方案数</p>
-<p>对于每个 $u$ 的儿子 $v$ ，将 $v$ 不断合并到 $u$ 上，则有两种情况</p>
+<p>设 <span class="math inline">\(dp[u][i]\)</span> 表示结点 <span
+class="math inline">\(u\)</span> 在其子树的拓扑序中位于第 <span
+class="math inline">\(i\)</span> 位的方案数</p>
+<p>对于每个 <span class="math inline">\(u\)</span> 的儿子 <span
+class="math inline">\(v\)</span> ，将 <span
+class="math inline">\(v\)</span> 不断合并到 <span
+class="math inline">\(u\)</span> 上，则有两种情况</p>
 <ul>
-<li><p>新拓扑序中 $v$ 在 $u$ 前</p>
-<p>考虑枚举一个 $j$ 表示 $v$ 的子树中有 $j$ 个结点合并到了 $u$ 的前面</p>
-<p>则新的状态为 $dp[u][i+j]$  </p>
+<li><p>新拓扑序中 <span class="math inline">\(v\)</span> 在 <span
+class="math inline">\(u\)</span> 前</p>
+<p>考虑枚举一个 <span class="math inline">\(j\)</span> 表示 <span
+class="math inline">\(v\)</span> 的子树中有 <span
+class="math inline">\(j\)</span> 个结点合并到了 <span
+class="math inline">\(u\)</span> 的前面</p>
+<p>则新的状态为 <span class="math inline">\(dp[u][i+j]\)</span></p>
 <ul>
-<li><p>合并后 $u$ 前面有 $i+j-1$ 个元素，</p>
-<p>其中 $j$ 个是 $v$ 的，所以 $i+j-1$ 个格子取 $j$ 个，则为 $\dbinom{i+j-1}{j}$ </p>
-</li>
-<li><p>同理， $u$ 后面有 $\text{sz}[u]+\text{sz}[v]-i-j$ 个元素，</p>
-<p>其中 $\text{sz}[v]-j$ 个是 $v$ 的，则为 $\dbinom{\text{sz}[u]+\text{sz}[v]-i-j}{\text{sz}[v]-j}$</p>
-</li>
+<li><p>合并后 <span class="math inline">\(u\)</span> 前面有 <span
+class="math inline">\(i+j-1\)</span> 个元素，</p>
+<p>其中 <span class="math inline">\(j\)</span> 个是 <span
+class="math inline">\(v\)</span> 的，所以 <span
+class="math inline">\(i+j-1\)</span> 个格子取 <span
+class="math inline">\(j\)</span> 个，则为 <span
+class="math inline">\(\dbinom{i+j-1}{j}\)</span></p></li>
+<li><p>同理， <span class="math inline">\(u\)</span> 后面有 <span
+class="math inline">\(\text{sz}[u]+\text{sz}[v]-i-j\)</span>
+个元素，</p>
+<p>其中 <span class="math inline">\(\text{sz}[v]-j\)</span> 个是 <span
+class="math inline">\(v\)</span> 的，则为 <span
+class="math inline">\(\dbinom{\text{sz}[u]+\text{sz}[v]-i-j}{\text{sz}[v]-j}\)</span></p></li>
 </ul>
-<p>故转移方程为</p>
-<script type="math/tex; mode=display">
-dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times \dbinom{\text{sz}[u]+\text{sz}[v]-i-j}{\text{sz}[v]-j} \times dp[u][i]\times dp[v][k]</script><p>也就是</p>
+<p>故转移方程为 <span class="math display">\[
+dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times
+\dbinom{\text{sz}[u]+\text{sz}[v]-i-j}{\text{sz}[v]-j} \times
+dp[u][i]\times dp[v][k]
+\]</span> 也就是</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>k<span class="token punctuation">)</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>k<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
             dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>dp<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">+</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token operator">-</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>考虑变换一下 $j,k$ 的枚举顺序</p>
+<p>考虑变换一下 <span class="math inline">\(j,k\)</span> 的枚举顺序</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>k<span class="token operator">&lt;=</span>j<span class="token punctuation">;</span><span class="token operator">++</span>k<span class="token punctuation">)</span>
             dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>dp<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">+</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token operator">-</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>然后就可以愉快的前缀和优化啦！</p>
-</li>
-<li><p>新拓扑序中 $v$ 在 $u$ 后</p>
+<p>然后就可以愉快的前缀和优化啦！</p></li>
+<li><p>新拓扑序中 <span class="math inline">\(v\)</span> 在 <span
+class="math inline">\(u\)</span> 后</p>
 <p>与上一种情况类似</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>i<span class="token punctuation">)</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>k<span class="token operator">&lt;=</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token operator">++</span>k<span class="token punctuation">)</span>
             dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>dp<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>dp<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>C<span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">+</span>sz<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token operator">-</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>sz<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token operator">-</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>也可以前缀和优化</p>
-</li>
+<p>也可以前缀和优化</p></li>
 </ul>
-<p>然后组合数 $O(n^2)$ 预处理</p>
-<p>注意由于 <code>dp[u][i+j]</code> 的更新，我们需要记录临时记录旧的 <code>dp[u][i]</code> </p>
-<p>所以总的时间复杂度为 $O(n^2)$ （类似于树上背包的复杂度证明，此处略）</p>
+<p>然后组合数 <span class="math inline">\(O(n^2)\)</span> 预处理</p>
+<p>注意由于 <code>dp[u][i+j]</code> 的更新，我们需要记录临时记录旧的
+<code>dp[u][i]</code></p>
+<p>所以总的时间复杂度为 <span class="math inline">\(O(n^2)\)</span>
+（类似于树上背包的复杂度证明，此处略）</p>
 <p>别忘了多组数据哦！ qwq</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -872,9 +902,12 @@ dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times \dbinom{\text{sz}[u]+\text{sz}[v]-
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/i-am-zhiyangfan/solution-p4099">https://www.luogu.com.cn/blog/i-am-zhiyangfan/solution-p4099</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-p4099">https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-p4099</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://m-sea.blog.luogu.org/solution-p4099">https://m-sea.blog.luogu.org/solution-p4099</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/i-am-zhiyangfan/solution-p4099">https://www.luogu.com.cn/blog/i-am-zhiyangfan/solution-p4099</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-p4099">https://www.luogu.com.cn/blog/ShadowassIIXVIIIIV/solution-p4099</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://m-sea.blog.luogu.org/solution-p4099">https://m-sea.blog.luogu.org/solution-p4099</a></p>
 
                 
             </div>
@@ -911,7 +944,7 @@ dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times \dbinom{\text{sz}[u]+\text{sz}[v]-
                     </i>
                 </span>
                 <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
+                    本博客所有文章除特别声明外，均采用
                     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
                     <a href="https://q779.github.io" target="_blank">q779</a>
@@ -982,268 +1015,217 @@ dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times \dbinom{\text{sz}[u]+\text{sz}[v]-
     
 
     
+
+    
         <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
+  .waline-card {
+      margin: 1.5rem auto;
+  }
+  .waline-card .card-content {
+      padding: 20px 20px 5px 20px;
+  }
+  #waline p {
+      margin: 2px 2px 10px;
+      font-size: 1.05rem;
+      line-height: 1.78rem;
+  }
+  #waline blockquote p {
+      text-indent: 0.2rem;
+  }
+  #waline a {
+      padding: 0 2px;
+      color: #4cbf30;
+      font-weight: 500;
+      text-decoration: none;
+  }
+  #waline img {
+      max-width: 100%;
+      cursor: pointer;
+  }
+  #waline ol li {
+      list-style-type: decimal;
+  }
+  #waline ol,
+  ul {
+      display: block;
+      padding-left: 2em;
+      word-spacing: 0.05rem;
+  }
+  #waline ul li,
+  ol li {
+      display: list-item;
+      line-height: 1.8rem;
+      font-size: 1rem;
+  }
+  #waline ul li {
+      list-style-type: disc;
+  }
+  #waline ul ul li {
+      list-style-type: circle;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  #waline table, th, td {
+      border: 0;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline h1 {
+      font-size: 1.85rem;
+      font-weight: bold;
+      line-height: 2.2rem;
+  }
+  #waline h2 {
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.9rem;
+  }
+  #waline h3 {
+      font-size: 1.45rem;
+      font-weight: bold;
+      line-height: 1.7rem;
+  }
+  #waline h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      line-height: 1.5rem;
+  }
+  #waline h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 1.4rem;
+  }
+  #waline h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+  }
+  #waline p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+  }
+  #waline hr {
+      margin: 12px 0;
+      border: 0;
+      border-top: 1px solid #ccc;
+  }
+  #waline blockquote {
+      margin: 15px 0;
+      border-left: 5px solid #42b983;
+      padding: 1rem 0.8rem 0.3rem 0.8rem;
+      color: #666;
+      background-color: rgba(66, 185, 131, .1);
+  }
+  #waline pre {
+      font-family: monospace, monospace;
+      padding: 1.2em;
+      margin: .5em 0;
+      background: #272822;
+      overflow: auto;
+      border-radius: 0.3em;
+      tab-size: 4;
+  }
+  #waline code {
+      font-family: monospace, monospace;
+      padding: 1px 3px;
+      font-size: 0.92rem;
+      color: #e96900;
+      background-color: #f8f8f8;
+      border-radius: 2px;
+  }
+  #waline pre code {
+      font-family: monospace, monospace;
+      padding: 0;
+      color: #e8eaf6;
+      background-color: #272822;
+  }
+  #waline pre[class*="language-"] {
+      padding: 1.2em;
+      margin: .5em 0;
+  }
+  #waline code[class*="language-"],
+  pre[class*="language-"] {
+      color: #e8eaf6;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
+  #waline b,
+  strong {
+      font-weight: bold;
+  }
+  #waline dfn {
+      font-style: italic;
+  }
+  #waline small {
+      font-size: 85%;
+  }
+  #waline cite {
+      font-style: normal;
+  }
+  #waline mark {
+      background-color: #fcf8e3;
+      padding: .2em;
+  }
+  #waline table, th, td {
+      padding: 12px 13px;
+      border: 1px solid #dfe2e5;
+  }
+  table tr:nth-child(2n), thead {
+      background-color: #fafafa;
+  }
+  #waline table th {
+      background-color: #f2f2f2;
+      min-width: 80px;
+  }
+  #waline table td {
+      min-width: 80px;
+  }
+  #waline [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      position: inherit;
+      margin-left: -1.3rem;
+      margin-right: 0.4rem;
+      margin-top: -1px;
+      vertical-align: middle;
+      left: unset;
+      visibility: visible;
+  }
 </style>
 
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
+<div class="card waline-card" data-aos="fade-up">
+  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+      <span>评论</span>
+  </div>
+  <div id="waline" class="card-content" style="display: grid">
+  </div>
 </div>
 
-<script src="/libs/valine/av-min.js"></script>
-<script src="/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'zh-cn',
-        placeholder: '欢迎提出意见 qwq'
-    });
-</script>
 
+<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
+<script src="/libs/waline/Waline.min.js"></script>
+<script>
+  new Waline({
+      el: '#waline',
+      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      avatar: 'mm'    
+  });
+</script> 
     
 
     
@@ -1523,7 +1505,7 @@ dp[u][i+j]=dp[u][i+j]+\dbinom{i+j-1}{j}\times \dbinom{\text{sz}[u]+\text{sz}[v]-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">988.3k</span>&nbsp;字
+                class="white-color">1014.8k</span>&nbsp;字
             
             
             
@@ -1882,21 +1864,6 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
