@@ -732,68 +732,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3247-hnoi2016最小公倍数-题解">洛谷P3247
-[HNOI2016]最小公倍数 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3247">P3247
-[HNOI2016]最小公倍数</a></p>
+                <h1 id="洛谷P3247-HNOI2016-最小公倍数-题解"><a href="#洛谷P3247-HNOI2016-最小公倍数-题解" class="headerlink" title="洛谷P3247 [HNOI2016]最小公倍数 题解"></a>洛谷P3247 [HNOI2016]最小公倍数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3247">P3247 [HNOI2016]最小公倍数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一张 <span class="math inline">\(N\)</span> 个顶点 <span
-class="math inline">\(M\)</span> 条边的无向图（顶点编号为 <span
-class="math inline">\(1,2,\ldots,n\)</span>
-），每条边上带有权值。所有权值都可以分解成 <span
-class="math inline">\(2^a\times 3^b\)</span> 的形式。</p>
-<p>现在有 <span class="math inline">\(q\)</span>
-个询问，每次询问给定四个参数 <span class="math inline">\(u,v,a\)</span>
-和 <span class="math inline">\(b\)</span>，请你求出是否存在一条顶点
-<span class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span>
-之间的路径，使得路径依次经过的边上的权值的最小公倍数为 <span
-class="math inline">\(2^a\times 3^b\)</span>。</p>
+<p>给定一张 $N$ 个顶点 $M$ 条边的无向图（顶点编号为 $1,2,\ldots,n$ ），每条边上带有权值。所有权值都可以分解成 $2^a\times 3^b$ 的形式。</p>
+<p>现在有 $q$ 个询问，每次询问给定四个参数 $u,v,a$ 和 $b$，请你求出是否存在一条顶点 $u$ 到 $v$ 之间的路径，使得路径依次经过的边上的权值的最小公倍数为 $2^a\times 3^b$。</p>
 <p>注意：路径可以不是简单路径。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入文件的第一行包含两个整数 <span class="math inline">\(N\)</span>
-和 <span
-class="math inline">\(M\)</span>，分别代表图的顶点数和边数。</p>
-<p>接下来 <span class="math inline">\(M\)</span> 行，每行包含四个整数
-<span class="math inline">\(u,v,a,b\)</span> 代表一条顶点 <span
-class="math inline">\(u\)</span> 和 <span
-class="math inline">\(v\)</span> 之间、权值为 <span
-class="math inline">\(2^a\times 3^b\)</span> 的边。</p>
-<p>接下来一行包含一个整数 <span
-class="math inline">\(q\)</span>，代表询问数。</p>
-<p>接下来 <span class="math inline">\(q\)</span> 行，每行包含四个整数
-<span class="math inline">\(u,v,a\)</span> 和 <span
-class="math inline">\(b\)</span>，代表一次询问。询问内容请参见问题描述。</p>
+<p>输入文件的第一行包含两个整数 $N$ 和 $M$，分别代表图的顶点数和边数。</p>
+<p>接下来 $M$ 行，每行包含四个整数 $u,v,a,b$ 代表一条顶点 $u$ 和 $v$ 之间、权值为 $2^a\times 3^b$ 的边。</p>
+<p>接下来一行包含一个整数 $q$，代表询问数。</p>
+<p>接下来 $q$ 行，每行包含四个整数 $u,v,a$ 和 $b$，代表一次询问。询问内容请参见问题描述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每次询问，如果存在满足条件的路径，则输出一行
-<code>Yes</code>，否则输出一行
-<code>No</code>（注意：第一个字母大写，其余字母小写）。</p>
+<p>对于每次询问，如果存在满足条件的路径，则输出一行 <code>Yes</code>，否则输出一行 <code>No</code>（注意：第一个字母大写，其余字母小写）。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n,q\le 5\times 10^4\)</span>，<span
-class="math inline">\(1\leq m\leq 10^5\)</span>，<span
-class="math inline">\(0\leq a,b\leq 10^9\)</span>。</p>
+<p>$1\le n,q\le 5\times 10^4$，$1\leq m\leq 10^5$，$0\leq a,b\leq 10^9$。</p>
 </blockquote>
-<p>注意到能用的边两种权值一定不超过询问的 <span
-class="math inline">\(a,b\)</span>
-，考虑离线询问，用并查集维护连通性，然后判断下最大值。</p>
-<p>考虑将边按照 <span class="math inline">\(a\)</span>
-排序并分块，并将询问插到最后一个不超过它的块内，钦定其有用的边为到目前为止所有的块。</p>
-<p>此时 <span class="math inline">\(a\)</span>
-的顺序已经搞定了，因此只要考虑 <span class="math inline">\(b\)</span>
-。依次考虑当前块的询问：</p>
-<ol type="1">
-<li>对于处理完的块，直接把不超过 <span class="math inline">\(b\)</span>
-的边塞到并查集，这里需要一个排序。</li>
+<p>注意到能用的边两种权值一定不超过询问的 $a,b$ ，考虑离线询问，用并查集维护连通性，然后判断下最大值。</p>
+<p>考虑将边按照 $a$ 排序并分块，并将询问插到最后一个不超过它的块内，钦定其有用的边为到目前为止所有的块。</p>
+<p>此时 $a$ 的顺序已经搞定了，因此只要考虑 $b$ 。依次考虑当前块的询问：</p>
+<ol>
+<li>对于处理完的块，直接把不超过 $b$ 的边塞到并查集，这里需要一个排序。</li>
 <li>对于每个块，暴力找边，然后跑一遍 BFS。</li>
 </ol>
-<p>设块的大小为 <span class="math inline">\(S\)</span> ，则时间复杂度为
-<span class="math inline">\(\mathcal{O}\left(\left(qS +
-\frac{m^2}{S}\right)\alpha(n)\right)\)</span> ，取 <span
-class="math inline">\(S =
-\mathcal{O}\left(\frac{m}{\sqrt{q}}\right)\)</span></p>
-<p>最终时间复杂度 <span class="math inline">\(\mathcal{O}\left(m
-\sqrt{q} \alpha(n)\right)\)</span></p>
+<p>设块的大小为 $S$ ，则时间复杂度为 $\mathcal{O}\left(\left(qS + \frac{m^2}{S}\right)\alpha(n)\right)$ ，取 $S = \mathcal{O}\left(\frac{m}{\sqrt{q}}\right)$ </p>
+<p>最终时间复杂度 $\mathcal{O}\left(m \sqrt{q} \alpha(n)\right)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -886,10 +849,9 @@ vector<span class="token operator">&lt;</span>cxy<span class="token operator">><
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> Q<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">?</span> <span class="token string">"Yes"</span> <span class="token operator">:</span> <span class="token string">"No"</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jiangly/p3247-hnoi2016-zui-xiao-gong-bei-shuo-ti-xie">https://www.luogu.com.cn/blog/jiangly/p3247-hnoi2016-zui-xiao-gong-bei-shuo-ti-xie</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jiangly/p3247-hnoi2016-zui-xiao-gong-bei-shuo-ti-xie">https://www.luogu.com.cn/blog/jiangly/p3247-hnoi2016-zui-xiao-gong-bei-shuo-ti-xie</a></p>
 
                 
             </div>
@@ -1212,7 +1174,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jiangly/p3247
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1491,7 +1453,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/jiangly/p3247
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1850,6 +1812,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

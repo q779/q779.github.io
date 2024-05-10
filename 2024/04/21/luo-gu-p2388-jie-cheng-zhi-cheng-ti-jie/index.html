@@ -720,26 +720,17 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2388-阶乘之乘-题解">洛谷P2388 阶乘之乘 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2388">P2388
-阶乘之乘</a></p>
+                <h1 id="洛谷P2388-阶乘之乘-题解"><a href="#洛谷P2388-阶乘之乘-题解" class="headerlink" title="洛谷P2388 阶乘之乘 题解"></a>洛谷P2388 阶乘之乘 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2388">P2388 阶乘之乘</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>求出 <span class="math inline">\(1!\times 2!\times 3!\times 4!\times
-\cdots \times n!\)</span> 的末尾有几个零。</p>
+<p>求出 $1!\times 2!\times 3!\times 4!\times \cdots \times n!$ 的末尾有几个零。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行，一个整数 <span class="math inline">\(n(n\le
-10^8)\)</span>。</p>
+<p>一行，一个整数 $n(n\le 10^8)$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出答案，表示零的个数。</p>
 </blockquote>
-<p>很经典的一道题，先说一下 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 的小学生解法：</p>
-<p>注意到 <span class="math inline">\(n!\)</span> 中 <span
-class="math inline">\(5\)</span> 的个数显然小于 <span
-class="math inline">\(2^i\)</span>
-的个数，于是我们只需要统计每个阶乘里有多少个 <span
-class="math inline">\(5\)</span>​ 即可</p>
+<p>很经典的一道题，先说一下 $\mathcal{O}(n)$ 的小学生解法：</p>
+<p>注意到 $n!$ 中 $5$ 的个数显然小于 $2^i$ 的个数，于是我们只需要统计每个阶乘里有多少个 $5$​ 即可</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lld"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -750,17 +741,9 @@ class="math inline">\(5\)</span>​ 即可</p>
 <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 本代码写于 2021-03-08</span></code></pre>
 <p><br></p>
 <p>下面说一下更快的解法。考虑把刚才的结论写成式子。</p>
-<p>令 <span
-class="math inline">\(f(n)=\sum_{i=1}^{\infty}\left\lfloor\frac{n}{5^i}\right\rfloor\)</span>
-，则 <span class="math display">\[
-\mathrm{Ans}(n) = \sum_{i=1}^n f(i)=\sum_{i=1}^n
-\sum_{j=1}^{\infty}\left\lfloor\frac{i}{5^j}\right\rfloor=\sum_{j=1}^{\infty}
-\sum_{i=1}^n\left\lfloor\frac{i}{5^j}\right\rfloor=\sum_{j=1}^{\infty}\left(5^j
-\sum_{i=1}^{\left\lfloor\frac{n}{5^j}\right\rfloor-1}
-i+\left\lfloor\frac{n}{5^j}\right\rfloor \cdot\left(n \bmod
-5^j+1\right)\right)
-\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(\log
-n)\)</span></p>
+<p>令 $f(n)=\sum_{i=1}^{\infty}\left\lfloor\frac{n}{5^i}\right\rfloor$ ，则</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans}(n) = \sum_{i=1}^n f(i)=\sum_{i=1}^n \sum_{j=1}^{\infty}\left\lfloor\frac{i}{5^j}\right\rfloor=\sum_{j=1}^{\infty} \sum_{i=1}^n\left\lfloor\frac{i}{5^j}\right\rfloor=\sum_{j=1}^{\infty}\left(5^j \sum_{i=1}^{\left\lfloor\frac{n}{5^j}\right\rfloor-1} i+\left\lfloor\frac{n}{5^j}\right\rfloor \cdot\left(n \bmod 5^j+1\right)\right)</script><p>时间复杂度 $\mathcal{O}(\log n)$</p>
 <p>主要代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> n<span class="token punctuation">,</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> cin <span class="token operator">>></span> n<span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">*=</span> <span class="token number">5</span><span class="token punctuation">)</span>
@@ -769,10 +752,9 @@ n)\)</span></p>
     res <span class="token operator">+=</span> <span class="token punctuation">(</span>n <span class="token operator">/</span> j<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mqej6cz0">https://www.luogu.com.cn/article/mqej6cz0</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mqej6cz0">https://www.luogu.com.cn/article/mqej6cz0</a></p>
 
                 
             </div>
@@ -1083,7 +1065,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mqej6cz0">
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1354,7 +1336,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mqej6cz0">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1713,6 +1695,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

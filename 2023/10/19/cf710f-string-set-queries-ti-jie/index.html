@@ -724,64 +724,40 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf710f-string-set-queries-题解">CF710F String Set Queries
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF710F">CF710F
-String Set Queries</a></p>
+                <h1 id="CF710F-String-Set-Queries-题解"><a href="#CF710F-String-Set-Queries-题解" class="headerlink" title="CF710F String Set Queries 题解"></a>CF710F String Set Queries 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF710F">CF710F String Set Queries</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>维护一个字符串集合，支持三种操作：</p>
-<ol type="1">
+<ol>
 <li>加字符串</li>
 <li>删字符串</li>
 <li>查询集合中的所有字符串在给出的模板串中出现的次数</li>
 </ol>
-<p>操作数 <span class="math inline">\(m \leq 3 \times
-10^5\)</span>，输入字符串总长度 <span class="math inline">\(\sum |s_i|
-\leq 3\times 10^5\)</span>。</p>
+<p>操作数 $m \leq 3 \times 10^5$，输入字符串总长度 $\sum |s_i| \leq 3\times 10^5$。</p>
 <p><strong>本题强制在线，应该在每次输出后调用<code>fflush(stdout)</code>。</strong></p>
 <p><strong>你只有在输出上一个询问的答案后才能读入下一组询问。</strong></p>
 </blockquote>
 <p>过了好几天了才开始写题解，着实有些懒。（最近两只手都腱鞘炎了）</p>
 <p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202310192337512.jpg" style="zoom:33%;" /></p>
-<p>这道题就是 二进制分组 + AC 自动机
-，下面我们来分析这个想法是怎么来的。</p>
+<p>这道题就是 二进制分组 + AC 自动机 ，下面我们来分析这个想法是怎么来的。</p>
 <p>先考虑暴力，我们每次删除的时候都对原字符串进行重构，显然这是一种低效的方式。</p>
-<p>这个其实很好解决。由于贡献是可以加减的，所以我们考虑把删除操作改为在另一个
-Trie 上面插字符串</p>
-<p>我们称原先的 Trie 是 Add 树，另外的是 Sub 树，那么答案就是 Add
-树的贡献减 Sub 树的贡献。</p>
-<p>思考一下这样的时间复杂度是多少：最坏情况下，字符长度一定为 <span
-class="math inline">\(1,2,3,\cdots,k\)</span> ，且 <span
-class="math inline">\(k \le \sqrt{2\,\mathrm{len}}\)</span> ，</p>
-<p>其中 <span class="math inline">\(\mathrm{len} = \sum|s_i|\)</span>
-，故不做其他优化的话，时间复杂度是 <span
-class="math inline">\(\mathcal{O}(\mathrm{len}^2)\)</span> 。</p>
+<p>这个其实很好解决。由于贡献是可以加减的，所以我们考虑把删除操作改为在另一个 Trie 上面插字符串</p>
+<p>我们称原先的 Trie 是 Add 树，另外的是 Sub 树，那么答案就是 Add 树的贡献减 Sub 树的贡献。</p>
+<p>思考一下这样的时间复杂度是多少：最坏情况下，字符长度一定为 $1,2,3,\cdots,k$ ，且 $k \le \sqrt{2\,\mathrm{len}}$ ，</p>
+<p>其中 $\mathrm{len} = \sum|s_i|$ ，故不做其他优化的话，时间复杂度是 $\mathcal{O}(\mathrm{len}^2)$ 。</p>
 <p>于是接下来就有两种处理方法：</p>
 <ul>
-<li>第一种，我们只需要枚举集合中比当前串长度小的串即可，此时时间复杂度是
-<span
-class="math inline">\(\mathcal{O}(\mathrm{len}\sqrt{\mathrm{len}})\)</span></li>
+<li>第一种，我们只需要枚举集合中比当前串长度小的串即可，此时时间复杂度是 $\mathcal{O}(\mathrm{len}\sqrt{\mathrm{len}})$</li>
 <li>第二种，也就是我们前面提到的二进制分组。</li>
 </ul>
-<p>第一种方法确实是很妙，如果没懂可以参考<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/YW-Sampson/solution-cf710f">这篇文章</a>，不过本文要讲第二种方法。</p>
-<p>我们考虑对每次插入，都新建一个 Trie ，记它的大小为 <span
-class="math inline">\(1\)</span> ，那么我们要维护形如 <span
-class="math inline">\(1,2,4,8,16,\cdots\)</span> 若干棵 Trie</p>
-<p>什么意思呢？比如我们现在有大小为 <span
-class="math inline">\(1,2,8\)</span> 三棵 Trie
-，此时的操作是插入，我们新建了一个大小为 <span
-class="math inline">\(1\)</span> 的 Trie</p>
-<p>此时我们有 <span class="math inline">\(1,1,2,8\)</span> 四棵 Trie
-，然后我们直接把相同大小的合并，就像游戏 2048 一样，最终得到 <span
-class="math inline">\(4,8\)</span> 两棵 Trie</p>
+<p>第一种方法确实是很妙，如果没懂可以参考<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/YW-Sampson/solution-cf710f">这篇文章</a>，不过本文要讲第二种方法。</p>
+<p>我们考虑对每次插入，都新建一个 Trie ，记它的大小为 $1$ ，那么我们要维护形如 $1,2,4,8,16,\cdots$ 若干棵 Trie</p>
+<p>什么意思呢？比如我们现在有大小为 $1,2,8$ 三棵 Trie ，此时的操作是插入，我们新建了一个大小为 $1$ 的 Trie</p>
+<p>此时我们有 $1,1,2,8$ 四棵 Trie ，然后我们直接把相同大小的合并，就像游戏 2048 一样，最终得到 $4,8$ 两棵 Trie</p>
 <p>考虑这样的操作对复杂度有什么影响：</p>
 <p>每次合并，就是把构造其中一棵树的所有字符串插到另一棵里，然后删掉这棵树。</p>
-<p>而 AC 自动机的构造过程是线性的，因此时间复杂度为 <span
-class="math inline">\(\mathcal{O}(\mathrm{len}\log n)\)</span> 。</p>
-<p>写的好看一点，就是 <span
-class="math inline">\(\mathcal{O}(\sum|s_i|\log n)\)</span></p>
+<p>而 AC 自动机的构造过程是线性的，因此时间复杂度为 $\mathcal{O}(\mathrm{len}\log n)$ 。</p>
+<p>写的好看一点，就是 $\mathcal{O}(\sum|s_i|\log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -884,10 +860,9 @@ class="math inline">\(\mathcal{O}(\sum|s_i|\log n)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/52881/ti-xie-cf710f-string-set-queries">https://www.luogu.com.cn/blog/52881/ti-xie-cf710f-string-set-queries</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/52881/ti-xie-cf710f-string-set-queries">https://www.luogu.com.cn/blog/52881/ti-xie-cf710f-string-set-queries</a></p>
 
                 
             </div>
@@ -1202,7 +1177,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/52881/ti-xie-
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1465,7 +1440,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/52881/ti-xie-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1824,6 +1799,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

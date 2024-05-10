@@ -724,57 +724,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1401e-divide-square-题解">CF1401E Divide Square 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1401E">CF1401E
-Divide Square</a></p>
+                <h1 id="CF1401E-Divide-Square-题解"><a href="#CF1401E-Divide-Square-题解" class="headerlink" title="CF1401E Divide Square 题解"></a>CF1401E Divide Square 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1401E">CF1401E Divide Square</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个 <span class="math inline">\(10^6\times10^6\)</span>
-的正方形，<span class="math inline">\(n\)</span> 条横线和 <span
-class="math inline">\(m\)</span>
-条竖线穿过了它，求这些线把正方形分成了多少个部分。</p>
+<p>给定一个 $10^6\times10^6$ 的正方形，$n$ 条横线和 $m$ 条竖线穿过了它，求这些线把正方形分成了多少个部分。</p>
 <p><strong>保证不存在两条线段在同一条线上，并且每个线段至少与正方形的一条边相交。</strong></p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(m\)</span> ( <span class="math inline">\(0 \leq n,
-m \leq 10^5\)</span> ) —— 水平线段和垂直线段的数量。</p>
-<p>接下来的 <span class="math inline">\(n\)</span>
-行包含水平线段的描述。第 <span class="math inline">\(i\)</span>
-行包含三个整数 <span class="math inline">\(y_i\)</span>、<span
-class="math inline">\(lx_i\)</span> 和 <span
-class="math inline">\(rx_i\)</span> <span class="math inline">\((0 &lt;
-y_i &lt; 10^6,~0 \leq lx_i &lt; rx_i \leq 10^6)\)</span>，表示该线段连接
-<span class="math inline">\((lx_i, y_i)\)</span> 和 <span
-class="math inline">\((rx_i, y_i)\)</span>。</p>
-<p>接下来的 <span class="math inline">\(m\)</span>
-行包含垂直线段的描述。第 <span class="math inline">\(i\)</span>
-行包含三个整数 <span class="math inline">\(x_i\)</span>、<span
-class="math inline">\(ly_i\)</span> 和 <span
-class="math inline">\(ry_i\)</span> <span class="math inline">\((0 &lt;
-x_i &lt; 10^6,~0 \leq ly_i &lt; ry_i \leq 10^6)\)</span>，表示该线段连接
-<span class="math inline">\((x_i, ly_i)\)</span> 和 <span
-class="math inline">\((x_i, ry_i)\)</span>。</p>
+<p>第一行包含两个整数 $n$ 和 $m$ ( $0 \leq n, m \leq 10^5$ ) —— 水平线段和垂直线段的数量。</p>
+<p>接下来的 $n$ 行包含水平线段的描述。第 $i$ 行包含三个整数 $y_i$、$lx_i$ 和 $rx_i$ $(0 &lt; y_i &lt; 10^6,~0 \leq lx_i &lt; rx_i \leq 10^6)$，表示该线段连接 $(lx_i, y_i)$ 和 $(rx_i, y_i)$。</p>
+<p>接下来的 $m$ 行包含垂直线段的描述。第 $i$ 行包含三个整数 $x_i$、$ly_i$ 和 $ry_i$ $(0 &lt; x_i &lt; 10^6,~0 \leq ly_i &lt; ry_i \leq 10^6)$，表示该线段连接 $(x_i, ly_i)$ 和 $(x_i, ry_i)$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>打印在绘制所有线段后正方形被分割成的部分数量。</p>
 <p><strong>tips</strong>：</p>
 <p>The sample is like this:</p>
-<p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202404081838362.png" style="zoom: 50%;" /></p>
+<p>  <img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202404081838362.png" style="zoom: 50%;" /></p>
 </blockquote>
 <p>二维偏序问题的通常解法是枚举一维、维护一维</p>
 <p>在本题中并不能直接套用这种方法，但是基本上还是这个思路。</p>
 <p>首先有一个结论，对于一条<strong>竖线</strong>，它与其他线段的交点总数为它的贡献。</p>
 <p>除了一种特殊的情况，就是<strong>任何</strong>将大正方形直接切成两半的线段，会多生成一个部分。</p>
-<p>这里说的<strong>任何</strong>是指，如果我们只计算竖边产生的贡献，那么特殊的横边会产生
-<span class="math inline">\(1\)</span> 的贡献（其他则不会）</p>
+<p>这里说的<strong>任何</strong>是指，如果我们只计算竖边产生的贡献，那么特殊的横边会产生 $1$ 的贡献（其他则不会）</p>
 <p>如果我们对横边进行某种维护，然后枚举竖边，查询每个竖边能对答案造成多少贡献。</p>
-<p>考虑把横坐标看作时间 <span class="math inline">\(t\)</span>
-，维护每个纵坐标 <span class="math inline">\(i\)</span>​
-在<strong>当前时刻</strong>是否被线段覆盖。</p>
-<p>如果将横边视作修改操作，竖边视作查询操作，则可以用「单点修改 +
-区间查询」树状数组维护。</p>
+<p>考虑把横坐标看作时间 $t$ ，维护每个纵坐标 $i$​ 在<strong>当前时刻</strong>是否被线段覆盖。</p>
+<p>如果将横边视作修改操作，竖边视作查询操作，则可以用「单点修改 + 区间查询」树状数组维护。</p>
 <p>我们把修改和询问分别按时间排序，如果当前时刻同时有修改和查询，就先修改后查询。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -828,11 +802,10 @@ n)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcfrp3ke">https://www.luogu.com.cn/article/bcfrp3ke</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcfrp3ke">https://www.luogu.com.cn/article/bcfrp3ke</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>好像在我眼里线段树只能维护序列一样，为什么会没想到呢？</p>
 
@@ -1149,7 +1122,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcfrp3ke">
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1410,7 +1383,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcfrp3ke">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1769,6 +1742,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

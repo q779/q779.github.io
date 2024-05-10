@@ -720,47 +720,20 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1282-多米诺骨牌-题解">洛谷P1282 多米诺骨牌 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1282">P1282
-多米诺骨牌</a></p>
+                <h1 id="洛谷P1282-多米诺骨牌-题解"><a href="#洛谷P1282-多米诺骨牌-题解" class="headerlink" title="洛谷P1282 多米诺骨牌 题解"></a>洛谷P1282 多米诺骨牌 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1282">P1282 多米诺骨牌</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>多米诺骨牌由上下 <span class="math inline">\(2\)</span>
-个方块组成，每个方块中有 <span class="math inline">\(1\sim6\)</span>
-个点。现有排成行的上方块中点数之和记为 <span
-class="math inline">\(S_1\)</span>，下方块中点数之和记为 <span
-class="math inline">\(S_2\)</span>，它们的差为 <span
-class="math inline">\(\left|S_1-S_2\right|\)</span>。如图，<span
-class="math inline">\(S_1=6+1+1+1=9\)</span>，<span
-class="math inline">\(S_2=1+5+3+2=11\)</span>，<span
-class="math inline">\(\left|S_1-S_2\right|=2\)</span>。每个多米诺骨牌可以旋转
-<span
-class="math inline">\(180°\)</span>，使得上下两个方块互换位置。请你计算最少旋转多少次才能使多米诺骨牌上下
-<span class="math inline">\(2\)</span> 行点数之差达到最小。</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030108073.png" /></p>
-<p>对于图中的例子，只要将最后一个多米诺骨牌旋转 <span
-class="math inline">\(180°\)</span>，即可使上下 <span
-class="math inline">\(2\)</span> 行点数之差为 <span
-class="math inline">\(0\)</span>。</p>
+<p>多米诺骨牌由上下 $2$ 个方块组成，每个方块中有 $1\sim6$ 个点。现有排成行的上方块中点数之和记为 $S_1$，下方块中点数之和记为 $S_2$，它们的差为 $\left|S_1-S_2\right|$。如图，$S_1=6+1+1+1=9$，$S_2=1+5+3+2=11$，$\left|S_1-S_2\right|=2$。每个多米诺骨牌可以旋转 $180°$，使得上下两个方块互换位置。请你计算最少旋转多少次才能使多米诺骨牌上下 $2$ 行点数之差达到最小。</p>
+<p><img src="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030108073.png" alt=""></p>
+<p>对于图中的例子，只要将最后一个多米诺骨牌旋转 $180°$，即可使上下 $2$ 行点数之差为 $0$。</p>
 </blockquote>
-<p>注意到我们其实并不关心 <span class="math inline">\(S_1,S_2\)</span>
-的值，而是关心他们的差值</p>
+<p>注意到我们其实并不关心 $S_1,S_2$ 的值，而是关心他们的差值</p>
 <p>这个绝对值似乎不好处理，其实只要把正负的情况取个min就可以了</p>
-<p>设 <span class="math inline">\(dp[i][j]\)</span> 表示只考虑前 <span
-class="math inline">\(i\)</span> 个骨牌，差值为 <span
-class="math inline">\(j\)</span> 时的最小翻转数</p>
-<p>这里的 <span class="math inline">\(j\)</span> 定义为 <span
-class="math inline">\(S_1-S_2\)</span> 或者 <span
-class="math inline">\(S_2-S_1\)</span>
-其实没啥区别，不过下面代码为前者</p>
+<p>设 $dp[i][j]$ 表示只考虑前 $i$ 个骨牌，差值为 $j$ 时的最小翻转数</p>
+<p>这里的 $j$ 定义为 $S_1-S_2$ 或者 $S_2-S_1$ 其实没啥区别，不过下面代码为前者</p>
 <p>不难发现</p>
-<p><span class="math display">\[
-dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])
-\]</span></p>
-<p>注意到差值最大 <span class="math inline">\(5000\)</span>
-，为了避免乱七八糟讨论，就直接循环 <span class="math inline">\(-5000
-\sim 5000\)</span> 就好啦</p>
+<script type="math/tex; mode=display">
+dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])</script><p>注意到差值最大 $5000$ ，为了避免乱七八糟讨论，就直接循环 $-5000 \sim 5000$ 就好啦</p>
 <p>差值可能为负所以数组整体平移一下，然后整个填表法滚一滚啥的就好了</p>
 <p><del>这里好像刷表法写起来不太安全就不写了，虽然没啥问题，但是不算简洁吧（逃</del></p>
 <p>代码：</p>
@@ -1105,7 +1078,7 @@ dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1124,13 +1097,13 @@ dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p1156-la-ji-xian-jing-ti-jie-qian-tan-shua-biao-fa-yu-tian-biao-fa/">
+                <a href="/2022/05/25/luo-gu-p1284-san-jiao-xing-mu-chang-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p3.jpg" class="responsive-img" alt="洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法">
+                        <img src="/medias/featureimages/p143.jpg" class="responsive-img" alt="洛谷P1284 三角形牧场 题解">
                         
-                        <span class="card-title">洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法</span>
+                        <span class="card-title">洛谷P1284 三角形牧场 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1177,13 +1150,13 @@ dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p1284-san-jiao-xing-mu-chang-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p1171-shou-huo-yuan-de-nan-ti-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/p143.jpg" class="responsive-img" alt="洛谷P1284 三角形牧场 题解">
+                        <img src="/medias/featureimages/p9.jpg" class="responsive-img" alt="洛谷P1171 售货员的难题 题解">
                         
-                        <span class="card-title">洛谷P1284 三角形牧场 题解</span>
+                        <span class="card-title">洛谷P1171 售货员的难题 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1376,7 +1349,7 @@ dp[i][j]=\min(dp[i-1][j-a[i]+b[i]]+1,dp[i-1][j+a[i]-b[i]])
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1735,6 +1708,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -720,63 +720,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sp19568-prmquer---prime-queries-题解">SP19568 PRMQUER - Prime
-queries 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP19568">SP19568
-PRMQUER - Prime queries</a></p>
+                <h1 id="SP19568-PRMQUER-Prime-queries-题解"><a href="#SP19568-PRMQUER-Prime-queries-题解" class="headerlink" title="SP19568 PRMQUER - Prime queries 题解"></a>SP19568 PRMQUER - Prime queries 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP19568">SP19568 PRMQUER - Prime queries</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一个简单的题目</p>
-<p>给定 <span class="math inline">\(N\)</span>
-个数，你需要对它们依次进行 <span class="math inline">\(Q\)</span>
-次操作。每次操作的格式如下。</p>
-<ol type="1">
-<li><p>三个整数 <span class="math inline">\(A\)</span> <span
-class="math inline">\(V\)</span> <span class="math inline">\(l\)</span>
-表示给第 <span class="math inline">\(l\)</span> 个数加上 <span
-class="math inline">\(V\)</span> 。</p></li>
-<li><p>四个整数 <span class="math inline">\(R\)</span> <span
-class="math inline">\(a\)</span> <span class="math inline">\(l\)</span>
-<span class="math inline">\(r\)</span> 表示把区间 <span
-class="math inline">\([l,r]\)</span> 的数都变为 <span
-class="math inline">\(a\)</span> 。</p></li>
-<li><p>三个整数 <span class="math inline">\(Q\)</span> <span
-class="math inline">\(l\)</span> <span class="math inline">\(r\)</span>
-表示询问区间 <span class="math inline">\([l,r]\)</span> 里，小于等于
-<span class="math inline">\(10^7\)</span> 的素数有多少个。</p></li>
+<p>给定 $N$ 个数，你需要对它们依次进行 $Q$ 次操作。每次操作的格式如下。</p>
+<ol>
+<li><p>三个整数 $A$ $V$ $l$ 表示给第 $l$ 个数加上 $V$ 。</p>
+</li>
+<li><p>四个整数 $R$ $a$ $l$ $r$ 表示把区间 $[l,r]$ 的数都变为 $a$ 。</p>
+</li>
+<li><p>三个整数 $Q$ $l$ $r$ 表示询问区间 $[l,r]$ 里，小于等于 $10^7$ 的素数有多少个。</p>
+</li>
 </ol>
-<p>数据保证任何时刻这 <span class="math inline">\(N\)</span>
-个数都不会有一个数大于 <span class="math inline">\(10^9\)</span> 。</p>
+<p>数据保证任何时刻这 $N$ 个数都不会有一个数大于 $10^9$ 。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个整数 <span class="math inline">\(N\)</span> 和 <span
-class="math inline">\(Q\)</span> 分别表示数的个数和操作的个数，第二行有
-<span class="math inline">\(N\)</span>
-个整数，表示这些数的初始大小。之后 <span
-class="math inline">\(Q\)</span>
-行每行一次操作，输入格式如题目描述所述。</p>
+<p>第一行两个整数 $N$ 和 $Q$ 分别表示数的个数和操作的个数，第二行有 $N$ 个整数，表示这些数的初始大小。之后 $Q$ 行每行一次操作，输入格式如题目描述所述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每个操作 <span class="math inline">\(3\)</span>
-输出一行整数表示这个操作的答案。</p>
+<p>对于每个操作 $3$ 输出一行整数表示这个操作的答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq N\leq10^5,~1\leq
-Q\leq10^5,~V\leq10^3,~a_i \leq10^8,~a \leq10^7,~1\leq l\leq r \leq
-N\)</span> 。</p>
+<p>$1\leq N\leq10^5,~1\leq Q\leq10^5,~V\leq10^3,~a_i \leq10^8,~a \leq10^7,~1\leq l\leq r \leq N$ 。</p>
 </blockquote>
-<p>只需要把 <span class="math inline">\(10^7\)</span>
-以内的素数筛一遍，然后维护线段树就可以了。</p>
-<p>具体地，我们维护 <span class="math inline">\(\mathrm{val}\)</span> 和
-<span class="math inline">\(\mathrm{sum}\)</span>
-分别表示区间覆盖的值和答案，</p>
-<p>那么单点修改就是 <span class="math inline">\(\mathrm{val} \gets
-\mathrm{val} + k, ~\mathrm{sum} \gets [(\mathrm{val} + k) \in
-\mathbb{P}]\)</span> ，</p>
-<p>区间推平就是 <span class="math inline">\(\mathrm{val} \gets k,
-~\mathrm{sum} \gets[k \in\mathbb{P}] \times (r - l + 1)\)</span> ，其中
-<span class="math inline">\([x \in \mathbb{P}]\)</span> 表示 <span
-class="math inline">\(x\)</span> 属于 <span
-class="math inline">\(10^7\)</span> 以内的质数。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(10^7 + Q\log
-N)\)</span></p>
+<p>只需要把 $10^7$ 以内的素数筛一遍，然后维护线段树就可以了。</p>
+<p>具体地，我们维护 $\mathrm{val}$ 和 $\mathrm{sum}$ 分别表示区间覆盖的值和答案，</p>
+<p>那么单点修改就是 $\mathrm{val} \gets \mathrm{val} + k, ~\mathrm{sum} \gets [(\mathrm{val} + k) \in \mathbb{P}]$ ，</p>
+<p>区间推平就是 $\mathrm{val} \gets k, ~\mathrm{sum} \gets[k \in\mathbb{P}] \times (r - l + 1)$ ，其中 $[x \in \mathbb{P}]$ 表示 $x$ 属于 $10^7$ 以内的质数。</p>
+<p>时间复杂度 $\mathcal{O}(10^7 + Q\log N)$</p>
 <p>代码：（直接搬的题解）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
@@ -894,10 +863,9 @@ N)\)</span></p>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/liangbowen/solution-sp19568">https://www.luogu.com.cn/blog/liangbowen/solution-sp19568</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/liangbowen/solution-sp19568">https://www.luogu.com.cn/blog/liangbowen/solution-sp19568</a></p>
 
                 
             </div>
@@ -1208,7 +1176,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/liangbowen/so
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1475,7 +1443,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/liangbowen/so
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1834,6 +1802,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

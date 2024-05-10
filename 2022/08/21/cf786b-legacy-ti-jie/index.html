@@ -724,60 +724,39 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf786b-legacy-题解">CF786B Legacy 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">CF786B
-Legacy</a></p>
+                <h1 id="CF786B-Legacy-题解"><a href="#CF786B-Legacy-题解" class="headerlink" title="CF786B Legacy 题解"></a>CF786B Legacy 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">CF786B Legacy</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p><span class="math inline">\(n\)</span> 个结点， <span
-class="math inline">\(q\)</span> 次操作，问操作后从 <span
-class="math inline">\(s\)</span> 出发的单源最短路</p>
+<p>$n$ 个结点， $q$ 次操作，问操作后从 $s$ 出发的单源最短路</p>
 <p>操作如下</p>
 <ul>
-<li>输入 <code>1 u v w</code> 表示 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 连一条有向边</li>
-<li>输入 <code>2 u l r w</code> 表示 <span
-class="math inline">\(u\)</span> 到 <span
-class="math inline">\([l,r]\)</span> 的每个结点连一条有向边</li>
-<li>输入 <code>3 u l r w</code> 表示 <span
-class="math inline">\([l,r]\)</span> 的每个结点向 <span
-class="math inline">\(u\)</span> 连一条有向边</li>
+<li>输入 <code>1 u v w</code> 表示 $u$ 到 $v$ 连一条有向边</li>
+<li>输入 <code>2 u l r w</code> 表示 $u$ 到 $[l,r]$ 的每个结点连一条有向边</li>
+<li>输入 <code>3 u l r w</code> 表示 $[l,r]$ 的每个结点向 $u$ 连一条有向边</li>
 </ul>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1\le n,q \le 10^5\)</span>，<span
-class="math inline">\(1\le w \le 10^9\)</span></p>
+<p>对于 $100\%$ 的数据，$1\le n,q \le 10^5$，$1\le w \le 10^9$</p>
 </blockquote>
 <p>线段树优化建图的板子</p>
 <p>考虑建两棵线段树，分别称为「入树」和「出树」</p>
-<p>入树的父节点向子结点连一条边权为 <span
-class="math inline">\(0\)</span> 的有向边</p>
-<p>出树的子节点向父结点连一条边权为 <span
-class="math inline">\(0\)</span> 的有向边</p>
+<p>入树的父节点向子结点连一条边权为 $0$ 的有向边</p>
+<p>出树的子节点向父结点连一条边权为 $0$ 的有向边</p>
 <p>两棵树的叶子结点均表示原图中的点</p>
-<p>这样每次区间的连边，我们直接在线段树上把管理对应区间的结点当作 <span
-class="math inline">\(v\)</span> 即可</p>
+<p>这样每次区间的连边，我们直接在线段树上把管理对应区间的结点当作 $v$ 即可</p>
 <p>具体地，</p>
 <ul>
-<li><p>把 <span class="math inline">\(u\)</span> 到 <span
-class="math inline">\([l,r]\)</span> 的每个结点连一条有向边</p>
-<p>我们只要找出在入树上对应的结点，把出树中的 <span
-class="math inline">\(u\)</span> 向这些结点都连一条有向边就行了</p></li>
-<li><p>把 <span class="math inline">\([l,r]\)</span> 的每个结点向 <span
-class="math inline">\(u\)</span> 连一条有向边</p>
-<p>我们只要找出在出树上对应的结点，把这些结点都向入树中的 <span
-class="math inline">\(u\)</span> 连一条有向边就行了</p></li>
+<li><p>把 $u$ 到 $[l,r]$ 的每个结点连一条有向边</p>
+<p>我们只要找出在入树上对应的结点，把出树中的 $u$ 向这些结点都连一条有向边就行了</p>
+</li>
+<li><p>把 $[l,r]$ 的每个结点向 $u$ 连一条有向边</p>
+<p>我们只要找出在出树上对应的结点，把这些结点都向入树中的 $u$ 连一条有向边就行了</p>
+</li>
 </ul>
-<p>这么说很抽象，给张图大家就懂了 made by <a
-target="_blank" rel="noopener" href="https://app.diagrams.net/">diagrams</a></p>
-<p><img src="https://s2.loli.net/2022/08/21/SIf2Wk4JiXF1PtR.png" /></p>
-<p><img src="https://s2.loli.net/2022/08/21/NReycijYz3mHBFs.png" /></p>
-<p>可以证明，这样修改的复杂度为 <span class="math inline">\(O(\log
-n)\)</span></p>
-<p>总时间复杂度 <span class="math inline">\(O(n\log n + q \log
-n)\)</span></p>
-<p>注意要记录结点 <span class="math inline">\(i\)</span>
-对应入树的叶子结点的编号，这两个是不一样的！</p>
+<p>这么说很抽象，给张图大家就懂了 made by <a target="_blank" rel="noopener" href="https://app.diagrams.net/">diagrams</a></p>
+<p><img src="https://s2.loli.net/2022/08/21/SIf2Wk4JiXF1PtR.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/08/21/NReycijYz3mHBFs.png" alt=""></p>
+<p>可以证明，这样修改的复杂度为 $O(\log n)$ </p>
+<p>总时间复杂度 $O(n\log n + q \log n)$ </p>
+<p>注意要记录结点 $i$ 对应入树的叶子结点的编号，这两个是不一样的！</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -914,17 +893,11 @@ vector<span class="token operator">&lt;</span>node1<span class="token operator">
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>题外话</strong>：</p>
 <blockquote>
-<p>Rick and his co-workers have made a new radioactive formula and a lot
-of bad guys are after them. So Rick wants to give his legacy to Morty
-before bad guys catch them.</p>
-<p>Rick
-和他的同事们做出了一种新的带放射性的婴儿食品(???根据图片和原文的确如此...)，与此同时很多坏人正追赶着他们。因此
-Rick 想在坏人们捉到他之前把他的遗产留给 Morty。</p>
+<p>Rick and his co-workers have made a new radioactive formula and a lot of bad guys are after them. So Rick wants to give his legacy to Morty before bad guys catch them.</p>
+<p>Rick 和他的同事们做出了一种新的带放射性的婴儿食品(???根据图片和原文的确如此…)，与此同时很多坏人正追赶着他们。因此 Rick 想在坏人们捉到他之前把他的遗产留给 Morty。</p>
 </blockquote>
-<p>带放射性的婴儿食品。给我来一碗，<del>美汁汁</del>！<img
-src="http://qzonestyle.gtimg.cn/qzone/em/e194.gif?max_age=2592000" /></p>
-<p><img
-src="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.png" /></p>
+<p>带放射性的婴儿食品。给我来一碗，<del>美汁汁</del>！<img src="http://qzonestyle.gtimg.cn/qzone/em/e194.gif?max_age=2592000" alt=""></p>
+<p><img src="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.png" alt=""></p>
 
                 
             </div>
@@ -1239,7 +1212,7 @@ src="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.pn
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1518,7 +1491,7 @@ src="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.pn
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1877,6 +1850,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

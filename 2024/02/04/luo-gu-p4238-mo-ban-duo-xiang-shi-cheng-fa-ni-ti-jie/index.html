@@ -704,7 +704,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    796
+                    793
                 </div>
                 
 
@@ -724,59 +724,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4238-模板多项式乘法逆-题解">洛谷P4238 【模板】多项式乘法逆
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4238">P4238
-【模板】多项式乘法逆</a></p>
+                <h1 id="洛谷P4238-【模板】多项式乘法逆-题解"><a href="#洛谷P4238-【模板】多项式乘法逆-题解" class="headerlink" title="洛谷P4238 【模板】多项式乘法逆 题解"></a>洛谷P4238 【模板】多项式乘法逆 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4238">P4238 【模板】多项式乘法逆</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个多项式 <span class="math inline">\(F(x)\)</span>
-，请求出一个多项式 <span class="math inline">\(G(x)\)</span>， 满足
-<span class="math inline">\(F(x) \cdot G(x) \equiv 1
-\pmod{x^n}\)</span>。系数对 <span
-class="math inline">\(998244353\)</span> 取模。</p>
+<p>给定一个多项式 $F(x)$ ，请求出一个多项式 $G(x)$， 满足 $F(x) \cdot G(x) \equiv 1 \pmod{x^n}$。系数对 $998244353$ 取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>首先输入一个整数 <span class="math inline">\(n\)</span>，
-表示输入多项式的项数。<br />
-接着输入 <span class="math inline">\(n\)</span> 个整数，第 <span
-class="math inline">\(i\)</span> 个整数 <span
-class="math inline">\(a_i\)</span> 代表 <span
-class="math inline">\(F(x)\)</span> 次数为 <span
-class="math inline">\(i-1\)</span> 的项的系数。</p>
+<p>首先输入一个整数 $n$， 表示输入多项式的项数。<br>接着输入 $n$ 个整数，第 $i$ 个整数 $a_i$ 代表 $F(x)$ 次数为 $i-1$ 的项的系数。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 <span class="math inline">\(n\)</span> 个数字，第 <span
-class="math inline">\(i\)</span> 个整数 <span
-class="math inline">\(b_i\)</span> 代表 <span
-class="math inline">\(G(x)\)</span> 次数为 <span
-class="math inline">\(i-1\)</span> 的项的系数。保证有解。</p>
+<p>输出 $n$ 个数字，第 $i$ 个整数 $b_i$ 代表 $G(x)$ 次数为 $i-1$ 的项的系数。保证有解。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1 \leq n \leq 10^5\)</span>，$ 0 a_i ^9$。</p>
+<p>对于 $100\%$ 的数据，$1 \leq n \leq 10^5$，$ 0 \leq a_i \leq 10^9$。</p>
 </blockquote>
-<p>首先，易知 <span class="math display">\[
-[x^0]f^{-1}(x) = ([x^0]f(x))^{-1}
-\]</span> 假设现在已经求出了 <span class="math inline">\(f(x)\)</span>
-在模 <span
-class="math inline">\(x^{\left\lceil\frac{n}{2}\right\rceil}\)</span>
-下的逆元 <span class="math inline">\(f_0^{-1}(x)\)</span> ，有 <span
-class="math display">\[
+<p>首先，易知</p>
+<script type="math/tex; mode=display">
+[x^0]f^{-1}(x) = ([x^0]f(x))^{-1}</script><p>假设现在已经求出了 $f(x)$ 在模 $x^{\left\lceil\frac{n}{2}\right\rceil}$ 下的逆元 $f_0^{-1}(x)$ ，有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f(x) f_0^{-1}(x) &amp; \equiv 1 &amp;\pmod{
-x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]f(x) f^{-1}(x) &amp; \equiv 1 &amp; \pmod{
-x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]f^{-1}(x)-f_0^{-1}(x) &amp; \equiv 0 &amp;\pmod{
-x^{\left\lceil\frac{n}{2}\right\rceil}}
-\end{aligned}
-\]</span> 两边平方可得 <span class="math display">\[
-f^{-2}(x)-2 f^{-1}(x) f_0^{-1}(x)+f_0^{-2}(x) \equiv 0 \pmod{ x^n}
-\]</span> 两边同乘 <span class="math inline">\(f(x)\)</span> 并移项可得
-<span class="math display">\[
-f^{-1}(x) \equiv f_0^{-1}(x)\left(2-f(x) f_0^{-1}(x)\right)\pmod{ x^n }
-\]</span> 递归处理即可。</p>
-<p>时间复杂度 <span class="math inline">\(T(n) =
-T\left(\frac{n}{2}\right) + \mathcal{O}(n \log n) = \mathcal{O}(n \log
-n)\)</span>​​ 。</p>
+f(x) f_0^{-1}(x) & \equiv 1 &\pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]f(x) f^{-1}(x) & \equiv 1 & \pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]f^{-1}(x)-f_0^{-1}(x) & \equiv 0 &\pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
+\end{aligned}</script><p>两边平方可得</p>
+<script type="math/tex; mode=display">
+f^{-2}(x)-2 f^{-1}(x) f_0^{-1}(x)+f_0^{-2}(x) \equiv 0 \pmod{ x^n}</script><p>两边同乘 $f(x)$ 并移项可得</p>
+<script type="math/tex; mode=display">
+f^{-1}(x) \equiv f_0^{-1}(x)\left(2-f(x) f_0^{-1}(x)\right)\pmod{ x^n }</script><p>递归处理即可。</p>
+<p>时间复杂度 $T(n) = T\left(\frac{n}{2}\right) + \mathcal{O}(n \log n) = \mathcal{O}(n \log n)$​​ 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -848,10 +820,8 @@ n)\)</span>​​ 。</p>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
-<p>传送门：<a
-href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a>
-。</p>
+<hr>
+<p>传送门：<a href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a> 。</p>
 
                 
             </div>
@@ -1166,7 +1136,7 @@ href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a>
 <script>
   new Waline({
       el: '#waline',
-      serverURL: 'https://waline-server-gcm0fism9-q779s-projects.vercel.app',
+      serverURL: 'https://waline-server-iy9m7yedo-q779s-projects.vercel.app/',
       avatar: 'mm'    
   });
 </script> 
@@ -1451,7 +1421,7 @@ href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1014.8k</span>&nbsp;字
+                class="white-color">988.3k</span>&nbsp;字
             
             
             
@@ -1810,6 +1780,21 @@ $(function () {
             CURSOR = new Cursor();
         })();
     </script> -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
