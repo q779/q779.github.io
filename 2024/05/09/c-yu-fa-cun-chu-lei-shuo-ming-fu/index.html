@@ -534,7 +534,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p66.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p50.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -687,14 +687,14 @@ rgba(0,0,0,0.2);
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-12
+                    2024-05-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    596
+                    941
                 </div>
                 
 
@@ -715,6 +715,8 @@ rgba(0,0,0,0.2);
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="c语法-存储类说明符">C++语法 存储类说明符</h1>
+<p>存储类说明符用于定义 C++
+程序中变量/函数的范围（可见性）和生命周期。</p>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -728,13 +730,14 @@ rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr class="odd">
-<td>const</td>
-<td>定义常量，表示该变量的值不能被修改。</td>
+<td>auto</td>
+<td>（C++11 前）这是默认的存储类说明符，通常可以省略不写。auto
+指定的变量具有自动存储期，即它们的生命周期仅限于定义它们的块</td>
 </tr>
 <tr class="even">
-<td>volatile</td>
-<td>详见 <a
-href="/2024/05/09/c-yu-fa-extern-guan-jian-zi/">link</a></td>
+<td>extern</td>
+<td>用于声明具有外部链接的变量或函数，它们可以在多个文件之间共享。详见
+<a href="/2024/05/09/c-yu-fa-extern-guan-jian-zi/">link</a></td>
 </tr>
 <tr class="odd">
 <td>static</td>
@@ -742,16 +745,104 @@ href="/2024/05/09/c-yu-fa-extern-guan-jian-zi/">link</a></td>
 </tr>
 <tr class="even">
 <td>mutable</td>
-<td>（C++11）表示类中的成员变量可以在 const 成员函数中被修改。</td>
+<td>（C++11 起）表示类中的成员变量可以在 const 成员函数中被修改。</td>
 </tr>
 <tr class="odd">
 <td>thread_local</td>
-<td>（C++11）用于定义具有线程局部存储期的变量，每个线程都有自己的独立副本。线程局部变量的生命周期与线程的生命周期相同。</td>
+<td>（C++11
+起）用于定义具有线程局部存储期的变量，每个线程都有自己的独立副本。线程局部变量的生命周期与线程的生命周期相同。</td>
 </tr>
 <tr class="even">
 <td>register</td>
-<td>（C++11
-已弃用，C++17已删除）用于定义寄存器变量，表示该变量被频繁使用，可以存储在CPU的寄存器中，以提高程序的运行效率。</td>
+<td>（C++17
+前）用于定义寄存器变量，表示该变量被频繁使用，可以存储在CPU的寄存器中，以提高程序的运行效率。</td>
+</tr>
+</tbody>
+</table>
+<p>实例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token comment">// 全局变量，具有外部链接，默认存储类为extern</span>
+<span class="token keyword">int</span> globalVar<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 局部变量，具有自动存储期，默认存储类为auto</span>
+    <span class="token keyword">auto</span> <span class="token keyword">int</span> localVar <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 静态变量，具有静态存储期，生命周期贯穿整个程序</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> staticVar <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> <span class="token keyword">int</span> constVar <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span> <span class="token comment">// const变量默认具有static存储期</span>
+
+    <span class="token comment">// 尝试修改const变量，编译错误</span>
+    <span class="token comment">// constVar = 40;</span>
+
+    <span class="token comment">// mutable成员变量，可以在const成员函数中修改</span>
+    <span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">mutable</span> <span class="token keyword">int</span> mutableVar<span class="token punctuation">;</span>
+
+        <span class="token keyword">void</span> <span class="token function">constMemberFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+            mutableVar <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">;</span> <span class="token comment">// 允许修改mutable成员变量</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 线程局部变量，每个线程有自己的独立副本</span>
+    <span class="token keyword">thread_local</span> <span class="token keyword">int</span> threadVar <span class="token operator">=</span> <span class="token number">60</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">extern</span> <span class="token keyword">int</span> externalVar<span class="token punctuation">;</span> <span class="token comment">// 声明具有外部链接的变量</span>
+
+    <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<hr />
+<p><strong>补充1</strong>：</p>
+<p>auto 在 C++ 11 中亦可用于自动推断变量的类型。</p>
+<p>而在 C++ 17 中 auto
+不再作为存储类说明符，并引入了结构化绑定声明（Structured Binding
+Declaration）</p>
+<p>如下</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">auto</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token comment">// 自动推断（为 int 型）</span>
+
+queue<span class="token operator">&lt;</span> pair<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">></span> q<span class="token punctuation">;</span> q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">auto</span> <span class="token punctuation">[</span>u<span class="token punctuation">,</span> v<span class="token punctuation">]</span> <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// u = 1, v = 2</span></code></pre>
+<hr />
+<p><strong>补充2</strong>：</p>
+<p>参考文献[3] 中将 register 和 static
+同时划入了存储类说明符和类型限定符，容易产生误解。</p>
+<p><strong>类型限定符</strong>提供了变量的额外信息，用于在定义变量或函数时改变它们的默认行为的关键字。</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>限定符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>const</td>
+<td>const 定义常量，表示该变量的值不能被修改。</td>
+</tr>
+<tr class="even">
+<td>volatile</td>
+<td>修饰符 volatile
+告诉该变量的值可能会被程序以外的因素改变，如硬件或其他线程。</td>
+</tr>
+<tr class="odd">
+<td>restrict</td>
+<td>由 restrict 修饰的指针是唯一一种访问它所指向的对象的方式。只有 C99
+增加了新的类型限定符 restrict。</td>
+</tr>
+<tr class="even">
+<td>mutable</td>
+<td>mutable 表示类中的成员变量可以在 const 成员函数中被修改。</td>
 </tr>
 </tbody>
 </table>
@@ -759,6 +850,8 @@ href="/2024/05/09/c-yu-fa-extern-guan-jian-zi/">link</a></td>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">int</span> NUM <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">// 定义常量 NUM，其值不可修改</span>
 <span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token operator">&amp;</span>NUM<span class="token punctuation">;</span> <span class="token comment">// 定义指向常量的指针，指针所指的值不可修改</span>
 <span class="token keyword">int</span> <span class="token keyword">const</span><span class="token operator">*</span> ptr2 <span class="token operator">=</span> <span class="token operator">&amp;</span>NUM<span class="token punctuation">;</span> <span class="token comment">// 和上面一行等价</span></code></pre>
+<p>volatile 实例</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">volatile</span> <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment">// 定义变量 num，其值可能会在未知的时间被改变</span></code></pre>
 <p>mutable 实例</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Example</span> <span class="token punctuation">&#123;</span>
 <span class="token keyword">public</span><span class="token operator">:</span>
@@ -771,36 +864,14 @@ href="/2024/05/09/c-yu-fa-extern-guan-jian-zi/">link</a></td>
 <span class="token keyword">private</span><span class="token operator">:</span>
     <span class="token keyword">mutable</span> <span class="token keyword">int</span> value_<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
-<p>static 实例</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">example_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">static</span> <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// static 关键字使变量 count 存储在程序生命周期内都存在</span>
-    count<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>register 实例（C++17 根本不给你编译）</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">example_function</span><span class="token punctuation">(</span><span class="token keyword">register</span> <span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// register 关键字建议编译器将变量 num 存储在寄存器中</span>
-    <span class="token comment">// 以提高程序执行速度</span>
-    <span class="token comment">// 但是实际上是否会存储在寄存器中由编译器决定</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
-<p>还有一个 auto，它本来是 C++98 中的一个存储类说明符，在 C++11
-以后重新定义了，变成了类型指示符。</p>
-<p>我一般就下面两种用法</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">auto</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token comment">// 自动推断（为 int 型）</span>
-queue<span class="token operator">&lt;</span> pair<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">></span> q<span class="token punctuation">;</span> q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">auto</span> <span class="token punctuation">[</span>u<span class="token punctuation">,</span> v<span class="token punctuation">]</span> <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// u = 1, v = 2</span></code></pre>
-<p>第二种用法是 C++17 的新特性 结构化绑定声明（Structured Binding
-Declaration）</p>
-<p>有空我会写写这个的，目前 CCF <del>收钱</del>协会能用 C++14
-已经是感天动地了。</p>
 <hr />
 <p><strong>参考文献</strong>：</p>
 <p>[1] <a
 target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-storage-classes.html">https://www.runoob.com/cplusplus/cpp-storage-classes.html</a></p>
 <p>[2] <a
-target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-modifier-types.html">https://www.runoob.com/cplusplus/cpp-modifier-types.html</a></p>
-<p>[2] <a
 target="_blank" rel="noopener" href="https://c-cpp.com/cpp/language/storage_duration.html">https://c-cpp.com/cpp/language/storage_duration.html</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-modifier-types.html">https://www.runoob.com/cplusplus/cpp-modifier-types.html</a></p>
 
                 
             </div>
@@ -1271,7 +1342,7 @@ target="_blank" rel="noopener" href="https://c-cpp.com/cpp/language/storage_dura
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1022.1k</span>&nbsp;字
+                class="white-color">1027.6k</span>&nbsp;字
             
             
             
