@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数论题瞎做[1], Q779的博客">
+    <meta name="keywords" content="CF1290D Coffee Varieties (hard version) 题解, Q779的博客">
     <meta name="description" content="Hi, 这里是q779的博客。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>数论题瞎做[1] | Q779的博客</title>
+    <title>CF1290D Coffee Varieties (hard version) 题解 | Q779的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -534,12 +534,12 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p138.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p213.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数论题瞎做[1]</h1>
+                    <h1 class="description center-align post-title">CF1290D Coffee Varieties (hard version) 题解</h1>
                 </div>
             </div>
         </div>
@@ -655,8 +655,20 @@ rgba(0,0,0,0.2);
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                <span class="chip bg-color">构造</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
+                                <span class="chip bg-color">交互题</span>
                             </a>
                         
                     </div>
@@ -680,21 +692,21 @@ rgba(0,0,0,0.2);
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-27
+                    2024-06-17
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-26
+                    2024-06-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    571
+                    781
                 </div>
                 
 
@@ -714,96 +726,106 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数论题瞎做1">数论题瞎做[1]</h1>
-<p>某个学MO的朋友给我看的题</p>
-<p>这题似乎是1994年国家数学集训队选拔考试D1T1</p>
-<p>怪不得我做了好久（</p>
-<p>upd.20220513 害，他半途而废退役了</p>
+                <h1 id="cf1290d-coffee-varieties-hard-version-题解">CF1290D Coffee
+Varieties (hard version) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1290D">Coffee
+Varieties (hard version)</a></p>
+<blockquote>
+<p><strong>题意</strong>：</p>
+<p>这是一道交互题。</p>
+<p>给定正整数 <span class="math inline">\(n,k~(1 \le k \le n \le
+1024)\)</span> ，保证 <span class="math inline">\(n,k\)</span> 是 <span
+class="math inline">\(2\)</span> 的整数次幂，并且 <span
+class="math inline">\(\frac{3n^2}{2k}\le 15000\)</span>。</p>
+<p>有 <span class="math inline">\(n\)</span> 个数 <span
+class="math inline">\(a_1,a_2,\dots,a_n\)</span> 初始未知，有一队列
+<span class="math inline">\(Q\)</span> 初始为空。</p>
+<p>每次查询你可以给出一个编号 <span class="math inline">\(x\)</span>
+，交互系统会依次进行如下操作：</p>
+<ul>
+<li>告诉你当前 <span class="math inline">\(Q\)</span> 中是否有与 <span
+class="math inline">\(a_x\)</span> 相同的数</li>
+<li>将 <span class="math inline">\(a_x\)</span> 放入 <span
+class="math inline">\(Q\)</span> 的尾部</li>
+<li>如果此时 <span class="math inline">\(Q\)</span> 中元素多于 <span
+class="math inline">\(k\)</span> 个，弹出队首元素</li>
+</ul>
+<p>此外，你还可以重置队列，这将使得 <span
+class="math inline">\(Q\)</span>
+中所有元素被弹出。<strong>重置队列不算入查询次数。</strong></p>
+<p>现请你求出 <span class="math inline">\(a_1,a_2,\dots,a_n\)</span>
+中有多少个不同的数。</p>
+<p>要求你的查询次数不超过 <span
+class="math inline">\(\frac{3n^2}{2k}\)</span> ，重置次数不超过 <span
+class="math inline">\(30000\)</span>。</p>
+</blockquote>
+<p>非常有意思的一道题。</p>
+<p>首先把序列分成 <span class="math inline">\(\frac{k}{2}\)</span>
+个块，这样依次询问每个块后就可以使得每个块内的元素是无重复的。</p>
+<p>考虑如何将块合并。注意到对于询问 <span
+class="math inline">\((i,j)\)</span> 和 <span
+class="math inline">\((j,k)\)</span>
+，我们可以利用队列里存在的数从而只询问一次得到答案。</p>
+<p>那么如果将这 <span class="math inline">\(\frac{2n}{k}\)</span>
+个块看作节点的话，就会得到一个 <span
+class="math inline">\(\frac{2n}{k}\)</span> 阶完全图。</p>
+<p>每次我们可以选择一条链，花费节点个数乘以 <span
+class="math inline">\(\frac{k}{2}\)</span>
+的询问次数删去这条链上的所有边。要求删掉所有的边。</p>
+<p>选若干条链覆盖完全图的方法是“之”字形构造，即对于起点 <span
+class="math inline">\(u \in \left[1, \frac{|V|}{2}\right]\)</span>
+，覆盖路径 <span class="math display">\[
+u \to u-1\to u+1\to u-2\to\cdots
+\]</span> 如下图所示</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406172246293.svg" style="zoom:120%;" /></p>
+<p>这种构造在节点总数为偶数时会覆盖每条边恰好一次，不过本题 <span
+class="math inline">\(|V|=\frac{2n}{k}\)</span> 显然是偶数。</p>
+<p>证明考虑将这 <span class="math inline">\(|V|\)</span>
+个点顺时针排成一圈，那么相差奇数的边会顺时针覆盖到，相差偶数的会逆时针覆盖到。</p>
+<p>这样做的询问次数是 <span class="math inline">\(\frac{2 n}{k} \times
+\frac{k}{2} \times \frac{n}{k}=\frac{n^2}{k}\)</span>
+，显然满足要求。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<p>代码：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token comment">// #define int long long</span>
+<span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2333</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> k<span class="token punctuation">,</span> B<span class="token punctuation">,</span> m<span class="token punctuation">,</span> d<span class="token punctuation">,</span> ans<span class="token punctuation">,</span> tag<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">ask</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span> string tmp<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"? "</span> <span class="token operator">&lt;&lt;</span> p <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> cin <span class="token operator">>></span> tmp<span class="token punctuation">,</span> tmp <span class="token operator">==</span> <span class="token string">"Y"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">query</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> p <span class="token operator">*</span> B <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>p <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> B<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>tag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token function">ask</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> tag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">--</span>ans<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// freopen("check.in","r",stdin);</span>
+    <span class="token comment">// freopen("check.out","w",stdout);</span>
+    cin <span class="token operator">>></span> n <span class="token operator">>></span> k<span class="token punctuation">;</span> B <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> m <span class="token operator">=</span> n <span class="token operator">/</span> B<span class="token punctuation">,</span> ans <span class="token operator">=</span> n<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">/</span> k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"R\n"</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> d <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">+</span> d <span class="token operator">+</span> m<span class="token punctuation">)</span> <span class="token operator">%</span> m<span class="token punctuation">)</span><span class="token punctuation">;</span> d <span class="token operator">=</span> <span class="token punctuation">(</span>d <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">-</span> d<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"! "</span> <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 <hr />
-<p><strong>题面</strong>：</p>
-<p>求四个所有的由四个自然数 <span class="math inline">\(a,b,c,d\)</span>
-组成的数组，使数组中任意三个数的乘积除以剩下的一个数余数为 <span
-class="math inline">\(1\)</span></p>
-<p><strong>题解</strong>：</p>
-<p>（注：我写的可能有点不太正式，毕竟我只是个OIer）</p>
-<p>由题意可得</p>
-<p><span class="math inline">\(abc \equiv 1 \mod d\)</span></p>
-<p><span class="math inline">\(abd \equiv 1 \mod c\)</span></p>
-<p><span class="math inline">\(acd \equiv 1 \mod b\)</span></p>
-<p><span class="math inline">\(bcd \equiv 1 \mod a\)</span></p>
-<p>可化为</p>
-<p><span class="math inline">\(d\mid (abc-1)\)</span></p>
-<p><span class="math inline">\(c\mid (abd-1)\)</span></p>
-<p><span class="math inline">\(b\mid (acd-1)\)</span></p>
-<p><span class="math inline">\(a\mid (bcd-1)\)</span></p>
-<p><span class="math inline">\(\therefore ab\mid (acd-1)(bcd-1)
-\Rightarrow ab\mid (abc^2d^2-acd-bcd+1)\)</span></p>
-<p><span class="math inline">\(\therefore ab\mid
-(acd+bcd-1)\)</span></p>
-<p>同理 <span class="math inline">\(cd\mid (abc+abd-1)\)</span></p>
-<p><span class="math inline">\(\therefore abcd\mid
-(a^2bc^2d+ab^2c^2d+a^2bc^2d+ab^2cd^2-abc-abd-acd-bcd+1)\)</span></p>
-<p><span class="math inline">\(\therefore abcd\mid
-(abc+abd+acd+bcd-1)\)</span></p>
-<p>设 <span
-class="math inline">\(t=\dfrac{abc+abd+acd+bcd-1}{abcd}\)</span></p>
-<p><span class="math inline">\(\therefore
-t=\dfrac{1}{a}+\dfrac{1}{b}+\dfrac{1}{c}+\dfrac{1}{d}-\dfrac{1}{abcd}\)</span></p>
-<p>显然 <span class="math inline">\(a,b,c,d\)</span> 两两互质，且 <span
-class="math inline">\(a \ge 2\)</span></p>
-<p>由于不考虑顺序，则假设 <span class="math inline">\(2\le a &lt; b &lt;
-c &lt; d\)</span></p>
-<p><span class="math inline">\(\therefore t&lt; \dfrac{4}{a} \le
-2\)</span></p>
-<p><span class="math inline">\(\because t\in \mathbb{Z}^+\)</span></p>
-<p><span class="math inline">\(\therefore a=2,3,t=1\)</span></p>
-<p>当 <span class="math inline">\(a=3\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{3}+\dfrac{1}{4}+\dfrac{1}{5}+\dfrac{1}{6}-\dfrac{1}{360} =
-\dfrac{341}{360}&lt;1\)</span><span
-class="math inline">\(\quad\therefore\)</span>舍去</p>
-<p>当 <span class="math inline">\(a=2\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{5}+\dfrac{1}{7}-\dfrac{1}{210} =
-\dfrac{246}{210}&gt;1\)</span></p>
-<p><span class="math inline">\(\therefore a =2\)</span></p>
-<p><span class="math inline">\(\therefore
-\dfrac{1}{2}&lt;\dfrac{3}{b}\)</span></p>
-<p><span class="math inline">\(\therefore b=3,5\)</span></p>
-<p>当 <span class="math inline">\(b=5\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{2}+\dfrac{1}{5}+\dfrac{1}{7}+\dfrac{1}{9}-\dfrac{1}{630} =
-\dfrac{600}{630}&lt;1\)</span><span
-class="math inline">\(\quad\therefore\)</span>舍去</p>
-<p>当 <span class="math inline">\(b=3\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{5}+\dfrac{1}{7}-\dfrac{1}{210} =
-\dfrac{246}{210}&gt;1\)</span></p>
-<p><span class="math inline">\(\therefore b=3\)</span></p>
-<p><span class="math inline">\(\therefore \dfrac{1}{6} &lt;
-\dfrac{2}{c}\)</span></p>
-<p><span class="math inline">\(\therefore c=7,11\)</span></p>
-<p>当 <span class="math inline">\(c=7\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{7}+\dfrac{1}{11}-\dfrac{1}{462} =
-\dfrac{492}{462}&gt;1\)</span></p>
-<p>当 <span class="math inline">\(c=11\)</span> 时，<span
-class="math inline">\(t_{max} =
-\dfrac{1}{2}+\dfrac{1}{3}+\dfrac{1}{11}+\dfrac{1}{13}-\dfrac{1}{858} =
-\dfrac{858}{858}=1\)</span></p>
-<p>显然当 <span class="math inline">\(c=11\)</span> 时 <span
-class="math inline">\(d=13\)</span></p>
-<p>则一组解为 <span class="math inline">\(2,3,11,13\)</span></p>
-<p>当 <span class="math inline">\(c=7\)</span> 时</p>
-<p><span
-class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
-<p><span class="math inline">\(\therefore d=41\)</span></p>
-<p>则另一组解为 <span class="math inline">\(2,3,7,41\)</span></p>
-<p>综上所述，答案为 <span class="math inline">\(2,3,11,13\)</span> 或
-<span class="math inline">\(2,3,7,41\)</span></p>
-<hr />
-<p>为了验算结果我直接敲了个 <span class="math inline">\(O(n^4)\)</span>
-的暴力（傻）</p>
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k4wwfwd7">https://www.luogu.com.cn/article/k4wwfwd7</a></p>
 
                 
             </div>
@@ -830,7 +852,7 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                     </i>
                     </span>
                 <span class="reprint-info">
-                    <a href="https://q779.github.io/2021/08/27/shu-lun-ti-xia-zuo-1/">https://q779.github.io/2021/08/27/shu-lun-ti-xia-zuo-1/</a>
+                    <a href="https://q779.github.io/2024/06/17/cf1290d-coffee-varieties-hard-version-ti-jie/">https://q779.github.io/2024/06/17/cf1290d-coffee-varieties-hard-version-ti-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -868,8 +890,20 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                    <span class="chip bg-color">构造</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
+                                    <span class="chip bg-color">交互题</span>
                                 </a>
                             
                         </div>
@@ -1016,13 +1050,12 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/27/uva10006-carmichael-numbers-ti-jie/">
+                <a href="/2024/06/18/agc028b-removing-blocks-ti-jie/">
                     <div class="card-image">
                         
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p226.jpg" class="responsive-img" alt="[AGC028B] Removing Blocks 题解">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p165.jpg" class="responsive-img" alt="UVA10006 Carmichael Numbers">
-                        
-                        <span class="card-title">UVA10006 Carmichael Numbers</span>
+                        <span class="card-title">[AGC028B] Removing Blocks 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1033,7 +1066,7 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-27
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-18
                         </span>
                         <span class="publish-author">
                             
@@ -1058,6 +1091,10 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                         <span class="chip bg-color">数学</span>
                     </a>
                     
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1069,13 +1106,12 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/26/luo-gu-p4878-usaco05dec-layout-g-ti-jie/">
+                <a href="/2024/06/17/cf653f-paper-task-ti-jie/">
                     <div class="card-image">
                         
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p144.jpg" class="responsive-img" alt="CF653F Paper task 题解">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p186.jpg" class="responsive-img" alt="洛谷P4878 [USACO05DEC]Layout G 题解">
-                        
-                        <span class="card-title">洛谷P4878 [USACO05DEC]Layout G 题解</span>
+                        <span class="card-title">CF653F Paper task 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1086,7 +1122,7 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-17
                             </span>
                         <span class="publish-author">
                             
@@ -1107,8 +1143,12 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -1268,7 +1308,7 @@ class="math inline">\(\dfrac{1}{42}&lt;\dfrac{1}{d}\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1135.6k</span>&nbsp;字
+                class="white-color">1181.8k</span>&nbsp;字
             
             
             
