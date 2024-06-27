@@ -473,12 +473,12 @@
                                 <span class="chip bg-color">Algorithm</span>
                             </a>
                         
-                            <a href="/en/tags/Data-Structure/">
-                                <span class="chip bg-color">Data Structure</span>
-                            </a>
-                        
                             <a href="/en/tags/String/">
                                 <span class="chip bg-color">String</span>
+                            </a>
+                        
+                            <a href="/en/tags/Data-Structure/">
+                                <span class="chip bg-color">Data Structure</span>
                             </a>
                         
                             <a href="/en/tags/Math/">
@@ -535,27 +535,57 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1202E-You-Are-Given-Some-Strings…-Solution"><a href="#CF1202E-You-Are-Given-Some-Strings…-Solution" class="headerlink" title="[CF1202E You Are Given Some Strings…] Solution"></a>[CF1202E You Are Given Some Strings…] Solution</h1><p>Problem Link: <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1202/problem/E">CF1202E You Are Given Some Strings…</a></p>
+                <h1 id="cf1202e-you-are-given-some-strings...-solution">[CF1202E You Are
+Given Some Strings...] Solution</h1>
+<p>Problem Link: <a
+target="_blank" rel="noopener" href="https://codeforces.com/contest/1202/problem/E">CF1202E You Are
+Given Some Strings...</a></p>
 <blockquote>
 <p><strong>Problem Statement</strong>:</p>
-<p>Given a text string $t$ and $n$ pattern strings $s_i$, find</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n\sum_{j=1}^nf(s_i + s_j)</script><p>$f(s)$ is defined as the number of occurrences of $s$ in $t$, and $s_i + s_j$ is defined as the splice strings $s_i$ and $s_j$.</p>
+<p>Given a text string <span class="math inline">\(t\)</span> and <span
+class="math inline">\(n\)</span> pattern strings <span
+class="math inline">\(s_i\)</span>, find <span class="math display">\[
+\sum_{i=1}^n\sum_{j=1}^nf(s_i + s_j)
+\]</span> <span class="math inline">\(f(s)\)</span> is defined as the
+number of occurrences of <span class="math inline">\(s\)</span> in <span
+class="math inline">\(t\)</span>, and <span class="math inline">\(s_i +
+s_j\)</span> is defined as the splice strings <span
+class="math inline">\(s_i\)</span> and <span
+class="math inline">\(s_j\)</span>.</p>
 <p><strong>Input</strong>:</p>
-<p>One line $t$, one line $n$, and the next $n$ line $s_i$.</p>
+<p>One line <span class="math inline">\(t\)</span>, one line <span
+class="math inline">\(n\)</span>, and the next <span
+class="math inline">\(n\)</span> line <span
+class="math inline">\(s_i\)</span>.</p>
 <p><strong>Output</strong>:</p>
 <p>Answer.</p>
 <p><strong>Data Range</strong>:</p>
-<p>$1\le |t|,\sum |s_i| \le 2\times 10^5$ .</p>
+<p><span class="math inline">\(1\le |t|,\sum |s_i| \le 2\times
+10^5\)</span> .</p>
 </blockquote>
-<p>This kind of question must consider the contribution of a certain string.</p>
-<p>Here we consider the enumeration division point $x$. Denote the point before as $s_i$ and the point after as $s_j$</p>
-<p>Count the number of $f(x),g(x+1)$ before and after each $x$.</p>
-<p>How do we count them? Notice that $f(x)$ is actually how many known substrings are in the suffix of $t_{1 \cdots x}$ and $g(x)$ is the reverse of $f(x)$ .</p>
-<p>This is something that can be messed with using AC automata. That is, build the AC automaton directly on the pattern string and run $t$ through it.</p>
-<p>Consider that the fail pointer points to the longest suffix from the root to the current string, and then the request is equivalent to the number of suffixes for the pattern string.</p>
-<p>As we know from the AC automaton’s code, this is simply a matter of summing over the fail tree.</p>
-<p>Time Complexity is $\mathcal{O}(\sum |s_i| \times |\Sigma|)$</p>
+<p>This kind of question must consider the contribution of a certain
+string.</p>
+<p>Here we consider the enumeration division point <span
+class="math inline">\(x\)</span>. Denote the point before as <span
+class="math inline">\(s_i\)</span> and the point after as <span
+class="math inline">\(s_j\)</span></p>
+<p>Count the number of <span class="math inline">\(f(x),g(x+1)\)</span>
+before and after each <span class="math inline">\(x\)</span>.</p>
+<p>How do we count them? Notice that <span
+class="math inline">\(f(x)\)</span> is actually how many known
+substrings are in the suffix of <span class="math inline">\(t_{1 \cdots
+x}\)</span> and <span class="math inline">\(g(x)\)</span> is the reverse
+of <span class="math inline">\(f(x)\)</span> .</p>
+<p>This is something that can be messed with using AC automata. That is,
+build the AC automaton directly on the pattern string and run <span
+class="math inline">\(t\)</span> through it.</p>
+<p>Consider that the fail pointer points to the longest suffix from the
+root to the current string, and then the request is equivalent to the
+number of suffixes for the pattern string.</p>
+<p>As we know from the AC automaton's code, this is simply a matter of
+summing over the fail tree.</p>
+<p>Time Complexity is <span class="math inline">\(\mathcal{O}(\sum |s_i|
+\times |\Sigma|)\)</span></p>
 <p>Code:</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -625,9 +655,10 @@
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>References</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e">https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e">https://www.luogu.com.cn/blog/c2522943959/solution-cf1202e</a></p>
 
                 
             </div>
@@ -696,12 +727,12 @@
                                     <span class="chip bg-color">Algorithm</span>
                                 </a>
                             
-                                <a href="/en/tags/Data-Structure/">
-                                    <span class="chip bg-color">Data Structure</span>
-                                </a>
-                            
                                 <a href="/en/tags/String/">
                                     <span class="chip bg-color">String</span>
+                                </a>
+                            
+                                <a href="/en/tags/Data-Structure/">
+                                    <span class="chip bg-color">Data Structure</span>
                                 </a>
                             
                                 <a href="/en/tags/Math/">
@@ -1243,7 +1274,7 @@
 </main>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
 <script>
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
