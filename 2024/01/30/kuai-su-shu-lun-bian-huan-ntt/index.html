@@ -695,14 +695,14 @@ rgba(0,0,0,0.2);
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-01-31
+                    2024-07-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    949
+                    891
                 </div>
                 
 
@@ -730,6 +730,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">P38
 href="/2024/01/27/kuai-su-fu-li-xie-bian-huan-fft/">快速傅里叶变换
 FFT</a> 和 <a href="/2024/01/25/jie-yu-yuan-gen/">阶与原根</a>
 两篇文章使用。</p>
+<hr />
 <p>在前两篇我们介绍了 FFT 算法如何利用单位根 <span
 class="math inline">\(\omega_n^k\)</span> 的性质以快速计算 DFT
 ，以及原根的性质。</p>
@@ -740,7 +741,7 @@ class="math inline">\(2\)</span> 的幂，即 <span class="math inline">\(n
 = 2^m\,(m \in \mathbb{N})\)</span> 。</p>
 </blockquote>
 <p>FFT
-那篇可能写的比较复杂，总结一下可以发现，无非就是以下两个重要性质。</p>
+那篇可能写的比较复杂，总结一下可以发现，无非就是以下几个重要性质。</p>
 <ul>
 <li><span class="math inline">\(\omega_n^k\,(0\le k \le n-1)\)</span>
 互不相同。</li>
@@ -750,7 +751,6 @@ class="math inline">\(2\)</span> 的幂，即 <span class="math inline">\(n
 class="math inline">\(1+\omega_n^k+\left(\omega_n^k\right)^2+\cdots+\left(\omega_n^k\right)^{n-1}=0\)</span>
 。</li>
 </ul>
-<p>第二条结论我没有给出证明，有兴趣的读者可以自行查阅资料。</p>
 <p>接着我们在原根的诸多性质中找出几个特别的</p>
 <ul>
 <li>对于质数 <span class="math inline">\(p=qn+1\,(n=2^m)\)</span> ，原根
@@ -764,16 +764,21 @@ class="math inline">\(g^k \bmod p\,(0 &lt; k &lt; p)\)</span>
 <li>由第二条结论可知，<span class="math inline">\(g^{k/2}\equiv -1
 \pmod{p}\)</span> 。</li>
 </ul>
-<p>巧合的是，这里第二条结论我在之前的文章中也没有提到（以及证明），下面我们来简单说明一下。</p>
+<p>这里简单证明一下第二条结论。</p>
 <blockquote>
-<p>证明：考虑反证法。设 <span class="math inline">\(g^{i}\equiv g^j
-\pmod{p}\,(0 &lt; i &lt; j &lt; p)\)</span> ，则 <span
-class="math inline">\(g^{j-i}(g^i-1) \equiv 0 \pmod{p}\)</span></p>
-<p>由此可知 <span class="math inline">\(g^i \equiv 0 \pmod{p}\)</span>
-，根据定义 <span class="math inline">\(i\)</span> 只可能等于 <span
+<p><strong>证明</strong> 考虑反证法。设 <span
+class="math inline">\(g^{i}\equiv g^j \pmod{p}\,(0 &lt; i &lt; j &lt;
+p)\)</span> ，则 <span class="math inline">\(g^{j-i}(g^i-1) \equiv 0
+\pmod{p}\)</span></p>
+<p style="overflow: hidden; white-space: nowrap;">
+<span style="float: left;">由此可知 <span class="math inline">\(g^i
+\equiv 0 \pmod{p}\)</span> ，根据定义 <span
+class="math inline">\(i\)</span> 只可能等于 <span
 class="math inline">\(p-1\)</span> ，而此时不存在合法的 <span
-class="math inline">\(j\)</span> ，与假设矛盾。<span
-class="math inline">\(\square\)</span></p>
+class="math inline">\(j\)</span> ，与假设矛盾。</span> <span
+style="float: right;"><span
+class="math inline">\(\square\)</span></span>
+</p>
 </blockquote>
 <p>于是我们发现，原根满足作为 FFT 算法核心的条件，即 <span
 class="math display">\[
@@ -787,11 +792,11 @@ class="math display">\[
 均可以以 <span class="math inline">\(p\)</span> 作为模数，所以我们一般取
 <span class="math inline">\(998244353\)</span> 作为 <a
 href="/2024/01/30/ntt-mo-shu-biao/">NTT 模数</a>。</p>
+<hr />
 <p>那么，我们为什么要用 NTT 呢？因为 NTT
 可以在整数范围内计算，较好的免去了精度问题。</p>
-<p>然而普通的 NTT
-仅能解决特定模数的多项式乘法，或者值域有限的多项式乘法。于是有了
-[任意模数 NTT] 。</p>
+<p>然而普通的 NTT 仅能解决<strong>特定模数</strong>（NTT
+模数）的多项式乘法，或者<strong>值域有限</strong>的多项式乘法。</p>
 <p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
 n)\)</span></p>
 <p>代码：</p>
@@ -1329,7 +1334,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1246.4k</span>&nbsp;字
+                class="white-color">1267.5k</span>&nbsp;字
             
             
             
@@ -1605,21 +1610,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
