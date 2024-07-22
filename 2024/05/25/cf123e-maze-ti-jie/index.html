@@ -534,7 +534,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p93.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p163.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -726,19 +726,12 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf123e-maze-题解">CF123E Maze 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF123E">Maze</a></p>
+                <h1 id="CF123E-Maze-题解"><a href="#CF123E-Maze-题解" class="headerlink" title="CF123E Maze 题解"></a>CF123E Maze 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF123E">Maze</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一棵 <span class="math inline">\(n\)</span>
-个点的树，起点和终点随机选取（概率给定）。</p>
-<p>运行如下程序， <span class="math inline">\(V(x)\)</span> 是与 <span
-class="math inline">\(x\)</span> 相邻的顶点列表，最初 <span
-class="math inline">\(\mathrm{flag}\)</span> 数组为 <span
-class="math inline">\(\verb!false!\)</span>，DFS 的 参数是起点</p>
-<p>你要求 <span class="math inline">\(\mathrm{count}\)</span>
-的期望值。</p>
+<p>一棵 $n$ 个点的树，起点和终点随机选取（概率给定）。</p>
+<p>运行如下程序， $V(x)$ 是与 $x$ 相邻的顶点列表，最初 $\mathrm{flag}$ 数组为 $\verb!false!$，DFS 的 参数是起点</p>
+<p>你要求 $\mathrm{count}$ 的期望值。</p>
 <pre class="language-none"><code class="language-none">DFS(x)
     if x &#x3D;&#x3D; exit vertex then
         finish search
@@ -751,71 +744,38 @@ class="math inline">\(\verb!false!\)</span>，DFS 的 参数是起点</p>
             DFS(y);
     count++;</code></pre>
 <p><strong>输入格式</strong>：</p>
-<p>第一行给定 <span class="math inline">\(n\)</span> ，接下来 <span
-class="math inline">\(n-1\)</span> 行给定边</p>
-<p>然后 <span class="math inline">\(n\)</span> 行给定每个点作为 <span
-class="math inline">\(S,T\)</span> 的概率（给定整数 <span
-class="math inline">\(x_i,y_i\)</span> ，概率为 <span
-class="math inline">\(\frac{x_i}{\sum_j x_j}\)</span> 和 <span
-class="math inline">\(\frac{y_i}{\sum_j y_j}\)</span>​）。</p>
+<p>第一行给定 $n$ ，接下来 $n-1$ 行给定边</p>
+<p>然后 $n$ 行给定每个点作为 $S,T$ 的概率（给定整数 $x_i,y_i$ ，概率为 $\frac{x_i}{\sum_j x_j}$ 和 $\frac{y_i}{\sum_j y_j}$​）。</p>
 <p><strong>输出格式</strong>：</p>
-<p>误差不超过 <span class="math inline">\(10^{-9}\)</span> 。</p>
+<p>误差不超过 $10^{-9}$ 。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^5\)</span>​ 。</p>
+<p>$1 \le n \le 10^5$​ 。</p>
 </blockquote>
 <p>注意这个题目的代码，对于一些点会有额外的“回程费”，而另一些则没有。</p>
-<p>考虑一对 <span class="math inline">\((S,T)\)</span> ，将 <span
-class="math inline">\(S\)</span> 临时定为根，则</p>
+<p>考虑一对 $(S,T)$ ，将 $S$ 临时定为根，则</p>
 <ul>
-<li><p>对于 <span class="math inline">\(T\)</span>
-子树内的点，这些点不会被遍历到，贡献为 <span
-class="math inline">\(0\)</span> 。</p></li>
-<li><p>对 <span class="math inline">\(S \leadsto T\)</span>
-的最短路径上的点，这些点只会被遍历一次（不回程），贡献为 <span
-class="math inline">\(1\)</span> 。</p></li>
-<li><p>对于除此以外的其他点，例如点 <span
-class="math inline">\(x\)</span> ，当我们走到 <span
-class="math inline">\(fa(x)\)</span> 时，</p>
+<li><p>对于 $T$ 子树内的点，这些点不会被遍历到，贡献为 $0$ 。</p>
+</li>
+<li><p>对 $S \leadsto T$ 的最短路径上的点，这些点只会被遍历一次（不回程），贡献为 $1$ 。</p>
+</li>
+<li><p>对于除此以外的其他点，例如点 $x$ ，当我们走到 $fa(x)$ 时，</p>
 <ul>
-<li>有 <span class="math inline">\(\frac{1}{2}\)</span> 的概率走到 <span
-class="math inline">\(x\)</span> ，此时 <span
-class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(2\)</span>​​ ；</li>
-<li>还有 <span class="math inline">\(\frac{1}{2}\)</span> 的概率走到
-<span class="math inline">\(T\)</span> 的方向，此时 <span
-class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(0\)</span> 。</li>
+<li>有 $\frac{1}{2}$ 的概率走到 $x$ ，此时 $x$ 的贡献为 $2$​​ ；</li>
+<li>还有 $\frac{1}{2}$ 的概率走到 $T$ 的方向，此时 $x$ 的贡献为 $0$ 。</li>
 </ul>
-<p>于是这样的 <span class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(\frac{1}{2}\times 2 + \frac{1}{2}\times 0 =
-1\)</span> 。</p>
-<p>这里的 <span class="math inline">\(\frac{1}{2}\)</span>
-是考察有多少种排列中 <span class="math inline">\(x\)</span> 在 <span
-class="math inline">\(T\)</span> 方向那个节点的前面。</p></li>
+<p>于是这样的 $x$ 的贡献为 $\frac{1}{2}\times 2 + \frac{1}{2}\times 0 = 1$ 。</p>
+<p>这里的 $\frac{1}{2}$ 是考察有多少种排列中 $x$ 在 $T$ 方向那个节点的前面。</p>
+</li>
 </ul>
-<p>于是问题就变成了，对于每一对 <span
-class="math inline">\((S,T)\)</span> ，以 <span
-class="math inline">\(S\)</span> 为根时 <span
-class="math inline">\(n-\mathrm{size}_S(T)\)</span> 的期望。</p>
-<p>考虑枚举 <span class="math inline">\(T\)</span> ，然后统计 <span
-class="math inline">\(S\)</span> ，</p>
+<p>于是问题就变成了，对于每一对 $(S,T)$ ，以 $S$ 为根时 $n-\mathrm{size}_S(T)$ 的期望。</p>
+<p>考虑枚举 $T$ ，然后统计 $S$ ，</p>
 <ul>
-<li><span class="math inline">\(S=T\)</span> ，此时 <span
-class="math inline">\(\mathrm{size}_S(T)=n\)</span> 。</li>
-<li><span class="math inline">\(S\)</span> 在 <span
-class="math inline">\(T\)</span> 的子树内，显然 <span
-class="math inline">\(\mathrm{size}_S(T) = n - \mathrm{size}(S)\)</span>
-。</li>
-<li><span class="math inline">\(S\)</span> 不在 <span
-class="math inline">\(T\)</span> 的子树内，则 <span
-class="math inline">\(\mathrm{size}_S(T)=\mathrm{size}(T)\)</span>​
-。</li>
+<li>$S=T$ ，此时 $\mathrm{size}_S(T)=n$ 。</li>
+<li>$S$ 在 $T$ 的子树内，显然 $\mathrm{size}_S(T) = n - \mathrm{size}(S)$ 。</li>
+<li>$S$ 不在 $T$ 的子树内，则 $\mathrm{size}_S(T)=\mathrm{size}(T)$​ 。</li>
 </ul>
-<p>那么我们只需要扫一遍，用每种 <span class="math inline">\(S\)</span>
-的概率 <span class="math inline">\(\times\)</span>
-它的贡献，加起来以后乘上当前节点作为 <span
-class="math inline">\(T\)</span> 的概率即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>那么我们只需要扫一遍，用每种 $S$ 的概率 $\times$ 它的贡献，加起来以后乘上当前节点作为 $T$ 的概率即可。</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -860,10 +820,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">https://www.luogu.com.cn/article/j0en6wyv</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">https://www.luogu.com.cn/article/j0en6wyv</a></p>
 
                 
             </div>
@@ -1144,7 +1103,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p72.jpg" class="responsive-img" alt="【生物】真核生物基因与原核生物基因有何不同？">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p53.jpg" class="responsive-img" alt="【生物】真核生物基因与原核生物基因有何不同？">
                         
                         <span class="card-title">【生物】真核生物基因与原核生物基因有何不同？</span>
                     </div>
@@ -1335,7 +1294,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1267.5k</span>&nbsp;字
+                class="white-color">1274.1k</span>&nbsp;字
             
             
             
@@ -1611,6 +1570,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

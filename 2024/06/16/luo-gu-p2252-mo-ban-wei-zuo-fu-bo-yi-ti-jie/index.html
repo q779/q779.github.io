@@ -718,10 +718,7 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2252-模板威佐夫博弈-题解">洛谷P2252 【模板】威佐夫博弈
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2252">P2252
-[SHOI2002] 取石子游戏|【模板】威佐夫博弈</a></p>
+                <h1 id="洛谷P2252-【模板】威佐夫博弈-题解"><a href="#洛谷P2252-【模板】威佐夫博弈-题解" class="headerlink" title="洛谷P2252 【模板】威佐夫博弈 题解"></a>洛谷P2252 【模板】威佐夫博弈 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2252">P2252 [SHOI2002] 取石子游戏|【模板】威佐夫博弈</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>有两堆石子，数量任意，可以不同。游戏开始由两个人轮流取石子。</p>
@@ -734,100 +731,55 @@ rgba(0,0,0,0.2);
 <p>现在给出初始的两堆石子的数目，你先取，假设双方都采取最好的策略，问最后你是胜者还是败者。</p>
 <p><strong>输入格式</strong>：</p>
 <p>输入共一行。</p>
-<p>第一行共两个数 <span class="math inline">\(a,
-b\)</span>，表示石子的初始情况。</p>
+<p>第一行共两个数 $a, b$，表示石子的初始情况。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出共一行。</p>
-<p>第一行为一个数字 <span class="math inline">\(1,0\)</span> 或 <span
-class="math inline">\(-1\)</span>，如果最后你是胜利者则为 <span
-class="math inline">\(1\)</span>；若失败则为 <span
-class="math inline">\(0\)</span>；若结果无法确定则为 <span
-class="math inline">\(-1\)</span>。</p>
+<p>第一行为一个数字 $1,0$ 或 $-1$，如果最后你是胜利者则为 $1$；若失败则为 $0$；若结果无法确定则为 $-1$。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据满足 <span
-class="math inline">\(0\le a, b \le 10^9\)</span>。</p>
+<p>对于 $100\%$ 的数据满足 $0\le a, b \le 10^9$。</p>
 </blockquote>
-<p>定义后手必胜态为奇异局势（<del>什么鬼名字？</del>），容易列举出一些这样的状态
-<span class="math display">\[
+<p>定义后手必胜态为奇异局势（<del>什么鬼名字？</del>），容易列举出一些这样的状态</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; 0:(0,0)
-\\[6pt]&amp; 1:(1,2)
-\\[6pt]&amp; 2:(3,5)
-\\[6pt]&amp; 3:(4,7)
-\\[6pt]&amp; 4:(6,10)
-\\[6pt]&amp; 5:(8,13)
-\end{aligned}
-\]</span> 首先 <span class="math inline">\((0,0)\)</span>
-显然是奇异局势。考虑 <span class="math inline">\((1,2)\)</span>
-的情况</p>
-<ol type="1">
-<li>如果先手取走 “1” 中的 1 个，那么后手就从 “2” 中取出 2
-个，此时取完，后手胜利。</li>
-<li>如果先手取走 “2” 中的 2 个，那么后手取走 “1” 中的 1
-个，此时取完，后手胜利。</li>
-<li>如果先手取走 “2” 中的 1 个，那么后手就在两堆中各取走 1
-个，此时取完，后手胜利。</li>
-<li>如果先手在 “1” 和 “2” 各取走了 1 个，那么后手取走 “2” 中的 1
-个，此时取完，后手胜利。</li>
+& 0:(0,0)
+\\[6pt]& 1:(1,2)
+\\[6pt]& 2:(3,5)
+\\[6pt]& 3:(4,7)
+\\[6pt]& 4:(6,10)
+\\[6pt]& 5:(8,13)
+\end{aligned}</script><p>首先 $(0,0)$ 显然是奇异局势。考虑 $(1,2)$ 的情况</p>
+<ol>
+<li>如果先手取走 “1” 中的 1 个，那么后手就从 “2” 中取出 2 个，此时取完，后手胜利。</li>
+<li>如果先手取走 “2” 中的 2 个，那么后手取走 “1” 中的 1 个，此时取完，后手胜利。</li>
+<li>如果先手取走 “2” 中的 1 个，那么后手就在两堆中各取走 1 个，此时取完，后手胜利。</li>
+<li>如果先手在 “1” 和 “2” 各取走了 1 个，那么后手取走 “2” 中的 1 个，此时取完，后手胜利。</li>
 </ol>
-<p>故 <span class="math inline">\((1,2)\)</span>
-为奇异局势。其余情况证明略。</p>
-<p>注意到每个奇异局势都形如 <span class="math inline">\((x, \, x +
-k)\)</span> ，并且 <span class="math inline">\(x\)</span>
-均为即之前未出现过的最小自然数。</p>
-<p>形式化的，对于奇异局势 <span class="math inline">\((x_i,y_i)\)</span>
-均有 <span class="math inline">\(y_i=x_i + i\)</span> 和 <span
-class="math inline">\(x_i =
-\operatorname{mex}\{x_1,y_1,\cdots,x_{i-1},y_{i-1}\}\)</span> 。</p>
+<p>故 $(1,2)$ 为奇异局势。其余情况证明略。</p>
+<p>注意到每个奇异局势都形如 $(x, \, x + k)$ ，并且 $x$ 均为即之前未出现过的最小自然数。</p>
+<p>形式化的，对于奇异局势 $(x_i,y_i)$ 均有 $y_i=x_i + i$ 和 $x_i = \operatorname{mex}\{x_1,y_1,\cdots,x_{i-1},y_{i-1}\}$ 。</p>
 <p>这个规律的证明啥的我就不证了，详细的证明太长了而且也没啥用。</p>
-<p>可以发现由于 <span class="math inline">\(x_i\)</span> 是 <span
-class="math inline">\(\operatorname{mex}\)</span> ，因此形如 <span
-class="math inline">\((x_i,y_i)\)</span>
-奇异局势将全体整数划分为两个不相交的集合。</p>
-<p>这其实也进一步说明了所有奇异局势都是以上 <span
-class="math inline">\((x_i,y_i)\)</span> 的形式。</p>
+<p>可以发现由于 $x_i$ 是 $\operatorname{mex}$ ，因此形如 $(x_i,y_i)$ 奇异局势将全体整数划分为两个不相交的集合。</p>
+<p>这其实也进一步说明了所有奇异局势都是以上 $(x_i,y_i)$ 的形式。</p>
 <p>下面引入 <strong>Beatty 定理</strong>（Beatty sequence）：</p>
 <blockquote>
-<p>若 <span class="math inline">\(p,q \in \mathbb{R}^+\)</span> 且 <span
-class="math inline">\(p,q \not\in \mathbb{Q}\)</span>
-（也就是两个正无理数 <span class="math inline">\(p,q\)</span> ）满足
-<span class="math inline">\(\frac{1}{p}+\frac{1}{q}=1\)</span> ，</p>
-<p>则集合 <span class="math inline">\(P=\left\{\lfloor n p\rfloor: n \in
-\mathbb{Z}^{+}\right\},~Q=\left\{\lfloor n q\rfloor: n \in
-\mathbb{Z}^{+}\right\}\)</span> 满足 <span class="math inline">\(P \cap
-Q=\varnothing, P \cup Q=\mathbb{Z}^{+}\)</span> 。</p>
+<p>若 $p,q \in \mathbb{R}^+$ 且 $p,q \not\in \mathbb{Q}$ （也就是两个正无理数 $p,q$ ）满足 $\frac{1}{p}+\frac{1}{q}=1$ ，</p>
+<p>则集合 $P=\left\{\lfloor n p\rfloor: n \in \mathbb{Z}^{+}\right\},~Q=\left\{\lfloor n q\rfloor: n \in \mathbb{Z}^{+}\right\}$ 满足 $P \cap Q=\varnothing, P \cup Q=\mathbb{Z}^{+}$ 。</p>
 </blockquote>
 <p><del>还是一样</del>，证明我就不证了。</p>
-<p>我们发现，相邻奇异局势的差值 <span class="math inline">\(x_i -
-x_{i-1}\)</span> 通常是 <span class="math inline">\(1\)</span> 或 <span
-class="math inline">\(2\)</span> ，但似乎没有规律可言。</p>
-<p>我们可以认为第一个数构成集合 <span
-class="math inline">\(P=\left\{\lfloor an\rfloor: n \in
-\mathbb{Z}^{+}\right\}\)</span> ，</p>
-<p>由 <span class="math inline">\(y_i\)</span>
-的定义可知第二个数构成集合 <span class="math inline">\(Q=\left\{\lfloor
-(a+1)n\rfloor: n \in \mathbb{Z}^{+}\right\}\)</span> 。</p>
-<p>由于 <span class="math inline">\(P,Q\)</span> 满足 <span
-class="math inline">\(P \cap Q=\varnothing, P \cup
-Q=\mathbb{Z}^{+}\)</span> 即构成正整数集的一个分划</p>
-<p>所以 <span class="math inline">\(\frac{1}{a}+\frac{1}{a+1}=1\)</span>
-，解方程可得 <span class="math display">\[
+<p>我们发现，相邻奇异局势的差值 $x_i - x_{i-1}$ 通常是 $1$ 或 $2$ ，但似乎没有规律可言。</p>
+<p>我们可以认为第一个数构成集合 $P=\left\{\lfloor an\rfloor: n \in \mathbb{Z}^{+}\right\}$ ，</p>
+<p>由 $y_i$ 的定义可知第二个数构成集合 $Q=\left\{\lfloor (a+1)n\rfloor: n \in \mathbb{Z}^{+}\right\}$ 。</p>
+<p>由于 $P,Q$ 满足 $P \cap Q=\varnothing, P \cup Q=\mathbb{Z}^{+}$ 即构成正整数集的一个分划</p>
+<p>所以 $\frac{1}{a}+\frac{1}{a+1}=1$ ，解方程可得</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; \Delta=5 \\
-&amp; a_1=\frac{1+\sqrt{\Delta}}{2}, a_2=\frac{1-\sqrt{\Delta}}{2}
-\end{aligned}
-\]</span> 因为 <span class="math inline">\(a &gt; 1\)</span> ，所以
-<span class="math inline">\(a = \frac{1+\sqrt{5}}{2}\)</span> ，那么第
-<span class="math inline">\(k\)</span> 个奇异局势为 <span
-class="math inline">\((\left\lfloor ak\right\rfloor,\left\lfloor
-(a+1)k\right\rfloor)\)</span> 。</p>
-<p>那么对于本题，假设 <span class="math inline">\(n \le m\)</span>
-，先手必胜当且仅当 <span class="math display">\[
-n \ne \frac{1+\sqrt{5}}{2}(m - n)
-\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(\log
-V)\)</span></p>
-<p>代码：（注意要用 <code>long double</code> 的开方函数
-<code>sqrtl</code> ）</p>
+& \Delta=5 \\
+& a_1=\frac{1+\sqrt{\Delta}}{2}, a_2=\frac{1-\sqrt{\Delta}}{2}
+\end{aligned}</script><p>因为 $a &gt; 1$ ，所以 $a = \frac{1+\sqrt{5}}{2}$ ，那么第 $k$ 个奇异局势为 $(\left\lfloor ak\right\rfloor,\left\lfloor (a+1)k\right\rfloor)$ 。</p>
+<p>那么对于本题，假设 $n \le m$ ，先手必胜当且仅当</p>
+<script type="math/tex; mode=display">
+n \ne \frac{1+\sqrt{5}}{2}(m - n)</script><p>时间复杂度 $\mathcal{O}(\log V)$ </p>
+<p>代码：（注意要用 <code>long double</code> 的开方函数 <code>sqrtl</code> ）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
@@ -847,10 +799,9 @@ V)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> <span class="token function">sqrtl</span><span class="token punctuation">(</span><span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span> <span class="token operator">*</span> k<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ptrw5a8e">https://www.luogu.com.cn/article/ptrw5a8e</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ptrw5a8e">https://www.luogu.com.cn/article/ptrw5a8e</a></p>
 
                 
             </div>
@@ -1333,7 +1284,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ptrw5a8e">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1267.5k</span>&nbsp;字
+                class="white-color">1274.1k</span>&nbsp;字
             
             
             
@@ -1609,6 +1560,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

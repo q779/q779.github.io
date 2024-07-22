@@ -1,21 +1,15 @@
-<h1 id="live2d-api">Live2D API</h1>
-<p>Live2D 看板娘插件 (https://www.fghrsh.net/post/123.html) 上使用的后端
-API</p>
-<h3 id="特性">特性</h3>
-<ul>
+<h1 id="Live2D-API"><a href="#Live2D-API" class="headerlink" title="Live2D API"></a>Live2D API</h1><p>Live2D 看板娘插件 (<a href="https://www.fghrsh.net/post/123.html">https://www.fghrsh.net/post/123.html</a>) 上使用的后端 API</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
 <li>原生 PHP 开发，无需伪静态，开箱即用</li>
 <li>支持 模型、皮肤 的 顺序切换 和 随机切换</li>
 <li>支持 单模型 单皮肤 切换、多组皮肤 递归穷举</li>
 <li>支持 同分组 多个模型 或 多个路径 的 加载切换</li>
 </ul>
-<h2 id="使用">使用</h2>
-<h3 id="环境要求">环境要求</h3>
-<ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h3><ul>
 <li>PHP 版本 &gt;= 5.2</li>
 <li>依赖 PHP 扩展：json</li>
 </ul>
-<h3 id="目录结构">目录结构</h3>
-<pre class="shell"><code>│  model_list.json              // 模型列表
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><pre><code class="lang-shell">│  model_list.json              // 模型列表
 │
 ├─model                         // 模型路径
 │  └─GroupName                  // 模组分组
@@ -30,16 +24,16 @@ API</p>
 └─tools
         modelList.php           // 列出模型列表
         modelTextures.php       // 列出皮肤列表
-        name-to-lower.php       // 文件名格式化</code></pre>
-<h3 id="添加模型">添加模型</h3>
-<ul>
-<li>单模型 单皮肤 切换
-<ul>
+        name-to-lower.php       // 文件名格式化
+</code></pre>
+<h3 id="添加模型"><a href="#添加模型" class="headerlink" title="添加模型"></a>添加模型</h3><ul>
+<li>单模型 单皮肤 切换<ul>
 <li>单次加载只输出一个皮肤</li>
 <li>皮肤放在 <code>textures</code> 文件夹，自动识别</li>
-</ul></li>
 </ul>
-<pre class="shell"><code>│  index.json
+</li>
+</ul>
+<pre><code class="lang-shell">│  index.json
 │  model.moc
 │  textures.cache       // 皮肤列表缓存，自动生成
 │
@@ -51,15 +45,13 @@ API</p>
 └─textures
         default-costume.png
         school-costume.png
-        winter-costume.png</code></pre>
+        winter-costume.png
+</code></pre>
 <ul>
-<li>单模型 多组皮肤 递归穷举
-<ul>
+<li>单模型 多组皮肤 递归穷举<ul>
 <li>多组皮肤 组合模型、穷举组合</li>
 <li>皮肤文件夹按 <code>texture_XX</code> 命名</li>
-<li>添加 <code>textures_order.json</code> 列出组合</li>
-</ul>
-<pre class="shell"><code>│  index.json
+<li>添加 <code>textures_order.json</code> 列出组合<pre><code class="lang-shell">│  index.json
 │  model.moc
 │  textures.cache
 │  textures_order.json
@@ -83,33 +75,37 @@ API</p>
 │      02.png
 │
 └─texture_03
-     00.png
-     01.png</code></pre></li>
+ 00.png
+ 01.png
+</code></pre>
+</li>
+</ul>
+</li>
 </ul>
 <p>textures_order.json</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00&quot;</span><span class="ot">],</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_01&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02&quot;</span><span class="ot">],</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_03&quot;</span><span class="ot">]</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+<pre><code class="lang-json">[
+    [&quot;texture_00&quot;],
+    [&quot;texture_01&quot;,&quot;texture_02&quot;],
+    [&quot;texture_03&quot;]
+]
+</code></pre>
 <p>textures.cache</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/00.png&quot;</span><span class="ot">],</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/01.png&quot;</span><span class="ot">],</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/01.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/01.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/00.png&quot;</span><span class="ot">],</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/01.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/01.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/01.png&quot;</span><span class="ot">],</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/02.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/02.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/00.png&quot;</span><span class="ot">],</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;texture_00/00.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_01/02.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_02/02.png&quot;</span><span class="ot">,</span><span class="st">&quot;texture_03/01.png&quot;</span><span class="ot">]</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+<pre><code class="lang-json">[
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/00.png&quot;,&quot;texture_02/00.png&quot;,&quot;texture_03/00.png&quot;],
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/00.png&quot;,&quot;texture_02/00.png&quot;,&quot;texture_03/01.png&quot;],
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/01.png&quot;,&quot;texture_02/01.png&quot;,&quot;texture_03/00.png&quot;],
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/01.png&quot;,&quot;texture_02/01.png&quot;,&quot;texture_03/01.png&quot;],
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/02.png&quot;,&quot;texture_02/02.png&quot;,&quot;texture_03/00.png&quot;],
+    [&quot;texture_00/00.png&quot;,&quot;texture_01/02.png&quot;,&quot;texture_02/02.png&quot;,&quot;texture_03/01.png&quot;]
+]
+</code></pre>
 <ul>
-<li>同分组 多个模型 或 多个路径 切换
-<ul>
+<li>同分组 多个模型 或 多个路径 切换<ul>
 <li>修改 <code>model_list.json</code> 添加多个模型</li>
-</ul></li>
 </ul>
-<pre class="shell"><code>│
+</li>
+</ul>
+<pre><code class="lang-shell">│
 ├─model
 │  ├─Group1
 │  │  ├─Model1
@@ -129,38 +125,34 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="
 │          │
 │          ├─motions
 │          └─textures
-│</code></pre>
+│
+</code></pre>
 <p>model_list.json</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;models&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;GroupName/ModelName&quot;</span><span class="ot">,</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Group1/Model1&quot;</span><span class="ot">,</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Group1/Model2&quot;</span><span class="ot">,</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Group2/Model1&quot;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;messages&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Example 1&quot;</span><span class="ot">,</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Example 2&quot;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<h3 id="接口用法">接口用法</h3>
-<ul>
+<pre><code class="lang-json">{
+    &quot;models&quot;: [
+        &quot;GroupName/ModelName&quot;,
+        [
+            &quot;Group1/Model1&quot;,
+            &quot;Group1/Model2&quot;,
+            &quot;Group2/Model1&quot;
+        ]
+    ],
+    &quot;messages&quot;: [
+        &quot;Example 1&quot;,
+        &quot;Example 2&quot;
+    ]
+}
+</code></pre>
+<h3 id="接口用法"><a href="#接口用法" class="headerlink" title="接口用法"></a>接口用法</h3><ul>
 <li><code>/add/</code> - 检测 新增皮肤 并更新 缓存列表</li>
 <li><code>/get/?id=1-23</code> 获取 分组 1 的 第 23 号 皮肤</li>
 <li><code>/rand/?id=1</code> 根据 上一分组 随机切换</li>
 <li><code>/switch/?id=1</code> 根据 上一分组 顺序切换</li>
-<li><code>/rand_textures/?id=1-23</code> 根据 上一皮肤 随机切换
-同分组其他皮肤</li>
-<li><code>/switch_textures/?id=1-23</code> 根据 上一皮肤 顺序切换
-同分组其他皮肤</li>
+<li><code>/rand_textures/?id=1-23</code> 根据 上一皮肤 随机切换 同分组其他皮肤</li>
+<li><code>/switch_textures/?id=1-23</code> 根据 上一皮肤 顺序切换 同分组其他皮肤</li>
 </ul>
-<h2 id="版权声明">版权声明</h2>
-<blockquote>
+<h2 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h2><blockquote>
 <p>(&gt;▽&lt;) 都看到这了，点个 Star 吧 ~</p>
 </blockquote>
-<p><strong>API 内所有模型
-版权均属于原作者，仅供研究学习，不得用于商业用途</strong></p>
+<p><strong>API 内所有模型 版权均属于原作者，仅供研究学习，不得用于商业用途</strong>  </p>
 <p>MIT © FGHRSH</p>

@@ -534,7 +534,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p142.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -706,7 +706,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    841
+                    838
                 </div>
                 
 
@@ -726,63 +726,38 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5904-poi2014-hot-hotels-加强版-题解">洛谷P5904 [POI2014]
-HOT-Hotels 加强版 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5904">P5904
-[POI2014] HOT-Hotels 加强版</a></p>
+                <h1 id="洛谷P5904-POI2014-HOT-Hotels-加强版-题解"><a href="#洛谷P5904-POI2014-HOT-Hotels-加强版-题解" class="headerlink" title="洛谷P5904 [POI2014] HOT-Hotels 加强版 题解"></a>洛谷P5904 [POI2014] HOT-Hotels 加强版 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5904">P5904 [POI2014] HOT-Hotels 加强版</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一棵有 <span class="math inline">\(n\)</span>
-个点的树，求有多少组点 <span class="math inline">\((i,j,k)\)</span> 满足
-<span class="math inline">\(i,j,k\)</span> 两两之间的距离都相等。</p>
-<p><span class="math inline">\((i,j,k)\)</span> 与 <span
-class="math inline">\((i,k,j)\)</span> 算作同一组。</p>
+<p>给出一棵有 $n$ 个点的树，求有多少组点 $(i,j,k)$ 满足 $i,j,k$ 两两之间的距离都相等。  </p>
+<p>$(i,j,k)$ 与 $(i,k,j)$ 算作同一组。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span>。</p>
-<p>接下来 <span class="math inline">\(n-1\)</span> 行，每行两个整数
-<span class="math inline">\(a,b\)</span>，表示在 <span
-class="math inline">\(a,b\)</span> 之间有一条边。</p>
+<p>第一行一个整数 $n$。</p>
+<p>接下来 $n-1$ 行，每行两个整数 $a,b$，表示在 $a,b$ 之间有一条边。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数，表示所有合法的点的组数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据， <span
-class="math inline">\(1\le n\le10^5, 1\le a\le b\le n\)</span>。</p>
+<p>对于 $100\%$ 的数据， $1\le n\le10^5, 1\le a\le b\le n$。</p>
 </blockquote>
-<p>设 <span class="math inline">\(f(i,j)\)</span> 为 <span
-class="math inline">\(i\)</span> 所在子树中 <span
-class="math inline">\(\mathrm{dis}(x,i)=j\)</span> 的 <span
-class="math inline">\(x\)</span> 的个数。</p>
-<p>设 <span class="math inline">\(g(i,j)\)</span> 为 <span
-class="math inline">\(i\)</span> 所在子树中满足 <span
-class="math display">\[
+<p>设 $f(i,j)$ 为 $i$ 所在子树中 $\mathrm{dis}(x,i)=j$ 的 $x$ 的个数。</p>
+<p>设 $g(i,j)$ 为 $i$ 所在子树中满足</p>
+<script type="math/tex; mode=display">
 \mathrm{dis}(\mathrm{LCA}(x, y), x)=
 \mathrm{dis}(\mathrm{LCA}(x, y), y)=
-\mathrm{dis}(\mathrm{LCA}(x, y), i)+j
-\]</span> 的无序二元组 <span class="math inline">\((x,y)\)</span>
-的个数。并记 <span class="math inline">\(\mathrm{Ans}\)</span>
-为答案，那么 <span class="math display">\[
+\mathrm{dis}(\mathrm{LCA}(x, y), i)+j</script><p>的无序二元组 $(x,y)$ 的个数。并记 $\mathrm{Ans}$ 为答案，那么</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\operatorname{Ans} &amp;\operatorname{\big\uparrow} g(i,0) +
+\operatorname{Ans} &\operatorname{\big\uparrow} g(i,0) + 
 \sum_{x,y \in \mathrm{son}(i) \,\land\, x \ne y} f(x,j-1)\cdot g(y,j+1)
-\\[6pt] g(i,j) &amp;\operatorname{\big\uparrow}
-\sum_{x \in \mathrm{son}(i)} g(x,j+1) + \sum_{x,y \in \mathrm{son}(i)
-\,\land\, x \ne y} f(x,j-1)\cdot f(y,j-1)
-\\[6pt] f(i,j) &amp;\operatorname{\big\uparrow} \sum_{x \in
-\mathrm{son}(i)} f(x,j-1)
-\end{aligned}
-\]</span> 这里 <span class="math inline">\(\uparrow\)</span>
-均表示增量。直接转移的话，时间复杂度为 <span
-class="math inline">\(\mathcal{O}(n^2)\)</span> 。</p>
-<p>注意到这里的第二维为深度，而每个节点所在子树的深度其实很多时候并没有
-<span class="math inline">\(\mathcal{O}(n)\)</span> 。</p>
-<p>考虑利用长链剖分优化转移，并利用指针直接 <span
-class="math inline">\(\mathcal{O}(1)\)</span> 继承重儿子的信息。</p>
-<p>因为每个节点只属于一条长链，所以长链的总长度为 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 。</p>
-<p>对于每条轻链只会向重链合并一次，这相当于删去了轻链，故均摊也是 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 的。</p>
-<p>故总时间复杂度为 <span
-class="math inline">\(\mathcal{O}(n)\)</span></p>
+\\[6pt] g(i,j) &\operatorname{\big\uparrow}
+\sum_{x \in \mathrm{son}(i)} g(x,j+1) + \sum_{x,y \in \mathrm{son}(i) \,\land\, x \ne y} f(x,j-1)\cdot f(y,j-1)
+\\[6pt] f(i,j) &\operatorname{\big\uparrow} \sum_{x \in \mathrm{son}(i)} f(x,j-1)
+\end{aligned}</script><p>这里 $\uparrow$ 均表示增量。直接转移的话，时间复杂度为 $\mathcal{O}(n^2)$ 。</p>
+<p>注意到这里的第二维为深度，而每个节点所在子树的深度其实很多时候并没有 $\mathcal{O}(n)$ 。</p>
+<p>考虑利用长链剖分优化转移，并利用指针直接 $\mathcal{O}(1)$ 继承重儿子的信息。</p>
+<p>因为每个节点只属于一条长链，所以长链的总长度为 $\mathcal{O}(n)$ 。</p>
+<p>对于每条轻链只会向重链合并一次，这相当于删去了轻链，故均摊也是 $\mathcal{O}(n)$ 的。</p>
+<p>故总时间复杂度为 $\mathcal{O}(n)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -843,10 +818,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">DP</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jdrdklxj">https://www.luogu.com.cn/article/jdrdklxj</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jdrdklxj">https://www.luogu.com.cn/article/jdrdklxj</a></p>
 
                 
             </div>
@@ -1317,7 +1291,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jdrdklxj">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1267.5k</span>&nbsp;字
+                class="white-color">1274.1k</span>&nbsp;字
             
             
             
@@ -1593,6 +1567,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

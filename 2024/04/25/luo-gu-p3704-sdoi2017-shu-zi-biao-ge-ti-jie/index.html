@@ -718,88 +718,45 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3704-sdoi2017-数字表格-题解">洛谷P3704 [SDOI2017] 数字表格
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3704">P3704
-[SDOI2017] 数字表格</a></p>
+                <h1 id="洛谷P3704-SDOI2017-数字表格-题解"><a href="#洛谷P3704-SDOI2017-数字表格-题解" class="headerlink" title="洛谷P3704 [SDOI2017] 数字表格 题解"></a>洛谷P3704 [SDOI2017] 数字表格 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3704">P3704 [SDOI2017] 数字表格</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p><span class="math inline">\(q\)</span> 组询问，给定 <span
-class="math inline">\(n,m\)</span> ，求 <span class="math display">\[
-\mathrm{Ans} = \prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)}
-\]</span> 其中 <span class="math inline">\(F\)</span>
-的幂次可以快速计算（在本题中是斐波那契数列，<span
-class="math inline">\(F_0=0,F_1=1\)</span> ）</p>
-<p><span class="math inline">\(1\le q \le 10^3,1 \le n,m \le
-10^6\)</span>​</p>
+<p>$q$ 组询问，给定 $n,m$ ，求</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans} = \prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)}</script><p>其中 $F$ 的幂次可以快速计算（在本题中是斐波那契数列，$F_0=0,F_1=1$ ）</p>
+<p>$1\le q \le 10^3,1 \le n,m \le 10^6$​</p>
 </blockquote>
 <p>莫比乌斯反演 + 数论分块。</p>
-<p>既然 <span class="math inline">\(F\)</span>
-可以快速计算，那就是叫我们统计 <span class="math inline">\(F(k)\)</span>
-是怎么贡献的了。 <span class="math display">\[
-\prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)} =
-\prod_{k=1}^nF_k^{\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]}
-\]</span> 把上面那一堆提出来 <span class="math display">\[
+<p>既然 $F$ 可以快速计算，那就是叫我们统计 $F(k)$ 是怎么贡献的了。</p>
+<script type="math/tex; mode=display">
+\prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)} = \prod_{k=1}^nF_k^{\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]}</script><p>把上面那一堆提出来</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]
-&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\operatorname{gcd}(i,
-j)=1]
-\\[6pt]&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d \mid
-\operatorname{gcd}(i, j)} \mu(d)
-\\[6pt]&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\mu(d)\cdot [d \mid \operatorname{gcd}(i, j)]
-\\[6pt]&amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d \mid
-\operatorname{gcd}(i, j)]
-\end{aligned}
-\]</span> 因为能产生贡献的 <span class="math inline">\(d\)</span> 一定为
-<span class="math inline">\(\gcd(i,j)\)</span>
-的因数，反过来能产生贡献的 <span class="math inline">\(i,j\)</span>
-一定是 <span class="math inline">\(d\)</span> 的倍数。</p>
-<p>所以我们可以转为枚举 <span class="math inline">\(d\)</span>​ 的倍数
-<span class="math display">\[
+\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k] 
+&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\operatorname{gcd}(i, j)=1]
+\\[6pt]&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d \mid \operatorname{gcd}(i, j)} \mu(d)
+\\[6pt]&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\cdot [d \mid \operatorname{gcd}(i, j)]
+\\[6pt]&= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d \mid \operatorname{gcd}(i, j)]
+\end{aligned}</script><p>因为能产生贡献的 $d$ 一定为 $\gcd(i,j)$ 的因数，反过来能产生贡献的 $i,j$ 一定是 $d$ 的倍数。</p>
+<p>所以我们可以转为枚举 $d$​ 的倍数</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor}
-    \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}[d \mid
-\operatorname{gcd}(di, dj)]
-\\[6pt] &amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor}
+&= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor} 
+    \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}[d \mid \operatorname{gcd}(di, dj)]
+\\[6pt] &= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor} 
     \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}1
-\\[6pt] &amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
-\mu(d)\left\lfloor\frac{n}{kd}\right\rfloor\left\lfloor\frac{m}{kd}\right\rfloor
-\end{aligned}
-\]</span> 这里需要用到 <a
-href="/2022/05/25/luo-gu-p2257-yy-de-gcd-ti-jie/">洛谷P2257 YY的GCD</a>
-中的技巧，把 <span class="math inline">\(kd\)</span>
-看作一个整体枚举</p>
-<p>在本题中我们直接把上面那一坨东西扔回去再枚举 <span
-class="math inline">\(T=kd\)</span> <span class="math display">\[
+\\[6pt] &= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\left\lfloor\frac{n}{kd}\right\rfloor\left\lfloor\frac{m}{kd}\right\rfloor
+\end{aligned}</script><p>这里需要用到 <a href="/2022/05/25/luo-gu-p2257-yy-de-gcd-ti-jie/">洛谷P2257 YY的GCD</a> 中的技巧，把 $kd$ 看作一个整体枚举</p>
+<p>在本题中我们直接把上面那一坨东西扔回去再枚举 $T=kd$ </p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\mathrm{Ans}&amp; =\prod_{k=1}^N
-F_k\left(\sum_{d=1}^{\left\lfloor\frac{N}{k}\right\rfloor}
-\mu(d)\left\lfloor\frac{N}{k d}\right\rfloor\left\lfloor\frac{M}{k
-d}\right\rfloor\right) \\
-&amp; =\prod_{T=1}^N\left(\prod_{k \mid T} F_k{
-}^{\mu\left(\frac{T}{k}\right)}\right)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
-\end{aligned}
-\]</span> 令 <span class="math inline">\(f(n) = \prod_{d \mid n}
-F_d^{\mu\left(\frac{n}{d}\right)}\)</span> ，则 <span
-class="math display">\[
-\mathrm{Ans} = \prod_{T=1}^N
-f(T)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
-\]</span> 其中 <span class="math inline">\(f(T)\)</span>
-可以暴力预处理出来，每个数直接往它的倍数贡献，复杂度是 <span
-class="math inline">\(\mathcal{O}(n \log n)\)</span>​</p>
-<p>注意数论分块的 <span class="math inline">\(f(T)\)</span>
-的乘积要预处理，不要直接用快速幂算，否则会多一个 log 。</p>
-<p>总时间复杂度 <span class="math inline">\(\mathcal{O}(n \log nM +
-q\sqrt{N}\log M)\)</span> ，其中 <span class="math inline">\(M\)</span>
-是模数。</p>
+\mathrm{Ans}& =\prod_{k=1}^N F_k\left(\sum_{d=1}^{\left\lfloor\frac{N}{k}\right\rfloor} \mu(d)\left\lfloor\frac{N}{k d}\right\rfloor\left\lfloor\frac{M}{k d}\right\rfloor\right) \\
+& =\prod_{T=1}^N\left(\prod_{k \mid T} F_k{ }^{\mu\left(\frac{T}{k}\right)}\right)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
+\end{aligned}</script><p>令 $f(n) = \prod_{d \mid n} F_d^{\mu\left(\frac{n}{d}\right)}$ ，则</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans} = \prod_{T=1}^N f(T)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}</script><p>其中 $f(T)$ 可以暴力预处理出来，每个数直接往它的倍数贡献，复杂度是 $\mathcal{O}(n \log n)$​</p>
+<p>注意数论分块的 $f(T)$ 的乘积要预处理，不要直接用快速幂算，否则会多一个 log 。</p>
+<p>总时间复杂度 $\mathcal{O}(n \log nM + q\sqrt{N}\log M)$ ，其中 $M$ 是模数。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -873,10 +830,9 @@ q\sqrt{N}\log M)\)</span> ，其中 <span class="math inline">\(M\)</span>
     <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7tsegn1x">https://www.luogu.com.cn/article/7tsegn1x</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7tsegn1x">https://www.luogu.com.cn/article/7tsegn1x</a></p>
 
                 
             </div>
@@ -1343,7 +1299,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7tsegn1x">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1267.5k</span>&nbsp;字
+                class="white-color">1274.1k</span>&nbsp;字
             
             
             
@@ -1619,6 +1575,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
