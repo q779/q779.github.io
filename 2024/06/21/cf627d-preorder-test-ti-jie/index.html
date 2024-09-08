@@ -722,43 +722,118 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF627D-Preorder-Test-题解"><a href="#CF627D-Preorder-Test-题解" class="headerlink" title="CF627D Preorder Test 题解"></a>CF627D Preorder Test 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF627D">Preorder Test</a></p>
+                <h1 id="cf627d-preorder-test-题解">CF627D Preorder Test 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF627D">Preorder
+Test</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>为了她的计算机科学课程，cxy 用小棍和小球构建了一个包含 $n$ 个节点的树模型。cxy 花了 $a_{i}$ 分钟构建树中的第 $i$ 个小球。</p>
-<p>cxy 的老师会评估她的模型，并根据她投入的努力给她打分。然而，老师没有足够的时间来检查整个树以确定这些。cxy 知道老师将会检查树的前 $k$ 个节点（按 dfs 序先序遍历树）。然后他会根据这 $k$ 个节点中发现的最小 $a_{i}$ 给 cxy 打分。</p>
-<p>虽然 cxy 没有足够的时间重建她的模型，但她可以选择老师开始检查的根节点。此外，她可以以任何顺序重新排列每个节点的邻居列表。请帮助 cxy 在这次作业中获得最佳分数。</p>
+<p>为了她的计算机科学课程，cxy 用小棍和小球构建了一个包含 <span
+class="math inline">\(n\)</span> 个节点的树模型。cxy 花了 <span
+class="math inline">\(a_{i}\)</span> 分钟构建树中的第 <span
+class="math inline">\(i\)</span> 个小球。</p>
+<p>cxy
+的老师会评估她的模型，并根据她投入的努力给她打分。然而，老师没有足够的时间来检查整个树以确定这些。cxy
+知道老师将会检查树的前 <span class="math inline">\(k\)</span> 个节点（按
+dfs 序先序遍历树）。然后他会根据这 <span
+class="math inline">\(k\)</span> 个节点中发现的最小 <span
+class="math inline">\(a_{i}\)</span> 给 cxy 打分。</p>
+<p>虽然 cxy
+没有足够的时间重建她的模型，但她可以选择老师开始检查的根节点。此外，她可以以任何顺序重新排列每个节点的邻居列表。请帮助
+cxy 在这次作业中获得最佳分数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含两个正整数，$n$ 和 $k~(2 \leq n \leq 2\times 10^5,~1 \leq k \leq n)$ ，表示 cxy 的树中的小球数量和老师将检查的小球数量。</p>
-<p>第二行包含 $n$ 个整数，$a_{i}~(1 \leq a_{i} \leq 10^6)$，cxy 用来构建第 $i$ 个小球的时间。</p>
-<p>接下来的 $n-1$ 行中每行包含两个整数 $u_{i}$ 和 $v_{i}~(1 \leq u_{i}, v_{i} \leq n,\,u_{i} \ne v_{i})$，表示 cxy 的树中小球 $u_{i}$ 和 $v_{i}$ 之间的连接。</p>
+<p>输入的第一行包含两个正整数，<span class="math inline">\(n\)</span> 和
+<span class="math inline">\(k~(2 \leq n \leq 2\times 10^5,~1 \leq k \leq
+n)\)</span> ，表示 cxy 的树中的小球数量和老师将检查的小球数量。</p>
+<p>第二行包含 <span class="math inline">\(n\)</span> 个整数，<span
+class="math inline">\(a_{i}~(1 \leq a_{i} \leq 10^6)\)</span>，cxy
+用来构建第 <span class="math inline">\(i\)</span> 个小球的时间。</p>
+<p>接下来的 <span class="math inline">\(n-1\)</span>
+行中每行包含两个整数 <span class="math inline">\(u_{i}\)</span> 和 <span
+class="math inline">\(v_{i}~(1 \leq u_{i}, v_{i} \leq n,\,u_{i} \ne
+v_{i})\)</span>，表示 cxy 的树中小球 <span
+class="math inline">\(u_{i}\)</span> 和 <span
+class="math inline">\(v_{i}\)</span> 之间的连接。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个整数，即 cxy 通过选择正确的树根并重新排列邻居列表所能获得的最高分数。</p>
+<p>输出一个整数，即 cxy
+通过选择正确的树根并重新排列邻居列表所能获得的最高分数。</p>
 </blockquote>
 <p>这里讲一种不需要换根的树形dp。</p>
-<p>考虑二分最小值的最大值 $\rm mid$ ，问题转化为是否存在长大于 $k$ 的 dfs 序，</p>
-<p>且 dfs 序中每个点权值 $a_i$ 均不小于 $\rm mid$ ，这里 dfs 路径的起点和终点随意。</p>
-<p>考虑设 $f(u)$ 表示 $u$ 所在子树中以 $u$ 为起点的满足 $a_i \ge \mathrm{mid}$ 的最长 dfs 路径的长。</p>
-<p>显然 $a_u &lt; \mathrm{mid}$ 时 $f(u)=0$ 。考虑转移。对于 $u$ 的任意儿子 $v$ ，</p>
+<p>考虑二分最小值的最大值 <span class="math inline">\(\rm mid\)</span>
+，问题转化为是否存在长大于 <span class="math inline">\(k\)</span> 的 dfs
+序，</p>
+<p>且 dfs 序中每个点权值 <span class="math inline">\(a_i\)</span>
+均不小于 <span class="math inline">\(\rm mid\)</span> ，这里 dfs
+路径的起点和终点随意。</p>
+<p>考虑设 <span class="math inline">\(f(u)\)</span> 表示 <span
+class="math inline">\(u\)</span> 所在子树中以 <span
+class="math inline">\(u\)</span> 为起点的满足 <span
+class="math inline">\(a_i \ge \mathrm{mid}\)</span> 的最长 dfs
+路径的长。</p>
+<p>显然 <span class="math inline">\(a_u &lt; \mathrm{mid}\)</span> 时
+<span class="math inline">\(f(u)=0\)</span> 。考虑转移。对于 <span
+class="math inline">\(u\)</span> 的任意儿子 <span
+class="math inline">\(v\)</span> ，</p>
 <ul>
-<li>若 $f(v) = \operatorname{size} v$ ，那么可以直接把 $f(v)$ 加到 $f(u)$ 上，也就是往 $v$ 转悠一圈再回到 $u$ 。</li>
-<li>若 $f(v)&lt;\operatorname{size} v$ ，我们先统计出这种情况的最大值和次大值（如果没有则为 $0$）。</li>
+<li>若 <span class="math inline">\(f(v) = \operatorname{size} v\)</span>
+，那么可以直接把 <span class="math inline">\(f(v)\)</span> 加到 <span
+class="math inline">\(f(u)\)</span> 上，也就是往 <span
+class="math inline">\(v\)</span> 转悠一圈再回到 <span
+class="math inline">\(u\)</span> 。</li>
+<li>若 <span class="math inline">\(f(v)&lt;\operatorname{size}
+v\)</span> ，我们先统计出这种情况的最大值和次大值（如果没有则为 <span
+class="math inline">\(0\)</span>）。</li>
 </ul>
-<p>在计算出所有 $f(v) = \operatorname{size} v$ 的贡献后，显然以 $u$ 开头的 dfs 路径还可以走到某一棵子树里。</p>
-<p>于是我们选择 $f(v)&lt;\operatorname{size} v$ 中 $f(v)$ 最大的那棵树，走到它里面就好了，那么有转移方程</p>
-<script type="math/tex; mode=display">
-f(u) = \sum_{v \in A} f(v) + \max_{v \in B}\{f(v)\}</script><p>其中集合 $A,B$ 分别表示 $f$ 等于 $\operatorname{size}$ 的 $v$ 的集合以及 $f$ 小于 $\operatorname{size}$ 的 $v$ 的集合。</p>
-<p>不过显然在 $u$ 子树内的最长 dfs 序不一定以 $u$ 为起点，因此我们记录一个变量 $\rm ans$ 用于二分的判断。</p>
-<p>由于我们统计了次大值，所以实际上这条路径就是从次大值的树里走到 $u$ ，再从 $u$ 走最优方案的情况。</p>
-<p>那么我们每次用 $f(u)$ 加上次大值来更新 $\rm ans$ ，最后判断 $\rm ans$ 是否大于等于 $k$ 即可……吗？</p>
-<p>实际上这样的 dp 方式<strong>在一些情况下</strong>是错误的，原因在于我们没有考虑到 $fa(u)$ 可以转悠回来的情况</p>
-<p>换句话说，如果把 $u$ 提作根重新 dp 一遍，原来的 $fa(u)$ 满足 $f_{\rm new}(fa(u)) = \operatorname{size}_{\rm new} fa(u)$ 。</p>
-<p>怎么办呢？难道只能换根 dp 了吗？<del>不过既然有这篇题解不就说明有办法么。</del></p>
-<p>注意到，如果我们钦定 $a_i$ 最小的那个节点为根，那么 $f(\mathrm{root})$ 的取值只可能是 $0$ 或者 $n$ 。</p>
-<p>显然 $f(\mathrm{root})=0$ 的时候，任意的非根节点它的 $fa$ 都不可能转回来，所以没有问题。</p>
-<p>而当 $f(\mathrm{root})=n$ 时，任何节点都有 $f(u) = \operatorname{size} u$ ，然后 $f(\mathrm{root})$ 也会被统计，所以也没有问题。</p>
-<p>于是我们就不需要换根啦，找到 $a_i$ 最小的点提作根直接 dp 即可。</p>
-<p>时间复杂度 $\mathcal{O}(n \log V)$</p>
+<p>在计算出所有 <span class="math inline">\(f(v) = \operatorname{size}
+v\)</span> 的贡献后，显然以 <span class="math inline">\(u\)</span>
+开头的 dfs 路径还可以走到某一棵子树里。</p>
+<p>于是我们选择 <span class="math inline">\(f(v)&lt;\operatorname{size}
+v\)</span> 中 <span class="math inline">\(f(v)\)</span>
+最大的那棵树，走到它里面就好了，那么有转移方程</p>
+<p><span class="math display">\[
+f(u) = \sum_{v \in A} f(v) + \max_{v \in B}\{f(v)\}
+\]</span> 其中集合 <span class="math inline">\(A,B\)</span> 分别表示
+<span class="math inline">\(f\)</span> 等于 <span
+class="math inline">\(\operatorname{size}\)</span> 的 <span
+class="math inline">\(v\)</span> 的集合以及 <span
+class="math inline">\(f\)</span> 小于 <span
+class="math inline">\(\operatorname{size}\)</span> 的 <span
+class="math inline">\(v\)</span> 的集合。</p>
+<p>不过显然在 <span class="math inline">\(u\)</span> 子树内的最长 dfs
+序不一定以 <span class="math inline">\(u\)</span>
+为起点，因此我们记录一个变量 <span class="math inline">\(\rm
+ans\)</span> 用于二分的判断。</p>
+<p>由于我们统计了次大值，所以实际上这条路径就是从次大值的树里走到 <span
+class="math inline">\(u\)</span> ，再从 <span
+class="math inline">\(u\)</span> 走最优方案的情况。</p>
+<p>那么我们每次用 <span class="math inline">\(f(u)\)</span>
+加上次大值来更新 <span class="math inline">\(\rm ans\)</span> ，最后判断
+<span class="math inline">\(\rm ans\)</span> 是否大于等于 <span
+class="math inline">\(k\)</span> 即可……吗？</p>
+<p>实际上这样的 dp
+方式<strong>在一些情况下</strong>是错误的，原因在于我们没有考虑到 <span
+class="math inline">\(fa(u)\)</span> 可以转悠回来的情况</p>
+<p>换句话说，如果把 <span class="math inline">\(u\)</span> 提作根重新 dp
+一遍，原来的 <span class="math inline">\(fa(u)\)</span> 满足 <span
+class="math inline">\(f_{\rm new}(fa(u)) = \operatorname{size}_{\rm new}
+fa(u)\)</span> 。</p>
+<p>怎么办呢？难道只能换根 dp
+了吗？<del>不过既然有这篇题解不就说明有办法么。</del></p>
+<p>注意到，如果我们钦定 <span class="math inline">\(a_i\)</span>
+最小的那个节点为根，那么 <span
+class="math inline">\(f(\mathrm{root})\)</span> 的取值只可能是 <span
+class="math inline">\(0\)</span> 或者 <span
+class="math inline">\(n\)</span> 。</p>
+<p>显然 <span class="math inline">\(f(\mathrm{root})=0\)</span>
+的时候，任意的非根节点它的 <span class="math inline">\(fa\)</span>
+都不可能转回来，所以没有问题。</p>
+<p>而当 <span class="math inline">\(f(\mathrm{root})=n\)</span>
+时，任何节点都有 <span class="math inline">\(f(u) = \operatorname{size}
+u\)</span> ，然后 <span class="math inline">\(f(\mathrm{root})\)</span>
+也会被统计，所以也没有问题。</p>
+<p>于是我们就不需要换根啦，找到 <span class="math inline">\(a_i\)</span>
+最小的点提作根直接 dp 即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+V)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -806,14 +881,17 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> l <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献&amp;致谢</strong>：</p>
 <p>[0] 感谢 mygr 巨佬的疑问让我几乎重写这篇题解。</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1qd8j73x">https://www.luogu.com.cn/article/1qd8j73x</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1qd8j73x">https://www.luogu.com.cn/article/1qd8j73x</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>推荐我听了 592 遍的歌</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1983809507&auto=0&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1983809507&amp;auto=0&amp;height=66">
+</iframe>
+
                 
             </div>
             <hr/>
@@ -1279,7 +1357,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1274.1k</span>&nbsp;字
+                class="white-color">1333.2k</span>&nbsp;字
             
             
             

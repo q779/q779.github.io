@@ -726,35 +726,66 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1290D-Coffee-Varieties-hard-version-题解"><a href="#CF1290D-Coffee-Varieties-hard-version-题解" class="headerlink" title="CF1290D Coffee Varieties (hard version) 题解"></a>CF1290D Coffee Varieties (hard version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1290D">Coffee Varieties (hard version)</a></p>
+                <h1 id="cf1290d-coffee-varieties-hard-version-题解">CF1290D Coffee
+Varieties (hard version) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1290D">Coffee
+Varieties (hard version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道交互题。</p>
-<p>给定正整数 $n,k~(1 \le k \le n \le 1024)$ ，保证 $n,k$ 是 $2$ 的整数次幂，并且 $\frac{3n^2}{2k}\le 15000$。</p>
-<p>有 $n$ 个数 $a_1,a_2,\dots,a_n$ 初始未知，有一队列 $Q$ 初始为空。</p>
-<p>每次查询你可以给出一个编号 $x$ ，交互系统会依次进行如下操作：</p>
+<p>给定正整数 <span class="math inline">\(n,k~(1 \le k \le n \le
+1024)\)</span> ，保证 <span class="math inline">\(n,k\)</span> 是 <span
+class="math inline">\(2\)</span> 的整数次幂，并且 <span
+class="math inline">\(\frac{3n^2}{2k}\le 15000\)</span>。</p>
+<p>有 <span class="math inline">\(n\)</span> 个数 <span
+class="math inline">\(a_1,a_2,\dots,a_n\)</span> 初始未知，有一队列
+<span class="math inline">\(Q\)</span> 初始为空。</p>
+<p>每次查询你可以给出一个编号 <span class="math inline">\(x\)</span>
+，交互系统会依次进行如下操作：</p>
 <ul>
-<li>告诉你当前 $Q$ 中是否有与 $a_x$ 相同的数</li>
-<li>将 $a_x$ 放入 $Q$ 的尾部</li>
-<li>如果此时 $Q$ 中元素多于 $k$ 个，弹出队首元素</li>
+<li>告诉你当前 <span class="math inline">\(Q\)</span> 中是否有与 <span
+class="math inline">\(a_x\)</span> 相同的数</li>
+<li>将 <span class="math inline">\(a_x\)</span> 放入 <span
+class="math inline">\(Q\)</span> 的尾部</li>
+<li>如果此时 <span class="math inline">\(Q\)</span> 中元素多于 <span
+class="math inline">\(k\)</span> 个，弹出队首元素</li>
 </ul>
-<p>此外，你还可以重置队列，这将使得 $Q$ 中所有元素被弹出。<strong>重置队列不算入查询次数。</strong></p>
-<p>现请你求出 $a_1,a_2,\dots,a_n$ 中有多少个不同的数。</p>
-<p>要求你的查询次数不超过 $\frac{3n^2}{2k}$ ，重置次数不超过 $30000$。</p>
+<p>此外，你还可以重置队列，这将使得 <span
+class="math inline">\(Q\)</span>
+中所有元素被弹出。<strong>重置队列不算入查询次数。</strong></p>
+<p>现请你求出 <span class="math inline">\(a_1,a_2,\dots,a_n\)</span>
+中有多少个不同的数。</p>
+<p>要求你的查询次数不超过 <span
+class="math inline">\(\frac{3n^2}{2k}\)</span> ，重置次数不超过 <span
+class="math inline">\(30000\)</span>。</p>
 </blockquote>
 <p>非常有意思的一道题。</p>
-<p>首先把序列分成 $\frac{k}{2}$ 个块，这样依次询问每个块后就可以使得每个块内的元素是无重复的。</p>
-<p>考虑如何将块合并。注意到对于询问 $(i,j)$ 和 $(j,k)$ ，我们可以利用队列里存在的数从而只询问一次得到答案。</p>
-<p>那么如果将这 $\frac{2n}{k}$ 个块看作节点的话，就会得到一个 $\frac{2n}{k}$ 阶完全图。</p>
-<p>每次我们可以选择一条链，花费节点个数乘以 $\frac{k}{2}$ 的询问次数删去这条链上的所有边。要求删掉所有的边。</p>
-<p>选若干条链覆盖完全图的方法是“之”字形构造，即对于起点 $u \in \left[1, \frac{|V|}{2}\right]$ ，覆盖路径</p>
-<script type="math/tex; mode=display">
-u \to u-1\to u+1\to u-2\to\cdots</script><p>如下图所示</p>
+<p>首先把序列分成 <span class="math inline">\(\frac{k}{2}\)</span>
+个块，这样依次询问每个块后就可以使得每个块内的元素是无重复的。</p>
+<p>考虑如何将块合并。注意到对于询问 <span
+class="math inline">\((i,j)\)</span> 和 <span
+class="math inline">\((j,k)\)</span>
+，我们可以利用队列里存在的数从而只询问一次得到答案。</p>
+<p>那么如果将这 <span class="math inline">\(\frac{2n}{k}\)</span>
+个块看作节点的话，就会得到一个 <span
+class="math inline">\(\frac{2n}{k}\)</span> 阶完全图。</p>
+<p>每次我们可以选择一条链，花费节点个数乘以 <span
+class="math inline">\(\frac{k}{2}\)</span>
+的询问次数删去这条链上的所有边。要求删掉所有的边。</p>
+<p>选若干条链覆盖完全图的方法是“之”字形构造，即对于起点 <span
+class="math inline">\(u \in \left[1, \frac{|V|}{2}\right]\)</span>
+，覆盖路径 <span class="math display">\[
+u \to u-1\to u+1\to u-2\to\cdots
+\]</span> 如下图所示</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406172246293.svg" style="zoom:120%;" /></p>
-<p>这种构造在节点总数为偶数时会覆盖每条边恰好一次，不过本题 $|V|=\frac{2n}{k}$ 显然是偶数。</p>
-<p>证明考虑将这 $|V|$ 个点顺时针排成一圈，那么相差奇数的边会顺时针覆盖到，相差偶数的会逆时针覆盖到。</p>
-<p>这样做的询问次数是 $\frac{2 n}{k} \times \frac{k}{2} \times \frac{n}{k}=\frac{n^2}{k}$ ，显然满足要求。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>这种构造在节点总数为偶数时会覆盖每条边恰好一次，不过本题 <span
+class="math inline">\(|V|=\frac{2n}{k}\)</span> 显然是偶数。</p>
+<p>证明考虑将这 <span class="math inline">\(|V|\)</span>
+个点顺时针排成一圈，那么相差奇数的边会顺时针覆盖到，相差偶数的会逆时针覆盖到。</p>
+<p>这样做的询问次数是 <span class="math inline">\(\frac{2 n}{k} \times
+\frac{k}{2} \times \frac{n}{k}=\frac{n^2}{k}\)</span>
+，显然满足要求。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -791,9 +822,10 @@ u \to u-1\to u+1\to u-2\to\cdots</script><p>如下图所示</p>
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"! "</span> <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k4wwfwd7">https://www.luogu.com.cn/article/k4wwfwd7</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k4wwfwd7">https://www.luogu.com.cn/article/k4wwfwd7</a></p>
 
                 
             </div>
@@ -1276,7 +1308,7 @@ u \to u-1\to u+1\to u-2\to\cdots</script><p>如下图所示</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1274.1k</span>&nbsp;字
+                class="white-color">1333.2k</span>&nbsp;字
             
             
             

@@ -534,7 +534,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p223.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p217.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -722,39 +722,76 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1227F2-Wrong-Answer-on-test-233-Hard-Version-题解"><a href="#CF1227F2-Wrong-Answer-on-test-233-Hard-Version-题解" class="headerlink" title="CF1227F2 Wrong Answer on test 233 (Hard Version) 题解"></a>CF1227F2 Wrong Answer on test 233 (Hard Version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1227F2">Wrong Answer on test 233 (Hard Version)</a></p>
+                <h1 id="cf1227f2-wrong-answer-on-test-233-hard-version-题解">CF1227F2
+Wrong Answer on test 233 (Hard Version) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1227F2">Wrong
+Answer on test 233 (Hard Version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 要参加一场考试，这场考试有 $n$ 道选择题，每个选择题有 $k$ 个选项。</p>
-<p>但是 cxy 昨天玩某中文二字英文七字游戏玩过头了，导致她这次考试时十分困倦以至于居然填错了答题卡！</p>
-<p>具体地，cxy 错误地将第 $i$ 道选择题的答案填到第 $(i \bmod n) + 1$ 道题去了。</p>
-<p><del>不过她是怎么做到将第 $n$ 道题的答案填到第 $1$ 道去的？果然是玩【数据删除】玩的。</del></p>
+<p>cxy 要参加一场考试，这场考试有 <span class="math inline">\(n\)</span>
+道选择题，每个选择题有 <span class="math inline">\(k\)</span>
+个选项。</p>
+<p>但是 cxy
+昨天玩某中文二字英文七字游戏玩过头了，导致她这次考试时十分困倦以至于居然填错了答题卡！</p>
+<p>具体地，cxy 错误地将第 <span class="math inline">\(i\)</span>
+道选择题的答案填到第 <span class="math inline">\((i \bmod n) +
+1\)</span> 道题去了。</p>
+<p><del>不过她是怎么做到将第 <span class="math inline">\(n\)</span>
+道题的答案填到第 <span class="math inline">\(1\)</span>
+道去的？果然是玩【数据删除】玩的。</del></p>
 <p>显然，此时 cxy 非常焦虑，但是她不记得自己每道题原来填了什么选项了</p>
-<p>现给出每道题的答案 $h_i$ ，请帮助 cxy 计算有多少种可能的初始答案，使得错误填涂后比原来正确的多了。</p>
+<p>现给出每道题的答案 <span class="math inline">\(h_i\)</span> ，请帮助
+cxy 计算有多少种可能的初始答案，使得错误填涂后比原来正确的多了。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行给出 $n,k~(1 \le n \le 2\times 10^5,\,1\le k \le 10^9)$ 。</p>
-<p>第二行给出 $n$ 个数 $h_1,h_2,\cdots,h_n(1 \le h_i \le k)$ ，表示每道题的答案。</p>
+<p>第一行给出 <span class="math inline">\(n,k~(1 \le n \le 2\times
+10^5,\,1\le k \le 10^9)\)</span> 。</p>
+<p>第二行给出 <span class="math inline">\(n\)</span> 个数 <span
+class="math inline">\(h_1,h_2,\cdots,h_n(1 \le h_i \le k)\)</span>
+，表示每道题的答案。</p>
 <p><strong>输出格式</strong>：</p>
-<p>仅一行，输出方案数模 $998244353$ 的结果。</p>
+<p>仅一行，输出方案数模 <span class="math inline">\(998244353\)</span>
+的结果。</p>
 </blockquote>
 <p><del>稍微</del>魔改了一下题面，应该比原题更好理解了。</p>
-<p>首先考虑 $n\le 2000$ 的简单版，这个直接 dp 即可。</p>
-<p>设 $f_{i,j}$ 为填完前 $i$ 道题，填错答案后比原来多对了 $j(0\le j \le n)$ 个题的方案数。</p>
+<p>首先考虑 <span class="math inline">\(n\le 2000\)</span>
+的简单版，这个直接 dp 即可。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 为填完前 <span
+class="math inline">\(i\)</span> 道题，填错答案后比原来多对了 <span
+class="math inline">\(j(0\le j \le n)\)</span> 个题的方案数。</p>
 <ul>
-<li>若 $a_i = a_{(i \bmod n)+1}$ ，则 $f_{i,j} = f_{i-1,j}\times k$ 。</li>
-<li>否则 $f_{i, j}=f_{i-1, j+1}+f_{i-1, j-1}+f_{i-1, j} \times(k-2)$ 。这里 $k-2$ 是因为不能填 $a_i$ 或 $a_{(i \bmod n)+1}$ 。</li>
+<li>若 <span class="math inline">\(a_i = a_{(i \bmod n)+1}\)</span> ，则
+<span class="math inline">\(f_{i,j} = f_{i-1,j}\times k\)</span> 。</li>
+<li>否则 <span class="math inline">\(f_{i, j}=f_{i-1, j+1}+f_{i-1,
+j-1}+f_{i-1, j} \times(k-2)\)</span> 。这里 <span
+class="math inline">\(k-2\)</span> 是因为不能填 <span
+class="math inline">\(a_i\)</span> 或 <span class="math inline">\(a_{(i
+\bmod n)+1}\)</span> 。</li>
 </ul>
-<p>现在考虑 $n \le 2\times 10^5$ 。尽管这个dp式子并不好优化，它还是提供了一些有价值的性质。</p>
-<p>不妨扩充 $j$ 的范围到 $[-n,n]$ ，可以发现此时递推式仍然和之前一样，于是 $f_{i,j}=f_{i,-j}$ 。</p>
-<p>其实不用重新推一遍递推式，在转移过程中我们就可以发现，当前这个数贡献 $+1$ 或 $-1$ 方案数是一样的。</p>
-<p>现在重新设 $f_i$ 为多对了 $i$ 道题的方案数，由对称性可知 $f_i = f_{-i}$ 。</p>
-<p>那么我们的答案可以写作</p>
-<script type="math/tex; mode=display">
-\mathrm{Ans} = \frac{k^n - f_0}{2}</script><p>于是我们只需要求出 $f_0$ 就可以了。</p>
-<p>设有 $m$ 个位置满足 $a_i \ne a_{(i \bmod n)+1}$ ，那么枚举对了多少题（等于错了多少题），有</p>
-<script type="math/tex; mode=display">
-f_0 = k^{n - m}\sum_{i=0}^{\left\lfloor\frac{m}{2}\right\rfloor}\binom{m}{i}\binom{m-i}{i}(k-2)^{m - 2i}</script><p>那么把 $f_0$ 算出来代到 $\mathrm{Ans}$ 里就好了。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>现在考虑 <span class="math inline">\(n \le 2\times 10^5\)</span>
+。尽管这个dp式子并不好优化，它还是提供了一些有价值的性质。</p>
+<p>不妨扩充 <span class="math inline">\(j\)</span> 的范围到 <span
+class="math inline">\([-n,n]\)</span>
+，可以发现此时递推式仍然和之前一样，于是 <span
+class="math inline">\(f_{i,j}=f_{i,-j}\)</span> 。</p>
+<p>其实不用重新推一遍递推式，在转移过程中我们就可以发现，当前这个数贡献
+<span class="math inline">\(+1\)</span> 或 <span
+class="math inline">\(-1\)</span> 方案数是一样的。</p>
+<p>现在重新设 <span class="math inline">\(f_i\)</span> 为多对了 <span
+class="math inline">\(i\)</span> 道题的方案数，由对称性可知 <span
+class="math inline">\(f_i = f_{-i}\)</span> 。</p>
+<p>那么我们的答案可以写作 <span class="math display">\[
+\mathrm{Ans} = \frac{k^n - f_0}{2}
+\]</span> 于是我们只需要求出 <span class="math inline">\(f_0\)</span>
+就可以了。</p>
+<p>设有 <span class="math inline">\(m\)</span> 个位置满足 <span
+class="math inline">\(a_i \ne a_{(i \bmod n)+1}\)</span>
+，那么枚举对了多少题（等于错了多少题），有 <span class="math display">\[
+f_0 = k^{n -
+m}\sum_{i=0}^{\left\lfloor\frac{m}{2}\right\rfloor}\binom{m}{i}\binom{m-i}{i}(k-2)^{m
+- 2i}
+\]</span> 那么把 <span class="math inline">\(f_0\)</span> 算出来代到
+<span class="math inline">\(\mathrm{Ans}\)</span> 里就好了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -801,11 +838,13 @@ f_0 = k^{n - m}\sum_{i=0}^{\left\lfloor\frac{m}{2}\right\rfloor}\binom{m}{i}\bin
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcktmulf">https://www.luogu.com.cn/article/bcktmulf</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/wytlmu7t">https://www.luogu.com.cn/article/wytlmu7t</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bcktmulf">https://www.luogu.com.cn/article/bcktmulf</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/wytlmu7t">https://www.luogu.com.cn/article/wytlmu7t</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>你说得对，但是中文二字英文七字的游戏是什么？</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406181915560.jpg" style="zoom:50%;" /></p>
@@ -1291,7 +1330,7 @@ f_0 = k^{n - m}\sum_{i=0}^{\left\lfloor\frac{m}{2}\right\rfloor}\binom{m}{i}\bin
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1274.1k</span>&nbsp;字
+                class="white-color">1333.2k</span>&nbsp;字
             
             
             

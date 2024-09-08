@@ -722,67 +722,138 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3352-ZJOI2016-线段树-题解"><a href="#洛谷P3352-ZJOI2016-线段树-题解" class="headerlink" title="洛谷P3352 [ZJOI2016]线段树 题解"></a>洛谷P3352 [ZJOI2016]线段树 题解</h1><p>题目链接：<a href="">P3352 [ZJOI2016]线段树</a></p>
+                <h1 id="洛谷p3352-zjoi2016线段树-题解">洛谷P3352 [ZJOI2016]线段树
+题解</h1>
+<p>题目链接：<a href="">P3352 [ZJOI2016]线段树</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 遇到了一个题目：有一个序列 $a_1,a_2,\ldots,a_n$，$m$ 次操作。每次操作把一个区间内的数改成区间内的最大值，问最后每个数是多少。 cxy 很快地就使用了线段树解决了这个问题。</p>
-<p>于是充满智慧的 cxy 想，如果操作是随机的，即在这 $m$ 次操作中每次等概率随机地选择一个区间 $[l,r]$（$1 \leq l \leq r \leq n$），然后将这个区间内的数改成区间内最大值（注意这样的区间共有 $\frac{n(n+1)}{2}$ 个），最后每个数的期望大小是多少呢？</p>
-<p> cxy 非常热爱随机，所以她给出的输入序列也是随机的（随机方式见数据规模和约定）。</p>
-<p>对于每个数，输出它的期望乘 $\left(\frac{n(n+1)}{2} \right)^m$ 再对 $10^9+7$ 取模的值。</p>
+<p>cxy 遇到了一个题目：有一个序列 <span
+class="math inline">\(a_1,a_2,\ldots,a_n\)</span>，<span
+class="math inline">\(m\)</span>
+次操作。每次操作把一个区间内的数改成区间内的最大值，问最后每个数是多少。
+cxy 很快地就使用了线段树解决了这个问题。</p>
+<p>于是充满智慧的 cxy 想，如果操作是随机的，即在这 <span
+class="math inline">\(m\)</span> 次操作中每次等概率随机地选择一个区间
+<span class="math inline">\([l,r]\)</span>（<span
+class="math inline">\(1 \leq l \leq r \leq
+n\)</span>），然后将这个区间内的数改成区间内最大值（注意这样的区间共有
+<span class="math inline">\(\frac{n(n+1)}{2}\)</span>
+个），最后每个数的期望大小是多少呢？</p>
+<p>cxy
+非常热爱随机，所以她给出的输入序列也是随机的（随机方式见数据规模和约定）。</p>
+<p>对于每个数，输出它的期望乘 <span
+class="math inline">\(\left(\frac{n(n+1)}{2} \right)^m\)</span> 再对
+<span class="math inline">\(10^9+7\)</span> 取模的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个正整数 $n,m$，表示序列里数的个数和操作的个数。</p>
-<p>接下来一行，包含 $n$ 个非负整数 $a_1,a_2,\ldots,a_n$。</p>
+<p>第一行包含两个正整数 <span
+class="math inline">\(n,m\)</span>，表示序列里数的个数和操作的个数。</p>
+<p>接下来一行，包含 <span class="math inline">\(n\)</span> 个非负整数
+<span class="math inline">\(a_1,a_2,\ldots,a_n\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出共一行，包含 $n$ 个整数，表示每个数的答案。</p>
+<p>输出共一行，包含 <span class="math inline">\(n\)</span>
+个整数，表示每个数的答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$n \le 400,m\le 400$ 。</p>
-<p>对于所有的测试数据，保证序列中数的大小不超过 $10^9$，并且<strong>每个数是 $0$ 到 $10^9$ 之间的随机整数</strong>。</p>
+<p><span class="math inline">\(n \le 400,m\le 400\)</span> 。</p>
+<p>对于所有的测试数据，保证序列中数的大小不超过 <span
+class="math inline">\(10^9\)</span>，并且<strong>每个数是 <span
+class="math inline">\(0\)</span> 到 <span
+class="math inline">\(10^9\)</span> 之间的随机整数</strong>。</p>
 </blockquote>
-<p><del>中秋节晚上颓颓颓，Ravenfield装了十几个mod</del> </p>
+<p><del>中秋节晚上颓颓颓，Ravenfield装了十几个mod</del></p>
 <p>期望dp+组合数神题。</p>
-<p>因为答案乘以了 $\left(\frac{n(n+1)}{2} \right)^m$ ，所以最后就是求所有方案中每个数的和。</p>
-<p>首先考虑 $01$ 序列怎么做。</p>
-<p>我们可以统计每一个位置最终为 $0$ 的方案数</p>
+<p>因为答案乘以了 <span class="math inline">\(\left(\frac{n(n+1)}{2}
+\right)^m\)</span> ，所以最后就是求所有方案中每个数的和。</p>
+<p>首先考虑 <span class="math inline">\(01\)</span> 序列怎么做。</p>
+<p>我们可以统计每一个位置最终为 <span class="math inline">\(0\)</span>
+的方案数</p>
 <ul>
-<li><p>如果 $a_i$ 初始为 $1$ ，则无论如何最终都不会变成 $0$ 。</p>
-</li>
-<li><p>如果 $a_i$ 初始为 $0$ ，则设它左边最近的 $1$ 在 $l$ ，右边最近的 $1$ 在 $r$ 。</p>
-<p>显然每次操作只会使 $l,r$ 缩小（也可能不变）。</p>
-</li>
+<li><p>如果 <span class="math inline">\(a_i\)</span> 初始为 <span
+class="math inline">\(1\)</span> ，则无论如何最终都不会变成 <span
+class="math inline">\(0\)</span> 。</p></li>
+<li><p>如果 <span class="math inline">\(a_i\)</span> 初始为 <span
+class="math inline">\(0\)</span> ，则设它左边最近的 <span
+class="math inline">\(1\)</span> 在 <span
+class="math inline">\(l\)</span> ，右边最近的 <span
+class="math inline">\(1\)</span> 在 <span
+class="math inline">\(r\)</span> 。</p>
+<p>显然每次操作只会使 <span class="math inline">\(l,r\)</span>
+缩小（也可能不变）。</p></li>
 </ul>
-<p>因此我们对每个初始为 $0$ 的极长子段做一遍dp，然后把总贡献减去它。</p>
-<p>也就是把 $\left(\frac{n(n+1)}{2} \right)^m$ 减去「最终为 $0$ 的方案数」（因为是 $01$ 序列，所以贡献等于方案数）</p>
-<p>设 $f_{x,l,r}$ 表示 $x$ 次操作后，区间缩到 $(l,r)$ 的方案数，则</p>
-<script type="math/tex; mode=display">
-f_{x,l,r} = f_{x-1,l,r} \times g_{l,r} + \sum_{0\le t < l}f_{x-1,t,r} + \sum_{r < t\le n+1}f_{x-1,l,t}</script><blockquote>
-<p>注意这里是开区间，即</p>
-<script type="math/tex; mode=display">
-\forall i \in(l,r),~h^x(a_i) = 0,h^x(a_l) = h^x(a_r)=1</script><p>其中 $h^x(a_i)$ 表示第 $x$ 操作后 $a_i$ 的值。</p>
+<p>因此我们对每个初始为 <span class="math inline">\(0\)</span>
+的极长子段做一遍dp，然后把总贡献减去它。</p>
+<p>也就是把 <span class="math inline">\(\left(\frac{n(n+1)}{2}
+\right)^m\)</span> 减去「最终为 <span class="math inline">\(0\)</span>
+的方案数」（因为是 <span class="math inline">\(01\)</span>
+序列，所以贡献等于方案数）</p>
+<p>设 <span class="math inline">\(f_{x,l,r}\)</span> 表示 <span
+class="math inline">\(x\)</span> 次操作后，区间缩到 <span
+class="math inline">\((l,r)\)</span> 的方案数，则 <span
+class="math display">\[
+f_{x,l,r} = f_{x-1,l,r} \times g_{l,r} + \sum_{0\le t &lt; l}f_{x-1,t,r}
++ \sum_{r &lt; t\le n+1}f_{x-1,l,t}
+\]</span></p>
+<blockquote>
+<p>注意这里是开区间，即 <span class="math display">\[
+\forall i \in(l,r),~h^x(a_i) = 0,h^x(a_l) = h^x(a_r)=1
+\]</span> 其中 <span class="math inline">\(h^x(a_i)\)</span> 表示第
+<span class="math inline">\(x\)</span> 操作后 <span
+class="math inline">\(a_i\)</span> 的值。</p>
 </blockquote>
-<p>其中 $g_{l,r}$ 表示无用操作的数量，有</p>
-<script type="math/tex; mode=display">
+<p>其中 <span class="math inline">\(g_{l,r}\)</span>
+表示无用操作的数量，有 <span class="math display">\[
 \begin{aligned}
-g_{l,r} &= \left[\binom{l+1}{2} + \binom{r-l}{2} + \binom{n-r+2}{2} \right] 
-\\&= \frac{1}{2}\left[l(l+1)+(n-r+1)(n-r+2)+(r-l-1)(r-l)\right]
-\end{aligned}</script><blockquote>
-<p>注：这里涉及了可重组合，即 $n$ 个不同元素选 $m$ 个可重元素组合的方案数为 $\dbinom{n+m-1}{m}$ 。</p>
+g_{l,r} &amp;= \left[\binom{l+1}{2} + \binom{r-l}{2} + \binom{n-r+2}{2}
+\right]
+\\&amp;= \frac{1}{2}\left[l(l+1)+(n-r+1)(n-r+2)+(r-l-1)(r-l)\right]
+\end{aligned}
+\]</span></p>
+<blockquote>
+<p>注：这里涉及了可重组合，即 <span class="math inline">\(n\)</span>
+个不同元素选 <span class="math inline">\(m\)</span>
+个可重元素组合的方案数为 <span
+class="math inline">\(\dbinom{n+m-1}{m}\)</span> 。</p>
 </blockquote>
-<p>不难发现上面的 $\sum\limits_{1\le t &lt; l}f_{x-1,t,r} + \sum\limits_{r &lt; t\le n}f_{x-1,l,t}$ 可以前缀和优化。</p>
-<p>因此 $01$ 序列时间复杂度 $\mathcal{O}(n^2m)$ 。</p>
-<p>然后考虑原题怎么做。不难发现，最终序列的某个数 $x$ 可以拆分为（记 $M=\max\{a_i\}$ ）</p>
-<script type="math/tex; mode=display">
-x \Leftrightarrow  M - \sum_{i=0}^{M} [i > x]</script><blockquote>
+<p>不难发现上面的 <span class="math inline">\(\sum\limits_{1\le t &lt;
+l}f_{x-1,t,r} + \sum\limits_{r &lt; t\le n}f_{x-1,l,t}\)</span>
+可以前缀和优化。</p>
+<p>因此 <span class="math inline">\(01\)</span> 序列时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^2m)\)</span> 。</p>
+<p>然后考虑原题怎么做。不难发现，最终序列的某个数 <span
+class="math inline">\(x\)</span> 可以拆分为（记 <span
+class="math inline">\(M=\max\{a_i\}\)</span> ） <span
+class="math display">\[
+x \Leftrightarrow  M - \sum_{i=0}^{M} [i &gt; x]
+\]</span></p>
+<blockquote>
 <p>注：（来自参考文献[2]）</p>
-<p>不拆分为 $\sum_{i=0}^{M} [i &lt; x]$ 的原因是统计贡献时与 $l,r$ 有关，很麻烦，不利于下文中的整体dp。</p>
+<p>不拆分为 <span class="math inline">\(\sum_{i=0}^{M} [i &lt;
+x]\)</span> 的原因是统计贡献时与 <span
+class="math inline">\(l,r\)</span>
+有关，很麻烦，不利于下文中的整体dp。</p>
 </blockquote>
-<p>我们枚举这个 $i$ ，然后把所有 $\ge i$ 的位置标为 $1$ ，所有 $&lt; i$ 的标记为 $0$ ，这样就可以求出每个位置 $&lt;i$ 的方案数。（相当于做 $M$ 次 $01$ 的情况）</p>
-<p>但是这个枚举的过程不会爆炸吗？注意到 $i$ 从 $0$ 到 $M$ 扫的过程中， $01$ 序列其实只会变化 $\mathcal{O}(n)$ 次，因此实际不用做 $M$ 次。</p>
-<p>因此复杂度为 $\mathcal{O}(n^3m)$ ，但因为随机数据可以卡过。</p>
-<p>不过其实是存在稳定 $\mathcal{O}(n^2m)$ 的算法的。</p>
+<p>我们枚举这个 <span class="math inline">\(i\)</span> ，然后把所有
+<span class="math inline">\(\ge i\)</span> 的位置标为 <span
+class="math inline">\(1\)</span> ，所有 <span class="math inline">\(&lt;
+i\)</span> 的标记为 <span class="math inline">\(0\)</span>
+，这样就可以求出每个位置 <span class="math inline">\(&lt;i\)</span>
+的方案数。（相当于做 <span class="math inline">\(M\)</span> 次 <span
+class="math inline">\(01\)</span> 的情况）</p>
+<p>但是这个枚举的过程不会爆炸吗？注意到 <span
+class="math inline">\(i\)</span> 从 <span
+class="math inline">\(0\)</span> 到 <span
+class="math inline">\(M\)</span> 扫的过程中， <span
+class="math inline">\(01\)</span> 序列其实只会变化 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 次，因此实际不用做 <span
+class="math inline">\(M\)</span> 次。</p>
+<p>因此复杂度为 <span class="math inline">\(\mathcal{O}(n^3m)\)</span>
+，但因为随机数据可以卡过。</p>
+<p>不过其实是存在稳定 <span
+class="math inline">\(\mathcal{O}(n^2m)\)</span> 的算法的。</p>
 <p>注意到每一层的dp方程是一样的，根据期望的线性性质，</p>
 <p>我们可以一次性把初值全加进去，然后跑一次整体的dp就可以算出来了，<del>是不是很神奇？</del></p>
 <p>实现的时候把所有数从大到小依次添加贡献，每次加的方案数就是与前一次的差值（具体可以看代码）</p>
-<p>时间复杂度 $\mathcal{O}(n^2m)$ ，空间的话滚一下数组就好了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2m)\)</span>
+，空间的话滚一下数组就好了。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -835,9 +906,12 @@ x \Leftrightarrow  M - \sum_{i=0}^{M} [i > x]</script><blockquote>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><del>呼，终于做完这题了，修错误就修了半天，很难想象我到底有多少还有笔误没修</del></p>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/119621/solution-p3352">https://www.luogu.com.cn/blog/119621/solution-p3352</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/i207M/gai-shuai-dp-hao-ti-zjoi2016-xian-duan-shu-xie-ti-bao-gao">https://www.luogu.com.cn/blog/i207M/gai-shuai-dp-hao-ti-zjoi2016-xian-duan-shu-xie-ti-bao-gao</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy4574%3Blg3352%3Buoj196%3Bloj2093.html">https://yhx-12243.github.io/OI-transit/records/lydsy4574%3Blg3352%3Buoj196%3Bloj2093.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/119621/solution-p3352">https://www.luogu.com.cn/blog/119621/solution-p3352</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/i207M/gai-shuai-dp-hao-ti-zjoi2016-xian-duan-shu-xie-ti-bao-gao">https://www.luogu.com.cn/blog/i207M/gai-shuai-dp-hao-ti-zjoi2016-xian-duan-shu-xie-ti-bao-gao</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy4574%3Blg3352%3Buoj196%3Bloj2093.html">https://yhx-12243.github.io/OI-transit/records/lydsy4574%3Blg3352%3Buoj196%3Bloj2093.html</a></p>
 
                 
             </div>
@@ -1062,7 +1136,7 @@ x \Leftrightarrow  M - \sum_{i=0}^{M} [i > x]</script><blockquote>
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p88.png" class="responsive-img" alt="UOJ152 【UR #10】汉诺塔 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p183.jpg" class="responsive-img" alt="UOJ152 【UR #10】汉诺塔 题解">
                         
                         <span class="card-title">UOJ152 【UR #10】汉诺塔 题解</span>
                     </div>
@@ -1115,7 +1189,7 @@ x \Leftrightarrow  M - \sum_{i=0}^{M} [i > x]</script><blockquote>
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p203.jpg" class="responsive-img" alt="note[2]">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p56.jpg" class="responsive-img" alt="note[2]">
                         
                         <span class="card-title">note[2]</span>
                     </div>
@@ -1306,7 +1380,7 @@ x \Leftrightarrow  M - \sum_{i=0}^{M} [i > x]</script><blockquote>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1274.1k</span>&nbsp;字
+                class="white-color">1333.2k</span>&nbsp;字
             
             
             
