@@ -702,7 +702,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    729
+                    721
                 </div>
                 
 
@@ -722,55 +722,36 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3216-hnoi2011数学作业-题解">洛谷P3216 [HNOI2011]数学作业
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3216">P3216
-[HNOI2011]数学作业</a></p>
+                <h1 id="洛谷P3216-HNOI2011-数学作业-题解"><a href="#洛谷P3216-HNOI2011-数学作业-题解" class="headerlink" title="洛谷P3216 [HNOI2011]数学作业 题解"></a>洛谷P3216 [HNOI2011]数学作业 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3216">P3216 [HNOI2011]数学作业</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小 C 数学成绩优异，于是老师给小 C 留了一道非常难的数学作业题：</p>
-<p>给定正整数 <span class="math inline">\(n,m\)</span>，要求计算 <span
-class="math inline">\(\text{Concatenate}(n) \bmod \ m\)</span>
-的值，其中 <span class="math inline">\(\text{Concatenate}(n)\)</span>
-是将 <span class="math inline">\(1 \sim n\)</span> 所有正整数
-顺序连接起来得到的数。</p>
-<p>例如，<span class="math inline">\(n = 13\)</span> , <span
-class="math inline">\(\text{Concatenate}(n) =
-12345678910111213\)</span>。</p>
-<p>小 C
-想了大半天终于意识到这是一道不可能手算出来的题目，于是他只好向你求助，希望你能编写一个程序帮他解决这个问题。</p>
+<p>给定正整数 $n,m$，要求计算 $\text{Concatenate}(n) \bmod \ m$  的值，其中 $\text{Concatenate}(n)$ 是将 $1 \sim n$ 所有正整数 顺序连接起来得到的数。</p>
+<p>例如，$n = 13$ , $\text{Concatenate}(n) = 12345678910111213$。</p>
+<p>小 C 想了大半天终于意识到这是一道不可能手算出来的题目，于是他只好向你求助，希望你能编写一个程序帮他解决这个问题。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行两个正整数 <span class="math inline">\(n,m\)</span>。</p>
+<p>一行两个正整数 $n,m$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n \le 10^{18},~1\le m \le
-10^9\)</span>。</p>
+<p>$1\le n \le 10^{18},~1\le m \le 10^9$。</p>
 </blockquote>
-<p>设 <span class="math inline">\(f_{i}\)</span> 表示前 <span
-class="math inline">\(i\)</span> 个数拼起来的答案，则 <span
-class="math display">\[
-\large f_{i} = f_{i-1} \times 10^{\left\lfloor\lg i\right\rfloor + 1} +
-i
-\]</span> 注意到 <span class="math inline">\(n\)</span>
-很大，考虑使用矩阵快速幂加速dp。</p>
-<p>考虑构建递推矩阵 <span class="math display">\[
-A=\begin{bmatrix}f_{n}&amp;n&amp;1\end{bmatrix}
-\]</span> 初始矩阵为 <span class="math inline">\(n=0\)</span> 时。</p>
+<p>设 $f_{i}$ 表示前 $i$ 个数拼起来的答案，则</p>
+<script type="math/tex; mode=display">
+\large f_{i} = f_{i-1} \times 10^{\left\lfloor\lg i\right\rfloor + 1} + i</script><p>注意到 $n$ 很大，考虑使用矩阵快速幂加速dp。</p>
+<p>考虑构建递推矩阵</p>
+<script type="math/tex; mode=display">
+A=\begin{bmatrix}f_{n}&n&1\end{bmatrix}</script><p>初始矩阵为 $n=0$ 时。</p>
 <p>转移矩阵就有点麻烦了，关键在于这个对数不好搞</p>
-<p>但是注意到数字位数最多不超过 <span class="math inline">\(18\)</span>
-，并且函数 <span class="math inline">\(k = \left\lfloor\lg
-i\right\rfloor + 1\)</span> 呈块状分布。</p>
-<p>考虑使用分块的思想，固定一个 <span class="math inline">\(k\)</span>
-，则转移矩阵如下： <span class="math display">\[
+<p>但是注意到数字位数最多不超过 $18$ ，并且函数 $k =  \left\lfloor\lg i\right\rfloor + 1$ 呈块状分布。</p>
+<p>考虑使用分块的思想，固定一个 $k$ ，则转移矩阵如下：</p>
+<script type="math/tex; mode=display">
 M = \begin{bmatrix}
-10^k &amp; 0 &amp; 0 \\
-1 &amp; 1 &amp; 0 \\
-1 &amp; 1 &amp; 1
-\end{bmatrix}
-\]</span> 需要注意的是可能会爆 <code>long long</code> 。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(3^3\log^2
-n)\)</span></p>
+10^k & 0 & 0 \\
+1 & 1 & 0 \\
+1 & 1 & 1
+\end{bmatrix}</script><p>需要注意的是可能会爆 <code>long long</code> 。</p>
+<p>时间复杂度 $\mathcal{O}(3^3\log^2 n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -826,10 +807,9 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
     <span class="token function">calc</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> r<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token punctuation">(</span>r <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p3216">https://siyuan.blog.luogu.org/solution-p3216</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p3216">https://siyuan.blog.luogu.org/solution-p3216</a></p>
 
                 
             </div>
@@ -1087,12 +1067,12 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p321
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1304,7 +1284,7 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p321
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1580,21 +1560,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

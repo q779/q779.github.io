@@ -718,74 +718,43 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2303-sdoi2012-longge-的问题-题解">洛谷P2303 [SDOI2012]
-Longge 的问题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2303">P2303
-[SDOI2012] Longge 的问题</a></p>
+                <h1 id="洛谷P2303-SDOI2012-Longge-的问题-题解"><a href="#洛谷P2303-SDOI2012-Longge-的问题-题解" class="headerlink" title="洛谷P2303 [SDOI2012] Longge 的问题 题解"></a>洛谷P2303 [SDOI2012] Longge 的问题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2303">P2303 [SDOI2012] Longge 的问题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个整数 <span class="math inline">\(n\)</span>，你需要求出 <span
-class="math inline">\(\sum\limits_{i=1}^n \gcd(i, n)\)</span> 。</p>
+<p>给定一个整数 $n$，你需要求出 $\sum\limits_{i=1}^n \gcd(i, n)$ 。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入只有一行一个整数，表示 <span
-class="math inline">\(n\)</span>。</p>
+<p>输入只有一行一个整数，表示 $n$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq n&lt; 2^{32}\)</span>。</p>
+<p>$1\leq n&lt; 2^{32}$。</p>
 </blockquote>
-<p>根据数学题套路，我们枚举 <span
-class="math inline">\(\gcd(i,n)\)</span> 的值。 <span
-class="math display">\[
+<p>根据数学题套路，我们枚举 $\gcd(i,n)$ 的值。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
 \sum_{i=1}^n \gcd(i, n)
-&amp;=\sum_{d \mid n} d \sum_{i=1}^n[\gcd(i, n)=d]
-\\[6pt]&amp;=\sum_{d \mid n} d
-\sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor}\left[\gcd\left(i,
-\frac{n}{d}\right)=1\right]
-\\[6pt]&amp;=\sum_{d \mid n} d\cdot \varphi\left(\frac{n}{d}\right)
-\end{aligned}
-\]</span> 这个时候其实直接 <span
-class="math inline">\(\mathcal{O}\left(d(n)\times\sqrt{n}\right)\)</span>
-算就可以了，但还可以更快。</p>
-<p>考虑把 <span class="math inline">\(\varphi(n)\)</span> 拆开（不妨将
-<span class="math inline">\(n\)</span> 唯一分解为 <span
-class="math inline">\(\prod_{1 \le i \le m} p_i^{k_i}\)</span> ） <span
-class="math display">\[
-n \sum_{d \mid n} \prod_{p \mid d} \frac{p-1}{p}
-\]</span> 可以发现有很多的 <span class="math inline">\(d\)</span>
-有着相同的贡献。</p>
-<p>考虑枚举 <span class="math inline">\([m]\)</span> 的子集 <span
-class="math inline">\(S\)</span> ，它对应的 <span
-class="math inline">\(d\)</span> 的个数为 <span
-class="math inline">\(\prod_{i \in S}k_i\)</span> ，则它的贡献为 <span
-class="math display">\[
-\prod_{i \in S}k_i\cdot\frac{p_i-1}{p_i}
-\]</span> 现在我们要求的是所有子集的和，因此我们考虑每个 <span
-class="math inline">\(p_i\)</span> 的贡献。</p>
+&=\sum_{d \mid n} d \sum_{i=1}^n[\gcd(i, n)=d]
+\\[6pt]&=\sum_{d \mid n} d \sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor}\left[\gcd\left(i, \frac{n}{d}\right)=1\right]
+\\[6pt]&=\sum_{d \mid n} d\cdot \varphi\left(\frac{n}{d}\right)
+\end{aligned}</script><p>这个时候其实直接 $\mathcal{O}\left(d(n)\times\sqrt{n}\right)$ 算就可以了，但还可以更快。</p>
+<p>考虑把 $\varphi(n)$ 拆开（不妨将 $n$ 唯一分解为 $\prod_{1 \le i \le m} p_i^{k_i}$ ）</p>
+<script type="math/tex; mode=display">
+n \sum_{d \mid n} \prod_{p \mid d} \frac{p-1}{p}</script><p>可以发现有很多的 $d$ 有着相同的贡献。</p>
+<p>考虑枚举 $[m]$ 的子集 $S$ ，它对应的 $d$ 的个数为 $\prod_{i \in S}k_i$ ，则它的贡献为</p>
+<script type="math/tex; mode=display">
+\prod_{i \in S}k_i\cdot\frac{p_i-1}{p_i}</script><p>现在我们要求的是所有子集的和，因此我们考虑每个 $p_i$ 的贡献。</p>
 <p>先讲一种通俗的题解方法。如下。</p>
-<p>不妨记其贡献为 <span class="math inline">\(\chi_i =
-k_i\frac{p_i-1}{p_i}\)</span> ，可以发现答案是这么贡献的（例如 <span
-class="math inline">\(m=3\)</span> 时） <span class="math display">\[
-n\times \left(1+\chi_1+\chi_2+\chi_3+\chi_1 \chi_2+\chi_1 \chi_3+\chi_2
-\chi_3+\chi_1 \chi_2 \chi_3\right)
-\]</span> 后面的式子可以化简为 <span
-class="math inline">\(\prod(\chi_i+1)\)</span> ，因此答案为 <span
-class="math display">\[
-n \prod_{i=1}^{m} \left(k_i\cdot\frac{p_i-1}{p_i} + 1\right)
-\]</span> 当然这不是一道观察题，其实有更数学的理解，只不过比较难懂。</p>
-<p>因为每个 <span class="math inline">\(p_i\)</span>
-的贡献是相互独立的，所以考虑只要每个 <span
-class="math inline">\(p_i\)</span> 是否被取。</p>
-<p>如果取了，它的贡献就是在原来的答案上乘上一个 <span
-class="math inline">\(\chi_i\)</span> ，否则乘上一个 <span
-class="math inline">\(e=1\)</span> （单位元）</p>
-<p>因此答案为 <span class="math display">\[
-n \prod_{i=1}^{m} (\chi_i+1) =n \prod_{i=1}^{m}
-\left(k_i\cdot\frac{p_i-1}{p_i} + 1\right)
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
-<p>代码： <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<p>不妨记其贡献为 $\chi_i = k_i\frac{p_i-1}{p_i}$  ，可以发现答案是这么贡献的（例如 $m=3$ 时）</p>
+<script type="math/tex; mode=display">
+n\times \left(1+\chi_1+\chi_2+\chi_3+\chi_1 \chi_2+\chi_1 \chi_3+\chi_2 \chi_3+\chi_1 \chi_2 \chi_3\right)</script><p>后面的式子可以化简为 $\prod(\chi_i+1)$ ，因此答案为</p>
+<script type="math/tex; mode=display">
+n \prod_{i=1}^{m} \left(k_i\cdot\frac{p_i-1}{p_i} + 1\right)</script><p>当然这不是一道观察题，其实有更数学的理解，只不过比较难懂。</p>
+<p>因为每个 $p_i$ 的贡献是相互独立的，所以考虑只要每个 $p_i$ 是否被取。</p>
+<p>如果取了，它的贡献就是在原来的答案上乘上一个 $\chi_i$ ，否则乘上一个 $e=1$ （单位元）</p>
+<p>因此答案为</p>
+<script type="math/tex; mode=display">
+n \prod_{i=1}^{m} (\chi_i+1) =n \prod_{i=1}^{m} \left(k_i\cdot\frac{p_i-1}{p_i} + 1\right)</script><p>时间复杂度 $\mathcal{O}(\sqrt{n})$</p>
+<p>代码：<br><pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -812,35 +781,26 @@ class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> t <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre></p>
-<hr />
-<p>其实还有另一种做法。回到这一步 <span class="math display">\[
-\sum_{d \mid n} d\cdot \varphi\left(\frac{n}{d}\right)
-\]</span> 其等价于（其中 <span class="math inline">\(*\)</span>
-表示狄利克雷卷积） <span class="math display">\[
-\mathrm{id}*\varphi
-\]</span> 则原函数为积性函数。所以我们可以把原函数 <span
-class="math inline">\(f(n)\)</span> 分解为 <span
-class="math inline">\(\prod f(p_i^{k_i})\)</span> 。</p>
-<p>对于每个形如 <span class="math inline">\(f(p^c)\)</span>
-的式子，可以发现 <span class="math display">\[
-f(p^c)=\sum_{i=0}^c \varphi\left(p^i\right) p^{c-i}
-\]</span> 而 <span class="math inline">\(\varphi(p_i^c) = p^c -
-p^{c-1}\)</span> 是个经典结论（证明可以直接套 <span
-class="math inline">\(\varphi\)</span> 展开公式，得 <span
-class="math inline">\(p^c(1-p)\)</span> ）</p>
-<p>因此有 <span class="math display">\[
+<hr>
+<p>其实还有另一种做法。回到这一步</p>
+<script type="math/tex; mode=display">
+\sum_{d \mid n} d\cdot \varphi\left(\frac{n}{d}\right)</script><p>其等价于（其中 $*$ 表示狄利克雷卷积）</p>
+<script type="math/tex; mode=display">
+\mathrm{id}*\varphi</script><p>则原函数为积性函数。所以我们可以把原函数 $f(n)$ 分解为 $\prod f(p_i^{k_i})$ 。</p>
+<p>对于每个形如 $f(p^c)$ 的式子，可以发现</p>
+<script type="math/tex; mode=display">
+f(p^c)=\sum_{i=0}^c \varphi\left(p^i\right) p^{c-i}</script><p>而 $\varphi(p_i^c) = p^c - p^{c-1}$ 是个经典结论（证明可以直接套 $\varphi$ 展开公式，得 $p^c(1-p)$ ）</p>
+<p>因此有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f\left(p^c\right)&amp;=\sum_{i=0}^c \varphi\left(p^i\right) p^{c-i}
-\\[6pt]&amp;=p^c+\sum_{i=1}^c\left(p^i-p^{i-1}\right) p^{c-i}
-\\[6pt]&amp;=p^c+\sum_{i=1}^c\left(p^c-p^{c-1}\right)
-\\[6pt]&amp;=p^c+c\left(p^c-p^{c-1}\right)
-\\[6pt]&amp;=(c+1) p^c-c p^{c-1}
-\end{aligned}
-\]</span> 因此答案为 <span class="math display">\[
-f(n)=\prod_{i=1}^{m} f(p_i^{k_i}) = \prod_{i=1}^{m}\left((k_i+1)
-p^{k_i}-k_i p^{k_i-1}\right)
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
+f\left(p^c\right)&=\sum_{i=0}^c \varphi\left(p^i\right) p^{c-i}
+\\[6pt]&=p^c+\sum_{i=1}^c\left(p^i-p^{i-1}\right) p^{c-i}
+\\[6pt]&=p^c+\sum_{i=1}^c\left(p^c-p^{c-1}\right)
+\\[6pt]&=p^c+c\left(p^c-p^{c-1}\right)
+\\[6pt]&=(c+1) p^c-c p^{c-1}
+\end{aligned}</script><p>因此答案为</p>
+<script type="math/tex; mode=display">
+f(n)=\prod_{i=1}^{m} f(p_i^{k_i}) = \prod_{i=1}^{m}\left((k_i+1) p^{k_i}-k_i p^{k_i-1}\right)</script><p>时间复杂度 $\mathcal{O}(\sqrt{n})$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -869,14 +829,11 @@ class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/PinkRabbit/p/8278728.html">https://www.cnblogs.com/PinkRabbit/p/8278728.html</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/qwaszx/solution-p2303">https://www.luogu.com.cn/blog/qwaszx/solution-p2303</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/sun123zxy/solution-p2303">https://www.luogu.com.cn/blog/sun123zxy/solution-p2303</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/PinkRabbit/p/8278728.html">https://www.cnblogs.com/PinkRabbit/p/8278728.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/qwaszx/solution-p2303">https://www.luogu.com.cn/blog/qwaszx/solution-p2303</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/sun123zxy/solution-p2303">https://www.luogu.com.cn/blog/sun123zxy/solution-p2303</a></p>
 
                 
             </div>
@@ -1340,7 +1297,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/sun123zxy/sol
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1616,21 +1573,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

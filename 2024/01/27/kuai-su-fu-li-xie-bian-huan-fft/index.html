@@ -702,7 +702,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.9k
+                    3.8k
                 </div>
                 
 
@@ -722,138 +722,74 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="快速傅里叶变换-fft">快速傅里叶变换 FFT</h1>
-<p><strong>模板题</strong>：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">P3803 【模板】多项式乘法
-(FFT)</a></p>
+                <h1 id="快速傅里叶变换-FFT"><a href="#快速傅里叶变换-FFT" class="headerlink" title="快速傅里叶变换 FFT"></a>快速傅里叶变换 FFT</h1><p><strong>模板题</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">P3803 【模板】多项式乘法 (FFT) </a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个 <span class="math inline">\(n\)</span> 次多项式 <span
-class="math inline">\(F(x)\)</span>，和一个 <span
-class="math inline">\(m\)</span> 次多项式 <span
-class="math inline">\(G(x)\)</span>。</p>
-<p>请求出 <span class="math inline">\(F(x)\)</span> 和 <span
-class="math inline">\(G(x)\)</span> 的加法卷积，即 <span
-class="math display">\[
-[F \cdot G](x) = \sum_{k=0}^{n+m}\sum_{i+j = k} f_ig_j\,x^k
-\]</span> <strong>输入格式</strong>：</p>
-<p>第一行两个整数 <span class="math inline">\(n,m\)</span>。</p>
-<p>接下来一行 <span class="math inline">\(n+1\)</span>
-个数字，从低到高表示 <span class="math inline">\(F(x)\)</span>
-的系数。</p>
-<p>接下来一行 <span class="math inline">\(m+1\)</span>
-个数字，从低到高表示 <span class="math inline">\(G(x)\)</span>
-的系数。</p>
+<p>给定一个 $n$ 次多项式 $F(x)$，和一个 $m$ 次多项式 $G(x)$。</p>
+<p>请求出 $F(x)$ 和 $G(x)$ 的加法卷积，即</p>
+<script type="math/tex; mode=display">
+[F \cdot G](x) = \sum_{k=0}^{n+m}\sum_{i+j = k} f_ig_j\,x^k</script><p><strong>输入格式</strong>：</p>
+<p>第一行两个整数 $n,m$。</p>
+<p>接下来一行 $n+1$ 个数字，从低到高表示 $F(x)$ 的系数。</p>
+<p>接下来一行 $m+1$ 个数字，从低到高表示 $G(x)$ 的系数。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行 <span class="math inline">\(n+m+1\)</span> 个数字，从低到高表示
-<span class="math inline">\(F(x) \cdot G(x)\)</span> 的系数。</p>
+<p>一行 $n+m+1$ 个数字，从低到高表示 $F(x) \cdot G(x)$ 的系数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证输入中的系数大于等于 <span class="math inline">\(0\)</span>
-且小于等于 <span class="math inline">\(9\)</span>。</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据：<span
-class="math inline">\(1 \le n, m \leq {10}^6\)</span>。</p>
+<p>保证输入中的系数大于等于 $0$ 且小于等于 $9$。</p>
+<p>对于 $100\%$ 的数据：$1 \le n, m \leq {10}^6$。</p>
 </blockquote>
 <p>快速傅里叶变换 (FFT) 是一种用于快速计算 DFT 的算法。</p>
-<p>在此之前，我们需要先了解什么是 DFT 。不过理论上来讲，OI 只要记住 FFT
-板子就行了。</p>
-<hr />
-<h2 id="傅里叶变换">傅里叶变换</h2>
-<blockquote>
+<p>在此之前，我们需要先了解什么是 DFT 。不过理论上来讲，OI 只要记住 FFT 板子就行了。</p>
+<hr>
+<h2 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h2><blockquote>
 <p>本部分仅作了解即可，OI 完全不会涉及。</p>
 </blockquote>
-<p>傅里叶变换（Fourier
-Transform）是一种分析信号的方法，它可分析信号的成分，也可用这些成分合成信号。许多波形可作为信号的成分，傅里叶变换用正弦波作为信号的成分。</p>
-<p>设 <span class="math inline">\(f(t)\)</span> 是关于时间 <span
-class="math inline">\(t\)</span> 的函数，则傅里叶变换可以检测频率 <span
-class="math inline">\(\omega\)</span> 的周期在 <span
-class="math inline">\(f(t)\)</span> 出现的程度： <span
-class="math display">\[
-F(\omega)=\mathbb{F}[f(t)]=\int_{-\infty}^{\infty} f(t)
-\mathrm{e}^{-\mathrm{i} \omega t} \mathrm{d} t
-\]</span> 它的逆变换为 <span class="math display">\[
-f(t)=\mathbb{F}^{-1}[F(\omega)]=\frac{1}{2 \pi} \int_{-\infty}^{\infty}
-F(\omega) \mathrm{e}^{\mathrm{i} \omega t} \mathrm{d} \omega
-\]</span> 逆变换的形式与正变换非常类似，分母 <span
-class="math inline">\(2\pi\)</span> 恰好是指数函数的周期。</p>
-<p>傅里叶变换相当于将时域的函数与周期为 <span
-class="math inline">\(2\pi\)</span>
-的复指数函数进行连续的内积，逆变换仍旧为一个内积。</p>
+<p>傅里叶变换（Fourier Transform）是一种分析信号的方法，它可分析信号的成分，也可用这些成分合成信号。许多波形可作为信号的成分，傅里叶变换用正弦波作为信号的成分。</p>
+<p>设 $f(t)$ 是关于时间 $t$ 的函数，则傅里叶变换可以检测频率 $\omega$ 的周期在 $f(t)$ 出现的程度：</p>
+<script type="math/tex; mode=display">
+F(\omega)=\mathbb{F}[f(t)]=\int_{-\infty}^{\infty} f(t) \mathrm{e}^{-\mathrm{i} \omega t} \mathrm{d} t</script><p>它的逆变换为</p>
+<script type="math/tex; mode=display">
+f(t)=\mathbb{F}^{-1}[F(\omega)]=\frac{1}{2 \pi} \int_{-\infty}^{\infty} F(\omega) \mathrm{e}^{\mathrm{i} \omega t} \mathrm{d} \omega</script><p>逆变换的形式与正变换非常类似，分母 $2\pi$ 恰好是指数函数的周期。</p>
+<p>傅里叶变换相当于将时域的函数与周期为 $2\pi$ 的复指数函数进行连续的内积，逆变换仍旧为一个内积。</p>
 <p>傅里叶变换有相应的卷积定理，可以将时域的卷积转化为频域的乘积，同样也能逆转化。</p>
-<hr />
-<h2 id="离散傅里叶变换-dft">离散傅里叶变换 DFT</h2>
-<p><strong>离散傅里叶变换</strong>（Discrete Fourier transform,
-<strong>DFT</strong>）是傅里叶变换在时域和频域上都呈离散的形式，将信号的时域采样变换为其
-DTFT（discrete-time Fourier transform）的频域采样。</p>
+<hr>
+<h2 id="离散傅里叶变换-DFT"><a href="#离散傅里叶变换-DFT" class="headerlink" title="离散傅里叶变换 DFT"></a>离散傅里叶变换 DFT</h2><p><strong>离散傅里叶变换</strong>（Discrete Fourier transform, <strong>DFT</strong>）是傅里叶变换在时域和频域上都呈离散的形式，将信号的时域采样变换为其 DTFT（discrete-time Fourier transform）的频域采样。</p>
 <p>也就是说，傅里叶变换是积分形式的连续的函数内积，离散傅里叶变换是求和形式的内积</p>
-<p>设 <span
-class="math inline">\(\left\{x_n\right\}_{n=0}^{N-1}\)</span>
-是某一满足有限性条件的序列，则它的离散傅里叶变换 (DFT) 为 <span
-class="math display">\[
-X_k=\sum_{n=0}^{N-1} x_n \mathrm{e}^{-\mathrm{i} \frac{2 \pi}{N} k n}
-\]</span> 通常以 <span class="math inline">\(\mathcal{F}\)</span>
-表示这一变换，即 <span class="math inline">\(\hat x =
-\mathcal{F}x\)</span> 。</p>
-<p>类似与积分形式，它的<strong>逆离散傅里叶变换 (IDFT)</strong> 为 <span
-class="math display">\[
-x_n=\frac{1}{N} \sum_{k=0}^{N-1} X_k \mathrm{e}^{\mathrm{i} \frac{2
-\pi}{N} k n}
-\]</span> 记为 <span class="math inline">\(x =
-\mathcal{F}^{-1}\hat{x}\)</span> 。</p>
+<p>设 $\left\{x_n\right\}_{n=0}^{N-1}$ 是某一满足有限性条件的序列，则它的离散傅里叶变换 (DFT) 为</p>
+<script type="math/tex; mode=display">
+X_k=\sum_{n=0}^{N-1} x_n \mathrm{e}^{-\mathrm{i} \frac{2 \pi}{N} k n}</script><p>通常以 $\mathcal{F}$ 表示这一变换，即 $\hat x = \mathcal{F}x$ 。</p>
+<p>类似与积分形式，它的<strong>逆离散傅里叶变换 (IDFT)</strong> 为</p>
+<script type="math/tex; mode=display">
+x_n=\frac{1}{N} \sum_{k=0}^{N-1} X_k \mathrm{e}^{\mathrm{i} \frac{2 \pi}{N} k n}</script><p>记为 $x = \mathcal{F}^{-1}\hat{x}$ 。</p>
 <p>实际上，DFT 和 IDFT 变换式中和式前面的归一化系数并不重要。</p>
-<p>在上面的定义中，DFT 和 IDFT 前的系数分别为 <span
-class="math inline">\(1\)</span> 和 <span
-class="math inline">\(\frac{1}{N}\)</span>
-。有时我们会将这两个系数都改为 <span
-class="math inline">\(\frac{1}{\sqrt{N}}\)</span> 。</p>
+<p>在上面的定义中，DFT 和 IDFT 前的系数分别为 $1$ 和 $\frac{1}{N}$ 。有时我们会将这两个系数都改为 $\frac{1}{\sqrt{N}}$ 。</p>
 <p><br></p>
 <p>离散傅里叶变换仍旧是时域到频域的变换。而其求和形式的特殊性，使其可以有<strong>其他的解释方法</strong>。</p>
-<p>如果把序列 <span class="math inline">\(x_n\)</span> 看作多项式 <span
-class="math inline">\(F(x)\)</span> 的 <span
-class="math inline">\(x^n\)</span> 项系数。</p>
-<p>则计算得到的 <span class="math inline">\(X_k\)</span> 恰好是多项式
-<span class="math inline">\(F(x)\)</span> 代入单位根 <span
-class="math inline">\(\mathrm{e}^{-\frac{2k \pi\mathrm{i}}{n}}\)</span>
-的点值 <span class="math inline">\(F(\mathrm{e}^{-\frac{2k
-\pi\mathrm{i}}{n}})\)</span> 。</p>
+<p>如果把序列 $x_n$ 看作多项式 $F(x)$ 的 $x^n$ 项系数。</p>
+<p>则计算得到的 $X_k$ 恰好是多项式 $F(x)$ 代入单位根 $\mathrm{e}^{-\frac{2k \pi\mathrm{i}}{n}}$ 的点值 $F(\mathrm{e}^{-\frac{2k \pi\mathrm{i}}{n}})$ 。</p>
 <p>这便构成了卷积定理的另一种解释方法，即<strong>对多项式进行特殊的插值操作</strong>。</p>
 <blockquote>
 <p>补充知识：</p>
-<p>插值
-(Interpolation)，是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。</p>
-<p><span class="math inline">\(n\)</span> 次<strong>单位根</strong>是
-<span class="math inline">\(n\)</span> 次幂为 <span
-class="math inline">\(1\)</span> 的复数，且 <span
-class="math inline">\(n\)</span> 次的单位根恰好有 <span
-class="math inline">\(n\)</span> 个，即 <span class="math inline">\(z_k
-= \mathrm{e}^{\frac{2k\pi\mathrm{i}}{n}}\,(k=0,1,\cdots,n-1)\)</span>
-。</p>
+<p>插值 (Interpolation)，是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。</p>
+<p>$n$ 次<strong>单位根</strong>是 $n$ 次幂为 $1$ 的复数，且 $n$ 次的单位根恰好有 $n$ 个，即 $z_k = \mathrm{e}^{\frac{2k\pi\mathrm{i}}{n}}\,(k=0,1,\cdots,n-1)$ 。</p>
 </blockquote>
 <p>而 DFT 恰好是多项式在单位根处进行插值。</p>
-<p>例如计算 <span class="math display">\[
-\binom{n}{3} + \binom{n}{7} + \binom{n}{11}+\binom{n}{15} + \cdots
-\]</span> 可以发现，这道题计算的组合数的 <span
-class="math inline">\(k\)</span> 都是模 <span
-class="math inline">\(4\)</span> 余 <span
-class="math inline">\(3\)</span> 的。</p>
-<p>考虑定义函数 <span class="math inline">\(F(x)\)</span> 为 <span
-class="math display">\[
-F(x) = (1 + x)^n = \binom{n}{0}x^0 + \binom{n}{1}x^1 +
-\binom{n}{2}x^2+\cdots
-\]</span> 代入四次单位根 <span class="math inline">\(\mathrm{i}\)</span>
-可得 <span class="math display">\[
-f(\mathrm{i}) = (1 + \mathrm{i})^{n} = \binom{n}{0} +
-\binom{n}{1}\mathrm{i}-\binom{n}{2}-\binom{n}{3}\mathrm{i}+\cdots
-\]</span> 于是下面的求和恰好可以把各项消掉 <span class="math display">\[
+<p>例如计算</p>
+<script type="math/tex; mode=display">
+\binom{n}{3} + \binom{n}{7} + \binom{n}{11}+\binom{n}{15} + \cdots</script><p>可以发现，这道题计算的组合数的 $k$ 都是模 $4$ 余 $3$ 的。</p>
+<p>考虑定义函数 $F(x)$ 为</p>
+<script type="math/tex; mode=display">
+F(x) = (1 + x)^n = \binom{n}{0}x^0 + \binom{n}{1}x^1 + \binom{n}{2}x^2+\cdots</script><p>代入四次单位根 $\mathrm{i}$ 可得</p>
+<script type="math/tex; mode=display">
+f(\mathrm{i}) = (1 + \mathrm{i})^{n} = \binom{n}{0} + \binom{n}{1}\mathrm{i}-\binom{n}{2}-\binom{n}{3}\mathrm{i}+\cdots</script><p>于是下面的求和恰好可以把各项消掉</p>
+<script type="math/tex; mode=display">
 f(1)+\mathrm{i} f(\mathrm{i})-f(-1)-\mathrm{i} f(-\mathrm{i})
-=4\binom{n}{3}+4\binom{n}{7}+4\binom{n}{11}+4\binom{n}{15}+\ldots
-\]</span> 因此答案为 <span class="math display">\[
-\frac{2^n+\mathrm{i}(1+\mathrm{i})^n-\mathrm{i}(1-\mathrm{i})^n}{4}
-\]</span> 这道题在单位根处插值，恰好构成 DFT 。</p>
-<h3 id="矩阵公式">矩阵公式</h3>
-<p>由于离散傅立叶变换是一个 <strong>线性</strong>
-算子，所以它可以用矩阵乘法来描述。</p>
-<p>在矩阵表示法中，离散傅立叶变换表示如下： <span
-class="math display">\[
+=4\binom{n}{3}+4\binom{n}{7}+4\binom{n}{11}+4\binom{n}{15}+\ldots</script><p>因此答案为</p>
+<script type="math/tex; mode=display">
+\frac{2^n+\mathrm{i}(1+\mathrm{i})^n-\mathrm{i}(1-\mathrm{i})^n}{4}</script><p>这道题在单位根处插值，恰好构成 DFT 。</p>
+<h3 id="矩阵公式"><a href="#矩阵公式" class="headerlink" title="矩阵公式"></a>矩阵公式</h3><p>由于离散傅立叶变换是一个 <strong>线性</strong> 算子，所以它可以用矩阵乘法来描述。</p>
+<p>在矩阵表示法中，离散傅立叶变换表示如下：</p>
+<script type="math/tex; mode=display">
 \left[\begin{array}{c}
 X_0 \\
 X_1 \\
@@ -861,147 +797,81 @@ X_2 \\
 \vdots \\
 X_{n-1}
 \end{array}\right]=\left[\begin{array}{ccccc}
-1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1 \\
-1 &amp; \alpha &amp; \alpha^2 &amp; \cdots &amp; \alpha^{n-1} \\
-1 &amp; \alpha^2 &amp; \alpha^4 &amp; \cdots &amp; \alpha^{2(n-1)} \\
-\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-1 &amp; \alpha^{n-1} &amp; \alpha^{2(n-1)} &amp; \cdots &amp;
-\alpha^{(n-1)(n-1)}
+1 & 1 & 1 & \cdots & 1 \\
+1 & \alpha & \alpha^2 & \cdots & \alpha^{n-1} \\
+1 & \alpha^2 & \alpha^4 & \cdots & \alpha^{2(n-1)} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & \alpha^{n-1} & \alpha^{2(n-1)} & \cdots & \alpha^{(n-1)(n-1)}
 \end{array}\right]\left[\begin{array}{c}
 x_0 \\
 x_1 \\
 x_2 \\
 \vdots \\
 x_{n-1}
-\end{array}\right]
-\]</span> 其中 <span class="math inline">\(\alpha =
-\mathrm{e}^{-\frac{2k \pi\mathrm{i}}{n}}\)</span> 。</p>
-<hr />
-<h2 id="快速傅里叶变换-fft-1">快速傅里叶变换 FFT</h2>
-<p><strong>快速傅立叶变换</strong> (Fast Fourier Transform,
-<strong>FFT</strong>) 是一种高效实现 DFT 的算法。</p>
+\end{array}\right]</script><p>其中 $\alpha = \mathrm{e}^{-\frac{2k \pi\mathrm{i}}{n}}$ 。</p>
+<hr>
+<h2 id="快速傅里叶变换-FFT-1"><a href="#快速傅里叶变换-FFT-1" class="headerlink" title="快速傅里叶变换 FFT"></a>快速傅里叶变换 FFT</h2><p><strong>快速傅立叶变换</strong> (Fast Fourier Transform, <strong>FFT</strong>) 是一种高效实现 DFT 的算法。</p>
 <p>它对傅里叶变换的理论并没有新的发现，</p>
 <p>但是对于在计算机系统或者说数字系统中应用离散傅立叶变换，可以说是进了一大步。</p>
 <p>快速数论变换（NTT）是快速傅里叶变换（FFT）在数论基础上的实现，本文不会讲述。</p>
 <blockquote>
-<p>在 1965 年，Cooley 和 Tukey 发表了快速傅里叶变换算法。事实上 FFT
-早在这之前就被发现过了，但是在当时现代计算机并未问世，人们没有意识到 FFT
-的重要性。一些调查者认为 FFT 是由 Runge 和 König 在 1924
-年发现的。但事实上高斯早在 1805 年就发明了这个算法，但一直没有发表。</p>
+<p>在 1965 年，Cooley 和 Tukey 发表了快速傅里叶变换算法。事实上 FFT 早在这之前就被发现过了，但是在当时现代计算机并未问世，人们没有意识到 FFT 的重要性。一些调查者认为 FFT 是由 Runge 和 König 在 1924 年发现的。但事实上高斯早在 1805 年就发明了这个算法，但一直没有发表。</p>
 </blockquote>
-<h3 id="分治法实现递归">分治法实现（递归）</h3>
-<p>FFT 算法的基本思想是分治。就 DFT 来说，它分治地来求当 <span
-class="math inline">\(x = \omega_n^{k}\)</span> 的时候 <span
-class="math inline">\(f(x)\)</span> 的值。</p>
-<p>这里 <span class="math inline">\(\omega_n^{k}=\mathrm{e}^{\frac{2
-k\pi\mathrm{i}}{n}}=\cos \frac{2 k\pi}{n}+\mathrm{i} \sin \frac{2
-k\pi}{n}\)</span> 即为 <span class="math inline">\(n\)</span>
-次单位根的第 <span class="math inline">\(k\)</span> 个。</p>
+<h3 id="分治法实现（递归）"><a href="#分治法实现（递归）" class="headerlink" title="分治法实现（递归）"></a>分治法实现（递归）</h3><p>FFT 算法的基本思想是分治。就 DFT 来说，它分治地来求当 $x = \omega_n^{k}$ 的时候 $f(x)$ 的值。</p>
+<p>这里 $\omega_n^{k}=\mathrm{e}^{\frac{2 k\pi\mathrm{i}}{n}}=\cos \frac{2 k\pi}{n}+\mathrm{i} \sin \frac{2 k\pi}{n}$ 即为 $n$ 次单位根的第 $k$ 个。</p>
 <p>基-2 FFT 的分治思想体现在将多项式分为奇次项和偶次项处理。</p>
-<p>举个例子，对于 <span class="math inline">\(8\)</span>
-次整系数多项式：（FFT 强制钦定 <span
-class="math inline">\(n=2^m\)</span> 为多项式的次数，为了方便处理）
-<span class="math display">\[
-F(x) = a_0+a_1 x+a_2 x^2+a_3 x^3+a_4 x^4+a_5 x^5+a_6 x^6+a_7 x^7
-\]</span> 把它按奇偶分成两组，并提一个 <span
-class="math inline">\(x\)</span> ，则 <span class="math display">\[
+<p>举个例子，对于 $8$ 次整系数多项式：（FFT 强制钦定 $n=2^m$ 为多项式的次数，为了方便处理）</p>
+<script type="math/tex; mode=display">
+F(x) = a_0+a_1 x+a_2 x^2+a_3 x^3+a_4 x^4+a_5 x^5+a_6 x^6+a_7 x^7</script><p>把它按奇偶分成两组，并提一个 $x$ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-F(x) &amp; =\left(a_0+a_2 x^2+a_4 x^4+a_6 x^6\right)+\left(a_1 x+a_3
-x^3+a_5 x^5+a_7 x^7\right) \\
-&amp; =\left(a_0+a_2 x^2+a_4 x^4+a_6 x^6\right)+x\left(a_1+a_3 x^2+a_5
-x^4+a_7 x^6\right)
-\end{aligned}
-\]</span> 不妨记 <span class="math display">\[
+F(x) & =\left(a_0+a_2 x^2+a_4 x^4+a_6 x^6\right)+\left(a_1 x+a_3 x^3+a_5 x^5+a_7 x^7\right) \\
+& =\left(a_0+a_2 x^2+a_4 x^4+a_6 x^6\right)+x\left(a_1+a_3 x^2+a_5 x^4+a_7 x^6\right)
+\end{aligned}</script><p>不妨记</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; F_e(x)=a_0+a_2 x+a_4 x^2+a_6 x^3 \\
-&amp; F_o(x)=a_1+a_3 x+a_5 x^2+a_7 x^3
-\end{aligned}
-\]</span> 则 <span class="math display">\[
-F(x) = F_e(x^2) + x F_o{x^2}
-\]</span> 利用偶数次单位根的性质 <span
-class="math inline">\(\omega_n^i=-\omega_n^{i+n / 2}\)</span> ，以及
-<span class="math inline">\(F_e(x^2),F_o(x^2)\)</span> 为偶函数，</p>
-<p>可知复平面上 <span class="math inline">\(\omega_n^{i}\)</span> 和
-<span class="math inline">\(\omega_n^{i+n/2}\)</span> 的 <span
-class="math inline">\(F_e(x^2)\)</span> 和 <span
-class="math inline">\(F_o(x^2)\)</span> 对应的值相等，得到 <span
-class="math display">\[
+& F_e(x)=a_0+a_2 x+a_4 x^2+a_6 x^3 \\
+& F_o(x)=a_1+a_3 x+a_5 x^2+a_7 x^3
+\end{aligned}</script><p>则</p>
+<script type="math/tex; mode=display">
+F(x) = F_e(x^2) + x F_o{x^2}</script><p>利用偶数次单位根的性质 $\omega_n^i=-\omega_n^{i+n / 2}$ ，以及 $F_e(x^2),F_o(x^2)$ 为偶函数，</p>
+<p>可知复平面上 $\omega_n^{i}$ 和 $\omega_n^{i+n/2}$ 的 $F_e(x^2)$ 和 $F_o(x^2)$ 对应的值相等，得到</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-F\left(\omega_n^k\right) &amp; =F_e((\omega_n^k)^2)+\omega_n^k \times
-F_o((\omega_n^k)^2)
-\\[6pt]&amp; =F_e(\omega_n^{2 k})+\omega_n^k \times F_o(\omega_n^{2 k})
-\\[6pt]&amp; =F_e(\omega_{n / 2}^k)+\omega_n^k \times F_o(\omega_{n /
-2}^k)
-\end{aligned}
-\]</span> 和 <span class="math display">\[
+F\left(\omega_n^k\right) & =F_e((\omega_n^k)^2)+\omega_n^k \times F_o((\omega_n^k)^2)
+\\[6pt]& =F_e(\omega_n^{2 k})+\omega_n^k \times F_o(\omega_n^{2 k})
+\\[6pt]& =F_e(\omega_{n / 2}^k)+\omega_n^k \times F_o(\omega_{n / 2}^k)
+\end{aligned}</script><p>和</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-F(\omega_n^{k+n / 2}) &amp;= F_e(\omega_n^{2 k+n})+\omega_n^{k+n / 2}
-\times F_o(\omega_n^{2 k+n})
-\\[6pt]&amp;= F_e(\omega_n^{2 k})-\omega_n^k \times F_o(\omega_n^{2 k})
-\\[6pt]&amp;= F_e(\omega_{n / 2}^k)-\omega_n^k \times F_o(\omega_{n /
-2}^k)
-\end{aligned}
-\]</span> 因此我们求出了 <span
-class="math inline">\(F_e(\omega_{n/2}^{k})\)</span> 和 <span
-class="math inline">\(F_o(\omega_{n/2}^{k})\)</span> 后，就可以同时求出
-<span class="math inline">\(F\left(\omega_n^k\right)\)</span> 和 <span
-class="math inline">\(F(\omega_n^{k+n / 2})\)</span> 。</p>
-<p>于是对 <span class="math inline">\(F_e\)</span> 和 <span
-class="math inline">\(F_o\)</span> 分别递归即可。 时间复杂度 <span
-class="math inline">\(\mathcal{O}(n \log n)\)</span> 。</p>
-<p>但是不放代码了，因为这个实现方式是过不了 <span
-class="math inline">\(10^6\)</span> 的，常数太大了。</p>
-<h3 id="倍增法实现迭代">倍增法实现（迭代）</h3>
-<p>所谓迭代，指的是将原来递归的“拆分”改为了合并答案。</p>
-<p>依然以 <span class="math inline">\(8\)</span>
-次多项式为例，模拟拆分的过程： <span class="math display">\[
+F(\omega_n^{k+n / 2}) &= F_e(\omega_n^{2 k+n})+\omega_n^{k+n / 2} \times F_o(\omega_n^{2 k+n})
+\\[6pt]&= F_e(\omega_n^{2 k})-\omega_n^k \times F_o(\omega_n^{2 k})
+\\[6pt]&= F_e(\omega_{n / 2}^k)-\omega_n^k \times F_o(\omega_{n / 2}^k)
+\end{aligned}</script><p>因此我们求出了 $F_e(\omega_{n/2}^{k})$ 和 $F_o(\omega_{n/2}^{k})$ 后，就可以同时求出 $F\left(\omega_n^k\right)$ 和 $F(\omega_n^{k+n / 2})$ 。</p>
+<p>于是对 $F_e$ 和 $F_o$ 分别递归即可。 时间复杂度 $\mathcal{O}(n \log n)$ 。</p>
+<p>但是不放代码了，因为这个实现方式是过不了 $10^6$ 的，常数太大了。</p>
+<h3 id="倍增法实现（迭代）"><a href="#倍增法实现（迭代）" class="headerlink" title="倍增法实现（迭代）"></a>倍增法实现（迭代）</h3><p>所谓迭代，指的是将原来递归的“拆分”改为了合并答案。</p>
+<p>依然以 $8$ 次多项式为例，模拟拆分的过程：</p>
+<script type="math/tex; mode=display">
 \left\{x_0, x_1, x_2, x_3, x_4, x_5, x_6, x_7\right\}
 \\\left\{x_0, x_2, x_4, x_6\right\},\left\{x_1, x_3, x_5, x_7\right\}
-\\\left\{x_0, x_4\right\}\left\{x_2, x_6\right\},\left\{x_1,
-x_5\right\},\left\{x_3, x_7\right\}
-\\\left\{x_0\right\},\left\{x_4\right\},\left\{x_2\right\},\left\{x_6\right\},\left\{x_1\right\},\left\{x_5\right\},\left\{x_3\right\},\left\{x_7\right\}
-\]</span> 结论：可以发现，每个位置就是下标的二进制左右翻转一下，比如
-<span class="math inline">\(x_1\)</span> 是 <span
-class="math inline">\(\mathtt{001}\)</span> ，翻转一下是 <span
-class="math inline">\(\mathtt{100}\)</span> ，即 <span
-class="math inline">\(4\)</span> 。</p>
-<p>这个变换被称作位逆序置换，证明略。位逆序置换可以做到 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 从小到大递推实现。</p>
-<p>记 <span class="math inline">\(L = 2^k\)</span> ，其中 <span
-class="math inline">\(k\)</span> 表示二进制数的长度，并设 <span
-class="math inline">\(R(x)\)</span> 表示翻转后的数（高位补 <span
-class="math inline">\(0\)</span> ）。显然 <span
-class="math inline">\(R(0) = (0)_2\)</span> 。</p>
-<p>考虑递推。在求 <span class="math inline">\(R(x)\)</span> 时，显然
-<span
-class="math inline">\(R\left(\left\lfloor\frac{x}{2}\right\rfloor\right)\)</span>
-是已知的。</p>
-<p>因此我们把 <span class="math inline">\(x\)</span>
-右移一位后，翻转，再右移一位，就得到了 <span
-class="math inline">\(x\)</span>
-除了二进制下个位以外其他位的翻转结果</p>
-<p>考虑个位的翻转结果。如果个位是 <span class="math inline">\(0\)</span>
-，翻转后最高位还是 <span class="math inline">\(0\)</span> ，反之需要加上
-<span class="math inline">\(\frac{L}{2} = 2^{k-1}\)</span> ，则 <span
-class="math display">\[
-R(x)=\left\lfloor\frac{R\left(\left\lfloor\frac{x}{2}\right\rfloor\right)}{2}\right\rfloor+(x
-\bmod 2) \times \frac{L}{2}
-\]</span> 这意味着我们把原来 <span
-class="math inline">\(\mathcal{O}(n\log n)\)</span> 的拆分转变为了 <span
-class="math inline">\(O(n)\)</span> 的翻转。</p>
-<p>实际上总时间复杂度还是 <span class="math inline">\(\mathcal{O}(n\log
-n)\)</span> ，但是我们却省去了大量常数。</p>
+\\\left\{x_0, x_4\right\}\left\{x_2, x_6\right\},\left\{x_1, x_5\right\},\left\{x_3, x_7\right\}
+\\\left\{x_0\right\},\left\{x_4\right\},\left\{x_2\right\},\left\{x_6\right\},\left\{x_1\right\},\left\{x_5\right\},\left\{x_3\right\},\left\{x_7\right\}</script><p>结论：可以发现，每个位置就是下标的二进制左右翻转一下，比如 $x_1$ 是 $\mathtt{001}$ ，翻转一下是 $\mathtt{100}$ ，即 $4$ 。</p>
+<p>这个变换被称作位逆序置换，证明略。位逆序置换可以做到 $\mathcal{O}(n)$ 从小到大递推实现。</p>
+<p>记 $L = 2^k$ ，其中 $k$ 表示二进制数的长度，并设 $R(x)$ 表示翻转后的数（高位补 $0$ ）。显然 $R(0) = (0)_2$ 。</p>
+<p>考虑递推。在求 $R(x)$ 时，显然 $R\left(\left\lfloor\frac{x}{2}\right\rfloor\right)$ 是已知的。</p>
+<p>因此我们把 $x$ 右移一位后，翻转，再右移一位，就得到了 $x$ 除了二进制下个位以外其他位的翻转结果</p>
+<p>考虑个位的翻转结果。如果个位是 $0$ ，翻转后最高位还是 $0$ ，反之需要加上 $\frac{L}{2} = 2^{k-1}$ ，则</p>
+<script type="math/tex; mode=display">
+R(x)=\left\lfloor\frac{R\left(\left\lfloor\frac{x}{2}\right\rfloor\right)}{2}\right\rfloor+(x \bmod 2) \times \frac{L}{2}</script><p>这意味着我们把原来 $\mathcal{O}(n\log n)$ 的拆分转变为了 $O(n)$ 的翻转。</p>
+<p>实际上总时间复杂度还是 $\mathcal{O}(n\log n)$ ，但是我们却省去了大量常数。</p>
 <p>另外还有个蝶形运算优化，和位逆序置换类似，不过我没写这种优化的代码，想看可以看参考文献[1]。</p>
-<p>等会儿，这还没结束呢，我们通过 FFT
-计算出了原序列的点值形式，我们还要把它转回系数呢</p>
-<hr />
-<h2 id="快速傅里叶逆变换-ifft">快速傅里叶逆变换 IFFT</h2>
-<p>傅里叶逆变换可以用傅里叶变换表示。对此我们有两种理解方式。</p>
-<h3 id="线性代数角度">1. 线性代数角度</h3>
-<p>IDFT（傅里叶反变换）的作用，是把目标多项式的点值形式转换成系数形式。</p>
-<p>而 DFT
-本身是个线性变换，可以理解为将目标多项式当作向量，左乘一个矩阵得到变换后的向量，以模拟把单位复根代入多项式的过程：
-<span class="math display">\[
+<p>等会儿，这还没结束呢，我们通过 FFT 计算出了原序列的点值形式，我们还要把它转回系数呢</p>
+<hr>
+<h2 id="快速傅里叶逆变换-IFFT"><a href="#快速傅里叶逆变换-IFFT" class="headerlink" title="快速傅里叶逆变换 IFFT"></a>快速傅里叶逆变换 IFFT</h2><p>傅里叶逆变换可以用傅里叶变换表示。对此我们有两种理解方式。</p>
+<h3 id="1-线性代数角度"><a href="#1-线性代数角度" class="headerlink" title="1. 线性代数角度"></a>1. 线性代数角度</h3><p>IDFT（傅里叶反变换）的作用，是把目标多项式的点值形式转换成系数形式。</p>
+<p>而 DFT 本身是个线性变换，可以理解为将目标多项式当作向量，左乘一个矩阵得到变换后的向量，以模拟把单位复根代入多项式的过程：</p>
+<script type="math/tex; mode=display">
 \left[\begin{array}{c}
 y_0 \\
 y_1 \\
@@ -1010,17 +880,12 @@ y_3 \\
 \vdots \\
 y_{n-1}
 \end{array}\right]=\left[\begin{array}{cccccc}
-1 &amp; 1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1 \\
-1 &amp; \omega_n^1 &amp; \omega_n^2 &amp; \omega_n^3 &amp; \cdots &amp;
-\omega_n^{n-1} \\
-1 &amp; \omega_n^2 &amp; \omega_n^4 &amp; \omega_n^6 &amp; \cdots &amp;
-\omega_n^{2(n-1)} \\
-1 &amp; \omega_n^3 &amp; \omega_n^6 &amp; \omega_n^9 &amp; \cdots &amp;
-\omega_n^{3(n-1)} \\
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots
-\\
-1 &amp; \omega_n^{n-1} &amp; \omega_n^{2(n-1)} &amp; \omega_n^{3(n-1)}
-&amp; \cdots &amp; \omega_n^{(n-1)^2}
+1 & 1 & 1 & 1 & \cdots & 1 \\
+1 & \omega_n^1 & \omega_n^2 & \omega_n^3 & \cdots & \omega_n^{n-1} \\
+1 & \omega_n^2 & \omega_n^4 & \omega_n^6 & \cdots & \omega_n^{2(n-1)} \\
+1 & \omega_n^3 & \omega_n^6 & \omega_n^9 & \cdots & \omega_n^{3(n-1)} \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & \omega_n^{n-1} & \omega_n^{2(n-1)} & \omega_n^{3(n-1)} & \cdots & \omega_n^{(n-1)^2}
 \end{array}\right]\left[\begin{array}{c}
 a_0 \\
 a_1 \\
@@ -1028,91 +893,45 @@ a_2 \\
 a_3 \\
 \vdots \\
 a_{n-1}
-\end{array}\right]
-\]</span>
-而我们已经得到左侧的结果了，现在要求最右边的。显然这是个矩阵求逆的问题。</p>
+\end{array}\right]</script><p>而我们已经得到左侧的结果了，现在要求最右边的。显然这是个矩阵求逆的问题。</p>
 <p>由于这个矩阵的元素非常特殊，它的逆矩阵也有特殊的性质：</p>
-<p>该矩阵每一项取倒数，再除以变换的长度 <span
-class="math inline">\(n\)</span>
-，就可以得到它的逆矩阵。这里不作证明了。那么 <span
-class="math display">\[
-\frac{1}{\omega_n}=\omega_n^{-1}=\mathrm{e}^{-\frac{2 \pi
-\mathrm{i}}{n}}=\cos \left(\frac{2 \pi}{n}\right)+\mathrm{i} \sin
-\left(-\frac{2 \pi}{n}\right)
-\]</span></p>
-<blockquote>
+<p>该矩阵每一项取倒数，再除以变换的长度 $n$ ，就可以得到它的逆矩阵。这里不作证明了。那么</p>
+<script type="math/tex; mode=display">
+\frac{1}{\omega_n}=\omega_n^{-1}=\mathrm{e}^{-\frac{2 \pi \mathrm{i}}{n}}=\cos \left(\frac{2 \pi}{n}\right)+\mathrm{i} \sin \left(-\frac{2 \pi}{n}\right)</script><blockquote>
 <p>好吧，我知道你们可能也不是很会线性代数，所以我们还是讲第二种理解方式吧。</p>
 </blockquote>
-<h3 id="单位根的周期性">2. 单位根的周期性</h3>
-<p>利用单位根的周期性同样可以理解 IDFT 与 DFT 之间的转换关系。</p>
-<p>考虑构造法。我们已知 <span
-class="math inline">\(y_i=f\left(\omega_n^i\right),~i =
-0,1,\cdots,n-1\)</span> ，求 <span
-class="math inline">\(\{a_0,a_1,\cdots,a_{n-1}\}\)</span>
-，构造多项式如下： <span class="math display">\[
-A(x)=\sum_{i=0}^{n-1} y_i x^i
-\]</span> 相当于把 <span class="math inline">\(\left\{y_0, y_1, y_2,
-\cdots, y_{n-1}\right\}\)</span> 当作 <span
-class="math inline">\(A\)</span> 的系数表示法。</p>
-<p>设 <span class="math inline">\(b_i = \omega_n^{-i}\)</span>
-（注意不是 <span class="math inline">\(\mathrm{i}\)</span> ），则 <span
-class="math inline">\(A\)</span> 在 <span class="math inline">\(x =
-b_0,b_1,\cdots,b_{n-1}\)</span> 处的点值表示法为 <span
-class="math inline">\(\{A(b_0),A(b_1),\cdots,A(b_{n-1})\}\)</span>
-。</p>
-<p>对 <span class="math inline">\(A(x)\)</span>
-的定义式做一下变换，可以将 <span class="math inline">\(A(b_k)\)</span>
-表示为 <span class="math display">\[
+<h3 id="2-单位根的周期性"><a href="#2-单位根的周期性" class="headerlink" title="2. 单位根的周期性"></a>2. 单位根的周期性</h3><p>利用单位根的周期性同样可以理解 IDFT 与 DFT 之间的转换关系。</p>
+<p>考虑构造法。我们已知 $y_i=f\left(\omega_n^i\right),~i = 0,1,\cdots,n-1$ ，求 $\{a_0,a_1,\cdots,a_{n-1}\}$ ，构造多项式如下：</p>
+<script type="math/tex; mode=display">
+A(x)=\sum_{i=0}^{n-1} y_i x^i</script><p>相当于把 $\left\{y_0, y_1, y_2, \cdots, y_{n-1}\right\}$ 当作 $A$ 的系数表示法。</p>
+<p>设 $b_i = \omega_n^{-i}$ （注意不是 $\mathrm{i}$ ），则 $A$ 在 $x = b_0,b_1,\cdots,b_{n-1}$ 处的点值表示法为 $\{A(b_0),A(b_1),\cdots,A(b_{n-1})\}$ 。</p>
+<p>对 $A(x)$ 的定义式做一下变换，可以将 $A(b_k)$ 表示为</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-A\left(b_k\right) &amp; =\sum_{i=0}^{n-1} f\left(\omega_n^i\right)
-\omega_n^{-i k}=\sum_{i=0}^{n-1} \omega_n^{-i k} \sum_{j=0}^{n-1}
-a_j\left(\omega_n^i\right)^j \\
-&amp; =\sum_{i=0}^{n-1} \sum_{j=0}^{n-1} a_j
-\omega_n^{i(j-k)}=\sum_{j=0}^{n-1} a_j
-\sum_{i=0}^{n-1}\left(\omega_n^{j-k}\right)^i
-\end{aligned}
-\]</span> 记 <span
-class="math inline">\(S\left(\omega_n^a\right)=\sum_{i=0}^{n-1}\left(\omega_n^a\right)^i\)</span></p>
-<p>当 <span class="math inline">\(a=0\pmod{n}\)</span> 时，<span
-class="math inline">\(S(\omega_n^{a}) = n\)</span> 。</p>
-<p>当 <span class="math inline">\(a \ne 0 \pmod{n}\)</span>
-时，考虑错位相减 <span class="math display">\[
+A\left(b_k\right) & =\sum_{i=0}^{n-1} f\left(\omega_n^i\right) \omega_n^{-i k}=\sum_{i=0}^{n-1} \omega_n^{-i k} \sum_{j=0}^{n-1} a_j\left(\omega_n^i\right)^j \\
+& =\sum_{i=0}^{n-1} \sum_{j=0}^{n-1} a_j \omega_n^{i(j-k)}=\sum_{j=0}^{n-1} a_j \sum_{i=0}^{n-1}\left(\omega_n^{j-k}\right)^i
+\end{aligned}</script><p>记 $S\left(\omega_n^a\right)=\sum_{i=0}^{n-1}\left(\omega_n^a\right)^i$ </p>
+<p>当 $a=0\pmod{n}$ 时，$S(\omega_n^{a}) = n$ 。</p>
+<p>当 $a \ne 0 \pmod{n}$ 时，考虑错位相减</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-S\left(\omega_n^a\right) &amp;
-=\sum_{i=0}^{n-1}\left(\omega_n^a\right)^i \\
-\omega_n^a S\left(\omega_n^a\right) &amp;
-=\sum_{i=1}^n\left(\omega_n^a\right)^i \\
-S\left(\omega_n^a\right) &amp;
-=\frac{\left(\omega_n^a\right)^n-\left(\omega_n^a\right)^0}{\omega_n^a-1}=0
-\end{aligned}
-\]</span> 即 <span class="math display">\[
-S\left(\omega_n^a\right)= \begin{cases}n, &amp; a=0 \\ 0, &amp; a \neq
-0\end{cases}
-\]</span> 代回原式可得 <span class="math display">\[
-A\left(b_k\right)=\sum_{j=0}^{n-1} a_j S\left(\omega_n^{j-k}\right)=a_k
-\cdot n
-\]</span> 也就是说，给定点 <span class="math inline">\(b_i =
-\omega_n^{-i}\)</span> ，则 <span class="math inline">\(A\)</span>
-的点值表示法为 <span class="math display">\[
+S\left(\omega_n^a\right) & =\sum_{i=0}^{n-1}\left(\omega_n^a\right)^i \\
+\omega_n^a S\left(\omega_n^a\right) & =\sum_{i=1}^n\left(\omega_n^a\right)^i \\
+S\left(\omega_n^a\right) & =\frac{\left(\omega_n^a\right)^n-\left(\omega_n^a\right)^0}{\omega_n^a-1}=0
+\end{aligned}</script><p>即</p>
+<script type="math/tex; mode=display">
+S\left(\omega_n^a\right)= \begin{cases}n, & a=0 \\ 0, & a \neq 0\end{cases}</script><p>代回原式可得</p>
+<script type="math/tex; mode=display">
+A\left(b_k\right)=\sum_{j=0}^{n-1} a_j S\left(\omega_n^{j-k}\right)=a_k \cdot n</script><p>也就是说，给定点 $b_i = \omega_n^{-i}$ ，则 $A$ 的点值表示法为</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; \left\{\left(b_0, A\left(b_0\right)\right),\left(b_1,
-A\left(b_1\right)\right), \cdots,\left(b_{n-1},
-A\left(b_{n-1}\right)\right)\right\} \\
-= &amp; \left\{\left(b_0, a_0 \cdot n\right),\left(b_1, a_1 \cdot
-n\right), \cdots,\left(b_{n-1}, a_{n-1} \cdot n\right)\right\}
-\end{aligned}
-\]</span> 因此我们取其单位根为其倒数，对 <span
-class="math inline">\(\left\{y_0, y_1, y_2, \cdots,
-y_{n-1}\right\}\)</span> 跑一遍 FFT ，然后除以 <span
-class="math inline">\(n\)</span> 即可得到 <span
-class="math inline">\(f(x)\)</span> 的系数表示。</p>
-<hr />
-<h2 id="代码实现">代码实现</h2>
-<p>至此，我们终于讲完了 FFT 算法的全部，放张思维导图</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202401271447143.png" /></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+& \left\{\left(b_0, A\left(b_0\right)\right),\left(b_1, A\left(b_1\right)\right), \cdots,\left(b_{n-1}, A\left(b_{n-1}\right)\right)\right\} \\
+= & \left\{\left(b_0, a_0 \cdot n\right),\left(b_1, a_1 \cdot n\right), \cdots,\left(b_{n-1}, a_{n-1} \cdot n\right)\right\}
+\end{aligned}</script><p>因此我们取其单位根为其倒数，对 $\left\{y_0, y_1, y_2, \cdots, y_{n-1}\right\}$ 跑一遍 FFT ，然后除以 $n$ 即可得到 $f(x)$ 的系数表示。</p>
+<hr>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>至此，我们终于讲完了 FFT 算法的全部，放张思维导图</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202401271447143.png" alt=""></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1161,14 +980,11 @@ Complex a<span class="token punctuation">[</span>N<span class="token punctuation
         cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">real</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> limit <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">+</span> m<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/math/poly/fft/">https://oi-wiki.org/math/poly/fft/</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/fusu2333/solution-p3803">https://www.luogu.com.cn/blog/fusu2333/solution-p3803</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/solution-p3803">https://www.luogu.com.cn/blog/attack/solution-p3803</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/poly/fft/">https://oi-wiki.org/math/poly/fft/</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/fusu2333/solution-p3803">https://www.luogu.com.cn/blog/fusu2333/solution-p3803</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/solution-p3803">https://www.luogu.com.cn/blog/attack/solution-p3803</a></p>
 
                 
             </div>
@@ -1640,7 +1456,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/attack/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1916,21 +1732,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

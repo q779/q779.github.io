@@ -698,7 +698,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    636
+                    582
                 </div>
                 
 
@@ -718,79 +718,38 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sp4195-mse08h---gcd-determinant-题解">SP4195 MSE08H - GCD
-Determinant 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP4195">MSE08H -
-GCD Determinant</a></p>
+                <h1 id="SP4195-MSE08H-GCD-Determinant-题解"><a href="#SP4195-MSE08H-GCD-Determinant-题解" class="headerlink" title="SP4195 MSE08H - GCD Determinant 题解"></a>SP4195 MSE08H - GCD Determinant 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP4195">MSE08H - GCD Determinant</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 <span class="math inline">\(n\)</span> 个数 <span
-class="math inline">\(x_1,x_2,\cdots,x_n\)</span> ，求 <span
-class="math display">\[
+<p>给定 $n$ 个数 $x_1,x_2,\cdots,x_n$ ，求</p>
+<script type="math/tex; mode=display">
 \det A = \left|\begin{array}{ccccc}
-\operatorname{gcd}\left(x_1, x_1\right) &amp;
-\operatorname{gcd}\left(x_1, x_2\right) &amp;
-\operatorname{gcd}\left(x_1, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_1, x_n\right) \\
-\operatorname{gcd}\left(x_2, x_1\right) &amp;
-\operatorname{gcd}\left(x_2, x_2\right) &amp;
-\operatorname{gcd}\left(x_2, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_2, x_n\right) \\
-\operatorname{gcd}\left(x_3, x_1\right) &amp;
-\operatorname{gcd}\left(x_3, x_2\right) &amp;
-\operatorname{gcd}\left(x_3, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_3, x_n\right) \\
-\vdots &amp; \vdots &amp; \vdots &amp;  &amp; \vdots \\
-\operatorname{gcd}\left(x_n, x_1\right) &amp;
-\operatorname{gcd}\left(x_n, x_2\right) &amp;
-\operatorname{gcd}\left(x_n, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_n, x_n\right)
-\end{array}\right|
-\]</span> <span class="math inline">\(1 \le n \le 10^3,~x_i \le 2\times
-10^9\)</span> 。</p>
+\operatorname{gcd}\left(x_1, x_1\right) & \operatorname{gcd}\left(x_1, x_2\right) & \operatorname{gcd}\left(x_1, x_3\right) & \ldots & \operatorname{gcd}\left(x_1, x_n\right) \\
+\operatorname{gcd}\left(x_2, x_1\right) & \operatorname{gcd}\left(x_2, x_2\right) & \operatorname{gcd}\left(x_2, x_3\right) & \ldots & \operatorname{gcd}\left(x_2, x_n\right) \\
+\operatorname{gcd}\left(x_3, x_1\right) & \operatorname{gcd}\left(x_3, x_2\right) & \operatorname{gcd}\left(x_3, x_3\right) & \ldots & \operatorname{gcd}\left(x_3, x_n\right) \\
+\vdots & \vdots & \vdots &  & \vdots \\
+\operatorname{gcd}\left(x_n, x_1\right) & \operatorname{gcd}\left(x_n, x_2\right) & \operatorname{gcd}\left(x_n, x_3\right) & \ldots & \operatorname{gcd}\left(x_n, x_n\right)
+\end{array}\right|</script><p>$1 \le n \le 10^3,~x_i \le 2\times 10^9$ 。</p>
 </blockquote>
-<p>根据 <a
-href="/2024/04/23/smith-s-determinant-gcd-ju-zhen-de-xing-lie-shi/">Smith’s
-determinant（GCD矩阵的行列式）</a> 我们推导出了 <span
-class="math display">\[
+<p>根据 <a href="/2024/04/23/smith-s-determinant-gcd-ju-zhen-de-xing-lie-shi/">Smith’s determinant（GCD矩阵的行列式）</a> 我们推导出了</p>
+<script type="math/tex; mode=display">
 \left|\begin{array}{cccc}
-\operatorname{gcd}(1,1) &amp; \operatorname{gcd}(1,2) &amp; \ldots &amp;
-\operatorname{gcd}(1, n) \\
-\operatorname{gcd}(2,1) &amp; \operatorname{gcd}(2,2) &amp; \ldots &amp;
-\operatorname{gcd}(2, n) \\
-\vdots &amp; \vdots &amp; &amp; \vdots \\
-\operatorname{gcd}(n, 1) &amp; \operatorname{gcd}(n, 2) &amp; \ldots
-&amp; \operatorname{gcd}(n, n)
-\end{array}\right|=\varphi(1) \varphi(2) \cdots \varphi(n)
-\]</span> 本题中把矩阵变成了 <span
-class="math inline">\(A=[a_{i,j}],~a_{i,j}=\gcd(x_i,x_j)\)</span>
-，其实是一样的</p>
-<p>我们只需要在证明中更改矩阵 <span class="math inline">\(B\)</span>​
-即可 <span class="math display">\[
-B=\left[b_{i, j}\right], \quad b_{i, j}= \begin{cases}J_r(x_i) &amp;
-\text { if } i \mid j \\ 0 &amp; \text { otherwise }\end{cases}
-\]</span> 即可得到 <span class="math display">\[
+\operatorname{gcd}(1,1) & \operatorname{gcd}(1,2) & \ldots & \operatorname{gcd}(1, n) \\
+\operatorname{gcd}(2,1) & \operatorname{gcd}(2,2) & \ldots & \operatorname{gcd}(2, n) \\
+\vdots & \vdots & & \vdots \\
+\operatorname{gcd}(n, 1) & \operatorname{gcd}(n, 2) & \ldots & \operatorname{gcd}(n, n)
+\end{array}\right|=\varphi(1) \varphi(2) \cdots \varphi(n)</script><p>本题中把矩阵变成了 $A=[a_{i,j}],~a_{i,j}=\gcd(x_i,x_j)$ ，其实是一样的</p>
+<p>我们只需要在证明中更改矩阵 $B$​ 即可</p>
+<script type="math/tex; mode=display">
+B=\left[b_{i, j}\right], \quad b_{i, j}= \begin{cases}J_r(x_i) & \text { if } i \mid j \\ 0 & \text { otherwise }\end{cases}</script><p>即可得到</p>
+<script type="math/tex; mode=display">
 \left|\begin{array}{ccccc}
-\operatorname{gcd}\left(x_1, x_1\right) &amp;
-\operatorname{gcd}\left(x_1, x_2\right) &amp;
-\operatorname{gcd}\left(x_1, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_1, x_n\right) \\
-\operatorname{gcd}\left(x_2, x_1\right) &amp;
-\operatorname{gcd}\left(x_2, x_2\right) &amp;
-\operatorname{gcd}\left(x_2, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_2, x_n\right) \\
-\operatorname{gcd}\left(x_3, x_1\right) &amp;
-\operatorname{gcd}\left(x_3, x_2\right) &amp;
-\operatorname{gcd}\left(x_3, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_3, x_n\right) \\
-\vdots &amp; \vdots &amp; \vdots &amp;  &amp; \vdots \\
-\operatorname{gcd}\left(x_n, x_1\right) &amp;
-\operatorname{gcd}\left(x_n, x_2\right) &amp;
-\operatorname{gcd}\left(x_n, x_3\right) &amp; \ldots &amp;
-\operatorname{gcd}\left(x_n, x_n\right)
-\end{array}\right| =\varphi(x_1) \varphi(x_2) \cdots \varphi(x_n)
-\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(qn \log
-V)\)</span></p>
+\operatorname{gcd}\left(x_1, x_1\right) & \operatorname{gcd}\left(x_1, x_2\right) & \operatorname{gcd}\left(x_1, x_3\right) & \ldots & \operatorname{gcd}\left(x_1, x_n\right) \\
+\operatorname{gcd}\left(x_2, x_1\right) & \operatorname{gcd}\left(x_2, x_2\right) & \operatorname{gcd}\left(x_2, x_3\right) & \ldots & \operatorname{gcd}\left(x_2, x_n\right) \\
+\operatorname{gcd}\left(x_3, x_1\right) & \operatorname{gcd}\left(x_3, x_2\right) & \operatorname{gcd}\left(x_3, x_3\right) & \ldots & \operatorname{gcd}\left(x_3, x_n\right) \\
+\vdots & \vdots & \vdots &  & \vdots \\
+\operatorname{gcd}\left(x_n, x_1\right) & \operatorname{gcd}\left(x_n, x_2\right) & \operatorname{gcd}\left(x_n, x_3\right) & \ldots & \operatorname{gcd}\left(x_n, x_n\right)
+\end{array}\right| =\varphi(x_1) \varphi(x_2) \cdots \varphi(x_n)</script><p>时间复杂度 $\mathcal{O}(qn \log V)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -830,7 +789,6 @@ V)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-
                 
             </div>
             <hr/>
@@ -1296,7 +1254,7 @@ V)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1572,21 +1530,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -698,7 +698,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    664
+                    663
                 </div>
                 
 
@@ -718,86 +718,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2429-制杖题-题解">洛谷P2429 制杖题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2429">P2429
-制杖题</a></p>
+                <h1 id="洛谷P2429-制杖题-题解"><a href="#洛谷P2429-制杖题-题解" class="headerlink" title="洛谷P2429 制杖题 题解"></a>洛谷P2429 制杖题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2429">P2429 制杖题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>求不大于 <span class="math inline">\(m\)</span>
-的、质因数集与给定质数集有交集的自然数之和。</p>
+<p>求不大于 $m$ 的、质因数集与给定质数集有交集的自然数之和。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，两个整数 <span class="math inline">\(n, m\)</span>。</p>
-<p>第二行，<span class="math inline">\(n\)</span>
-个整数，表示质数集内的元素 <span
-class="math inline">\(p_i\)</span>。</p>
+<p>第一行，两个整数 $n, m$。</p>
+<p>第二行，$n$ 个整数，表示质数集内的元素 $p_i$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一个整数，表示答案，对 <span class="math inline">\(376544743\)</span>
-取模。</p>
+<p>一个整数，表示答案，对 $376544743$ 取模。</p>
 <p><strong>数据范围</strong>：</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: center;">测试点编号</th>
-<th style="text-align: center;">规模</th>
+<tr>
+<th style="text-align:center">测试点编号</th>
+<th style="text-align:center">规模</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(1 \sim
-3\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n m \le
-{10}^7\)</span></td>
+<tr>
+<td style="text-align:center">$1 \sim 3$</td>
+<td style="text-align:center">$n m \le {10}^7$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(4 \sim
-5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n \le
-2\)</span>，<span class="math inline">\(m \le {10}^9\)</span></td>
+<tr>
+<td style="text-align:center">$4 \sim 5$</td>
+<td style="text-align:center">$n \le 2$，$m \le {10}^9$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(6 \sim
-7\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n \le
-20\)</span>，<span class="math inline">\(m \le {10}^8\)</span></td>
+<tr>
+<td style="text-align:center">$6 \sim 7$</td>
+<td style="text-align:center">$n \le 20$，$m \le {10}^8$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(8 \sim
-10\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n \le
-20\)</span>，<span class="math inline">\(m \le {10}^9\)</span></td>
+<tr>
+<td style="text-align:center">$8 \sim 10$</td>
+<td style="text-align:center">$n \le 20$，$m \le {10}^9$</td>
 </tr>
 </tbody>
 </table>
-<p>对于 <span class="math inline">\(100 \%\)</span> 的数据，<span
-class="math inline">\(1 \le n \le 30\)</span>，<span
-class="math inline">\(1 \le m \le {10}^9\)</span>。</p>
+</div>
+<p>对于 $100 \%$ 的数据，$1 \le n \le 30$，$1 \le m \le {10}^9$。</p>
 </blockquote>
-<p>数据范围可能有点令人迷惑，我猜它是指测试点 <span
-class="math inline">\(1\sim 3\)</span> 满足 <span
-class="math inline">\(n \le 30\)</span> 。</p>
-<p>记 <span class="math inline">\(S_i=\sum_{p_i \mid x \,\land \, x \le
-m} x\)</span> ，如果我们直接计算 <span class="math inline">\(\sum
-S_i\)</span> ，会出现重复计算的情况。</p>
-<p>不妨记 <span class="math inline">\(T_i = \{x\mid (p_i \mid x)
-\,\land\,x \le m\}\)</span> ，我们要求的实际上是 <span
-class="math inline">\(\bigcup_{i=1}^{n} T_i\)</span>
-的所有元素的和。</p>
-<p>那么这就是一个容斥的事了 <span class="math display">\[
-S\left(\bigcup_{i=1}^{n} T_i\right) = \sum_{1\le i\le n} S(T_i)
-- \sum_{1 \le i &lt; j \le n}S\left(T_i \cap T_j\right)
-+ \cdots + (-1)^{n-1}S\left(\bigcap_{i=1}^{n} T_i\right)
-\]</span> 可以发现，如果一个数 <span class="math inline">\(x\)</span>
-有奇数个 <span class="math inline">\(p_i\)</span>​
-，那么它对答案的贡献为正，反之为负。</p>
-<p>因为 <span class="math inline">\(m\)</span> 的范围使得 <span
-class="math inline">\(n\)</span>
-个质数很难同时出现，所以考虑暴力dfs所有的组合方式和顺序来模拟容斥</p>
-<p>当前质数 <span class="math inline">\(p_0\)</span> 的贡献即为 <span
-class="math inline">\(p_0 \times \frac{r(r+1)}{2}\)</span> ，其中 <span
-class="math inline">\(r= \left\lfloor\frac{m}{p_0}\right\rfloor\)</span>
-。</p>
-<p>时间复杂度 <span
-class="math inline">\(\mathcal{O}(\mathrm{ok})\)</span></p>
+<p>数据范围可能有点令人迷惑，我猜它是指测试点 $1\sim 3$ 满足 $n \le 30$ 。</p>
+<p>记 $S_i=\sum_{p_i \mid x \,\land \, x \le m} x$ ，如果我们直接计算 $\sum S_i$ ，会出现重复计算的情况。</p>
+<p>不妨记 $T_i = \{x\mid (p_i \mid x) \,\land\,x \le m\}$ ，我们要求的实际上是 $\bigcup_{i=1}^{n} T_i$ 的所有元素的和。</p>
+<p>那么这就是一个容斥的事了</p>
+<script type="math/tex; mode=display">
+S\left(\bigcup_{i=1}^{n} T_i\right) = \sum_{1\le i\le n} S(T_i) 
+- \sum_{1 \le i < j \le n}S\left(T_i \cap T_j\right) 
++ \cdots + (-1)^{n-1}S\left(\bigcap_{i=1}^{n} T_i\right)</script><p>可以发现，如果一个数 $x$ 有奇数个 $p_i$​ ，那么它对答案的贡献为正，反之为负。</p>
+<p>因为 $m$ 的范围使得 $n$ 个质数很难同时出现，所以考虑暴力dfs所有的组合方式和顺序来模拟容斥</p>
+<p>当前质数 $p_0$ 的贡献即为 $p_0 \times \frac{r(r+1)}{2}$ ，其中 $r= \left\lfloor\frac{m}{p_0}\right\rfloor$ 。</p>
+<p>时间复杂度 $\mathcal{O}(\mathrm{ok})$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -837,10 +808,9 @@ class="math inline">\(\mathcal{O}(\mathrm{ok})\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/yjj2015yjj/solution-p2429">https://www.luogu.com.cn/blog/yjj2015yjj/solution-p2429</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/yjj2015yjj/solution-p2429">https://www.luogu.com.cn/blog/yjj2015yjj/solution-p2429</a></p>
 
                 
             </div>
@@ -1308,7 +1278,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/yjj2015yjj/so
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1584,21 +1554,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

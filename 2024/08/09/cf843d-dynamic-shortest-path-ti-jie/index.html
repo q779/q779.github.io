@@ -722,56 +722,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf843d-dynamic-shortest-path-题解">CF843D Dynamic Shortest Path
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF843D">Dynamic
-Shortest Path</a></p>
+                <h1 id="CF843D-Dynamic-Shortest-Path-题解"><a href="#CF843D-Dynamic-Shortest-Path-题解" class="headerlink" title="CF843D Dynamic Shortest Path 题解"></a>CF843D Dynamic Shortest Path 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF843D">Dynamic Shortest Path</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一张 <span class="math inline">\(n\)</span> 个点 <span
-class="math inline">\(m\)</span> 条边的有向带权图，你需要回答如下的
-<span class="math inline">\(q\)</span> 个问题：</p>
-<ol type="1">
-<li><code>1 v</code> 询问以 <span class="math inline">\(1\)</span>
-为起点到 <span class="math inline">\(v\)</span> 的最短路</li>
-<li><code>2 c l_1 l_2 ... l_c</code> 对于 <span
-class="math inline">\(l_1, l_2, \ldots, l_c\)</span> 的边的边权增加
-<span class="math inline">\(1\)</span>。</li>
+<p>有一张 $n$ 个点 $m$ 条边的有向带权图，你需要回答如下的 $q$ 个问题：</p>
+<ol>
+<li><code>1 v</code> 询问以 $1$ 为起点到 $v$ 的最短路</li>
+<li><code>2 c l_1 l_2 ... l_c</code> 对于 $l_1, l_2, \ldots, l_c$ 的边的边权增加 $1$。</li>
 </ol>
-<p>对于询问2，保证 <span class="math inline">\(l_i\)</span>
-互不相同。</p>
+<p>对于询问2，保证 $l_i$ 互不相同。</p>
 <p>不存在输出 <code>-1</code>。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \leq n, m \leq 10^5,~1 \leq q \leq
-2000,~\sum l_i \le 10^6\)</span>。边权 <span class="math inline">\(\le
-10^9\)</span> ，时限 10s 。</p>
+<p>$1 \leq n, m \leq 10^5,~1 \leq q \leq 2000,~\sum l_i \le 10^6$。边权 $\le 10^9$ ，时限 10s 。</p>
 </blockquote>
 <p>注意到边权虽然很大，但是增量极为有限，这使得我们考察与增量/值域相关的做法。</p>
-<p>首先先跑一遍 Dijkstra ，得到每个点的最短路 <span
-class="math inline">\(d_u\)</span> ，然后令每条边的新边权为 <span
-class="math display">\[
-w(u,v) \gets d_u +w(u,v) - d_v
-\]</span> 那么此时 <span class="math inline">\(u \leadsto v\)</span>
-的路径的意义就变为了 <span class="math inline">\(u\)</span> 到 <span
-class="math inline">\(v\)</span> 相对于最短路径的增量。</p>
-<p>考察 DIjkstra 的过程，每次我们选择 <span
-class="math inline">\(d_u\)</span> 最小的 <span
-class="math inline">\(u\)</span> 进行拓展。</p>
-<p>而现在，整张图的最大权值不会超过 <span
-class="math inline">\(10^6\)</span> ，我们就可以用 <span
-class="math inline">\(10^6\)</span> 个队列维护每个值当前的 <span
-class="math inline">\(u\)</span> 。</p>
-<p>然后每次就枚举值域，将当前所有能更新的 <span
-class="math inline">\(u\)</span> 取出来尝试松弛，具体详见代码。</p>
-<p>实际上，设当前修改了 <span class="math inline">\(x\)</span>
-条边，由于 <span class="math inline">\(1\)</span>
-到每个点的最短路构成一棵树，</p>
-<p>而题目保证了 <span class="math inline">\(l_i\)</span>
-互不相同，所以对最短路的增量不会超过 <span class="math inline">\(\min(x,
-n - 1)\)</span> ，这样我们只需要 <span
-class="math inline">\(10^5\)</span> 个队列即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(m \log n + \sum
-l_i)\)</span></p>
+<p>首先先跑一遍 Dijkstra ，得到每个点的最短路 $d_u$ ，然后令每条边的新边权为</p>
+<script type="math/tex; mode=display">
+w(u,v) \gets d_u +w(u,v) - d_v</script><p>那么此时 $u \leadsto v$ 的路径的意义就变为了 $u$ 到 $v$ 相对于最短路径的增量。</p>
+<p>考察 DIjkstra 的过程，每次我们选择 $d_u$ 最小的 $u$ 进行拓展。</p>
+<p>而现在，整张图的最大权值不会超过 $10^6$ ，我们就可以用 $10^6$ 个队列维护每个值当前的 $u$ 。</p>
+<p>然后每次就枚举值域，将当前所有能更新的 $u$ 取出来尝试松弛，具体详见代码。</p>
+<p>实际上，设当前修改了 $x$ 条边，由于 $1$ 到每个点的最短路构成一棵树，</p>
+<p>而题目保证了 $l_i$ 互不相同，所以对最短路的增量不会超过 $\min(x, n - 1)$ ，这样我们只需要 $10^5$ 个队列即可。</p>
+<p>时间复杂度 $\mathcal{O}(m \log n + \sum l_i)$</p>
 <p>代码：（本题卡常）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -883,10 +856,9 @@ l_i)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s2929nrc">https://www.luogu.com.cn/article/s2929nrc</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s2929nrc">https://www.luogu.com.cn/article/s2929nrc</a></p>
 
                 
             </div>
@@ -1363,7 +1335,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s2929nrc">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1333.2k</span>&nbsp;字
+                class="white-color">1318.9k</span>&nbsp;字
             
             
             
@@ -1639,21 +1611,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
