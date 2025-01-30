@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3978 [TJOI2015] 概率论 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P3978 [TJOI2015] 概率论 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -655,12 +681,12 @@ rgba(0,0,0,0.2);
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -698,7 +724,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    610
+                    618
                 </div>
                 
 
@@ -718,40 +744,69 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3978-TJOI2015-概率论-题解"><a href="#洛谷P3978-TJOI2015-概率论-题解" class="headerlink" title="洛谷P3978 [TJOI2015] 概率论 题解"></a>洛谷P3978 [TJOI2015] 概率论 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3978">P3978 [TJOI2015] 概率论</a></p>
+                <h1 id="洛谷p3978-tjoi2015-概率论-题解">洛谷P3978 [TJOI2015] 概率论
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3978">P3978
+[TJOI2015] 概率论</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>为了提高智商，ZJY 开始学习概率论。有一天，她想到了这样一个问题：对于一棵随机生成的 $n$ 个结点的有根二叉树（所有互相不同构的形态等概率出现），它的叶子节点数的期望是多少呢？</p>
+<p>为了提高智商，ZJY
+开始学习概率论。有一天，她想到了这样一个问题：对于一棵随机生成的 <span
+class="math inline">\(n\)</span>
+个结点的有根二叉树（所有互相不同构的形态等概率出现），它的叶子节点数的期望是多少呢？</p>
 <p>判断两棵树是否同构的伪代码如下：</p>
-<script type="math/tex; mode=display">
+<p><span class="math display">\[
 \begin{array}{ll}
 \hline
-\textbf{算法 1}&\text{Check}(T_1,T_2) \\
+\textbf{算法 1}&amp;\text{Check}(T_1,T_2) \\
 \hline
-1&\textbf{Require: }\text{ 两棵树的节点 }T_1,T_2\\
-2&\qquad\textbf{if}\ \ T_1=\text{null}\textbf{ or }T_2=\text{null}\textbf{ then }\\
-3&\qquad\qquad\textbf{return}\ \ T_1=\text{null}\textbf{ and }T_2=\text{null}\\
-4&\qquad\textbf{else}\\
-5&\qquad\qquad\textbf{return}\ \text{Check}(T_1\to\mathrm{leftson},T_2\to\mathrm{leftson}) \\ 
-& \qquad\qquad\qquad \textbf{ and }\text{Check}(T_1\to\mathrm{rightson},T_2\to\mathrm{rightson})\\
-6&\qquad\textbf{endif}\\
+1&amp;\textbf{Require: }\text{ 两棵树的节点 }T_1,T_2\\
+2&amp;\qquad\textbf{if}\ \ T_1=\text{null}\textbf{ or
+}T_2=\text{null}\textbf{ then }\\
+3&amp;\qquad\qquad\textbf{return}\ \ T_1=\text{null}\textbf{ and
+}T_2=\text{null}\\
+4&amp;\qquad\textbf{else}\\
+5&amp;\qquad\qquad\textbf{return}\
+\text{Check}(T_1\to\mathrm{leftson},T_2\to\mathrm{leftson}) \\
+&amp; \qquad\qquad\qquad \textbf{ and
+}\text{Check}(T_1\to\mathrm{rightson},T_2\to\mathrm{rightson})\\
+6&amp;\qquad\textbf{endif}\\
 \hline
-\end{array}</script><p><strong>输入格式</strong>：</p>
-<p>输入一个正整数 $n$，表示有根树的结点数。</p>
+\end{array}
+\]</span></p>
+<p><strong>输入格式</strong>：</p>
+<p>输入一个正整数 <span
+class="math inline">\(n\)</span>，表示有根树的结点数。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出这棵树期望的叶子节点数，要求误差小于 $10^{-9}$。</p>
+<p>输出这棵树期望的叶子节点数，要求误差小于 <span
+class="math inline">\(10^{-9}\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1 \le n \le 10^9$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1 \le n \le 10^9\)</span>。</p>
 </blockquote>
-<p>设 $f_n$ 为 $n$ 个点的本质不同的二叉树的个数，$g_n$ 为这些树的叶子节点数的期望。</p>
-<p>这个 $f_n$ 很简单，就是<a href="/2022/09/11/qian-tan-qia-te-lan-shu-catalan-shu/">卡特兰数</a>，有 $f_n = \frac{1}{n+1}\binom{2n}{n}$ 。我们考察 $g_n$ 与 $f_n$ 的关系。</p>
-<p>打表可知 $g_n = nf_{n-1}$ 。其实证明也不难。</p>
-<p>对于每棵 $n$ 个点的二叉树，设它有 $k$ 个叶节点</p>
-<p>我们分别把这 $k$ 个叶子删去，会得到 $k$ 棵 $n-1$ 个点的二叉树；</p>
-<p>而每棵 $n-1$ 个点的二叉树恰好有 $n$ 个位置可以悬挂一个新的叶子，</p>
-<p>那么每棵 $n-1$ 个点的二叉树被得到了 $n$ 次，即 $g_n = nf_{n-1}$ 。</p>
-<p>于是 $g_n = \frac{n(n+1)}{2(2 n-1)}$ ，这道题就做完了</p>
-<p>时间复杂度 $\mathcal{O}(1)$</p>
+<p>设 <span class="math inline">\(f_n\)</span> 为 <span
+class="math inline">\(n\)</span> 个点的本质不同的二叉树的个数，<span
+class="math inline">\(g_n\)</span> 为这些树的叶子节点数的期望。</p>
+<p>这个 <span class="math inline">\(f_n\)</span> 很简单，就是<a
+href="/2022/09/11/qian-tan-qia-te-lan-shu-catalan-shu/">卡特兰数</a>，有
+<span class="math inline">\(f_n = \frac{1}{n+1}\binom{2n}{n}\)</span>
+。我们考察 <span class="math inline">\(g_n\)</span> 与 <span
+class="math inline">\(f_n\)</span> 的关系。</p>
+<p>打表可知 <span class="math inline">\(g_n = nf_{n-1}\)</span>
+。其实证明也不难。</p>
+<p>对于每棵 <span class="math inline">\(n\)</span> 个点的二叉树，设它有
+<span class="math inline">\(k\)</span> 个叶节点</p>
+<p>我们分别把这 <span class="math inline">\(k\)</span>
+个叶子删去，会得到 <span class="math inline">\(k\)</span> 棵 <span
+class="math inline">\(n-1\)</span> 个点的二叉树；</p>
+<p>而每棵 <span class="math inline">\(n-1\)</span> 个点的二叉树恰好有
+<span class="math inline">\(n\)</span> 个位置可以悬挂一个新的叶子，</p>
+<p>那么每棵 <span class="math inline">\(n-1\)</span>
+个点的二叉树被得到了 <span class="math inline">\(n\)</span> 次，即 <span
+class="math inline">\(g_n = nf_{n-1}\)</span> 。</p>
+<p>于是 <span class="math inline">\(g_n = \frac{n(n+1)}{2(2
+n-1)}\)</span> ，这道题就做完了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(1)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -774,9 +829,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> <span class="token number">1.0</span> <span class="token operator">*</span> n <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/44gxsxg0">https://www.luogu.com.cn/article/44gxsxg0</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/44gxsxg0">https://www.luogu.com.cn/article/44gxsxg0</a></p>
 
                 
             </div>
@@ -841,12 +897,12 @@ rgba(0,0,0,0.2);
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -884,7 +940,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -897,14 +952,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1249,7 +1299,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1511,15 +1561,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

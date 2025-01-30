@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P2619 [国家集训队]Tree I 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P2619 [国家集训队]Tree I 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,33 +748,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2619-国家集训队-Tree-I-题解"><a href="#洛谷P2619-国家集训队-Tree-I-题解" class="headerlink" title="洛谷P2619 [国家集训队]Tree I 题解"></a>洛谷P2619 [国家集训队]Tree I 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2619">P2619 [国家集训队]Tree I</a></p>
+                <h1 id="洛谷p2619-国家集训队tree-i-题解">洛谷P2619 [国家集训队]Tree I
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2619">P2619
+[国家集训队]Tree I</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给你一个无向带权连通图，每条边是黑色或白色。让你求一棵最小权的恰好有 $\text{need}$ 条白色边的生成树。</p>
+<p>给你一个无向带权连通图，每条边是黑色或白色。让你求一棵最小权的恰好有
+<span class="math inline">\(\text{need}\)</span> 条白色边的生成树。</p>
 <p>题目保证有解。</p>
-<p>对于 $100\%$ 的数据，$n\leq 5\times10^4,m\leq 10^5$。</p>
-<p>所有数据边权为 $[1,100]$ 中的正整数。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(n\leq 5\times10^4,m\leq 10^5\)</span>。</p>
+<p>所有数据边权为 <span class="math inline">\([1,100]\)</span>
+中的正整数。</p>
 </blockquote>
-<p>直接 $O(nm)$ 的dp肯定是不行的，考虑wqs二分。</p>
+<p>直接 <span class="math inline">\(O(nm)\)</span>
+的dp肯定是不行的，考虑wqs二分。</p>
 <p>在这题中，wqs二分做的其实就是给白边增加额外权值</p>
-<p>使最优方案恰好选满 $\text{need}$ 条白边 。</p>
-<p>假设二分的权值为 $\text{mid}$ ，</p>
-<p>若选了大于 $\text{need}$ 条白边，则将白边边权增大，反之同理。</p>
-<p>具体的，设选 $x$ 条白边的最小花费 $f(x)$ </p>
-<p>注意到点集 $(x,f(x))$ 形成一个下凸壳</p>
-<p>也就是 $f(x)$ 为一个整数域的下凸函数</p>
-<p>我们二分一个斜率 $k$ ，用这条直线去尝试切凸壳</p>
-<p>显然这条直线在不确定 $y$ 轴截距时可以与这个凸壳有很多交点，</p>
-<p>由斜截式方程得 $y$ 轴截距公式为</p>
-<script type="math/tex; mode=display">
-b=y-kx</script><p>代入得</p>
-<script type="math/tex; mode=display">
-b(x)=f(x)-kx</script><p>而 $b(x)$ 就是所有白边的边权减去 $k$ 以后选 $x$ 条白边的最小花费（最小生成树）</p>
-<p>然后不考虑 $x$ 的限制跑一遍kruskal求出一个修改后的最优解，</p>
-<p>根据这个最优解（也就是最小的 $b(x)$ ）对应的 $x$ 改变左右端点</p>
-<p>因为边权在 $[1,100]$ 间，所以设个 $l=-111,r=111$ 即可</p>
-<p>时间复杂度 $O(n\log n\log 222)$</p>
+<p>使最优方案恰好选满 <span class="math inline">\(\text{need}\)</span>
+条白边 。</p>
+<p>假设二分的权值为 <span class="math inline">\(\text{mid}\)</span>
+，</p>
+<p>若选了大于 <span class="math inline">\(\text{need}\)</span>
+条白边，则将白边边权增大，反之同理。</p>
+<p>具体的，设选 <span class="math inline">\(x\)</span> 条白边的最小花费
+<span class="math inline">\(f(x)\)</span></p>
+<p>注意到点集 <span class="math inline">\((x,f(x))\)</span>
+形成一个下凸壳</p>
+<p>也就是 <span class="math inline">\(f(x)\)</span>
+为一个整数域的下凸函数</p>
+<p>我们二分一个斜率 <span class="math inline">\(k\)</span>
+，用这条直线去尝试切凸壳</p>
+<p>显然这条直线在不确定 <span class="math inline">\(y\)</span>
+轴截距时可以与这个凸壳有很多交点，</p>
+<p>由斜截式方程得 <span class="math inline">\(y\)</span> 轴截距公式为
+<span class="math display">\[
+b=y-kx
+\]</span> 代入得 <span class="math display">\[
+b(x)=f(x)-kx
+\]</span> 而 <span class="math inline">\(b(x)\)</span>
+就是所有白边的边权减去 <span class="math inline">\(k\)</span> 以后选
+<span class="math inline">\(x\)</span>
+条白边的最小花费（最小生成树）</p>
+<p>然后不考虑 <span class="math inline">\(x\)</span>
+的限制跑一遍kruskal求出一个修改后的最优解，</p>
+<p>根据这个最优解（也就是最小的 <span
+class="math inline">\(b(x)\)</span> ）对应的 <span
+class="math inline">\(x\)</span> 改变左右端点</p>
+<p>因为边权在 <span class="math inline">\([1,100]\)</span> 间，所以设个
+<span class="math inline">\(l=-111,r=111\)</span> 即可</p>
+<p>时间复杂度 <span class="math inline">\(O(n\log n\log
+222)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -930,7 +980,6 @@ b(x)=f(x)-kx</script><p>而 $b(x)$ 就是所有白边的边权减去 $k$ 以后�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -943,14 +992,9 @@ b(x)=f(x)-kx</script><p>而 $b(x)$ 就是所有白边的边权减去 $k$ 以后�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1303,7 +1347,7 @@ b(x)=f(x)-kx</script><p>而 $b(x)$ 就是所有白边的边权减去 $k$ 以后�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1565,15 +1609,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

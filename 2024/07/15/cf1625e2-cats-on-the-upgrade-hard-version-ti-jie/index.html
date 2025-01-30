@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF1625E2 Cats on the Upgrade (hard version) 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF1625E2 Cats on the Upgrade (hard version) 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -667,12 +693,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
                             <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                 <span class="chip bg-color">字符串</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">数据结构</span>
                             </a>
                         
                     </div>
@@ -730,35 +756,73 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1625E2-Cats-on-the-Upgrade-hard-version-题解"><a href="#CF1625E2-Cats-on-the-Upgrade-hard-version-题解" class="headerlink" title="CF1625E2 Cats on the Upgrade (hard version) 题解"></a>CF1625E2 Cats on the Upgrade (hard version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1625E2">Cats on the Upgrade (hard version)</a></p>
+                <h1 id="cf1625e2-cats-on-the-upgrade-hard-version-题解">CF1625E2 Cats on
+the Upgrade (hard version) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1625E2">Cats on
+the Upgrade (hard version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>本题和 CF1625E1 的唯一区别在于，本题有修改操作。</p>
-<p>给定一个长度为 $n$ 的仅包含 <code>(</code>、<code>)</code> 的字符串 $s$。给出如下定义：</p>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的仅包含
+<code>(</code>、<code>)</code> 的字符串 <span
+class="math inline">\(s\)</span>。给出如下定义：</p>
 <ul>
-<li>定义某字符串是一个简单的<strong>合法括号序列</strong>，当且仅当我们可以通过若干次移除一个 <code>.</code> 或者一个连续的子串 <code>()</code> 的操作将这个字符串删空，且这个字符串不以 <code>.</code> 作为开头或者结尾。</li>
-<li>定义 $s[l\dots r]$ 为字符串 $s$ 从第 $l$ 个字符开始到第 $r$ 个字符结束的子串。</li>
-<li>定义 $s_x$ 为字符串 $s$ 的第 $x$ 个字符。</li>
+<li>定义某字符串是一个简单的<strong>合法括号序列</strong>，当且仅当我们可以通过若干次移除一个
+<code>.</code> 或者一个连续的子串 <code>()</code>
+的操作将这个字符串删空，且这个字符串不以 <code>.</code>
+作为开头或者结尾。</li>
+<li>定义 <span class="math inline">\(s[l\dots r]\)</span> 为字符串 <span
+class="math inline">\(s\)</span> 从第 <span
+class="math inline">\(l\)</span> 个字符开始到第 <span
+class="math inline">\(r\)</span> 个字符结束的子串。</li>
+<li>定义 <span class="math inline">\(s_x\)</span> 为字符串 <span
+class="math inline">\(s\)</span> 的第 <span
+class="math inline">\(x\)</span> 个字符。</li>
 </ul>
-<p>一共有 $q$ 次操作，每次操作分为如下两类：</p>
+<p>一共有 <span class="math inline">\(q\)</span>
+次操作，每次操作分为如下两类：</p>
 <ul>
-<li><code>1 l r</code>：将 $s_l$ 和 $s_r$ 替换为 <code>.</code> 。<strong>保证 $s[l\dots r]$ 以 <code>(</code> 开头，以 <code>)</code> 结尾，且中间所有字符都为 <code>.</code></strong>。</li>
-<li><code>2 l r</code>：询问有多少个 $s[l\dots r]$ 的子串是简单的 RBS。换句话说，请求出满足 $l\le i\le j\le r$ 且 $s[i\dots j]$ 是简单的 RBS 的 $(i,j)$ 的对数。<strong>保证 $s[l\dots r]$ 是简单的合法括号序列</strong>。</li>
+<li><code>1 l r</code>：将 <span class="math inline">\(s_l\)</span> 和
+<span class="math inline">\(s_r\)</span> 替换为 <code>.</code>
+。<strong>保证 <span class="math inline">\(s[l\dots r]\)</span> 以
+<code>(</code> 开头，以 <code>)</code> 结尾，且中间所有字符都为
+<code>.</code></strong>。</li>
+<li><code>2 l r</code>：询问有多少个 <span
+class="math inline">\(s[l\dots r]\)</span> 的子串是简单的
+RBS。换句话说，请求出满足 <span class="math inline">\(l\le i\le j\le
+r\)</span> 且 <span class="math inline">\(s[i\dots j]\)</span> 是简单的
+RBS 的 <span class="math inline">\((i,j)\)</span> 的对数。<strong>保证
+<span class="math inline">\(s[l\dots r]\)</span>
+是简单的合法括号序列</strong>。</li>
 </ul>
 <p><strong>数据范围</strong>：</p>
-<p>$2\le n\le 3\times 10^5,~1\le q\le 3\times 10^5,~1\le l&lt;r\le n$。</p>
+<p><span class="math inline">\(2\le n\le 3\times 10^5,~1\le q\le 3\times
+10^5,~1\le l&lt;r\le n\)</span>。</p>
 </blockquote>
 <p>考虑将给定括号序列的树形结构建出来，并给每个点标个号。</p>
-<p>设节点 $u$ 有 $s_u$ 个儿子，并设 $f_u$ 为 $u$ 的方案数，那么</p>
-<script type="math/tex; mode=display">
-f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前面的是插板法考虑只选 $u$ 的某一个连续儿子的情况，后面的是取某一部分。</p>
-<p>这实际上询问就是求一段连续儿子的子树 $f$ 的和。</p>
-<p>由于修改操作对于 $f$ 的影响体现在修改点的父节点上，那么这就是单点修改子树查询，考虑树状数组即可。</p>
+<p>设节点 <span class="math inline">\(u\)</span> 有 <span
+class="math inline">\(s_u\)</span> 个儿子，并设 <span
+class="math inline">\(f_u\)</span> 为 <span
+class="math inline">\(u\)</span> 的方案数，那么 <span
+class="math display">\[
+f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i
+\]</span> 前面的是插板法考虑只选 <span class="math inline">\(u\)</span>
+的某一个连续儿子的情况，后面的是取某一部分。</p>
+<p>这实际上询问就是求一段连续儿子的子树 <span
+class="math inline">\(f\)</span> 的和。</p>
+<p>由于修改操作对于 <span class="math inline">\(f\)</span>
+的影响体现在修改点的父节点上，那么这就是单点修改子树查询，考虑树状数组即可。</p>
 <p>现在问题在于，如何求出两个兄弟节点之间有多少个节点。</p>
 <p>考虑对每个节点开一个树状数组，大小为儿子的个数。</p>
-<p>初始在每个儿子处插入 $1$ ，每删掉一个儿子就把它在父节点的树状数组中的位置标为 $0$ </p>
-<p>那么区间查询就可以了。另外如果用线段树维护 $f$ 的话，就能做 $s[l\dots r]$ 不保证中间全为 <code>.</code> 的情况了</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>初始在每个儿子处插入 <span class="math inline">\(1\)</span>
+，每删掉一个儿子就把它在父节点的树状数组中的位置标为 <span
+class="math inline">\(0\)</span></p>
+<p>那么区间查询就可以了。另外如果用线段树维护 <span
+class="math inline">\(f\)</span> 的话，就能做 <span
+class="math inline">\(s[l\dots r]\)</span> 不保证中间全为 <code>.</code>
+的情况了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -835,9 +899,10 @@ f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/uvmtr6c4">https://www.luogu.com.cn/article/uvmtr6c4</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/uvmtr6c4">https://www.luogu.com.cn/article/uvmtr6c4</a></p>
 
                 
             </div>
@@ -914,12 +979,12 @@ f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前
                                     <span class="chip bg-color">DP</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                    <span class="chip bg-color">数据结构</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                     <span class="chip bg-color">字符串</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">数据结构</span>
                                 </a>
                             
                         </div>
@@ -957,7 +1022,6 @@ f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -970,14 +1034,9 @@ f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1314,7 +1373,7 @@ f_u = \frac{s_u(s_u+1)}{2} + \sum_{i \in \mathrm{SubTree}(u)} f_i</script><p>前
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1576,15 +1635,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

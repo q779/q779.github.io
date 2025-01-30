@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1272 重建道路 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P1272 重建道路 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -726,23 +752,43 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1272-重建道路-题解"><a href="#洛谷P1272-重建道路-题解" class="headerlink" title="洛谷P1272 重建道路 题解"></a>洛谷P1272 重建道路 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1272">P1272 重建道路</a></p>
+                <h1 id="洛谷p1272-重建道路-题解">洛谷P1272 重建道路 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1272">P1272
+重建道路</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一场可怕的地震后，人们用 $N$ 个牲口棚（编号 $1\sim N$）重建了农夫 John 的牧场。由于人们没有时间建设多余的道路，所以现在从一个牲口棚到另一个牲口棚的道路是惟一的。因此，牧场运输系统可以被构建成一棵树。</p>
-<p>John 想要知道另一次地震会造成多严重的破坏。有些道路一旦被毁坏，就会使一棵含有 $P$ 个牲口棚的子树和剩余的牲口棚分离，John 想知道这些道路的最小数目。</p>
-<p>$1\le N\le 150$，$1\le P\le N$，保证给出的是一棵树。</p>
+<p>一场可怕的地震后，人们用 <span class="math inline">\(N\)</span>
+个牲口棚（编号 <span class="math inline">\(1\sim N\)</span>）重建了农夫
+John
+的牧场。由于人们没有时间建设多余的道路，所以现在从一个牲口棚到另一个牲口棚的道路是惟一的。因此，牧场运输系统可以被构建成一棵树。</p>
+<p>John
+想要知道另一次地震会造成多严重的破坏。有些道路一旦被毁坏，就会使一棵含有
+<span class="math inline">\(P\)</span>
+个牲口棚的子树和剩余的牲口棚分离，John 想知道这些道路的最小数目。</p>
+<p><span class="math inline">\(1\le N\le 150\)</span>，<span
+class="math inline">\(1\le P\le N\)</span>，保证给出的是一棵树。</p>
 </blockquote>
-<p>题目有点难懂，意思就是说切最少刀切出一个大小为 $p$ 的块，显然树上背包</p>
-<p>设 $dp[u][j]$ 表示 $u$ 所在子树切出大小为 $j$ 的块并强制包含 $u$ 的最小花费，则</p>
-<script type="math/tex; mode=display">
-dp[u][j+k]=\min(dp[u][j+k],\text{tmp}[j]+dp[v][k]-1)</script><p>其中  $\text{tmp}[j]$ 为上一轮的 $dp[u][j]$ 。</p>
+<p>题目有点难懂，意思就是说切最少刀切出一个大小为 <span
+class="math inline">\(p\)</span> 的块，显然树上背包</p>
+<p>设 <span class="math inline">\(dp[u][j]\)</span> 表示 <span
+class="math inline">\(u\)</span> 所在子树切出大小为 <span
+class="math inline">\(j\)</span> 的块并强制包含 <span
+class="math inline">\(u\)</span> 的最小花费，则 <span
+class="math display">\[
+dp[u][j+k]=\min(dp[u][j+k],\text{tmp}[j]+dp[v][k]-1)
+\]</span> 其中 <span class="math inline">\(\text{tmp}[j]\)</span>
+为上一轮的 <span class="math inline">\(dp[u][j]\)</span> 。</p>
 <p>后面一个柿子比较难懂</p>
-<p>考虑一个大小为 $j$ 的块（包含 $u$ ）和一个大小为 $k$ 的块（包含 $v$ ）合并，显然要把和 $v$ 相连的那条边连上，但是本来是算在里面的（虽然是在最后才算的）</p>
+<p>考虑一个大小为 <span class="math inline">\(j\)</span> 的块（包含
+<span class="math inline">\(u\)</span> ）和一个大小为 <span
+class="math inline">\(k\)</span> 的块（包含 <span
+class="math inline">\(v\)</span> ）合并，显然要把和 <span
+class="math inline">\(v\)</span>
+相连的那条边连上，但是本来是算在里面的（虽然是在最后才算的）</p>
 <p>解释可能不是很清楚，直接看代码好了，细节比较多的</p>
 <p>这道题的题解真是误导大众，填表法的树上背包是假的啊！</p>
 <p>所有sz在dp前加的都是假复杂度。<del>别怪我没提醒你们哦</del></p>
-<p>时间复杂度 $O(np)$</p>
+<p>时间复杂度 <span class="math inline">\(O(np)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -913,7 +959,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -926,14 +971,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1056,12 +1096,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">总结</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
                     </a>
                     
                 </div>
@@ -1274,7 +1314,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1536,15 +1576,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

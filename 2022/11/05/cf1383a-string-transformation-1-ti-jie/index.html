@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF1383A String Transformation 1 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF1383A String Transformation 1 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,23 +744,47 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1383A-String-Transformation-1-题解"><a href="#CF1383A-String-Transformation-1-题解" class="headerlink" title="CF1383A String Transformation 1 题解"></a>CF1383A String Transformation 1 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1383A">CF1383A String Transformation 1</a></p>
+                <h1 id="cf1383a-string-transformation-1-题解">CF1383A String
+Transformation 1 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1383A">CF1383A
+String Transformation 1</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长度相等的字符串 $A,B$ ，最小化操作数使得 $A$ 变成 $B$ 。</p>
-<p>一次操作定义为：在 $A$ 中选取若干个<strong>相同</strong>的字母 $x$ ，并将所有 $x$ 改成字母 $y(x&lt;y)$ </p>
+<p>给定两个长度相等的字符串 <span class="math inline">\(A,B\)</span>
+，最小化操作数使得 <span class="math inline">\(A\)</span> 变成 <span
+class="math inline">\(B\)</span> 。</p>
+<p>一次操作定义为：在 <span class="math inline">\(A\)</span>
+中选取若干个<strong>相同</strong>的字母 <span
+class="math inline">\(x\)</span> ，并将所有 <span
+class="math inline">\(x\)</span> 改成字母 <span
+class="math inline">\(y(x&lt;y)\)</span></p>
 <p><strong>输入格式</strong>：</p>
-<p>多组数据，$n=|A|=|B|$ ，然后两行 $A,B$ 。</p>
+<p>多组数据，<span class="math inline">\(n=|A|=|B|\)</span> ，然后两行
+<span class="math inline">\(A,B\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>每组数据输出一行，表示最小花费。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le \sum |A|, \sum |B| \le 10^5$ 。</p>
+<p><span class="math inline">\(1\le \sum |A|, \sum |B| \le 10^5\)</span>
+。</p>
 </blockquote>
-<p>依次考虑每个 $a_i,b_i$ 。如果存在 $a_i &gt; b_i$ 一定无解；同理若 $a_i=b_i$ 直接跳过 $i$ 。</p>
-<p>否则若 $a_i &lt; b_i$ ，如果 $a_i$ 不能到达 $b_i$ ，则连一条 $a_i$ 到 $b_i$ 的有向边并使答案加 $1$ 。</p>
-<p>如果 $a_i$ 能到达 $b_i$ ，这意味着我们可以让 $a_i$ 沿着 $a_i \leadsto b_i$ 变换，并且这不会增加花费。</p>
-<p>因为 $\forall (u,v) \in \langle a_i \leadsto b_i\rangle$ ，一定存在一个 $u \to v$ 的变换。由连边方式易知。</p>
-<p>时间复杂度 $\mathcal{O}(n)$ </p>
+<p>依次考虑每个 <span class="math inline">\(a_i,b_i\)</span> 。如果存在
+<span class="math inline">\(a_i &gt; b_i\)</span> 一定无解；同理若 <span
+class="math inline">\(a_i=b_i\)</span> 直接跳过 <span
+class="math inline">\(i\)</span> 。</p>
+<p>否则若 <span class="math inline">\(a_i &lt; b_i\)</span> ，如果 <span
+class="math inline">\(a_i\)</span> 不能到达 <span
+class="math inline">\(b_i\)</span> ，则连一条 <span
+class="math inline">\(a_i\)</span> 到 <span
+class="math inline">\(b_i\)</span> 的有向边并使答案加 <span
+class="math inline">\(1\)</span> 。</p>
+<p>如果 <span class="math inline">\(a_i\)</span> 能到达 <span
+class="math inline">\(b_i\)</span> ，这意味着我们可以让 <span
+class="math inline">\(a_i\)</span> 沿着 <span class="math inline">\(a_i
+\leadsto b_i\)</span> 变换，并且这不会增加花费。</p>
+<p>因为 <span class="math inline">\(\forall (u,v) \in \langle a_i
+\leadsto b_i\rangle\)</span> ，一定存在一个 <span
+class="math inline">\(u \to v\)</span> 的变换。由连边方式易知。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -883,7 +933,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -896,14 +945,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1251,7 +1295,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1513,15 +1557,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

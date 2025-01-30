@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF1540B Tree Array 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF1540B Tree Array 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -659,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -706,7 +732,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    926
+                    927
                 </div>
                 
 
@@ -726,37 +752,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1540B-Tree-Array-题解"><a href="#CF1540B-Tree-Array-题解" class="headerlink" title="CF1540B Tree Array 题解"></a>CF1540B Tree Array 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree Array</a></p>
+                <h1 id="cf1540b-tree-array-题解">CF1540B Tree Array 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree
+Array</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 $n$​ 个节点的树。  </p>
+<p>给定一棵 <span class="math inline">\(n\)</span>​ 个节点的树。</p>
 <p>对于这棵树，我们通过下列方法来生成一个序列：</p>
-<ol>
-<li>等概率选择这 $n$ 个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
+<ol type="1">
+<li>等概率选择这 <span class="math inline">\(n\)</span>
+个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
 <li>在所有没被打上标记且与至少一个打上标记的节点相连的节点中等概率选择一个节点并对这个节点打上标记</li>
-<li>重复步骤 2 直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
+<li>重复步骤 2
+直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
 </ol>
-<p>求生成序列的期望逆序对数对 $10^9+7$​​ 取模后的值。</p>
+<p>求生成序列的期望逆序对数对 <span
+class="math inline">\(10^9+7\)</span>​​ 取模后的值。</p>
 <p>输入：树；输出：答案</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2\leq n\leq200$ ，保证给出的是棵树</p>
+<p><span class="math inline">\(2\leq n\leq200\)</span>
+，保证给出的是棵树</p>
 </blockquote>
 <p>首先可以发现，这个标记的过程和第一个点息息相关</p>
 <p>考虑枚举第一个被标记的点，然后把它提成根节点。</p>
 <p>那么现在所有的点对</p>
 <ul>
-<li><p>是祖先关系的，一定会产生贡献 $0/1$ 的贡献。</p>
-</li>
-<li><p>不是祖先关系的，当他们的 LCA 被加入后，接下来的任何标记都可以解释为：</p>
-<p>两个栈， $p$ 概率弹第一个栈栈顶，$p$ 概率弹第二个栈栈顶，$1-2p$​ 概率啥也不干，问第一个栈先空的概率。</p>
-<p>模型中两个栈就是 $x$ 和 $y$ 分别到 LCA 的距离，那么仅考虑 $(x,y)$ 他们的 $p=\frac{1}{2}$ （相互独立+期望线性性）</p>
-<p>这个可以dp预处理出来，设两个栈分别有 $i,j$ 个元素时第一个栈先空的概率为 $f(i,j)$ ，那么</p>
-<script type="math/tex; mode=display">
-f(i,0)=0,~f(0,j)=1 \quad(i,j > 0)
-\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))</script></li>
+<li><p>是祖先关系的，一定会产生贡献 <span
+class="math inline">\(0/1\)</span> 的贡献。</p></li>
+<li><p>不是祖先关系的，当他们的 LCA
+被加入后，接下来的任何标记都可以解释为：</p>
+<p>两个栈， <span class="math inline">\(p\)</span>
+概率弹第一个栈栈顶，<span class="math inline">\(p\)</span>
+概率弹第二个栈栈顶，<span class="math inline">\(1-2p\)</span>​
+概率啥也不干，问第一个栈先空的概率。</p>
+<p>模型中两个栈就是 <span class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 分别到 LCA 的距离，那么仅考虑 <span
+class="math inline">\((x,y)\)</span> 他们的 <span
+class="math inline">\(p=\frac{1}{2}\)</span> （相互独立+期望线性性）</p>
+<p>这个可以dp预处理出来，设两个栈分别有 <span
+class="math inline">\(i,j\)</span> 个元素时第一个栈先空的概率为 <span
+class="math inline">\(f(i,j)\)</span> ，那么 <span
+class="math display">\[
+f(i,0)=0,~f(0,j)=1 \quad(i,j &gt; 0)
+\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))
+\]</span></p></li>
 </ul>
-<p>于是我们只需要对每个根节点跑一遍处理一下 LCA，然后暴力枚举点对就好了</p>
-<p>时间复杂度 $\mathcal{O}(n^3\log n)$ ，写 <a href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 $\mathcal{O}(n^3)$ </p>
+<p>于是我们只需要对每个根节点跑一遍处理一下
+LCA，然后暴力枚举点对就好了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3\log
+n)\)</span> ，写 <a
+href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -822,10 +868,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放张好看的图</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405281118183.png" style="zoom:30%;" /></p>
@@ -897,12 +944,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -944,7 +991,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -957,14 +1003,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1303,7 +1344,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1565,15 +1606,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

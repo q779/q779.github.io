@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3648 [APIO2014] 序列分割 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P3648 [APIO2014] 序列分割 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -702,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    954
+                    957
                 </div>
                 
 
@@ -722,38 +748,72 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3648-APIO2014-序列分割-题解"><a href="#洛谷P3648-APIO2014-序列分割-题解" class="headerlink" title="洛谷P3648 [APIO2014] 序列分割 题解"></a>洛谷P3648 [APIO2014] 序列分割 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3648">P3648 [APIO2014] 序列分割</a></p>
+                <h1 id="洛谷p3648-apio2014-序列分割-题解">洛谷P3648 [APIO2014] 序列分割
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3648">P3648
+[APIO2014] 序列分割</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>你正在玩一个关于长度为 $n$ 的非负整数序列的游戏。这个游戏中你需要把序列分成 $k + 1$ 个非空的块。为了得到 $k + 1$ 块，你需要重复下面的操作 $k$ 次：</p>
+<p>你正在玩一个关于长度为 <span class="math inline">\(n\)</span>
+的非负整数序列的游戏。这个游戏中你需要把序列分成 <span
+class="math inline">\(k + 1\)</span> 个非空的块。为了得到 <span
+class="math inline">\(k + 1\)</span> 块，你需要重复下面的操作 <span
+class="math inline">\(k\)</span> 次：</p>
 <p>选择一个有超过一个元素的块（初始时你只有一块，即整个序列）</p>
 <p>选择两个相邻元素把这个块从中间分开，得到两个非空的块。</p>
 <p>每次操作后你将获得那两个新产生的块的元素和的乘积的分数。你想要最大化最后的总得分。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 $n$ 和 $k$。保证 $k + 1 \leq n$。</p>
-<p>第二行包含 $n$ 个非负整数 $a_1, a_2, \cdots, a_n$ $(0 \leq a_i \leq 10^4)$，表示前文所述的序列。</p>
+<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(k\)</span>。保证 <span class="math inline">\(k + 1
+\leq n\)</span>。</p>
+<p>第二行包含 <span class="math inline">\(n\)</span> 个非负整数 <span
+class="math inline">\(a_1, a_2, \cdots, a_n\)</span> <span
+class="math inline">\((0 \leq a_i \leq
+10^4)\)</span>，表示前文所述的序列。</p>
 <p><strong>输出格式</strong>：</p>
 <p>第一行输出你能获得的最大总得分。</p>
-<p>第二行输出 $k$ 个介于 $1$ 到 $n - 1$ 之间的整数，表示为了使得总得分最大，你每次操作中分开两个块的位置。第 $i$ 个整数 $s_i$ 表示第 $i$ 次操作将在 $s_i$ 和 $s_{i + 1}$ 之间把块分开。</p>
+<p>第二行输出 <span class="math inline">\(k\)</span> 个介于 <span
+class="math inline">\(1\)</span> 到 <span class="math inline">\(n -
+1\)</span>
+之间的整数，表示为了使得总得分最大，你每次操作中分开两个块的位置。第
+<span class="math inline">\(i\)</span> 个整数 <span
+class="math inline">\(s_i\)</span> 表示第 <span
+class="math inline">\(i\)</span> 次操作将在 <span
+class="math inline">\(s_i\)</span> 和 <span class="math inline">\(s_{i +
+1}\)</span> 之间把块分开。</p>
 <p>如果有多种方案使得总得分最大，输出任意一种方案即可。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2 \leq n \leq 100000, 1 \leq k \leq \min\{n - 1, 200\}$。</p>
+<p><span class="math inline">\(2 \leq n \leq 100000, 1 \leq k \leq
+\min\{n - 1, 200\}\)</span>。</p>
 </blockquote>
 <p>不难发现，总得分与<strong>切的顺序无关</strong>，只与<strong>切的位置有关</strong>。</p>
-<p>设某方案切出来三段 $A,B,C$ ，先切 $AB$ 和先切 $BC$ 的得分分别为</p>
-<script type="math/tex; mode=display">
-A(B+C) + BC = (A+B)C + AB</script><p>因为限制刀数，所以很容易设计出dp方程。</p>
-<p>设 $f_{i,j}$ 表示考虑前 $i$ 个数，切了 $j$ 刀的最大得分，则</p>
-<script type="math/tex; mode=display">
-f_{i,j} = \max_{1\le k < j} \{f_{i-1,k} + S_k(S_j-S_k)\}</script><p>其中 $S_i = \sum_{j=1}^ia_j$ 。</p>
+<p>设某方案切出来三段 <span class="math inline">\(A,B,C\)</span> ，先切
+<span class="math inline">\(AB\)</span> 和先切 <span
+class="math inline">\(BC\)</span> 的得分分别为 <span
+class="math display">\[
+A(B+C) + BC = (A+B)C + AB
+\]</span> 因为限制刀数，所以很容易设计出dp方程。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示考虑前 <span
+class="math inline">\(i\)</span> 个数，切了 <span
+class="math inline">\(j\)</span> 刀的最大得分，则 <span
+class="math display">\[
+f_{i,j} = \max_{1\le k &lt; j} \{f_{i-1,k} + S_k(S_j-S_k)\}
+\]</span> 其中 <span class="math inline">\(S_i =
+\sum_{j=1}^ia_j\)</span> 。</p>
 <p>观察<del>数据范围</del>和转移方程，可以发现这个柿子可以斜率优化</p>
-<p>考虑比 $k$ 更优的 $l$ ， $0\le k &lt; l &lt;j$ </p>
-<p>显然 $S_k &lt; S_l$ ，则</p>
-<script type="math/tex; mode=display">
-f_{i-1,k} + S_j S_k - S_k^2 < f_{i-1,l} + S_j S_l - S_l^2</script><p>化简可得</p>
-<script type="math/tex; mode=display">
-\frac{(S_l^2 - f_{i-1,l}) - (S_k^2 - f_{i-1,k})}{S_l - S_k} < S_j</script><p>记 $y_l = S_l^2 - f_{i-1,l},~x_l=S_l$ ，那么就是熟悉的 $\dfrac{y_l-y_k}{x_l-x_k} &lt; k$ 的形式啦</p>
-<p>时间复杂度 $O(nm)$ </p>
+<p>考虑比 <span class="math inline">\(k\)</span> 更优的 <span
+class="math inline">\(l\)</span> ， <span class="math inline">\(0\le k
+&lt; l &lt;j\)</span></p>
+<p>显然 <span class="math inline">\(S_k &lt; S_l\)</span> ，则 <span
+class="math display">\[
+f_{i-1,k} + S_j S_k - S_k^2 &lt; f_{i-1,l} + S_j S_l - S_l^2
+\]</span> 化简可得 <span class="math display">\[
+\frac{(S_l^2 - f_{i-1,l}) - (S_k^2 - f_{i-1,k})}{S_l - S_k} &lt; S_j
+\]</span> 记 <span class="math inline">\(y_l = S_l^2 -
+f_{i-1,l},~x_l=S_l\)</span> ，那么就是熟悉的 <span
+class="math inline">\(\dfrac{y_l-y_k}{x_l-x_k} &lt; k\)</span>
+的形式啦</p>
+<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
 <p>代码：（<del>啥时候才能完全记住斜率优化板子啊</del>）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -815,7 +875,8 @@ f_{i-1,k} + S_j S_k - S_k^2 < f_{i-1,l} + S_j S_l - S_l^2</script><p>化简可�
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lg3648%3Buoj104.html">https://yhx-12243.github.io/OI-transit/records/lg3648%3Buoj104.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lg3648%3Buoj104.html">https://yhx-12243.github.io/OI-transit/records/lg3648%3Buoj104.html</a></p>
 
                 
             </div>
@@ -927,7 +988,6 @@ f_{i-1,k} + S_j S_k - S_k^2 < f_{i-1,l} + S_j S_l - S_l^2</script><p>化简可�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -940,14 +1000,9 @@ f_{i-1,k} + S_j S_k - S_k^2 < f_{i-1,l} + S_j S_l - S_l^2</script><p>化简可�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1290,7 +1345,7 @@ f_{i-1,k} + S_j S_k - S_k^2 < f_{i-1,l} + S_j S_l - S_l^2</script><p>化简可�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1552,15 +1607,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

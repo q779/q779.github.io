@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">POJ3723 Conscription 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'POJ3723 Conscription 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,15 +744,24 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="POJ3723-Conscription-题解"><a href="#POJ3723-Conscription-题解" class="headerlink" title="POJ3723 Conscription 题解"></a>POJ3723 Conscription 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="http://poj.org/problem?id=3723">POJ3723 Conscription</a></p>
+                <h1 id="poj3723-conscription-题解">POJ3723 Conscription 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="http://poj.org/problem?id=3723">POJ3723
+Conscription</a></p>
 <blockquote>
-<p><strong>题意</strong>：要招 $n$ 个女的， $m$ 个男的，原价 $10000$，如果招了关系亲密的（男女）人可以降价，求最小花费</p>
+<p><strong>题意</strong>：要招 <span class="math inline">\(n\)</span>
+个女的， <span class="math inline">\(m\)</span> 个男的，原价 <span
+class="math inline">\(10000\)</span>，如果招了关系亲密的（男女）人可以降价，求最小花费</p>
 </blockquote>
-<p>首先，题目给出的格式 $x_i\ y_i\ d_i$ 很像图论题</p>
-<p>我们可以把每个人看作一个结点，为了防止男女编号相同的人搞混了，我们可以让女的编号为 $1 \sim n$ ，男的编号为 $n+1 \sim m$ ，显然这题要我们选出所有的结点且花费最小</p>
+<p>首先，题目给出的格式 <span class="math inline">\(x_i\ y_i\
+d_i\)</span> 很像图论题</p>
+<p>我们可以把每个人看作一个结点，为了防止男女编号相同的人搞混了，我们可以让女的编号为
+<span class="math inline">\(1 \sim n\)</span> ，男的编号为 <span
+class="math inline">\(n+1 \sim m\)</span>
+，显然这题要我们选出所有的结点且花费最小</p>
 <p>我们可以发现答案如果存在环则会产生矛盾，例如：a招了b，b招了c，c招了a，这说不通</p>
 <p>那是最小生成树吗？不一定</p>
-<p>我们可以发现给定的这张图不一定是连通图，而我们要求的是花费最小的树型结构（感性理解下），那么这就是<strong>最大权森林问题</strong>，同样可以用最小生成树来求解（注：边权设为 $-d_i$）</p>
+<p>我们可以发现给定的这张图不一定是连通图，而我们要求的是花费最小的树型结构（感性理解下），那么这就是<strong>最大权森林问题</strong>，同样可以用最小生成树来求解（注：边权设为
+<span class="math inline">\(-d_i\)</span>）</p>
 <p>由于不一定是树，所以不需要记录连了多少边</p>
 <p>代码如下</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
@@ -904,7 +939,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -917,14 +951,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1265,7 +1294,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1527,15 +1556,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF915F Imbalance Value of a Tree 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF915F Imbalance Value of a Tree 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,40 +748,64 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF915F-Imbalance-Value-of-a-Tree-题解"><a href="#CF915F-Imbalance-Value-of-a-Tree-题解" class="headerlink" title="CF915F Imbalance Value of a Tree 题解"></a>CF915F Imbalance Value of a Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F Imbalance Value of a Tree</a></p>
+                <h1 id="cf915f-imbalance-value-of-a-tree-题解">CF915F Imbalance Value of
+a Tree 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F
+Imbalance Value of a Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 $n$ 个点的树，每个点有点权 $a_i$ 。</p>
-<p>定义 $I(x,y)$ 为 $x$ 到 $y$ 的简单路径上的 $\max\{a_i\}-\min\{a_i\}$</p>
-<p>求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)</script><p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 10^6$</p>
+<p>给定一棵 <span class="math inline">\(n\)</span>
+个点的树，每个点有点权 <span class="math inline">\(a_i\)</span> 。</p>
+<p>定义 <span class="math inline">\(I(x,y)\)</span> 为 <span
+class="math inline">\(x\)</span> 到 <span
+class="math inline">\(y\)</span> 的简单路径上的 <span
+class="math inline">\(\max\{a_i\}-\min\{a_i\}\)</span></p>
+<p>求 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)
+\]</span> <strong>数据范围</strong>：</p>
+<p><span class="math inline">\(1 \le n \le 10^6\)</span></p>
 </blockquote>
-<p>这个 $I(i,j)$ 是真的难看。考虑化简。</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)</script><p>$f(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\max\{a_i\}$</p>
-<p>$g(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\min\{a_i\}$</p>
+<p>这个 <span class="math inline">\(I(i,j)\)</span>
+是真的难看。考虑化简。 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)
+\]</span> <span class="math inline">\(f(i,j)\)</span> 表示 <span
+class="math inline">\(i\)</span> 到 <span
+class="math inline">\(j\)</span> 的简单路径上的 <span
+class="math inline">\(\max\{a_i\}\)</span></p>
+<p><span class="math inline">\(g(i,j)\)</span> 表示 <span
+class="math inline">\(i\)</span> 到 <span
+class="math inline">\(j\)</span> 的简单路径上的 <span
+class="math inline">\(\min\{a_i\}\)</span></p>
 <p>套路地，由于我们只需要知道总答案，而并非每一条路径的答案</p>
 <p>于是考虑每个点的贡献。但是这个点就很不好处理。</p>
 <p>我们可以先看看最熟悉的<strong>边权</strong>怎么处理</p>
 <p>不失一般性，考虑<strong>边权最大值</strong>的贡献。</p>
 <p>如果是边权的话，我们可以把所有的边从小到大排序</p>
 <p>然后一条条边的加入，计算贡献后合并边两端的结点</p>
-<p>对于当前的边 $(u,v)$ ，它的贡献就是</p>
-<script type="math/tex; mode=display">
-w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)</script><p>其中 $\mathrm{size}(u)$ 表示当前 $u$ 所在连通块的大小。</p>
+<p>对于当前的边 <span class="math inline">\((u,v)\)</span>
+，它的贡献就是 <span class="math display">\[
+w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)
+\]</span> 其中 <span class="math inline">\(\mathrm{size}(u)\)</span>
+表示当前 <span class="math inline">\(u\)</span> 所在连通块的大小。</p>
 <p>然后我们考虑点权怎么处理</p>
-<p>考虑一条路径 $a \rightarrow b \rightarrow c$</p>
-<p>它的点权最大值就是（<del>懒得写 $a_a,a_b,a_c$ ，看得懂就好</del>）</p>
-<script type="math/tex; mode=display">
-\max\{a,b,c\}</script><p>根据 $\max$ 多次嵌套不变的性质，可知</p>
-<script type="math/tex; mode=display">
-\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}</script><p>注意到这构成了 $(a,b),(b,c)$ 的配对，于是我们就可以把<strong>点权化为边权</strong>了。</p>
-<script type="math/tex; mode=display">
-w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样的，就是从大到小排序而已。</p>
-<p>时间复杂度 $O(n)$ </p>
-<p>树上的题目，如果 $n\le 10^6$ ，一般都是 $O(n)$ 的</p>
+<p>考虑一条路径 <span class="math inline">\(a \rightarrow b \rightarrow
+c\)</span></p>
+<p>它的点权最大值就是（<del>懒得写 <span
+class="math inline">\(a_a,a_b,a_c\)</span> ，看得懂就好</del>） <span
+class="math display">\[
+\max\{a,b,c\}
+\]</span> 根据 <span class="math inline">\(\max\)</span>
+多次嵌套不变的性质，可知 <span class="math display">\[
+\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}
+\]</span> 注意到这构成了 <span
+class="math inline">\((a,b),(b,c)\)</span>
+的配对，于是我们就可以把<strong>点权化为边权</strong>了。 <span
+class="math display">\[
+w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}
+\]</span> 最小值也是一样的，就是从大到小排序而已。</p>
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
+<p>树上的题目，如果 <span class="math inline">\(n\le 10^6\)</span>
+，一般都是 <span class="math inline">\(O(n)\)</span> 的</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -814,7 +864,8 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样�
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
 
                 
             </div>
@@ -926,7 +977,6 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -939,14 +989,9 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1295,7 +1340,7 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1557,15 +1602,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

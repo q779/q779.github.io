@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3846 [TJOI2007] 可爱的质数/【模板】BSGS 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P3846 [TJOI2007] 可爱的质数/【模板】BSGS 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,32 +744,61 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3846-TJOI2007-可爱的质数-【模板】BSGS-题解"><a href="#洛谷P3846-TJOI2007-可爱的质数-【模板】BSGS-题解" class="headerlink" title="洛谷P3846 [TJOI2007] 可爱的质数/【模板】BSGS 题解"></a>洛谷P3846 [TJOI2007] 可爱的质数/【模板】BSGS 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3846">P3846 [TJOI2007] 可爱的质数/【模板】BSGS</a></p>
+                <h1 id="洛谷p3846-tjoi2007-可爱的质数模板bsgs-题解">洛谷P3846 [TJOI2007]
+可爱的质数/【模板】BSGS 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3846">P3846
+[TJOI2007] 可爱的质数/【模板】BSGS</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个质数 $p$，以及一个整数 $a$，一个整数 $b$，现在要求你计算一个最小的非负整数 $k$，满足 $a^k \equiv b \pmod p$。</p>
+<p>给定一个质数 <span class="math inline">\(p\)</span>，以及一个整数
+<span class="math inline">\(a\)</span>，一个整数 <span
+class="math inline">\(b\)</span>，现在要求你计算一个最小的非负整数 <span
+class="math inline">\(k\)</span>，满足 <span class="math inline">\(a^k
+\equiv b \pmod p\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>仅一行，有 $3$ 个整数，依次代表 $p, a, b$。</p>
+<p>仅一行，有 <span class="math inline">\(3\)</span> 个整数，依次代表
+<span class="math inline">\(p, a, b\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>仅一行，如果有 $k$ 满足该要求，输出最小的 $k$，否则输出 <code>no solution</code>。</p>
+<p>仅一行，如果有 <span class="math inline">\(k\)</span>
+满足该要求，输出最小的 <span class="math inline">\(k\)</span>，否则输出
+<code>no solution</code>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 $2\le a,b &lt; p&lt;2^{31}$。</p>
+<p>保证 <span class="math inline">\(2\le a,b &lt;
+p&lt;2^{31}\)</span>。</p>
 </blockquote>
-<p>BSGS 是求模质数 $p$​ 意义下的解，ExBSGS 是求模任意数下的解。</p>
-<p>这里求的解实际上并不是模意义下的 $\log$ ，因为<a href="/2024/02/21/chi-san-dui-shu/">离散对数函数</a>定义在 $a$ 为原根的情况下</p>
-<p>BSGS 全称 Baby Step,Giant Step，可以用于解决形如以下高次同余方程，其中 $a,b,p$ 给出</p>
-<script type="math/tex; mode=display">
+<p>BSGS 是求模质数 <span class="math inline">\(p\)</span>​
+意义下的解，ExBSGS 是求模任意数下的解。</p>
+<p>这里求的解实际上并不是模意义下的 <span
+class="math inline">\(\log\)</span> ，因为<a
+href="/2024/02/21/chi-san-dui-shu/">离散对数函数</a>定义在 <span
+class="math inline">\(a\)</span> 为原根的情况下</p>
+<p>BSGS 全称 Baby Step,Giant
+Step，可以用于解决形如以下高次同余方程，其中 <span
+class="math inline">\(a,b,p\)</span> 给出 <span class="math display">\[
 a^x\equiv b \pmod{p}\\
-x^a \equiv b \pmod{p}</script><p>第一行就是本题，而第二行实际上是 N 次剩余的板子题，虽说也可以用 BSGS 但是比较复杂。</p>
-<p>因为 $a,p$ 显然互质，所以可以在模 $p$ 意义下做关于 $a$ 的乘除运算。</p>
-<p>记 $t = \lfloor\sqrt{p}\rfloor$ ，设 $k = i\cdot t - j(0 \le j &lt; t)$ ，则</p>
-<script type="math/tex; mode=display">
-a^{i\cdot t - j} \equiv b \pmod{p}</script><p>两侧同乘 $a^j$ 得</p>
-<script type="math/tex; mode=display">
-(a^{t})^i \equiv b \cdot a^j\pmod{p}</script><p>那么这有什么用呢？因为 $j$ 的取值仅有 $\mathcal{O}(\sqrt{p})$ ，所以同余式右侧的取值我们可以直接暴力算出来。</p>
-<p>不妨把这些值存在一个哈希表内，然后枚举 $i \in [0,t]$ ，找左侧式子对应的值是否存在。</p>
-<p>这样我们可以同时得到 $i,j$ ，又因为 $t$ 已知，所以 $k$ 就求出来了。</p>
-<p>时间复杂度 $\mathcal{O}(\sqrt{p})$ ，听说能过 $p\le 10^{16}$ 。</p>
+x^a \equiv b \pmod{p}
+\]</span> 第一行就是本题，而第二行实际上是 N
+次剩余的板子题，虽说也可以用 BSGS 但是比较复杂。</p>
+<p>因为 <span class="math inline">\(a,p\)</span> 显然互质，所以可以在模
+<span class="math inline">\(p\)</span> 意义下做关于 <span
+class="math inline">\(a\)</span> 的乘除运算。</p>
+<p>记 <span class="math inline">\(t = \lfloor\sqrt{p}\rfloor\)</span>
+，设 <span class="math inline">\(k = i\cdot t - j(0 \le j &lt;
+t)\)</span> ，则 <span class="math display">\[
+a^{i\cdot t - j} \equiv b \pmod{p}
+\]</span> 两侧同乘 <span class="math inline">\(a^j\)</span> 得 <span
+class="math display">\[
+(a^{t})^i \equiv b \cdot a^j\pmod{p}
+\]</span> 那么这有什么用呢？因为 <span class="math inline">\(j\)</span>
+的取值仅有 <span class="math inline">\(\mathcal{O}(\sqrt{p})\)</span>
+，所以同余式右侧的取值我们可以直接暴力算出来。</p>
+<p>不妨把这些值存在一个哈希表内，然后枚举 <span class="math inline">\(i
+\in [0,t]\)</span> ，找左侧式子对应的值是否存在。</p>
+<p>这样我们可以同时得到 <span class="math inline">\(i,j\)</span>
+，又因为 <span class="math inline">\(t\)</span> 已知，所以 <span
+class="math inline">\(k\)</span> 就求出来了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(\sqrt{p})\)</span>
+，听说能过 <span class="math inline">\(p\le 10^{16}\)</span> 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 2024年02月21日 17:33:40</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -899,7 +954,6 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -912,14 +966,9 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1256,7 +1305,7 @@ map<span class="token operator">&lt;</span><span class="token keyword">int</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1518,15 +1567,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

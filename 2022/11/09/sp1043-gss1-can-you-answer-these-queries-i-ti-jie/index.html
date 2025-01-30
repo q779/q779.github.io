@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">SP1043 GSS1 - Can you answer these queries I 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'SP1043 GSS1 - Can you answer these queries I 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,22 +748,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP1043-GSS1-Can-you-answer-these-queries-I-题解"><a href="#SP1043-GSS1-Can-you-answer-these-queries-I-题解" class="headerlink" title="SP1043 GSS1 - Can you answer these queries I 题解"></a>SP1043 GSS1 - Can you answer these queries I 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1043">SP1043 GSS1 - Can you answer these queries I</a></p>
+                <h1 id="sp1043-gss1---can-you-answer-these-queries-i-题解">SP1043 GSS1 -
+Can you answer these queries I 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1043">SP1043
+GSS1 - Can you answer these queries I</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 $n$ 的序列 $a_i$ 。</p>
-<p>$q$ 次询问，查询区间最大子段和</p>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的序列 <span
+class="math inline">\(a_i\)</span> 。</p>
+<p><span class="math inline">\(q\)</span> 次询问，查询区间最大子段和</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n,q \le 5\times 10^4,~ |a_i| \le 2\times10^4$ 。</p>
+<p><span class="math inline">\(1\le n,q \le 5\times 10^4,~ |a_i| \le
+2\times10^4\)</span> 。</p>
 </blockquote>
-<p><del>纯粹是为了凑齐才写的</del>，详见 <a href="/2022/06/16/sp1716-gss3-can-you-answer-these-queries-iii-ti-jie/">GSS3</a></p>
-<p>线段树经典题。我们需要维护总和、最大前缀、最大后缀、最大子段和。</p>
-<script type="math/tex; mode=display">
+<p><del>纯粹是为了凑齐才写的</del>，详见 <a
+href="/2022/06/16/sp1716-gss3-can-you-answer-these-queries-iii-ti-jie/">GSS3</a></p>
+<p>线段树经典题。我们需要维护总和、最大前缀、最大后缀、最大子段和。
+<span class="math display">\[
 \mathtt{sum[u]} = \mathtt{sum[l]} + \mathtt{sum[r]}
-\\\mathtt{pre[u]} = \max\{\mathtt{pre[l]},~\mathtt{sum[l]}+\mathtt{pre[r]}\}
-\\\mathtt{suf[u]} = \max\{\mathtt{suf[r]},~\mathtt{sum[r]}+\mathtt{suf[l]}\}
-\\\mathtt{res[u]} = \max\{\mathtt{res[l]},~\mathtt{res[r]},~\mathtt{suf[l]}+\mathtt{pre[r]}\}</script><p>对于每个询问，也要维护这些信息，可以用结构体来搞</p>
-<p>时间复杂度 $O(n \log n)$ </p>
+\\\mathtt{pre[u]} =
+\max\{\mathtt{pre[l]},~\mathtt{sum[l]}+\mathtt{pre[r]}\}
+\\\mathtt{suf[u]} =
+\max\{\mathtt{suf[r]},~\mathtt{sum[r]}+\mathtt{suf[l]}\}
+\\\mathtt{res[u]} =
+\max\{\mathtt{res[l]},~\mathtt{res[r]},~\mathtt{suf[l]}+\mathtt{pre[r]}\}
+\]</span> 对于每个询问，也要维护这些信息，可以用结构体来搞</p>
+<p>时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -951,7 +987,6 @@ qry <span class="token function">query</span><span class="token punctuation">(</
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -964,14 +999,9 @@ qry <span class="token function">query</span><span class="token punctuation">(</
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1323,7 +1353,7 @@ qry <span class="token function">query</span><span class="token punctuation">(</
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1585,15 +1615,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

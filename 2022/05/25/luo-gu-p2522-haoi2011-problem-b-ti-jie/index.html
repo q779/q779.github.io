@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P2522 [HAOI2011]Problem b 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P2522 [HAOI2011]Problem b 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -698,7 +724,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    740
+                    743
                 </div>
                 
 
@@ -718,31 +744,48 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2522-HAOI2011-Problem-b-题解"><a href="#洛谷P2522-HAOI2011-Problem-b-题解" class="headerlink" title="洛谷P2522 [HAOI2011]Problem b 题解"></a>洛谷P2522 [HAOI2011]Problem b 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2522">P2522 [HAOI2011]Problem b</a></p>
+                <h1 id="洛谷p2522-haoi2011problem-b-题解">洛谷P2522 [HAOI2011]Problem b
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2522">P2522
+[HAOI2011]Problem b</a></p>
 <blockquote>
-<p><strong>题意</strong>：对于给出的 $n$ 个询问，每次求有多少个数对 $(x,y)$，满足 $a \le x \le b$，$c \le y \le d$，且 $\gcd(x,y) = k$，$\gcd(x,y)$ 函数为 $x$ 和 $y$ 的最大公约数。</p>
+<p><strong>题意</strong>：对于给出的 <span
+class="math inline">\(n\)</span> 个询问，每次求有多少个数对 <span
+class="math inline">\((x,y)\)</span>，满足 <span class="math inline">\(a
+\le x \le b\)</span>，<span class="math inline">\(c \le y \le
+d\)</span>，且 <span class="math inline">\(\gcd(x,y) = k\)</span>，<span
+class="math inline">\(\gcd(x,y)\)</span> 函数为 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 的最大公约数。</p>
 </blockquote>
 <p>一句话题意：</p>
-<p>求</p>
-<script type="math/tex; mode=display">
-\sum_{i=a}^{b}\sum_{j=c}^{d}[\gcd(i,j)=k]</script><p>根据容斥原理，不妨令</p>
-<script type="math/tex; mode=display">
-F(n,m) = \sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]</script><p>则答案为</p>
-<script type="math/tex; mode=display">
-F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
-<script type="math/tex; mode=display">
+<p>求 <span class="math display">\[
+\sum_{i=a}^{b}\sum_{j=c}^{d}[\gcd(i,j)=k]
+\]</span> 根据容斥原理，不妨令 <span class="math display">\[
+F(n,m) = \sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
+\]</span> 则答案为 <span class="math display">\[
+F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)
+\]</span> 然后推推柿子 <span class="math display">\[
 \begin{aligned}
-&\sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
-\\&=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\gcd(i,j)=1]
-\\&=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d\mid \gcd(i,j)}\mu(d)
-\end{aligned}</script><p>考虑变换求和顺序，得</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[d\mid i]\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d\mid j]</script><p>根据 $1\sim n$ 中 $d$ 的倍数有 $\left\lfloor\dfrac{n}{d}\right\rfloor$ 个，</p>
-<p>以及 $\left\lfloor\dfrac{n}{kd}\right\rfloor=\left\lfloor\frac{\left\lfloor\frac{n}{k}\right\rfloor}{d}\right\rfloor$</p>
-<p>可得</p>
-<script type="math/tex; mode=display">
-\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\left\lfloor\dfrac{n}{kd}\right\rfloor\left\lfloor\dfrac{m}{kd}\right\rfloor</script><p>然后数论分块就好了</p>
-<p>时间复杂度 $\mathcal{O}(N+Q\sqrt{n})$</p>
+&amp;\sum_{i=1}^{n}\sum_{j=1}^{m}[\gcd(i,j)=k]
+\\&amp;=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\gcd(i,j)=1]
+\\&amp;=\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d\mid
+\gcd(i,j)}\mu(d)
+\end{aligned}
+\]</span> 考虑变换求和顺序，得 <span class="math display">\[
+\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[d\mid
+i]\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d\mid j]
+\]</span> 根据 <span class="math inline">\(1\sim n\)</span> 中 <span
+class="math inline">\(d\)</span> 的倍数有 <span
+class="math inline">\(\left\lfloor\dfrac{n}{d}\right\rfloor\)</span>
+个，</p>
+<p>以及 <span
+class="math inline">\(\left\lfloor\dfrac{n}{kd}\right\rfloor=\left\lfloor\frac{\left\lfloor\frac{n}{k}\right\rfloor}{d}\right\rfloor\)</span></p>
+<p>可得 <span class="math display">\[
+\sum_{d=1}^{\min\left(\left\lfloor\frac{n}{k}\right\rfloor,\left\lfloor\frac{m}{k}\right\rfloor\right)}\mu(d)\left\lfloor\dfrac{n}{kd}\right\rfloor\left\lfloor\dfrac{m}{kd}\right\rfloor
+\]</span> 然后数论分块就好了</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(N+Q\sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -938,7 +981,6 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -951,14 +993,9 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1299,7 +1336,7 @@ F(b,d)-F(b,c-1)-F(a-1,d)+F(a-1,c-1)</script><p>然后推推柿子</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1561,15 +1598,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

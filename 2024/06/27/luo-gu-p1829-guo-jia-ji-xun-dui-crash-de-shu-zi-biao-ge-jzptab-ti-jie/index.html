@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1829 [国家集训队] Crash的数字表格 / JZPTAB 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P1829 [国家集训队] Crash的数字表格 / JZPTAB 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,54 +748,99 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1829-国家集训队-Crash的数字表格-JZPTAB-题解"><a href="#洛谷P1829-国家集训队-Crash的数字表格-JZPTAB-题解" class="headerlink" title="洛谷P1829 [国家集训队] Crash的数字表格 / JZPTAB 题解"></a>洛谷P1829 [国家集训队] Crash的数字表格 / JZPTAB 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1829">P1829 [国家集训队] Crash的数字表格 / JZPTAB</a></p>
+                <h1 id="洛谷p1829-国家集训队-crash的数字表格-jzptab-题解">洛谷P1829
+[国家集训队] Crash的数字表格 / JZPTAB 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1829">P1829
+[国家集训队] Crash的数字表格 / JZPTAB</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $n,m$ 求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n \sum_{j=1}^m \operatorname{lcm}(i, j)</script><p>模 $20101009$ 的结果。</p>
-<p>数据范围：$1\le n,m \le 10^7$ 。</p>
+<p>给定 <span class="math inline">\(n,m\)</span> 求 <span
+class="math display">\[
+\sum_{i=1}^n \sum_{j=1}^m \operatorname{lcm}(i, j)
+\]</span> 模 <span class="math inline">\(20101009\)</span> 的结果。</p>
+<p>数据范围：<span class="math inline">\(1\le n,m \le 10^7\)</span>
+。</p>
 </blockquote>
 <p>来讲一个杜教筛的解法吧。</p>
-<p>首先先规定一下 $n \le m$ ，然后开始推式子</p>
-<script type="math/tex; mode=display">
+<p>首先先规定一下 <span class="math inline">\(n \le m\)</span>
+，然后开始推式子 <span class="math display">\[
 \begin{aligned}
-\mathrm{Ans} &= \sum_{i=1}^n \sum_{j=1}^m \frac{i \cdot j}{\gcd(i, j)}
-\\[6pt]&= \sum_{i=1}^n \sum_{j=1}^m \sum_{d|i, d| j}\left[\gcd\left(\frac{i}{d}, \frac{j}{d}\right)=1\right]\cdot \frac{i \cdot j}{d}
-\\[6pt]&= \sum_{d=1}^n d\sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{d}\right\rfloor}[\operatorname{gcd}(i, j)=1] \cdot i \cdot j
-\end{aligned}</script><p>不妨设后面一堆东西为 $g\left(\left\lfloor\frac{n}{d}\right\rfloor,\left\lfloor\frac{m}{d}\right\rfloor\right)$ ，那么</p>
-<script type="math/tex; mode=display">
+\mathrm{Ans} &amp;= \sum_{i=1}^n \sum_{j=1}^m \frac{i \cdot j}{\gcd(i,
+j)}
+\\[6pt]&amp;= \sum_{i=1}^n \sum_{j=1}^m \sum_{d|i, d|
+j}\left[\gcd\left(\frac{i}{d}, \frac{j}{d}\right)=1\right]\cdot \frac{i
+\cdot j}{d}
+\\[6pt]&amp;= \sum_{d=1}^n
+d\sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{d}\right\rfloor}[\operatorname{gcd}(i,
+j)=1] \cdot i \cdot j
+\end{aligned}
+\]</span> 不妨设后面一堆东西为 <span
+class="math inline">\(g\left(\left\lfloor\frac{n}{d}\right\rfloor,\left\lfloor\frac{m}{d}\right\rfloor\right)\)</span>
+，那么 <span class="math display">\[
 \begin{aligned}
-g(n,m) &= \sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=1] \cdot i \cdot j
-\\[6pt] &= \sum_{d=1}^n \mu(d) \cdot d^2 \cdot \sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{d}\right\rfloor} i \cdot j
-\\[6pt] &= \sum_{d=1}^n \mu(d) \cdot d^2 \cdot S\left(\left\lfloor\frac{n}{d}\right\rfloor\right)S\left(\left\lfloor\frac{m}{d}\right\rfloor\right) && S(n) = \frac{n(n+1)}{2}
-\end{aligned}</script><p>那么代回原式可得</p>
-<script type="math/tex; mode=display">
+g(n,m) &amp;= \sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=1]
+\cdot i \cdot j
+\\[6pt] &amp;= \sum_{d=1}^n \mu(d) \cdot d^2 \cdot
+\sum_{i=1}^{\left\lfloor\frac{n}{d}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{d}\right\rfloor} i \cdot j
+\\[6pt] &amp;= \sum_{d=1}^n \mu(d) \cdot d^2 \cdot
+S\left(\left\lfloor\frac{n}{d}\right\rfloor\right)S\left(\left\lfloor\frac{m}{d}\right\rfloor\right)
+&amp;&amp; S(n) = \frac{n(n+1)}{2}
+\end{aligned}
+\]</span> 那么代回原式可得 <span class="math display">\[
 \begin{aligned}
-\mathrm{Ans} &=\sum_{d=1}^n d \cdot g\left(\left\lfloor\frac{n}{d}\right\rfloor,\left\lfloor\frac{m}{d}\right\rfloor\right)
-\\[6pt]&=\sum_{i=1}^n i\sum_{d=1}^{\left\lfloor\frac{n}{i}\right\rfloor} \mu(d) \cdot d^2 \cdot 
+\mathrm{Ans} &amp;=\sum_{d=1}^n d \cdot
+g\left(\left\lfloor\frac{n}{d}\right\rfloor,\left\lfloor\frac{m}{d}\right\rfloor\right)
+\\[6pt]&amp;=\sum_{i=1}^n
+i\sum_{d=1}^{\left\lfloor\frac{n}{i}\right\rfloor} \mu(d) \cdot d^2
+\cdot
 S\left(\left\lfloor\frac{n}{di}\right\rfloor\right)S\left(\left\lfloor\frac{m}{di}\right\rfloor\right)
-\\[6pt]&=\sum_{T=1}^nS\left(\left\lfloor\frac{n}{T}\right\rfloor\right)S\left(\left\lfloor\frac{m}{T}\right\rfloor\right)
-\sum_{d \mid T}d^2\mu(d)\frac{T}{d} && \textbf{Let } T = di.
-\end{aligned}</script><p>设 $f=(\mu\, \mathrm{id}^2) *\mathrm{id}$ ，也就是 $S$ 后面那个东西。</p>
-<p>考虑构造一个 $g$ 以快速计算 $f$ 的前缀和。这里直接说了，就是 $g=\mathrm{id}^2$ ，那么</p>
-<script type="math/tex; mode=display">
+\\[6pt]&amp;=\sum_{T=1}^nS\left(\left\lfloor\frac{n}{T}\right\rfloor\right)S\left(\left\lfloor\frac{m}{T}\right\rfloor\right)
+\sum_{d \mid T}d^2\mu(d)\frac{T}{d} &amp;&amp; \textbf{Let } T = di.
+\end{aligned}
+\]</span> 设 <span class="math inline">\(f=(\mu\, \mathrm{id}^2)
+*\mathrm{id}\)</span> ，也就是 <span class="math inline">\(S\)</span>
+后面那个东西。</p>
+<p>考虑构造一个 <span class="math inline">\(g\)</span> 以快速计算 <span
+class="math inline">\(f\)</span> 的前缀和。这里直接说了，就是 <span
+class="math inline">\(g=\mathrm{id}^2\)</span> ，那么 <span
+class="math display">\[
 \begin{aligned}
-(f*g)(n) &= (\mu\, \mathrm{id}^2) *\mathrm{id} * \mathrm{id}^2
-\\[6pt]&=(\mu\, \mathrm{id}^2) *\mathrm{id}^2 * \mathrm{id}
-\\[6pt]&=\left(\sum_{d \mid n}\mu(d)d^2\cdot \frac{n^2}{d^2}\right)*\mathrm{id}
-\\[6pt]&=\epsilon * \mathrm{id}
-\\[6pt]&=\sum_{d \mid n}\epsilon(d)\frac{n}{d} 
-\\[6pt]&= n = \mathrm{id}(n)
-\end{aligned}</script><p>这里第一行利用了狄利克雷卷积的交换律。</p>
-<p>其实到这里我们就可以在 $\mathcal{O}(n^{\frac{3}{4}})$ 的复杂度内求解出答案了</p>
-<p>但是还能更快，前提是我们能够提前筛出前 $\mathcal{O}(n^{\frac{2}{3}})$ 个答案。</p>
-<p>由于 $f(T) = \sum_{d \mid T}d\mu(d)$ 是一个积性函数，不妨考察为 $T$ 添加质因子 $p$ 得到 $Tp$ 时</p>
+(f*g)(n) &amp;= (\mu\, \mathrm{id}^2) *\mathrm{id} * \mathrm{id}^2
+\\[6pt]&amp;=(\mu\, \mathrm{id}^2) *\mathrm{id}^2 * \mathrm{id}
+\\[6pt]&amp;=\left(\sum_{d \mid n}\mu(d)d^2\cdot
+\frac{n^2}{d^2}\right)*\mathrm{id}
+\\[6pt]&amp;=\epsilon * \mathrm{id}
+\\[6pt]&amp;=\sum_{d \mid n}\epsilon(d)\frac{n}{d}
+\\[6pt]&amp;= n = \mathrm{id}(n)
+\end{aligned}
+\]</span> 这里第一行利用了狄利克雷卷积的交换律。</p>
+<p>其实到这里我们就可以在 <span
+class="math inline">\(\mathcal{O}(n^{\frac{3}{4}})\)</span>
+的复杂度内求解出答案了</p>
+<p>但是还能更快，前提是我们能够提前筛出前 <span
+class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span> 个答案。</p>
+<p>由于 <span class="math inline">\(f(T) = \sum_{d \mid
+T}d\mu(d)\)</span> 是一个积性函数，不妨考察为 <span
+class="math inline">\(T\)</span> 添加质因子 <span
+class="math inline">\(p\)</span> 得到 <span
+class="math inline">\(Tp\)</span> 时</p>
 <ul>
-<li>若 $T$ 有质因子 $p$ ，乘以 $p$ 不会产生任何贡献，故此时 $f(Tp) = f(T)$ 。</li>
-<li>若 $T$ 没有质因子 $p$ ，乘以 $p$ 会使 $\mu(Tp)=-\mu(T)$ ，故此时 $f(Tp)=f(T) -pf(T) = f(p)f(T)$</li>
+<li>若 <span class="math inline">\(T\)</span> 有质因子 <span
+class="math inline">\(p\)</span> ，乘以 <span
+class="math inline">\(p\)</span> 不会产生任何贡献，故此时 <span
+class="math inline">\(f(Tp) = f(T)\)</span> 。</li>
+<li>若 <span class="math inline">\(T\)</span> 没有质因子 <span
+class="math inline">\(p\)</span> ，乘以 <span
+class="math inline">\(p\)</span> 会使 <span
+class="math inline">\(\mu(Tp)=-\mu(T)\)</span> ，故此时 <span
+class="math inline">\(f(Tp)=f(T) -pf(T) = f(p)f(T)\)</span></li>
 </ul>
-<p>考虑线性筛筛出前 $\mathcal{O}(n^{\frac{2}{3}})$ 个答案即可。总时间复杂度为 $\mathcal{O}(n^{\frac{2}{3}})$</p>
+<p>考虑线性筛筛出前 <span
+class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span>
+个答案即可。总时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span></p>
 <p>代码：（非常快！）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -837,14 +908,19 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP8099">SP8099 TABLE - Crash´s number table</a></p>
-<hr>
+<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP8099">SP8099
+TABLE - Crash´s number table</a></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/reipso0u">https://www.luogu.com.cn/article/reipso0u</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/litble/article/details/79518721">https://blog.csdn.net/litble/article/details/79518721</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/reipso0u">https://www.luogu.com.cn/article/reipso0u</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/litble/article/details/79518721">https://blog.csdn.net/litble/article/details/79518721</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
-<p>搞了个加强版 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U442740">题目链接</a> （注意模数改了一下）</p>
+<p>搞了个加强版 <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U442740">题目链接</a>
+（注意模数改了一下）</p>
 
                 
             </div>
@@ -956,7 +1032,6 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -969,14 +1044,9 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1323,7 +1393,7 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1585,15 +1655,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

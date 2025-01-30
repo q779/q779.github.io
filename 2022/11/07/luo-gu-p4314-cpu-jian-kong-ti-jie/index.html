@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P4314 CPU 监控 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P4314 CPU 监控 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,31 +744,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4314-CPU-监控-题解"><a href="#洛谷P4314-CPU-监控-题解" class="headerlink" title="洛谷P4314 CPU 监控 题解"></a>洛谷P4314 CPU 监控 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4314">P4314 CPU 监控</a></p>
+                <h1 id="洛谷p4314-cpu-监控-题解">洛谷P4314 CPU 监控 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4314">P4314 CPU
+监控</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>维护一个数据结构，支持</p>
-<ol>
+<ol type="1">
 <li>询问区间最大值。</li>
 <li>询问区间<strong>历史最大值</strong>。</li>
 <li>区间加法。</li>
 <li>区间赋值。</li>
 </ol>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le T,E\le 10^5,~1\le X\le Y\lt T,~-2^{31}\leq Z\lt 2^{31}$。</p>
+<p><span class="math inline">\(1\le T,E\le 10^5,~1\le X\le Y\lt
+T,~-2^{31}\leq Z\lt 2^{31}\)</span>。</p>
 </blockquote>
-<p>对于每个结点，我们需要维护 $6 + 1$ 个值，分别对应</p>
+<p>对于每个结点，我们需要维护 <span class="math inline">\(6 + 1\)</span>
+个值，分别对应</p>
 <p>加法标记、历史最大加法标记、赋值标记、历史最大赋值标记、最大值、历史最大值、是否存在赋值标记。</p>
 <p>肯定有人和我一样好奇为什么要维护历史最大的标记。</p>
 <p>因为修改是基于标记的修改，当标记下传时可能不是历史最大值对应的标记。</p>
-<p>打个比方，区间 $+1$ 再 $-1$ 。加法标记变成了 $0$ ，但是我们历史最大加法标记应当是 $1$ ，历史最大值应为 $1$ 。</p>
+<p>打个比方，区间 <span class="math inline">\(+1\)</span> 再 <span
+class="math inline">\(-1\)</span> 。加法标记变成了 <span
+class="math inline">\(0\)</span> ，但是我们历史最大加法标记应当是 <span
+class="math inline">\(1\)</span> ，历史最大值应为 <span
+class="math inline">\(1\)</span> 。</p>
 <p>接下来就是维护的细节了。</p>
-<p>$\mathtt{push_up}$ 函数比较简单，就是合并一下最大值和历史最大值。</p>
-<p>询问和修改也没啥特别的，主要难在 $\mathtt{push_down}$ 函数。</p>
+<p><span class="math inline">\(\mathtt{push\_up}\)</span>
+函数比较简单，就是合并一下最大值和历史最大值。</p>
+<p>询问和修改也没啥特别的，主要难在 <span
+class="math inline">\(\mathtt{push\_down}\)</span> 函数。</p>
 <p>首先搞清楚我们的标记处理顺序：先赋值后加。</p>
 <p>也就是存在赋值标记时，加法是在赋值标记上加的。否则就是正常的加法标记。</p>
 <p>原理明白了，就没啥好说的了，直接看代码即可。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$ </p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -863,9 +900,10 @@ bitset<span class="token operator">&lt;</span>N4<span class="token operator">></
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/He-Ren/solution-p4314">https://www.luogu.com.cn/blog/He-Ren/solution-p4314</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/He-Ren/solution-p4314">https://www.luogu.com.cn/blog/He-Ren/solution-p4314</a></p>
 
                 
             </div>
@@ -973,7 +1011,6 @@ bitset<span class="token operator">&lt;</span>N4<span class="token operator">></
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -986,14 +1023,9 @@ bitset<span class="token operator">&lt;</span>N4<span class="token operator">></
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1177,12 +1209,12 @@ bitset<span class="token operator">&lt;</span>N4<span class="token operator">></
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1346,7 +1378,7 @@ bitset<span class="token operator">&lt;</span>N4<span class="token operator">></
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1608,15 +1640,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

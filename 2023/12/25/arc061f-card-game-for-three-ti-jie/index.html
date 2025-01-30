@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">[ARC061F] Card Game for Three 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '[ARC061F] Card Game for Three 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,61 +744,92 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ARC061F-Card-Game-for-Three-题解"><a href="#ARC061F-Card-Game-for-Three-题解" class="headerlink" title="[ARC061F] Card Game for Three 题解"></a>[ARC061F] Card Game for Three 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc061_d">[ARC061F] Card Game for Three</a></p>
+                <h1 id="arc061f-card-game-for-three-题解">[ARC061F] Card Game for Three
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc061_d">[ARC061F] Card Game
+for Three</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有三堆牌, 分别有 $n_1, n_2, n_3$ 张。牌上写着数字 $1,2,3$ 中的一个。</p>
-<p>先从牌堆 $1$ 中抽一张，接下来，牌上写着几就从几号牌堆抽取。</p>
-<p>求在所有可能的 $3^{n_1+n_2+n_3}$ 种方案中，先把牌堆 $1$ 抽空的方案数。</p>
-<p>答案对 $10^9+7$ 取模。 $n_1, n_2, n_3 \leq 3 \times 10^5$，时限 $3 \mathrm{~s}$ 。</p>
+<p>有三堆牌, 分别有 <span class="math inline">\(n_1, n_2, n_3\)</span>
+张。牌上写着数字 <span class="math inline">\(1,2,3\)</span>
+中的一个。</p>
+<p>先从牌堆 <span class="math inline">\(1\)</span>
+中抽一张，接下来，牌上写着几就从几号牌堆抽取。</p>
+<p>求在所有可能的 <span class="math inline">\(3^{n_1+n_2+n_3}\)</span>
+种方案中，先把牌堆 <span class="math inline">\(1\)</span>
+抽空的方案数。</p>
+<p>答案对 <span class="math inline">\(10^9+7\)</span> 取模。 <span
+class="math inline">\(n_1, n_2, n_3 \leq 3 \times 10^5\)</span>，时限
+<span class="math inline">\(3 \mathrm{~s}\)</span> 。</p>
 </blockquote>
 <p>计数好题，是我怎么看都不可能做出来的题。不过至少我现在会了。</p>
 <p>条件计数的题目有两种解决办法：要么容斥，要么寻找更简洁的充要条件。</p>
 <p>这道题看上去就不像容斥，因此考虑寻找充要条件，将原题的计数转化为更简单的题目的计数。</p>
 <p>把抽出来的牌排成一个序列，显然每种放置方式都恰好对应一个序列。【<strong>构造映射</strong>】</p>
 <p>注意到牌可能拿不完，因此一个序列可能对应多种方案。</p>
-<p>具体地，一个长度为 $m$ 的序列对应 $3^{n_1 + n_2 + n_3 - m}$ 种方案。【<strong>检查反映射</strong>】</p>
-<p>可以发现，该序列仅有的约束，要求率先将堆 $1$ 拿空。【<strong>检查充要条件</strong>】</p>
-<p><strong>于是，问题就变成了</strong>：对每个长度，求先将堆 $1$ 拿空的序列的个数。</p>
-<p>因为操作序列中一定恰有 $n_1$ 个 $1$ ，且最后一个必须是 $1$ ，我们枚举抽出的非 $1$ 牌个数 $k$ ，则方案数为</p>
-<script type="math/tex; mode=display">
-\dbinom{k + n_1 - 1}{k}\times \sum_{i=0}^{k}[i \le n_2][k-i\le n_3]\dbinom{k}{i}</script><p>其中，$\binom{k + n_1 - 1}{k}$ 表示 $n_1-1$ 个自由的 $1$ 与非 $1$ 数混合的方案数，后面的求和是瓜分非 $1$ 牌的方案数。</p>
-<p>然而式子中的后半部分并不能快速求解，不妨考虑递推求解</p>
-<script type="math/tex; mode=display">
+<p>具体地，一个长度为 <span class="math inline">\(m\)</span> 的序列对应
+<span class="math inline">\(3^{n_1 + n_2 + n_3 - m}\)</span>
+种方案。【<strong>检查反映射</strong>】</p>
+<p>可以发现，该序列仅有的约束，要求率先将堆 <span
+class="math inline">\(1\)</span>
+拿空。【<strong>检查充要条件</strong>】</p>
+<p><strong>于是，问题就变成了</strong>：对每个长度，求先将堆 <span
+class="math inline">\(1\)</span> 拿空的序列的个数。</p>
+<p>因为操作序列中一定恰有 <span class="math inline">\(n_1\)</span> 个
+<span class="math inline">\(1\)</span> ，且最后一个必须是 <span
+class="math inline">\(1\)</span> ，我们枚举抽出的非 <span
+class="math inline">\(1\)</span> 牌个数 <span
+class="math inline">\(k\)</span> ，则方案数为 <span
+class="math display">\[
+\dbinom{k + n_1 - 1}{k}\times \sum_{i=0}^{k}[i \le n_2][k-i\le
+n_3]\dbinom{k}{i}
+\]</span> 其中，<span class="math inline">\(\binom{k + n_1 -
+1}{k}\)</span> 表示 <span class="math inline">\(n_1-1\)</span> 个自由的
+<span class="math inline">\(1\)</span> 与非 <span
+class="math inline">\(1\)</span> 数混合的方案数，后面的求和是瓜分非
+<span class="math inline">\(1\)</span> 牌的方案数。</p>
+<p>然而式子中的后半部分并不能快速求解，不妨考虑递推求解 <span
+class="math display">\[
 \begin{aligned}
-S(k) &= \sum_{i=0}^{k}[i \le n_2][k-i\le n_3]\dbinom{k}{i}
-\\[6pt]&= \sum_{k-n_3 \le i \le n_2}\dbinom{k}{i}
-\end{aligned}</script><p>将组合数裂开（非常重要的一步）：</p>
-<script type="math/tex; mode=display">
+S(k) &amp;= \sum_{i=0}^{k}[i \le n_2][k-i\le n_3]\dbinom{k}{i}
+\\[6pt]&amp;= \sum_{k-n_3 \le i \le n_2}\dbinom{k}{i}
+\end{aligned}
+\]</span> 将组合数裂开（非常重要的一步）： <span class="math display">\[
 \begin{aligned}
-& =\sum_{k-n_3 \leq i \leq n_2}\left(\left(\begin{array}{c}
+&amp; =\sum_{k-n_3 \leq i \leq n_2}\left(\left(\begin{array}{c}
 k-1 \\
 i
 \end{array}\right)+\left(\begin{array}{c}
 k-1 \\
 i-1
 \end{array}\right)\right) \\
-& =\sum_{k-n_3 \leq i \leq n_2}\left(\begin{array}{c}
+&amp; =\sum_{k-n_3 \leq i \leq n_2}\left(\begin{array}{c}
 k-1 \\
 i
-\end{array}\right)+\sum_{k-n_3-1 \leq i \leq n_2-1}\left(\begin{array}{c}
+\end{array}\right)+\sum_{k-n_3-1 \leq i \leq
+n_2-1}\left(\begin{array}{c}
 k-1 \\
 i
 \end{array}\right) \\
-& =2 S(k-1)-\left(\begin{array}{c}
+&amp; =2 S(k-1)-\left(\begin{array}{c}
 k-1 \\
 k-n_3-1
 \end{array}\right)-\left(\begin{array}{c}
 k-1 \\
 n_2
 \end{array}\right)
-\end{aligned}</script><p>注意式子中所有不合法的组合数均须定义为 $0$ 。</p>
-<p>预处理出所有 $S(k)$ 后，答案即为下式：</p>
-<script type="math/tex; mode=display">
+\end{aligned}
+\]</span> 注意式子中所有不合法的组合数均须定义为 <span
+class="math inline">\(0\)</span> 。</p>
+<p>预处理出所有 <span class="math inline">\(S(k)\)</span>
+后，答案即为下式： <span class="math display">\[
 \sum_{k=0}^{n_2+n_3} 3^{n_2+n_3-k}\left(\begin{array}{c}
 n_1-1+k \\
 k
-\end{array}\right) S(k)</script><p>时间复杂度 $\mathcal{O}(N)$</p>
+\end{array}\right) S(k)
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(N)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -826,9 +883,10 @@ k
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/command-block/solution-at2070">https://www.luogu.com.cn/blog/command-block/solution-at2070</a> </p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/command-block/solution-at2070">https://www.luogu.com.cn/blog/command-block/solution-at2070</a></p>
 
                 
             </div>
@@ -936,7 +994,6 @@ k
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -949,14 +1006,9 @@ k
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1293,7 +1345,7 @@ k
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1555,15 +1607,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

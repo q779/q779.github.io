@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3802 小魔女帕琪 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P3802 小魔女帕琪 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -714,40 +740,84 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3802-小魔女帕琪-题解"><a href="#洛谷P3802-小魔女帕琪-题解" class="headerlink" title="洛谷P3802 小魔女帕琪 题解"></a>洛谷P3802 小魔女帕琪 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3802">P3802 小魔女帕琪</a></p>
+                <h1 id="洛谷p3802-小魔女帕琪-题解">洛谷P3802 小魔女帕琪 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3802">P3802
+小魔女帕琪</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>从前有一个聪明的小魔女帕琪，兴趣是狩猎吸血鬼。</p>
 <p>帕琪能熟练使用七种属性（金、木、水、火、土、日、月）的魔法，除了能使用这么多种属性魔法外，她还能将两种以上属性组合，从而唱出强力的魔法。比如说为了加强攻击力而将火和木组合，为了掩盖弱点而将火和土组合等等，变化非常丰富。</p>
-<p>现在帕琪与强大的夜之女王，吸血鬼蕾咪相遇了，夜之女王蕾咪具有非常强大的生命力，普通的魔法难以造成效果，只有终极魔法：帕琪七重奏才能对蕾咪造成伤害。帕琪七重奏的触发条件是：连续施放的 $7$ 个魔法中，如果魔法的属性各不相同，就能触发一次帕琪七重奏。</p>
-<p>请注意，无论前 $6$ 个魔法是否已经参与施放终极魔法，只要连续 $7$ 个魔法的属性各不相同，就会再触发一次终极魔法。例如，如果用序号来代表一种魔法，魔法的施放序列为 $1, 2, 3, 4, 5, 6,7, 1$，则前 $7$ 个魔法会触发一次终极魔法，后 $7$ 个魔法会再触发一次终极魔法。</p>
-<p>现在帕琪有 $7$ 种属性的能量晶体，第 $i$ 种晶体可以施放出属性为 $i$ 的魔法，共有 $a_i$ 个。每次施放魔法时，会等概率随机消耗一个现有的能量晶体，然后释放一个对应属性的魔法。</p>
-<p>现在帕琪想知道，她触发帕琪七重奏的期望次数是多少，可是她并不会算，于是找到了学 OI 的你。</p>
+<p>现在帕琪与强大的夜之女王，吸血鬼蕾咪相遇了，夜之女王蕾咪具有非常强大的生命力，普通的魔法难以造成效果，只有终极魔法：帕琪七重奏才能对蕾咪造成伤害。帕琪七重奏的触发条件是：连续施放的
+<span class="math inline">\(7\)</span>
+个魔法中，如果魔法的属性各不相同，就能触发一次帕琪七重奏。</p>
+<p>请注意，无论前 <span class="math inline">\(6\)</span>
+个魔法是否已经参与施放终极魔法，只要连续 <span
+class="math inline">\(7\)</span>
+个魔法的属性各不相同，就会再触发一次终极魔法。例如，如果用序号来代表一种魔法，魔法的施放序列为
+<span class="math inline">\(1, 2, 3, 4, 5, 6,7, 1\)</span>，则前 <span
+class="math inline">\(7\)</span> 个魔法会触发一次终极魔法，后 <span
+class="math inline">\(7\)</span> 个魔法会再触发一次终极魔法。</p>
+<p>现在帕琪有 <span class="math inline">\(7\)</span>
+种属性的能量晶体，第 <span class="math inline">\(i\)</span>
+种晶体可以施放出属性为 <span class="math inline">\(i\)</span>
+的魔法，共有 <span class="math inline">\(a_i\)</span>
+个。每次施放魔法时，会等概率随机消耗一个现有的能量晶体，然后释放一个对应属性的魔法。</p>
+<p>现在帕琪想知道，她触发帕琪七重奏的期望次数是多少，可是她并不会算，于是找到了学
+OI 的你。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入只有一行 $7$ 个整数，第 $i$ 个整数代表 $a_i$。</p>
+<p>输入只有一行 <span class="math inline">\(7\)</span> 个整数，第 <span
+class="math inline">\(i\)</span> 个整数代表 <span
+class="math inline">\(a_i\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个实数代表答案，四舍五入保留三位小数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，保证 $0 \leq a_i \leq 10^9$，且 $\sum_{i = 1}^7 a_i \leq 10^9$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，保证 <span
+class="math inline">\(0 \leq a_i \leq 10^9\)</span>，且 <span
+class="math inline">\(\sum_{i = 1}^7 a_i \leq 10^9\)</span>。</p>
 </blockquote>
 <p>居然是道纯数学题。（<del>有一说一，这个“帕琪七重奏”有种莫名的优雅</del>）</p>
-<p>注意到每次触发帕琪七重奏其实和之前触发是无关的。因为 $1\sim 7$ 放招了以后，$2 \sim 8$ 还可以放。</p>
-<p>考虑前 $7$ 个触发帕琪七重奏的概率。记 $N = \sum a_i$ ，则</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_1 = 7!\times\frac{a_1}{N} \times \frac{a_2}{N-1} \times \frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times \frac{a_6}{N-5} \times \frac{a_7}{N-6}</script><p>前面的 $7!$ 对应了 $a_1,a_2,\cdots,a_7$ 的不同排列，显然这样的次序不会影响触发帕琪七重奏</p>
-<p>然后考虑第一个取出的元素固定为 $a_1$ 时，接下来的 $7$ 个触发帕琪七重奏。</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_{2,1} =7!\times \frac{a_1}{N} \times \frac{a_2}{N-1} \times \frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times \frac{a_6}{N-5} \times \frac{a_7}{N-6} \times \frac{a_1-1}{N-7}</script><p>再试试固定为 $a_2$ ？</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_{2,2} =7!\times \frac{a_2}{N} \times \frac{a_1}{N-1} \times \frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times \frac{a_6}{N-5} \times \frac{a_7}{N-6} \times \frac{a_2-1}{N-7}</script><p>以上 $7!$ 均为第一个元素固定时，第 $2 \sim 8$ 个元素的排列。</p>
-<p>而我们可以发现</p>
-<script type="math/tex; mode=display">
-\sum_{i = 1}^7 \frac{a_i - 1}{N - 7} = 1</script><p>因此</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_2 = 7 ! \times \frac{a_1}{N} \times \frac{a_2}{N-1} \times \frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times \frac{a_6}{N-5} \times \frac{a_7}{N-6}</script><p>震惊，每一个连续 $7$ 项的贡献都是一样的。<del>小编也觉得很奇怪，但事实就是这样</del></p>
-<p>而这样的项有 $N-6$ 个，因此最终的答案为</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_0 = 7 ! \times \frac{a_1}{N} \times \frac{a_2}{N-1} \times \frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times \frac{a_6}{N-5} \times a_7</script><p>时间复杂度 $\mathcal{O}(1)$</p>
+<p>注意到每次触发帕琪七重奏其实和之前触发是无关的。因为 <span
+class="math inline">\(1\sim 7\)</span> 放招了以后，<span
+class="math inline">\(2 \sim 8\)</span> 还可以放。</p>
+<p>考虑前 <span class="math inline">\(7\)</span>
+个触发帕琪七重奏的概率。记 <span class="math inline">\(N = \sum
+a_i\)</span> ，则 <span class="math display">\[
+\mathrm{Pr}_1 = 7!\times\frac{a_1}{N} \times \frac{a_2}{N-1} \times
+\frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times
+\frac{a_6}{N-5} \times \frac{a_7}{N-6}
+\]</span> 前面的 <span class="math inline">\(7!\)</span> 对应了 <span
+class="math inline">\(a_1,a_2,\cdots,a_7\)</span>
+的不同排列，显然这样的次序不会影响触发帕琪七重奏</p>
+<p>然后考虑第一个取出的元素固定为 <span
+class="math inline">\(a_1\)</span> 时，接下来的 <span
+class="math inline">\(7\)</span> 个触发帕琪七重奏。 <span
+class="math display">\[
+\mathrm{Pr}_{2,1} =7!\times \frac{a_1}{N} \times \frac{a_2}{N-1} \times
+\frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times
+\frac{a_6}{N-5} \times \frac{a_7}{N-6} \times \frac{a_1-1}{N-7}
+\]</span> 再试试固定为 <span class="math inline">\(a_2\)</span> ？ <span
+class="math display">\[
+\mathrm{Pr}_{2,2} =7!\times \frac{a_2}{N} \times \frac{a_1}{N-1} \times
+\frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times
+\frac{a_6}{N-5} \times \frac{a_7}{N-6} \times \frac{a_2-1}{N-7}
+\]</span> 以上 <span class="math inline">\(7!\)</span>
+均为第一个元素固定时，第 <span class="math inline">\(2 \sim 8\)</span>
+个元素的排列。</p>
+<p>而我们可以发现 <span class="math display">\[
+\sum_{i = 1}^7 \frac{a_i - 1}{N - 7} = 1
+\]</span> 因此 <span class="math display">\[
+\mathrm{Pr}_2 = 7 ! \times \frac{a_1}{N} \times \frac{a_2}{N-1} \times
+\frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times
+\frac{a_6}{N-5} \times \frac{a_7}{N-6}
+\]</span> 震惊，每一个连续 <span class="math inline">\(7\)</span>
+项的贡献都是一样的。<del>小编也觉得很奇怪，但事实就是这样</del></p>
+<p>而这样的项有 <span class="math inline">\(N-6\)</span>
+个，因此最终的答案为 <span class="math display">\[
+\mathrm{Pr}_0 = 7 ! \times \frac{a_1}{N} \times \frac{a_2}{N-1} \times
+\frac{a_3}{N-2} \times \frac{a_4}{N-3} \times \frac{a_5}{N-4} \times
+\frac{a_6}{N-5} \times a_7
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(1)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -770,9 +840,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ButterflyDew/solution-p3802">https://www.luogu.com.cn/blog/ButterflyDew/solution-p3802</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ButterflyDew/solution-p3802">https://www.luogu.com.cn/blog/ButterflyDew/solution-p3802</a></p>
 
                 
             </div>
@@ -876,7 +947,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -889,14 +959,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1240,7 +1305,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1502,15 +1567,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

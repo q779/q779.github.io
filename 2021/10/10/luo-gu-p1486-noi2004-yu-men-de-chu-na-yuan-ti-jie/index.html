@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1486 [NOI2004] 郁闷的出纳员 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P1486 [NOI2004] 郁闷的出纳员 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -714,30 +740,47 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1486-NOI2004-郁闷的出纳员-题解"><a href="#洛谷P1486-NOI2004-郁闷的出纳员-题解" class="headerlink" title="洛谷P1486 [NOI2004] 郁闷的出纳员 题解"></a>洛谷P1486 [NOI2004] 郁闷的出纳员 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1486">P1486 [NOI2004] 郁闷的出纳员</a></p>
+                <h1 id="洛谷p1486-noi2004-郁闷的出纳员-题解">洛谷P1486 [NOI2004]
+郁闷的出纳员 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1486">P1486
+[NOI2004] 郁闷的出纳员</a></p>
 <blockquote>
 <p><strong>题意</strong>：维护一个数据结构，支持</p>
-<ol>
-<li>插入一个大小为 $k$ 的值，小于下界时不插入</li>
-<li>所有元素加上 $k$ </li>
-<li>所有元素减去 $k$ ，小于下界的删除</li>
-<li>查询所有元素中的 $k$ 大值</li>
+<ol type="1">
+<li>插入一个大小为 <span class="math inline">\(k\)</span>
+的值，小于下界时不插入</li>
+<li>所有元素加上 <span class="math inline">\(k\)</span></li>
+<li>所有元素减去 <span class="math inline">\(k\)</span>
+，小于下界的删除</li>
+<li>查询所有元素中的 <span class="math inline">\(k\)</span> 大值</li>
 </ol>
 <p>最后输出删除的元素个数（两元素相等算两个）</p>
 </blockquote>
 <p>可以用平衡树来解决本题</p>
 <p>听说正解是splay，不过我来讲一种<strong>替罪羊树</strong>的写法</p>
-<p>我们可以维护一个 $d$ ，表示每次加减的变化</p>
-<p>这样每个元素就可以用 $x+d$ 的形式表示了</p>
-<p>在平衡树里放原来的数减去插入时的 $d$ ，即 $k-d$ </p>
+<p>我们可以维护一个 <span class="math inline">\(d\)</span>
+，表示每次加减的变化</p>
+<p>这样每个元素就可以用 <span class="math inline">\(x+d\)</span>
+的形式表示了</p>
+<p>在平衡树里放原来的数减去插入时的 <span
+class="math inline">\(d\)</span> ，即 <span
+class="math inline">\(k-d\)</span></p>
 <p>这样输出的时候就是正常的数了</p>
 <p>那小于下界的怎么搞呢？</p>
 <p>根据替罪羊树的性质，我们可以直接把整课树重构</p>
-<p>在<code>Flatten</code>操作时判断当前元素 $x$ 加上 $d$ 是否超过下界，且存在，否则就直接不管它了</p>
-<p>$k$ 大值直接查 $num1-k+1$ 小值就好了</p>
-<p>这个 $num1$ 表示每次操作后的剩余结点数（两元素相等算两个）</p>
-<p>因为它最后还有个询问删除的，再记录一下总插入结点数（两元素相等算两个） $num2$ ，答案就是 $num2-num1$ </p>
-<p>这样整个算法的时间复杂度为 $O(n\log n)$</p>
+<p>在<code>Flatten</code>操作时判断当前元素 <span
+class="math inline">\(x\)</span> 加上 <span
+class="math inline">\(d\)</span>
+是否超过下界，且存在，否则就直接不管它了</p>
+<p><span class="math inline">\(k\)</span> 大值直接查 <span
+class="math inline">\(num1-k+1\)</span> 小值就好了</p>
+<p>这个 <span class="math inline">\(num1\)</span>
+表示每次操作后的剩余结点数（两元素相等算两个）</p>
+<p>因为它最后还有个询问删除的，再记录一下总插入结点数（两元素相等算两个）
+<span class="math inline">\(num2\)</span> ，答案就是 <span
+class="math inline">\(num2-num1\)</span></p>
+<p>这样整个算法的时间复杂度为 <span class="math inline">\(O(n\log
+n)\)</span></p>
 <p>本题在luogu上的数据是windows下造的，所以还要注意换行符是<code>\r\n</code>，不是linux下的<code>\n</code></p>
 <p>代码如下</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -999,7 +1042,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -1012,14 +1054,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1356,7 +1393,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1618,15 +1655,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

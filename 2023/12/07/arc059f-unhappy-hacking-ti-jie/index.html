@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">[ARC059F] Unhappy Hacking 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '[ARC059F] Unhappy Hacking 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -718,24 +744,41 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ARC059F-Unhappy-Hacking-题解"><a href="#ARC059F-Unhappy-Hacking-题解" class="headerlink" title="[ARC059F] Unhappy Hacking 题解"></a>[ARC059F] Unhappy Hacking 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc059_d">[ARC059F] Unhappy Hacking</a></p>
+                <h1 id="arc059f-unhappy-hacking-题解">[ARC059F] Unhappy Hacking
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc059_d">[ARC059F] Unhappy
+Hacking</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Sig已经自己组装了一台键盘。为了达到极致的简单性，这个键盘上只有三个按键：<code>0</code> 键、<code>1</code> 键和退格键。 一开始，他在使用这个键盘的纯文本编辑器。该编辑器始终显示一个字符串（可能为空）。在编辑器启动后，此字符串为空。当按下键盘上的每个键时，字符串发生以下更改：</p>
+<p>Sig已经自己组装了一台键盘。为了达到极致的简单性，这个键盘上只有三个按键：<code>0</code>
+键、<code>1</code> 键和退格键。
+一开始，他在使用这个键盘的纯文本编辑器。该编辑器始终显示一个字符串（可能为空）。在编辑器启动后，此字符串为空。当按下键盘上的每个键时，字符串发生以下更改：</p>
 <ul>
 <li><code>0</code> 键：在字符串的右侧插入一个数字 <code>0</code>。</li>
 <li><code>1</code> 键：在字符串的右侧插入一个数字 <code>1</code>。</li>
 <li>退格键：如果字符串为空，则不发生任何变化。否则，删除字符串的最右边的字母。</li>
 </ul>
-<p>Sig启动了编辑器，并总共按下了这些键$N$次。结果，编辑器显示一个字符串$s$。找出按下这些键的方式的数量，对$10^9+7$取模。</p>
-<p>$1 \le N \le 5\times 10^3,1\le |s| \le N$ ，且 $s$ 仅由 <code>0</code> 和 <code>1</code> 构成。</p>
+<p>Sig启动了编辑器，并总共按下了这些键<span
+class="math inline">\(N\)</span>次。结果，编辑器显示一个字符串<span
+class="math inline">\(s\)</span>。找出按下这些键的方式的数量，对<span
+class="math inline">\(10^9+7\)</span>取模。</p>
+<p><span class="math inline">\(1 \le N \le 5\times 10^3,1\le |s| \le
+N\)</span> ，且 <span class="math inline">\(s\)</span> 仅由
+<code>0</code> 和 <code>1</code> 构成。</p>
 </blockquote>
 <p>“人不能两次踏进同一条河流。”</p>
 <p>每次按下按键的那个人都不是上一次按下按键的那个人（大雾）</p>
-<p>设 $f_{i,j}$ 表示按第 $i$ 次按键后匹配了 $j$ 个字符的方案数，</p>
-<p>定义 $f_{0,0}=1$ ，并且 $j&lt;0$ 时为 $f_{i,j}=f_{i,0}$ ，则</p>
-<script type="math/tex; mode=display">
-f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}</script><p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示按第 <span
+class="math inline">\(i\)</span> 次按键后匹配了 <span
+class="math inline">\(j\)</span> 个字符的方案数，</p>
+<p>定义 <span class="math inline">\(f_{0,0}=1\)</span> ，并且 <span
+class="math inline">\(j&lt;0\)</span> 时为 <span
+class="math inline">\(f_{i,j}=f_{i,0}\)</span> ，则 <span
+class="math display">\[
+f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -760,10 +803,12 @@ f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}</script><p>时间复杂度 $\mathcal{O}(n^2)$
     cout <span class="token operator">&lt;&lt;</span> dp<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>s<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/167999/solution-at2022">【题解】AT2022 [ARC059D] Unhappy Hacking - dd_d 的博客 - 洛谷博客</a> </p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/167999/solution-at2022">【题解】AT2022
+[ARC059D] Unhappy Hacking - dd_d 的博客 - 洛谷博客</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>《纯粹理性批判》还没看完呢，烦。</p>
 
@@ -873,7 +918,6 @@ f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}</script><p>时间复杂度 $\mathcal{O}(n^2)$
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -886,14 +930,9 @@ f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}</script><p>时间复杂度 $\mathcal{O}(n^2)$
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1234,7 +1273,7 @@ f_{i,j} = f_{i-1,j-1}+2f_{i-1,j+1}</script><p>时间复杂度 $\mathcal{O}(n^2)$
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1496,15 +1535,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

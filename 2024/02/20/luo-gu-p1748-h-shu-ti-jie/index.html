@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1748 H数 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P1748 H数 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,25 +748,48 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1748-H数-题解"><a href="#洛谷P1748-H数-题解" class="headerlink" title="洛谷P1748 H数 题解"></a>洛谷P1748 H数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1748">P1748 H数</a></p>
+                <h1 id="洛谷p1748-h数-题解">洛谷P1748 H数 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1748">P1748
+H数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>所谓 $H$ 数，是指只含有 $2,3,5,7$ 这些质因数的数，如 $630$ 是 $H$ 数，而 $22$ 不是。</p>
-<p>现在要求输出第 $n$ 个 $H$ 数，即 $H_n$ （为了方便起见将 $H_1$ 定为 $1$ ）。</p>
-<p>已知 $n$ 不超过 $10000$，最后数据在 int64 范围之内。</p>
+<p>所谓 <span class="math inline">\(H\)</span> 数，是指只含有 <span
+class="math inline">\(2,3,5,7\)</span> 这些质因数的数，如 <span
+class="math inline">\(630\)</span> 是 <span
+class="math inline">\(H\)</span> 数，而 <span
+class="math inline">\(22\)</span> 不是。</p>
+<p>现在要求输出第 <span class="math inline">\(n\)</span> 个 <span
+class="math inline">\(H\)</span> 数，即 <span
+class="math inline">\(H_n\)</span> （为了方便起见将 <span
+class="math inline">\(H_1\)</span> 定为 <span
+class="math inline">\(1\)</span> ）。</p>
+<p>已知 <span class="math inline">\(n\)</span> 不超过 <span
+class="math inline">\(10000\)</span>，最后数据在 int64 范围之内。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行， $n$ 。</p>
+<p>一行， <span class="math inline">\(n\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行，输出 $H_n$​ 。</p>
+<p>一行，输出 <span class="math inline">\(H_n\)</span>​ 。</p>
 </blockquote>
 <p>虽说是 普及/提高− 的题，但是它的思路还是挺有意思的。</p>
-<p>考虑dp，或者说考察 $H_n$ 的递推方式。</p>
-<script type="math/tex; mode=display">
-H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其中 $a,b,c,d$ 均满足特定形式，例如 $H_{a-1}\times 2 \le H_i &lt; H_a \times 2$ 。</p>
-<p>一种暴力的转移方式是，枚举 $j$ ，并钦定：例如当 $j$ 满足 $a$ 的条件时尝试用 $H_a$ 更新 $H_i$ 。</p>
-<p>这样只需扫一遍 $[1,~i-1]$ 即可。注意到 $a,b,c,d$ 均随着 $i$ 的增长而不减。</p>
-<p>因此我们可以直接维护四个指针 $a,b,c,d$ ，每次算出 $H_i$ 后，更新 $a,b,c,d$ 使他们重新满足条件。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>考虑dp，或者说考察 <span class="math inline">\(H_n\)</span>
+的递推方式。 <span class="math display">\[
+H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}
+\]</span> 其中 <span class="math inline">\(a,b,c,d\)</span>
+均满足特定形式，例如 <span class="math inline">\(H_{a-1}\times 2 \le H_i
+&lt; H_a \times 2\)</span> 。</p>
+<p>一种暴力的转移方式是，枚举 <span class="math inline">\(j\)</span>
+，并钦定：例如当 <span class="math inline">\(j\)</span> 满足 <span
+class="math inline">\(a\)</span> 的条件时尝试用 <span
+class="math inline">\(H_a\)</span> 更新 <span
+class="math inline">\(H_i\)</span> 。</p>
+<p>这样只需扫一遍 <span class="math inline">\([1,~i-1]\)</span>
+即可。注意到 <span class="math inline">\(a,b,c,d\)</span> 均随着 <span
+class="math inline">\(i\)</span> 的增长而不减。</p>
+<p>因此我们可以直接维护四个指针 <span
+class="math inline">\(a,b,c,d\)</span> ，每次算出 <span
+class="math inline">\(H_i\)</span> 后，更新 <span
+class="math inline">\(a,b,c,d\)</span> 使他们重新满足条件。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -772,13 +821,15 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
     cout <span class="token operator">&lt;&lt;</span> x<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user41920/solution-p1748">https://www.luogu.com.cn/blog/user41920/solution-p1748</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user41920/solution-p1748">https://www.luogu.com.cn/blog/user41920/solution-p1748</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><del>这和 H 有什么关系</del>？</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202402201802560.png" alt=""></p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202402201802560.png" /></p>
 
                 
             </div>
@@ -890,7 +941,6 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -903,14 +953,9 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1251,7 +1296,7 @@ H_i=\min\{H_a\times 2,~H_b\times 3,~H_c \times 5,~H_d\times 7\}</script><p>其�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1513,15 +1558,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

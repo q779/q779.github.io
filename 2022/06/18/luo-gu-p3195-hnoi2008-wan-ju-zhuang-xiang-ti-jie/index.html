@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3195 [HNOI2008]玩具装箱 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P3195 [HNOI2008]玩具装箱 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,70 +748,108 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3195-HNOI2008-玩具装箱-题解"><a href="#洛谷P3195-HNOI2008-玩具装箱-题解" class="headerlink" title="洛谷P3195 [HNOI2008]玩具装箱 题解"></a>洛谷P3195 [HNOI2008]玩具装箱 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">P3195 [HNOI2008]玩具装箱</a></p>
+                <h1 id="洛谷p3195-hnoi2008玩具装箱-题解">洛谷P3195 [HNOI2008]玩具装箱
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3195">P3195
+[HNOI2008]玩具装箱</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n$ 个玩具，第 $i$ 个玩具的价值为 $c_i$ 。要求将这 $n$ 个玩具排成一排，分成若干段。对于一段 $[l,r]$ ，它的代价为 $(r-l+\sum_{i=l}^{r}c_i-L)^2$ ，其中 $L$ 为一个常量，求分段的最小代价。</p>
-<p>$1 \leq n \leq 5 \times 10^4$，$1 \leq L \leq 10^7$，$1 \leq C_i \leq 10^7$</p>
+<p>有 <span class="math inline">\(n\)</span> 个玩具，第 <span
+class="math inline">\(i\)</span> 个玩具的价值为 <span
+class="math inline">\(c_i\)</span> 。要求将这 <span
+class="math inline">\(n\)</span> 个玩具排成一排，分成若干段。对于一段
+<span class="math inline">\([l,r]\)</span> ，它的代价为 <span
+class="math inline">\((r-l+\sum_{i=l}^{r}c_i-L)^2\)</span> ，其中 <span
+class="math inline">\(L\)</span> 为一个常量，求分段的最小代价。</p>
+<p><span class="math inline">\(1 \leq n \leq 5 \times
+10^4\)</span>，<span class="math inline">\(1 \leq L \leq
+10^7\)</span>，<span class="math inline">\(1 \leq C_i \leq
+10^7\)</span></p>
 </blockquote>
 <p>upd. 新增斜率优化新的理解。</p>
-<p>令 $f_i$ 表示前 $i$ 个物品分成若干段的最小代价，则</p>
-<script type="math/tex; mode=display">
-f_i = \min_{j < i}\left\{f_j + (S_i + i -S_j -j -L-1)^2\right\}</script><p>其中 $S_i$ 为前 $i$ 个物品的价值和，即 $S_i = \sum_{j=1}^{i}c_j$</p>
-<p>直接去做是 $O(n^2)$ ，考虑斜率优化</p>
-<p>令 $a_i = S_i + i,~b_i = S_i + i + L+1$ ，则</p>
-<script type="math/tex; mode=display">
+<p>令 <span class="math inline">\(f_i\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个物品分成若干段的最小代价，则 <span
+class="math display">\[
+f_i = \min_{j &lt; i}\left\{f_j + (S_i + i -S_j -j -L-1)^2\right\}
+\]</span> 其中 <span class="math inline">\(S_i\)</span> 为前 <span
+class="math inline">\(i\)</span> 个物品的价值和，即 <span
+class="math inline">\(S_i = \sum_{j=1}^{i}c_j\)</span></p>
+<p>直接去做是 <span class="math inline">\(O(n^2)\)</span>
+，考虑斜率优化</p>
+<p>令 <span class="math inline">\(a_i = S_i + i,~b_i = S_i + i +
+L+1\)</span> ，则 <span class="math display">\[
 \begin{aligned}
-f_i &= \min_{j < i}\left\{ f_j + (a_i-b_j)^2 \right\}
-\\&=\min_{j < i}\left\{ f_j + a_i^2 - 2a_ib_j + b_j^2\right\}
-\end{aligned}</script><p>移项得</p>
-<script type="math/tex; mode=display">
-f_i - a_i^2  =  \min_{j < i}\left\{ f_j -2a_ib_j + b_j^2\right\}</script><p>注意到右边的部分有一个 $2a_i$ 导致我们无法单调队列优化</p>
-<p>但是我们可以斜率优化，也就是吧 $2a_i$ 看作 $k$ </p>
-<p>根据斜截式方程可得</p>
-<script type="math/tex; mode=display">
-b=y-kx</script><p>可知</p>
-<script type="math/tex; mode=display">
+f_i &amp;= \min_{j &lt; i}\left\{ f_j + (a_i-b_j)^2 \right\}
+\\&amp;=\min_{j &lt; i}\left\{ f_j + a_i^2 - 2a_ib_j + b_j^2\right\}
+\end{aligned}
+\]</span> 移项得 <span class="math display">\[
+f_i - a_i^2  =  \min_{j &lt; i}\left\{ f_j -2a_ib_j + b_j^2\right\}
+\]</span> 注意到右边的部分有一个 <span
+class="math inline">\(2a_i\)</span> 导致我们无法单调队列优化</p>
+<p>但是我们可以斜率优化，也就是吧 <span
+class="math inline">\(2a_i\)</span> 看作 <span
+class="math inline">\(k\)</span></p>
+<p>根据斜截式方程可得 <span class="math display">\[
+b=y-kx
+\]</span> 可知 <span class="math display">\[
 \begin{aligned}
-b^\prime_i&=f_i-a_i^2
-\\k_i&=2a_i
-\\x_j&=b_j
-\\y_j &= f_j + b_j^2
-\end{aligned}</script><p>则转移方程可以写成如下形式</p>
-<script type="math/tex; mode=display">
-b_i^\prime = \min\left\{ y_j-k_ix_j\right\}</script><p>把 $(x_j,y_j)$ 映射到平面上的点，那么问题就转化为了</p>
-<p>找到一个 $1\le j&lt;i$ <strong>最小化过点 $(x_j,y_j)$ 且斜率为 $k_i$ 的直线的 $y$ 轴截距</strong></p>
-<p>由于这个 $k_i$ 是严格单调递增的，</p>
-<p>不难发现这个点一定在 $(x_j,y_j)$ 点集形成的<strong>下凸壳</strong>上，</p>
-<p>并且这个点 $P_j$ 的 $j$ 是满足直线 $P_jP_{j+1}$ 的斜率 $k_j^{\prime}&gt;k_i$ 最小的 $j$ </p>
-<p>或者说，这个点和下一个在下凸壳上的点所连产生的直线是第一个斜率比 $k_i$ 大的</p>
+b^\prime_i&amp;=f_i-a_i^2
+\\k_i&amp;=2a_i
+\\x_j&amp;=b_j
+\\y_j &amp;= f_j + b_j^2
+\end{aligned}
+\]</span> 则转移方程可以写成如下形式 <span class="math display">\[
+b_i^\prime = \min\left\{ y_j-k_ix_j\right\}
+\]</span> 把 <span class="math inline">\((x_j,y_j)\)</span>
+映射到平面上的点，那么问题就转化为了</p>
+<p>找到一个 <span class="math inline">\(1\le j&lt;i\)</span>
+<strong>最小化过点 <span class="math inline">\((x_j,y_j)\)</span>
+且斜率为 <span class="math inline">\(k_i\)</span> 的直线的 <span
+class="math inline">\(y\)</span> 轴截距</strong></p>
+<p>由于这个 <span class="math inline">\(k_i\)</span>
+是严格单调递增的，</p>
+<p>不难发现这个点一定在 <span class="math inline">\((x_j,y_j)\)</span>
+点集形成的<strong>下凸壳</strong>上，</p>
+<p>并且这个点 <span class="math inline">\(P_j\)</span> 的 <span
+class="math inline">\(j\)</span> 是满足直线 <span
+class="math inline">\(P_jP_{j+1}\)</span> 的斜率 <span
+class="math inline">\(k_j^{\prime}&gt;k_i\)</span> 最小的 <span
+class="math inline">\(j\)</span></p>
+<p>或者说，这个点和下一个在下凸壳上的点所连产生的直线是第一个斜率比
+<span class="math inline">\(k_i\)</span> 大的</p>
 <p>考虑如何维护这个下凸壳</p>
-<p>刚才我们也说了 $k_i$ 是单调递增的，所以这个下凸壳是一个“动态”的</p>
-<p>当凸壳上的某个点 $u$ 和下一个点 $v$ 所成的直线斜率小于 $k_i$ 时，</p>
-<p>$u$ 就没用了，该被踢掉了</p>
+<p>刚才我们也说了 <span class="math inline">\(k_i\)</span>
+是单调递增的，所以这个下凸壳是一个“动态”的</p>
+<p>当凸壳上的某个点 <span class="math inline">\(u\)</span> 和下一个点
+<span class="math inline">\(v\)</span> 所成的直线斜率小于 <span
+class="math inline">\(k_i\)</span> 时，</p>
+<p><span class="math inline">\(u\)</span> 就没用了，该被踢掉了</p>
 <p>因此我们可以用单调队列来维护，而不是单调栈</p>
 <p>然后每次加点就和二维凸包那个差不多，这里不细讲了（</p>
-<hr>
+<hr />
 <p>对于斜率优化，还有另一种理解</p>
-<p>首先刚刚的柿子还是要用到的</p>
-<script type="math/tex; mode=display">
-f_i-a_i^2=\min_{j < i}\left\{ f_j - 2a_ib_j + b_j^2\right\}</script><p>我们不用刚刚那个</p>
-<p>考虑一个 $j~(j&gt;k)$ 在什么情况下比 $k$ 优</p>
-<p>显然有</p>
-<script type="math/tex; mode=display">
-f_j-2a_ib_j+b_j^2 < f_k-2a_ib_k+b_k^2</script><p>然后推推柿子</p>
-<script type="math/tex; mode=display">
-f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ 是单调递增的</p>
-<p>因此有 $b_j &gt; b_k$ </p>
-<p>则柿子可以化简为</p>
-<script type="math/tex; mode=display">
-\dfrac{f_j+b_j^2-f_k-b_k^2}{b_j-b_k} < 2a_i</script><p>左边这个东西长的很像斜率的定义</p>
+<p>首先刚刚的柿子还是要用到的 <span class="math display">\[
+f_i-a_i^2=\min_{j &lt; i}\left\{ f_j - 2a_ib_j + b_j^2\right\}
+\]</span> 我们不用刚刚那个</p>
+<p>考虑一个 <span class="math inline">\(j~(j&gt;k)\)</span>
+在什么情况下比 <span class="math inline">\(k\)</span> 优</p>
+<p>显然有 <span class="math display">\[
+f_j-2a_ib_j+b_j^2 &lt; f_k-2a_ib_k+b_k^2
+\]</span> 然后推推柿子 <span class="math display">\[
+f_j+b_j^2-f_k-b_k^2 &lt; 2a_i(b_j-b_k)
+\]</span> 注意到 <span class="math inline">\(b_i = S_i + i +
+L+1\)</span> 是单调递增的</p>
+<p>因此有 <span class="math inline">\(b_j &gt; b_k\)</span></p>
+<p>则柿子可以化简为 <span class="math display">\[
+\dfrac{f_j+b_j^2-f_k-b_k^2}{b_j-b_k} &lt; 2a_i
+\]</span> 左边这个东西长的很像斜率的定义</p>
 <p>因此我们可以维护一个点集，然后两两点去判断</p>
 <p>但是这样肯定是不优的</p>
-<p>仔细思考一下，可能成为答案的点一定在这个点集的下凸壳上（因为我们要最小化 $ f_j - 2a_ib_j + b_j^2$ ，所以是下凸壳）</p>
+<p>仔细思考一下，可能成为答案的点一定在这个点集的下凸壳上（因为我们要最小化
+$ f_j - 2a_ib_j + b_j^2$ ，所以是下凸壳）</p>
 <p>于是我们维护一个下凸壳，依次加入点，再踢出那些不优的点</p>
-<hr>
-<p>时间复杂度 $O(n)$ </p>
+<hr />
+<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -831,6 +895,7 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>dp<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
+
                 
             </div>
             <hr/>
@@ -941,7 +1006,6 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -954,14 +1018,9 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1314,7 +1373,7 @@ f_j+b_j^2-f_k-b_k^2 < 2a_i(b_j-b_k)</script><p>注意到 $b_i = S_i + i + L+1$ �
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1576,15 +1635,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

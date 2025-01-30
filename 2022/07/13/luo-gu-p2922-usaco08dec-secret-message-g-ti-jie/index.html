@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P2922 [USACO08DEC]Secret Message G 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P2922 [USACO08DEC]Secret Message G 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -655,12 +681,12 @@ rgba(0,0,0,0.2);
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
                             <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                 <span class="chip bg-color">字符串</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">数据结构</span>
                             </a>
                         
                     </div>
@@ -718,19 +744,40 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2922-USACO08DEC-Secret-Message-G-题解"><a href="#洛谷P2922-USACO08DEC-Secret-Message-G-题解" class="headerlink" title="洛谷P2922 [USACO08DEC]Secret Message G 题解"></a>洛谷P2922 [USACO08DEC]Secret Message G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2922">P2922 [USACO08DEC]Secret Message G</a></p>
+                <h1 id="洛谷p2922-usaco08decsecret-message-g-题解">洛谷P2922
+[USACO08DEC]Secret Message G 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2922">P2922
+[USACO08DEC]Secret Message G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一句话题意：$m$ 次询问，查询已有的 $n$ 个 $\tt{01}$ 串中，有多少串 $t_i$ 能使询问串 $s$ 成为其前缀。</p>
+<p>一句话题意：<span class="math inline">\(m\)</span> 次询问，查询已有的
+<span class="math inline">\(n\)</span> 个 <span
+class="math inline">\(\tt{01}\)</span> 串中，有多少串 <span
+class="math inline">\(t_i\)</span> 能使询问串 <span
+class="math inline">\(s\)</span> 成为其前缀。</p>
 <p>贝茜正在领导奶牛们逃跑．为了联络，奶牛们互相发送秘密信息．</p>
-<p>信息是二进制的，共有 $M$（$1 \le M \le 50000$）条，反间谍能力很强的约翰已经部分拦截了这些信息，知道了第  $i$ 条二进制信息的前 $b_i$（$l \le b_i \le 10000$）位，他同时知道，奶牛使用 $N$（$1 \le N \le 50000$）条暗号．但是，他仅仅知道第 $j$ 条暗号的前 $c_j$（$1 \le c_j \le 10000$）位。</p>
-<p>对于每条暗号 $j$，他想知道有多少截得的信息能够和它匹配。也就是说，有多少信息和这条暗号有着相同的前缀。当然，这个前缀长度必须等于暗号和那条信息长度的较小者。</p>
-<p>在输入文件中，位的总数（即 $\sum b_i + \sum c_i$）不会超过 $500000$。</p>
+<p>信息是二进制的，共有 <span class="math inline">\(M\)</span>（<span
+class="math inline">\(1 \le M \le
+50000\)</span>）条，反间谍能力很强的约翰已经部分拦截了这些信息，知道了第
+<span class="math inline">\(i\)</span> 条二进制信息的前 <span
+class="math inline">\(b_i\)</span>（<span class="math inline">\(l \le
+b_i \le 10000\)</span>）位，他同时知道，奶牛使用 <span
+class="math inline">\(N\)</span>（<span class="math inline">\(1 \le N
+\le 50000\)</span>）条暗号．但是，他仅仅知道第 <span
+class="math inline">\(j\)</span> 条暗号的前 <span
+class="math inline">\(c_j\)</span>（<span class="math inline">\(1 \le
+c_j \le 10000\)</span>）位。</p>
+<p>对于每条暗号 <span
+class="math inline">\(j\)</span>，他想知道有多少截得的信息能够和它匹配。也就是说，有多少信息和这条暗号有着相同的前缀。当然，这个前缀长度必须等于暗号和那条信息长度的较小者。</p>
+<p>在输入文件中，位的总数（即 <span class="math inline">\(\sum b_i +
+\sum c_i\)</span>）不会超过 <span
+class="math inline">\(500000\)</span>。</p>
 </blockquote>
-<p>考虑建 $\tt{trie}$ 树处理</p>
+<p>考虑建 <span class="math inline">\(\tt{trie}\)</span> 树处理</p>
 <p>没了，就这么简单。</p>
 <p>具体见代码，有一些小的细节要注意</p>
-<p>时间复杂度 $O(\sum b_i + M \sum c_i)$</p>
+<p>时间复杂度 <span class="math inline">\(O(\sum b_i + M \sum
+c_i)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -862,12 +909,12 @@ string str<span class="token punctuation">;</span>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                    <span class="chip bg-color">数据结构</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                     <span class="chip bg-color">字符串</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">数据结构</span>
                                 </a>
                             
                         </div>
@@ -905,7 +952,6 @@ string str<span class="token punctuation">;</span>
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -918,14 +964,9 @@ string str<span class="token punctuation">;</span>
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1052,12 +1093,12 @@ string str<span class="token punctuation">;</span>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
                     <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">字符串</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1270,7 +1311,7 @@ string str<span class="token punctuation">;</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1532,15 +1573,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

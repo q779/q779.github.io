@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">AT_dp_w Intervals 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'AT_dp_w Intervals 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -702,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    848
+                    850
                 </div>
                 
 
@@ -722,28 +748,55 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AT-dp-w-Intervals-题解"><a href="#AT-dp-w-Intervals-题解" class="headerlink" title="AT_dp_w Intervals 题解"></a>AT_dp_w Intervals 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_dp_w">AT_dp_w Intervals</a></p>
+                <h1 id="at_dp_w-intervals-题解">AT_dp_w Intervals 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_dp_w">AT_dp_w
+Intervals</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $m$ 条规则形如 $(l_i,r_i,a_i)$，对于一个 01 串，其分数的定义是：</p>
-<p>对于第 $i$ 条规则，若该串在 $[l_i,r_i]$ 中至少有一个 $1$，则该串的分数增加 $a_i$。</p>
-<p>你需要求出长度为 $n$ 的 01 串中的最大分数。</p>
+<p>给定 <span class="math inline">\(m\)</span> 条规则形如 <span
+class="math inline">\((l_i,r_i,a_i)\)</span>，对于一个 01
+串，其分数的定义是：</p>
+<p>对于第 <span class="math inline">\(i\)</span> 条规则，若该串在 <span
+class="math inline">\([l_i,r_i]\)</span> 中至少有一个 <span
+class="math inline">\(1\)</span>，则该串的分数增加 <span
+class="math inline">\(a_i\)</span>。</p>
+<p>你需要求出长度为 <span class="math inline">\(n\)</span> 的 01
+串中的最大分数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行 $n,m$ ，接下来 $m$ 行 $l_i,r_i,a_i$ 。</p>
+<p>第一行 <span class="math inline">\(n,m\)</span> ，接下来 <span
+class="math inline">\(m\)</span> 行 <span
+class="math inline">\(l_i,r_i,a_i\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出字符串的最大得分。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n,m \le 2\times 10^5$ 且 $1\le l_i \le r_i\le n,~|a_i|\le 10^9$</p>
+<p><span class="math inline">\(1 \le n,m \le 2\times 10^5\)</span> 且
+<span class="math inline">\(1\le l_i \le r_i\le n,~|a_i|\le
+10^9\)</span></p>
 </blockquote>
-<p>这道题和 <a href="/2024/06/07/luo-gu-p9871-noip2023-tian-tian-ai-da-qia-ti-jie/">P9871 [NOIP2023] 天天爱打卡</a> 思路挺像的。</p>
-<p>设 $f(i,j)$ 为前 $i$ 个位置中，上一个 $1$ 放在 $j$ 的最优方案，则</p>
-<script type="math/tex; mode=display">
-f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
-\\[6pt] f(i,j) = f(i - 1, j) + \sum_{l_k \le j \le r_k \le i} a_k \quad (j < i)</script><p>后面这个东西可以把线段（即规则）按右端点排序，这样每次枚举 $r_k=i$ 的线段即可。</p>
-<p>注意到对于线段 $(l_k,r_k)$ ，任何 $j \in [l_k, r_k]$ 的 $f(i-1,j)$ 都可以吃到 $a_k$ ，这就是一个区间修改</p>
-<p>考虑用线段树维护每一轮的 $f(i,j)$ ，而不是用传统的滚动数组维护。</p>
-<p>这样我们枚举 $i$ 的时候，就可以一轮区间加了，注意 $f(i,i)$ 要单独修改。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>这道题和 <a
+href="/2024/06/07/luo-gu-p9871-noip2023-tian-tian-ai-da-qia-ti-jie/">P9871
+[NOIP2023] 天天爱打卡</a> 思路挺像的。</p>
+<p>设 <span class="math inline">\(f(i,j)\)</span> 为前 <span
+class="math inline">\(i\)</span> 个位置中，上一个 <span
+class="math inline">\(1\)</span> 放在 <span
+class="math inline">\(j\)</span> 的最优方案，则 <span
+class="math display">\[
+f(i,0) = 0,\ f(i,i) = \max_{0 \le j &lt; i} f(i-1,j)
+\\[6pt] f(i,j) = f(i - 1, j) + \sum_{l_k \le j \le r_k \le i} a_k \quad
+(j &lt; i)
+\]</span> 后面这个东西可以把线段（即规则）按右端点排序，这样每次枚举
+<span class="math inline">\(r_k=i\)</span> 的线段即可。</p>
+<p>注意到对于线段 <span class="math inline">\((l_k,r_k)\)</span> ，任何
+<span class="math inline">\(j \in [l_k, r_k]\)</span> 的 <span
+class="math inline">\(f(i-1,j)\)</span> 都可以吃到 <span
+class="math inline">\(a_k\)</span> ，这就是一个区间修改</p>
+<p>考虑用线段树维护每一轮的 <span class="math inline">\(f(i,j)\)</span>
+，而不是用传统的滚动数组维护。</p>
+<p>这样我们枚举 <span class="math inline">\(i\)</span>
+的时候，就可以一轮区间加了，注意 <span
+class="math inline">\(f(i,i)\)</span> 要单独修改。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -813,9 +866,10 @@ f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
     cout <span class="token operator">&lt;&lt;</span> <span class="token function">max</span><span class="token punctuation">(</span>tr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>mx<span class="token punctuation">,</span> <span class="token number">0ll</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9gp9m3nn">https://www.luogu.com.cn/article/9gp9m3nn</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9gp9m3nn">https://www.luogu.com.cn/article/9gp9m3nn</a></p>
 
                 
             </div>
@@ -927,7 +981,6 @@ f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -940,14 +993,9 @@ f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1078,12 +1126,12 @@ f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
                         <span class="chip bg-color">DP</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
                     <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">字符串</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1300,7 +1348,7 @@ f(i,0) = 0,\ f(i,i) = \max_{0 \le j < i} f(i-1,j)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1562,15 +1610,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

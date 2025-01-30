@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P5516 [MtOI2019] 小铃的烦恼 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P5516 [MtOI2019] 小铃的烦恼 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,67 +748,151 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5516-MtOI2019-小铃的烦恼-题解"><a href="#洛谷P5516-MtOI2019-小铃的烦恼-题解" class="headerlink" title="洛谷P5516 [MtOI2019] 小铃的烦恼 题解"></a>洛谷P5516 [MtOI2019] 小铃的烦恼 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5516">P5516 [MtOI2019] 小铃的烦恼</a></p>
+                <h1 id="洛谷p5516-mtoi2019-小铃的烦恼-题解">洛谷P5516 [MtOI2019]
+小铃的烦恼 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5516">P5516
+[MtOI2019] 小铃的烦恼</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>小铃每天都会整理一次铃奈庵的书籍。这次桌子上有 $n$ 本魔法书，这些书一次排成一排，每本书有一个魔法属性和编号。</p>
+<p>小铃每天都会整理一次铃奈庵的书籍。这次桌子上有 <span
+class="math inline">\(n\)</span>
+本魔法书，这些书一次排成一排，每本书有一个魔法属性和编号。</p>
 <p>最开始这些书的魔法属性都是一样的，但是因为被人多次使用，魔法属性发生了变化，小铃想让所有书的魔法属性重新全部相同。</p>
-<p>这次小铃找到了雾雨 魔理沙(Kirisame Marisa)帮忙整理书籍，每次魔理沙可以释放选定魔法，魔法会随机选择两本书 $a,b$ ( $a$ 不等于 $b$ )。</p>
-<p>选定这两本书后，魔理沙会释放转移魔法，使得有 $p_{a,b}\ \left(p_{a,b}\in (0,1]\right)$ 的概率，第 $b$ 本书的魔法属性变成第 $a$ 本书的魔法属性。也就是说有 $1-p_{a,b}$ 的概率，使得你<strong>即使选定了 $a,b$ 两本书，但是魔法属性的转移不成功，意味着这次操作是无效的</strong> 。</p>
-<p>注意 $p_{a,b}$ 是对于<strong>转移是否成功的概率</strong>，和随机选择两本书的操作互不影响。</p>
+<p>这次小铃找到了雾雨 魔理沙(Kirisame
+Marisa)帮忙整理书籍，每次魔理沙可以释放选定魔法，魔法会随机选择两本书
+<span class="math inline">\(a,b\)</span> ( <span
+class="math inline">\(a\)</span> 不等于 <span
+class="math inline">\(b\)</span> )。</p>
+<p>选定这两本书后，魔理沙会释放转移魔法，使得有 <span
+class="math inline">\(p_{a,b}\ \left(p_{a,b}\in (0,1]\right)\)</span>
+的概率，第 <span class="math inline">\(b\)</span> 本书的魔法属性变成第
+<span class="math inline">\(a\)</span> 本书的魔法属性。也就是说有 <span
+class="math inline">\(1-p_{a,b}\)</span>
+的概率，使得你<strong>即使选定了 <span
+class="math inline">\(a,b\)</span>
+两本书，但是魔法属性的转移不成功，意味着这次操作是无效的</strong> 。</p>
+<p>注意 <span class="math inline">\(p_{a,b}\)</span>
+是对于<strong>转移是否成功的概率</strong>，和随机选择两本书的操作互不影响。</p>
 <p>现在小铃想知道，求期望操作多少次，才能使所有的书魔法属性都一样？由于时间紧迫，小铃找到了你，希望你可以帮其解决这个问题，不然小铃就不会给你这题的分了。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个字符串，第 $i$ 个字符表示第 $i$ 本书的魔法属性，注意每本书的魔法属性为 $A$ 到 $Z$ 的所有的大写字母中的任意一字母。(设字符串的长度为 $n$ ) 。</p>
-<p>第二行到第 $n+1$ 行，每行 $n$ 个实数，第 $i$ 行的第 $j$ 个数表示 $p_{i,j}$ 。</p>
+<p>第一行一个字符串，第 <span class="math inline">\(i\)</span>
+个字符表示第 <span class="math inline">\(i\)</span>
+本书的魔法属性，注意每本书的魔法属性为 <span
+class="math inline">\(A\)</span> 到 <span
+class="math inline">\(Z\)</span>
+的所有的大写字母中的任意一字母。(设字符串的长度为 <span
+class="math inline">\(n\)</span> ) 。</p>
+<p>第二行到第 <span class="math inline">\(n+1\)</span> 行，每行 <span
+class="math inline">\(n\)</span> 个实数，第 <span
+class="math inline">\(i\)</span> 行的第 <span
+class="math inline">\(j\)</span> 个数表示 <span
+class="math inline">\(p_{i,j}\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>结果，精确到小数点后 $1$ 位。</p>
+<p>结果，精确到小数点后 <span class="math inline">\(1\)</span> 位。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$n\leq2\times 10^3,~\left(\sum\limits_{a=1}^{n}\sum\limits_{b=1}^{n}p_{a,b}\right) = n^2$​ 。</p>
+<p><span class="math inline">\(n\leq2\times
+10^3,~\left(\sum\limits_{a=1}^{n}\sum\limits_{b=1}^{n}p_{a,b}\right) =
+n^2\)</span>​ 。</p>
 </blockquote>
 <p>毒瘤期望题。</p>
-<p>首先因为 $p_{a,b} \in(0,1]$ 所以 $p_{a,b}=1$ 恒成立，也就是<strong>不用考虑 $p$​</strong> 了。</p>
-<p>根据全期望公式</p>
-<script type="math/tex; mode=display">
+<p>首先因为 <span class="math inline">\(p_{a,b} \in(0,1]\)</span> 所以
+<span class="math inline">\(p_{a,b}=1\)</span>
+恒成立，也就是<strong>不用考虑 <span
+class="math inline">\(p\)</span>​</strong> 了。</p>
+<p>根据全期望公式 <span class="math display">\[
 \begin{aligned}
-\mathrm{E}(X) & =\mathrm{E}(\mathrm{E}(X \mid Y))
-\\[8pt] & =\sum_y \mathrm{E}(X \mid Y=y) \cdot \operatorname{Pr}(Y=y)
-\end{aligned}</script><p>显然这个 $\operatorname{Pr}(Y=y)$ 是可以 dp 的，即整个串变为 $y$ 的概率</p>
-<p>因为字符只有 $26$ 种，所以我们不妨直接枚举 $y$ 。</p>
-<p>记 $f_i$ 为字符 $y$ 的个数有 $i$ 个时 $s$ 变成 $y$ 的<strong>概率</strong>（$s$ 指题目给的字符串），则</p>
-<script type="math/tex; mode=display">
-f_i=\frac{i(n-i)}{n(n-1)} f_{i-1}+\frac{i(n-i)}{n(n-1)} f_{i+1}+\left(1-\frac{2 i(n-i)}{n(n-1)}\right) f_i</script><p>解一下方程</p>
-<script type="math/tex; mode=display">
-f_i=\frac{f_{i-1}+f_{i+1}}{2}</script><p>诶，这不就等差数列么，于是 $f_i = \frac{i}{n}$ 。不妨记为 $\mathrm{Pr}_i(Y=y)=f_i$​ 。</p>
+\mathrm{E}(X) &amp; =\mathrm{E}(\mathrm{E}(X \mid Y))
+\\[8pt] &amp; =\sum_y \mathrm{E}(X \mid Y=y) \cdot
+\operatorname{Pr}(Y=y)
+\end{aligned}
+\]</span> 显然这个 <span
+class="math inline">\(\operatorname{Pr}(Y=y)\)</span> 是可以 dp
+的，即整个串变为 <span class="math inline">\(y\)</span> 的概率</p>
+<p>因为字符只有 <span class="math inline">\(26\)</span>
+种，所以我们不妨直接枚举 <span class="math inline">\(y\)</span> 。</p>
+<p>记 <span class="math inline">\(f_i\)</span> 为字符 <span
+class="math inline">\(y\)</span> 的个数有 <span
+class="math inline">\(i\)</span> 个时 <span
+class="math inline">\(s\)</span> 变成 <span
+class="math inline">\(y\)</span> 的<strong>概率</strong>（<span
+class="math inline">\(s\)</span> 指题目给的字符串），则 <span
+class="math display">\[
+f_i=\frac{i(n-i)}{n(n-1)} f_{i-1}+\frac{i(n-i)}{n(n-1)}
+f_{i+1}+\left(1-\frac{2 i(n-i)}{n(n-1)}\right) f_i
+\]</span> 解一下方程 <span class="math display">\[
+f_i=\frac{f_{i-1}+f_{i+1}}{2}
+\]</span> 诶，这不就等差数列么，于是 <span class="math inline">\(f_i =
+\frac{i}{n}\)</span> 。不妨记为 <span
+class="math inline">\(\mathrm{Pr}_i(Y=y)=f_i\)</span>​ 。</p>
 <p>接着考虑下式……吗？</p>
 <blockquote>
-<script type="math/tex; mode=display">
+<p><span class="math display">\[
 \begin{aligned}
-\mathrm{E}(X \mid Y=y) & =\sum_x x \cdot \operatorname{Pr}(X=x \mid Y=y) \\
-& =\sum_x x \cdot \frac{\operatorname{Pr}(X=x, Y=y)}{\operatorname{Pr}(Y=y)}
-\end{aligned}</script></blockquote>
-<p>好吧，可以发现这个 $x$​ 实际上非常大，也就说这条路是走不通的。</p>
+\mathrm{E}(X \mid Y=y) &amp; =\sum_x x \cdot \operatorname{Pr}(X=x \mid
+Y=y) \\
+&amp; =\sum_x x \cdot \frac{\operatorname{Pr}(X=x,
+Y=y)}{\operatorname{Pr}(Y=y)}
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p>好吧，可以发现这个 <span class="math inline">\(x\)</span>​
+实际上非常大，也就说这条路是走不通的。</p>
 <p>那么我们换一条路，毕竟随机交换这个条件还没有用到。</p>
-<p>设随机变量 $R:\Omega_y \to \mathrm{pair}$ 表示一次随机操作修改了 $r=(u,v)$​ ，则</p>
-<script type="math/tex; mode=display">
-\mathrm{E}_i(X \mid Y=y) = \sum_r\mathrm{Pr}_i(R=r\mid Y=y)\cdot \mathrm{E}_i[(X \mid Y=y) \mid(R=r)]</script><p>根据条件概率的性质</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_i(R=r \mid Y=y)=\frac{\mathrm{Pr}_i(R=r,\,Y=y)}{\mathrm{Pr}_i(Y=y)}</script><p>这个 $\mathrm{Pr}_i(R=r,\,Y=y)$ 相当于做完操作 $r$ 后，$i$ 随机加 $k(k=-1,\,0,\,1)$ 后的 $\mathrm{Pr}_i(Y=y)$​ 。</p>
-<p>显然这是相互独立的两部分，即 $R=r$ 和 $((Y=y) \mid i)$ 。这从直观上确实很显然。</p>
-<p>不妨记 $i$ 随机加 $k$ 后的值为 $\mathtt{next}(i,r)$ ，符号语言就是</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}_i(R=r,\,Y=y) = \mathrm{Pr}(R=r)\cdot\mathrm{Pr}_{\mathtt{next}(i,r)}(Y=y)</script><p>那么</p>
-<script type="math/tex; mode=display">
-\mathrm{E}_i(X \mid Y=y) = 1 + \sum_r\frac{\mathrm{Pr}_{\mathtt{next}(i,r)}(Y=y) \cdot \mathrm{Pr}(R=r)}{\mathrm{Pr}_i(Y=y)}\cdot \mathrm{E}_{\mathtt{next}(i,r)}(X \mid Y=y)</script><p>令 $g_i = \mathrm{E}_i(X \mid Y=y)$ ，即设 $g_i$ 为字符 $y$ 的个数有 $i$ 个时 $s$ 变成 $y$​ 的<strong>期望</strong>，则</p>
-<script type="math/tex; mode=display">
+<p>设随机变量 <span class="math inline">\(R:\Omega_y \to
+\mathrm{pair}\)</span> 表示一次随机操作修改了 <span
+class="math inline">\(r=(u,v)\)</span>​ ，则 <span
+class="math display">\[
+\mathrm{E}_i(X \mid Y=y) = \sum_r\mathrm{Pr}_i(R=r\mid Y=y)\cdot
+\mathrm{E}_i[(X \mid Y=y) \mid(R=r)]
+\]</span> 根据条件概率的性质 <span class="math display">\[
+\mathrm{Pr}_i(R=r \mid
+Y=y)=\frac{\mathrm{Pr}_i(R=r,\,Y=y)}{\mathrm{Pr}_i(Y=y)}
+\]</span> 这个 <span
+class="math inline">\(\mathrm{Pr}_i(R=r,\,Y=y)\)</span> 相当于做完操作
+<span class="math inline">\(r\)</span> 后，<span
+class="math inline">\(i\)</span> 随机加 <span
+class="math inline">\(k(k=-1,\,0,\,1)\)</span> 后的 <span
+class="math inline">\(\mathrm{Pr}_i(Y=y)\)</span>​ 。</p>
+<p>显然这是相互独立的两部分，即 <span class="math inline">\(R=r\)</span>
+和 <span class="math inline">\(((Y=y) \mid i)\)</span>
+。这从直观上确实很显然。</p>
+<p>不妨记 <span class="math inline">\(i\)</span> 随机加 <span
+class="math inline">\(k\)</span> 后的值为 <span
+class="math inline">\(\mathtt{next}(i,r)\)</span> ，符号语言就是 <span
+class="math display">\[
+\mathrm{Pr}_i(R=r,\,Y=y) =
+\mathrm{Pr}(R=r)\cdot\mathrm{Pr}_{\mathtt{next}(i,r)}(Y=y)
+\]</span> 那么 <span class="math display">\[
+\mathrm{E}_i(X \mid Y=y) = 1 +
+\sum_r\frac{\mathrm{Pr}_{\mathtt{next}(i,r)}(Y=y) \cdot
+\mathrm{Pr}(R=r)}{\mathrm{Pr}_i(Y=y)}\cdot
+\mathrm{E}_{\mathtt{next}(i,r)}(X \mid Y=y)
+\]</span></p>
+<p>令 <span class="math inline">\(g_i = \mathrm{E}_i(X \mid
+Y=y)\)</span> ，即设 <span class="math inline">\(g_i\)</span> 为字符
+<span class="math inline">\(y\)</span> 的个数有 <span
+class="math inline">\(i\)</span> 个时 <span
+class="math inline">\(s\)</span> 变成 <span
+class="math inline">\(y\)</span>​ 的<strong>期望</strong>，则 <span
+class="math display">\[
 g_i = 1 + g_{i-1}\left(\frac{i(n-i)}{n(n-1)}\cdot \frac{i-1}{i}\right)
         + g_{i+1}\left(\frac{i(n-i)}{n(n-1)}\cdot \frac{i+1}{i}\right)
-        + g_{i}\left(1-\frac{2 i(n-i)}{n(n-1)}\right)</script><p>这一步看上去有点跳跃，其实是考察每个 $g_{i-1},\,g_i,\,g_{i+1}$​ 分别的概率。列 dp 式子的过程而已。</p>
-<p>那么</p>
-<script type="math/tex; mode=display">
-g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i} g_{i+1}</script><p>记 $c_l$ 为字符 $s_l$ 的出现次数，答案就是</p>
-<script type="math/tex; mode=display">
-\frac{1}{n}\sum_{l=1}^n c_l\cdot g_{c_l}</script><p>那么这个 $g_i$ 怎么求呢？参考 <a href="/2024/05/11/gao-si-xiao-yuan-de-xian-xing-ji-qiao/">高斯消元的线性技巧</a> （注意到本题 $g_n=0$ ）</p>
-<p>时间复杂度 $\mathcal{O}(n)$ </p>
+        + g_{i}\left(1-\frac{2 i(n-i)}{n(n-1)}\right)
+\]</span> 这一步看上去有点跳跃，其实是考察每个 <span
+class="math inline">\(g_{i-1},\,g_i,\,g_{i+1}\)</span>​ 分别的概率。列 dp
+式子的过程而已。</p>
+<p>那么 <span class="math display">\[
+g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i}
+g_{i+1}
+\]</span> 记 <span class="math inline">\(c_l\)</span> 为字符 <span
+class="math inline">\(s_l\)</span> 的出现次数，答案就是 <span
+class="math display">\[
+\frac{1}{n}\sum_{l=1}^n c_l\cdot g_{c_l}
+\]</span> 那么这个 <span class="math inline">\(g_i\)</span>
+怎么求呢？参考 <a
+href="/2024/05/11/gao-si-xiao-yuan-de-xian-xing-ji-qiao/">高斯消元的线性技巧</a>
+（注意到本题 <span class="math inline">\(g_n=0\)</span> ）</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -815,14 +925,18 @@ g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i} g_{i+1}</scr
     cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/h3vfi3g2">https://www.luogu.com.cn/article/h3vfi3g2</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/c0qamxgo">https://www.luogu.com.cn/article/c0qamxgo</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/gfpgndh6">https://www.luogu.com.cn/article/gfpgndh6</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/h3vfi3g2">https://www.luogu.com.cn/article/h3vfi3g2</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/c0qamxgo">https://www.luogu.com.cn/article/c0qamxgo</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/gfpgndh6">https://www.luogu.com.cn/article/gfpgndh6</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1834348628&auto=0&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1834348628&amp;auto=0&amp;height=66">
+</iframe>
 
                 
             </div>
@@ -934,7 +1048,6 @@ g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i} g_{i+1}</scr
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -947,14 +1060,9 @@ g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i} g_{i+1}</scr
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1295,7 +1403,7 @@ g_i=\frac{n(n-1)}{2 i(n-i)}+\frac{i-1}{2 i} g_{i-1}+\frac{i+1}{2 i} g_{i+1}</scr
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1557,15 +1665,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

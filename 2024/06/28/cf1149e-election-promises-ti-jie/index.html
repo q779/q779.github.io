@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF1149E Election Promises 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF1149E Election Promises 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -726,59 +752,110 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1149E-Election-Promises-题解"><a href="#CF1149E-Election-Promises-题解" class="headerlink" title="CF1149E Election Promises 题解"></a>CF1149E Election Promises 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1149E">Election Promises</a></p>
+                <h1 id="cf1149e-election-promises-题解">CF1149E Election Promises
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1149E">Election
+Promises</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一张 $n$ 个点 $m$ 条边的有向图（不一定连通），每个点有一个权值 $a_i$ 。</p>
-<p>两人轮流进行操作，每次操作可以选择任意一个节点 $u$ 并将其点权减小为一个非负整数，</p>
-<p>之后可以将所有节点 $v \in\{v \mid (u,v) \in E\}$ 的权值更改为任意非负整数</p>
-<p>最先不能操作者输（指减小 $u$ 的操作），求先手有无必胜策略。</p>
+<p>给定一张 <span class="math inline">\(n\)</span> 个点 <span
+class="math inline">\(m\)</span>
+条边的有向图（不一定连通），每个点有一个权值 <span
+class="math inline">\(a_i\)</span> 。</p>
+<p>两人轮流进行操作，每次操作可以选择任意一个节点 <span
+class="math inline">\(u\)</span> 并将其点权减小为一个非负整数，</p>
+<p>之后可以将所有节点 <span class="math inline">\(v \in\{v \mid (u,v)
+\in E\}\)</span> 的权值更改为任意非负整数</p>
+<p>最先不能操作者输（指减小 <span class="math inline">\(u\)</span>
+的操作），求先手有无必胜策略。</p>
 <p>若有必胜策略则接下来输出第一次操作后能够确保获胜的每个节点的权值</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \leq n \leq 2 \times 10^5, 0 \leq m \leq 2 \times 10^5,~0 \le a_i \le 2\times 10^{18}$ 。</p>
+<p><span class="math inline">\(1 \leq n \leq 2 \times 10^5, 0 \leq m
+\leq 2 \times 10^5,~0 \le a_i \le 2\times 10^{18}\)</span> 。</p>
 </blockquote>
-<p>可以发现，如果这张图全是单点，即出度全为 $0$ 时，这就是一个 Nim 游戏。</p>
+<p>可以发现，如果这张图全是单点，即出度全为 <span
+class="math inline">\(0\)</span> 时，这就是一个 Nim 游戏。</p>
 <p>考虑对每个点进行如下分组：</p>
 <ul>
-<li>出度为 $0$ 的点标号为 $0$ 。</li>
-<li>对原图拓扑排序，每个点的标号是它后继节点的 $\operatorname{mex}$ 。</li>
+<li>出度为 <span class="math inline">\(0\)</span> 的点标号为 <span
+class="math inline">\(0\)</span> 。</li>
+<li>对原图拓扑排序，每个点的标号是它后继节点的 <span
+class="math inline">\(\operatorname{mex}\)</span> 。</li>
 </ul>
 <p>这样分组显然有以下性质</p>
 <ul>
-<li>对于任意有向边 $(u,v) \in E$ ，$u,v$ 必定不在一个组内。</li>
-<li>如果记点 $i$ 的编号为 $\mathrm{id}(i)$ ，那么 $i$ 的后继节点中至少有一个在 $[0,\mathrm{id}(i))$ 中。</li>
+<li>对于任意有向边 <span class="math inline">\((u,v) \in E\)</span>
+，<span class="math inline">\(u,v\)</span> 必定不在一个组内。</li>
+<li>如果记点 <span class="math inline">\(i\)</span> 的编号为 <span
+class="math inline">\(\mathrm{id}(i)\)</span> ，那么 <span
+class="math inline">\(i\)</span> 的后继节点中至少有一个在 <span
+class="math inline">\([0,\mathrm{id}(i))\)</span> 中。</li>
 </ul>
-<p>提示：其实这种分组方式是在计算 $\rm SG$ 函数，于是我们用 $\rm SG$ 来替代 $\mathrm{id}$ 表示编号。</p>
-<p>考虑记 $f_i = \bigoplus_{\mathrm{SG}(p)=i}a_p$ ，即编号为 $i$ 的所有点的异或值。</p>
-<p>那么可以证明，当且仅当 $\forall\, i$ 有 $f_i = 0$ 时，先手必败，否则先手必胜。</p>
+<p>提示：其实这种分组方式是在计算 <span class="math inline">\(\rm
+SG\)</span> 函数，于是我们用 <span class="math inline">\(\rm SG\)</span>
+来替代 <span class="math inline">\(\mathrm{id}\)</span> 表示编号。</p>
+<p>考虑记 <span class="math inline">\(f_i =
+\bigoplus_{\mathrm{SG}(p)=i}a_p\)</span> ，即编号为 <span
+class="math inline">\(i\)</span> 的所有点的异或值。</p>
+<p>那么可以证明，当且仅当 <span class="math inline">\(\forall\,
+i\)</span> 有 <span class="math inline">\(f_i = 0\)</span>
+时，先手必败，否则先手必胜。</p>
 <blockquote>
-<p><strong>证明</strong>&emsp;考虑证明采取以上策略时，原问题转化为一个有向图游戏。</p>
-<p>记先手必胜态为 $\rm N$ ，先手必败态为 $\rm P$ 。有向图游戏满足性质：</p>
+<p><strong>证明</strong> 考虑证明采取以上策略时，原问题转化为一个有向图游戏。</p>
+<p>记先手必胜态为 <span class="math inline">\(\rm N\)</span>
+，先手必败态为 <span class="math inline">\(\rm P\)</span>
+。有向图游戏满足性质：</p>
 <ul>
-<li>终止状态为 $\rm P$ 。</li>
-<li>$\rm P$ 的后继均为 $\rm N$ 。</li>
-<li>$\rm N$ 的后继存在至少一个 $\rm P$ 。</li>
+<li>终止状态为 <span class="math inline">\(\rm P\)</span> 。</li>
+<li><span class="math inline">\(\rm P\)</span> 的后继均为 <span
+class="math inline">\(\rm N\)</span> 。</li>
+<li><span class="math inline">\(\rm N\)</span> 的后继存在至少一个 <span
+class="math inline">\(\rm P\)</span> 。</li>
 </ul>
 <p>那么我们只需证明双方均采取最优策略时，满足以上性质即可：</p>
 <ul>
-<li><p>本题的终止状态即所有的为 $0$ 的状态，显然为 $\rm P$ 。</p>
-</li>
-<li><p>对于 $\rm P$ 态，即 $\forall i,f_i=0$ 时，任何修改都会使得某个位置 $x$ 满足 $f_x \ne 0$ ，显然后继只有 $\rm N$ 态。</p>
-</li>
-<li><p>对于 $\rm N$ 态，至少存在一个位置 $x$ 满足 $f_x \ne 0$ 。</p>
-<p>类似于 Nim 游戏，我们只需要找到最大的 $x$ ，并找到一个 $u$ ，使得</p>
-<script type="math/tex; mode=display">
-\mathrm{SG}(u)=x,\ a_u \oplus f_x < a_u</script><p>然后令 $a_u \gets a_u \oplus f_x$ 即可将 $f_x$ 清零。那么这样的 $u$ 一定存在吗？</p>
-<p>设 $f_x=k$ ，它的二进制下最高位的 $1$ 为 $2^d$ ，根据异或的定义，</p>
-<p>一定有奇数个 $\mathrm{SG}(p)=x$ 的 $a_p$ 在二进制下第 $d$ 位为 $1$ ，因此一定存在这样的 $u$ 。</p>
-<p>而对于其他的 $f_y \ne 0(y &lt; x)$ ，由于 $\rm SG$ 值由 $\rm mex$ 得到，那么 $u$ 的后继中一定存在</p>
-<script type="math/tex; mode=display">
-v \in \{v \mid \mathrm{SG}(v)=y\, \land\,f_y \ne0\, \land\, y < x\}</script><p>因此只需要将 $a_v \gets a_v \oplus f_y$ 即可。那么 $\rm N$ 态下必然存在后继 $\rm P$ 。<span style="float: right;">$\square$</span></p>
-</li>
+<li><p>本题的终止状态即所有的为 <span class="math inline">\(0\)</span>
+的状态，显然为 <span class="math inline">\(\rm P\)</span> 。</p></li>
+<li><p>对于 <span class="math inline">\(\rm P\)</span> 态，即 <span
+class="math inline">\(\forall i,f_i=0\)</span>
+时，任何修改都会使得某个位置 <span class="math inline">\(x\)</span> 满足
+<span class="math inline">\(f_x \ne 0\)</span> ，显然后继只有 <span
+class="math inline">\(\rm N\)</span> 态。</p></li>
+<li><p>对于 <span class="math inline">\(\rm N\)</span>
+态，至少存在一个位置 <span class="math inline">\(x\)</span> 满足 <span
+class="math inline">\(f_x \ne 0\)</span> 。</p>
+<p>类似于 Nim 游戏，我们只需要找到最大的 <span
+class="math inline">\(x\)</span> ，并找到一个 <span
+class="math inline">\(u\)</span> ，使得 <span class="math display">\[
+\mathrm{SG}(u)=x,\ a_u \oplus f_x &lt; a_u
+\]</span> 然后令 <span class="math inline">\(a_u \gets a_u \oplus
+f_x\)</span> 即可将 <span class="math inline">\(f_x\)</span>
+清零。那么这样的 <span class="math inline">\(u\)</span> 一定存在吗？</p>
+<p>设 <span class="math inline">\(f_x=k\)</span> ，它的二进制下最高位的
+<span class="math inline">\(1\)</span> 为 <span
+class="math inline">\(2^d\)</span> ，根据异或的定义，</p>
+<p>一定有奇数个 <span class="math inline">\(\mathrm{SG}(p)=x\)</span> 的
+<span class="math inline">\(a_p\)</span> 在二进制下第 <span
+class="math inline">\(d\)</span> 位为 <span
+class="math inline">\(1\)</span> ，因此一定存在这样的 <span
+class="math inline">\(u\)</span> 。</p>
+<p>而对于其他的 <span class="math inline">\(f_y \ne 0(y &lt; x)\)</span>
+，由于 <span class="math inline">\(\rm SG\)</span> 值由 <span
+class="math inline">\(\rm mex\)</span> 得到，那么 <span
+class="math inline">\(u\)</span> 的后继中一定存在 <span
+class="math display">\[
+v \in \{v \mid \mathrm{SG}(v)=y\, \land\,f_y \ne0\, \land\, y &lt; x\}
+\]</span></p>
+<p>因此只需要将 <span class="math inline">\(a_v \gets a_v \oplus
+f_y\)</span> 即可。那么 <span class="math inline">\(\rm N\)</span>
+态下必然存在后继 <span class="math inline">\(\rm P\)</span> 。<span
+style="float: right;"><span
+class="math inline">\(\square\)</span></span></p></li>
 </ul>
 </blockquote>
 <p>题目只需要给出先手操作一次后的状态，于是我们按照最优策略做即可。</p>
-<p>时间复杂度 $\mathcal{O}(n\log n)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -825,11 +902,13 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/487rnpey">https://www.luogu.com.cn/article/487rnpey</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jrbgqxqh">https://www.luogu.com.cn/article/jrbgqxqh</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/487rnpey">https://www.luogu.com.cn/article/487rnpey</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jrbgqxqh">https://www.luogu.com.cn/article/jrbgqxqh</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406281326026.jpg" style="zoom:50%;" /></p>
@@ -948,7 +1027,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -961,14 +1039,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1313,7 +1386,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1575,15 +1648,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

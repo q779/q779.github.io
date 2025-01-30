@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P6097 【模板】子集卷积 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '洛谷P6097 【模板】子集卷积 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,31 +748,63 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6097-【模板】子集卷积-题解"><a href="#洛谷P6097-【模板】子集卷积-题解" class="headerlink" title="洛谷P6097 【模板】子集卷积 题解"></a>洛谷P6097 【模板】子集卷积 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097 【模板】子集卷积</a></p>
+                <h1 id="洛谷p6097-模板子集卷积-题解">洛谷P6097 【模板】子集卷积
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097
+【模板】子集卷积</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长度为 $2^n$ 的序列 $a_0,a_1,\cdots,a_{2^n-1}$ 和 $b_0,b_1,\cdots,b_{2^n-1}$</p>
-<p>你需要求出一个序列 $c_0,c_1,\cdots,c_{2^n-1}$，其中 $c_k$ 满足：</p>
-<script type="math/tex; mode=display">
-c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j</script><p>其中 $\lor$ 表示按位或，$\land$ 表示按位与。答案对 $10^9+9$ 取模。</p>
+<p>给定两个长度为 <span class="math inline">\(2^n\)</span> 的序列 <span
+class="math inline">\(a_0,a_1,\cdots,a_{2^n-1}\)</span> 和 <span
+class="math inline">\(b_0,b_1,\cdots,b_{2^n-1}\)</span></p>
+<p>你需要求出一个序列 <span
+class="math inline">\(c_0,c_1,\cdots,c_{2^n-1}\)</span>，其中 <span
+class="math inline">\(c_k\)</span> 满足： <span class="math display">\[
+c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j
+\]</span> 其中 <span class="math inline">\(\lor\)</span>
+表示按位或，<span class="math inline">\(\land\)</span>
+表示按位与。答案对 <span class="math inline">\(10^9+9\)</span>
+取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入一个正整数 $n$ ，表示集合的大小。</p>
-<p>第二行有 $2^n$ 个整数，描述了 $a$。</p>
-<p>第三行有 $2^n$ 个整数，描述了 $b$。</p>
+<p>第一行输入一个正整数 <span class="math inline">\(n\)</span>
+，表示集合的大小。</p>
+<p>第二行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(a\)</span>。</p>
+<p>第三行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(b\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行 $2^n$ 个整数，表示 $c$。</p>
+<p>输出一行 <span class="math inline">\(2^n\)</span> 个整数，表示 <span
+class="math inline">\(c\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n\le 20$，$0\le a_i,b_i&lt; 10^9+9$。</p>
+<p><span class="math inline">\(1\le n\le 20\)</span>，<span
+class="math inline">\(0\le a_i,b_i&lt; 10^9+9\)</span>。</p>
 </blockquote>
-<p>才发现这个 $2^n-1$ 个数就是 $n$ 个元素的所有非空集合，$a_i,b_i$ 就是集合 $i$ 的两种权值。</p>
-<p>称 $c_k = \sum_{(i \lor j) = k} a_ib_j$ 为「子集并卷积」运算。显然这个可以用 <a href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 $\mathcal{O}(n \log n)$ 的复杂度内计算出来。</p>
-<p>考虑原题，第一个限制 $(i \lor j) = k$ 很简单，直接 FWT 就可以。</p>
-<p>第二个限制 $(i \land j) = 0$ ，也就是 $S_i \cap S_j = \varnothing$ ，这等价于 $|S_i| + |S_j|=|S_i \cup S_j|$ </p>
-<p>考虑额外开一维记录元素个数。即，设 $f_{i,j} = a_j\times [|j|=i],~g_{i,j} = b_j[|j|=i]$ </p>
-<p>并类似的设 $h_{i,j}$ 为答案，那么</p>
-<script type="math/tex; mode=display">
-h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运算，那么答案 $c_i = h_{|i|,i}$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n^22^n)$</p>
+<p>才发现这个 <span class="math inline">\(2^n-1\)</span> 个数就是 <span
+class="math inline">\(n\)</span> 个元素的所有非空集合，<span
+class="math inline">\(a_i,b_i\)</span> 就是集合 <span
+class="math inline">\(i\)</span> 的两种权值。</p>
+<p>称 <span class="math inline">\(c_k = \sum_{(i \lor j) = k}
+a_ib_j\)</span> 为「子集并卷积」运算。显然这个可以用 <a
+href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span>
+的复杂度内计算出来。</p>
+<p>考虑原题，第一个限制 <span class="math inline">\((i \lor j) =
+k\)</span> 很简单，直接 FWT 就可以。</p>
+<p>第二个限制 <span class="math inline">\((i \land j) = 0\)</span>
+，也就是 <span class="math inline">\(S_i \cap S_j = \varnothing\)</span>
+，这等价于 <span class="math inline">\(|S_i| + |S_j|=|S_i \cup
+S_j|\)</span></p>
+<p>考虑额外开一维记录元素个数。即，设 <span
+class="math inline">\(f_{i,j} = a_j\times [|j|=i],~g_{i,j} =
+b_j[|j|=i]\)</span></p>
+<p>并类似的设 <span class="math inline">\(h_{i,j}\)</span> 为答案，那么
+<span class="math display">\[
+h_i = \sum_{k=0}^i f_k *g_{i-k}
+\]</span> 其中 <span class="math inline">\(*\)</span>
+表示子集并卷积运算，那么答案 <span class="math inline">\(c_i =
+h_{|i|,i}\)</span> 。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^22^n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -784,9 +842,10 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">[</span><span class="token function">popc</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
 
                 
             </div>
@@ -898,7 +957,6 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -911,14 +969,9 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1262,7 +1315,7 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1524,15 +1577,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

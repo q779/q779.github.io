@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">CF1396B Stoned Game 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ 'CF1396B Stoned Game 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,25 +748,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1396B-Stoned-Game-题解"><a href="#CF1396B-Stoned-Game-题解" class="headerlink" title="CF1396B Stoned Game 题解"></a>CF1396B Stoned Game 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1396B">CF1396B Stoned Game</a></p>
+                <h1 id="cf1396b-stoned-game-题解">CF1396B Stoned Game 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1396B">CF1396B
+Stoned Game</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $n~(1 \le n \le 100)$ 堆石子，每堆分别有 $a_i~(1 \le n \le 100)$ 个石子。</p>
+<p>有 <span class="math inline">\(n~(1 \le n \le 100)\)</span>
+堆石子，每堆分别有 <span class="math inline">\(a_i~(1 \le n \le
+100)\)</span> 个石子。</p>
 <p>两者轮流取其中一个石子。但不能取上次对手取过的那一堆。特殊的，第一次取可以取任何一堆的石子。</p>
 <p>当前先手取完要取的石子之后使对手无路可走时，先手获胜。</p>
-<p>$T(T \le 100)$ 组数据，每组数据给出 $n$ 和 $a$ ，输出谁必会胜利。若先手胜利输出 <code>T</code>，若后者胜利输出 <code>HL</code>。</p>
+<p><span class="math inline">\(T(T \le 100)\)</span>
+组数据，每组数据给出 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(a\)</span> ，输出谁必会胜利。若先手胜利输出
+<code>T</code>，若后者胜利输出 <code>HL</code>。</p>
 </blockquote>
 <p>萌萌的博弈论题。</p>
-<p>设最大的那一堆为 $a_p$ ，并记 $S = (\sum_i a_i) - a_p$ 。</p>
+<p>设最大的那一堆为 <span class="math inline">\(a_p\)</span> ，并记
+<span class="math inline">\(S = (\sum_i a_i) - a_p\)</span> 。</p>
 <ul>
-<li><p>当 $a_p &gt; S$ 时，显然先手必胜</p>
-</li>
-<li><p>否则，$a_p$ 一定被全取完，同时 $S \gets S - a_p$ 。</p>
-<p>然而这并没有改变 $S$ 的性质，也就是说，一定还剩下一堆最大的，先手依然会选择它。</p>
-</li>
+<li><p>当 <span class="math inline">\(a_p &gt; S\)</span>
+时，显然先手必胜</p></li>
+<li><p>否则，<span class="math inline">\(a_p\)</span> 一定被全取完，同时
+<span class="math inline">\(S \gets S - a_p\)</span> 。</p>
+<p>然而这并没有改变 <span class="math inline">\(S\)</span>
+的性质，也就是说，一定还剩下一堆最大的，先手依然会选择它。</p></li>
 </ul>
 <p>因此其实这道题几乎只需要判断奇偶性即可。</p>
-<p>时间复杂度 $\mathcal{O}(T\cdot n)$ </p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(T\cdot
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -768,9 +804,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SSerxhs/solution-cf1396b">https://www.luogu.com.cn/blog/SSerxhs/solution-cf1396b</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SSerxhs/solution-cf1396b">https://www.luogu.com.cn/blog/SSerxhs/solution-cf1396b</a></p>
 
                 
             </div>
@@ -882,7 +919,6 @@ rgba(0,0,0,0.2);
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -895,14 +931,9 @@ rgba(0,0,0,0.2);
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1082,12 +1113,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -1247,7 +1278,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1509,15 +1540,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

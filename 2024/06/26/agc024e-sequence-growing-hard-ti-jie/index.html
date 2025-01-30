@@ -51,7 +51,7 @@
         justify-content: center;
         align-items: center;
         background: 
-#FCEEF8;
+#FFFAF0;
         text-align: center;
         /* loader页面消失采用渐隐的方式*/
         -webkit-transition: opacity 0.5s ease;
@@ -89,7 +89,7 @@
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -100,7 +100,7 @@ transparent;
         width: 0;
         height: 0;
         border: 25px solid 
-#9400D3;
+#F4A460;
         border-right-color: 
 transparent;
         border-radius: 25px;
@@ -126,7 +126,7 @@ transparent;
     .loading-image div:nth-child(5),
     .loading-image div:nth-child(6){
         background-color: 
-#9400D3;
+#F4A460;
         width: 15px;
         height: 15px;
         border-radius: 100%;
@@ -178,6 +178,16 @@ rgba(0,0,0,0.2);
 })()
 </script>
 
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
 
 
 
@@ -472,7 +482,7 @@ rgba(0,0,0,0.2);
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -538,8 +548,24 @@ rgba(0,0,0,0.2);
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">[AGC024E] Sequence Growing Hard 题解</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '[AGC024E] Sequence Growing Hard 题解' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -607,7 +633,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .toc-link:hover {
-        color: #42b983;
+        color: #6495ED;
         font-weight: 700;
         text-decoration: underline;
     }
@@ -622,7 +648,7 @@ rgba(0,0,0,0.2);
     }
 
     #toc-content .is-active-link {
-        color: #42b983;
+        color: #6495ED;
     }
 
     #floating-toc-btn {
@@ -722,32 +748,66 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC024E-Sequence-Growing-Hard-题解"><a href="#AGC024E-Sequence-Growing-Hard-题解" class="headerlink" title="[AGC024E] Sequence Growing Hard 题解"></a>[AGC024E] Sequence Growing Hard 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc024_e">[AGC024E] Sequence Growing Hard</a></p>
+                <h1 id="agc024e-sequence-growing-hard-题解">[AGC024E] Sequence Growing
+Hard 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc024_e">[AGC024E] Sequence
+Growing Hard</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $n,m,P$ ，问有多少个序列组 $(A_0,A_1,\cdots,A_n)$ 满足：</p>
+<p>给定 <span class="math inline">\(n,m,P\)</span> ，问有多少个序列组
+<span class="math inline">\((A_0,A_1,\cdots,A_n)\)</span> 满足：</p>
 <ul>
-<li>序列 $A_i$ 的元素个数为 $i$ ；</li>
-<li>所有元素都在 $[1,m]$ 内；</li>
-<li>$\forall i\in[0,n)$ ，$A_i$ 是 $A_{i+1}$ 的子序列且 $A_i$ 的字典序小于 $A_{i+1}$ 。</li>
+<li>序列 <span class="math inline">\(A_i\)</span> 的元素个数为 <span
+class="math inline">\(i\)</span> ；</li>
+<li>所有元素都在 <span class="math inline">\([1,m]\)</span> 内；</li>
+<li><span class="math inline">\(\forall i\in[0,n)\)</span> ，<span
+class="math inline">\(A_i\)</span> 是 <span
+class="math inline">\(A_{i+1}\)</span> 的子序列且 <span
+class="math inline">\(A_i\)</span> 的字典序小于 <span
+class="math inline">\(A_{i+1}\)</span> 。</li>
 </ul>
-<p>输出在$\bmod P$ 意义下的答案.</p>
+<p>输出在<span class="math inline">\(\bmod P\)</span> 意义下的答案.</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n, m \le 300,~2\le P \le 10^9$ 。</p>
+<p><span class="math inline">\(1\le n, m \le 300,~2\le P \le
+10^9\)</span> 。</p>
 </blockquote>
 <p>正着考虑看上去很麻烦，不妨反着来看这个序列组。</p>
-<p>显然这个序列组就是从 $A_n$ 删除某个元素得到 $A_{n-1}$ ，再删除一个得到 $A_{n-2}$ ，以此类推。</p>
-<p>那么根据字典序的性质，如果我们删除 $i$ 位置的元素，得到一个字典序更小的，</p>
-<p>就要求 $i$ 后面第一个不等于它的元素比它小，因为 $a_{i+1}$ 可能和 $a_i$ 一样大，这题没说是排列。</p>
-<p>这个就很麻烦了，不过我们可以钦定颜色相同的段就删最后一个，这样就只需要比较 $a_i$ 和 $a_{i+1}$ 的大小了。</p>
-<p>设 $f(i,j)$ 表示长度为 $i$ 的序列只用了 $[1,j]$ 的元素的方案数。</p>
-<p>转移的话，为了防止重复，我们枚举第一个 $j$ 出现的位置 $k$ ，和它被删除的时刻 $p$ ，</p>
-<p>那么 $k$ 后面的 $i-k$ 个数就需要在前 $p-1$ 个时刻内被删除，那么</p>
-<script type="math/tex; mode=display">
-f(i,j) =\sum_{k=1}^{i}\sum_{p = i - k + 1}^i\binom{p-1}{i-k} f(k - 1,j-1)f(i-k,j)</script><p>这个 $\sum_{p = i - k + 1}^i\binom{p-1}{i-k}$ 可以记作 $g(i,k)$ 并预处理出来，即</p>
-<script type="math/tex; mode=display">
-f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这个 $k$ 和 $p$ 的设计确实很巧妙，感觉我就卡在这一步。</p>
-<p>时间复杂度 $\mathcal{O}(n^3)$</p>
+<p>显然这个序列组就是从 <span class="math inline">\(A_n\)</span>
+删除某个元素得到 <span class="math inline">\(A_{n-1}\)</span>
+，再删除一个得到 <span class="math inline">\(A_{n-2}\)</span>
+，以此类推。</p>
+<p>那么根据字典序的性质，如果我们删除 <span
+class="math inline">\(i\)</span> 位置的元素，得到一个字典序更小的，</p>
+<p>就要求 <span class="math inline">\(i\)</span>
+后面第一个不等于它的元素比它小，因为 <span
+class="math inline">\(a_{i+1}\)</span> 可能和 <span
+class="math inline">\(a_i\)</span> 一样大，这题没说是排列。</p>
+<p>这个就很麻烦了，不过我们可以钦定颜色相同的段就删最后一个，这样就只需要比较
+<span class="math inline">\(a_i\)</span> 和 <span
+class="math inline">\(a_{i+1}\)</span> 的大小了。</p>
+<p>设 <span class="math inline">\(f(i,j)\)</span> 表示长度为 <span
+class="math inline">\(i\)</span> 的序列只用了 <span
+class="math inline">\([1,j]\)</span> 的元素的方案数。</p>
+<p>转移的话，为了防止重复，我们枚举第一个 <span
+class="math inline">\(j\)</span> 出现的位置 <span
+class="math inline">\(k\)</span> ，和它被删除的时刻 <span
+class="math inline">\(p\)</span> ，</p>
+<p>那么 <span class="math inline">\(k\)</span> 后面的 <span
+class="math inline">\(i-k\)</span> 个数就需要在前 <span
+class="math inline">\(p-1\)</span> 个时刻内被删除，那么 <span
+class="math display">\[
+f(i,j) =\sum_{k=1}^{i}\sum_{p = i - k + 1}^i\binom{p-1}{i-k} f(k -
+1,j-1)f(i-k,j)
+\]</span> 这个 <span class="math inline">\(\sum_{p = i - k +
+1}^i\binom{p-1}{i-k}\)</span> 可以记作 <span
+class="math inline">\(g(i,k)\)</span> 并预处理出来，即 <span
+class="math display">\[
+f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)
+\]</span> 有一说一，这个 <span class="math inline">\(k\)</span> 和 <span
+class="math inline">\(p\)</span>
+的设计确实很巧妙，感觉我就卡在这一步。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -779,10 +839,11 @@ f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这�
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/12swqlqs">https://www.luogu.com.cn/article/12swqlqs</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/12swqlqs">https://www.luogu.com.cn/article/12swqlqs</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>我就放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406261904004.jpg" style="zoom:33%;" /></p>
@@ -897,7 +958,6 @@ f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这�
     
         <link
     rel="stylesheet"
-    // href="https://unpkg.com/@waline/client@v3/dist/waline.css"
     href="/libs/waline/waline.css"
 />
 
@@ -910,14 +970,9 @@ f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这�
   </div>
 </div>
 
-
-<!-- <script src="//cdn.jsdelivr.net/npm/@waline/client"></script> -->
-<!-- <script src="/libs/waline/waline.js"></script> -->
 <script type="module">
-  // import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
   import { init } from "/libs/waline/waline.js";
   
-  //...
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1099,12 +1154,12 @@ f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这�
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1268,7 +1323,7 @@ f(i,j) = \sum_{k=1}^{i}g(i,k)f(k - 1,j-1)f(i-k,j)</script><p>有一说一，这�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1346.5k</span>&nbsp;字
             
             
             
@@ -1530,15 +1585,13 @@ $(function () {
 	
     
     <script type="text/javascript" color="0,0,0"
-        pointColor="0,0,0" opacity='0.7'
-        zIndex="-1" count="99"
+        pointColor="0,0,0" opacity='0.88'
+        zIndex="-1" count="123"
         src="/libs/background/canvas-nest.js"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     
