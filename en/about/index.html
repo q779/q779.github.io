@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="/en/css/my.css">
 
     <script src="/en/libs/jquery/jquery.min.js"></script>
-
+    <!-- <script src="/live2d-widget/autoload.js"></script> -->
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -38,8 +38,204 @@
 
 
 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFFAF0;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
 
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#F4A460;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },200); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<head>
+    <style>
+        #cursor {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background: #000;
+            border-radius: 8px;
+            opacity: 0.25;
+            z-index: 10086;
+            pointer-events: none;
+            transition: 0.2s ease-in-out;
+            transition-property: background, opacity, transform;
+        }
+
+        #cursor.hidden {
+            opacity: 0;
+        }
+
+        #cursor.hover {
+            opacity: 0.1;
+            transform: scale(2.5);
+        }
+
+        #cursor.active {
+            opacity: 0.5;
+            transform: scale(0.5);
+        }
+    </style>
+</head>
 <body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -286,7 +482,7 @@
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -351,18 +547,19 @@
 
             <div class="description center-align">
                 
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
+                    <span id="subtitle"></span>
+                    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                    <script>
+                        var typed = new Typed("#subtitle", {
+                            strings: ['Elegant, lovely, and efficient. (One of) the best blogs in the world.','Never really desperate, only the lost of the soul'],
+                            startDelay: 500,
+                            typeSpeed: 75,
+                            loop: true,
+                            backSpeed: 50,
+                            showCursor: true,
+                            cursorChar: '_',
+                        });
+                    </script>
                 
             </div>
         </div>
@@ -371,7 +568,7 @@
 
 
 <script>
-    $('.bg-cover').css('background-image', 'url(/en/medias/banner/0.jpg)');
+    $('.bg-cover').css('background-image', 'url(/en/medias/banner/0.webp)');
 </script>
 
 
@@ -394,7 +591,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/en/categories">1</a></span>
+    <span class="count"><a href="/en/categories">2</a></span>
     <span class="name">Categories</span>
 </div>
 
@@ -424,7 +621,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/en/categories">1</a></span>
+    <span class="count"><a href="/en/categories">2</a></span>
     <span class="name">Categories</span>
 </div>
 
@@ -525,11 +722,23 @@
                 <div class="introduction center-align" data-aos="fade-up">The English branch is still under construction...</div>
 
                 <style type="text/css">
-    #posts-chart,
-    #categories-chart,
+    #posts-chart{
+        width: 60%;
+        height: 350px;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+    }
+
+    #categories-chart{
+        width: 100%;
+        height: 350px;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+    }
+
     #tags-chart {
         width: 100%;
-        height: 300px;
+        height: 350px;
         margin: 0.5rem auto;
         padding: 0.5rem;
     }
@@ -539,19 +748,22 @@
     <div class="title center-align" data-aos="zoom-in-up">
         <i class="far fa-bar-chart"></i>&nbsp;&nbsp;Post Charts
     </div>
+
     <div class="row">
-        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+        <div class="chart col s12 m12 l12" data-aos="zoom-in-up">
             <div id="posts-chart"></div>
         </div>
+    </div>
 
-        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
-            <div id="categories-chart"></div>
-        </div>
-
-        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+    <div class="row">
+        <div class="chart col s12 m6 l6" data-aos="zoom-in-up">
             <div id="tags-chart"></div>
         </div>
+        <div class="chart col s12 m6 l6" data-aos="zoom-in-up">
+            <div id="categories-chart"></div>
+        </div>
     </div>
+    
 </div>
 
 <script type="text/javascript" src="/en/libs/echarts/echarts.min.js"></script>
@@ -565,7 +777,7 @@
     let postsOption = {
         title: {
             text: 'Post Publish Chart',
-            top: -5,
+            top: +5,
             x: 'center'
         },
         tooltip: {
@@ -573,17 +785,18 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01"]
+            data: ["2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-09","2022-10","2022-11","2022-12","2023-01","2023-02","2023-03","2023-04","2023-05","2023-06","2023-07","2023-08","2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01"]
         },
         yAxis: {
             type: 'value',
+
         },
         series: [
             {
                 name: 'Number of posts',
                 type: 'line',
-                color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                color: ['#6495ED'],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -598,11 +811,15 @@
                     }]
                 },
                 markLine: {
-                    itemStyle: {color: ['#ab47bc']},
+                    itemStyle: {color: ['#6495ED']},
                     data: [
                         {type: 'average', name: 'Average'}
                     ]
-                }
+                },
+                areaStyle: {
+                    color: '#6495ED',
+                    opacity: 0.5
+                },
             }
         ]
     };
@@ -612,7 +829,7 @@
     let categoriesOption = {
         title: {
             text: 'Categories Chart',
-            top: -4,
+            top: +5,
             x: 'center'
         },
         tooltip: {
@@ -624,8 +841,8 @@
                 name: 'Categories',
                 type: 'pie',
                 radius: '50%',
-                color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"OI","value":4}],
+                color: ['#FFC0CB', '#FFA500', '#FFD700', '#90EE90', '#3ECF8E', '#87CEFA', '#6495ED', '#7B68EE', '#9370DB', '#F08080'],
+                data: [{"name":"OI","value":3},{"name":"Essays","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -642,14 +859,14 @@
     let tagsOption = {
         title: {
             text: 'TOP10 Tags Chart',
-            top: -5,
+            top: +5,
             x: 'center'
         },
         tooltip: {},
         xAxis: [
             {
                 type: 'category',
-                data: ["Algorithm","String","Math","Data Structure","Graph Theory","Dynamic Programming"]
+                data: ["Algorithm","String","life","Data Structure","Graph Theory","DP"]
             }
         ],
         yAxis: [
@@ -660,9 +877,9 @@
         series: [
             {
                 type: 'bar',
-                color: ['#82d3f4'],
-                barWidth : 18,
-                data: [3,2,2,1,1,1],
+                color: ['#87CEFA'],
+                barWidth : 25,
+                data: [3,2,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -676,7 +893,7 @@
                     }],
                 },
                 markLine: {
-                    itemStyle: {color: ['#ab47bc']},
+                    itemStyle: {color: ['#6495ED']},
                     data: [
                         {type: 'average', name: 'Average'}
                     ]
@@ -707,8 +924,19 @@
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%); width: 70%">
+                     style="background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%); width: 80%">
                     <span>C++</span>
+                </div>
+                <div class="skill-bar-percent">80%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 70%">
+                    <span>LaTeX</span>
                 </div>
                 <div class="skill-bar-percent">70%</div>
             </div>
@@ -718,21 +946,10 @@
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 65%">
-                    <span>LaTeX</span>
-                </div>
-                <div class="skill-bar-percent">65%</div>
-            </div>
-        </div>
-        
-        
-        <div class="col s12 m6 l6" data-aos="fade-up">
-            <div class="skillbar">
-                <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%); width: 25%">
+                     style="background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%); width: 60%">
                     <span>Python</span>
                 </div>
-                <div class="skill-bar-percent">25%</div>
+                <div class="skill-bar-percent">60%</div>
             </div>
         </div>
         
@@ -740,10 +957,10 @@
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #00BCD4 0%, #80DEEA 100%); width: 85%">
+                     style="background: linear-gradient(to right, #00BCD4 0%, #80DEEA 100%); width: 100%">
                     <span>Markdown</span>
                 </div>
-                <div class="skill-bar-percent">85%</div>
+                <div class="skill-bar-percent">100%</div>
             </div>
         </div>
         
@@ -762,10 +979,10 @@
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width: 30%">
+                     style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width: 25%">
                     <span>Bash</span>
                 </div>
-                <div class="skill-bar-percent">30%</div>
+                <div class="skill-bar-percent">25%</div>
             </div>
         </div>
         
@@ -784,10 +1001,10 @@
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
                 <div class="skillbar-title"
-                     style="background: linear-gradient(to right, #6495ED 0%, #4169E1 100%); width: 10%">
+                     style="background: linear-gradient(to right, #6495ED 0%, #4169E1 100%); width: 20%">
                     <span>CSS</span>
                 </div>
-                <div class="skill-bar-percent">10%</div>
+                <div class="skill-bar-percent">20%</div>
             </div>
         </div>
         
@@ -802,14 +1019,14 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/en/tags/Algorithm/">
-                <span class="chip center-align waves-effect waves-light chip-default">Algorithm</span>
+            <a href="/en/tags/life/">
+                <span class="chip center-align waves-effect waves-light chip-default">life</span>
             </a>
             
             
             
-            <a href="/en/tags/Data-Structure/">
-                <span class="chip center-align waves-effect waves-light chip-default">Data Structure</span>
+            <a href="/en/tags/Algorithm/">
+                <span class="chip center-align waves-effect waves-light chip-default">Algorithm</span>
             </a>
             
             
@@ -820,8 +1037,8 @@
             
             
             
-            <a href="/en/tags/Math/">
-                <span class="chip center-align waves-effect waves-light chip-default">Math</span>
+            <a href="/en/tags/Data-Structure/">
+                <span class="chip center-align waves-effect waves-light chip-default">Data Structure</span>
             </a>
             
             
@@ -832,8 +1049,8 @@
             
             
             
-            <a href="/en/tags/Dynamic-Programming/">
-                <span class="chip center-align waves-effect waves-light chip-default">Dynamic Programming</span>
+            <a href="/en/tags/DP/">
+                <span class="chip center-align waves-effect waves-light chip-default">DP</span>
             </a>
             
             
@@ -853,7 +1070,15 @@
 </main>
 
 
-    <footer class="page-footer bg-color">
+    
+    <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/en/libs/jfish/renderer.js"></script>
+<script>
+    window.onload = () =>{ RENDERER.init(); }
+</script>
+
+
+<footer class="page-footer bg-color">
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -867,7 +1092,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">9.3k</span>&nbsp;字
+                class="white-color">2.2k</span>&nbsp;字
             
             
             
@@ -1124,6 +1349,8 @@ $(function () {
 
     
 
+    
+
 	
     
 
@@ -1134,7 +1361,6 @@ $(function () {
     
     <script src="/en/libs/instantpage/instantpage.js" type="module"></script>
     
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {

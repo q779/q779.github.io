@@ -76,7 +76,7 @@ $(function () {
             let imgPath = $(this).attr('src');
             $(this).wrap('<div class="img-item" data-src="' + imgPath + '" data-sub-html=".caption"></div>');
             // 图片添加阴影
-            $(this).addClass("img-shadow img-margin");
+            // $(this).addClass("img-shadow img-margin");
             // 图片添加字幕
             let alt = $(this).attr('alt');
             let title = $(this).attr('title');
@@ -104,6 +104,9 @@ $(function () {
             selector: '.img-item',
             // 启用字幕
             subHtmlSelectorRelative: true
+        });
+        $(document).find('img[data-original]').each(function(){
+                $(this).parent().attr("href", $(this).attr("data-original"));
         });
 
         // progress bar init

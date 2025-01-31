@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="/en/css/my.css">
 
     <script src="/en/libs/jquery/jquery.min.js"></script>
-
+    <!-- <script src="/live2d-widget/autoload.js"></script> -->
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -38,8 +38,204 @@
 
 
 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFFAF0;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
 
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#F4A460;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },200); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<head>
+    <style>
+        #cursor {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background: #000;
+            border-radius: 8px;
+            opacity: 0.25;
+            z-index: 10086;
+            pointer-events: none;
+            transition: 0.2s ease-in-out;
+            transition-property: background, opacity, transform;
+        }
+
+        #cursor.hidden {
+            opacity: 0;
+        }
+
+        #cursor.hover {
+            opacity: 0.1;
+            transform: scale(2.5);
+        }
+
+        #cursor.active {
+            opacity: 0.5;
+            transform: scale(0.5);
+        }
+    </style>
+</head>
 <body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -286,7 +482,7 @@
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -352,8 +548,24 @@
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">404</h1>
+                <div class="brand center">
+                    
+                        <h1 class="description center-align post-title">
+                            <span id="post-title"></span>
+                        </h1>
+                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                        <script>
+                            var typedObj = new Typed("#post-title", {
+                                strings: [ '404' ],
+                                startDelay: 500,
+                                typeSpeed: 75,
+                                loop: false,
+                                backSpeed: 50,
+                                showCursor: true,
+                                cursorChar: '_',
+                            });
+                        </script>
+                    
                 </div>
             </div>
         </div>
@@ -387,17 +599,22 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-12-09
+                    2025-01-31
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-09-25
+                    2025-01-31
                 </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    23
+                </div>
                 
 
                 
@@ -409,16 +626,17 @@
 
         
         <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/en/libs/prism/prism.css">
+        <link rel="stylesheet" href="/en/libs/prism/prism.min.css">
         
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这里什么都没有诶！QAQ</p>
-<p>所以你是怎么点进来的呀~ qwq</p>
-<p>建议使用右上角↗的搜索功能来查找文章哦！ awa</p>
+                <p>Nothing here! QAQ</p>
+<p>How did you get here? ~ qwq</p>
+<p>Try using the search function in the top-right corner ↗ to find
+articles! awa</p>
 <iframe src="https://chromedino.com/" width="100%" height="260px" scrolling="no">
 </iframe>
 
@@ -493,7 +711,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="twitter,facebook,qq,wechat" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/en/libs/share/js/social-share.min.js"></script>
     
 
@@ -516,267 +734,6 @@
     
 
     
-        <style>
-    .valine-card {
-        margin: 1.5rem auto;
-    }
-
-    .valine-card .card-content {
-        padding: 20px 20px 5px 20px;
-    }
-
-    #vcomments textarea {
-        box-sizing: border-box;
-        background: url("/en/medias/comment_bg.png") 100% 100% no-repeat;
-    }
-
-    #vcomments p {
-        margin: 2px 2px 10px;
-        font-size: 1.05rem;
-        line-height: 1.78rem;
-    }
-
-    #vcomments blockquote p {
-        text-indent: 0.2rem;
-    }
-
-    #vcomments a {
-        padding: 0 2px;
-        color: #4cbf30;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    #vcomments img {
-        max-width: 100%;
-        height: auto;
-        cursor: pointer;
-    }
-
-    #vcomments ol li {
-        list-style-type: decimal;
-    }
-
-    #vcomments ol,
-    ul {
-        display: block;
-        padding-left: 2em;
-        word-spacing: 0.05rem;
-    }
-
-    #vcomments ul li,
-    ol li {
-        display: list-item;
-        line-height: 1.8rem;
-        font-size: 1rem;
-    }
-
-    #vcomments ul li {
-        list-style-type: disc;
-    }
-
-    #vcomments ul ul li {
-        list-style-type: circle;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    #vcomments table, th, td {
-        border: 0;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments h1 {
-        font-size: 1.85rem;
-        font-weight: bold;
-        line-height: 2.2rem;
-    }
-
-    #vcomments h2 {
-        font-size: 1.65rem;
-        font-weight: bold;
-        line-height: 1.9rem;
-    }
-
-    #vcomments h3 {
-        font-size: 1.45rem;
-        font-weight: bold;
-        line-height: 1.7rem;
-    }
-
-    #vcomments h4 {
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    #vcomments h5 {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.4rem;
-    }
-
-    #vcomments h6 {
-        font-size: 1rem;
-        line-height: 1.3rem;
-    }
-
-    #vcomments p {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
-    #vcomments hr {
-        margin: 12px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    #vcomments blockquote {
-        margin: 15px 0;
-        border-left: 5px solid #42b983;
-        padding: 1rem 0.8rem 0.3rem 0.8rem;
-        color: #666;
-        background-color: rgba(66, 185, 131, .1);
-    }
-
-    #vcomments pre {
-        font-family: monospace, monospace;
-        padding: 1.2em;
-        margin: .5em 0;
-        background: #272822;
-        overflow: auto;
-        border-radius: 0.3em;
-        tab-size: 4;
-    }
-
-    #vcomments code {
-        font-family: monospace, monospace;
-        padding: 1px 3px;
-        font-size: 0.92rem;
-        color: #e96900;
-        background-color: #f8f8f8;
-        border-radius: 2px;
-    }
-
-    #vcomments pre code {
-        font-family: monospace, monospace;
-        padding: 0;
-        color: #e8eaf6;
-        background-color: #272822;
-    }
-
-    #vcomments pre[class*="language-"] {
-        padding: 1.2em;
-        margin: .5em 0;
-    }
-
-    #vcomments code[class*="language-"],
-    pre[class*="language-"] {
-        color: #e8eaf6;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-
-    #vcomments b,
-    strong {
-        font-weight: bold;
-    }
-
-    #vcomments dfn {
-        font-style: italic;
-    }
-
-    #vcomments small {
-        font-size: 85%;
-    }
-
-    #vcomments cite {
-        font-style: normal;
-    }
-
-    #vcomments mark {
-        background-color: #fcf8e3;
-        padding: .2em;
-    }
-
-    #vcomments table, th, td {
-        padding: 12px 13px;
-        border: 1px solid #dfe2e5;
-    }
-
-    table tr:nth-child(2n), thead {
-        background-color: #fafafa;
-    }
-
-    #vcomments table th {
-        background-color: #f2f2f2;
-        min-width: 80px;
-    }
-
-    #vcomments table td {
-        min-width: 80px;
-    }
-
-    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-        position: inherit;
-        margin-left: -1.3rem;
-        margin-right: 0.4rem;
-        margin-top: -1px;
-        vertical-align: middle;
-        left: unset;
-        visibility: visible;
-    }
-</style>
-
-<div class="card valine-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="vcomments" class="card-content" style="display: grid">
-    </div>
-</div>
-
-<script src="/en/libs/valine/av-min.js"></script>
-<script src="/en/libs/valine/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        appId: 'dfRPLClBuTrP94wgrLmeyPh2-gzGzoHsz',
-        appKey: 'bvxosl5WCwAmd55melinsT5R',
-        notify: 'false' === 'true',
-        verify: 'false' === 'true',
-        visitor: 'true' === 'true',
-        avatar: 'mm',
-        pageSize: '10',
-        lang: 'en',
-        placeholder: 'Welcome to comment! :3'
-    });
-</script>
 
     
 
@@ -810,7 +767,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-31
                             </span>
                         <span class="publish-author">
                             
@@ -847,7 +804,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-31
                             </span>
                         <span class="publish-author">
                             
@@ -872,6 +829,11 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/en/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/en/libs/prism/prism.min.js"></script>
+
+
 <!-- 代码语言 -->
 
 <script type="text/javascript" src="/en/libs/codeBlock/codeLang.js"></script>
@@ -894,7 +856,15 @@
 
 
 
-    <footer class="page-footer bg-color">
+    
+    <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/en/libs/jfish/renderer.js"></script>
+<script>
+    window.onload = () =>{ RENDERER.init(); }
+</script>
+
+
+<footer class="page-footer bg-color">
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -908,7 +878,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">9.3k</span>&nbsp;字
+                class="white-color">2.2k</span>&nbsp;字
             
             
             
@@ -1165,6 +1135,8 @@ $(function () {
 
     
 
+    
+
 	
     
 
@@ -1175,7 +1147,6 @@ $(function () {
     
     <script src="/en/libs/instantpage/instantpage.js" type="module"></script>
     
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {

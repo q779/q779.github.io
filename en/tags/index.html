@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="/en/css/my.css">
 
     <script src="/en/libs/jquery/jquery.min.js"></script>
-
+    <!-- <script src="/live2d-widget/autoload.js"></script> -->
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -38,8 +38,204 @@
 
 
 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFFAF0;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 0.5s ease;
+        -moz-transition: opacity 0.5s ease;
+        -o-transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
 
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#F4A460;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#F4A460;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },200); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+
+
+   <style>
+    body{
+       background-image: url(/medias/bg2.webp);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
+
+<head>
+    <style>
+        #cursor {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background: #000;
+            border-radius: 8px;
+            opacity: 0.25;
+            z-index: 10086;
+            pointer-events: none;
+            transition: 0.2s ease-in-out;
+            transition-property: background, opacity, transform;
+        }
+
+        #cursor.hidden {
+            opacity: 0;
+        }
+
+        #cursor.hover {
+            opacity: 0.1;
+            transform: scale(2.5);
+        }
+
+        #cursor.active {
+            opacity: 0.5;
+            transform: scale(0.5);
+        }
+    </style>
+</head>
 <body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -286,7 +482,7 @@
     }
 
     .github-corner svg {
-        color: #0f9d58;
+        color: #6495ED;
         fill: #fff;
         height: 64px;
         width: 64px;
@@ -344,18 +540,19 @@
 
             <div class="description center-align">
                 
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
+                    <span id="subtitle"></span>
+                    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                    <script>
+                        var typed = new Typed("#subtitle", {
+                            strings: ['Elegant, lovely, and efficient. (One of) the best blogs in the world.','Never really desperate, only the lost of the soul'],
+                            startDelay: 500,
+                            typeSpeed: 75,
+                            loop: true,
+                            backSpeed: 50,
+                            showCursor: true,
+                            cursorChar: '_',
+                        });
+                    </script>
                 
             </div>
         </div>
@@ -364,7 +561,7 @@
 
 
 <script>
-    $('.bg-cover').css('background-image', 'url(/en/medias/banner/0.jpg)');
+    $('.bg-cover').css('background-image', 'url(/en/medias/banner/0.webp)');
 </script>
 
 
@@ -384,20 +581,20 @@
             <div class="tag-chips">
                 
                 
-                <a href="/en/tags/Algorithm/" title="Algorithm: 3">
+                <a href="/en/tags/life/" title="life: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Algorithm" style="background-color: #F9EBEA;">Algorithm
-                        <span class="tag-length">3</span>
+                            data-tagname="life" style="background-color: #F9EBEA;">life
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/en/tags/Data-Structure/" title="Data Structure: 1">
+                <a href="/en/tags/Algorithm/" title="Algorithm: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Data Structure" style="background-color: #F5EEF8;">Data Structure
-                        <span class="tag-length">1</span>
+                            data-tagname="Algorithm" style="background-color: #F5EEF8;">Algorithm
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -411,11 +608,11 @@
                 </a>
                 
                 
-                <a href="/en/tags/Math/" title="Math: 2">
+                <a href="/en/tags/Data-Structure/" title="Data Structure: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Math" style="background-color: #E8F8F5;">Math
-                        <span class="tag-length">2</span>
+                            data-tagname="Data Structure" style="background-color: #E8F8F5;">Data Structure
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -429,10 +626,10 @@
                 </a>
                 
                 
-                <a href="/en/tags/Dynamic-Programming/" title="Dynamic Programming: 1">
+                <a href="/en/tags/DP/" title="DP: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Dynamic Programming" style="background-color: #F8F9F9;">Dynamic Programming
+                            data-tagname="DP" style="background-color: #F8F9F9;">DP
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -461,7 +658,7 @@
 <script type="text/javascript">
     
 
-    $('#tag-wordcloud').jQCloud([{"text":"Algorithm","weight":3,"link":"/en/tags/Algorithm/"},{"text":"Data Structure","weight":1,"link":"/en/tags/Data-Structure/"},{"text":"String","weight":2,"link":"/en/tags/String/"},{"text":"Math","weight":2,"link":"/en/tags/Math/"},{"text":"Graph Theory","weight":1,"link":"/en/tags/Graph-Theory/"},{"text":"Dynamic Programming","weight":1,"link":"/en/tags/Dynamic-Programming/"}], {
+    $('#tag-wordcloud').jQCloud([{"text":"life","weight":1,"link":"/en/tags/life/"},{"text":"Algorithm","weight":3,"link":"/en/tags/Algorithm/"},{"text":"String","weight":2,"link":"/en/tags/String/"},{"text":"Data Structure","weight":1,"link":"/en/tags/Data-Structure/"},{"text":"Graph Theory","weight":1,"link":"/en/tags/Graph-Theory/"},{"text":"DP","weight":1,"link":"/en/tags/DP/"}], {
         autoResize: true
     });
 </script>
@@ -471,7 +668,15 @@
 </main>
 
 
-    <footer class="page-footer bg-color">
+    
+    <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/en/libs/jfish/renderer.js"></script>
+<script>
+    window.onload = () =>{ RENDERER.init(); }
+</script>
+
+
+<footer class="page-footer bg-color">
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -485,7 +690,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">9.3k</span>&nbsp;字
+                class="white-color">2.2k</span>&nbsp;字
             
             
             
@@ -742,6 +947,8 @@ $(function () {
 
     
 
+    
+
 	
     
 
@@ -752,7 +959,6 @@ $(function () {
     
     <script src="/en/libs/instantpage/instantpage.js" type="module"></script>
     
-
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
