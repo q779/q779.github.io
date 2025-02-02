@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,62 +744,30 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf198e-gripping-story-题解">CF198E Gripping Story 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF198E">CF198E
-Gripping Story</a></p>
+                <h1 id="CF198E-Gripping-Story-题解"><a href="#CF198E-Gripping-Story-题解" class="headerlink" title="CF198E Gripping Story 题解"></a>CF198E Gripping Story 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF198E">CF198E Gripping Story</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Qwerty 的船在位置 <span class="math inline">\((x,
-y)\)</span>，船上有一个机械臂，其力量为 <span
-class="math inline">\(p\)</span>，长度为 <span
-class="math inline">\(r\)</span>，即可以拿到质量不超过 <span
-class="math inline">\(p\)</span>，距离不超过 <span
-class="math inline">\(r\)</span> 的物品。</p>
-<p>有 <span class="math inline">\(n\)</span> 个机械臂散落在平面内，第
-<span class="math inline">\(i\)</span> 个机械臂在位置 <span
-class="math inline">\((x_i, y_i)\)</span>，其质量、力量和长度分别为
-$m_i,p_i,r_i $。</p>
-<p>Qwerty
-不能移动他的船，但他拿到某个机械臂后可以将其安装到船上使用，问他最多能获得多少机械臂。</p>
+<p>Qwerty 的船在位置 $(x, y)$，船上有一个机械臂，其力量为 $p$，长度为 $r$，即可以拿到质量不超过 $p$，距离不超过 $r$ 的物品。</p>
+<p>有 $n$ 个机械臂散落在平面内，第 $i$ 个机械臂在位置 $(x_i, y_i)$，其质量、力量和长度分别为 $m_i,p_i,r_i $。</p>
+<p>Qwerty 不能移动他的船，但他拿到某个机械臂后可以将其安装到船上使用，问他最多能获得多少机械臂。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行 <span class="math inline">\(x,y,p,r,n\)</span> ，接下来 <span
-class="math inline">\(n\)</span> 行 <span
-class="math inline">\(x_i,y_i,m_i,p_i,r_i\)</span></p>
+<p>第一行 $x,y,p,r,n$ ，接下来 $n$ 行 $x_i,y_i,m_i,p_i,r_i$</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，即答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n \le 2.5\times 10^5,~-10^9 \le
-x,y,x_i,y_i \le10^9,~1\le p,r,m_i,p_i,r_i\le 10^9\)</span></p>
+<p>$1\le n \le 2.5\times 10^5,~-10^9 \le x,y,x_i,y_i \le10^9,~1\le p,r,m_i,p_i,r_i\le 10^9$ </p>
 </blockquote>
-<p>如果机械臂 <span class="math inline">\(i\)</span> 能够帮助拿到 <span
-class="math inline">\(j\)</span> ，那么认为 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 有一条有向边</p>
+<p>如果机械臂 $i$ 能够帮助拿到 $j$ ，那么认为 $i$ 到 $j$ 有一条有向边</p>
 <p>可以发现最终答案就是计算整张图的可达性，然而本题不能直接暴力建出图。</p>
 <p>当然「不能暴力建出图」不等于「不能用其他方式模拟图」。</p>
-<p>因为仅当 <span class="math inline">\(m_i \le p\)</span> 且 <span
-class="math inline">\(d_i \le r\)</span>
-时，机械臂才能被拿走，这是一个二维偏序问题。</p>
-<p>所以我们不妨把 <span class="math inline">\(d_i\)</span>
-从小到大排序，此时我们需要做的是维护在 <span
-class="math inline">\(d_i\)</span> 的一定范围内，其满足条件的 <span
-class="math inline">\(m_i\)</span> 的情况</p>
-<p>可以发现 <span class="math inline">\(m_i\)</span>
-通过有序数据结构可以很好维护，我们每次只需取出所有满足条件的 <span
-class="math inline">\(m_i\)</span> 即可。</p>
-<p>而 <span class="math inline">\(d_i\)</span>
-因为过于离散——没错，我们可以离散化，从而用线段树维护。</p>
-<p>每个线段树上的节点维护当前区间内的 <span
-class="math inline">\(m_i\)</span>
-最小值，显然这对于修改需要非常多次的操作</p>
-<p>于是我们考虑以单调栈维护 <span class="math inline">\(m_i\)</span>​
-，这样每次只需要 <code>pop()</code> 一下即可（代码里用的是
-<code>vector</code> 模拟栈）</p>
-<p>可能讲的不是很细，具体的 bfs
-过程就看代码吧。另外这个单调栈实际上只出不进，是不影响复杂度的</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log n)\)</span>
-，空间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>因为仅当 $m_i \le p$ 且 $d_i \le r$ 时，机械臂才能被拿走，这是一个二维偏序问题。</p>
+<p>所以我们不妨把 $d_i$ 从小到大排序，此时我们需要做的是维护在 $d_i$ 的一定范围内，其满足条件的 $m_i$ 的情况</p>
+<p>可以发现 $m_i$ 通过有序数据结构可以很好维护，我们每次只需取出所有满足条件的 $m_i$ 即可。</p>
+<p>而 $d_i$ 因为过于离散——没错，我们可以离散化，从而用线段树维护。</p>
+<p>每个线段树上的节点维护当前区间内的 $m_i$ 最小值，显然这对于修改需要非常多次的操作</p>
+<p>于是我们考虑以单调栈维护 $m_i$​ ，这样每次只需要 <code>pop()</code> 一下即可（代码里用的是 <code>vector</code> 模拟栈）</p>
+<p>可能讲的不是很细，具体的 bfs 过程就看代码吧。另外这个单调栈实际上只出不进，是不影响复杂度的</p>
+<p>时间复杂度 $\mathcal{O}(n\log n)$ ，空间复杂度 $\mathcal{O}(n \log n)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -889,10 +857,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">write</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f08g2oc2">https://www.luogu.com.cn/article/f08g2oc2</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f08g2oc2">https://www.luogu.com.cn/article/f08g2oc2</a></p>
 
                 
             </div>
@@ -1346,14 +1313,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f08g2oc2">
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1367,7 +1333,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f08g2oc2">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

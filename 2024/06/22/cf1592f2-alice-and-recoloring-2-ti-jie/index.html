@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -748,87 +748,39 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1592f2-alice-and-recoloring-2-题解">CF1592F2 Alice and
-Recoloring 2 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1592F2">Alice
-and Recoloring 2</a></p>
+                <h1 id="CF1592F2-Alice-and-Recoloring-2-题解"><a href="#CF1592F2-Alice-and-Recoloring-2-题解" class="headerlink" title="CF1592F2 Alice and Recoloring 2 题解"></a>CF1592F2 Alice and Recoloring 2 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1592F2">Alice and Recoloring 2</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>本题与 CF1592F1 的差异在于花费不同。</p>
-<p>给定一个 <span class="math inline">\(n\)</span> 行 <span
-class="math inline">\(m\)</span> 列的目标矩阵，矩阵元素只有 W 或 B
-，并且你有一个初始矩阵，元素全为 W 。</p>
+<p>给定一个 $n$ 行 $m$ 列的目标矩阵，矩阵元素只有 W 或 B ，并且你有一个初始矩阵，元素全为 W 。</p>
 <p>现在你可以矩阵实施以下操作：</p>
 <ul>
-<li>使用一块钱，选定一个包含 <span class="math inline">\((1,1)\)</span>
-的子矩阵，把矩阵中的元素全部反转（ W 变 B ， B 变 W ）。</li>
-<li>使用三块钱，选定一个包含 <span class="math inline">\((n,1)\)</span>
-的子矩阵，把矩阵中的元素全部反转。</li>
-<li>使用四块钱，选定一个包含 <span class="math inline">\((1,m)\)</span>
-的子矩阵，把矩阵中的元素全部反转。</li>
-<li>使用两块钱，选定一个包含 <span class="math inline">\((n,m)\)</span>
-的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用一块钱，选定一个包含 $(1,1)$ 的子矩阵，把矩阵中的元素全部反转（ W 变 B ， B 变 W ）。</li>
+<li>使用三块钱，选定一个包含 $(n,1)$ 的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用四块钱，选定一个包含 $(1,m)$ 的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用两块钱，选定一个包含 $(n,m)$ 的子矩阵，把矩阵中的元素全部反转。</li>
 </ul>
 <p>现在需要你求出把初始矩阵变为目标矩阵最少需要几块钱。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个正整数 <span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(m (1 \le n,m\le 500)\)</span>
-，意义如上文所述。</p>
-<p>接下来 <span class="math inline">\(n\)</span> 行，每行 <span
-class="math inline">\(m\)</span> 个字符 W 或 B 。意义如上文所述。</p>
+<p>第一行两个正整数 $n$ 和 $m (1 \le n,m\le 500)$ ，意义如上文所述。</p>
+<p>接下来 $n$ 行，每行 $m$ 个字符 W 或 B 。意义如上文所述。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数，表示把初始矩阵变为目标矩阵所需的最少钱数。</p>
 </blockquote>
-<p>首先注意到 <span class="math inline">\((n,1)\)</span> 的操作和 <span
-class="math inline">\((1,m)\)</span> 的操作都是没意义的，都可以用 <span
-class="math inline">\((1,1)\)</span> 的操作替代。</p>
-<p>于是问题转化为，只有两种操作 <span
-class="math inline">\((1,1)\)</span> 和 <span
-class="math inline">\((n,m)\)</span> ，价格分别是 <span
-class="math inline">\(1\)</span> 和 <span
-class="math inline">\(2\)</span> 元。</p>
-<p>对 <span class="math inline">\(a_{i,j}\)</span> 做一遍异或后缀和（ W
-为 <span class="math inline">\(1\)</span> ），也就是 <span
-class="math inline">\(a_{i,j} \gets a_{i, j} \oplus a_{i, j+1} \oplus
-a_{i+1, j} \oplus a_{i+1, j+1}\)</span> 。</p>
-<p>那么操作一就变成了取反 <span
-class="math inline">\(a_{i,j}\)</span>，操作二变成了取反 <span
-class="math inline">\(a_{i,j},\,a_{i,m},\,a_{n,j},\,a_{n,m}\)</span>
-。（要是做前缀和就是反过来）</p>
-<p>现在需要将 <span class="math inline">\(a_{i,j}\)</span> 全部消成
-<span class="math inline">\(0\)</span> 。注意到对于同一行的操作二 <span
-class="math inline">\((x,c_1)\)</span> 和 <span
-class="math inline">\((x,c_2)\)</span> ，花费了 <span
-class="math inline">\(4\)</span> 元却只改了 <span
-class="math inline">\(4\)</span> 个点。</p>
+<p>首先注意到 $(n,1)$ 的操作和 $(1,m)$ 的操作都是没意义的，都可以用 $(1,1)$ 的操作替代。</p>
+<p>于是问题转化为，只有两种操作 $(1,1)$ 和 $(n,m)$ ，价格分别是 $1$ 和 $2$ 元。</p>
+<p>对 $a_{i,j}$ 做一遍异或后缀和（ W 为 $1$ ），也就是 $a_{i,j} \gets a_{i, j} \oplus a_{i, j+1} \oplus a_{i+1, j} \oplus a_{i+1, j+1}$ 。</p>
+<p>那么操作一就变成了取反 $a_{i,j}$，操作二变成了取反 $a_{i,j},\,a_{i,m},\,a_{n,j},\,a_{n,m}$ 。（要是做前缀和就是反过来）</p>
+<p>现在需要将 $a_{i,j}$ 全部消成 $0$ 。注意到对于同一行的操作二 $(x,c_1)$ 和 $(x,c_2)$ ，花费了 $4$ 元却只改了 $4$ 个点。</p>
 <p>那么<strong>同一行或同一列最多执行一次</strong>操作二，这使得我们好奇操作二在什么时候会使用。</p>
-<p>注意到当 <span class="math inline">\(a_{i,j} + a_{i,m} + a_{n,j} +
-a_{n,m} \le 2\)</span> 时，操作二显然没必要使用。</p>
-<p>于是操作二只会在 <span class="math inline">\(a_{i,j}+a_{n,j}+a_{i,m}
-+ a_{n,m}=3\)</span> 时使用，而当 <span
-class="math inline">\(a_{n,m}=1\)</span> 时使用操作二无法正确的翻转</p>
-<p>因此实际上只有 <span
-class="math inline">\(a_{i,j}+a_{n,j}+a_{i,m}=3\)</span>
-时才会使用操作二。</p>
-<p>由于同一行或同一列最多执行一次，那么对于某个 <span
-class="math inline">\(i\)</span> ，只能有一个 <span
-class="math inline">\(j\)</span> 和它配对，<span
-class="math inline">\(j\)</span> 同理。</p>
-<p>考虑建立二分图，对于任意满足使用操作二的前置条件的 <span
-class="math inline">\((i,j)\)</span> ，我们将左侧的 <span
-class="math inline">\(i\)</span> 与右侧的 <span
-class="math inline">\(j\)</span> 连边。</p>
-<p>记这张图的二分图最大匹配数为 <span class="math inline">\(k\)</span>
-，答案就是剩下的 <span class="math inline">\(1\)</span> 的个数减去 <span
-class="math inline">\(k\)</span> 。注意 <span
-class="math inline">\(a_{n,m}\)</span> 被翻转了 <span
-class="math inline">\(k\)</span> 次。</p>
-<p>因为 Dinic 跑二分图最大匹配的复杂是 <span
-class="math inline">\(\mathcal{O}\left(|E|\sqrt{|V|}\right)\)</span>
-，本题 <span class="math inline">\(|V|=\mathcal{O}(n)\)</span> ，<span
-class="math inline">\(|E|=\mathcal{O}(nm)\)</span></p>
-<p>所以时间复杂度为 <span
-class="math inline">\(\mathcal{O}(n^{1.5}m)\)</span> ，</p>
+<p>注意到当 $a_{i,j} + a_{i,m} + a_{n,j} + a_{n,m} \le 2$ 时，操作二显然没必要使用。</p>
+<p>于是操作二只会在 $a_{i,j}+a_{n,j}+a_{i,m} + a_{n,m}=3$ 时使用，而当 $a_{n,m}=1$ 时使用操作二无法正确的翻转</p>
+<p>因此实际上只有 $a_{i,j}+a_{n,j}+a_{i,m}=3$ 时才会使用操作二。</p>
+<p>由于同一行或同一列最多执行一次，那么对于某个 $i$ ，只能有一个 $j$ 和它配对，$j$ 同理。</p>
+<p>考虑建立二分图，对于任意满足使用操作二的前置条件的 $(i,j)$ ，我们将左侧的 $i$ 与右侧的 $j$ 连边。</p>
+<p>记这张图的二分图最大匹配数为 $k$ ，答案就是剩下的 $1$ 的个数减去 $k$ 。注意 $a_{n,m}$ 被翻转了 $k$ 次。</p>
+<p>因为 Dinic 跑二分图最大匹配的复杂是 $\mathcal{O}\left(|E|\sqrt{|V|}\right)$ ，本题 $|V|=\mathcal{O}(n)$ ，$|E|=\mathcal{O}(nm)$ </p>
+<p>所以时间复杂度为 $\mathcal{O}(n^{1.5}m)$ ，</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -912,16 +864,13 @@ class="math inline">\(\mathcal{O}(n^{1.5}m)\)</span> ，</p>
     res <span class="token operator">-=</span> k<span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/yvlgykr3">https://www.luogu.com.cn/article/yvlgykr3</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/e0rc8vmc">https://www.luogu.com.cn/article/e0rc8vmc</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/yvlgykr3">https://www.luogu.com.cn/article/yvlgykr3</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/e0rc8vmc">https://www.luogu.com.cn/article/e0rc8vmc</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
-<p>还以为这是道双倍经验题呢，搞了半天不一样，不过过了这题就显得 F1
-很简单了</p>
+<p>还以为这是道双倍经验题呢，搞了半天不一样，不过过了这题就显得 F1 很简单了</p>
 
                 
             </div>
@@ -1371,14 +1320,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/e0rc8vmc">
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1392,7 +1340,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/e0rc8vmc">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

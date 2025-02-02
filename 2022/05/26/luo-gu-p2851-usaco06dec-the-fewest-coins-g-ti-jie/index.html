@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,126 +744,55 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2851-usaco06decthe-fewest-coins-g-题解">洛谷P2851
-[USACO06DEC]The Fewest Coins G 题解</h1>
-<p>题目链接：<a href="luogu.com.cn/problem/P2851">P2851 [USACO06DEC]The
-Fewest Coins G</a></p>
+                <h1 id="洛谷P2851-USACO06DEC-The-Fewest-Coins-G-题解"><a href="#洛谷P2851-USACO06DEC-The-Fewest-Coins-G-题解" class="headerlink" title="洛谷P2851 [USACO06DEC]The Fewest Coins G 题解"></a>洛谷P2851 [USACO06DEC]The Fewest Coins G 题解</h1><p>题目链接：<a href="luogu.com.cn/problem/P2851">P2851 [USACO06DEC]The Fewest Coins G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Farmer John has gone to town to buy some farm supplies. Being a very
-efficient man, he always pays for his goods in such a way that the
-smallest number of coins changes hands, i.e., the number of coins he
-uses to pay plus the number of coins he receives in change is minimized.
-Help him to determine what this minimum number is.</p>
-<p>FJ wants to buy T (1 ≤ T ≤ 10,000) cents of supplies. The currency
-system has N (1 ≤ N ≤ 100) different coins, with values V1, V2, ..., VN
-(1 ≤ Vi ≤ 120). Farmer John is carrying C1 coins of value V1, C2 coins
-of value V2, ...., and CN coins of value VN (0 ≤ Ci ≤ 10,000). The
-shopkeeper has an unlimited supply of all the coins, and always makes
-change in the most efficient manner (although Farmer John must be sure
-to pay in a way that makes it possible to make the correct change).</p>
+<p>Farmer John has gone to town to buy some farm supplies. Being a very efficient man, he always pays for his goods in such a way that the smallest number of coins changes hands, i.e., the number of coins he uses to pay plus the number of coins he receives in change is minimized. Help him to determine what this minimum number is.</p>
+<p>FJ wants to buy T (1 ≤ T ≤ 10,000) cents of supplies. The currency system has N (1 ≤ N ≤ 100) different coins, with values V1, V2, …, VN (1 ≤ Vi ≤ 120). Farmer John is carrying C1 coins of value V1, C2 coins of value V2, …., and CN coins of value VN (0 ≤ Ci ≤ 10,000). The shopkeeper has an unlimited supply of all the coins, and always makes change in the most efficient manner (although Farmer John must be sure to pay in a way that makes it possible to make the correct change).</p>
 <p>农夫John想到镇上买些补给。为了高效地完成任务，他想使硬币的转手次数最少。即使他交付的硬币数与找零得到的的硬币数最少。</p>
-<p>John想要买价值为T的东西。有N(1&lt;=n&lt;=100)种<strong>不同的</strong>货币参与流通，面值分别为V1,V2..Vn
-(1&lt;=Vi&lt;=120)。John有Ci个面值为Vi的硬币(0&lt;=Ci&lt;=10000)。</p>
-<p>我们假设店主有无限多的硬币，
-并总按最优方案找零。<strong>注意无解输出-1。</strong></p>
+<p>John想要买价值为T的东西。有N(1&lt;=n&lt;=100)种<strong>不同的</strong>货币参与流通，面值分别为V1,V2..Vn (1&lt;=Vi&lt;=120)。John有Ci个面值为Vi的硬币(0&lt;=Ci&lt;=10000)。</p>
+<p>我们假设店主有无限多的硬币， 并总按最优方案找零。<strong>注意无解输出-1。</strong></p>
 </blockquote>
 <p>不妨把题目转化成下图的形式</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030124117.png" style="zoom: 33%;" /></p>
-<p>设 <span class="math inline">\(f[j]\)</span> 表示付钱的总额为 <span
-class="math inline">\(j\)</span> 时所需的最小硬币数</p>
+<p>设 $f[j]$ 表示付钱的总额为 $j$ 时所需的最小硬币数</p>
 <p>显然这是一个多重背包，直接求解即可</p>
-<p>然后设 <span class="math inline">\(g[j]\)</span> 表示找零的总额为
-<span class="math inline">\(j\)</span> 时的最小硬币数</p>
+<p>然后设 $g[j]$ 表示找零的总额为 $j$  时的最小硬币数</p>
 <p>显然这是一个完全背包，直接求解即可</p>
 <p>然后将其合并就好了</p>
 <p>本题的关键在于背包容量的上界如何确定</p>
-<p><strong>结论</strong>：<span class="math inline">\(f\)</span>
-背包容量上界为 <span class="math inline">\(T+2V_{\max}^2\)</span> ，即
-<span class="math inline">\(g\)</span> 背包容量上界为 <span
-class="math inline">\(2V_{\max}^2\)</span></p>
-<p><strong>证明</strong>：翻译+适当修改自 <a
-target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/50845">prove</a>
-，有错欢迎指出</p>
-<p>方便起见，下文中将使用 <span class="math inline">\(V\)</span> 表示
-<span class="math inline">\(V_{\max}\)</span></p>
+<p><strong>结论</strong>：$f$ 背包容量上界为 $T+2V_{\max}^2$ ，即 $g$ 背包容量上界为 $2V_{\max}^2$ </p>
+<p><strong>证明</strong>：翻译+适当修改自 <a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/50845">prove</a> ，有错欢迎指出</p>
+<p>方便起见，下文中将使用 $V$ 表示 $V_{\max}$ </p>
 <blockquote>
-<p><strong>引理</strong>：对于背包容量 <span
-class="math inline">\(m\)</span> 模 <span
-class="math inline">\(V\)</span>
-意义下的每个剩余类，我们都可以使用总额不超过 <span
-class="math inline">\(V^2\)</span> 的若干硬币来表示。</p>
+<p><strong>引理</strong>：对于背包容量 $m$ 模 $V$ 意义下的每个剩余类，我们都可以使用总额不超过 $V^2$ 的若干硬币来表示。</p>
 <p>证明：考虑反证法。</p>
-<p>设某种硬币组合的总和 <span class="math inline">\(S \ge V^2\)</span>
-并且不可能产生总和为 <span class="math inline">\(S-k\times V,k \in
-\mathbb{N}\)</span> 的硬币组合</p>
-<p>令这种硬币组合形成的多重集为 <span
-class="math inline">\(\{x_1,x_2,\dots,x_k\}\)</span></p>
-<p>因为总和至少为 <span class="math inline">\(V^2\)</span> ，所以 <span
-class="math inline">\(k\ge V\)</span></p>
-<p>考虑对这个多重集做前缀和，也就是把多重集的每个元素以某种方式排列，然后计算
-<span class="math inline">\(x_1,x_1+x_2,x_1+x_2+x_3,\dots\)</span></p>
-<p>记 <span class="math inline">\(s_n = \sum_{1\le i \le n}
-x_i\)</span></p>
-<p>根据 <span class="math inline">\(S\)</span> 的定义可知， <span
-class="math inline">\(s_i\)</span> 在模 <span
-class="math inline">\(V\)</span> 意义下不可能为 <span
-class="math inline">\(0\)</span></p>
-<p>因此 <span class="math inline">\(s_i\)</span> 只有 <span
-class="math inline">\(V-1\)</span> 种可能性</p>
-<p>根据鸽巢原理，至少存在一对 <span class="math inline">\(i,j(1 \le i
-&lt; j \le k)\)</span> 使得 <span class="math display">\[
-s_j-s_i = d \pmod{V}
-\]</span> 也就是排列后，区间 <span class="math inline">\([i,j]\)</span>
-的和为 <span class="math inline">\(V\)</span> 的倍数</p>
-<p>因此我们可以考虑删除一些能被 <span class="math inline">\(V\)</span>
-整除的子集，产生总和为 <span class="math inline">\(S-k\times V,k \in
-\mathbb{N}\)</span> 的多重集</p>
+<p>设某种硬币组合的总和 $S \ge V^2$ 并且不可能产生总和为 $S-k\times V,k \in \mathbb{N}$ 的硬币组合</p>
+<p>令这种硬币组合形成的多重集为 $\{x_1,x_2,\dots,x_k\}$ </p>
+<p>因为总和至少为 $V^2$ ，所以 $k\ge V$ </p>
+<p>考虑对这个多重集做前缀和，也就是把多重集的每个元素以某种方式排列，然后计算 $x_1,x_1+x_2,x_1+x_2+x_3,\dots$ </p>
+<p>记 $s_n = \sum_{1\le i \le n} x_i$ </p>
+<p>根据 $S$ 的定义可知， $s_i$ 在模 $V$ 意义下不可能为 $0$</p>
+<p>因此 $s_i$ 只有 $V-1$ 种可能性</p>
+<p>根据鸽巢原理，至少存在一对 $i,j(1 \le i &lt; j \le k)$ 使得</p>
+<script type="math/tex; mode=display">
+s_j-s_i = d \pmod{V}</script><p>也就是排列后，区间 $[i,j]$ 的和为 $V$ 的倍数</p>
+<p>因此我们可以考虑删除一些能被 $V$ 整除的子集，产生总和为 $S-k\times V,k \in \mathbb{N}$ 的多重集</p>
 <p>显然这与我们的假设相矛盾</p>
-<p>因此对于背包容量 <span class="math inline">\(m\)</span> 模 <span
-class="math inline">\(V\)</span>
-意义下的每个剩余类，我们都可以使用总额不超过 <span
-class="math inline">\(V^2\)</span> 的若干硬币来表示。</p>
-<p>同时，我们还证明了对于所有总和大于 <span
-class="math inline">\(V^2\)</span> 的多重集，至少有一个 <span
-class="math inline">\(V\)</span> 硬币</p>
+<p>因此对于背包容量 $m$ 模 $V$ 意义下的每个剩余类，我们都可以使用总额不超过 $V^2$ 的若干硬币来表示。</p>
+<p>同时，我们还证明了对于所有总和大于 $V^2$ 的多重集，至少有一个 $V$ 硬币</p>
 </blockquote>
-<p>现在我们知道，对于所有的目标总额 <span class="math inline">\(S \ge
-2V^2\)</span> ，使得 <span class="math inline">\(S \bmod V = d\)</span>
-，由于我们一定会选择更优的多重集使得 <span class="math inline">\(\sum
-x_i \bmod V = d\)</span> ，于是在 <span class="math inline">\(d\)</span>
-上添加 <span class="math inline">\(V\)</span> 类型的硬币直到达到 <span
-class="math inline">\(S\)</span> （这里用到了贪心的思想）</p>
-<p>我们回到问题，假设 Farmer John 得到 <span
-class="math inline">\(X\)</span> 元的找零，且 <span
-class="math inline">\(X \ge 2V^2 + v\)</span></p>
+<p>现在我们知道，对于所有的目标总额 $S \ge 2V^2$ ，使得 $S \bmod V = d$ ，由于我们一定会选择更优的多重集使得 $\sum x_i \bmod V = d$ ，于是在 $d$ 上添加 $V$ 类型的硬币直到达到 $S$ （这里用到了贪心的思想） </p>
+<p>我们回到问题，假设 Farmer John 得到 $X$ 元的找零，且 $X \ge 2V^2 + v$ </p>
 <p>还是刚才那张图</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030124374.png" style="zoom:33%;" /></p>
-<p>根据 <span class="math inline">\(X\)</span>
-的定义，右边黑色的一段至少为 <span class="math inline">\(2V^2\)</span>
-（这里的 <span class="math inline">\(v\)</span> 表示中间那个被 <span
-class="math inline">\(T\)</span> “切成”两半的块的超过 <span
-class="math inline">\(T\)</span> 的部分，这样假设是为了忽略 <span
-class="math inline">\(T\)</span> 的干扰）</p>
-<p>在黑色块中，总和至少为 <span class="math inline">\(V^2\)</span>
-（实际上是 <span class="math inline">\(2V^2\)</span> ，但只考虑 <span
-class="math inline">\(V^2\)</span>
-），因此我们证明了存在一个黑色块子集可以被 <span
-class="math inline">\(V\)</span> 整除</p>
-<p>此外，找零的总额大于等于 <span class="math inline">\(2V^2\)</span>
-，故右边蓝色的一段中， 所有的 <span class="math inline">\(V\)</span>
-中至少有 <span class="math inline">\(V^2\)</span>
-（原文有点拗口，其实意思是：至少用了 <span
-class="math inline">\(V\)</span> 个 <span
-class="math inline">\(V\)</span> ）</p>
+<p>根据 $X$ 的定义，右边黑色的一段至少为 $2V^2$ （这里的 $v$ 表示中间那个被 $T$ “切成”两半的块的超过 $T$ 的部分，这样假设是为了忽略 $T$ 的干扰）</p>
+<p>在黑色块中，总和至少为 $V^2$ （实际上是 $2V^2$ ，但只考虑 $V^2$ ），因此我们证明了存在一个黑色块子集可以被 $V$ 整除</p>
+<p>此外，找零的总额大于等于 $2V^2$ ，故右边蓝色的一段中， 所有的 $V$ 中至少有 $V^2$ （原文有点拗口，其实意思是：至少用了 $V$ 个 $V$ ）</p>
 <p>因此我们用蓝色块去消掉了黑色块，而枚举这样的情况并没有意义，它等价于消掉的那种情况</p>
 <p>而上面提到了一个更优的方法</p>
-<p>因此最优解的找零最多不大于 <span
-class="math inline">\(2V^2\)</span></p>
-<p>也就是 <span class="math inline">\(f\)</span> 背包容量上界为 <span
-class="math inline">\(T+2V_{\max}^2\)</span> ，即 <span
-class="math inline">\(g\)</span> 背包容量上界为 <span
-class="math inline">\(2V_{\max}^2\)</span> 。</p>
+<p>因此最优解的找零最多不大于 $2V^2$ </p>
+<p>也就是 $f$ 背包容量上界为 $T+2V_{\max}^2$ ，即 $g$ 背包容量上界为 $2V_{\max}^2$ 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1372,14 +1301,13 @@ class="math inline">\(2V_{\max}^2\)</span> 。</p>
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1393,7 +1321,7 @@ class="math inline">\(2V_{\max}^2\)</span> 。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

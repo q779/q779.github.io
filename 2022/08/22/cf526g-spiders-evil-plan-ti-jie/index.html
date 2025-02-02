@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -748,111 +748,60 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf526g-spiders-evil-plan-题解">CF526G Spiders Evil Plan
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF526G">CF526G
-Spiders Evil Plan</a></p>
+                <h1 id="CF526G-Spiders-Evil-Plan-题解"><a href="#CF526G-Spiders-Evil-Plan-题解" class="headerlink" title="CF526G Spiders Evil Plan 题解"></a>CF526G Spiders Evil Plan 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF526G">CF526G Spiders Evil Plan</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>二次魔改自 <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/simpleoj199%3Bcf526G.html">link</a></p>
+<p>二次魔改自 <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/simpleoj199%3Bcf526G.html">link</a></p>
 <p>最近 q779 迷上了一个叫做割绳子 3 的<del>yúsì</del>（游戏）。</p>
 <p>这个游戏的要求是你要扮演蜘蛛去吃掉一个糖果。</p>
-<p>那是一个像割绳子游戏一样的界面，共有 <span
-class="math inline">\(n\)</span> 个节点，和 <span
-class="math inline">\(n-1\)</span>
-条有长度的边，组成了一个树状结构。一共有 <span
-class="math inline">\(q\)</span> 关，第 <span
-class="math inline">\(i\)</span> 关，糖果在第 <span
-class="math inline">\(x_i\)</span> 个节点上，共有 <span
-class="math inline">\(y_i\)</span> 只蜘蛛。</p>
-<p>每只蜘蛛可以用它的网去覆盖任意不同两点 <span
-class="math inline">\(a\)</span> 和 <span
-class="math inline">\(b\)</span> 之间的路径，因此，<span
-class="math inline">\(y\)</span> 只蜘蛛可以覆盖 <span
-class="math inline">\(y\)</span>
-条树上路径的并。当然，不同的蜘蛛选择的路径可以相交。并且，具有如下的要求：</p>
-<ol type="1">
-<li><span class="math inline">\(y\)</span> 条路径必须包含糖果所在的节点
-<span class="math inline">\(x\)</span>。</li>
-<li><span class="math inline">\(y\)</span> 条路径的并是连通的。</li>
-<li>使 <span class="math inline">\(y\)</span>
-条路径所经过的边的长度总和最大。</li>
+<p>那是一个像割绳子游戏一样的界面，共有 $n$ 个节点，和 $n-1$ 条有长度的边，组成了一个树状结构。一共有 $q$ 关，第 $i$ 关，糖果在第 $x_i$ 个节点上，共有 $y_i$ 只蜘蛛。</p>
+<p>每只蜘蛛可以用它的网去覆盖任意不同两点 $a$ 和 $b$ 之间的路径，因此，$y$ 只蜘蛛可以覆盖 $y$ 条树上路径的并。当然，不同的蜘蛛选择的路径可以相交。并且，具有如下的要求：</p>
+<ol>
+<li>$y$ 条路径必须包含糖果所在的节点 $x$。</li>
+<li>$y$ 条路径的并是连通的。</li>
+<li>使 $y$ 条路径所经过的边的长度总和最大。</li>
 </ol>
 <p>可是蜘蛛们好像都非常智障，所以它们需要你帮忙求出最大值。</p>
-<p>本题<strong>强制在线</strong> ，数据范围： <span
-class="math inline">\(1 \le x_i,y_i \le n,~1\le n,q \le
-10^5\)</span></p>
+<p>本题<strong>强制在线</strong> ，数据范围： $1 \le x_i,y_i \le n,~1\le n,q \le 10^5$ </p>
 </blockquote>
 <p>关键词：贪心、树剖、树的直径</p>
-<p>先不考虑 <span class="math inline">\(x\)</span>
-的存在，直接去选这样的路径并</p>
+<p>先不考虑 $x$ 的存在，直接去选这样的路径并</p>
 <p>肯定是这样子的</p>
 <ul>
-<li><span class="math inline">\(y=1\)</span> ，选直径</li>
-<li><span class="math inline">\(y=2\)</span> ，选 <span
-class="math inline">\(y=1\)</span> 的再加一个最大的分支</li>
-<li><span class="math inline">\(y=3\)</span> ，选 <span
-class="math inline">\(y=2\)</span> 的再加一个剩下的最大分支</li>
-<li><span class="math inline">\(\cdots\)</span></li>
+<li>$y=1$ ，选直径</li>
+<li>$y=2$ ，选 $y=1$ 的再加一个最大的分支</li>
+<li>$y=3$ ，选 $y=2$ 的再加一个剩下的最大分支</li>
+<li>$\cdots$</li>
 </ul>
-<p>因此可以把直径的一个端点当作根 <span
-class="math inline">\(\mathtt{rt}\)</span>
-，然后去跑个重链剖分（树剖）</p>
-<p>然后在所有切出的链中找最优的 <span
-class="math inline">\(2y-1\)</span> 条链</p>
+<p>因此可以把直径的一个端点当作根 $\mathtt{rt}$ ，然后去跑个重链剖分（树剖）</p>
+<p>然后在所有切出的链中找最优的 $2y-1$ 条链</p>
 <p>注：下文中的链均指<strong>树剖后的链</strong></p>
-<p>为什么是 <span class="math inline">\(2y-1\)</span>
-条链？怎么最优？</p>
+<p>为什么是 $2y-1$ 条链？怎么最优？</p>
 <p>首先每条切出来的链一定包含叶子结点，从重链剖分的性质可以得出</p>
-<p>那么就是选 <span class="math inline">\(2y-1\)</span> 个叶子，<span
-class="math inline">\(-1\)</span> 是因为根节点必选，但它不是叶子。</p>
+<p>那么就是选 $2y-1$ 个叶子，$-1$ 是因为根节点必选，但它不是叶子。</p>
 <p>而两两叶子对应的链可以通过根节点并成一条链，显然这是优的。</p>
-<p>考虑两两叶子的全序关系。我们令 <span
-class="math inline">\(\mathtt{len}_i\)</span> 表示叶子 <span
-class="math inline">\(i\)</span> 对应的链的长度</p>
-<p>显然我们选的一定是 <span
-class="math inline">\(\mathtt{len}_i\)</span> 最大的 <span
-class="math inline">\(2y-1\)</span> 个叶子。</p>
-<p>现在考虑 <span class="math inline">\(x\)</span> 的情况</p>
-<p>记 <span class="math inline">\(\mathtt{rnk}_i\)</span> 表示按 <span
-class="math inline">\(\mathtt{len}_i\)</span> 降序排序后的叶子 <span
-class="math inline">\(i\)</span> 的排名</p>
-<p>如果 <span class="math inline">\(x\)</span>
-在最优方案中已经被选了，即 <span class="math inline">\(\mathtt{rnk}_x
-\le 2y-1\)</span> ，那么直接输出即可</p>
-<p>如果 <span class="math inline">\(x\)</span>
-不在最优方案中，考虑两种方案的最优者</p>
+<p>考虑两两叶子的全序关系。我们令 $\mathtt{len}_i$ 表示叶子 $i$ 对应的链的长度</p>
+<p>显然我们选的一定是 $\mathtt{len}_i$ 最大的 $2y-1$ 个叶子。 </p>
+<p>现在考虑 $x$ 的情况</p>
+<p>记 $\mathtt{rnk}_i$ 表示按 $\mathtt{len}_i$ 降序排序后的叶子 $i$ 的排名</p>
+<p>如果 $x$ 在最优方案中已经被选了，即 $\mathtt{rnk}_x \le  2y-1$ ，那么直接输出即可</p>
+<p>如果 $x$ 不在最优方案中，考虑两种方案的最优者</p>
 <ul>
-<li><p>把 <span class="math inline">\(\mathtt{rnk}_{2y-1}\)</span>
-扔了，把 <span class="math inline">\(i\)</span> 加进去</p></li>
-<li><p>把 <span class="math inline">\(i\)</span> 到 <span
-class="math inline">\(\mathtt{rt}\)</span>
-的路径找出来，取其中深度最大的一个结点 <span
-class="math inline">\(\delta\)</span></p>
-<p>使得 <span class="math inline">\(\delta\)</span>
-在原最优方案中被选了，然后把 <span class="math inline">\(\delta\)</span>
-下面原来连的砍了(<del>害怕</del>)，把它与 <span
-class="math inline">\(x\)</span> 接上。</p>
-<p>这个可以用倍增数组来 <span class="math inline">\(O(\log n)\)</span>
-查。</p></li>
+<li><p>把 $\mathtt{rnk}_{2y-1}$ 扔了，把 $i$ 加进去</p>
+</li>
+<li><p>把 $i$ 到 $\mathtt{rt}$ 的路径找出来，取其中深度最大的一个结点 $\delta$ </p>
+<p>使得 $\delta$ 在原最优方案中被选了，然后把 $\delta$ 下面原来连的砍了(<del>害怕</del>)，把它与 $x$ 接上。</p>
+<p>这个可以用倍增数组来 $O(\log n)$ 查。</p>
+</li>
 </ul>
-<p>然后会发现第二行在 <span class="math inline">\(y=1\)</span>
-的情况就挂了</p>
-<p>事实上只有 <span class="math inline">\(y=1\)</span>
-会挂。特判即可。</p>
-<p>为什么呢？因为 <span class="math inline">\(y=1\)</span>
-时的最优方案不一定会把 <span class="math inline">\(\mathtt{rt}\)</span>
-选进去</p>
-<p>稍微因此有点区别。我们还是找到这样的 <span
-class="math inline">\(\delta\)</span></p>
+<p>然后会发现第二行在 $y=1$ 的情况就挂了</p>
+<p>事实上只有 $y=1$ 会挂。特判即可。</p>
+<p>为什么呢？因为 $y=1$ 时的最优方案不一定会把 $\mathtt{rt}$ 选进去</p>
+<p>稍微因此有点区别。我们还是找到这样的 $\delta$ </p>
 <p>然后尝试把它与直径另一端连一下</p>
 <p>可以证明，这样一定是最优的</p>
-<p>然后这题就没了，恭喜您做出了Codeforces评分<code>3300</code>的题目
-Orz</p>
-<p>时间复杂度 <span class="math inline">\(O(Q \log n)\)</span>
-，因为链数与 <span class="math inline">\(\Theta(\log n)\)</span>
-同阶，对复杂度影响不大</p>
+<p>然后这题就没了，恭喜您做出了Codeforces评分<code>3300</code>的题目 Orz</p>
+<p>时间复杂度 $O(Q \log n)$ ，因为链数与 $\Theta(\log n)$ 同阶，对复杂度影响不大</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -950,8 +899,8 @@ Orz</p>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>题外话</strong>：</p>
-<p><del>可爱捏。</del></p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s2.loli.net/2022/08/22/4XkJhwxWIyZOezL.png" /></p>
+<p><del>可爱捏。</del> </p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s2.loli.net/2022/08/22/4XkJhwxWIyZOezL.png" alt=""> </p>
 
                 
             </div>
@@ -1413,14 +1362,13 @@ Orz</p>
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1434,7 +1382,7 @@ Orz</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

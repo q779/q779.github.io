@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,55 +744,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5787-模板线段树分治-题解">洛谷P5787 【模板】线段树分治
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5787">P5787
-二分图 /【模板】线段树分治</a></p>
+                <h1 id="洛谷P5787-【模板】线段树分治-题解"><a href="#洛谷P5787-【模板】线段树分治-题解" class="headerlink" title="洛谷P5787 【模板】线段树分治 题解"></a>洛谷P5787 【模板】线段树分治 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5787">P5787 二分图 /【模板】线段树分治</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 有一个 <span class="math inline">\(n\)</span> 个节点的图。</p>
-<p>因为 cxy 是 cxy，所以在 <span class="math inline">\(k\)</span>
-时间内有 <span class="math inline">\(m\)</span> 条边会出现后消失。</p>
+<p>cxy 有一个 $n$ 个节点的图。</p>
+<p>因为 cxy 是 cxy，所以在 $k$ 时间内有 $m$ 条边会出现后消失。</p>
 <p>cxy 要求出每一时间段内这个图是否是二分图。</p>
 <p>这么简单的问题 cxy 当然会做了，于是她想考考你。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行三个整数 <span class="math inline">\(n,m,k\)</span>。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行，每行四个整数 <span
-class="math inline">\(x,y,l,r\)</span>，表示有一条连接 <span
-class="math inline">\(x,y\)</span> 的边在 <span
-class="math inline">\(l\)</span> 时刻出现 <span
-class="math inline">\(r\)</span> 时刻消失。</p>
+<p>第一行三个整数 $n,m,k$。</p>
+<p>接下来 $m$ 行，每行四个整数 $x,y,l,r$，表示有一条连接 $x,y$ 的边在 $l$ 时刻出现 $r$ 时刻消失。</p>
 <p><strong>输出格式</strong>：</p>
-<p>共 <span class="math inline">\(k\)</span> 行，第 <span
-class="math inline">\(i\)</span> 行一个字符串 <code>Yes</code> 或
-<code>No</code>，表示在第 <span class="math inline">\(i\)</span>
-时间段内这个图是否是二分图。</p>
+<p>共 $k$ 行，第 $i$ 行一个字符串 <code>Yes</code> 或 <code>No</code>，表示在第 $i$ 时间段内这个图是否是二分图。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n,k \le 10^5,~1 \le m \le 2\times
-10^5,~1 \le x,y \le n,~0 \le l \le r \le k\)</span>。</p>
+<p>$1\le n,k \le  10^5,~1 \le m \le 2\times 10^5,~1 \le x,y \le n,~0 \le l \le r \le k$。</p>
 </blockquote>
 <p>本题是线段树分治的模板题。</p>
 <p>线段树分治其实非常简单。考虑对时间轴建立线段树，每个节点维护这段区间存在的边集。</p>
-<p>因为如果区间 <span class="math inline">\([l,r]\)</span>
-有一条边存在，那么任意区间 <span class="math inline">\(S \subseteq
-[l,r]\)</span> 这条边都存在，</p>
-<p>所以我们只需要在深度最小的那个节点存这条边即可（用 vector
-维护即可）</p>
-<p>现在考虑对这棵线段树进行 dfs
-，那么我们需要一个可以回溯，且可以判断原图有没有奇环的数据结构。</p>
+<p>因为如果区间 $[l,r]$ 有一条边存在，那么任意区间 $S \subseteq [l,r]$ 这条边都存在，</p>
+<p>所以我们只需要在深度最小的那个节点存这条边即可（用 vector 维护即可）</p>
+<p>现在考虑对这棵线段树进行 dfs ，那么我们需要一个可以回溯，且可以判断原图有没有奇环的数据结构。</p>
 <p>考虑扩展域并查集（种类并查集），还需要加一个常见的并查集撤销操作。</p>
 <p>简单讲一下。种类并查集就是把每个点看作两个位于不同集合中的点。</p>
-<p>记这两个点集是 <span class="math inline">\(S,T\)</span>
-，每次加入新边 <span class="math inline">\((u,v)\)</span> ，我们分别把
-<span class="math inline">\(S_u,T_v\)</span> 以及 <span
-class="math inline">\(S_v,T_u\)</span> 合并</p>
-<p>如果原图不存在奇环，那么 <span class="math inline">\(S\)</span>
-中任意一点 <span class="math inline">\(u\)</span> ，不存在任意 <span
-class="math inline">\(v \in T\)</span> 满足 <span
-class="math inline">\(u,v\)</span> 在并查集的同一集合内。</p>
+<p>记这两个点集是 $S,T$ ，每次加入新边 $(u,v)$ ，我们分别把 $S_u,T_v$ 以及 $S_v,T_u$ 合并</p>
+<p>如果原图不存在奇环，那么 $S$ 中任意一点 $u$ ，不存在任意 $v \in T$ 满足 $u,v$ 在并查集的同一集合内。</p>
 <p>然后撤销操作只需要用按秩合并的时候用一个栈记录一下合并了哪两个节点之类的信息即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n \log
-T)\)</span> ，注意可撤销并查集不能用路径压缩。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n \log T)$ ，注意可撤销并查集不能用路径压缩。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -872,12 +849,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">init</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> T<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s90ybnir">https://www.luogu.com.cn/article/s90ybnir</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s0tsecr5">https://www.luogu.com.cn/article/s0tsecr5</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s90ybnir">https://www.luogu.com.cn/article/s90ybnir</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s0tsecr5">https://www.luogu.com.cn/article/s0tsecr5</a></p>
 
                 
             </div>
@@ -1330,14 +1305,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s0tsecr5">
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1351,7 +1325,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/s0tsecr5">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

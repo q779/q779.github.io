@@ -166,7 +166,8 @@ var RENDERER = {
             this.fishes[i].render(this.context);
         }
         this.context.save();
-        this.context.globalCompositeOperation = 'xor';
+        // this.context.globalCompositeOperation = 'xor';
+        this.context.globalCompositeOperation = 'or';
         this.context.beginPath();
         this.context.moveTo(0, this.reverse ? 0 : this.height);
         
@@ -247,16 +248,16 @@ FISH.prototype = {
         this.direction = Math.random() < 0.5;
         this.x = this.direction ? (this.renderer.width + this.renderer.THRESHOLD) : -this.renderer.THRESHOLD;
         this.previousY = this.y;
-        this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1);
+        this.vx = this.getRandomValue(7, 13) * (this.direction ? -1 : 1);
         
         if(this.renderer.reverse){
-            this.y = this.getRandomValue(this.renderer.height * 1 / 10, this.renderer.height * 4 / 10);
-            this.vy = this.getRandomValue(2, 5);
-            this.ay = this.getRandomValue(0.05, 0.2);
+            this.y = this.getRandomValue(this.renderer.height * 2 / 10, this.renderer.height * 4 / 10);
+            this.vy = this.getRandomValue(2, 4);
+            this.ay = this.getRandomValue(0.05, 0.15);
         }else{
-            this.y = this.getRandomValue(this.renderer.height * 6 / 10, this.renderer.height * 9 / 10);
-            this.vy = this.getRandomValue(-5, -2);
-            this.ay = this.getRandomValue(-0.2, -0.05);
+            this.y = this.getRandomValue(this.renderer.height * 6 / 10, this.renderer.height * 8 / 10);
+            this.vy = this.getRandomValue(-4, -2);
+            this.ay = this.getRandomValue(-0.15, -0.05);
         }
         this.isOut = false;
         this.theta = 0;
@@ -311,8 +312,10 @@ FISH.prototype = {
     render : function(context){
 
         var col = context.createLinearGradient(-30, 0, 40, 0);
-        col.addColorStop(0, '#87CEFA');
-        col.addColorStop(1, '#6495ED');
+        // col.addColorStop(0, '#87CEFA');
+        // col.addColorStop(1, '#6495ED');
+        col.addColorStop(0, '#FFA500');
+        col.addColorStop(1, '#FF0000');
 
         context.fillStyle = col; // 鱼的颜色
 

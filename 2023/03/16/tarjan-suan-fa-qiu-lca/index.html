@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,16 +744,11 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="tarjan算法求lca">Tarjan算法求LCA</h1>
-<p>这是求一种 LCA 的离线算法，用的不多但是思想很有趣，并且有着美妙的
-<span class="math inline">\(\mathcal{O}(n+q)\)</span> 复杂度。</p>
+                <h1 id="Tarjan算法求LCA"><a href="#Tarjan算法求LCA" class="headerlink" title="Tarjan算法求LCA"></a>Tarjan算法求LCA</h1><p>这是求一种 LCA 的离线算法，用的不多但是思想很有趣，并且有着美妙的 $\mathcal{O}(n+q)$ 复杂度。</p>
 <p>其实这个算法很简单，不像网上那些瞎七搭八的文章讲的那么复杂</p>
-<p>首先考虑将所有问题离线，每个节点记录通过询问相关联的节点，然后从根开始
-dfs 。</p>
+<p>首先考虑将所有问题离线，每个节点记录通过询问相关联的节点，然后从根开始 dfs 。</p>
 <p>对于每个节点，遍历它的每个子节点，并把子节点与其合并。这个合并操作我们可以用并查集来维护。</p>
-<p>然后我们遍历所有通过询问相关联的节点。如果那个节点被访问过 <span
-class="math inline">\(1\)</span> 次了，那么答案就是 <span
-class="math inline">\(\mathrm{find}(v)\)</span> 对应的节点。</p>
+<p>然后我们遍历所有通过询问相关联的节点。如果那个节点被访问过 $1$ 次了，那么答案就是 $\mathrm{find}(v)$ 对应的节点。</p>
 <p>结合代码来感受一下：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Tarjan</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -766,17 +761,10 @@ class="math inline">\(\mathrm{find}(v)\)</span> 对应的节点。</p>
         <span class="token keyword">if</span><span class="token punctuation">(</span>vis<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">)</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> pre<span class="token punctuation">[</span><span class="token function">find</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// pre维护当前（并查集）块对应的节点</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>为什么是对的呢？考虑 <span class="math inline">\(u\)</span>
-的左子树已经被遍历的情况，此时应当递归遍历右子树。</p>
-<p>因为左子树已经并到 <span class="math inline">\(u\)</span>
-上了，所以任意 <span class="math inline">\(v \in\)</span> 左子树有「
-<span class="math inline">\(\mathrm{find}(v)\)</span> 对应的节点为 <span
-class="math inline">\(u\)</span> 」。</p>
-<p>则当遍历到节点 <span class="math inline">\(x \in\)</span>
-右子树时，<span class="math inline">\(u\)</span> 是 <span
-class="math inline">\(x,v\)</span> 的 LCA 显然符合 LCA 本身的定义。</p>
-<p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3379">P3379
-【模板】最近公共祖先（LCA）</a></p>
+<p>为什么是对的呢？考虑 $u$ 的左子树已经被遍历的情况，此时应当递归遍历右子树。</p>
+<p>因为左子树已经并到 $u$ 上了，所以任意 $v \in$ 左子树有「 $\mathrm{find}(v)$ 对应的节点为 $u$ 」。</p>
+<p>则当遍历到节点 $x \in$ 右子树时，$u$ 是 $x,v$ 的 LCA 显然符合 LCA 本身的定义。</p>
+<p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3379">P3379 【模板】最近公共祖先（LCA）</a></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -824,10 +812,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">Tarjan</span><span class="token punctuation">(</span>rt<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/JVxie/p/4854719.html">https://www.cnblogs.com/JVxie/p/4854719.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/JVxie/p/4854719.html">https://www.cnblogs.com/JVxie/p/4854719.html</a></p>
 
                 
             </div>
@@ -1281,14 +1268,13 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/JVxie/p/4854719.htm
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1302,7 +1288,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/JVxie/p/4854719.htm
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

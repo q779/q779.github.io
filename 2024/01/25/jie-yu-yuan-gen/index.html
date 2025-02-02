@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -724,7 +724,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    2.7k
                 </div>
                 
 
@@ -744,397 +744,190 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="阶与原根">阶与原根</h1>
-<p>前置知识：欧拉定理、费马小定理、拉格朗日定理。</p>
-<p><strong>模板题</strong>：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6091">P6091 【模板】原根</a></p>
+                <h1 id="阶与原根"><a href="#阶与原根" class="headerlink" title="阶与原根"></a>阶与原根</h1><p>前置知识：欧拉定理、费马小定理、拉格朗日定理。</p>
+<p><strong>模板题</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6091">P6091 【模板】原根</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定整数 <span class="math inline">\(n\)</span>，求它的所有原根。</p>
-<p>为了减小你的输出量，给出输出参数 <span
-class="math inline">\(d\)</span>，设 <span
-class="math inline">\(n\)</span> 的所有原根有 <span
-class="math inline">\(c\)</span> 个，从小到大分别为 <span
-class="math inline">\(g_1,\ldots,g_c\)</span>，你只需要依次输出 <span
-class="math inline">\(g_d,g_{2d},\ldots,g_{\lfloor\frac{c}{d}\rfloor\times
-d}\)</span>。</p>
-<p>正整数 <span class="math inline">\(g\)</span> 是正整数 <span
-class="math inline">\(n\)</span> 的原根，当且仅当 <span
-class="math inline">\(1\leq g\leq n-1\)</span>，且 <span
-class="math inline">\(g\)</span> 模 <span
-class="math inline">\(n\)</span> 的阶为 <span
-class="math inline">\(\varphi(n)\)</span>。</p>
+<p>给定整数 $n$，求它的所有原根。</p>
+<p>为了减小你的输出量，给出输出参数 $d$，设 $n$ 的所有原根有 $c$ 个，从小到大分别为 $g_1,\ldots,g_c$，你只需要依次输出 $g_d,g_{2d},\ldots,g_{\lfloor\frac{c}{d}\rfloor\times d}$。</p>
+<p>正整数 $g$ 是正整数 $n$ 的原根，当且仅当 $1\leq g\leq n-1$，且 $g$ 模 $n$ 的阶为 $\varphi(n)$。</p>
 <p><strong>输入格式</strong>：</p>
 <p>本题包含多组数据。</p>
-<p>第一行：一个整数 <span
-class="math inline">\(T\)</span>，表示数据组数。</p>
-<p>接下来 <span class="math inline">\(T\)</span> 行：每行两个整数 <span
-class="math inline">\(n,d\)</span>，表示一组询问数据。</p>
+<p>第一行：一个整数 $T$，表示数据组数。</p>
+<p>接下来 $T$ 行：每行两个整数 $n,d$，表示一组询问数据。</p>
 <p><strong>输出格式</strong>：</p>
 <p>对于每组数据：</p>
-<p>第一行输出一个整数 <span class="math inline">\(c\)</span>，表示 <span
-class="math inline">\(n\)</span> 的原根个数，第二行输出 <span
-class="math inline">\(\lfloor\dfrac{c}{d}\rfloor\)</span>
-个数，按照题目描述中要求输出。</p>
-<p>注意：即使 <span
-class="math inline">\(\lfloor\dfrac{c}{d}\rfloor=0\)</span>，也需要输出一个空行。</p>
+<p>第一行输出一个整数 $c$，表示 $n$ 的原根个数，第二行输出 $\lfloor\dfrac{c}{d}\rfloor$ 个数，按照题目描述中要求输出。</p>
+<p>注意：即使 $\lfloor\dfrac{c}{d}\rfloor=0$，也需要输出一个空行。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1\leq T\leq 10\)</span>，<span
-class="math inline">\(2\leq n\leq 10^6\)</span>，<span
-class="math inline">\(1\leq d\leq
-200\)</span>，保证输出的数的总个数不超过 <span
-class="math inline">\(10^5\)</span>。</p>
+<p>对于 $100\%$ 的数据，$1\leq T\leq 10$，$2\leq n\leq 10^6$，$1\leq d\leq 200$，保证输出的数的总个数不超过 $10^5$。</p>
 </blockquote>
 <p>先放模板题是因为这篇文章是模板题题解，不过我们需要先了解什么是阶，什么又是原根。</p>
 <p><br></p>
-<p><strong>阶</strong>：由欧拉定理可知，对于整数 <span
-class="math inline">\(a\)</span> 和正整数 <span
-class="math inline">\(m\)</span> ，若 <span
-class="math inline">\(\gcd(a,m)=1\)</span> ，则 <span
-class="math display">\[
-a^{\varphi(m)} \equiv 1 \pmod{m}
-\]</span> 因此满足同余式 <span class="math inline">\(a^n \equiv 1
-\pmod{m}\)</span> 的最小正整数 <span class="math inline">\(n\)</span>
-存在，这个 <span class="math inline">\(n\)</span> 称作 <span
-class="math inline">\(a\)</span> 模 <span
-class="math inline">\(m\)</span> 的阶，记作 <span
-class="math inline">\(\delta_m(a)\)</span></p>
-<p><strong>原根</strong>：对于整数 <span
-class="math inline">\(a\)</span> 和正整数 <span
-class="math inline">\(m\)</span> ，若 <span
-class="math inline">\(\gcd(a,m)=1\)</span> 且 <span
-class="math inline">\(\delta_m(a) = \varphi(m)\)</span> ，则称 <span
-class="math inline">\(a\)</span> 为模 <span
-class="math inline">\(m\)</span> 的原根。</p>
-<p>这里可能有一点点绕，大概就是定义了什么是阶，然后定义模 <span
-class="math inline">\(m\)</span> 的阶为 <span
-class="math inline">\(\varphi(m)\)</span> 的整数 <span
-class="math inline">\(a\)</span> 为「模 <span
-class="math inline">\(m\)</span> 的原根」。</p>
+<p><strong>阶</strong>：由欧拉定理可知，对于整数 $a$ 和正整数 $m$ ，若 $\gcd(a,m)=1$ ，则</p>
+<script type="math/tex; mode=display">
+a^{\varphi(m)} \equiv 1 \pmod{m}</script><p>因此满足同余式 $a^n \equiv 1 \pmod{m}$ 的最小正整数 $n$ 存在，这个 $n$ 称作 $a$ 模 $m$ 的阶，记作 $\delta_m(a)$</p>
+<p><strong>原根</strong>：对于整数 $a$ 和正整数 $m$ ，若 $\gcd(a,m)=1$ 且 $\delta_m(a) = \varphi(m)$ ，则称 $a$ 为模 $m$ 的原根。</p>
+<p>这里可能有一点点绕，大概就是定义了什么是阶，然后定义模 $m$ 的阶为 $\varphi(m)$ 的整数 $a$ 为「模 $m$ 的原根」。</p>
 <p><br></p>
 <p>关于阶有一个较为显然的性质：</p>
-<p><strong>性质1</strong>：若 <span class="math inline">\(a^n \equiv 1
-\pmod{m}\)</span> ，则 <span class="math inline">\(\delta_m(a) \mid
-n\)</span> 。（注意这里 <span class="math inline">\(n\)</span>
-和之前不一样）</p>
+<p><strong>性质1</strong>：若 $a^n \equiv 1 \pmod{m}$ ，则 $\delta_m(a) \mid n$ 。（注意这里 $n$ 和之前不一样）</p>
 <blockquote>
-<p><strong>证明</strong>：对 <span class="math inline">\(n\)</span> 除以
-<span class="math inline">\(\delta_m(a)\)</span> 作带余除法，设 <span
-class="math display">\[
-n = \delta_m(a)\cdot q + r\quad(0 \le r &lt; \delta_m(a))
-\]</span> 若 <span class="math inline">\(r &gt; 0\)</span> ，则 <span
-class="math display">\[
-a^r \equiv a^r(a^{\delta_m(a)})^q \equiv a^n \equiv 1 \pmod{m}
-\]</span> 这与 <span class="math inline">\(\delta_m(a)\)</span>
-的最小性矛盾。证毕。</p>
+<p><strong>证明</strong>：对 $n$ 除以 $\delta_m(a)$ 作带余除法，设</p>
+<script type="math/tex; mode=display">
+n = \delta_m(a)\cdot q + r\quad(0 \le r < \delta_m(a))</script><p>若 $r &gt; 0$ ，则</p>
+<script type="math/tex; mode=display">
+a^r \equiv a^r(a^{\delta_m(a)})^q \equiv a^n \equiv 1 \pmod{m}</script><p>这与 $\delta_m(a)$ 的最小性矛盾。证毕。</p>
 </blockquote>
 <p>除此以外，阶还有两个比较重要的性质。</p>
-<p><strong>性质2</strong>：对于整数 <span
-class="math inline">\(a,b\)</span> 和正整数 <span
-class="math inline">\(m\)</span> ，<span class="math inline">\(\gcd(a,m)
-= \gcd(b,m) = 1\)</span> ，则 <span class="math display">\[
-\delta_m(ab) = \delta_m(a)\delta_m(b)
-\]</span> 的充分必要条件是 <span
-class="math inline">\(\gcd(\delta_m(a),\delta_m(b)) = 1\)</span> 。</p>
+<p><strong>性质2</strong>：对于整数 $a,b$ 和正整数 $m$ ，$\gcd(a,m) = \gcd(b,m) = 1$ ，则</p>
+<script type="math/tex; mode=display">
+\delta_m(ab) = \delta_m(a)\delta_m(b)</script><p>的充分必要条件是 $\gcd(\delta_m(a),\delta_m(b)) = 1$ 。</p>
 <blockquote>
 <p><strong>证明</strong>：</p>
 <ul>
 <li><p>必要性证明：</p>
-<p>由 <span class="math inline">\(a^{\delta_m(a)} \equiv 1\pmod
-m\)</span> 及 <span class="math inline">\(b^{\delta_m(b)} \equiv 1\pmod
-m\)</span> 可知 <span class="math display">\[
-(ab)^{\mathrm{lcm}(\delta_m(a),\delta_m(b))} \equiv 1 \pmod{m}
-\]</span> 根据性质1，有 <span class="math display">\[
-\delta_m(a b) \mid \operatorname{lcm}\left(\delta_m(a),
-\delta_m(b)\right)
-\]</span> 又由于 <span class="math inline">\(\delta_m(ab) =
-\delta_m(a)\delta_m(b)\)</span> ，则 <span class="math display">\[
-\delta_m(a) \delta_m(b) \mid \operatorname{lcm}\left(\delta_m(a),
-\delta_m(b)\right)
-\]</span> 即 <span class="math inline">\(\gcd(\delta_m(a), \delta_m(b))
-= 1\)</span></p></li>
+<p>由 $a^{\delta_m(a)} \equiv 1\pmod m$ 及 $b^{\delta_m(b)} \equiv 1\pmod m$ 可知</p>
+<script type="math/tex; mode=display">
+(ab)^{\mathrm{lcm}(\delta_m(a),\delta_m(b))} \equiv 1 \pmod{m}</script><p>根据性质1，有</p>
+<script type="math/tex; mode=display">
+\delta_m(a b) \mid \operatorname{lcm}\left(\delta_m(a), \delta_m(b)\right)</script><p>又由于 $\delta_m(ab) = \delta_m(a)\delta_m(b)$ ，则</p>
+<script type="math/tex; mode=display">
+\delta_m(a) \delta_m(b) \mid \operatorname{lcm}\left(\delta_m(a), \delta_m(b)\right)</script><p>即 $\gcd(\delta_m(a), \delta_m(b)) = 1$</p>
+</li>
 <li><p>充分性证明：</p>
-<p>由 <span class="math inline">\((ab)^{\delta_m(ab)} \equiv 1
-\pmod{m}\)</span> 可知 <span class="math display">\[
-1 \equiv (ab)^{\delta_m(ab)\delta_m(b)} \equiv a^{\delta_m(ab)} \pmod m
-\]</span> 故 <span class="math inline">\(\delta_m(a) \mid
-\delta_{m}(ab)\delta(b)\)</span> 。结合 <span
-class="math inline">\(\gcd(\delta_m(a),\delta_m(b)) = 1\)</span> ，得
-<span class="math display">\[
-\delta_m(a) \mid \delta_m(ab)
-\]</span> 同理可得 <span class="math display">\[
-\delta_m(b) \mid \delta_m(ab)
-\]</span> 所以 <span class="math display">\[
-\delta_m(a) \delta_m(b) \mid \delta_m(a b)
-\]</span> 另一方面，有 <span class="math display">\[
-(a b)^{\delta_m(a) \delta_m(b)}
-\equiv\left(a^{\delta_m(a)}\right)^{\delta_m(b)}
-\times\left(b^{\delta_m(b)}\right)^{\delta_m(a)} \equiv 1 \pmod m
-\]</span> 故 <span class="math display">\[
-\delta_m(a b) \mid \delta_m(a) \delta_m(b)
-\]</span> 综上可得 <span class="math display">\[
-\delta_m(a b)=\delta_m(a) \delta_m(b)
-\]</span></p></li>
+<p>由 $(ab)^{\delta_m(ab)} \equiv 1 \pmod{m}$ 可知</p>
+<script type="math/tex; mode=display">
+1 \equiv (ab)^{\delta_m(ab)\delta_m(b)} \equiv a^{\delta_m(ab)} \pmod m</script><p>故 $\delta_m(a) \mid \delta_{m}(ab)\delta(b)$ 。结合 $\gcd(\delta_m(a),\delta_m(b)) = 1$ ，得</p>
+<script type="math/tex; mode=display">
+\delta_m(a) \mid \delta_m(ab)</script><p>同理可得</p>
+<script type="math/tex; mode=display">
+\delta_m(b) \mid \delta_m(ab)</script><p>所以</p>
+<script type="math/tex; mode=display">
+\delta_m(a) \delta_m(b) \mid \delta_m(a b)</script><p>另一方面，有</p>
+<script type="math/tex; mode=display">
+(a b)^{\delta_m(a) \delta_m(b)} \equiv\left(a^{\delta_m(a)}\right)^{\delta_m(b)} \times\left(b^{\delta_m(b)}\right)^{\delta_m(a)} \equiv 1 \pmod m</script><p>故</p>
+<script type="math/tex; mode=display">
+\delta_m(a b) \mid \delta_m(a) \delta_m(b)</script><p>综上可得</p>
+<script type="math/tex; mode=display">
+\delta_m(a b)=\delta_m(a) \delta_m(b)</script></li>
 </ul>
 <p>证毕。</p>
 </blockquote>
-<p><strong>性质3</strong>：设 <span class="math inline">\(k \in
-\mathbb{N}\)</span> ，对于整数 <span class="math inline">\(a\)</span>
-和正整数 <span class="math inline">\(m\)</span> ，<span
-class="math inline">\(\gcd(a,m) = 1\)</span> ，则 <span
-class="math display">\[
-\delta_m(a^k) = \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}
-\]</span></p>
-<blockquote>
-<p><strong>证明</strong>：注意到 <span class="math display">\[
-a^{k
-\delta_m\left(a^k\right)}=\left(a^k\right)^{\delta_m\left(a^k\right)}
-\equiv 1 \pmod m
-\]</span> 则 <span class="math display">\[
-\delta_m(a) \mid k \delta_m\left(a^k\right)
-\]</span> 即 <span class="math display">\[
-\frac{\delta_m(a)}{\operatorname{gcd}\left(\delta_m(a), k\right)} \mid
-\delta_m\left(a^k\right)
-\]</span> 另一方面，由 <span class="math inline">\(a^{\delta_m(a)}
-\equiv 1\pmod m\)</span> 可知 <span class="math display">\[
-\left(a^k\right)^{\frac{\delta_m(a)}{\operatorname{gcd}\left(\delta_m(a),
-k\right)}}=\left(a^{\delta_m(a)}\right)^{\frac{k}{\operatorname{gcd}\left(\delta_m(a),
-k\right)}} \equiv 1 \pmod m
-\]</span> 故 <span class="math display">\[
-\delta_m(a^k) \mid \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}
-\]</span> 综上可得 <span class="math display">\[
-\delta_m(a^k) = \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}
-\]</span> 证毕。</p>
+<p><strong>性质3</strong>：设 $k \in \mathbb{N}$ ，对于整数 $a$ 和正整数 $m$ ，$\gcd(a,m) = 1$ ，则</p>
+<script type="math/tex; mode=display">
+\delta_m(a^k) = \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}</script><blockquote>
+<p><strong>证明</strong>：注意到</p>
+<script type="math/tex; mode=display">
+a^{k \delta_m\left(a^k\right)}=\left(a^k\right)^{\delta_m\left(a^k\right)} \equiv 1 \pmod m</script><p>则</p>
+<script type="math/tex; mode=display">
+\delta_m(a) \mid k \delta_m\left(a^k\right)</script><p>即</p>
+<script type="math/tex; mode=display">
+\frac{\delta_m(a)}{\operatorname{gcd}\left(\delta_m(a), k\right)} \mid \delta_m\left(a^k\right)</script><p>另一方面，由 $a^{\delta_m(a)} \equiv 1\pmod m$ 可知</p>
+<script type="math/tex; mode=display">
+\left(a^k\right)^{\frac{\delta_m(a)}{\operatorname{gcd}\left(\delta_m(a), k\right)}}=\left(a^{\delta_m(a)}\right)^{\frac{k}{\operatorname{gcd}\left(\delta_m(a), k\right)}} \equiv 1 \pmod m</script><p>故</p>
+<script type="math/tex; mode=display">
+\delta_m(a^k) \mid \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}</script><p>综上可得</p>
+<script type="math/tex; mode=display">
+\delta_m(a^k) = \frac{\delta_m(a)}{\gcd(\delta_m(a),k)}</script><p>证毕。</p>
 </blockquote>
-<p>至此我们知道了阶重要的性质，接着我们来说明怎样的 <span
-class="math inline">\(m\)</span> 存在原根。</p>
-<p>首先，显然 <span class="math inline">\(m=1,2,4\)</span>
-时原根存在。</p>
-<p><strong>定理1</strong>：对于奇素数 <span
-class="math inline">\(p\)</span> ，<span
-class="math inline">\(p\)</span> 有原根。</p>
+<p>至此我们知道了阶重要的性质，接着我们来说明怎样的 $m$ 存在原根。</p>
+<p>首先，显然 $m=1,2,4$ 时原根存在。</p>
+<p><strong>定理1</strong>：对于奇素数 $p$ ，$p$ 有原根。</p>
 <blockquote>
 <p><strong>证明</strong>：</p>
 <p>先证明一个引理：</p>
-<p><strong>引理</strong>：设 <span class="math inline">\(a\)</span> 与
-<span class="math inline">\(b\)</span> 是与 <span
-class="math inline">\(p\)</span> 互质的两个整数，则存在整数 <span
-class="math inline">\(c\)</span> 使得 <span
-class="math inline">\(\delta_p(c) =
-\mathrm{lcm}(\delta_p(a),\delta_p(b))\)</span></p>
+<p><strong>引理</strong>：设 $a$ 与 $b$ 是与 $p$ 互质的两个整数，则存在整数 $c$ 使得 $\delta_p(c) = \mathrm{lcm}(\delta_p(a),\delta_p(b))$</p>
 <blockquote>
-<p>证明：记 <span class="math inline">\(r = \delta_p(a),t =
-\delta_p(b)\)</span> ，设他们的标准分解（这里对指数仅要求 <span
-class="math inline">\(\max(\alpha_j,\beta_j) &gt; 0\)</span>）分别为
-<span class="math display">\[
-r=\prod_{j=1}^s p_j^{\alpha_j}, \quad t=\prod_{j=1}^s p_j^{\beta_j}
-\]</span> 令 <span class="math inline">\(l\)</span> 为所有 <span
-class="math inline">\(\alpha_j \le \beta_j\)</span> 的 <span
-class="math inline">\(p_j^{\alpha_j}\)</span> 的乘积，<span
-class="math inline">\(m\)</span> 为所有 <span
-class="math inline">\(\alpha_j&gt;\beta_j\)</span> 的 <span
-class="math inline">\(p_j^{\alpha_j}\)</span> 的乘积。</p>
-<p>记 <span class="math inline">\(r = lx, t = my\)</span> ，则这样定义的
-<span class="math inline">\(x,y\)</span> 满足 <span
-class="math inline">\(\gcd(x,y)=1\)</span> 且 <span
-class="math inline">\(\mathrm{lcm}(r,t) = xy\)</span> 。</p>
-<p>由性质3，<span class="math inline">\(\delta_p(a^l) = x,
-\delta_p(b^m)=y\)</span> ，由性质2，<span
-class="math inline">\(\delta_p(a^lb^m) = xy =
-\mathrm{lcm}(\delta_p(a),\delta_p(b))\)</span> ，即 <span
-class="math inline">\(c=a^lb^m\)</span> 。<span
-class="math inline">\(\square\)</span></p>
+<p>证明：记 $r = \delta_p(a),t = \delta_p(b)$ ，设他们的标准分解（这里对指数仅要求 $\max(\alpha_j,\beta_j) &gt; 0$）分别为</p>
+<script type="math/tex; mode=display">
+r=\prod_{j=1}^s p_j^{\alpha_j}, \quad t=\prod_{j=1}^s p_j^{\beta_j}</script><p>令 $l$ 为所有 $\alpha_j \le \beta_j$ 的 $p_j^{\alpha_j}$ 的乘积，$m$ 为所有 $\alpha_j&gt;\beta_j$ 的 $p_j^{\alpha_j}$ 的乘积。</p>
+<p>记 $r = lx, t = my$ ，则这样定义的 $x,y$ 满足 $\gcd(x,y)=1$ 且 $\mathrm{lcm}(r,t) = xy$ 。</p>
+<p>由性质3，$\delta_p(a^l) = x, \delta_p(b^m)=y$ ，由性质2，$\delta_p(a^lb^m) = xy = \mathrm{lcm}(\delta_p(a),\delta_p(b))$ ，即 $c=a^lb^m$ 。$\square$</p>
 </blockquote>
-<p>考虑原命题，对 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\((p-1)\)</span> 依次两两使用引理，可知存在整数
-<span class="math inline">\(g\)</span> 使得 <span
-class="math display">\[
-\delta_p(g)=\operatorname{lcm}\left(\delta_p(1), \delta_p(2), \cdots,
-\delta_p(p-1)\right)
-\]</span> 这表明 <span class="math inline">\(\delta_p(j) \mid
-\delta_p(g)\)</span> 对于 <span class="math inline">\(j =
-1,2,\cdots,p-1\)</span> ，所以 <span class="math inline">\(j =
-1,2,\cdots,p-1\)</span> 都是同余方程 <span class="math display">\[
-x^{\delta_p(g)} \equiv 1 \pmod{p}
-\]</span> 的根。由拉格朗日定理，可知方程的次数 <span
-class="math inline">\(\delta_p(g) \ge p - 1\)</span></p>
-<p>由费马小定理，<span class="math inline">\(\delta_p(g) \le
-p-1\)</span> ，故 <span class="math inline">\(\delta_p(g) = p-1 =
-\varphi(p)\)</span> 。综上可知 <span class="math inline">\(g\)</span>
-为模 <span class="math inline">\(p\)</span> 的原根。<span
-class="math inline">\(\square\)</span></p>
+<p>考虑原命题，对 $1$ 到 $(p-1)$ 依次两两使用引理，可知存在整数 $g$ 使得</p>
+<script type="math/tex; mode=display">
+\delta_p(g)=\operatorname{lcm}\left(\delta_p(1), \delta_p(2), \cdots, \delta_p(p-1)\right)</script><p>这表明 $\delta_p(j) \mid \delta_p(g)$ 对于 $j = 1,2,\cdots,p-1$ ，所以 $j = 1,2,\cdots,p-1$ 都是同余方程</p>
+<script type="math/tex; mode=display">
+x^{\delta_p(g)} \equiv 1 \pmod{p}</script><p>的根。由拉格朗日定理，可知方程的次数 $\delta_p(g) \ge p - 1$</p>
+<p>由费马小定理，$\delta_p(g) \le p-1$ ，故 $\delta_p(g) = p-1 = \varphi(p)$ 。综上可知 $g$ 为模 $p$ 的原根。$\square$</p>
 </blockquote>
-<p><strong>定理2</strong>：对于奇素数 <span
-class="math inline">\(p\)</span> ，设 <span class="math inline">\(\alpha
-\in \mathbb{Z_+}\)</span> ，则 <span
-class="math inline">\(p^{\alpha}\)</span> 有原根</p>
+<p><strong>定理2</strong>：对于奇素数 $p$ ，设 $\alpha \in \mathbb{Z_+}$ ，则 $p^{\alpha}$ 有原根</p>
 <blockquote>
 <p><strong>证明</strong>：</p>
 <p>先证明一个引理</p>
-<p><strong>引理</strong>：存在模 <span class="math inline">\(p\)</span>
-的原根 <span class="math inline">\(g\)</span> ，使得 <span
-class="math inline">\(g^{p-1}\not\equiv 1\pmod{p^2}\)</span></p>
+<p><strong>引理</strong>：存在模 $p$ 的原根 $g$ ，使得 $g^{p-1}\not\equiv 1\pmod{p^2}$</p>
 <blockquote>
-<p>证明：实际上，任取模 <span class="math inline">\(p\)</span> 的原根
-<span class="math inline">\(g\)</span> ，若 <span
-class="math inline">\(g\)</span> 不满足条件，我们认定 <span
-class="math inline">\(g+p\)</span> 满足条件 <span
-class="math display">\[
+<p>证明：实际上，任取模 $p$ 的原根 $g$ ，若 $g$ 不满足条件，我们认定 $g+p$ 满足条件</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-(g+p)^{p-1} &amp; \equiv \binom{p-1}{0} g^{p-1}+\binom{p-1}{1} p g^{p-2}
-\\[6pt]
-&amp; \equiv g^{p-1}+p(p-1) g^{p-2} \\[6pt]
-&amp; \equiv 1-p g^{p-2} \\[6pt]
-&amp; \not \equiv 1 \quad\pmod {p^2}
-\end{aligned}
-\]</span> 证毕。</p>
+(g+p)^{p-1} & \equiv \binom{p-1}{0} g^{p-1}+\binom{p-1}{1} p g^{p-2} \\[6pt]
+& \equiv g^{p-1}+p(p-1) g^{p-2} \\[6pt]
+& \equiv 1-p g^{p-2} \\[6pt]
+& \not \equiv 1 \quad\pmod {p^2}
+\end{aligned}</script><p>证毕。</p>
 </blockquote>
-<p>考虑原命题，我们证明若 <span class="math inline">\(g\)</span>
-是满足引理条件的原根，则对任意正整数 <span
-class="math inline">\(\alpha\)</span> ，<span
-class="math inline">\(g\)</span> 是模 <span
-class="math inline">\(p^{\alpha}\)</span> 的原根。</p>
-<p>首先证明下面的结论：对任意正整数 <span
-class="math inline">\(\beta\)</span> ，都可设 <span
-class="math display">\[
-g^{\varphi(p^{\beta})} = 1 + p^{\beta} \times k_{\beta}\quad(p \not\mid
-k_{\beta})
-\]</span> 当 <span class="math inline">\(\beta = 1\)</span> 时，由 <span
-class="math inline">\(g\)</span> 的选取可知结论成立。现设上式对 <span
-class="math inline">\(\beta\)</span> 时成立，则 <span
-class="math display">\[
+<p>考虑原命题，我们证明若 $g$ 是满足引理条件的原根，则对任意正整数 $\alpha$ ，$g$ 是模 $p^{\alpha}$ 的原根。</p>
+<p>首先证明下面的结论：对任意正整数 $\beta$ ，都可设 </p>
+<script type="math/tex; mode=display">
+g^{\varphi(p^{\beta})} = 1 + p^{\beta} \times k_{\beta}\quad(p \not\mid k_{\beta})</script><p>当 $\beta =  1$ 时，由 $g$ 的选取可知结论成立。现设上式对 $\beta$ 时成立，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-g^{\varphi\left(p^{\beta+1}\right)} &amp;
-=\left(g^{\varphi\left(p^\beta\right)}\right)^p \\[6pt]
-&amp; =\left(1+p^\beta \times k_\beta\right)^p \\[6pt]
-&amp; \equiv 1+p^{\beta+1} \times k_\beta \pmod{p^{\beta+2}}
-\end{aligned}
-\]</span> 结合 <span class="math inline">\(p \not\mid k_{\beta}\)</span>
-可知命题对 <span class="math inline">\(\beta+1\)</span>
-成立。所以命题对任意正整数 <span class="math inline">\(\beta\)</span>
-都成立。</p>
-<p>其次，记 <span class="math inline">\(\delta =
-\delta_{p^{\alpha}}(g)\)</span> ，则由欧拉定理可知 <span
-class="math inline">\(\delta \mid p^{\alpha - 1}(p - 1)\)</span> 。</p>
-<p>而由 <span class="math inline">\(g\)</span> 为模 <span
-class="math inline">\(p\)</span> 的原根，及 <span
-class="math inline">\(g^{\delta} \equiv 1\pmod{p^{\alpha}}\)</span> 可知
-<span class="math inline">\((p-1) \mid \delta\)</span></p>
-<p>所以可设 <span class="math inline">\(\delta = p^{\beta -
-1}(p-1)\)</span> ，这里 <span class="math inline">\(1 \le \beta \le
-\alpha\)</span> 。</p>
-<p>利用之前的结论，可知 <span class="math display">\[
+g^{\varphi\left(p^{\beta+1}\right)} & =\left(g^{\varphi\left(p^\beta\right)}\right)^p \\[6pt]
+& =\left(1+p^\beta \times k_\beta\right)^p \\[6pt]
+& \equiv 1+p^{\beta+1} \times k_\beta \pmod{p^{\beta+2}}
+\end{aligned}</script><p>结合 $p \not\mid k_{\beta}$ 可知命题对 $\beta+1$ 成立。所以命题对任意正整数 $\beta$ 都成立。</p>
+<p>其次，记 $\delta = \delta_{p^{\alpha}}(g)$ ，则由欧拉定理可知 $\delta \mid p^{\alpha - 1}(p - 1)$ 。</p>
+<p>而由 $g$ 为模 $p$ 的原根，及 $g^{\delta} \equiv 1\pmod{p^{\alpha}}$ 可知 $(p-1) \mid \delta$</p>
+<p>所以可设 $\delta = p^{\beta - 1}(p-1)$ ，这里 $1 \le \beta \le \alpha$ 。</p>
+<p>利用之前的结论，可知</p>
+<script type="math/tex; mode=display">
 g^{\varphi\left(p^\beta\right)} \not \equiv 1 \quad\pmod{p^{\beta+1}}
-\\[6pt]\Rightarrow g^\delta \not \equiv 1 \quad\pmod{p^{\beta+1}}
-\]</span> 结合 <span class="math inline">\(g^{\delta}\equiv 1
-\pmod{p^{\alpha}}\)</span> 可知 <span class="math inline">\(\beta \ge
-\alpha\)</span> 。综上可知 <span class="math inline">\(\beta =
-\alpha\)</span> ，即 <span class="math display">\[
-\delta_{p^\alpha}(g)=p^{\alpha-1}(p-1)=\varphi\left(p^\alpha\right)
-\]</span> 从而 <span class="math inline">\(g\)</span> 是模 <span
-class="math inline">\(p\)</span> 的原根。</p>
+\\[6pt]\Rightarrow g^\delta \not \equiv 1 \quad\pmod{p^{\beta+1}}</script><p>结合 $g^{\delta}\equiv 1 \pmod{p^{\alpha}}$ 可知 $\beta \ge \alpha$ 。综上可知 $\beta = \alpha$ ，即</p>
+<script type="math/tex; mode=display">
+\delta_{p^\alpha}(g)=p^{\alpha-1}(p-1)=\varphi\left(p^\alpha\right)</script><p>从而 $g$ 是模 $p$ 的原根。</p>
 </blockquote>
-<p><strong>定理3</strong>：对于奇素数 <span
-class="math inline">\(p\)</span> ，设正整数 <span
-class="math inline">\(\alpha\)</span> ，<span
-class="math inline">\(2p^{\alpha}\)</span> 的原根存在。</p>
+<p><strong>定理3</strong>：对于奇素数 $p$ ，设正整数 $\alpha$ ，$2p^{\alpha}$ 的原根存在。</p>
 <blockquote>
-<p><strong>证明</strong>：设 <span class="math inline">\(g\)</span> 是模
-<span class="math inline">\(p^{\alpha}\)</span> 的原根，则 <span
-class="math inline">\(g + p^{\alpha}\)</span> 也是模 <span
-class="math inline">\(p^{\alpha}\)</span> 的原根。</p>
-<p>在 <span class="math inline">\(g\)</span> 和 <span
-class="math inline">\(g+p^{\alpha}\)</span> 中有一个奇数，设这个奇数是
-<span class="math inline">\(G\)</span> ，则 <span
-class="math inline">\(\gcd(G,2p^{\alpha}) = 1\)</span></p>
-<p>由欧拉定理，<span class="math inline">\(\delta_{2p^{\alpha}}(G) \mid
-\varphi(2p^{\alpha})\)</span> ，而 <span
-class="math inline">\(G^{\delta_{2p^\alpha}(G)}\equiv 1
-\pmod{2p^{\alpha}}\)</span> ，故 <span class="math display">\[
-G^{\delta_{2p^\alpha}(G)}\equiv 1 \pmod{p^{\alpha}}
-\]</span> 利用 <span class="math inline">\(G\)</span> 为模 <span
-class="math inline">\(p^{\alpha}\)</span> 的原根可知 <span
-class="math inline">\(G\)</span> 为模 <span
-class="math inline">\(2p^{\alpha}\)</span> 的原根。证毕。</p>
+<p><strong>证明</strong>：设 $g$ 是模 $p^{\alpha}$ 的原根，则 $g + p^{\alpha}$ 也是模 $p^{\alpha}$ 的原根。</p>
+<p>在 $g$ 和 $g+p^{\alpha}$ 中有一个奇数，设这个奇数是 $G$ ，则 $\gcd(G,2p^{\alpha}) = 1$</p>
+<p>由欧拉定理，$\delta_{2p^{\alpha}}(G) \mid \varphi(2p^{\alpha})$ ，而 $G^{\delta_{2p^\alpha}(G)}\equiv 1 \pmod{2p^{\alpha}}$ ，故</p>
+<script type="math/tex; mode=display">
+G^{\delta_{2p^\alpha}(G)}\equiv 1 \pmod{p^{\alpha}}</script><p>利用 $G$ 为模 $p^{\alpha}$ 的原根可知 $G$ 为模 $2p^{\alpha}$ 的原根。证毕。</p>
 </blockquote>
-<p><strong>定理4</strong>：对于 <span class="math inline">\(m \not\in
-\{1,2,4\}\)</span> ，且不存在奇素数 <span
-class="math inline">\(p\)</span> 及 <span class="math inline">\(\alpha
-\in \mathbb{Z}_+\)</span> 使得 <span class="math inline">\(m \in
-\{p^{\alpha},2p^{\alpha}\}\)</span> ，</p>
-<p>则对任意整数 <span class="math inline">\(a\)</span> 满足 <span
-class="math inline">\(\gcd(a,m)=1\)</span> 都有 <span
-class="math inline">\(\delta_m(a) &lt; \varphi(m)\)</span> ，即模 <span
-class="math inline">\(m\)</span> 的原根<strong>不存在</strong>。</p>
+<p><strong>定理4</strong>：对于 $m \not\in \{1,2,4\}$ ，且不存在奇素数 $p$ 及 $\alpha \in \mathbb{Z}_+$ 使得 $m \in \{p^{\alpha},2p^{\alpha}\}$ ，</p>
+<p>则对任意整数 $a$ 满足 $\gcd(a,m)=1$ 都有 $\delta_m(a) &lt; \varphi(m)$ ，即模 $m$ 的原根<strong>不存在</strong>。</p>
 <blockquote>
-<p><strong>证明</strong>：对于 <span class="math inline">\(m =
-2^{\alpha}\)</span> ，其中 <span class="math inline">\(\alpha \ge
-3\,\land\,\alpha \in \mathbb{Z}_+\)</span> ，则对任意奇数 <span
-class="math inline">\(a = 2k + 1\)</span> 均有 <span
-class="math display">\[
+<p><strong>证明</strong>：对于 $m = 2^{\alpha}$ ，其中 $\alpha \ge 3\,\land\,\alpha \in \mathbb{Z}_+$ ，则对任意奇数 $a = 2k + 1$ 均有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-a^{2^{\alpha-2}} &amp; =(2 k+1)^{2^{\alpha-2}} \\
-&amp; \equiv 1+C_{2^{\alpha-2}}^1(2 k)+C_{2^{\alpha-2}}^2(2 k)^2 \\
-&amp; \equiv 1+2^{\alpha-1} k+2^{\alpha-1}\left(2^{\alpha-2}-1\right)
-k^2 \\
-&amp; \equiv 1+2^{\alpha-1}\left(k+\left(2^{\alpha-2}-1\right) k\right)
-\\
-&amp; \equiv 1 \quad \pmod{2^\alpha}
-\end{aligned}
-\]</span> 其中最后一步用到 <span class="math inline">\(k\)</span> 与
-<span class="math inline">\((2^{\alpha - 2} - 1)\cdot k\)</span>
-同奇偶的性质，故其和为偶数。</p>
-<p>若 <span class="math inline">\(m\)</span> 不是 <span
-class="math inline">\(2\)</span> 的幂，且 <span
-class="math inline">\(m\)</span> 为符合命题条件的数，则可设 <span
-class="math inline">\(m = rt\)</span> ，这里 <span
-class="math inline">\(2 &lt; r &lt; t\)</span> 且 <span
-class="math inline">\(\gcd(r,t)=1\)</span> 。</p>
-<p>此时，若 <span class="math inline">\(\gcd(a,m)=1\)</span>
-，由欧拉定理可知 <span class="math display">\[
-a^{\varphi(r)}\equiv 1 \pmod{r},~a^{\varphi(t)} \equiv 1 \pmod{t}
-\]</span> 注意到 <span class="math inline">\(n &gt; 2\)</span> 时，<span
-class="math inline">\(\varphi(n)\)</span> 为偶数，所以 <span
-class="math display">\[
-a^{\frac{1}{2} \varphi(r) \varphi(t)} \equiv 1 \pmod{rt}
-\]</span> 进而 <span class="math display">\[
-\delta_m(a) \leq \frac{1}{2} \varphi(r) \varphi(t)=\frac{1}{2} \varphi(r
-t)=\frac{1}{2} \varphi(m)&lt;\varphi(m)
-\]</span> 证毕。</p>
+a^{2^{\alpha-2}} & =(2 k+1)^{2^{\alpha-2}} \\
+& \equiv 1+C_{2^{\alpha-2}}^1(2 k)+C_{2^{\alpha-2}}^2(2 k)^2 \\
+& \equiv 1+2^{\alpha-1} k+2^{\alpha-1}\left(2^{\alpha-2}-1\right) k^2 \\
+& \equiv 1+2^{\alpha-1}\left(k+\left(2^{\alpha-2}-1\right) k\right) \\
+& \equiv 1 \quad \pmod{2^\alpha}
+\end{aligned}</script><p>其中最后一步用到 $k$ 与 $(2^{\alpha - 2} - 1)\cdot k$ 同奇偶的性质，故其和为偶数。</p>
+<p>若 $m$ 不是 $2$ 的幂，且 $m$ 为符合命题条件的数，则可设 $m = rt$ ，这里 $2 &lt; r &lt; t$ 且 $\gcd(r,t)=1$ 。</p>
+<p>此时，若 $\gcd(a,m)=1$ ，由欧拉定理可知</p>
+<script type="math/tex; mode=display">
+a^{\varphi(r)}\equiv 1 \pmod{r},~a^{\varphi(t)} \equiv 1 \pmod{t}</script><p>注意到 $n &gt; 2$ 时，$\varphi(n)$ 为偶数，所以</p>
+<script type="math/tex; mode=display">
+a^{\frac{1}{2} \varphi(r) \varphi(t)} \equiv 1 \pmod{rt}</script><p>进而</p>
+<script type="math/tex; mode=display">
+\delta_m(a) \leq \frac{1}{2} \varphi(r) \varphi(t)=\frac{1}{2} \varphi(r t)=\frac{1}{2} \varphi(m)<\varphi(m)</script><p>证毕。</p>
 </blockquote>
 <p>好好好，我们终于证明完了这些性质，总结一下对本题有用的结论是：</p>
 <ul>
-<li>仅有 <span class="math inline">\(1,2,4\)</span> 或奇素数 <span
-class="math inline">\(p^{\alpha}\)</span> 及 <span
-class="math inline">\(2p^{\alpha}\)</span>
-有原根，其他的数都没有原根。</li>
+<li>仅有 $1,2,4$ 或奇素数 $p^{\alpha}$ 及 $2p^{\alpha}$ 有原根，其他的数都没有原根。</li>
 </ul>
-<p>考虑预处理素数及其幂次，以及幂次 <span class="math inline">\(\times
-2\)</span> ，接着就可以 <span
-class="math inline">\(\mathcal{O}(1)\)</span> 判断一个数有没有原根。</p>
-<p>如果一个数有原根，可以先求出最小正原根，而正整数 <span
-class="math inline">\(m\)</span> 的最小正原根的级别不超过 <span
-class="math inline">\(\mathcal{O}(m^{\frac{1}{4}})\)</span></p>
-<p>因此考虑从小到大枚举。由原根的定义，若 <span
-class="math inline">\(g\)</span> 为模 <span
-class="math inline">\(m\)</span> 的原根，则对于 <span
-class="math inline">\(\varphi(m)\)</span> 的任意素因数 <span
-class="math inline">\(p\)</span> ，必有 <span class="math display">\[
-g^{\varphi(m) / p} \not \equiv 1 \pmod{m}
-\]</span> 而满足以上条件的 <span class="math inline">\(g\)</span>
-必将是原根。考虑预处理出 <span class="math inline">\(\varphi(m)\)</span>
-的所有素因数，然后快速幂暴力判断</p>
-<p>假如找到了一个原根 <span class="math inline">\(g\)</span>
-，不难证明对于所有 <span class="math inline">\(\gcd(x,\varphi(m)) =
-1\)</span> 的 <span class="math inline">\(x\)</span> ，<span
-class="math inline">\(g^x\)</span> 均为原根，</p>
-<p>因此模 <span class="math inline">\(m\)</span> 的原根有 <span
-class="math inline">\(\varphi(\varphi(m))\)</span>
-个，于是我们可以在找到 <span class="math inline">\(g\)</span> 后枚举找出
-<span class="math inline">\(m\)</span> 的所有原根。</p>
-<p>时间复杂度 <span
-class="math inline">\(\mathcal{O}(n^{\frac{1}{4}}\log n)\)</span></p>
+<p>考虑预处理素数及其幂次，以及幂次 $\times 2$ ，接着就可以 $\mathcal{O}(1)$ 判断一个数有没有原根。</p>
+<p>如果一个数有原根，可以先求出最小正原根，而正整数 $m$ 的最小正原根的级别不超过 $\mathcal{O}(m^{\frac{1}{4}})$</p>
+<p>因此考虑从小到大枚举。由原根的定义，若 $g$ 为模 $m$ 的原根，则对于 $\varphi(m)$ 的任意素因数 $p$ ，必有</p>
+<script type="math/tex; mode=display">
+g^{\varphi(m) / p} \not \equiv 1 \pmod{m}</script><p>而满足以上条件的 $g$ 必将是原根。考虑预处理出 $\varphi(m)$ 的所有素因数，然后快速幂暴力判断</p>
+<p>假如找到了一个原根 $g$ ，不难证明对于所有 $\gcd(x,\varphi(m)) = 1$ 的 $x$ ，$g^x$ 均为原根，</p>
+<p>因此模 $m$ 的原根有 $\varphi(\varphi(m))$ 个，于是我们可以在找到 $g$ 后枚举找出 $m$ 的所有原根。</p>
+<p>时间复杂度 $\mathcal{O}(n^{\frac{1}{4}}\log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1223,13 +1016,11 @@ class="math inline">\(\mathcal{O}(n^{\frac{1}{4}}\log n)\)</span></p>
     <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ix-35/solution-p6091">https://www.luogu.com.cn/blog/ix-35/solution-p6091</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/codecodeakioi/solution-p6091">https://www.luogu.com.cn/blog/codecodeakioi/solution-p6091</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ix-35/solution-p6091">https://www.luogu.com.cn/blog/ix-35/solution-p6091</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/codecodeakioi/solution-p6091">https://www.luogu.com.cn/blog/codecodeakioi/solution-p6091</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>终于把这个坑给填了，果然要花不少时间。</p>
 
@@ -1680,14 +1471,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/codecodeakioi
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1701,7 +1491,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/codecodeakioi
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

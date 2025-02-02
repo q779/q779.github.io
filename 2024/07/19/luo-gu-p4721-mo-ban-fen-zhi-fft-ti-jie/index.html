@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -748,47 +748,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4721-模板分治-fft-题解">洛谷P4721 【模板】分治 FFT
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4721">P4721
-【模板】分治 FFT</a></p>
+                <h1 id="洛谷P4721-【模板】分治-FFT-题解"><a href="#洛谷P4721-【模板】分治-FFT-题解" class="headerlink" title="洛谷P4721 【模板】分治 FFT 题解"></a>洛谷P4721 【模板】分治 FFT 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4721">P4721 【模板】分治 FFT</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定序列 <span class="math inline">\(g_{1\dots n -
-1}\)</span>，求序列 <span class="math inline">\(f_{0\dots n -
-1}\)</span>。</p>
-<p>其中 <span class="math display">\[
-f_i=\sum_{j=1}^if_{i-j}g_j
-\]</span> 边界为 <span class="math inline">\(f_0=1\)</span>。</p>
-<p>答案对 <span class="math inline">\(998244353\)</span> 取模。</p>
+<p>给定序列 $g_{1\dots n - 1}$，求序列 $f_{0\dots n - 1}$。</p>
+<p>其中</p>
+<script type="math/tex; mode=display">
+f_i=\sum_{j=1}^if_{i-j}g_j</script><p>边界为 $f_0=1$。</p>
+<p>答案对 $998244353$ 取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span> 。</p>
-<p>第二行 <span class="math inline">\(n-1\)</span> 个整数 <span
-class="math inline">\(g_{1\dots n - 1}\)</span>。</p>
+<p>第一行一个整数 $n$ 。</p>
+<p>第二行 $n-1$ 个整数 $g_{1\dots n - 1}$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行 <span class="math inline">\(n\)</span> 个整数，表示 <span
-class="math inline">\(f_{0\dots n - 1}\)</span> 对 <span
-class="math inline">\(998244353\)</span> 取模后的值。</p>
+<p>一行 $n$ 个整数，表示 $f_{0\dots n - 1}$ 对 $998244353$ 取模后的值。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2\leq n\leq 10^5\)</span>，<span
-class="math inline">\(0\leq g_i&lt;998244353\)</span>。</p>
+<p>$2\leq n\leq 10^5$，$0\leq g_i&lt;998244353$。</p>
 </blockquote>
-<p>本题可以通过多项式求逆解决，不过这就体现不出「分治 FFT
-模板题」的意义了。</p>
+<p>本题可以通过多项式求逆解决，不过这就体现不出「分治 FFT 模板题」的意义了。 </p>
 <p>分治 FFT/分治NTT 主要利用的是 CDQ 分治的思想。</p>
-<p>先求出 <span class="math inline">\([l,\,\mathrm{mid}-1)\)</span>
-的答案（即 <span class="math inline">\(f\)</span> ），可以发现这部分对于
-<span class="math inline">\([\mathrm{mid},r)\)</span> 的贡献为 <span
-class="math display">\[
-f_{[l,\mathrm{mid})} * g_{[0,r-l)}
-\]</span> 其中 <span class="math inline">\(*\)</span> 表示卷积，<span
-class="math inline">\(f_{[l,r]}\)</span> 表示由 <span
-class="math inline">\(f_l,f_{l+1},\cdots,f_r\)</span> 构成的序列，<span
-class="math inline">\(g\)</span> 同理。</p>
+<p>先求出 $[l,\,\mathrm{mid}-1)$ 的答案（即 $f$ ），可以发现这部分对于 $[\mathrm{mid},r)$ 的贡献为</p>
+<script type="math/tex; mode=display">
+f_{[l,\mathrm{mid})} * g_{[0,r-l)}</script><p>其中 $*$ 表示卷积，$f_{[l,r]}$ 表示由 $f_l,f_{l+1},\cdots,f_r$ 构成的序列，$g$ 同理。</p>
 <p>那么我们只需要在分治的过程中计算左侧对右侧的贡献即可</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log^2
-n)\)</span> ，显然 <span class="math inline">\(998244353\)</span> 是 NTT
-模数，可以直接 NTT 。</p>
+<p>时间复杂度 $\mathcal{O}(n \log^2 n)$ ，显然 $998244353$ 是 NTT 模数，可以直接 NTT 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -877,10 +859,9 @@ n)\)</span> ，显然 <span class="math inline">\(998244353\)</span> 是 NTT
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8is9i8pj">https://www.luogu.com.cn/article/8is9i8pj</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8is9i8pj">https://www.luogu.com.cn/article/8is9i8pj</a></p>
 
                 
             </div>
@@ -1329,14 +1310,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8is9i8pj">
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1350,7 +1330,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8is9i8pj">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,70 +744,23 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf526d-om-nom-and-necklace-题解">CF526D Om Nom and Necklace
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF526D">CF526D Om
-Nom and Necklace</a></p>
+                <h1 id="CF526D-Om-Nom-and-Necklace-题解"><a href="#CF526D-Om-Nom-and-Necklace-题解" class="headerlink" title="CF526D Om Nom and Necklace 题解"></a>CF526D Om Nom and Necklace 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF526D">CF526D Om Nom and Necklace</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>已知长度为 <span class="math inline">\(n\)</span> 的字符串 <span
-class="math inline">\(s\)</span>，对于 <span
-class="math inline">\(s\)</span> 的每一个前缀子串（即对于每一个 <span
-class="math inline">\(i\)</span>，<span class="math inline">\(s\)</span>
-中从第 <span class="math inline">\(1\)</span> 个字符到第 <span
-class="math inline">\(i\)</span> 个的所有字符组成的字符串，<span
-class="math inline">\(1\leq i\leq n\)</span>），如果满足 <span
-class="math inline">\(\texttt{ABABA...BA}\)</span> 的形式（<span
-class="math inline">\(A\)</span>、<span class="math inline">\(B\)</span>
-可以为空，也可以是一个字符串，<span class="math inline">\(A\)</span> 有
-<span class="math inline">\(k+1\)</span> 个，<span
-class="math inline">\(B\)</span> 有 <span
-class="math inline">\(k\)</span> 个），则请输出 <span
-class="math inline">\(1\)</span>；否则输出 <span
-class="math inline">\(0\)</span>，注意：<span
-class="math inline">\(n\)</span> 和 <span
-class="math inline">\(k\)</span> 给定。</p>
+<p>已知长度为 $n$ 的字符串 $s$，对于 $s$ 的每一个前缀子串（即对于每一个 $i$，$s$ 中从第 $1$ 个字符到第 $i$ 个的所有字符组成的字符串，$1\leq i\leq n$），如果满足 $\texttt{ABABA…BA}$ 的形式（$A$、$B$ 可以为空，也可以是一个字符串，$A$ 有 $k+1$ 个，$B$ 有 $k$ 个），则请输出 $1$；否则输出 $0$，注意：$n$ 和 $k$ 给定。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The first line contains two integers <span
-class="math inline">\(n\)</span>, <span class="math inline">\(k\)</span>
-(<span class="math inline">\(1\leq n,k\leq 10^6\)</span>) — the number
-of beads on the thread that Om Nom found and number <span
-class="math inline">\(k\)</span> from the definition of the regular
-sequence above.</p>
-<p>The second line contains the sequence of <span
-class="math inline">\(n\)</span> lowercase Latin letters that represent
-the colors of the beads. Each color corresponds to a single letter.</p>
+<p>The first line contains two integers $n$, $k$ ($1\leq n,k\leq 10^6$) — the number of beads on the thread that Om Nom found and number $k$ from the definition of the regular sequence above.</p>
+<p>The second line contains the sequence of $n$ lowercase Latin letters that represent the colors of the beads. Each color corresponds to a single letter.</p>
 <p><strong>输出格式</strong>：</p>
-<p>Print a string consisting of <span class="math inline">\(n\)</span>
-zeroes and ones. Position <span class="math inline">\(i\)</span> (<span
-class="math inline">\(1\leq i\leq n\)</span>) must contain either number
-one if the first <span class="math inline">\(i\)</span> beads on the
-thread form a regular sequence, or a zero otherwise.</p>
+<p>Print a string consisting of $n$ zeroes and ones. Position $i$ ($1\leq i\leq n$) must contain either number one if the first $i$ beads on the thread form a regular sequence, or a zero otherwise.</p>
 </blockquote>
-<p>稍微试一试就会发现，如果一个前缀的最长 Border
-是可重叠的，那非重叠部分就是 <span
-class="math inline">\(\mathtt{A}\)</span> 的最小形式</p>
-<p>当然这没有考虑到 <span class="math inline">\(k\)</span>
-的问题，不过我们可以发现，去掉最右侧的 <span
-class="math inline">\(\mathtt{A}\)</span> ，左侧就是若干个 <span
-class="math inline">\(\mathtt{AB}\)</span> 。</p>
-<p>这有什么用呢？我们令 <span class="math inline">\(\mathtt{C} =
-\mathtt{AB}\)</span> ，则 <span
-class="math inline">\(\mathtt{A}\)</span> 为 <span
-class="math inline">\(\mathtt{C}\)</span> 的一个前缀。</p>
-<p>并且容易发现，记当前位置为 <span class="math inline">\(i\)</span>
-，则 <span class="math inline">\(\operatorname{fail} i\)</span>
-一定指向了上一个这样的 <span class="math inline">\(i\)</span>
-，也就是上一个 <span class="math inline">\(\mathtt{C}\)</span>
-的末尾。</p>
-<p>这下就好办了，我们能够得知 <span
-class="math inline">\(\mathtt{C}\)</span> 的长度，就能计算出 <span
-class="math inline">\(\mathtt{C}\)</span> 的个数和 <span
-class="math inline">\(\mathtt{A}\)</span> 的长度，同时也能算出 <span
-class="math inline">\(\mathtt{B}\)</span> 的长度。</p>
-<p>不过，有可能会出现 <span class="math inline">\(\mathtt{A}\)</span>
-为空的情况，这个只需要分类讨论一下就好，其实就是个等号的差异（</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>稍微试一试就会发现，如果一个前缀的最长 Border 是可重叠的，那非重叠部分就是 $\mathtt{A}$ 的最小形式</p>
+<p>当然这没有考虑到 $k$ 的问题，不过我们可以发现，去掉最右侧的 $\mathtt{A}$ ，左侧就是若干个 $\mathtt{AB}$ 。</p>
+<p>这有什么用呢？我们令 $\mathtt{C} = \mathtt{AB}$ ，则 $\mathtt{A}$ 为 $\mathtt{C}$ 的一个前缀。</p>
+<p>并且容易发现，记当前位置为 $i$ ，则 $\operatorname{fail} i$ 一定指向了上一个这样的 $i$ ，也就是上一个 $\mathtt{C}$ 的末尾。</p>
+<p>这下就好办了，我们能够得知 $\mathtt{C}$ 的长度，就能计算出 $\mathtt{C}$ 的个数和 $\mathtt{A}$ 的长度，同时也能算出 $\mathtt{B}$ 的长度。</p>
+<p>不过，有可能会出现 $\mathtt{A}$ 为空的情况，这个只需要分类讨论一下就好，其实就是个等号的差异（</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -838,10 +791,9 @@ class="math inline">\(\mathtt{B}\)</span> 的长度。</p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/312795/solution-cf526d">https://www.luogu.com.cn/blog/312795/solution-cf526d</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/312795/solution-cf526d">https://www.luogu.com.cn/blog/312795/solution-cf526d</a></p>
 
                 
             </div>
@@ -1299,14 +1251,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/312795/soluti
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1320,7 +1271,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/312795/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

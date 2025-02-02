@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -744,73 +744,44 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p6155-修改-题解">洛谷P6155 修改 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6155">P6155
-修改</a></p>
+                <h1 id="洛谷P6155-修改-题解"><a href="#洛谷P6155-修改-题解" class="headerlink" title="洛谷P6155 修改 题解"></a>洛谷P6155 修改 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6155">P6155 修改</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 <span class="math inline">\(n\)</span> 的整数序列
-<span class="math inline">\(a_i\)</span>，再给定一个长度为 <span
-class="math inline">\(n\)</span> 的整数序列 <span
-class="math inline">\(b_i\)</span>。</p>
-<p>你可以进行一些修改，每次你可以将一个 <span
-class="math inline">\(a_i\)</span> 增加 <span
-class="math inline">\(1\)</span>，花费为 <span
-class="math inline">\(b_i\)</span>，你需要使所有的 <span
-class="math inline">\(a_i\)</span> 不相等，且同时满足花费最少。</p>
-<p>但 zbw
-认为太过简单，于是他规定，你可以在修改前进行<strong>无限</strong>次如下操作：交换
-<span class="math inline">\(b_i,b_j(1 \leq i,j \leq n)\)</span>。</p>
+<p>给定一个长度为 $n$ 的整数序列 $a_i$，再给定一个长度为 $n$ 的整数序列 $b_i$。</p>
+<p>你可以进行一些修改，每次你可以将一个 $a_i$ 增加 $1$，花费为 $b_i$，你需要使所有的 $a_i$ 不相等，且同时满足花费最少。</p>
+<p>但 zbw 认为太过简单，于是他规定，你可以在修改前进行<strong>无限</strong>次如下操作：交换 $b_i,b_j(1 \leq i,j \leq n)$。</p>
 <p>求最小的花费。</p>
-<p><strong>由于答案可能很大，请输出答案对 <span
-class="math inline">\(2^{64}\)</span> 取模后的值。</strong></p>
+<p><strong>由于答案可能很大，请输出答案对  $2^{64}$ 取模后的值。</strong></p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span>。</p>
-<p>第二行 <span class="math inline">\(n\)</span> 个整数，第 <span
-class="math inline">\(i\)</span> 个数表示 <span
-class="math inline">\(a_i\)</span>。</p>
-<p>第三行 <span class="math inline">\(n\)</span> 个整数，第 <span
-class="math inline">\(i\)</span> 个数表示 <span
-class="math inline">\(b_i\)</span>。</p>
+<p>第一行一个整数 $n$。</p>
+<p>第二行 $n$ 个整数，第 $i$ 个数表示 $a_i$。</p>
+<p>第三行 $n$ 个整数，第 $i$ 个数表示 $b_i$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示答案对 <span
-class="math inline">\(2^{64}\)</span> 取模的值。</p>
+<p>输出一行一个整数，表示答案对 $2^{64}$ 取模的值。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有数据 <span class="math inline">\(1 \leq n \leq
-10^6\)</span>，<span class="math inline">\(1\leq
-a_i,b_i\leq10^9\)</span>。</p>
+<p>对于所有数据 $1 \leq n \leq 10^6$，$1\leq a_i,b_i\leq10^9$。</p>
 </blockquote>
 <p>这里的无限次交换其实就是随便顺序</p>
-<p>贪心地想，对修改次数越多的花越小的 <span
-class="math inline">\(b_i\)</span> 一定是最优的。</p>
+<p>贪心地想，对修改次数越多的花越小的 $b_i$ 一定是最优的。</p>
 <p>然后考虑怎么修改</p>
-<p>容易想到先把 <span class="math inline">\(a_i\)</span>
-顺序排序，然后遇到相等的就让后面所有的都加一</p>
+<p>容易想到先把 $a_i$ 顺序排序，然后遇到相等的就让后面所有的都加一</p>
 <p>然后你会发现过不了样例二。</p>
 <p>因为你把一个修改分给了两个人，显然会花费更多。</p>
 <p>也就是只要把重复的那个提升到最近的空位即可。</p>
 <p>这个最近的空位怎么求呢？我们可以用并查集来维护</p>
-<p>对于每个数 <span class="math inline">\(x\)</span> ，记一个 <span
-class="math inline">\(f_x\)</span> 表示它的下一个空位。</p>
-<p>我们从小到大依次处理每个 <span class="math inline">\(x\)</span> 的
-<span class="math inline">\(f_x\)</span></p>
-<p>如果 <span class="math inline">\(f_x\)</span> 还没有值，就让它为
-<span class="math inline">\(x+1\)</span> ，即 <span
-class="math inline">\(f_x \gets x+1\)</span></p>
-<p>如果它已经有值了，说明 <span class="math inline">\(f_x\)</span>
-已经被填了</p>
-<p>于是我们找 <span class="math inline">\(f_x\)</span>
-的下一个空位是谁，即 <span class="math inline">\(f_x \gets
-f_{f_x}\)</span> ，显然这个可以路径压缩</p>
+<p>对于每个数 $x$ ，记一个 $f_x$ 表示它的下一个空位。</p>
+<p>我们从小到大依次处理每个 $x$ 的 $f_x$ </p>
+<p>如果 $f_x$ 还没有值，就让它为 $x+1$ ，即 $f_x \gets x+1$ </p>
+<p>如果它已经有值了，说明 $f_x$ 已经被填了</p>
+<p>于是我们找 $f_x$ 的下一个空位是谁，即 $f_x \gets f_{f_x}$ ，显然这个可以路径压缩</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp">unordered_map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> f<span class="token punctuation">;</span>
 <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>f<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">return</span> f<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> f<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>总时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
-<p>注意答案要对 <span class="math inline">\(2^{64}\)</span>
-取模（其实就是<code>unsigned long long</code>自然溢出）</p>
+<p>总时间复杂度 $O(n \log n)$ </p>
+<p>注意答案要对 $2^{64}$ 取模（其实就是<code>unsigned long long</code>自然溢出）</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1315,14 +1286,13 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1336,7 +1306,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             

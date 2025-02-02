@@ -560,7 +560,7 @@ rgba(0,0,0,0.2);
                                 startDelay: 500,
                                 typeSpeed: 75,
                                 loop: false,
-                                backSpeed: 50,
+                                backSpeed: 70,
                                 showCursor: true,
                                 cursorChar: '_',
                             });
@@ -748,23 +748,13 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4657-ceoi2017-chase-题解">洛谷P4657 [CEOI2017] Chase
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4657">P4657
-[CEOI2017] Chase</a></p>
+                <h1 id="洛谷P4657-CEOI2017-Chase-题解"><a href="#洛谷P4657-CEOI2017-Chase-题解" class="headerlink" title="洛谷P4657 [CEOI2017] Chase 题解"></a>洛谷P4657 [CEOI2017] Chase 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4657">P4657 [CEOI2017] Chase</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>在逃亡者的面前有一个迷宫，这个迷宫由 <span
-class="math inline">\(n\)</span> 个房间和 <span
-class="math inline">\(n-1\)</span>
-条双向走廊构成，每条走廊会链接不同的两个房间，所有的房间都可以通过走廊互相到达。换句话说，这是一棵树。</p>
+<p>在逃亡者的面前有一个迷宫，这个迷宫由 $n$ 个房间和 $n-1$ 条双向走廊构成，每条走廊会链接不同的两个房间，所有的房间都可以通过走廊互相到达。换句话说，这是一棵树。</p>
 <p>逃亡者会选择一个房间进入迷宫，走过若干条走廊并走出迷宫，但他永远不会走重复的走廊。</p>
-<p>在第 <span class="math inline">\(i\)</span> 个房间里，有 <span
-class="math inline">\(F_i\)</span>
-个铁球，每当一个人经过这个房间时，他就会受到铁球的阻挡。逃亡者手里有
-<span class="math inline">\(V\)</span>
-个磁铁，当他到达一个房间时，他可以选择丢下一个磁铁（也可以不丢），将与这个房间相邻的所有房间里的铁球吸引到这个房间。这个过程如下：</p>
-<ol type="1">
+<p>在第 $i$ 个房间里，有 $F_i$ 个铁球，每当一个人经过这个房间时，他就会受到铁球的阻挡。逃亡者手里有 $V$ 个磁铁，当他到达一个房间时，他可以选择丢下一个磁铁（也可以不丢），将与这个房间相邻的所有房间里的铁球吸引到这个房间。这个过程如下：</p>
+<ol>
 <li>逃亡者进入房间。</li>
 <li>逃亡者丢下磁铁。</li>
 <li>逃亡者走出房间。</li>
@@ -774,57 +764,28 @@ class="math inline">\(F_i\)</span>
 <p>在逃亡者走出迷宫后，追逐者将会沿着逃亡者走过的路径穿过迷宫，他会碰到这条路径上所有的铁球。</p>
 <p>请帮助逃亡者选择一条路径，使得追逐者遇到的铁球数量减去逃亡者遇到的铁球数量最大化。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个空格隔开的整数整数 <span class="math inline">\(n\)</span>
-和 <span class="math inline">\(V\)</span>。</p>
-<p>第二行 <span class="math inline">\(n\)</span> 个空格隔开的整数表示
-<span class="math inline">\(F_i\)</span>。</p>
-<p>之后的 <span class="math inline">\(n-1\)</span>
-行，每行两个空格隔开的整数 <span class="math inline">\(x\)</span> 和
-<span class="math inline">\(y\)</span>，表示有一条走廊连接编号为 <span
-class="math inline">\(x\)</span> 和编号为 <span
-class="math inline">\(y\)</span> 的房间。</p>
+<p>第一行两个空格隔开的整数整数 $n$ 和 $V$。</p>
+<p>第二行 $n$ 个空格隔开的整数表示 $F_i$。</p>
+<p>之后的 $n-1$ 行，每行两个空格隔开的整数 $x$ 和 $y$，表示有一条走廊连接编号为 $x$ 和编号为 $y$ 的房间。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一个整数表示最优情况下追逐者遇到的铁球数量减去逃亡者遇到的铁球数量。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n\le 10^5,~0\le V\le 100,~0\le
-F_i\le 10^9\)</span>。</p>
+<p>$1\le n\le 10^5,~0\le V\le 100,~0\le F_i\le 10^9$。</p>
 </blockquote>
 <p>本题有两种常见的dp方式，即 换根dp 和 <del>朴素dp</del> 。</p>
 <p>本文来讲一下朴素的做法吧，主要思想就是在每个节点统计横跨它的链的贡献。</p>
-<p>考虑设 <span class="math inline">\(f(i,j,k),~g(i,j,k)\)</span>
-分别表示「从 <span class="math inline">\(i\)</span> 到 <span
-class="math inline">\(i\)</span> 子树」和「从 <span
-class="math inline">\(i\)</span> 子树到 <span
-class="math inline">\(i\)</span> 」选了 <span
-class="math inline">\(j\)</span> 个的最大贡献，</p>
-<p>其中 <span class="math inline">\(k=0\)</span> 或 <span
-class="math inline">\(k=1\)</span> 表示 <span
-class="math inline">\(i\)</span> 有没有放磁铁，<span
-class="math inline">\(0\)</span> 表示没有。</p>
-<p>记 <span class="math inline">\(V_u\)</span> 为 <span
-class="math inline">\(u\)</span> 的儿子 <span
-class="math inline">\(v\)</span> 的铁球个数 <span
-class="math inline">\(F_v\)</span> 的和，即 <span
-class="math inline">\(V_u = \sum_{v \in \mathrm{son}(u)}F_v\)</span>
-（后面代码里 <span class="math inline">\(F\)</span> 写的是 <span
-class="math inline">\(a\)</span> ）</p>
-<p>考虑转移。对于儿子 <span class="math inline">\(v\)</span>
-，尝试以下更新（其中 <span class="math inline">\(\uparrow\)</span>
-表示「取max」） <span class="math display">\[
+<p>考虑设 $f(i,j,k),~g(i,j,k)$ 分别表示「从 $i$ 到 $i$ 子树」和「从 $i$ 子树到 $i$ 」选了 $j$ 个的最大贡献，</p>
+<p>其中 $k=0$ 或 $k=1$ 表示 $i$ 有没有放磁铁，$0$ 表示没有。</p>
+<p>记 $V_u$ 为 $u$ 的儿子 $v$ 的铁球个数 $F_v$ 的和，即 $V_u = \sum_{v \in \mathrm{son}(u)}F_v$ （后面代码里 $F$ 写的是 $a$ ）</p>
+<p>考虑转移。对于儿子 $v$ ，尝试以下更新（其中 $\uparrow$ 表示「取max」）</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;f(u,j,0) \operatorname{\big\uparrow} \max\left\{
-f(v,j,0),~f(v,j,1)\right\}
-\\[6pt]&amp; f(u,j,1) \operatorname{\big\uparrow} \max\left\{
-f(v,j-1,0),~f(v,j-1,1)\right\} + V_u
-\\[6pt]&amp; g(u,j,0) \operatorname{\big\uparrow}
-\max\left\{g(v,j,0),~g(v,j,1)\right\}
-\\[6pt]&amp; g(u,j,1) \operatorname{\big\uparrow}
-\max\{g(v,j-1,0),~g(v,j-1,1)\} + V_u + F_{fa(u)} - F_v
-\end{aligned}
-\]</span> 需要注意边界。统计答案的话在更新的过程中就可以了，合并前 <span
-class="math inline">\(u\)</span> 的答案和 <span
-class="math inline">\(v\)</span> 不会冲突。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nV)\)</span></p>
+&f(u,j,0) \operatorname{\big\uparrow} \max\left\{ f(v,j,0),~f(v,j,1)\right\}
+\\[6pt]& f(u,j,1) \operatorname{\big\uparrow} \max\left\{ f(v,j-1,0),~f(v,j-1,1)\right\} + V_u
+\\[6pt]& g(u,j,0) \operatorname{\big\uparrow} \max\left\{g(v,j,0),~g(v,j,1)\right\}
+\\[6pt]& g(u,j,1) \operatorname{\big\uparrow} \max\{g(v,j-1,0),~g(v,j-1,1)\} + V_u + F_{fa(u)} - F_v
+\end{aligned}</script><p>需要注意边界。统计答案的话在更新的过程中就可以了，合并前 $u$ 的答案和 $v$ 不会冲突。</p>
+<p>时间复杂度 $\mathcal{O}(nV)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -889,16 +850,13 @@ class="math inline">\(v\)</span> 不会冲突。</p>
     <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/irs7i409">https://www.luogu.com.cn/article/irs7i409</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/irs7i409">https://www.luogu.com.cn/article/irs7i409</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放音乐。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1929042038&amp;auto=0&amp;height=66">
-</iframe>
-
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1929042038&auto=0&height=66"></iframe>
                 
             </div>
             <hr/>
@@ -1350,14 +1308,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/irs7i409">
 
 
     
-    <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script>
-    window.onload = () =>{ RENDERER.init(); }
-</script>
-
-
 <footer class="page-footer bg-color">
+    
+    
+        <div id="jsi-flying-fish-container" class="jfish"></div>
+<script src="/libs/jfish/renderer.js"></script>
+<script> RENDERER.init(); </script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
@@ -1371,7 +1328,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/irs7i409">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1346.6k</span>&nbsp;字
+                class="white-color">1314.1k</span>&nbsp;字
             
             
             
