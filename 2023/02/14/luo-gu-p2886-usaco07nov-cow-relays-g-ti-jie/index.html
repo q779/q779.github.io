@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
-                            </a>
-                        
                             <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                 <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                <span class="chip bg-color">数学</span>
                             </a>
                         
                     </div>
@@ -748,53 +748,27 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2886-usaco07novcow-relays-g-题解">洛谷P2886 [USACO07NOV]Cow
-Relays G 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2886">P2886
-[USACO07NOV]Cow Relays G</a></p>
+                <h1 id="洛谷P2886-USACO07NOV-Cow-Relays-G-题解"><a href="#洛谷P2886-USACO07NOV-Cow-Relays-G-题解" class="headerlink" title="洛谷P2886 [USACO07NOV]Cow Relays G 题解"></a>洛谷P2886 [USACO07NOV]Cow Relays G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2886">P2886 [USACO07NOV]Cow Relays G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一张 <span class="math inline">\(T\)</span>
-条边的无向连通图，求从 <span class="math inline">\(S\)</span> 到 <span
-class="math inline">\(E\)</span> 经过 <span
-class="math inline">\(N\)</span> 条边的最短路长度。</p>
+<p>给定一张 $T$ 条边的无向连通图，求从 $S$ 到 $E$ 经过 $N$ 条边的最短路长度。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行四个正整数 <span class="math inline">\(N,T,S,E\)</span>
-，意义如题面所示。</p>
-<p>接下来 <span class="math inline">\(T\)</span> 行每行三个正整数 <span
-class="math inline">\(w,u,v\)</span>
-，分别表示路径的长度，起点和终点。</p>
+<p>第一行四个正整数 $N,T,S,E$ ，意义如题面所示。</p>
+<p>接下来 $T$ 行每行三个正整数 $w,u,v$ ，分别表示路径的长度，起点和终点。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行一个整数表示图中从 <span class="math inline">\(S\)</span> 到
-<span class="math inline">\(E\)</span> 经过 <span
-class="math inline">\(N\)</span> 条边的最短路长度。</p>
+<p>一行一个整数表示图中从 $S$ 到 $E$ 经过 $N$ 条边的最短路长度。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有的数据，保证 <span class="math inline">\(1\le N\le
-10^6\)</span>，<span class="math inline">\(2\le T\le 100\)</span>。</p>
-<p>所有的边保证 <span class="math inline">\(1\le u,v\le
-1000\)</span>，<span class="math inline">\(1\le w\le
-1000\)</span>，无重边。</p>
+<p>对于所有的数据，保证 $1\le N\le 10^6$，$2\le T\le 100$。</p>
+<p>所有的边保证 $1\le u,v\le 1000$，$1\le w\le 1000$，无重边。</p>
 </blockquote>
 <p>这道题考察了无向图邻接矩阵的性质。</p>
-<p>如果矩阵 <span class="math inline">\(A\)</span> 表示走了 <span
-class="math inline">\(x\)</span> 步的最短路，矩阵 <span
-class="math inline">\(B\)</span> 表示走了 <span
-class="math inline">\(y\)</span> 步的最短路， <span
-class="math display">\[
-C_{i,j} \downarrow A_{i,k} + B_{k,j}
-\]</span> 矩阵 <span class="math inline">\(C\)</span> 就表示走了 <span
-class="math inline">\(x+y\)</span> 步的最短路。（<del>cxy：这我懂，不就
-Floyd 吗</del>）</p>
-<p>这个和 Floyd 的区别在于， <span class="math inline">\(C\)</span>
-矩阵初始状态全为 <span class="math inline">\(+\infty\)</span> ，而 Floyd
-可能是 <span class="math inline">\(A\)</span> 也可能是 <span
-class="math inline">\(B\)</span> 。</p>
+<p>如果矩阵 $A$ 表示走了 $x$ 步的最短路，矩阵 $B$ 表示走了 $y$ 步的最短路，</p>
+<script type="math/tex; mode=display">
+C_{i,j} \downarrow A_{i,k} + B_{k,j}</script><p>矩阵 $C$ 就表示走了 $x+y$ 步的最短路。（<del>cxy：这我懂，不就 Floyd 吗</del>）</p>
+<p>这个和 Floyd 的区别在于， $C$ 矩阵初始状态全为 $+\infty$ ，而 Floyd 可能是 $A$ 也可能是 $B$ 。</p>
 <p>换句话说，我们强制它多走了几条边，自然不一样。搞清楚这点，这题就想通了。</p>
-<p>不要忘了离散化一下节点，而且矩阵快速幂的 <span
-class="math inline">\(\texttt{Ans}\)</span> 也要改成 <span
-class="math inline">\(M\)</span> 哦（见代码）</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(T^3\log
-N)\)</span></p>
+<p>不要忘了离散化一下节点，而且矩阵快速幂的 $\texttt{Ans}$ 也要改成 $M$ 哦（见代码）</p>
+<p>时间复杂度 $\mathcal{O}(T^3\log N)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -844,9 +818,7 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
     mat res <span class="token operator">=</span> <span class="token function">qpow</span><span class="token punctuation">(</span>M<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res<span class="token punctuation">[</span>vis<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">[</span>vis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>据说这道题有个 <span class="math inline">\(\mathcal{O}(T^2)\)</span>
-的贪心做法，有兴趣可以去看<a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2886-sol.html">这篇题解</a></p>
+<p>据说这道题有个 $\mathcal{O}(T^2)$ 的贪心做法，有兴趣可以去看<a target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2886-sol.html">这篇题解</a></p>
 
                 
             </div>
@@ -915,12 +887,12 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                     <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                         </div>
@@ -1147,12 +1119,12 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
                     <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                         <span class="chip bg-color">图论</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1306,11 +1278,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1323,7 +1290,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-zhao-2007/p/p2
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1592,6 +1559,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

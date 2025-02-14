@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
-                            </a>
-                        
                             <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                 <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                <span class="chip bg-color">数学</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -764,141 +764,71 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4547-thuwc2017随机二分图-题解">洛谷P4547
-[THUWC2017]随机二分图 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4547">P4547
-[THUWC2017]随机二分图</a></p>
+                <h1 id="洛谷P4547-THUWC2017-随机二分图-题解"><a href="#洛谷P4547-THUWC2017-随机二分图-题解" class="headerlink" title="洛谷P4547 [THUWC2017]随机二分图 题解"></a>洛谷P4547 [THUWC2017]随机二分图 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4547">P4547 [THUWC2017]随机二分图</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>某人在玩一个非常神奇的游戏。这个游戏中有一个左右各 <span
-class="math inline">\(n\)</span>
-个点的二分图，图中的边会按照一定的规律随机出现。</p>
-<p>为了描述这些规律，某人将这些边分到若干个组中。每条边或者不属于任何组
-（这样的边一定不会出现），或者只属于一个组。</p>
+<p>某人在玩一个非常神奇的游戏。这个游戏中有一个左右各 $n$ 个点的二分图，图中的边会按照一定的规律随机出现。</p>
+<p>为了描述这些规律，某人将这些边分到若干个组中。每条边或者不属于任何组 （这样的边一定不会出现），或者只属于一个组。</p>
 <p>有且仅有以下三类边的分组：</p>
-<ol start="0" type="1">
-<li><p>这类组每组只有一条边，该条边恰好有 <span
-class="math inline">\(50\%\)</span> 的概率出现。</p></li>
-<li><p>这类组每组恰好有两条边，这两条边有 <span
-class="math inline">\(50\%\)</span> 的概率同时出现，有 <span
-class="math inline">\(50\%\)</span> 的概率同时不出现。</p></li>
-<li><p>这类组每组恰好有两条边，这两条边恰好出现一条，各有 <span
-class="math inline">\(50\%\)</span> 的概率出现。</p></li>
+<ol>
+<li><p>这类组每组只有一条边，该条边恰好有 $50\%$ 的概率出现。</p>
+</li>
+<li><p>这类组每组恰好有两条边，这两条边有 $50\%$ 的概率同时出现，有 $50\%$ 的概率同时不出现。</p>
+</li>
+<li>这类组每组恰好有两条边，这两条边恰好出现一条，各有 $50\%$ 的概率出现。</li>
 </ol>
 <p>组和组之间边的出现都是完全独立的。</p>
 <p>某人现在知道了边的分组和组的种类，想要知道完美匹配数量的期望是多少。你能帮助她解决这个问题吗？</p>
 <p><strong>定义解释</strong>：</p>
 <p>如果你对完美匹配和期望的定义很熟悉，那么你可以跳过本段。</p>
-<p>对于一个左右各 <span class="math inline">\(n\)</span>
-个点的二分图，它的一个完美匹配是指 <span
-class="math inline">\(n\)</span> 条没有公共点的边构成的匹配。</p>
+<p>对于一个左右各 $n$ 个点的二分图，它的一个完美匹配是指 $n$ 条没有公共点的边构成的匹配。</p>
 <p>两个完美匹配不同，当且仅当它们至少含有一条不同的边。一个二分图完美匹配的数量定义为这张图能找到的两两不同的完美匹配的数量。</p>
-<p>在题目的图中，边都是随机出现的，因此这个图中完美匹配的数量是一个随机变量。一个（离散型）随机变量
-<span class="math inline">\(X\)</span> 的期望定义为以概率为权，<span
-class="math inline">\(X\)</span> 所有可能取值的加权平均数，即 <span
-class="math display">\[
-\sum_{x \in V(X)}P[X=x]\cdot x
-\]</span> 其中 <span class="math inline">\(V(X)\)</span> 表示 <span
-class="math inline">\(X\)</span> 所有可能的取值集合，<span
-class="math inline">\(P[X=x]\)</span> 表示 <span
-class="math inline">\(X\)</span> 取值为 <span
-class="math inline">\(x\)</span> 的概率。</p>
+<p>在题目的图中，边都是随机出现的，因此这个图中完美匹配的数量是一个随机变量。一个（离散型）随机变量 $X$ 的期望定义为以概率为权，$X$ 所有可能取值的加权平均数，即</p>
+<script type="math/tex; mode=display">
+\sum_{x \in V(X)}P[X=x]\cdot x</script><p>其中 $V(X)$ 表示 $X$ 所有可能的取值集合，$P[X=x]$ 表示 $X$ 取值为 $x$ 的概率。</p>
 <p><strong>输入格式</strong>：</p>
 <p>从标准输入读入数据。</p>
-<p>第一行两个数 <span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(m\)</span>，表示图左右点数的数量和边的组的个数。我们用
-<span class="math inline">\((a,b)\)</span> （其中 <span
-class="math inline">\(1 \le a,b \le
-n\)</span>）表示一条左端点为二分图左侧第 <span
-class="math inline">\(a\)</span> 个点，右端点为二分图右侧第 <span
-class="math inline">\(b\)</span> 个点的边。</p>
-<p>接下来 <span class="math inline">\(m\)</span>
-行，每行描述一个组。开头第一个数 <span class="math inline">\(t\)</span>
-表示组的种类，<span class="math inline">\(t=0\)</span>
-表示是一条边的组，<span class="math inline">\(t=1\)</span>
-表示是两条边的组中的第一种，<span class="math inline">\(t=2\)</span>
-表示是两条边的组中的第二种。如果 <span
-class="math inline">\(t=0\)</span>， 接下来两个数 <span
-class="math inline">\(a_1,b_1\)</span>
-表示组内的第一条边；否则，接下来四个数 <span
-class="math inline">\(a_1,b_1,a_2,b_2\)</span>，
-表示该组内的两条边分别为 <span class="math inline">\((a_1,b_1)\)</span>
-和 <span
-class="math inline">\((a_2,b_2)\)</span>。保证每条边至多出现一次。</p>
+<p>第一行两个数 $n$ 和 $m$，表示图左右点数的数量和边的组的个数。我们用 $(a,b)$ （其中 $1 \le a,b \le n$）表示一条左端点为二分图左侧第 $a$ 个点，右端点为二分图右侧第 $b$ 个点的边。</p>
+<p>接下来 $m$ 行，每行描述一个组。开头第一个数 $t$ 表示组的种类，$t=0$ 表示是一条边的组，$t=1$ 表示是两条边的组中的第一种，$t=2$ 表示是两条边的组中的第二种。如果 $t=0$， 接下来两个数 $a_1,b_1$ 表示组内的第一条边；否则，接下来四个数 $a_1,b_1,a_2,b_2$， 表示该组内的两条边分别为 $(a_1,b_1)$  和 $(a_2,b_2)$。保证每条边至多出现一次。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出到标准输出。</p>
-<p>假设期望的完美匹配数量是<span
-class="math inline">\(E\)</span>。输出一行表示 <span
-class="math display">\[
-(2^{n} E) \bmod (10^9 + 7)
-\]</span> 可以看出上式一定是一个整数。</p>
+<p>假设期望的完美匹配数量是$E$。输出一行表示</p>
+<script type="math/tex; mode=display">
+(2^{n} E) \bmod (10^9 + 7)</script><p>可以看出上式一定是一个整数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(n \le 15\)</span>。</p>
+<p>对于 $100\%$ 的数据，$n \le 15$。</p>
 </blockquote>
 <p>期望+状压dp神仙题</p>
 <p><del>我居然在独立性的问题上瞎折腾了半天（多亏了Roundgod，不然我估计还在折腾）</del></p>
-<p>先看 <span class="math inline">\(t=0\)</span> 的情况。因为 <span
-class="math inline">\(n \le 15\)</span> ，所以考虑状压。</p>
-<p>设 <span class="math inline">\(f_{S,T}\)</span>
-表示在二分图中取「左侧点集的子集 <span class="math inline">\(S\)</span>
-」和「右侧点集的子集 <span class="math inline">\(T\)</span> 」，且 <span
-class="math inline">\(|S|=|T|\)</span>
-时所得的<strong>完美匹配数量</strong>的期望。</p>
-<p>显然有边界 <span class="math inline">\(f_{\varnothing,\varnothing} =
-1\)</span> 。（<strong>空匹配也是完美匹配</strong>）</p>
-<p>考虑从每一条边拼接转移 <span class="math display">\[
-f_{S,T} = \sum _ {i \in S \land j \in T \land (i,j) \in R} p_e \times
-f_{S \setminus \{i\}, T\setminus \{j\}}
-\]</span>
-<strong>但是这样转移会重复计算，因此要固定一种转移顺序</strong></p>
+<p>先看 $t=0$ 的情况。因为 $n \le 15$ ，所以考虑状压。</p>
+<p>设 $f_{S,T}$  表示在二分图中取「左侧点集的子集 $S$ 」和「右侧点集的子集 $T$ 」，且 $|S|=|T|$ 时所得的<strong>完美匹配数量</strong>的期望。</p>
+<p>显然有边界 $f_{\varnothing,\varnothing} = 1$ 。（<strong>空匹配也是完美匹配</strong>）</p>
+<p>考虑从每一条边拼接转移</p>
+<script type="math/tex; mode=display">
+f_{S,T} = \sum _ {i \in S \land j \in T \land (i,j) \in R} p_e \times f_{S \setminus \{i\}, T\setminus \{j\}}</script><p><strong>但是这样转移会重复计算，因此要固定一种转移顺序</strong></p>
 <p>这里可以强制用状态最低位来转移（实际上最高位的转移在常数上会更快）</p>
 <blockquote>
 <p>更详细地，这里的重复计算在于：</p>
 <p>对于某种完全相同的匹配，我们按不同的加边顺序算了多次</p>
 <p>显然这会导致答案错误，因此我们要固定一种加边顺序。</p>
-<p>例如我们在 <span class="math inline">\((S,T)\)</span> 把 <span
-class="math inline">\(a,b\)</span> 去了，然后在 <span
-class="math inline">\(\left(S \setminus \{a\}, T\setminus
-\{b\}\right)\)</span> 去掉了 <span
-class="math inline">\(c,d\)</span></p>
-<p>结果接下来我们又枚举了 <span class="math inline">\((S,T)\)</span> 去
-<span class="math inline">\(c,d\)</span> ，在 <span
-class="math inline">\(\left(S \setminus \{c\}, T\setminus
-\{d\}\right)\)</span> 去 <span class="math inline">\(a,b\)</span> 。</p>
+<p>例如我们在 $(S,T)$ 把 $a,b$ 去了，然后在 $\left(S \setminus \{a\}, T\setminus \{b\}\right)$ 去掉了 $c,d$ </p>
+<p>结果接下来我们又枚举了 $(S,T)$ 去 $c,d$ ，在 $\left(S \setminus \{c\}, T\setminus \{d\}\right)$ 去 $a,b$ 。</p>
 </blockquote>
-<p>此时的状态数为 <span class="math display">\[
-\sum\limits_{i=0}^n \dbinom{n}{i}^2 = \dbinom{2n}{n}
-\]</span> <span class="math inline">\(n=15\)</span> 时状态数约为 <span
-class="math inline">\(1.6\times 10^8\)</span> 。</p>
+<p>此时的状态数为</p>
+<script type="math/tex; mode=display">
+\sum\limits_{i=0}^n \dbinom{n}{i}^2 = \dbinom{2n}{n}</script><p>$n=15$ 时状态数约为 $1.6\times 10^8$ 。</p>
 <p>因为实际上不会用到这么多空间，考虑使用<code>unordered_map</code>存储。</p>
-<p>接下来考虑 <span class="math inline">\(t\ne 0\)</span> 的情况</p>
-<p>下面假设 <span class="math inline">\(e_1,e_2\)</span>
-不相交，否则我们跳过它（因为题目要求的是完美匹配，所以不存在一个点匹配两个点的情况）</p>
-<p>第一种情况，两条边有 <span class="math inline">\(50\%\)</span>
-的概率同时出现，有 <span class="math inline">\(50\%\)</span>
-的概率同时不出现。</p>
+<p>接下来考虑 $t\ne 0$ 的情况</p>
+<p>下面假设 $e_1,e_2$ 不相交，否则我们跳过它（因为题目要求的是完美匹配，所以不存在一个点匹配两个点的情况）</p>
+<p>第一种情况，两条边有 $50\%$ 的概率同时出现，有 $50\%$ 的概率同时不出现。</p>
 <p>考虑把它们拆成两条边<strong>独立计算</strong>贡献</p>
-<p>然后我们会发现 <span class="math inline">\(e_1,e_2\)</span>
-同时出现的概率<del>居然</del>只剩下了 <span
-class="math inline">\(\dfrac{1}{4}\)</span> （所幸其他倒是没影响）</p>
-<p>于是根据期望的线性性质（ <span class="math inline">\(E(A+B) = E(A) +
-E(B)\)</span>
-，即<strong>和的期望</strong>等于<strong>期望的和</strong>），我们可以增加一个出现期望为
-<span class="math inline">\(\dfrac{1}{4}\)</span> 的 <span
-class="math inline">\((e_1,e_2)\)</span> ， <span
-class="math inline">\((e_1,e_2)\)</span> 表示两条边同时选</p>
-<p>这样 <span class="math inline">\(\dfrac{1}{4} + \dfrac{1}{4} =
-\dfrac{1}{2}\)</span> ，就没有问题啦！</p>
-<p>同理，第二种情况，两条边恰好出现一条，各有 <span
-class="math inline">\(50\%\)</span> 的概率出现。</p>
+<p>然后我们会发现 $e_1,e_2$ 同时出现的概率<del>居然</del>只剩下了 $\dfrac{1}{4}$ （所幸其他倒是没影响）</p>
+<p>于是根据期望的线性性质（ $E(A+B) = E(A) + E(B)$ ，即<strong>和的期望</strong>等于<strong>期望的和</strong>），我们可以增加一个出现期望为 $\dfrac{1}{4}$ 的 $(e_1,e_2)$ ， $(e_1,e_2)$ 表示两条边同时选</p>
+<p>这样 $\dfrac{1}{4} + \dfrac{1}{4} = \dfrac{1}{2}$ ，就没有问题啦！ </p>
+<p>同理，第二种情况，两条边恰好出现一条，各有 $50\%$ 的概率出现。</p>
 <p>还是拆成两条边独立计算贡献，然后会发现他们是不可能同时出现的</p>
-<p>所以要去掉那个 <span class="math inline">\(\dfrac{1}{4}\)</span>
-。类似地，我们增加一个期望为 <span
-class="math inline">\(-\dfrac{1}{4}\)</span> 的 <span
-class="math inline">\((e_1,e_2)\)</span> 。</p>
-<p>时间复杂度 <span class="math inline">\(o(2^{2n}n^2)\)</span>
-，注意是小o记号 （非紧上界记号）</p>
+<p>所以要去掉那个 $\dfrac{1}{4}$ 。类似地，我们增加一个期望为 $-\dfrac{1}{4}$ 的 $(e_1,e_2)$ 。</p>
+<p>时间复杂度 $o(2^{2n}n^2)$ ，注意是小o记号 （非紧上界记号）</p>
 <p>真实的复杂度可能很复杂，反正能过就行（（</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -966,12 +896,9 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy5006%3Bloj2290.html">https://yhx-12243.github.io/OI-transit/records/lydsy5006%3Bloj2290.html</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/lhm126/solution-p4547">https://www.luogu.com.cn/blog/lhm126/solution-p4547</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/asuldb/solution-p4547">https://www.luogu.com.cn/blog/asuldb/solution-p4547</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy5006%3Bloj2290.html">https://yhx-12243.github.io/OI-transit/records/lydsy5006%3Bloj2290.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/lhm126/solution-p4547">https://www.luogu.com.cn/blog/lhm126/solution-p4547</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/asuldb/solution-p4547">https://www.luogu.com.cn/blog/asuldb/solution-p4547</a></p>
 
                 
             </div>
@@ -1040,12 +967,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/asuldb/soluti
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                     <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -1448,11 +1375,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/asuldb/soluti
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1465,7 +1387,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/asuldb/soluti
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1734,6 +1656,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

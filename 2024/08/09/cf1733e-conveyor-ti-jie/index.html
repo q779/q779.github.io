@@ -744,59 +744,36 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1733e-conveyor-题解">CF1733E Conveyor 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1733E">Conveyor</a></p>
+                <h1 id="CF1733E-Conveyor-题解"><a href="#CF1733E-Conveyor-题解" class="headerlink" title="CF1733E Conveyor 题解"></a>CF1733E Conveyor 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1733E">Conveyor</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一个 <span class="math inline">\(120\)</span> 行，<span
-class="math inline">\(120\)</span> 列的棋盘，行列编号均为 <span
-class="math inline">\(0,1,\cdots,119\)</span>，<span
-class="math inline">\(i\)</span> 行 <span
-class="math inline">\(j\)</span> 列的格子的坐标为 <span
-class="math inline">\((i,j)\)</span>，左上角的格子坐标为 <span
-class="math inline">\((0,0)\)</span>。每一个格子上都有一个传送带，初始方向为右。</p>
-<p>一开始，有一个史莱姆在 <span
-class="math inline">\((0,0)\)</span>，其他格子都什么也没有，每一秒传送带的方向都会如下变化：</p>
+<p>有一个 $120$ 行，$120$ 列的棋盘，行列编号均为 $0,1,\cdots,119$，$i$ 行 $j$ 列的格子的坐标为 $(i,j)$，左上角的格子坐标为 $(0,0)$。每一个格子上都有一个传送带，初始方向为右。</p>
+<p>一开始，有一个史莱姆在 $(0,0)$，其他格子都什么也没有，每一秒传送带的方向都会如下变化：</p>
 <ul>
-<li>所有的史莱姆随着传送带的方向移动一格。
+<li><p>所有的史莱姆随着传送带的方向移动一格。</p>
 <ul>
 <li>如果传送带的方向没有格子，史莱姆就会离开棋盘；</li>
 <li>如果两个史莱姆到了同一个格子上，就会合并为一个史莱姆。</li>
-</ul></li>
-<li>所有有史莱姆的传送带的方向都会改变，向右的会变成向下的，向下的会变成向右的。</li>
-<li><span class="math inline">\((0,0)\)</span> 处会出现一个史莱姆。</li>
 </ul>
-<p>给定 <span class="math inline">\(q\)</span> 个询问，问在第 <span
-class="math inline">\(t\)</span> 秒，<span
-class="math inline">\((x,y)\)</span> 格是否有史莱姆。</p>
+</li>
+<li><p>所有有史莱姆的传送带的方向都会改变，向右的会变成向下的，向下的会变成向右的。</p>
+</li>
+<li>$(0,0)$ 处会出现一个史莱姆。</li>
+</ul>
+<p>给定 $q$ 个询问，问在第 $t$ 秒，$(x,y)$ 格是否有史莱姆。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个整数 <span class="math inline">\(q\)</span>（ <span
-class="math inline">\(1\le q\le10^4\)</span> ），表示询问个数。</p>
-<p>每一行询问依次有三个整数 <span
-class="math inline">\(t,x,y\)</span>（<span class="math inline">\(0\le
-t\le10^{18},0\le x,y&lt;120\)</span>）。</p>
+<p>第一行，一个整数 $q$（ $1\le q\le10^4$ ），表示询问个数。</p>
+<p>每一行询问依次有三个整数 $t,x,y$（$0\le t\le10^{18},0\le x,y&lt;120$）。</p>
 <p><strong>输出格式</strong>：</p>
-<p>如果在第 <span class="math inline">\(t\)</span> 秒，<span
-class="math inline">\((x,y)\)</span> 格有史莱姆，输出
-<code>YES</code>，否则输出 <code>NO</code>。</p>
+<p>如果在第 $t$ 秒，$(x,y)$ 格有史莱姆，输出 <code>YES</code>，否则输出 <code>NO</code>。</p>
 </blockquote>
 <p>这个合并两个史莱姆的操作看起来非常难搞。</p>
 <p>然而由于每次史莱姆都会往右方/下方走一格，而每个史莱姆的出生时间是不同的</p>
 <p>因此这个条件根本没有用！那么很容易想到dp。dp 什么好呢？</p>
-<p>考虑记 <span class="math inline">\(f_{t,x,y}\)</span> 为前 <span
-class="math inline">\(t\)</span> 个时刻有多少个史莱姆经过了 <span
-class="math inline">\((x,y)\)</span> ，</p>
-<p>那么我们只需要判断 <span class="math inline">\(f_{t,x,y} -
-f_{t-1,x,y}\)</span> 的结果是否为 <span class="math inline">\(0\)</span>
-即可，这个套路有点像概率期望的那种 dp 。</p>
-<p>转移的话，设有 <span class="math inline">\(t\)</span> 只史莱姆经过了
-<span class="math inline">\((x,y)\)</span> ，那么有 <span
-class="math inline">\(\left\lfloor\frac{t+1}{2}\right\rfloor\)</span>
-只去了 <span class="math inline">\((x,y+1)\)</span> ，<span
-class="math inline">\(\left\lfloor\frac{t}{2}\right\rfloor\)</span> 去了
-<span class="math inline">\((x,y)\)</span> 。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(Tn^2)\)</span></p>
+<p>考虑记 $f_{t,x,y}$ 为前 $t$ 个时刻有多少个史莱姆经过了 $(x,y)$ ，</p>
+<p>那么我们只需要判断 $f_{t,x,y} - f_{t-1,x,y}$ 的结果是否为 $0$ 即可，这个套路有点像概率期望的那种 dp 。</p>
+<p>转移的话，设有 $t$ 只史莱姆经过了 $(x,y)$ ，那么有 $\left\lfloor\frac{t+1}{2}\right\rfloor$ 只去了 $(x,y+1)$ ，$\left\lfloor\frac{t}{2}\right\rfloor$ 去了 $(x,y)$ 。</p>
+<p>时间复杂度 $\mathcal{O}(Tn^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -832,10 +809,9 @@ class="math inline">\(\left\lfloor\frac{t}{2}\right\rfloor\)</span> 去了
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1ekajnp5">https://www.luogu.com.cn/article/1ekajnp5</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1ekajnp5">https://www.luogu.com.cn/article/1ekajnp5</a></p>
 
                 
             </div>
@@ -1295,11 +1271,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1ekajnp5">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1312,7 +1283,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/1ekajnp5">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1581,6 +1552,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

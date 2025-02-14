@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
-                            </a>
-                        
                             <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                 <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                <span class="chip bg-color">数学</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -752,120 +752,47 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p6302-noi2019-回家路线-加强版-题解">洛谷P6302 [NOI2019]
-回家路线 加强版 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6302">P6302
-[NOI2019] 回家路线 加强版</a></p>
+                <h1 id="洛谷P6302-NOI2019-回家路线-加强版-题解"><a href="#洛谷P6302-NOI2019-回家路线-加强版-题解" class="headerlink" title="洛谷P6302 [NOI2019] 回家路线 加强版 题解"></a>洛谷P6302 [NOI2019] 回家路线 加强版 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6302">P6302 [NOI2019] 回家路线 加强版</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>喵喵国的铁路系统中有 <span class="math inline">\(n\)</span>
-个站点，从 <span class="math inline">\(1 - n\)</span> 编号。小喵准备从
-<span class="math inline">\(1\)</span>
-号站点出发，乘坐列车回到猫窝所在的 <span
-class="math inline">\(n\)</span>
-号站点。它查询了能够乘坐的列车，这些列车共 <span
-class="math inline">\(m\)</span> 班，从 <span class="math inline">\(1 -
-m\)</span> 编号。小喵将在 <span class="math inline">\(0\)</span>
-时刻到达 <span class="math inline">\(1\)</span> 号站点。对于 <span
-class="math inline">\(i\)</span> 号列车，它将在时刻 <span
-class="math inline">\(p_i\)</span> 从站点 <span
-class="math inline">\(x_i\)</span> 出发，在时刻 <span
-class="math inline">\(q_i\)</span> 直达站点 <span
-class="math inline">\(y_i\)</span>，小喵只能在时刻 <span
-class="math inline">\(p_i\)</span> 上 <span
-class="math inline">\(i\)</span> 号列车，也只能在时刻 <span
-class="math inline">\(q_i\)</span> 下 <span
-class="math inline">\(i\)</span> 号列车。小喵可以通过多次换乘到达 <span
-class="math inline">\(n\)</span>
-号站点。一次换乘是指对于两班列车，假设分别为 <span
-class="math inline">\(u\)</span> 号与 <span
-class="math inline">\(v\)</span> 号列车，若 <span
-class="math inline">\(y_u = x_v\)</span> 并且 <span
-class="math inline">\(q_u \leq p_v\)</span>，那么小喵可以乘坐完 <span
-class="math inline">\(u\)</span> 号列车后在 <span
-class="math inline">\(y_u\)</span> 号站点等待 <span
-class="math inline">\(p_v - q_u\)</span> 个时刻，并在时刻 <span
-class="math inline">\(p_v\)</span> 乘坐 <span
-class="math inline">\(v\)</span> 号列车。</p>
+<p>喵喵国的铁路系统中有 $n$ 个站点，从 $1 - n$ 编号。小喵准备从 $1$ 号站点出发，乘坐列车回到猫窝所在的 $n$ 号站点。它查询了能够乘坐的列车，这些列车共 $m$ 班，从 $1 - m$ 编号。小喵将在 $0$ 时刻到达 $1$ 号站点。对于 $i$ 号列车，它将在时刻 $p_i$ 从站点 $x_i$ 出发，在时刻 $q_i$ 直达站点 $y_i$，小喵只能在时刻 $p_i$ 上 $i$ 号列车，也只能在时刻 $q_i$ 下 $i$ 号列车。小喵可以通过多次换乘到达 $n$ 号站点。一次换乘是指对于两班列车，假设分别为 $u$ 号与 $v$ 号列车，若 $y_u = x_v$ 并且 $q_u \leq p_v$，那么小喵可以乘坐完 $u$ 号列车后在 $y_u$ 号站点等待 $p_v - q_u$ 个时刻，并在时刻 $p_v$ 乘坐 $v$ 号列车。</p>
 <p>小喵只想回到猫窝并且减少途中的麻烦，对此它用烦躁值来衡量。</p>
 <ul>
-<li><p>小喵在站点等待时将增加烦躁值，对于一次 <span
-class="math inline">\(t (t \geq 0)\)</span> 个时刻的等待，烦躁值将增加
-<span class="math inline">\(At^2 + Bt + C\)</span>，其中 <span
-class="math inline">\(A, B,C\)</span>
-是给定的常数。注意：小喵登上第一班列车前，即从 <span
-class="math inline">\(0\)</span> 时刻起停留在 <span
-class="math inline">\(1\)</span>
-号站点的那些时刻也算作一次等待。</p></li>
-<li><p>若小喵最终在时刻 <span class="math inline">\(z\)</span> 到达
-<span class="math inline">\(n\)</span> 号站点，则烦躁值将再增加 <span
-class="math inline">\(z\)</span>。</p></li>
+<li><p>小喵在站点等待时将增加烦躁值，对于一次 $t (t \geq 0)$ 个时刻的等待，烦躁值将增加 $At^2 + Bt + C$，其中 $A, B,C$ 是给定的常数。注意：小喵登上第一班列车前，即从 $0$ 时刻起停留在 $1$ 号站点的那些时刻也算作一次等待。</p>
+</li>
+<li><p>若小喵最终在时刻 $z$ 到达 $n$ 号站点，则烦躁值将再增加 $z$。</p>
+</li>
 </ul>
-<p>形式化地说，若小喵共乘坐了 <span class="math inline">\(k\)</span>
-班列车，依次乘坐的列车编号可用序列 <span class="math inline">\(s_1, s_2,
-\cdots , s_k\)</span>
-表示。该方案被称作一条可行的回家路线，当且仅当它满足下列两个条件：</p>
+<p>形式化地说，若小喵共乘坐了 $k$ 班列车，依次乘坐的列车编号可用序列 $s_1, s_2, \cdots , s_k$ 表示。该方案被称作一条可行的回家路线，当且仅当它满足下列两个条件：</p>
 <ul>
-<li><p><span class="math inline">\(x_{s1} = 1,y_{sk} =
-n\)</span></p></li>
-<li><p>对于所有 <span class="math inline">\(j (1 \leq j &lt;
-k)\)</span>，满足 <span class="math inline">\(y_{sj} =
-x_{s_{j+1}}\)</span> 且 <span class="math inline">\(q_{sj}\leq
-p_{s_{j+1}}\)</span></p></li>
+<li><p>$x_{s1} = 1,y_{sk} = n$</p>
+</li>
+<li><p>对于所有 $j (1 \leq j &lt; k)$，满足 $y_{sj} = x_{s_{j+1}}$ 且 $q_{sj}\leq p_{s_{j+1}}$ </p>
+</li>
 </ul>
 <p>对于该回家路线，小喵得到的烦躁值将为：</p>
-<p><span class="math display">\[
-q_{s_k}+(A\times p_{s_1}^2+B\times
-p_{s_1}+C)+\sum_{j=1}^{k-1}\left(A(p_{s_{j+1}}-q_{s_j})^2+B(p_{s_{j+1}}-q_{s_j})+C\right)
-\]</span>
-小喵想让自己的烦躁值尽量小，请你帮它求出所有可行的回家路线中，能得到的最
-小的烦躁值。题目保证至少存在一条可行的回家路线。</p>
+<script type="math/tex; mode=display">
+q_{s_k}+(A\times p_{s_1}^2+B\times p_{s_1}+C)+\sum_{j=1}^{k-1}\left(A(p_{s_{j+1}}-q_{s_j})^2+B(p_{s_{j+1}}-q_{s_j})+C\right)</script><p>小喵想让自己的烦躁值尽量小，请你帮它求出所有可行的回家路线中，能得到的最 小的烦躁值。题目保证至少存在一条可行的回家路线。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行五个整数 <span class="math inline">\(n, m, A,
-B,C\)</span>，变量意义见题目描述。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行，第 <span
-class="math inline">\(i\)</span> 行四个整数 <span
-class="math inline">\(x_i, y_i, p_i, q_i\)</span>，分别表示 <span
-class="math inline">\(i\)</span>
-号列车的出发站、到达站、出发时刻与到达时刻。</p>
+<p>第一行五个整数 $n, m, A, B,C$，变量意义见题目描述。</p>
+<p>接下来 $m$ 行，第 $i$ 行四个整数 $x_i, y_i, p_i, q_i$，分别表示 $i$ 号列车的出发站、到达站、出发时刻与到达时刻。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出仅一行一个整数，表示所求的答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有的测试点，保证 <span class="math inline">\(2\le n\le
-10^5\)</span>，<span class="math inline">\(1\le m\le
-10^6\)</span>，<span class="math inline">\(0\le A\le 10\)</span>，<span
-class="math inline">\(0\le B,C\le 10^7\)</span>，<span
-class="math inline">\(1\le x_i,y_i\le n\)</span>，<span
-class="math inline">\(x_i\neq y_i\)</span>，<span
-class="math inline">\(0\le p_i&lt;q_i\le 4\times 10^4\)</span>。</p>
+<p>对于所有的测试点，保证 $2\le n\le 10^5$，$1\le m\le  10^6$，$0\le<br>A\le 10$，$0\le B,C\le 10^7$，$1\le x_i,y_i\le n$，$x_i\neq y_i$，$0\le p_i&lt;q_i\le 4\times 10^4$。</p>
 </blockquote>
 <p>容易发现，除去其他零头，每条边的贡献就是一个二次函数，而且看上去就是个斜率优化。</p>
 <p>这道题又有两个维度：时间&amp;节点。好像没法全压到dp方程里去。（<del>查看题解进行中</del>）</p>
-<p>于是我们考虑以边为基础dp。设 <span
-class="math inline">\(f_{i}\)</span> 表示走 <span
-class="math inline">\(i\)</span> 路径前的总花费，则 <span
-class="math display">\[
-f_i = f_j + A(p_i - q_j)^2 + B(p_i-q_j) + C
-\]</span> 改一下形式 <span class="math display">\[
-f[j]+A q_j^2-B q_j=(2 A p_i )q_j+(f_i-A p_i^2-B p_i-C)
-\]</span> 把边按 <span class="math inline">\(p\)</span> 排个序，<span
-class="math inline">\(k\)</span> 就单调不减了，可以斜率优化。</p>
-<p>但是这道题还有一些限制条件，比如 <span
-class="math inline">\(y_j=x_i,q_j \le p_i\)</span></p>
-<p>第一个可以通过维护 <span class="math inline">\(n\)</span>
-个单调队列，<span class="math inline">\(i\)</span> 进队时就丢到 <span
-class="math inline">\(y_i\)</span> 个里面，求 <span
-class="math inline">\(f_i\)</span> 的时候把 <span
-class="math inline">\(x_i\)</span> 拿出来用</p>
-<p>第二个可以在我们算出 <span class="math inline">\(f_i\)</span>
-后不直接把它塞到对应的单调队列中，而是按 <span
-class="math inline">\(q\)</span> 放入对应的栈中</p>
-<p>并且对于每个相等的 <span class="math inline">\(p_i=t\)</span>
-，在算出 <span class="math inline">\(f_i\)</span> 之前，把所有 <span
-class="math inline">\(q_j=t\)</span> 放到单调队列中，则任意 <span
-class="math inline">\(q_j\le p_i\)</span> 必有 <span
-class="math inline">\(p_j &lt; p_i\)</span></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O(n+m)}\)</span></p>
+<p>于是我们考虑以边为基础dp。设 $f_{i}$ 表示走 $i$ 路径前的总花费，则</p>
+<script type="math/tex; mode=display">
+f_i = f_j + A(p_i - q_j)^2 + B(p_i-q_j) + C</script><p>改一下形式</p>
+<script type="math/tex; mode=display">
+f[j]+A q_j^2-B q_j=(2 A p_i )q_j+(f_i-A p_i^2-B p_i-C)</script><p>把边按 $p$ 排个序，$k$ 就单调不减了，可以斜率优化。</p>
+<p>但是这道题还有一些限制条件，比如 $y_j=x_i,q_j \le p_i$</p>
+<p>第一个可以通过维护 $n$ 个单调队列，$i$ 进队时就丢到 $y_i$ 个里面，求 $f_i$ 的时候把 $x_i$ 拿出来用</p>
+<p>第二个可以在我们算出 $f_i$ 后不直接把它塞到对应的单调队列中，而是按 $q$ 放入对应的栈中</p>
+<p>并且对于每个相等的 $p_i=t$ ，在算出 $f_i$ 之前，把所有 $q_j=t$  放到单调队列中，则任意 $q_j\le p_i$ 必有 $p_j &lt; p_i$ </p>
+<p>时间复杂度 $\mathcal{O(n+m)}$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -994,12 +921,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                     <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -1394,11 +1321,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1411,7 +1333,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1680,6 +1602,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

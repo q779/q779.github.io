@@ -728,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    715
+                    706
                 </div>
                 
 
@@ -748,48 +748,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc001e-bbq-hard-题解">[AGC001E] BBQ Hard 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc001_e">[AGC001E] BBQ
-Hard</a></p>
+                <h1 id="AGC001E-BBQ-Hard-题解"><a href="#AGC001E-BBQ-Hard-题解" class="headerlink" title="[AGC001E] BBQ Hard 题解"></a>[AGC001E] BBQ Hard 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc001_e">[AGC001E] BBQ Hard</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 <span class="math inline">\(n\)</span> 个数对 <span
-class="math inline">\((a_i, b_i)\)</span>，求出 <span
-class="math display">\[
-\sum_{i=1}^{n}\sum_{j=i + 1}^{n}{a_i+b_i+a_j+b_j \choose a_i+a_j}
-\]</span> 答案对 <span class="math inline">\(10 ^ 9 + 7\)</span>
-取模。</p>
+<p>有 $n$ 个数对 $(a_i, b_i)$，求出</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=i + 1}^{n}{a_i+b_i+a_j+b_j \choose a_i+a_j}</script><p>答案对 $10 ^ 9 + 7$ 取模。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 2\times 10^5,~1 \le a_i,b_i
-\le 2000\)</span> 。</p>
+<p>$1 \le n \le 2\times 10^5,~1 \le a_i,b_i \le 2000$ 。</p>
 </blockquote>
 <p>这道题有利用组合意义的解法，这里来讲讲 OGF 的解法吧。</p>
-<p>先考虑较为简单的 <span class="math display">\[
-\sum_{i=1}^n \sum_{j=1}^n\binom{a_i+b_i+a_j+b_j}{a_i+a_j}
-\]</span> 推式子，启动！ <span class="math display">\[
+<p>先考虑较为简单的</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^n \sum_{j=1}^n\binom{a_i+b_i+a_j+b_j}{a_i+a_j}</script><p>推式子，启动！</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; \sum_{i=1}^n \sum_{j=1}^n\binom{a_i+b_i+a_j+b_j}{a_i+a_j}
-\\[6pt]&amp; =\left[x^{a_i+a_j}\right] \sum_{i=1}^n
-\sum_{j=1}^n(1+x)^{t_i+t_j} &amp;&amp; t_i=a_i+b_i
-\\[6pt]&amp; =\left[x^0\right] \sum_{i=1}^n \sum_{j=1}^n
-x^{-a_i-a_j}(1+x)^{t_i+t_j}
-\\[6pt]&amp; =\left[x^0\right]\left(\sum_{i=1}^n
-x^{-a_i}(1+x)^{t_i}\right)^2
-\\[6pt]&amp; =\left[x^0\right]\left(\sum_{i=1}^m Q_i(1+x)^i\right)^2
-&amp;&amp; Q_k=\sum_{t_i=k} x^{-a_i}
-\end{aligned}
-\]</span> 显然 <span class="math inline">\(t_i=k\)</span> 的 <span
-class="math inline">\(i\)</span> 可以开一个 vector 求出来</p>
-<p>而 <span class="math inline">\(\sum_{i=1}^m Q_i(1+x)^i\)</span>
-是一个很容易计算的卷积，这里相当于把每个 <span
-class="math inline">\(x^{-a_i}\)</span> 的系数加上了 <span
-class="math inline">\(1\)</span></p>
-<p>外层的平方由于我们只需要第 <span class="math inline">\(0\)</span>
-项，因此也很容易得到，那么式子就求出来了。</p>
+& \sum_{i=1}^n \sum_{j=1}^n\binom{a_i+b_i+a_j+b_j}{a_i+a_j}
+\\[6pt]& =\left[x^{a_i+a_j}\right] \sum_{i=1}^n \sum_{j=1}^n(1+x)^{t_i+t_j} && t_i=a_i+b_i 
+\\[6pt]& =\left[x^0\right] \sum_{i=1}^n \sum_{j=1}^n x^{-a_i-a_j}(1+x)^{t_i+t_j} 
+\\[6pt]& =\left[x^0\right]\left(\sum_{i=1}^n x^{-a_i}(1+x)^{t_i}\right)^2 
+\\[6pt]& =\left[x^0\right]\left(\sum_{i=1}^m Q_i(1+x)^i\right)^2 && Q_k=\sum_{t_i=k} x^{-a_i}
+\end{aligned}</script><p>显然 $t_i=k$ 的 $i$ 可以开一个 vector 求出来</p>
+<p>而 $\sum_{i=1}^m Q_i(1+x)^i$ 是一个很容易计算的卷积，这里相当于把每个 $x^{-a_i}$ 的系数加上了 $1$ </p>
+<p>外层的平方由于我们只需要第 $0$ 项，因此也很容易得到，那么式子就求出来了。</p>
 <p>然后回到原题，显然只需要减去相等的情况再除以二就好了，于是这题就做完了。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n + m^2)\)</span>
-，这里 <span class="math inline">\(m\)</span> 是值域。</p>
+<p>时间复杂度 $\mathcal{O}(n + m^2)$ ，这里 $m$ 是值域。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -845,10 +828,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3gow80xv">https://www.luogu.com.cn/article/3gow80xv</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3gow80xv">https://www.luogu.com.cn/article/3gow80xv</a></p>
 
                 
             </div>
@@ -1308,11 +1290,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3gow80xv">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1325,7 +1302,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3gow80xv">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1594,6 +1571,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

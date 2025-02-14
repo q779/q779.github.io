@@ -748,61 +748,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="arc172d-distance-ranking-题解">[ARC172D] Distance Ranking
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc172_d">[ARC172D] Distance
-Ranking</a></p>
+                <h1 id="ARC172D-Distance-Ranking-题解"><a href="#ARC172D-Distance-Ranking-题解" class="headerlink" title="[ARC172D] Distance Ranking 题解"></a>[ARC172D] Distance Ranking 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc172_d">[ARC172D] Distance Ranking</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p><span class="math inline">\(N\)</span> 维空间中有 <span
-class="math inline">\(N\)</span> 个点，每个点的每一维坐标都是在 <span
-class="math inline">\([0,10^8]\)</span> 上的整数。</p>
-<p>已知这些点两两连边的长度大小关系，从小到大给出，每次给出 <span
-class="math inline">\(a_i,b_i\)</span> 以表示他们的连边。</p>
-<p>求一个满足上述条件的 <span class="math inline">\(N\)</span>
-个点的构造方案。保证有解。（不能有两条边长度相等）</p>
+<p>$N$ 维空间中有 $N$ 个点，每个点的每一维坐标都是在 $[0,10^8]$ 上的整数。</p>
+<p>已知这些点两两连边的长度大小关系，从小到大给出，每次给出 $a_i,b_i$ 以表示他们的连边。</p>
+<p>求一个满足上述条件的 $N$ 个点的构造方案。保证有解。（不能有两条边长度相等）</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(3 \le N \le 20,~ 1 \le a_i &lt; b_i \le
-N~\left(1 \le i \le \frac{N(N-1)}{2}\right)\)</span> 。保证 <span
-class="math inline">\(a_i,b_i\)</span> 互不相同。</p>
+<p>$3 \le N \le 20,~ 1 \le a_i &lt; b_i \le N~\left(1 \le i \le \frac{N(N-1)}{2}\right)$ 。保证 $a_i,b_i$ 互不相同。</p>
 </blockquote>
 <p>首先考虑任意两个不同点之间的距离均相等的情况怎么做。</p>
-<p>显然这个时候可以构造 <span class="math inline">\(p_{i,j} =
-[i=j]\)</span> ，其中 <span class="math inline">\(p_{i,j}\)</span>
-表示点 <span class="math inline">\(i\)</span> 的第 <span
-class="math inline">\(j\)</span> 维坐标。</p>
-<p>不过这个 <span class="math inline">\([0,1]\)</span>
-的范围似乎有些小了，不方便我们进行修改，以满足原题的要求。</p>
-<p>因此我们可以将其缩放为 <span class="math inline">\(p_{i,j} = K \times
-[i=j]\)</span> ，其中 <span class="math inline">\(K=10^8\)</span>
-表示一个足够大的值（<del>确实足够大</del>）。</p>
-<p>那么两点之间的距离有 <span class="math display">\[
-\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2
-\]</span> 此时如果我们令 <span class="math inline">\(p_{i,j} \gets
-p_{i,j} + 1\)</span> ，则有 <span class="math display">\[
-\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2 - 2K +
-\mathcal{O}(1)
-\]</span> 这里 <span class="math inline">\(\mathcal{O}(1) \ll
-2K\)</span> ，显然也远小于 <span class="math inline">\(2K^2\)</span>
-。</p>
-<p>注意到，对于 <span class="math inline">\(x \ne i \land x\ne
-j\)</span> 的 <span class="math inline">\(x\)</span> ，<span
-class="math inline">\(\mathrm{dis}(i,x)\)</span> 的变化量也是 <span
-class="math inline">\(\mathcal{O}(1)\)</span> 的。</p>
-<p>换句话说，如果我们给每个 <span
-class="math inline">\(\mathrm{dis}(i,j)\)</span> 都减去一个 <span
-class="math inline">\(c_{i,j} \times K\)</span> ，剩下 <span
-class="math inline">\(\mathcal{O}(1)\)</span>
-的变化率可以忽略不计了。</p>
-<p>而 <span class="math inline">\(2K^2\)</span> 是固定不变的，那么当
-<span class="math inline">\(c_{i,j}\)</span> 互不相同时，影响 <span
-class="math inline">\(\mathrm{dis}(i,j)\)</span> 的排名的就只有 <span
-class="math inline">\(c_{i,j}\)</span> 了。</p>
-<p>于是我们只需要令 <span class="math display">\[
-p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)
-\]</span> 这道题就做完了，代码非常简单。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<p>显然这个时候可以构造 $p_{i,j} = [i=j]$ ，其中 $p_{i,j}$ 表示点 $i$ 的第 $j$ 维坐标。</p>
+<p>不过这个 $[0,1]$ 的范围似乎有些小了，不方便我们进行修改，以满足原题的要求。</p>
+<p>因此我们可以将其缩放为 $p_{i,j} = K \times [i=j]$ ，其中 $K=10^8$ 表示一个足够大的值（<del>确实足够大</del>）。</p>
+<p>那么两点之间的距离有</p>
+<script type="math/tex; mode=display">
+\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2</script><p>此时如果我们令 $p_{i,j} \gets p_{i,j} + 1$ ，则有</p>
+<script type="math/tex; mode=display">
+\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2 - 2K + \mathcal{O}(1)</script><p>这里 $\mathcal{O}(1) \ll 2K$ ，显然也远小于 $2K^2$ 。</p>
+<p>注意到，对于 $x \ne i \land x\ne j$ 的 $x$ ，$\mathrm{dis}(i,x)$ 的变化量也是 $\mathcal{O}(1)$ 的。</p>
+<p>换句话说，如果我们给每个 $\mathrm{dis}(i,j)$ 都减去一个 $c_{i,j} \times K$ ，剩下 $\mathcal{O}(1)$ 的变化率可以忽略不计了。</p>
+<p>而 $2K^2$ 是固定不变的，那么当 $c_{i,j}$ 互不相同时，影响 $\mathrm{dis}(i,j)$ 的排名的就只有 $c_{i,j}$ 了。</p>
+<p>于是我们只需要令</p>
+<script type="math/tex; mode=display">
+p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>这道题就做完了，代码非常简单。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -831,10 +801,9 @@ p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token function">rep</span><span class="token punctuation">(</span>j<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>j <span class="token operator">==</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">https://www.luogu.com.cn/article/q882qzsa</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">https://www.luogu.com.cn/article/q882qzsa</a></p>
 
                 
             </div>
@@ -1293,11 +1262,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1310,7 +1274,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1579,6 +1543,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

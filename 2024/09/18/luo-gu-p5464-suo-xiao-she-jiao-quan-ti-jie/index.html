@@ -728,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    782
+                    787
                 </div>
                 
 
@@ -748,58 +748,36 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5464-缩小社交圈-题解">洛谷P5464 缩小社交圈 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5464">P5464
-缩小社交圈</a></p>
+                <h1 id="洛谷P5464-缩小社交圈-题解"><a href="#洛谷P5464-缩小社交圈-题解" class="headerlink" title="洛谷P5464 缩小社交圈 题解"></a>洛谷P5464 缩小社交圈 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5464">P5464 缩小社交圈</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>社交圈子里有 <span class="math inline">\(n\)</span>
-个人，每个人都有一个 SAN 值范围 <span
-class="math inline">\([l_i,r_i]\)</span>。当两个人的 SAN
-值交集不为空时，这两个人有 PY 关系。</p>
-<p>现在希望从社交圈子里面挑选出一些人组成一个集合 <span
-class="math inline">\(S\)</span>，如果将所有集合内的人中有 PY
-关系的那一对人都连上边，则 <span class="math inline">\(S\)</span>
-刚好成为一个树（森林不行哦）。</p>
-<p>请问，有多少种可以选择的方案？由于答案可能很大，请对 <span
-class="math inline">\(10^{9}+7\)</span> 取模。</p>
+<p>社交圈子里有 $n$ 个人，每个人都有一个 SAN 值范围 $[l_i,r_i]$。当两个人的 SAN 值交集不为空时，这两个人有 PY 关系。</p>
+<p>现在希望从社交圈子里面挑选出一些人组成一个集合 $S$，如果将所有集合内的人中有 PY 关系的那一对人都连上边，则 $S$ 刚好成为一个树（森林不行哦）。</p>
+<p>请问，有多少种可以选择的方案？由于答案可能很大，请对 $10^{9}+7$ 取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span>。</p>
-<p>接下来 <span class="math inline">\(n\)</span> 行，每行 2
-个整数，表示这个人的 SAN 值区间。</p>
+<p>第一行一个整数 $n$。</p>
+<p>接下来 $n$ 行，每行 2 个整数，表示这个人的 SAN 值区间。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数，表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>满足 $n ,1 l_{i} &lt;r_{i} $ 。</p>
+<p>满足 $n \leq 2000,1 \leq l_{i} &lt;r_{i} \leq 4000 $ 。</p>
 </blockquote>
 <p>首先把所有线段按右端点升序排序，这样我们可以依次考虑每条线段。</p>
 <p>注意到答案的树形如一条长链，其中一些节点挂了几个单点。</p>
-<p>考虑设 <span class="math inline">\(f(i,j)\)</span>
-表示编号最右侧的线段是 <span class="math inline">\(i\)</span> ，次右的是
-<span class="math inline">\(j\)</span> 时的合法方案数。</p>
-<p>记 <span class="math inline">\(S(i,j) = \sum_{1 \le j &lt; i}
-f(i,j)\)</span> ，答案就是 <span class="math inline">\(n + \sum
-S(i,i-1)\)</span> 。</p>
-<p>并记 <span class="math inline">\(\operatorname{pre}(i)\)</span> 为比
-<span class="math inline">\(i\)</span> 编号小的线段中编号最大的不与
-<span class="math inline">\(i\)</span> 相交的线段的编号。</p>
-<p>转移暴力枚举 <span class="math inline">\(i\)</span> 左侧的线段 <span
-class="math inline">\(j~(1 \le j &lt; i)\)</span> ，除了 <span
-class="math inline">\(r_j &lt; l_i\)</span> 的线段外（不相交），</p>
-<ol type="1">
-<li><p>若 <span class="math inline">\(l_j &lt; l_i\)</span> ，<span
-class="math inline">\(j\)</span> 可能和左侧的点连上，则 <span
-class="math display">\[
-f(i,j) = S(j,\mathrm{pre}(i)) + 1
-\]</span></p></li>
-<li><p>否则 <span class="math inline">\(i\)</span>
-可能和左侧的点连上，有 <span class="math display">\[
-f(i,j) = S(i,\mathrm{pre}(j)) + 1
-\]</span></p></li>
+<p>考虑设 $f(i,j)$ 表示编号最右侧的线段是 $i$ ，次右的是 $j$ 时的合法方案数。</p>
+<p>记 $S(i,j) = \sum_{1 \le j &lt; i} f(i,j)$ ，答案就是 $n + \sum S(i,i-1)$ 。</p>
+<p>并记 $\operatorname{pre}(i)$ 为比 $i$ 编号小的线段中编号最大的不与 $i$ 相交的线段的编号。</p>
+<p>转移暴力枚举 $i$ 左侧的线段 $j~(1 \le j &lt; i)$ ，除了 $r_j &lt; l_i$ 的线段外（不相交），</p>
+<ol>
+<li>若 $l_j &lt; l_i$ ，$j$ 可能和左侧的点连上，则<script type="math/tex; mode=display">
+f(i,j) = S(j,\mathrm{pre}(i)) + 1</script></li>
 </ol>
-<p>最后更新一下 <span class="math inline">\(S(i,j)=S(i,j-1) +
-f(i,j)\)</span> ，这实际上是前缀和优化。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<ol>
+<li>否则 $i$ 可能和左侧的点连上，有<script type="math/tex; mode=display">
+f(i,j) = S(i,\mathrm{pre}(j)) + 1</script></li>
+</ol>
+<p>最后更新一下 $S(i,j)=S(i,j-1) + f(i,j)$ ，这实际上是前缀和优化。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -837,10 +815,9 @@ f(i,j)\)</span> ，这实际上是前缀和优化。</p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mo7icl5r">https://www.luogu.com.cn/article/mo7icl5r</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mo7icl5r">https://www.luogu.com.cn/article/mo7icl5r</a></p>
 
                 
             </div>
@@ -1288,11 +1265,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mo7icl5r">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1305,7 +1277,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mo7icl5r">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1574,6 +1546,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

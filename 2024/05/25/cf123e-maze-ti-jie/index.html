@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
-                            </a>
-                        
                             <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                 <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                <span class="chip bg-color">数学</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -752,19 +752,12 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf123e-maze-题解">CF123E Maze 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF123E">Maze</a></p>
+                <h1 id="CF123E-Maze-题解"><a href="#CF123E-Maze-题解" class="headerlink" title="CF123E Maze 题解"></a>CF123E Maze 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF123E">Maze</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一棵 <span class="math inline">\(n\)</span>
-个点的树，起点和终点随机选取（概率给定）。</p>
-<p>运行如下程序， <span class="math inline">\(V(x)\)</span> 是与 <span
-class="math inline">\(x\)</span> 相邻的顶点列表，最初 <span
-class="math inline">\(\mathrm{flag}\)</span> 数组为 <span
-class="math inline">\(\verb!false!\)</span>，DFS 的 参数是起点</p>
-<p>你要求 <span class="math inline">\(\mathrm{count}\)</span>
-的期望值。</p>
+<p>一棵 $n$ 个点的树，起点和终点随机选取（概率给定）。</p>
+<p>运行如下程序， $V(x)$ 是与 $x$ 相邻的顶点列表，最初 $\mathrm{flag}$ 数组为 $\verb!false!$，DFS 的 参数是起点</p>
+<p>你要求 $\mathrm{count}$ 的期望值。</p>
 <pre class="language-none"><code class="language-none">DFS(x)
     if x &#x3D;&#x3D; exit vertex then
         finish search
@@ -777,71 +770,38 @@ class="math inline">\(\verb!false!\)</span>，DFS 的 参数是起点</p>
             DFS(y);
     count++;</code></pre>
 <p><strong>输入格式</strong>：</p>
-<p>第一行给定 <span class="math inline">\(n\)</span> ，接下来 <span
-class="math inline">\(n-1\)</span> 行给定边</p>
-<p>然后 <span class="math inline">\(n\)</span> 行给定每个点作为 <span
-class="math inline">\(S,T\)</span> 的概率（给定整数 <span
-class="math inline">\(x_i,y_i\)</span> ，概率为 <span
-class="math inline">\(\frac{x_i}{\sum_j x_j}\)</span> 和 <span
-class="math inline">\(\frac{y_i}{\sum_j y_j}\)</span>​）。</p>
+<p>第一行给定 $n$ ，接下来 $n-1$ 行给定边</p>
+<p>然后 $n$ 行给定每个点作为 $S,T$ 的概率（给定整数 $x_i,y_i$ ，概率为 $\frac{x_i}{\sum_j x_j}$ 和 $\frac{y_i}{\sum_j y_j}$​）。</p>
 <p><strong>输出格式</strong>：</p>
-<p>误差不超过 <span class="math inline">\(10^{-9}\)</span> 。</p>
+<p>误差不超过 $10^{-9}$ 。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^5\)</span>​ 。</p>
+<p>$1 \le n \le 10^5$​ 。</p>
 </blockquote>
 <p>注意这个题目的代码，对于一些点会有额外的“回程费”，而另一些则没有。</p>
-<p>考虑一对 <span class="math inline">\((S,T)\)</span> ，将 <span
-class="math inline">\(S\)</span> 临时定为根，则</p>
+<p>考虑一对 $(S,T)$ ，将 $S$ 临时定为根，则</p>
 <ul>
-<li><p>对于 <span class="math inline">\(T\)</span>
-子树内的点，这些点不会被遍历到，贡献为 <span
-class="math inline">\(0\)</span> 。</p></li>
-<li><p>对 <span class="math inline">\(S \leadsto T\)</span>
-的最短路径上的点，这些点只会被遍历一次（不回程），贡献为 <span
-class="math inline">\(1\)</span> 。</p></li>
-<li><p>对于除此以外的其他点，例如点 <span
-class="math inline">\(x\)</span> ，当我们走到 <span
-class="math inline">\(fa(x)\)</span> 时，</p>
+<li><p>对于 $T$ 子树内的点，这些点不会被遍历到，贡献为 $0$ 。</p>
+</li>
+<li><p>对 $S \leadsto T$ 的最短路径上的点，这些点只会被遍历一次（不回程），贡献为 $1$ 。</p>
+</li>
+<li><p>对于除此以外的其他点，例如点 $x$ ，当我们走到 $fa(x)$ 时，</p>
 <ul>
-<li>有 <span class="math inline">\(\frac{1}{2}\)</span> 的概率走到 <span
-class="math inline">\(x\)</span> ，此时 <span
-class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(2\)</span>​​ ；</li>
-<li>还有 <span class="math inline">\(\frac{1}{2}\)</span> 的概率走到
-<span class="math inline">\(T\)</span> 的方向，此时 <span
-class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(0\)</span> 。</li>
+<li>有 $\frac{1}{2}$ 的概率走到 $x$ ，此时 $x$ 的贡献为 $2$​​ ；</li>
+<li>还有 $\frac{1}{2}$ 的概率走到 $T$ 的方向，此时 $x$ 的贡献为 $0$ 。</li>
 </ul>
-<p>于是这样的 <span class="math inline">\(x\)</span> 的贡献为 <span
-class="math inline">\(\frac{1}{2}\times 2 + \frac{1}{2}\times 0 =
-1\)</span> 。</p>
-<p>这里的 <span class="math inline">\(\frac{1}{2}\)</span>
-是考察有多少种排列中 <span class="math inline">\(x\)</span> 在 <span
-class="math inline">\(T\)</span> 方向那个节点的前面。</p></li>
+<p>于是这样的 $x$ 的贡献为 $\frac{1}{2}\times 2 + \frac{1}{2}\times 0 = 1$ 。</p>
+<p>这里的 $\frac{1}{2}$ 是考察有多少种排列中 $x$ 在 $T$ 方向那个节点的前面。</p>
+</li>
 </ul>
-<p>于是问题就变成了，对于每一对 <span
-class="math inline">\((S,T)\)</span> ，以 <span
-class="math inline">\(S\)</span> 为根时 <span
-class="math inline">\(n-\mathrm{size}_S(T)\)</span> 的期望。</p>
-<p>考虑枚举 <span class="math inline">\(T\)</span> ，然后统计 <span
-class="math inline">\(S\)</span> ，</p>
+<p>于是问题就变成了，对于每一对 $(S,T)$ ，以 $S$ 为根时 $n-\mathrm{size}_S(T)$ 的期望。</p>
+<p>考虑枚举 $T$ ，然后统计 $S$ ，</p>
 <ul>
-<li><span class="math inline">\(S=T\)</span> ，此时 <span
-class="math inline">\(\mathrm{size}_S(T)=n\)</span> 。</li>
-<li><span class="math inline">\(S\)</span> 在 <span
-class="math inline">\(T\)</span> 的子树内，显然 <span
-class="math inline">\(\mathrm{size}_S(T) = n - \mathrm{size}(S)\)</span>
-。</li>
-<li><span class="math inline">\(S\)</span> 不在 <span
-class="math inline">\(T\)</span> 的子树内，则 <span
-class="math inline">\(\mathrm{size}_S(T)=\mathrm{size}(T)\)</span>​
-。</li>
+<li>$S=T$ ，此时 $\mathrm{size}_S(T)=n$ 。</li>
+<li>$S$ 在 $T$ 的子树内，显然 $\mathrm{size}_S(T) = n - \mathrm{size}(S)$ 。</li>
+<li>$S$ 不在 $T$ 的子树内，则 $\mathrm{size}_S(T)=\mathrm{size}(T)$​ 。</li>
 </ul>
-<p>那么我们只需要扫一遍，用每种 <span class="math inline">\(S\)</span>
-的概率 <span class="math inline">\(\times\)</span>
-它的贡献，加起来以后乘上当前节点作为 <span
-class="math inline">\(T\)</span> 的概率即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>那么我们只需要扫一遍，用每种 $S$ 的概率 $\times$ 它的贡献，加起来以后乘上当前节点作为 $T$ 的概率即可。</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -886,10 +846,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">https://www.luogu.com.cn/article/j0en6wyv</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">https://www.luogu.com.cn/article/j0en6wyv</a></p>
 
                 
             </div>
@@ -958,12 +917,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                                     <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -1345,11 +1304,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1362,7 +1316,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/j0en6wyv">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1631,6 +1585,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -748,37 +748,23 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2734-usaco3.3-游戏-a-game-题解">洛谷P2734 [USACO3.3] 游戏 A
-Game 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2734">P2734
-[USACO3.3] 游戏 A Game</a></p>
+                <h1 id="洛谷P2734-USACO3-3-游戏-A-Game-题解"><a href="#洛谷P2734-USACO3-3-游戏-A-Game-题解" class="headerlink" title="洛谷P2734 [USACO3.3] 游戏 A Game 题解"></a>洛谷P2734 [USACO3.3] 游戏 A Game 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2734">P2734 [USACO3.3] 游戏 A Game</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有如下一个双人游戏：<span class="math inline">\(N (2 \leq N \leq
-100)\)</span> 个正整数的序列放在一个游戏平台上，游戏由玩家 <span
-class="math inline">\(1\)</span>
-开始，两人轮流从序列的任意一端取一个数，取数后该数字被去掉并累加到本玩家的得分中，当数取尽时，游戏结束。以最终得分多者为胜。</p>
+<p>有如下一个双人游戏：$N (2 \leq N \leq 100)$ 个正整数的序列放在一个游戏平台上，游戏由玩家 $1$ 开始，两人轮流从序列的任意一端取一个数，取数后该数字被去掉并累加到本玩家的得分中，当数取尽时，游戏结束。以最终得分多者为胜。</p>
 <p>编一个执行最优策略的程序，最优策略就是使玩家在与最好的对手对弈时，能得到的在当前情况下最大的可能的总分的策略。你的程序要始终为第二位玩家执行最优策略。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行: 正整数 <span
-class="math inline">\(N\)</span>，表示序列中正整数的个数。</p>
-<p>第二行至末尾: 用空格分隔的 <span class="math inline">\(N\)</span>
-个正整数（<span class="math inline">\(1\le N \le 200\)</span>）。</p>
+<p>第一行: 正整数 $N$，表示序列中正整数的个数。</p>
+<p>第二行至末尾: 用空格分隔的 $N$ 个正整数（$1\le N \le 200$）。</p>
 <p><strong>输出格式</strong>：</p>
 <p>只有一行，用空格分隔的两个整数: 依次为玩家一和玩家二最终的得分。</p>
 </blockquote>
 <p>先讲 dp 解法，还是很巧妙的，需要对博弈论理解深刻。</p>
-<p>如果我们设 <span class="math inline">\(f_{i,j}\)</span> 表示区间
-<span class="math inline">\([i,j]\)</span> 先手的最优方案，那么有 <span
-class="math display">\[
-f_{i,j} = S_j - S_{i-1}-\min\{f_{i+1,j},~f_{i,j-1}\}
-\]</span> 其中 <span class="math inline">\(S_i =
-\sum_{j=1}^{i}a_j\)</span> 为前缀和。</p>
-<p>为什么需要减去 <span class="math inline">\(f\)</span>
-呢？因为如果先手取了 <span class="math inline">\(a_i\)</span>
-，那后手的最优方案就是 <span class="math inline">\(f_{i+1,j}\)</span>
-，因为先后手转换了。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+<p>如果我们设 $f_{i,j}$ 表示区间 $[i,j]$ 先手的最优方案，那么有</p>
+<script type="math/tex; mode=display">
+f_{i,j} = S_j - S_{i-1}-\min\{f_{i+1,j},~f_{i,j-1}\}</script><p>其中 $S_i = \sum_{j=1}^{i}a_j$ 为前缀和。</p>
+<p>为什么需要减去 $f$ 呢？因为如果先手取了 $a_i$ ，那后手的最优方案就是 $f_{i+1,j}$ ，因为先后手转换了。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -809,26 +795,15 @@ f_{i,j} = S_j - S_{i-1}-\min\{f_{i+1,j},~f_{i,j-1}\}
 <p><br></p>
 <p>然后来讲贪心的解法。</p>
 <p>不知道大家有没有觉得这道题很熟悉，之前有道题也是两头取，但是中间的数是存在一定单调性的。</p>
-<p>考虑最简单的情况，即 <span class="math inline">\(n=3\)</span> 时，若
-<span class="math inline">\(a_2 &gt; a_1\)</span> 且 <span
-class="math inline">\(a_2 &gt; a_3\)</span></p>
-<p>那么先手能比后手多取到 <span class="math inline">\(a_1 + a_3 -
-a_2\)</span> ，于是我们把它看作一个数</p>
-<p>即对于所有 <span class="math inline">\(a_i &gt; a_{i-1}\)</span> 且
-<span class="math inline">\(a_{i} &gt; a_{i + 1}\)</span> 的 <span
-class="math inline">\(i\)</span> ，我们把 <span
-class="math inline">\(a_{i-1},~a_{i},~a_{i+1}\)</span> 缩成一个数 <span
-class="math inline">\(a_{i+1}+a_{i-1}-a_i\)</span> 。</p>
-<p>重复执行这个过程直到 <span class="math inline">\(a_i\)</span>
-成为关于 <span class="math inline">\(i\)</span>
-的单谷函数，这样我们就可以贪心地从两头取了。</p>
+<p>考虑最简单的情况，即 $n=3$ 时，若 $a_2 &gt; a_1$ 且 $a_2 &gt; a_3$ </p>
+<p>那么先手能比后手多取到 $a_1 + a_3 - a_2$ ，于是我们把它看作一个数</p>
+<p>即对于所有 $a_i &gt; a_{i-1}$ 且 $a_{i} &gt; a_{i + 1}$ 的 $i$ ，我们把 $a_{i-1},~a_{i},~a_{i+1}$ 缩成一个数 $a_{i+1}+a_{i-1}-a_i$ 。</p>
+<p>重复执行这个过程直到 $a_i$ 成为关于 $i$ 的单谷函数，这样我们就可以贪心地从两头取了。</p>
 <p>这样的做法唯一奇怪的地方就是我们真的可以这么缩这些数吗？事实上是可以的。</p>
 <p>证明：</p>
-<p>对于某个满足条件的 <span class="math inline">\(i\)</span>
-，我们将它缩数后，它可能成为单谷函数的某一侧甚至谷部</p>
-<p>当然它也可能成为一个新的峰的某一部分，而最终我们会将每个峰都拍成谷的一部分。<span
-class="math inline">\(\square\)</span></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>对于某个满足条件的 $i$ ，我们将它缩数后，它可能成为单谷函数的某一侧甚至谷部</p>
+<p>当然它也可能成为一个新的峰的某一部分，而最终我们会将每个峰都拍成谷的一部分。$\square$</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -863,12 +838,10 @@ class="math inline">\(\square\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>sum <span class="token operator">+</span> res<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>sum <span class="token operator">-</span> res<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/v58woiz8">https://www.luogu.com.cn/article/v58woiz8</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bp03gipm">https://www.luogu.com.cn/article/bp03gipm</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/v58woiz8">https://www.luogu.com.cn/article/v58woiz8</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bp03gipm">https://www.luogu.com.cn/article/bp03gipm</a></p>
 <p>洛谷博客都换新样了，我的生活什么时候换新样呢。</p>
 
                 
@@ -1322,11 +1295,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bp03gipm">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1339,7 +1307,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bp03gipm">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1608,6 +1576,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

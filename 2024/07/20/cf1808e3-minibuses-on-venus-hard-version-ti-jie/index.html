@@ -728,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.1k
                 </div>
                 
 
@@ -748,146 +748,67 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1808e3-minibuses-on-venus-hard-version-题解">CF1808E3
-Minibuses on Venus (hard version) 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1808E3">Minibuses on Venus
-(hard version)</a></p>
+                <h1 id="CF1808E3-Minibuses-on-Venus-hard-version-题解"><a href="#CF1808E3-Minibuses-on-Venus-hard-version-题解" class="headerlink" title="CF1808E3 Minibuses on Venus (hard version) 题解"></a>CF1808E3 Minibuses on Venus (hard version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1808E3">Minibuses on Venus (hard version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 <span class="math inline">\(n,k,m\)</span> ，定义序列 <span
-class="math inline">\(\{a_i\}_{i=1}^n\)</span> 的值域为 <span
-class="math inline">\([0,k)\)</span> ，即 <span
-class="math inline">\(\forall i, ~a_i \in[0,k)\)</span> 。</p>
-<p>称一个序列 <span class="math inline">\(a\)</span>
-是幸运的，当且仅当存在至少一个 <span class="math inline">\(p~(1\le p \le
-n)\)</span> 使得 <span class="math display">\[
-\sum_{i=1}^na_i - a_p\equiv a_p \pmod{k}
-\]</span> 求幸运序列的总方案数模 <span class="math inline">\(m\)</span>
-的结果。</p>
+<p>给定 $n,k,m$ ，定义序列 $\{a_i\}_{i=1}^n$ 的值域为 $[0,k)$ ，即 $\forall i, ~a_i \in[0,k)$ 。</p>
+<p>称一个序列 $a$ 是幸运的，当且仅当存在至少一个 $p~(1\le p \le n)$ 使得</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^na_i - a_p\equiv a_p \pmod{k}</script><p>求幸运序列的总方案数模 $m$ 的结果。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行，三个整数 <span class="math inline">\(n,k,m\)</span> 。</p>
+<p>一行，三个整数 $n,k,m$ 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，即答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^{18},~1\le k \le
-2000,~10^8 \le m \le 10^9\)</span> 。</p>
+<p>$1 \le n \le 10^{18},~1\le k \le 2000,~10^8 \le m \le 10^9$ 。</p>
 </blockquote>
-<p>记 <span class="math inline">\(s = \sum_{i=1}^n a_i\)</span>
-，考虑问题的反面，即 <span class="math inline">\(s \not\equiv 2a_i
-\pmod{k}\)</span> 的序列</p>
-<p>考虑枚举 <span class="math inline">\(s \in [0,k)\)</span> 。由于当
-<span class="math inline">\(k\)</span> 是奇数/偶数时，<span
-class="math inline">\(s \equiv 2x \pmod{k}\)</span>
-分别有唯一解/两个解，故分类讨论。</p>
-<h3 id="k-为奇数">1. <span class="math inline">\(k\)</span> 为奇数</h3>
-<p>此时 <span class="math inline">\(s \equiv 2x \pmod{k}\)</span>
-有唯一解（注意我们枚举了 <span class="math inline">\(s\)</span> ，故现在
-<span class="math inline">\(s\)</span> 是已知量）</p>
-<p>考虑容斥。设 <span class="math inline">\(f_i\)</span> 表示钦定 <span
-class="math inline">\(i\)</span> 个位置为 <span
-class="math inline">\(x\)</span> 的方案数，<span
-class="math inline">\(g_i\)</span> 为恰好 <span
-class="math inline">\(i\)</span> 个位置为 <span
-class="math inline">\(x\)</span> 的方案数，那么 <span
-class="math display">\[
-f_i = \sum_{j=i}^n\binom{j}{i}g_j
-\]</span> 我们要求 <span class="math inline">\(g(0)\)</span> 。考虑<a
-href="/2024/07/03/er-xiang-shi-fan-yan/">二项式反演</a>，有 <span
-class="math display">\[
-g_i = \sum_{j=i}^n(-1)^{j-i}\binom{j}{i}f_j
-\]</span> 代入可得 <span class="math display">\[
-g_0=\sum_{i=0}^n(-1)^i f_i
-\]</span> 现在考虑计算 <span class="math inline">\(f_i\)</span>
-。可以发现，当 <span class="math inline">\(i=n\)</span> 时，<span
-class="math inline">\(f_i = [nx \equiv s \pmod{k}]\)</span> 。</p>
-<p>否则，剩余的 <span class="math inline">\(n-i\)</span> 个位置中有
-<span class="math inline">\(n-i-1\)</span>
-个可以随便选，而最后一个要把和凑成 <span
-class="math inline">\(x\)</span> ，故 <span class="math display">\[
-f_i = \binom{n}{i}k^{n-1-i}
-\]</span> 那么代回去可以得到 <span class="math display">\[
-g_0 = \sum_{i=0}^{n-1}(-1)^i\binom{n}{i}k^{n-1-i} + (-1)^nf_n
-\]</span> 对左侧考虑二项式定理，可以凑出 <span class="math display">\[
-g_0 = \frac{(k-1)^n - (-1)^n}{k} + (-1)^nf_n
-\]</span> 注意到这个是建立在枚举 <span class="math inline">\(s\)</span>
-的基础上的。考虑重新将 <span class="math inline">\(f_n\)</span> 记为
-<span class="math inline">\(f_s(n)\)</span> 。</p>
-<p>对 <span class="math inline">\(s \in[0,k)\)</span> 累加求和可以得到
-<span class="math display">\[
-(k-1)^n-(-1)^n+(-1)^n \sum_{i=0}^{k-1} f_i(n)
-\]</span> 再利用 <span class="math inline">\(x\)</span> 的定义即可得到
-<span class="math display">\[
-f_i(n) = [(n-2)i\equiv 0\pmod{k}]
-\]</span> 这样的 <span class="math inline">\(i\)</span> 显然有 <span
-class="math inline">\(\gcd(n - 2,\,k)\)</span>
-个。代入，并用总方案数减去它，得到该部分的方案数为 <span
-class="math display">\[
-k^n - (k-1)^n + (-1)^n - (-1)^n\gcd(n - 2, \, k)
-\]</span></p>
-<h3 id="k-为偶数">2. <span class="math inline">\(k\)</span> 为偶数</h3>
-<p>此时当 <span class="math inline">\(s\)</span> 为奇数时 <span
-class="math inline">\(s \not\equiv 2a_i \pmod{k}\)</span> 显然无解。</p>
-<p>考虑统计 <span class="math inline">\(s\)</span> 为偶数且不包含满足
-<span class="math inline">\(2a_i\equiv 0\pmod{k}\)</span> 的 <span
-class="math inline">\(a_i\)</span> 的方案数。</p>
-<p>不同于 <span class="math inline">\(k\)</span>
-为奇数的情况，此时不满足条件的数，即满足 <span class="math inline">\(s
-\equiv 2x \pmod{k}\)</span> 的 <span class="math inline">\(x\)</span>
-有两个</p>
-<p>不妨记为 <span class="math inline">\(x_1,x_2\)</span>
-，可以解出这两个值，分别为 <span
-class="math inline">\(x_1=\frac{s}{2},~x_2 = \frac{s + k}{2}\)</span>
-。</p>
-<p>继续考虑容斥。设 <span class="math inline">\(f_i\)</span> 表示钦定
-<span class="math inline">\(i\)</span> 个值为 <span
-class="math inline">\(x_1\)</span> 或 <span
-class="math inline">\(x_2\)</span> 的方案数，<span
-class="math inline">\(g_i\)</span> 表示恰好 <span
-class="math inline">\(i\)</span> 个值为 <span
-class="math inline">\(x_1\)</span> 或 <span
-class="math inline">\(x_2\)</span> 的方案数</p>
-<p>我们要求的就是 <span class="math inline">\(g_0\)</span>
-，根据之前的推导，同理可得 <span class="math display">\[
-g_0 = \sum_{i=0}^n(-1)^if_i
-\]</span> 考虑计算 <span class="math inline">\(f_i\)</span> 。当 <span
-class="math inline">\(i \ne n\)</span> 时 <span
-class="math inline">\(f_i = \binom{n}{i}2^ik^{n-1-i}\)</span> ，否则记为
-<span class="math inline">\(f_s(n)\)</span> ，累加得 <span
-class="math display">\[
-\frac{(k-2)^n-(-2)^n}{2}+(-1)^n \sum_{0 \leq s=2x&lt;k} f_s(n)
-\]</span> 考虑计算 <span class="math inline">\(f_s(n)\)</span>
-。枚举其中有 <span class="math inline">\(j\)</span> 个 <span
-class="math inline">\(x_1\)</span> ，<span
-class="math inline">\(n-j\)</span> 个 <span
-class="math inline">\(x_2\)</span> ，那么 <span class="math display">\[
-f_s(n) = \sum_{j=0}^n\binom{n}{j}[jx_1 + (n-j)x_2\equiv 0 \pmod{k}]
-\]</span> 代入 <span class="math inline">\(x_1,x_2\)</span> ，化简可得
-<span class="math display">\[
-f_s(n) =
-\sum_{j=0}^n\binom{n}{j}\left[\frac{k}{2}j\equiv\frac{s+k}{2}n-s\pmod{k}\right]
-\]</span> 提示：这里中括号和之前的一样，也是艾弗森括号。</p>
-<p>注意到 <span class="math inline">\(\frac{k}{2}j\)</span> 模 <span
-class="math inline">\(k\)</span> 的值只可能是 <span
-class="math inline">\(0\)</span> 或 <span
-class="math inline">\(\frac{k}{2}\)</span> ，而右侧是定值。</p>
-<p>并且无论哪种情况均为组合数上指标的交换求和，其值均为 <span
-class="math inline">\(2^{n-1}\)</span> 。</p>
-<p>而 <span class="math inline">\(\frac{s+k}{2}n - s \equiv 0
-\pmod{\frac{k}{2}}\)</span> ，故 <span class="math display">\[
-\frac{s}{2}(n-2)\equiv 0 \pmod {\textstyle \frac{k}{2}}
-\]</span> 这种情况下，满足条件的 <span class="math inline">\(s\)</span>
-有 <span class="math inline">\(\gcd(n-2,\,\frac{k}{2})\)</span>
-个。于是综上可得 <span class="math display">\[
-\sum_{0 \le s = 2x \le k}f_S(n)=2^{n-1} \operatorname{gcd}\left(n-2,\,
-\frac{k}{2}\right)
-\]</span> 注意这是反面情况，那么整理可得 <span class="math display">\[
-\frac{k^n-(k-2)^n+(-2)^n}{2}-(-1)^n 2^{n-1}
-\operatorname{gcd}\left(n-2,\, \frac{k}{2}\right)
-\]</span> 实现时要注意 <span class="math inline">\(2\)</span>
-可能没有模意义下的逆元，具体见代码。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(\log n + \log
-k)\)</span></p>
+<p>记 $s = \sum_{i=1}^n a_i$ ，考虑问题的反面，即 $s \not\equiv 2a_i \pmod{k}$ 的序列</p>
+<p>考虑枚举 $s \in [0,k)$ 。由于当 $k$ 是奇数/偶数时，$s \equiv 2x \pmod{k}$ 分别有唯一解/两个解，故分类讨论。</p>
+<h3 id="1-k-为奇数"><a href="#1-k-为奇数" class="headerlink" title="1. $k$ 为奇数"></a>1. $k$ 为奇数</h3><p>此时 $s \equiv 2x \pmod{k}$ 有唯一解（注意我们枚举了 $s$ ，故现在 $s$ 是已知量）</p>
+<p>考虑容斥。设 $f_i$ 表示钦定 $i$ 个位置为 $x$ 的方案数，$g_i$ 为恰好 $i$ 个位置为 $x$ 的方案数，那么</p>
+<script type="math/tex; mode=display">
+f_i = \sum_{j=i}^n\binom{j}{i}g_j</script><p>我们要求 $g(0)$ 。考虑<a href="/2024/07/03/er-xiang-shi-fan-yan/">二项式反演</a>，有</p>
+<script type="math/tex; mode=display">
+g_i = \sum_{j=i}^n(-1)^{j-i}\binom{j}{i}f_j</script><p>代入可得</p>
+<script type="math/tex; mode=display">
+g_0=\sum_{i=0}^n(-1)^i f_i</script><p>现在考虑计算 $f_i$ 。可以发现，当 $i=n$ 时，$f_i = [nx \equiv s \pmod{k}]$ 。</p>
+<p>否则，剩余的 $n-i$ 个位置中有 $n-i-1$ 个可以随便选，而最后一个要把和凑成 $x$ ，故</p>
+<script type="math/tex; mode=display">
+f_i = \binom{n}{i}k^{n-1-i}</script><p>那么代回去可以得到</p>
+<script type="math/tex; mode=display">
+g_0 = \sum_{i=0}^{n-1}(-1)^i\binom{n}{i}k^{n-1-i} + (-1)^nf_n</script><p>对左侧考虑二项式定理，可以凑出</p>
+<script type="math/tex; mode=display">
+g_0 = \frac{(k-1)^n - (-1)^n}{k} + (-1)^nf_n</script><p>注意到这个是建立在枚举 $s$ 的基础上的。考虑重新将 $f_n$ 记为 $f_s(n)$ 。</p>
+<p>对 $s \in[0,k)$ 累加求和可以得到</p>
+<script type="math/tex; mode=display">
+(k-1)^n-(-1)^n+(-1)^n \sum_{i=0}^{k-1} f_i(n)</script><p>再利用 $x$ 的定义即可得到</p>
+<script type="math/tex; mode=display">
+f_i(n) = [(n-2)i\equiv 0\pmod{k}]</script><p>这样的 $i$ 显然有 $\gcd(n - 2,\,k)$ 个。代入，并用总方案数减去它，得到该部分的方案数为</p>
+<script type="math/tex; mode=display">
+k^n - (k-1)^n + (-1)^n - (-1)^n\gcd(n - 2, \, k)</script><h3 id="2-k-为偶数"><a href="#2-k-为偶数" class="headerlink" title="2. $k$ 为偶数"></a>2. $k$ 为偶数</h3><p>此时当 $s$ 为奇数时 $s \not\equiv 2a_i \pmod{k}$ 显然无解。</p>
+<p>考虑统计 $s$ 为偶数且不包含满足 $2a_i\equiv 0\pmod{k}$ 的 $a_i$ 的方案数。</p>
+<p>不同于 $k$ 为奇数的情况，此时不满足条件的数，即满足 $s \equiv 2x \pmod{k}$ 的 $x$ 有两个</p>
+<p>不妨记为 $x_1,x_2$ ，可以解出这两个值，分别为 $x_1=\frac{s}{2},~x_2 = \frac{s + k}{2}$ 。</p>
+<p>继续考虑容斥。设 $f_i$ 表示钦定 $i$ 个值为 $x_1$ 或 $x_2$ 的方案数，$g_i$ 表示恰好 $i$ 个值为 $x_1$ 或 $x_2$ 的方案数</p>
+<p>我们要求的就是 $g_0$ ，根据之前的推导，同理可得</p>
+<script type="math/tex; mode=display">
+g_0 = \sum_{i=0}^n(-1)^if_i</script><p>考虑计算 $f_i$ 。当 $i \ne n$ 时 $f_i = \binom{n}{i}2^ik^{n-1-i}$ ，否则记为 $f_s(n)$ ，累加得</p>
+<script type="math/tex; mode=display">
+\frac{(k-2)^n-(-2)^n}{2}+(-1)^n \sum_{0 \leq s=2x<k} f_s(n)</script><p>考虑计算 $f_s(n)$ 。枚举其中有 $j$ 个 $x_1$ ，$n-j$ 个 $x_2$ ，那么</p>
+<script type="math/tex; mode=display">
+f_s(n) = \sum_{j=0}^n\binom{n}{j}[jx_1 + (n-j)x_2\equiv 0 \pmod{k}]</script><p>代入 $x_1,x_2$ ，化简可得</p>
+<script type="math/tex; mode=display">
+f_s(n) = \sum_{j=0}^n\binom{n}{j}\left[\frac{k}{2}j\equiv\frac{s+k}{2}n-s\pmod{k}\right]</script><p>提示：这里中括号和之前的一样，也是艾弗森括号。</p>
+<p>注意到 $\frac{k}{2}j$ 模 $k$ 的值只可能是 $0$ 或 $\frac{k}{2}$ ，而右侧是定值。</p>
+<p>并且无论哪种情况均为组合数上指标的交换求和，其值均为 $2^{n-1}$ 。</p>
+<p>而 $\frac{s+k}{2}n - s \equiv 0 \pmod{\frac{k}{2}}$ ，故</p>
+<script type="math/tex; mode=display">
+\frac{s}{2}(n-2)\equiv 0 \pmod {\textstyle \frac{k}{2}}</script><p>这种情况下，满足条件的 $s$ 有 $\gcd(n-2,\,\frac{k}{2})$ 个。于是综上可得</p>
+<script type="math/tex; mode=display">
+\sum_{0 \le s = 2x \le k}f_S(n)=2^{n-1} \operatorname{gcd}\left(n-2,\, \frac{k}{2}\right)</script><p>注意这是反面情况，那么整理可得</p>
+<script type="math/tex; mode=display">
+\frac{k^n-(k-2)^n+(-2)^n}{2}-(-1)^n 2^{n-1} \operatorname{gcd}\left(n-2,\, \frac{k}{2}\right)</script><p>实现时要注意 $2$ 可能没有模意义下的逆元，具体见代码。</p>
+<p>时间复杂度 $\mathcal{O}(\log n + \log k)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -933,10 +854,9 @@ k)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hr1l12gk">https://www.luogu.com.cn/article/hr1l12gk</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hr1l12gk">https://www.luogu.com.cn/article/hr1l12gk</a></p>
 
                 
             </div>
@@ -1242,12 +1162,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hr1l12gk">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
                     <a href="/tags/%E6%80%BB%E7%BB%93/">
                         <span class="chip bg-color">总结</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1397,11 +1317,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hr1l12gk">
 <footer class="page-footer bg-color">
     
     
-        <div id="jsi-flying-fish-container" class="jfish"></div>
-<script src="/libs/jfish/renderer.js"></script>
-<script> RENDERER.init(); </script>
-
-    
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -1414,7 +1329,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/hr1l12gk">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1360.3k</span>&nbsp;字
+                class="white-color">1327.9k</span>&nbsp;字
             
             
             
@@ -1683,6 +1598,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
