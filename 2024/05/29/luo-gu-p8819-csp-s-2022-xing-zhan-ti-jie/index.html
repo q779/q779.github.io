@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                             <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
@@ -752,12 +752,19 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P8819-CSP-S-2022-星战-题解"><a href="#洛谷P8819-CSP-S-2022-星战-题解" class="headerlink" title="洛谷P8819 [CSP-S 2022] 星战 题解"></a>洛谷P8819 [CSP-S 2022] 星战 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8819">P8819 [CSP-S 2022] 星战</a></p>
+                <h1 id="洛谷p8819-csp-s-2022-星战-题解">洛谷P8819 [CSP-S 2022] 星战
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8819">P8819
+[CSP-S 2022] 星战</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>在这一轮的星际战争中，我方在宇宙中建立了 $n$ 个据点，以 $m$ 个单向虫洞连接。我们把终点为据点 $u$ 的所有虫洞归为据点 $u$ 的虫洞。</p>
+<p>在这一轮的星际战争中，我方在宇宙中建立了 <span
+class="math inline">\(n\)</span> 个据点，以 <span
+class="math inline">\(m\)</span> 个单向虫洞连接。我们把终点为据点 <span
+class="math inline">\(u\)</span> 的所有虫洞归为据点 <span
+class="math inline">\(u\)</span> 的虫洞。</p>
 <p>战火纷飞之中这些虫洞很难长久存在，敌人的打击随时可能到来。这些打击中的有效打击可以分为两类：</p>
-<ol>
+<ol type="1">
 <li>敌人会摧毁某个虫洞，这会使它连接的两个据点无法再通过这个虫洞直接到达，但这样的打击无法摧毁它连接的两个据点。</li>
 <li>敌人会摧毁某个据点，由于虫洞的主要技术集中在出口处，这会导致该据点的所有还未被摧毁的虫洞被一同摧毁。而从这个据点出发的虫洞则<strong>不会摧毁</strong>。</li>
 </ol>
@@ -777,36 +784,75 @@ rgba(0,0,0,0.2);
 </ul>
 <p>总司令为你下达命令，要求你根据战场上实时反馈的信息，迅速告诉他当前的时刻是否能够进行一次<strong>反攻</strong>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含两个正整数 $n,m$。</p>
-<p>接下来 $m$ 行每行两个数 $u,v$，表示一个从据点 $u$ 出发到据点 $v$ 的虫洞。保证 $u \ne v$，保证不会有两条相同的虫洞。初始时所有的虫洞和据点都是完好的。</p>
-<p>接下来一行一个正整数 $q$ 表示询问个数。</p>
-<p>接下来 $q$ 行每行表示一次询问或操作。首先读入一个正整数 $t$ 表示指令类型：</p>
+<p>输入的第一行包含两个正整数 <span
+class="math inline">\(n,m\)</span>。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行每行两个数 <span
+class="math inline">\(u,v\)</span>，表示一个从据点 <span
+class="math inline">\(u\)</span> 出发到据点 <span
+class="math inline">\(v\)</span> 的虫洞。保证 <span
+class="math inline">\(u \ne
+v\)</span>，保证不会有两条相同的虫洞。初始时所有的虫洞和据点都是完好的。</p>
+<p>接下来一行一个正整数 <span class="math inline">\(q\)</span>
+表示询问个数。</p>
+<p>接下来 <span class="math inline">\(q\)</span>
+行每行表示一次询问或操作。首先读入一个正整数 <span
+class="math inline">\(t\)</span> 表示指令类型：</p>
 <ul>
-<li>若 $t = 1$，接下来两个整数 $u, v$ 表示敌人摧毁了从据点 $u$ 出发到据点 $v$ 的虫洞。保证该虫洞存在且未被摧毁。</li>
-<li>若 $t = 2$，接下来一个整数 $u$ 表示敌人摧毁了据点 $u$。如果该据点的虫洞已全部被摧毁，那么这次袭击不会有任何效果。</li>
-<li>若 $t = 3$，接下来两个整数 $u, v$ 表示我方修复了从据点 $u$ 出发到据点 $v$ 的虫洞。保证该虫洞存在且被摧毁。</li>
-<li>若 $t = 4$，接下来一个整数 $u$ 表示我方修复了据点 $u$。如果该据点没有被摧毁的虫洞，那么这次修复不会有任何效果。</li>
+<li>若 <span class="math inline">\(t = 1\)</span>，接下来两个整数 <span
+class="math inline">\(u, v\)</span> 表示敌人摧毁了从据点 <span
+class="math inline">\(u\)</span> 出发到据点 <span
+class="math inline">\(v\)</span> 的虫洞。保证该虫洞存在且未被摧毁。</li>
+<li>若 <span class="math inline">\(t = 2\)</span>，接下来一个整数 <span
+class="math inline">\(u\)</span> 表示敌人摧毁了据点 <span
+class="math inline">\(u\)</span>。如果该据点的虫洞已全部被摧毁，那么这次袭击不会有任何效果。</li>
+<li>若 <span class="math inline">\(t = 3\)</span>，接下来两个整数 <span
+class="math inline">\(u, v\)</span> 表示我方修复了从据点 <span
+class="math inline">\(u\)</span> 出发到据点 <span
+class="math inline">\(v\)</span> 的虫洞。保证该虫洞存在且被摧毁。</li>
+<li>若 <span class="math inline">\(t = 4\)</span>，接下来一个整数 <span
+class="math inline">\(u\)</span> 表示我方修复了据点 <span
+class="math inline">\(u\)</span>。如果该据点没有被摧毁的虫洞，那么这次修复不会有任何效果。</li>
 </ul>
-<p>在每次指令执行之后，你需要判断能否进行一次反攻。如果能则输出 <code>YES</code> 否则输出 <code>NO</code>。</p>
+<p>在每次指令执行之后，你需要判断能否进行一次反攻。如果能则输出
+<code>YES</code> 否则输出 <code>NO</code>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一共 $q$ 行。对于每个指令，输出这个指令执行后能否进行反攻。</p>
+<p>输出一共 <span class="math inline">\(q\)</span>
+行。对于每个指令，输出这个指令执行后能否进行反攻。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 5 \times {10}^5$，$1 \le m \le 5 \times {10}^5$，$1 \le q \le 5 \times {10}^5$。</p>
+<p><span class="math inline">\(1 \le n \le 5 \times
+{10}^5\)</span>，<span class="math inline">\(1 \le m \le 5 \times
+{10}^5\)</span>，<span class="math inline">\(1 \le q \le 5 \times
+{10}^5\)</span>。</p>
 </blockquote>
-<p>容易发现，当且仅当所有点的出度都是 $1$ 时，可以反攻。</p>
-<p>直接暴力统计的复杂度是 $\mathcal{O}(nq)$ 的，考虑给每个点随机赋权 $w(u)$ （这种做法叫和哈希(sum hash)）</p>
-<p>记 $r(v)=\sum_{(u,v) \in E} w(u)$ ，即所有入边的点的哈希，并记 $\operatorname{deg}(u)$ 为 $u$ 的出度</p>
-<p>那么显然有</p>
-<script type="math/tex; mode=display">
-\sum_v r(v) = \sum_u \operatorname{deg}(u) \cdot w(u)\tag{1}</script><p>同时，显然可以证明</p>
-<script type="math/tex; mode=display">
-\sum_v r(v) = \sum_u w(u)\tag{2}</script><p>是所有点出度为 $1$​​​ 的一个<strong>必要条件</strong>。</p>
-<p>那么 $(2)$ 是否充分呢？我们把 $\operatorname{deg}(u)$ 看作未知量，则 $(1,1,\cdots,1)$ 显然是一组合法解</p>
-<p>除此以外，确实可能存在合法解。但是其他解即使存在，恰好满足的概率也不高，因为 $w(u)$ 是随机的。</p>
+<p>容易发现，当且仅当所有点的出度都是 <span
+class="math inline">\(1\)</span> 时，可以反攻。</p>
+<p>直接暴力统计的复杂度是 <span
+class="math inline">\(\mathcal{O}(nq)\)</span> 的，考虑给每个点随机赋权
+<span class="math inline">\(w(u)\)</span> （这种做法叫和哈希(sum
+hash)）</p>
+<p>记 <span class="math inline">\(r(v)=\sum_{(u,v) \in E} w(u)\)</span>
+，即所有入边的点的哈希，并记 <span
+class="math inline">\(\operatorname{deg}(u)\)</span> 为 <span
+class="math inline">\(u\)</span> 的出度</p>
+<p>那么显然有 <span class="math display">\[
+\sum_v r(v) = \sum_u \operatorname{deg}(u) \cdot w(u)\tag{1}
+\]</span> 同时，显然可以证明 <span class="math display">\[
+\sum_v r(v) = \sum_u w(u)\tag{2}
+\]</span> 是所有点出度为 <span class="math inline">\(1\)</span>​​​
+的一个<strong>必要条件</strong>。</p>
+<p>那么 <span class="math inline">\((2)\)</span> 是否充分呢？我们把
+<span class="math inline">\(\operatorname{deg}(u)\)</span>
+看作未知量，则 <span class="math inline">\((1,1,\cdots,1)\)</span>
+显然是一组合法解</p>
+<p>除此以外，确实可能存在合法解。但是其他解即使存在，恰好满足的概率也不高，因为
+<span class="math inline">\(w(u)\)</span> 是随机的。</p>
 <p>因此我们可以认为这个必要不充分条件，在很大概率下是充分的。</p>
-<p>如果你觉得不放心可以多赋几个权值，即 $w_i(u)$ 为第 $i$ 组的哈希值</p>
+<p>如果你觉得不放心可以多赋几个权值，即 <span
+class="math inline">\(w_i(u)\)</span> 为第 <span
+class="math inline">\(i\)</span> 组的哈希值</p>
 <p>显然两组权值出现重复合法解的概率非常低，不行就三组（大雾），但是本题其实一组就够了。</p>
-<p>时间复杂度 $\mathcal{O}(k(n + m))$ ，$k$ 为设定的哈希组数</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(k(n + m))\)</span>
+，<span class="math inline">\(k\)</span> 为设定的哈希组数</p>
 <p>代码：（就写了一组哈希）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -857,19 +903,21 @@ mt19937 <span class="token function">rd</span><span class="token punctuation">(<
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/63vl9zh2">https://www.luogu.com.cn/article/63vl9zh2</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/63vl9zh2">https://www.luogu.com.cn/article/63vl9zh2</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405291616471.png" style="zoom:40%;" /></p>
 <p><br></p>
 <p><br></p>
-<center><font size=24>不可以，总司令。</font></center>
-
+<center>
+<font size=24>不可以，总司令。</font>
+</center>
 <p><br></p>
 <p><br></p>
-<hr>
+<hr />
 <p>但是可以放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405291509197.png" style="zoom:30%;" /></p>
 
@@ -940,12 +988,12 @@ mt19937 <span class="token function">rd</span><span class="token punctuation">(<
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                                 <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
@@ -1183,12 +1231,12 @@ mt19937 <span class="token function">rd</span><span class="token punctuation">(<
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/%E7%BE%A4%E8%AE%BA/">
@@ -1359,7 +1407,7 @@ mt19937 <span class="token function">rd</span><span class="token punctuation">(<
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1628,21 +1676,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -756,16 +756,28 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1355F-Guess-Divisors-Count-题解"><a href="#CF1355F-Guess-Divisors-Count-题解" class="headerlink" title="CF1355F Guess Divisors Count 题解"></a>CF1355F Guess Divisors Count 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1355F">Guess Divisors Count</a></p>
+                <h1 id="cf1355f-guess-divisors-count-题解">CF1355F Guess Divisors Count
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1355F">Guess
+Divisors Count</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>要求猜一个 $1$ 到 $10^9$ 之间的一个数 $X$。</p>
-<p>你可以询问一个数 $Q$（$1\le Q\le10^{18}$），然后得到 $\gcd(X,Q)$。</p>
-<p>请你在不多于 $22$ 次询问后算出 $X$ 的因数个数。</p>
-<p>注意：设你的答案为 $d$，标准答案为 $r$，只要满足 $|r-d|\le7$ 或 $\frac12\le\frac{r}{d}\le2$ 即算正确。</p>
+<p>要求猜一个 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(10^9\)</span> 之间的一个数 <span
+class="math inline">\(X\)</span>。</p>
+<p>你可以询问一个数 <span class="math inline">\(Q\)</span>（<span
+class="math inline">\(1\le Q\le10^{18}\)</span>），然后得到 <span
+class="math inline">\(\gcd(X,Q)\)</span>。</p>
+<p>请你在不多于 <span class="math inline">\(22\)</span> 次询问后算出
+<span class="math inline">\(X\)</span> 的因数个数。</p>
+<p>注意：设你的答案为 <span class="math inline">\(d\)</span>，标准答案为
+<span class="math inline">\(r\)</span>，只要满足 <span
+class="math inline">\(|r-d|\le7\)</span> 或 <span
+class="math inline">\(\frac12\le\frac{r}{d}\le2\)</span> 即算正确。</p>
 <p><strong>输入格式</strong>：</p>
-<p>首先输入一个正整数，数据组数 $t(1\le t \le  100)$。</p>
-<p>接下来 $t$ 组数据。</p>
+<p>首先输入一个正整数，数据组数 <span class="math inline">\(t(1\le t \le
+100)\)</span>。</p>
+<p>接下来 <span class="math inline">\(t\)</span> 组数据。</p>
 <p><strong>交互格式</strong>：</p>
 <ul>
 <li>询问：<code>? Q</code>；</li>
@@ -774,25 +786,41 @@ rgba(0,0,0,0.2);
 </blockquote>
 <p>本题特色：乱搞？</p>
 <p>感觉很多这种类型的题就和快慢刀一样，主打一个迷惑人，其实本质没有那么难。</p>
-<p>首先，根据唯一分解定理可知若 $X = \prod_{i=1}^n p_i^{x_i}$ ，则因数个数为 $\prod_{i=1}^n\left(x_i+1\right)$ 。</p>
+<p>首先，根据唯一分解定理可知若 <span class="math inline">\(X =
+\prod_{i=1}^n p_i^{x_i}\)</span> ，则因数个数为 <span
+class="math inline">\(\prod_{i=1}^n\left(x_i+1\right)\)</span> 。</p>
 <p>因此不考虑询问个数，大量询问各个质数和质数的幂即可猜出答案。</p>
-<p>但是可以预见的是，很多时候得到的答案都是 $1$ ，本题要求我们优化这个询问的思路。</p>
+<p>但是可以预见的是，很多时候得到的答案都是 <span
+class="math inline">\(1\)</span> ，本题要求我们优化这个询问的思路。</p>
 <p>那么，如果我们一口气询问多个质数的乘积，是否更可能获得答案呢？</p>
-<p>于是我们试图维护一个由质数组成的集合，每次取出若干元素取出并相乘（要求乘积不超过 $10^{18}$​ ）</p>
-<p>在询问后我们可以立即得到哪些质数有用，哪些不再有用，并将有用的那些质数的次数加 $1$ 再塞进去。</p>
+<p>于是我们试图维护一个由质数组成的集合，每次取出若干元素取出并相乘（要求乘积不超过
+<span class="math inline">\(10^{18}\)</span>​ ）</p>
+<p>在询问后我们可以立即得到哪些质数有用，哪些不再有用，并将有用的那些质数的次数加
+<span class="math inline">\(1\)</span> 再塞进去。</p>
 <p>于是我们需要将所有的质数按次幂降序为第一关键字，质数大小为第二关键字排序，这可以用优先队列维护。</p>
-<p>考虑仅执行 $22$ 次询问，根据实验可发现通常至多询问到 $900$ 左右。</p>
+<p>考虑仅执行 <span class="math inline">\(22\)</span>
+次询问，根据实验可发现通常至多询问到 <span
+class="math inline">\(900\)</span> 左右。</p>
 <p>此时我们其实已经得到了一个模糊的答案，下面证明这个答案恰好满足题目的奇怪条件。</p>
-<p>显然 $850$ 以下的所有质因子我们都已经搞定了，对于 $X$ 的其余情况：</p>
+<p>显然 <span class="math inline">\(850\)</span>
+以下的所有质因子我们都已经搞定了，对于 <span
+class="math inline">\(X\)</span> 的其余情况：</p>
 <ul>
-<li>$1$ ，没有问题</li>
-<li>质数，答案需要乘以 $2$ （乘法原理）</li>
-<li>质数的平方，答案需要乘以 $3$​ </li>
-<li>质数乘质数，答案需要乘以 $4$​ </li>
-<li>三个质数相乘。因为三个质因子都大于 $850$ ，所以实际上不会有其他质因子了，此时的答案为 $8$ </li>
+<li><span class="math inline">\(1\)</span> ，没有问题</li>
+<li>质数，答案需要乘以 <span class="math inline">\(2\)</span>
+（乘法原理）</li>
+<li>质数的平方，答案需要乘以 <span class="math inline">\(3\)</span>​</li>
+<li>质数乘质数，答案需要乘以 <span class="math inline">\(4\)</span>​</li>
+<li>三个质数相乘。因为三个质因子都大于 <span
+class="math inline">\(850\)</span>
+，所以实际上不会有其他质因子了，此时的答案为 <span
+class="math inline">\(8\)</span></li>
 </ul>
-<p>有意思的是，如果我们把输出的答案乘以 $2$ ，上面的所有情况都满足了题目的限制，<del>真是神奇呐</del></p>
-<p>时间复杂度 $\mathcal{O}(\mathrm{ok})$</p>
+<p>有意思的是，如果我们把输出的答案乘以 <span
+class="math inline">\(2\)</span>
+，上面的所有情况都满足了题目的限制，<del>真是神奇呐</del></p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(\mathrm{ok})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -846,9 +874,10 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jldatcjh">https://www.luogu.com.cn/article/jldatcjh</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/jldatcjh">https://www.luogu.com.cn/article/jldatcjh</a></p>
 
                 
             </div>
@@ -1330,7 +1359,7 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1599,21 +1628,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

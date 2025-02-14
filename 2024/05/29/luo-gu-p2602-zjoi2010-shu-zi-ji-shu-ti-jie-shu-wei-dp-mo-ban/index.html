@@ -748,21 +748,40 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2602-ZJOI2010-数字计数-题解-amp-数位dp-模板"><a href="#洛谷P2602-ZJOI2010-数字计数-题解-amp-数位dp-模板" class="headerlink" title="洛谷P2602 [ZJOI2010] 数字计数 题解 &amp; 数位dp 模板"></a>洛谷P2602 [ZJOI2010] 数字计数 题解 &amp; 数位dp 模板</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2602">P2602 [ZJOI2010] 数字计数</a></p>
+                <h1 id="洛谷p2602-zjoi2010-数字计数-题解-数位dp-模板">洛谷P2602
+[ZJOI2010] 数字计数 题解 &amp; 数位dp 模板</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2602">P2602
+[ZJOI2010] 数字计数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个正整数 $l$ 和 $r$，求在 $[l,r]$ 中的所有整数中，每个数码(digit)各出现了多少次。</p>
+<p>给定两个正整数 <span class="math inline">\(l\)</span> 和 <span
+class="math inline">\(r\)</span>，求在 <span
+class="math inline">\([l,r]\)</span>
+中的所有整数中，每个数码(digit)各出现了多少次。</p>
 <p><strong>输入格式</strong>：</p>
-<p>仅包含一行两个整数 $l,r$，含义如上所述。</p>
+<p>仅包含一行两个整数 <span
+class="math inline">\(l,r\)</span>，含义如上所述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>包含一行十个整数，分别表示 $0\sim 9$ 在 $[l,r]$ 中出现了多少次。</p>
+<p>包含一行十个整数，分别表示 <span class="math inline">\(0\sim
+9\)</span> 在 <span class="math inline">\([l,r]\)</span>
+中出现了多少次。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 $1\le l\le r\le 10^{12}$。</p>
+<p>保证 <span class="math inline">\(1\le l\le r\le
+10^{12}\)</span>。</p>
 </blockquote>
-<p>本题是 <strong>数位dp</strong> 的模板题（鉴于本人竟然没有数位dp的板子）</p>
-<p>设 $f(i,j)$ 表示（从低到高）考虑到第 $i$ 位，当前枚举的数码 $d$ 出现了 $j$​ 次时的方案数</p>
-<p>这样设计的好处在于边界是 $f(0,j)=j$ ，可以很方便的得到答案，而且状态数很少，只有 $12 \times 12$ 。</p>
-<p>数位dp一般使用记忆化搜索，复杂度一般等于 $\mathcal{O}\left(\texttt{状态数}\right)$​ 乘上一个小常数（没人会卡这个常数的）</p>
+<p>本题是 <strong>数位dp</strong>
+的模板题（鉴于本人竟然没有数位dp的板子）</p>
+<p>设 <span class="math inline">\(f(i,j)\)</span>
+表示（从低到高）考虑到第 <span class="math inline">\(i\)</span>
+位，当前枚举的数码 <span class="math inline">\(d\)</span> 出现了 <span
+class="math inline">\(j\)</span>​ 次时的方案数</p>
+<p>这样设计的好处在于边界是 <span
+class="math inline">\(f(0,j)=j\)</span>
+，可以很方便的得到答案，而且状态数很少，只有 <span
+class="math inline">\(12 \times 12\)</span> 。</p>
+<p>数位dp一般使用记忆化搜索，复杂度一般等于 <span
+class="math inline">\(\mathcal{O}\left(\texttt{状态数}\right)\)</span>​
+乘上一个小常数（没人会卡这个常数的）</p>
 <p>代码：（内有丰富注释，<del>开心吧</del>）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 2024年05月29日 17:29:00</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
@@ -804,9 +823,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">9</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token function">solve</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">solve</span><span class="token punctuation">(</span>l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/n0yqd8h9">https://www.luogu.com.cn/article/n0yqd8h9</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/n0yqd8h9">https://www.luogu.com.cn/article/n0yqd8h9</a></p>
 
                 
             </div>
@@ -1290,7 +1310,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1559,21 +1579,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -744,24 +744,50 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="LightOJ1341-Aladdin-and-the-Flying-Carpet-题解"><a href="#LightOJ1341-Aladdin-and-the-Flying-Carpet-题解" class="headerlink" title="LightOJ1341 Aladdin and the Flying Carpet 题解"></a>LightOJ1341 Aladdin and the Flying Carpet 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://vjudge.net/problem/LightOJ-1341">Aladdin and the Flying Carpet</a></p>
+                <h1 id="lightoj1341-aladdin-and-the-flying-carpet-题解">LightOJ1341
+Aladdin and the Flying Carpet 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://vjudge.net/problem/LightOJ-1341">Aladdin
+and the Flying Carpet</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$Q$ 组询问，每组询问给定 $n,m$ ，求有多少个无序对 $(a,b)$ 满足</p>
-<script type="math/tex; mode=display">
-a \times b = n \,\land\, a,b \ge m</script><p>$1 \le m\le n \le 10^{12}$ </p>
+<p><span class="math inline">\(Q\)</span> 组询问，每组询问给定 <span
+class="math inline">\(n,m\)</span> ，求有多少个无序对 <span
+class="math inline">\((a,b)\)</span> 满足 <span class="math display">\[
+a \times b = n \,\land\, a,b \ge m
+\]</span> <span class="math inline">\(1 \le m\le n \le
+10^{12}\)</span></p>
 </blockquote>
 <p>关键词：因数枚举</p>
-<p>很简单，枚举 $n$ 的全部因数然后判断即可，直接暴力做是 $\mathcal{O}(Q\sqrt{n})$ 的。</p>
-<p>可以用 $\mathtt{Pollard\ Rho}$ 算法优化到期望 $\mathcal{O}(Qn^{\frac{1}{4}})$ </p>
+<p>很简单，枚举 <span class="math inline">\(n\)</span>
+的全部因数然后判断即可，直接暴力做是 <span
+class="math inline">\(\mathcal{O}(Q\sqrt{n})\)</span> 的。</p>
+<p>可以用 <span class="math inline">\(\mathtt{Pollard\ Rho}\)</span>
+算法优化到期望 <span
+class="math inline">\(\mathcal{O}(Qn^{\frac{1}{4}})\)</span></p>
 <p>但是没必要这么麻烦，考虑一种预处理的方法。</p>
-<p>我们可以将 $n$ 写成唯一分解的形式，即 $n = p_1^{t_1}p_2^{t_2}\cdots p_k^{t_k}$</p>
-<p>这里素因子可以用线性筛预处理，复杂度为 $\mathcal{O}(\sqrt{N})$ 。</p>
-<p>显然 $n$ 的因数 $k$ 也可以写成 $k = p_1^{c_1}\,p_2^{c_2}\,\cdots\, p_k^{c_k}$ 的形式，其中 $0 \le c_i \le t_i$ 。</p>
-<p>考虑用 $\mathtt{dfs}$ 枚举 $c_i$ ，这样我们就能枚举出 $n$ 所有的因数了，注意要在分解 $n$ 的时候预处理一下。</p>
-<p>时间复杂度 $\mathcal{O}\left(\sqrt{N} + Q\left(\frac{2\sqrt{n}}{\ln n} + d(n)\right)\right)$ </p>
-<p>空间复杂度 $\mathcal{O}\left(\sqrt{N} + \omega(N)\log N\right)$ </p>
-<p>其中 $d(n)$ 表示 $n$ 的因数个数，$\omega(n)$ 表示 $n$ 的不同素因子个数。数量级详见 <a href="/notations/#toc-heading-2">link</a></p>
+<p>我们可以将 <span class="math inline">\(n\)</span>
+写成唯一分解的形式，即 <span class="math inline">\(n =
+p_1^{t_1}p_2^{t_2}\cdots p_k^{t_k}\)</span></p>
+<p>这里素因子可以用线性筛预处理，复杂度为 <span
+class="math inline">\(\mathcal{O}(\sqrt{N})\)</span> 。</p>
+<p>显然 <span class="math inline">\(n\)</span> 的因数 <span
+class="math inline">\(k\)</span> 也可以写成 <span
+class="math inline">\(k = p_1^{c_1}\,p_2^{c_2}\,\cdots\,
+p_k^{c_k}\)</span> 的形式，其中 <span class="math inline">\(0 \le c_i
+\le t_i\)</span> 。</p>
+<p>考虑用 <span class="math inline">\(\mathtt{dfs}\)</span> 枚举 <span
+class="math inline">\(c_i\)</span> ，这样我们就能枚举出 <span
+class="math inline">\(n\)</span> 所有的因数了，注意要在分解 <span
+class="math inline">\(n\)</span> 的时候预处理一下。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}\left(\sqrt{N} +
+Q\left(\frac{2\sqrt{n}}{\ln n} + d(n)\right)\right)\)</span></p>
+<p>空间复杂度 <span class="math inline">\(\mathcal{O}\left(\sqrt{N} +
+\omega(N)\log N\right)\)</span></p>
+<p>其中 <span class="math inline">\(d(n)\)</span> 表示 <span
+class="math inline">\(n\)</span> 的因数个数，<span
+class="math inline">\(\omega(n)\)</span> 表示 <span
+class="math inline">\(n\)</span> 的不同素因子个数。数量级详见 <a
+href="/notations/#toc-heading-2">link</a></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1286,7 +1312,7 @@ bitset<span class="token operator">&lt;</span>N<span class="token operator">></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1555,21 +1581,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -732,7 +732,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    722
+                    1.1k
                 </div>
                 
 
@@ -752,41 +752,84 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2120-ZJOI2007-仓库建设-题解"><a href="#洛谷P2120-ZJOI2007-仓库建设-题解" class="headerlink" title="洛谷P2120 [ZJOI2007] 仓库建设 题解"></a>洛谷P2120 [ZJOI2007] 仓库建设 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2120">P2120 [ZJOI2007] 仓库建设</a></p>
+                <h1 id="洛谷p2120-zjoi2007-仓库建设-题解">洛谷P2120 [ZJOI2007] 仓库建设
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2120">P2120
+[ZJOI2007] 仓库建设</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>L 公司有 $n$ 个工厂，由高到低分布在一座山上，工厂 $1$ 在山顶，工厂 $n$ 在山脚。</p>
-<p>由于这座山处于高原内陆地区（干燥少雨），L公司一般把产品直接堆放在露天，以节省费用。突然有一天，L 公司的总裁 L 先生接到气象部门的电话，被告知三天之后将有一场暴雨，于是 L 先生决定紧急在某些工厂建立一些仓库以免产品被淋坏。</p>
-<p>由于地形的不同，在不同工厂建立仓库的费用可能是不同的。第 $i$ 个工厂目前已有成品 $p_i$ 件，在第 $i$ 个工厂位置建立仓库的费用是 $c_i$。</p>
-<p>对于没有建立仓库的工厂，其产品应被运往其他的仓库进行储藏，而由于 L 公司产品的对外销售处设置在山脚的工厂 $n$，故产品只能往山下运（即<strong>只能运往编号更大的工厂的仓库</strong>），当然运送产品也是需要费用的，一件产品运送一个单位距离的费用是 $1$。</p>
+<p>L 公司有 <span class="math inline">\(n\)</span>
+个工厂，由高到低分布在一座山上，工厂 <span
+class="math inline">\(1\)</span> 在山顶，工厂 <span
+class="math inline">\(n\)</span> 在山脚。</p>
+<p>由于这座山处于高原内陆地区（干燥少雨），L公司一般把产品直接堆放在露天，以节省费用。突然有一天，L
+公司的总裁 L 先生接到气象部门的电话，被告知三天之后将有一场暴雨，于是 L
+先生决定紧急在某些工厂建立一些仓库以免产品被淋坏。</p>
+<p>由于地形的不同，在不同工厂建立仓库的费用可能是不同的。第 <span
+class="math inline">\(i\)</span> 个工厂目前已有成品 <span
+class="math inline">\(p_i\)</span> 件，在第 <span
+class="math inline">\(i\)</span> 个工厂位置建立仓库的费用是 <span
+class="math inline">\(c_i\)</span>。</p>
+<p>对于没有建立仓库的工厂，其产品应被运往其他的仓库进行储藏，而由于 L
+公司产品的对外销售处设置在山脚的工厂 <span
+class="math inline">\(n\)</span>，故产品只能往山下运（即<strong>只能运往编号更大的工厂的仓库</strong>），当然运送产品也是需要费用的，一件产品运送一个单位距离的费用是
+<span class="math inline">\(1\)</span>。</p>
 <p>假设建立的仓库容量都都是足够大的，可以容下所有的产品。你将得到以下数据：</p>
 <ul>
-<li>工厂 $i$ 距离工厂 $1$ 的距离 $x_i$（其中 $x_1=0$）。</li>
-<li>工厂 $i$ 目前已有成品数量 $p_i$。</li>
-<li>在工厂 $i$ 建立仓库的费用 $c_i$。</li>
+<li>工厂 <span class="math inline">\(i\)</span> 距离工厂 <span
+class="math inline">\(1\)</span> 的距离 <span
+class="math inline">\(x_i\)</span>（其中 <span
+class="math inline">\(x_1=0\)</span>）。</li>
+<li>工厂 <span class="math inline">\(i\)</span> 目前已有成品数量 <span
+class="math inline">\(p_i\)</span>。</li>
+<li>在工厂 <span class="math inline">\(i\)</span> 建立仓库的费用 <span
+class="math inline">\(c_i\)</span>。</li>
 </ul>
-<p>请你帮助 L 公司寻找一个仓库建设的方案，使得总的费用（建造费用 + 运输费用）最小。</p>
+<p>请你帮助 L 公司寻找一个仓库建设的方案，使得总的费用（建造费用 +
+运输费用）最小。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行是一个整数 $n$，代表工厂的个数。</p>
-<p>第 $2$ 到 $(n + 1)$ 行，每行有三个用空格隔开的整数，第 $(i + 1)$ 行的整数依次代表 $x_i,~p_i,~c_i$。</p>
+<p>输入的第一行是一个整数 <span
+class="math inline">\(n\)</span>，代表工厂的个数。</p>
+<p>第 <span class="math inline">\(2\)</span> 到 <span
+class="math inline">\((n + 1)\)</span>
+行，每行有三个用空格隔开的整数，第 <span class="math inline">\((i +
+1)\)</span> 行的整数依次代表 <span
+class="math inline">\(x_i,~p_i,~c_i\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
 <p>仅输出一行一个整数，代表最优方案的费用。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，保证 $1 \leq n \leq 10^6$，$0 \leq x_i,p_i,c_i &lt; 2^{31}$。</p>
-<p>对于任意的 $1 \leq i &lt; n$，保证 $x_i &lt; x_{i + 1}$。设答案为 $ans$，保证 $ans + \sum_{i = 1}^{n} p_ix_i &lt; 2^{63}$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，保证 <span
+class="math inline">\(1 \leq n \leq 10^6\)</span>，<span
+class="math inline">\(0 \leq x_i,p_i,c_i &lt; 2^{31}\)</span>。</p>
+<p>对于任意的 <span class="math inline">\(1 \leq i &lt; n\)</span>，保证
+<span class="math inline">\(x_i &lt; x_{i + 1}\)</span>。设答案为 <span
+class="math inline">\(ans\)</span>，保证 <span class="math inline">\(ans
++ \sum_{i = 1}^{n} p_ix_i &lt; 2^{63}\)</span>。</p>
 </blockquote>
-<p>设 $f_i$ 表示考虑前 $i$ 个位置并且钦定 $i$ 必须建工厂时的最小花费，则</p>
-<script type="math/tex; mode=display">
-f_i=\min _{0 \leq j<i}\left\{f_j+\sum_{k=j+1}^i(x_i-x_k) p_k\right\}+c_i</script><p>考虑前缀和优化。记 $s_i = \sum_{k=1}^ip_k,S_i = \sum_{k=1}^ix_kp_k$ ，那么</p>
-<script type="math/tex; mode=display">
-f_i=\min _{0 \leq j<i}\left\{f_j+x_i(s_i-s_j)-(S_i-S_j)\right\}+c_i</script><p>继续考虑斜率优化。</p>
-<p>考察 $0 \le j &lt; k &lt; i$ 时，若 $k$ 比 $j$ 更优则有</p>
-<script type="math/tex; mode=display">
-f_k+x_i\left(s_i-s_k\right)-\left(S_i-S_k\right)<f_j+x_i\left(s_i-s_j\right)-\left(S_i-S_j\right)</script><p>整理得</p>
-<script type="math/tex; mode=display">
-(f_k + S_k) - (f_j + S_j) < x_i(s_k - s_j)</script><p>直接用单调队列维护即可。注意这个题会有 $p_i=0$ 的情况。</p>
-<p>那么答案就是最后一个 $p_i\ne 0$ 的位置到 $n$ 之间的 $f$ 的最小值。如果没有任何货物答案则为 $0$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>设 <span class="math inline">\(f_i\)</span> 表示考虑前 <span
+class="math inline">\(i\)</span> 个位置并且钦定 <span
+class="math inline">\(i\)</span> 必须建工厂时的最小花费，则 <span
+class="math display">\[
+f_i=\min _{0 \leq j&lt;i}\left\{f_j+\sum_{k=j+1}^i(x_i-x_k)
+p_k\right\}+c_i
+\]</span> 考虑前缀和优化。记 <span class="math inline">\(s_i =
+\sum_{k=1}^ip_k,S_i = \sum_{k=1}^ix_kp_k\)</span> ，那么 <span
+class="math display">\[
+f_i=\min _{0 \leq j&lt;i}\left\{f_j+x_i(s_i-s_j)-(S_i-S_j)\right\}+c_i
+\]</span> 继续考虑斜率优化。</p>
+<p>考察 <span class="math inline">\(0 \le j &lt; k &lt; i\)</span>
+时，若 <span class="math inline">\(k\)</span> 比 <span
+class="math inline">\(j\)</span> 更优则有 <span class="math display">\[
+f_k+x_i\left(s_i-s_k\right)-\left(S_i-S_k\right)&lt;f_j+x_i\left(s_i-s_j\right)-\left(S_i-S_j\right)
+\]</span> 整理得 <span class="math display">\[
+(f_k + S_k) - (f_j + S_j) &lt; x_i(s_k - s_j)
+\]</span> 直接用单调队列维护即可。注意这个题会有 <span
+class="math inline">\(p_i=0\)</span> 的情况。</p>
+<p>那么答案就是最后一个 <span class="math inline">\(p_i\ne 0\)</span>
+的位置到 <span class="math inline">\(n\)</span> 之间的 <span
+class="math inline">\(f\)</span> 的最小值。如果没有任何货物答案则为
+<span class="math inline">\(0\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -836,9 +879,10 @@ f_k+x_i\left(s_i-s_k\right)-\left(S_i-S_k\right)<f_j+x_i\left(s_i-s_j\right)-\le
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1096.html">https://yhx-12243.github.io/OI-transit/records/lydsy1096.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1096.html">https://yhx-12243.github.io/OI-transit/records/lydsy1096.html</a></p>
 
                 
             </div>
@@ -1320,7 +1364,7 @@ f_k+x_i\left(s_i-s_k\right)-\left(S_i-S_k\right)<f_j+x_i\left(s_i-s_j\right)-\le
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1589,21 +1633,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

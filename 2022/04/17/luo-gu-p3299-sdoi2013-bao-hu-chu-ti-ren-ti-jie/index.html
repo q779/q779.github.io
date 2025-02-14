@@ -744,31 +744,61 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3299-SDOI2013-保护出题人-题解"><a href="#洛谷P3299-SDOI2013-保护出题人-题解" class="headerlink" title="洛谷P3299 [SDOI2013]保护出题人 题解"></a>洛谷P3299 [SDOI2013]保护出题人 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3299">P3299 [SDOI2013]保护出题人</a></p>
+                <h1 id="洛谷p3299-sdoi2013保护出题人-题解">洛谷P3299
+[SDOI2013]保护出题人 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3299">P3299
+[SDOI2013]保护出题人</a></p>
 <blockquote>
 <p><strong>题意</strong>：出题人铭铭认为给SDOI2012出题太可怕了，因为总要被骂，于是他又给SDOI2013出题了。</p>
 <p>参加SDOI2012的小朋友们释放出大量的僵尸，企图攻击铭铭的家。而你作为SDOI2013的参赛者，你需要保护出题人铭铭。</p>
 <p>僵尸从唯一一条笔直道路接近，你们需要在铭铭的房门前放置植物攻击僵尸，避免僵尸碰到房子。</p>
-<p>第一关，一只血量为 $a_1$ 点的墦尸从距离房子 $x_1$ 米处速接近，你们放置了攻击力为 $y_1$ 点/秒的植物进行防御；第二关，在上一关基础上，僵尸队列排头增加一只血量为 $a_2$ 点的僵尸，与后一只僵尸距离 $d$ 米，从距离房 $x_2$ 米处匀速接近，你们重新放置攻击力为 $y_2$ 点/秒的植物；……；第 $n$ 关，僵尸队列共有 $n$ 只僵尸，相邻两只僵尸距离 $d$ 米，排头僵尸血量 $a_n$ 点，排第二的 僵尸血量 $a_{n-1}$ ，以此类推，排头僵尸从距离房子 $x_n$ 米处匀速接近，其余僵尸跟随排头同时接近，你们重新放置攻击力为 $y_n$ 点/秒的植物。</p>
-<p>每只僵尸直线移动速度均为 $1$ 米/秒，由于植物射击速度远大于僵尸移动速度，可忽略植物子弹在空中的时间。所有僵尸同时出现并接近，因此当一只僵尸死亡后，下一只僵尸立刻开始受到植物子弹的伤害。</p>
-<p>游戏得分取决于你们放置的植物攻击力的总和 $\sum \limits _{i=1} ^{n} y_i$，和越小分数越高，为了追求分数上界，你们每关都要放置攻击力尽量小的植物。</p>
+<p>第一关，一只血量为 <span class="math inline">\(a_1\)</span>
+点的墦尸从距离房子 <span class="math inline">\(x_1\)</span>
+米处速接近，你们放置了攻击力为 <span class="math inline">\(y_1\)</span>
+点/秒的植物进行防御；第二关，在上一关基础上，僵尸队列排头增加一只血量为
+<span class="math inline">\(a_2\)</span> 点的僵尸，与后一只僵尸距离
+<span class="math inline">\(d\)</span> 米，从距离房 <span
+class="math inline">\(x_2\)</span> 米处匀速接近，你们重新放置攻击力为
+<span class="math inline">\(y_2\)</span> 点/秒的植物；……；第 <span
+class="math inline">\(n\)</span> 关，僵尸队列共有 <span
+class="math inline">\(n\)</span> 只僵尸，相邻两只僵尸距离 <span
+class="math inline">\(d\)</span> 米，排头僵尸血量 <span
+class="math inline">\(a_n\)</span> 点，排第二的 僵尸血量 <span
+class="math inline">\(a_{n-1}\)</span> ，以此类推，排头僵尸从距离房子
+<span class="math inline">\(x_n\)</span>
+米处匀速接近，其余僵尸跟随排头同时接近，你们重新放置攻击力为 <span
+class="math inline">\(y_n\)</span> 点/秒的植物。</p>
+<p>每只僵尸直线移动速度均为 <span class="math inline">\(1\)</span>
+米/秒，由于植物射击速度远大于僵尸移动速度，可忽略植物子弹在空中的时间。所有僵尸同时出现并接近，因此当一只僵尸死亡后，下一只僵尸立刻开始受到植物子弹的伤害。</p>
+<p>游戏得分取决于你们放置的植物攻击力的总和 <span
+class="math inline">\(\sum \limits _{i=1} ^{n}
+y_i\)</span>，和越小分数越高，为了追求分数上界，你们每关都要放置攻击力尽量小的植物。</p>
 <p>作为SDOI2013的参赛选手，你们能保护出题人么？</p>
 </blockquote>
-<p>对于第 $i$ 轮的第 $j$ 只僵尸，打死它的充要条件为它前面的僵尸全部被打死</p>
-<p>它需要走过的距离为 $x_i+d\times (i-j+1)$ ，则最小的攻击为</p>
-<script type="math/tex; mode=display">
-\dfrac{\sum_{k=j}^{i}a_k}{x_i+d\times(i-j+1)}</script><p>则第 $i$ 轮进攻的最小攻击</p>
-<script type="math/tex; mode=display">
-y_i = \max\left(\dfrac{S_i-S_{j-1}}{x_i+d\times(i-j+1)}\right)</script><p>其中，$S_i = \sum_{k=1}^{i} a_k$</p>
-<p>稍微观察一下式子，可以发现</p>
-<script type="math/tex; mode=display">
-y_i = \max\left(\dfrac{S_i-S_{j-1}}{(x_i+d\times i)-d\times(j-1)}\right)</script><p>即点 $(x_i+d\times i,i)$ 和 $(d\times(j-1),j-1)$ 的直线斜率</p>
-<p>而前者在仅与 $i$ 有关，可以看作定点；后者则与 $i$ 无关，仅与每只僵尸有关</p>
-<p>考虑对 $(d\times(j-1),j-1)$ 维护一个下凸壳</p>
+<p>对于第 <span class="math inline">\(i\)</span> 轮的第 <span
+class="math inline">\(j\)</span>
+只僵尸，打死它的充要条件为它前面的僵尸全部被打死</p>
+<p>它需要走过的距离为 <span class="math inline">\(x_i+d\times
+(i-j+1)\)</span> ，则最小的攻击为 <span class="math display">\[
+\dfrac{\sum_{k=j}^{i}a_k}{x_i+d\times(i-j+1)}
+\]</span> 则第 <span class="math inline">\(i\)</span> 轮进攻的最小攻击
+<span class="math display">\[
+y_i = \max\left(\dfrac{S_i-S_{j-1}}{x_i+d\times(i-j+1)}\right)
+\]</span> 其中，<span class="math inline">\(S_i = \sum_{k=1}^{i}
+a_k\)</span></p>
+<p>稍微观察一下式子，可以发现 <span class="math display">\[
+y_i = \max\left(\dfrac{S_i-S_{j-1}}{(x_i+d\times i)-d\times(j-1)}\right)
+\]</span> 即点 <span class="math inline">\((x_i+d\times i,i)\)</span> 和
+<span class="math inline">\((d\times(j-1),j-1)\)</span> 的直线斜率</p>
+<p>而前者在仅与 <span class="math inline">\(i\)</span>
+有关，可以看作定点；后者则与 <span class="math inline">\(i\)</span>
+无关，仅与每只僵尸有关</p>
+<p>考虑对 <span class="math inline">\((d\times(j-1),j-1)\)</span>
+维护一个下凸壳</p>
 <p>每一轮二分一个点使得其和定点所成直线斜率最大</p>
 <p>把这些斜率加起来就是答案了</p>
 <p>注意本题是四舍五入，而不是向下取整</p>
-<p>时间复杂度 $O(n\log n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(n\log n)\)</span></p>
 <p>代码如下</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1300,7 +1330,7 @@ y_i = \max\left(\dfrac{S_i-S_{j-1}}{(x_i+d\times i)-d\times(j-1)}\right)</script
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1569,21 +1599,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -752,54 +752,104 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P9753-CSP-S-2023-消消乐-题解"><a href="#洛谷P9753-CSP-S-2023-消消乐-题解" class="headerlink" title="洛谷P9753 [CSP-S 2023] 消消乐 题解"></a>洛谷P9753 [CSP-S 2023] 消消乐 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9753">P9753 [CSP-S 2023] 消消乐</a></p>
+                <h1 id="洛谷p9753-csp-s-2023-消消乐-题解">洛谷P9753 [CSP-S 2023] 消消乐
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9753">P9753
+[CSP-S 2023] 消消乐</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>小 L 现在在玩一个低配版本的消消乐，该版本的游戏是一维的，一次也只能消除两个相邻的元素。</p>
-<p>现在，他有一个长度为 $n$ 且仅由小写字母构成的字符串。我们称一个字符串是可消除的，当且仅当可以对这个字符串进行若干次操作，使之成为一个空字符串。</p>
+<p>小 L
+现在在玩一个低配版本的消消乐，该版本的游戏是一维的，一次也只能消除两个相邻的元素。</p>
+<p>现在，他有一个长度为 <span class="math inline">\(n\)</span>
+且仅由小写字母构成的字符串。我们称一个字符串是可消除的，当且仅当可以对这个字符串进行若干次操作，使之成为一个空字符串。</p>
 <p>其中每次操作可以从字符串中删除两个相邻的相同字符，操作后剩余字符串会拼接在一起。</p>
 <p>小 L 想知道，这个字符串的所有非空连续子串中，有多少个是可消除的。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含一个正整数 $n$，表示字符串的长度。</p>
-<p>输入的第二行包含一个长度为 $n$ 且仅由小写字母构成的的字符串，表示题目中询问的字符串。</p>
+<p>输入的第一行包含一个正整数 <span
+class="math inline">\(n\)</span>，表示字符串的长度。</p>
+<p>输入的第二行包含一个长度为 <span class="math inline">\(n\)</span>
+且仅由小写字母构成的的字符串，表示题目中询问的字符串。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行包含一个整数，表示题目询问的答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \leq n \leq 2 \times 10^6$ ，且询问的字符串仅由小写字母构成</p>
+<p><span class="math inline">\(1 \leq n \leq 2 \times 10^6\)</span>
+，且询问的字符串仅由小写字母构成</p>
 </blockquote>
 <p><strong>解法一</strong>：</p>
 <p>这个解法适合从 dp 角度出发的思考的同学（<del>比如我</del>）。</p>
-<p>容易发现，若 $s[i\,..k-1]$ 合法，且 $s[k\,..j]$ 合法，则 $s[i\,..j]$ 合法。</p>
-<p>考虑 dp。设 $f_i$ 为以 $i$ 结尾的合法子串的数量，答案即为 $\sum_{i=1}^n f_i$ </p>
+<p>容易发现，若 <span class="math inline">\(s[i\,..k-1]\)</span>
+合法，且 <span class="math inline">\(s[k\,..j]\)</span> 合法，则 <span
+class="math inline">\(s[i\,..j]\)</span> 合法。</p>
+<p>考虑 dp。设 <span class="math inline">\(f_i\)</span> 为以 <span
+class="math inline">\(i\)</span> 结尾的合法子串的数量，答案即为 <span
+class="math inline">\(\sum_{i=1}^n f_i\)</span></p>
 <p>考场上想到这一步就发现好像没法转移，然后转头去想别的方法了。</p>
-<p>哎，性质都没用上怎么就不能转移了？我们考察 $s[k\,..j]$ 是一个以 $j$ 结尾的最小合法串，比如 <code>abba</code> 时的场景</p>
-<p>可以发现，此时 $f_j = f_{k-1} + 1$ 。比如 $s[i\,..k-1]$ 为 <code>bbcc</code> ，那 $f_j$ 就是 <code>abba, ccabba, bbccabba</code> ，即 $3$ 。</p>
-<p>因此可以得到转移方程 $f_i = f_{g_i - 1} + 1$ ，其中 $g_i$ 为最大能使 $s[g_i\, .. i]$ 合法的下标。</p>
-<p>根据 $g_i$ 的定义可知，$s_i = s_{g_i}$ ，因此我们可以像 kmp 一样进行如下操作：</p>
-<ol>
-<li>$g_i = i$ 为初值</li>
-<li>$g_i \gets g_{g_i}-1$ </li>
-<li>当 $s_i\ne s_{g_i}$ 时，重复2</li>
+<p>哎，性质都没用上怎么就不能转移了？我们考察 <span
+class="math inline">\(s[k\,..j]\)</span> 是一个以 <span
+class="math inline">\(j\)</span> 结尾的最小合法串，比如
+<code>abba</code> 时的场景</p>
+<p>可以发现，此时 <span class="math inline">\(f_j = f_{k-1} + 1\)</span>
+。比如 <span class="math inline">\(s[i\,..k-1]\)</span> 为
+<code>bbcc</code> ，那 <span class="math inline">\(f_j\)</span> 就是
+<code>abba, ccabba, bbccabba</code> ，即 <span
+class="math inline">\(3\)</span> 。</p>
+<p>因此可以得到转移方程 <span class="math inline">\(f_i = f_{g_i - 1} +
+1\)</span> ，其中 <span class="math inline">\(g_i\)</span> 为最大能使
+<span class="math inline">\(s[g_i\, .. i]\)</span> 合法的下标。</p>
+<p>根据 <span class="math inline">\(g_i\)</span> 的定义可知，<span
+class="math inline">\(s_i = s_{g_i}\)</span> ，因此我们可以像 kmp
+一样进行如下操作：</p>
+<ol type="1">
+<li><span class="math inline">\(g_i = i\)</span> 为初值</li>
+<li><span class="math inline">\(g_i \gets g_{g_i}-1\)</span></li>
+<li>当 <span class="math inline">\(s_i\ne s_{g_i}\)</span>
+时，重复2</li>
 </ol>
 <p>上面的伪代码可能有些细节问题，但是应该可以理解。</p>
 <blockquote>
-<p>定义的 $g_i$ 和代码的 <code>g[i]</code> 两者间不要混淆，这句话主要是提醒自己。</p>
-<p>可能这个初值显得“不符合定义”，但是可以发现，如果存在 $g_i$ ，在循环数次后，$g_i$ 就会变成正确值。</p>
-<p>如果不存在 $g_i$ ，那么让 <code>g[i]=i</code> ，或者说定义 $g_i=i$ 不会影响接下来跳的过程。</p>
+<p>定义的 <span class="math inline">\(g_i\)</span> 和代码的
+<code>g[i]</code> 两者间不要混淆，这句话主要是提醒自己。</p>
+<p>可能这个初值显得“不符合定义”，但是可以发现，如果存在 <span
+class="math inline">\(g_i\)</span> ，在循环数次后，<span
+class="math inline">\(g_i\)</span> 就会变成正确值。</p>
+<p>如果不存在 <span class="math inline">\(g_i\)</span> ，那么让
+<code>g[i]=i</code> ，或者说定义 <span
+class="math inline">\(g_i=i\)</span> 不会影响接下来跳的过程。</p>
 </blockquote>
 <p>下图形象地表示了跳的部分过程（不是我画的）</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202311211609217.png" alt=""></p>
-<p>凭感觉也能发现，这个做法常数比较大，看上去似乎有 $\mathcal{O}(n^2)$。</p>
-<p>不过实际上复杂度是 $\mathcal{O}(n|\Sigma|)$ ，即 $\mathcal{O}(26n)$ ，我们会<strong>在解法二详细说明</strong>（代码也在后面）。</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202311211609217.png" /></p>
+<p>凭感觉也能发现，这个做法常数比较大，看上去似乎有 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。</p>
+<p>不过实际上复杂度是 <span
+class="math inline">\(\mathcal{O}(n|\Sigma|)\)</span> ，即 <span
+class="math inline">\(\mathcal{O}(26n)\)</span>
+，我们会<strong>在解法二详细说明</strong>（代码也在后面）。</p>
 <p>在这里我们就假设这个算法看上去不那么靠谱，如何继续优化。</p>
-<p>观察上图，可以发现，这些跳的过程不那么连贯。如果令 $h_i = g_i - 1$ ，则跳的过程就变成了下面的样子：</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202311211833528.png" alt=""></p>
+<p>观察上图，可以发现，这些跳的过程不那么连贯。如果令 <span
+class="math inline">\(h_i = g_i - 1\)</span>
+，则跳的过程就变成了下面的样子：</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202311211833528.png" /></p>
 <p>这样跳的连贯了，可是还无法做到“路径压缩”，原因就在于，每次跳的起点和终点不一定字符相同。</p>
-<p>那么我们不妨重新定义 $g(i,c)$ 表示 $s_{g(i,c) + 1} = c$ 且能使 $s[g(i,c) + 1 \, .. i]$ 合法的最大下标。</p>
-<p>注意到每次修改的有且只有 $g(i,s_i)$ ，我们不妨把把同一条链上的 $g$ 直接合并为 $g(\mathrm{to}_i)$ ，每次就只需修改 $g(\mathrm{to}_i,s_i)$ 了。</p>
-<p>这样我们对于每个 $i$ ，只要查询 $g(\mathrm{to}_i,c)$ ，就可以知道「$c$  + 一个合法串」的位置了。</p>
-<p>换句话说，对于每个 $i$ ，我们只要询问 $g(\mathrm{to}_{i-1},s_i)$ 就可以达到之前跳 $g_i$ 的效果了。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>那么我们不妨重新定义 <span class="math inline">\(g(i,c)\)</span> 表示
+<span class="math inline">\(s_{g(i,c) + 1} = c\)</span> 且能使 <span
+class="math inline">\(s[g(i,c) + 1 \, .. i]\)</span>
+合法的最大下标。</p>
+<p>注意到每次修改的有且只有 <span
+class="math inline">\(g(i,s_i)\)</span> ，我们不妨把把同一条链上的 <span
+class="math inline">\(g\)</span> 直接合并为 <span
+class="math inline">\(g(\mathrm{to}_i)\)</span> ，每次就只需修改 <span
+class="math inline">\(g(\mathrm{to}_i,s_i)\)</span> 了。</p>
+<p>这样我们对于每个 <span class="math inline">\(i\)</span> ，只要查询
+<span class="math inline">\(g(\mathrm{to}_i,c)\)</span>
+，就可以知道「<span class="math inline">\(c\)</span> +
+一个合法串」的位置了。</p>
+<p>换句话说，对于每个 <span class="math inline">\(i\)</span>
+，我们只要询问 <span
+class="math inline">\(g(\mathrm{to}_{i-1},s_i)\)</span> 就可以达到之前跳
+<span class="math inline">\(g_i\)</span> 的效果了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -828,16 +878,23 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>解法二</strong>：</p>
 <p>相信做过括号序列的同学应该能很快发现这个解法</p>
-<p>考虑用一个栈，从 $1$ 到 $n$ 遍历每个字母，如果和栈顶相同就弹出。</p>
+<p>考虑用一个栈，从 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+遍历每个字母，如果和栈顶相同就弹出。</p>
 <p>考虑用一个数组记录遍历每个位置时栈的情况。可以发现，在一些时候，某些栈的情况是完全相同的</p>
 <p>我们称栈情况完全相同这些位置等价，显然会有若干个不同的等价类。</p>
 <p>并且可以发现，任意选取两个等价的位置，都能构成一个合法串。</p>
-<p>因此答案就是 $\sum_{k \in U}\binom{k}{2}$ ，其中 $k$ 为某个等价类的基数（即元素个数）</p>
-<p>统计集合基数，那就要用到哈希了。建议用双哈希，毕竟 $n \le 2\times 10^6$ 。（我只知道自然溢出天天被卡）</p>
-<p>时间复杂度 $\mathcal{O}(n\log n)$</p>
+<p>因此答案就是 <span class="math inline">\(\sum_{k \in
+U}\binom{k}{2}\)</span> ，其中 <span class="math inline">\(k\)</span>
+为某个等价类的基数（即元素个数）</p>
+<p>统计集合基数，那就要用到哈希了。建议用双哈希，毕竟 <span
+class="math inline">\(n \le 2\times 10^6\)</span>
+。（我只知道自然溢出天天被卡）</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -883,9 +940,14 @@ rgba(0,0,0,0.2);
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p>这时候我们就可以分析之前解法一的第一个算法的复杂度了</p>
-<p>对于任意等价的 $i,j$ ，显然 $s[i+1\,..j]$ 合法。</p>
-<p>因此当我们考虑 $g_{j+1}$ 时，一定会经过这个区间，然后到 $[1,i]$ 中找。</p>
-<p>而 $j-i \le \mathcal{O}(|\Sigma|)$ ，因此总复杂度为 $\mathcal{O}(n|\Sigma|)$</p>
+<p>对于任意等价的 <span class="math inline">\(i,j\)</span> ，显然 <span
+class="math inline">\(s[i+1\,..j]\)</span> 合法。</p>
+<p>因此当我们考虑 <span class="math inline">\(g_{j+1}\)</span>
+时，一定会经过这个区间，然后到 <span
+class="math inline">\([1,i]\)</span> 中找。</p>
+<p>而 <span class="math inline">\(j-i \le \mathcal{O}(|\Sigma|)\)</span>
+，因此总复杂度为 <span
+class="math inline">\(\mathcal{O}(n|\Sigma|)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -912,11 +974,16 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SpadeA261/solution-p9753">P9753 [CSP-S 2023] 消消乐 题解 - SpadeA261 的博客 - 洛谷博客</a> </p>
-<p>[2]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xrkforces/sol-P9753">【题解】P9753 [CSP-S 2023] 消消乐（字符串哈希，DP） - 向日葵Reta 的博客 - 洛谷博客</a> </p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SpadeA261/solution-p9753">P9753
+[CSP-S 2023] 消消乐 题解 - SpadeA261 的博客 - 洛谷博客</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/xrkforces/sol-P9753">【题解】P9753
+[CSP-S 2023] 消消乐（字符串哈希，DP） - 向日葵Reta 的博客 -
+洛谷博客</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>大林消消乐（<del>无端联想</del>）</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202311211537908.jpg" style="zoom:80%;" /></p>
@@ -1389,7 +1456,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1658,21 +1725,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

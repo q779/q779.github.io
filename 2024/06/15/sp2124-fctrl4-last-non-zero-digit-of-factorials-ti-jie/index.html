@@ -728,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    444
+                    450
                 </div>
                 
 
@@ -748,25 +748,49 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP2124-FCTRL4-Last-Non-Zero-Digit-of-Factorials-题解"><a href="#SP2124-FCTRL4-Last-Non-Zero-Digit-of-Factorials-题解" class="headerlink" title="SP2124 FCTRL4 - Last Non-Zero Digit of Factorials 题解"></a>SP2124 FCTRL4 - Last Non-Zero Digit of Factorials 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP2124">FCTRL4 - Last Non-Zero Digit of Factorials</a></p>
+                <h1 id="sp2124-fctrl4---last-non-zero-digit-of-factorials-题解">SP2124
+FCTRL4 - Last Non-Zero Digit of Factorials 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP2124">FCTRL4 -
+Last Non-Zero Digit of Factorials</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>多组数据，每次给出一个正整数 $n(n \le 10^{100})$ ，求 $n!$ 最后一位非零数字。</p>
-<p>例如 $5! = 1\times 2 \times 3 \times 4 \times 5 = 120$ ，它的最后一位非零数字是 $2$ 。</p>
+<p>多组数据，每次给出一个正整数 <span class="math inline">\(n(n \le
+10^{100})\)</span> ，求 <span class="math inline">\(n!\)</span>
+最后一位非零数字。</p>
+<p>例如 <span class="math inline">\(5! = 1\times 2 \times 3 \times 4
+\times 5 = 120\)</span> ，它的最后一位非零数字是 <span
+class="math inline">\(2\)</span> 。</p>
 </blockquote>
 <p>好像我是这题代码最短的，只有 202B 。</p>
-<p>记 $a = \left\lfloor\frac{n}{5}\right\rfloor,~b = n - 5\times \left\lfloor\frac{n}{5}\right\rfloor$ ，并记 $L(n)$ 为 $n!$ 最后一位非 $0$ 数字，则</p>
-<script type="math/tex; mode=display">
+<p>记 <span class="math inline">\(a =
+\left\lfloor\frac{n}{5}\right\rfloor,~b = n - 5\times
+\left\lfloor\frac{n}{5}\right\rfloor\)</span> ，并记 <span
+class="math inline">\(L(n)\)</span> 为 <span
+class="math inline">\(n!\)</span> 最后一位非 <span
+class="math inline">\(0\)</span> 数字，则 <span class="math display">\[
 \begin{aligned}
-L(n) &= 5\times 10\times 15\times \cdots\times (1 \times 2 \times 3 \times 4)(6 \times 7 \times 8 \times 9)(11\times 12\times 13\times 14)\times \cdots
-\\[6pt]&=5^a\cdot a!\cdot (1 \times 2 \times 3 \times 4)(6 \times 7 \times 8 \times 9)(11\times 12\times 13\times 14)\cdots
-\\[6pt]&=5^a\cdot a!\cdot (1 \times 2 \times 3 \times 4)(6 \times 7 \times 8 \times 9)(1\times 2\times 3\times 4)\cdots(1\times 2\times\cdots\times b)
-\\[6pt]&=5^a\cdot a!(4\times 6)(4\times 6)\cdots (1\times 2\times \cdots \times b)
-\\[6pt]&=5^a\cdot a! \cdot 2^{2a} \cdot 6^a\cdot b!
-\\[6pt]&=2^{a} L(a)L(b)\cdot 6^a
-\end{aligned} \pmod{10}</script><p>由于 $2^a$ 的个位数等于 $2^{a \bmod 4}$ ，并且 $6$ 乘以任何偶数 $x$ 都不改变 $x$ 的个位数，故</p>
-<script type="math/tex; mode=display">
-L(n) = 2^{a \bmod 4}L(n/5)\cdot L(n \bmod 5) \pmod{10}</script><p>时间复杂度 $\mathcal{O}(100\times \log_5 n)$</p>
+L(n) &amp;= 5\times 10\times 15\times \cdots\times (1 \times 2 \times 3
+\times 4)(6 \times 7 \times 8 \times 9)(11\times 12\times 13\times
+14)\times \cdots
+\\[6pt]&amp;=5^a\cdot a!\cdot (1 \times 2 \times 3 \times 4)(6 \times 7
+\times 8 \times 9)(11\times 12\times 13\times 14)\cdots
+\\[6pt]&amp;=5^a\cdot a!\cdot (1 \times 2 \times 3 \times 4)(6 \times 7
+\times 8 \times 9)(1\times 2\times 3\times 4)\cdots(1\times
+2\times\cdots\times b)
+\\[6pt]&amp;=5^a\cdot a!(4\times 6)(4\times 6)\cdots (1\times 2\times
+\cdots \times b)
+\\[6pt]&amp;=5^a\cdot a! \cdot 2^{2a} \cdot 6^a\cdot b!
+\\[6pt]&amp;=2^{a} L(a)L(b)\cdot 6^a
+\end{aligned} \pmod{10}
+\]</span> 由于 <span class="math inline">\(2^a\)</span> 的个位数等于
+<span class="math inline">\(2^{a \bmod 4}\)</span> ，并且 <span
+class="math inline">\(6\)</span> 乘以任何偶数 <span
+class="math inline">\(x\)</span> 都不改变 <span
+class="math inline">\(x\)</span> 的个位数，故 <span
+class="math display">\[
+L(n) = 2^{a \bmod 4}L(n/5)\cdot L(n \bmod 5) \pmod{10}
+\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(100\times
+\log_5 n)\)</span></p>
 <p>代码：（<del>懒得写高精度了</del>）</p>
 <pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> sys
 
@@ -779,14 +803,18 @@ p <span class="token operator">=</span> <span class="token keyword">lambda</span
 
 <span class="token keyword">for</span> b <span class="token keyword">in</span> sys<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
 	<span class="token keyword">print</span><span class="token punctuation">(</span>L<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>b<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=RmENut3ZmnM">https://www.youtube.com/watch?v=RmENut3ZmnM</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/i75zelbh">https://www.luogu.com.cn/article/i75zelbh</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=RmENut3ZmnM">https://www.youtube.com/watch?v=RmENut3ZmnM</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/i75zelbh">https://www.luogu.com.cn/article/i75zelbh</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>怎么 2020 年的时候交了这么多发暴力？</p>
-<p>另外这道题应该是目前写过最短的 <strong><font style="color: rgb(157, 61, 207)">省选/NOI−</font></strong> 了吧。</p>
+<p>另外这道题应该是目前写过最短的
+<strong><font style="color: rgb(157, 61, 207)">省选/NOI−</font></strong>
+了吧。</p>
 
                 
             </div>
@@ -1266,7 +1294,7 @@ p <span class="token operator">=</span> <span class="token keyword">lambda</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1535,21 +1563,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

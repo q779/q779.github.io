@@ -720,7 +720,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    549
+                    885
                 </div>
                 
 
@@ -740,66 +740,97 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="《具体数学》-2-4-多重和式"><a href="#《具体数学》-2-4-多重和式" class="headerlink" title="《具体数学》 2.4 多重和式"></a>《具体数学》 2.4 多重和式</h1><h2 id="一、基本法则"><a href="#一、基本法则" class="headerlink" title="一、基本法则"></a>一、基本法则</h2><p>本章节其实非常简单，特别是对于 OIer 来说。</p>
-<p>下面就是一个简单的多重和式</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n\sum_{j=1}^mF(i,j)</script><p>对于多重和式，有一个被称为<strong>交换求和次序</strong>的基本法则，它推广了我们在 <a href="/2022/07/28/ju-ti-shu-xue-2.3-he-shi-de-chu-li/">2.3</a> 中定义的结合律。</p>
-<script type="math/tex; mode=display">
-\sum_{P(i,j)}a_{i,j} = \sum_{i}\sum_{j}a_{i,j}[P(i,j)] = \sum_{j}\sum_{i}a_{i,j}[P(i,j)]</script><p>如何理解呢？其实就是下面的代码</p>
+                <h1 id="具体数学-2.4-多重和式">《具体数学》 2.4 多重和式</h1>
+<h2 id="一基本法则">一、基本法则</h2>
+<p>本章节其实非常简单，特别是对于 OIer 来说。</p>
+<p>下面就是一个简单的多重和式 <span class="math display">\[
+\sum_{i=1}^n\sum_{j=1}^mF(i,j)
+\]</span>
+对于多重和式，有一个被称为<strong>交换求和次序</strong>的基本法则，它推广了我们在
+<a href="/2022/07/28/ju-ti-shu-xue-2.3-he-shi-de-chu-li/">2.3</a>
+中定义的结合律。 <span class="math display">\[
+\sum_{P(i,j)}a_{i,j} = \sum_{i}\sum_{j}a_{i,j}[P(i,j)] =
+\sum_{j}\sum_{i}a_{i,j}[P(i,j)]
+\]</span> 如何理解呢？其实就是下面的代码</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">P</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span> ans <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">P</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span> ans <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>于是可以进一步推导出和式的<strong>一般分配律</strong></p>
-<script type="math/tex; mode=display">
-\sum_{i\in A,~j \in B}a_ib_j = \left(\sum_{i\in A} a_i\right)\left(\sum_{j \in B} b_j\right)</script><p>（<del>我觉得这个式子有点…怪怪的</del>）</p>
-<hr>
-<p>实际上，交换求和次序有一个非常重要的变形</p>
-<script type="math/tex; mode=display">
-\sum_{i \in A}\sum_{j\in B(i)}a_{i,j} = \sum_{j \in B^{\prime}}\sum_{i \in A^{\prime}(j)} a_{i,j}</script><p>其中，集合 $A,\,B(i),\,B^{\prime},\,A^{\prime}(j)$ 必须以下面的方式关联</p>
-<script type="math/tex; mode=display">
-[i\in A][j\in B(i)] = [j \in B^{\prime}][i\in A^{\prime}(j)]</script><p><br></p>
-<p>举个例子，比如</p>
-<script type="math/tex; mode=display">
-[1 \le i \le n][i \le j \le n] = [1\le i \le j \le n] = [1\le i \le n][1\le i \le j]</script><p>于是</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n\sum_{j=i}^{n} a_{i,j} = \sum_{i=1}^n\sum_{j=1}^i a_{i,j}</script><p>当然更重要的一个例子</p>
-<script type="math/tex; mode=display">
-[1 \le i \le n][k \mid i] = \left[1\le i \le \left\lfloor\frac{n}{k}\right\rfloor\right][k\mid (i\cdot k)]</script><p>于是</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n[k\mid i] = \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}1 = \left\lfloor\frac{n}{k}\right\rfloor</script><p>这是数论分块中非常重要的一个结论，你可以在 <a href="/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">洛谷P2522 [HAOI2011]Problem b</a> 中看到它的用处。</p>
-<hr>
-<h2 id="二、“具体”数学"><a href="#二、“具体”数学" class="headerlink" title="二、“具体”数学"></a>二、“具体”数学</h2><blockquote>
-<p>小心！本书的作者似乎把 $i,j,k,n$ 视作“实际的数”。</p>
+<p>于是可以进一步推导出和式的<strong>一般分配律</strong> <span
+class="math display">\[
+\sum_{i\in A,~j \in B}a_ib_j = \left(\sum_{i\in A}
+a_i\right)\left(\sum_{j \in B} b_j\right)
+\]</span> （<del>我觉得这个式子有点...怪怪的</del>）</p>
+<hr />
+<p>实际上，交换求和次序有一个非常重要的变形 <span
+class="math display">\[
+\sum_{i \in A}\sum_{j\in B(i)}a_{i,j} = \sum_{j \in B^{\prime}}\sum_{i
+\in A^{\prime}(j)} a_{i,j}
+\]</span> 其中，集合 <span
+class="math inline">\(A,\,B(i),\,B^{\prime},\,A^{\prime}(j)\)</span>
+必须以下面的方式关联 <span class="math display">\[
+[i\in A][j\in B(i)] = [j \in B^{\prime}][i\in A^{\prime}(j)]
+\]</span> <br></p>
+<p>举个例子，比如 <span class="math display">\[
+[1 \le i \le n][i \le j \le n] = [1\le i \le j \le n] = [1\le i \le
+n][1\le i \le j]
+\]</span> 于是 <span class="math display">\[
+\sum_{i=1}^n\sum_{j=i}^{n} a_{i,j} = \sum_{i=1}^n\sum_{j=1}^i a_{i,j}
+\]</span> 当然更重要的一个例子 <span class="math display">\[
+[1 \le i \le n][k \mid i] = \left[1\le i \le
+\left\lfloor\frac{n}{k}\right\rfloor\right][k\mid (i\cdot k)]
+\]</span> 于是 <span class="math display">\[
+\sum_{i=1}^n[k\mid i] =
+\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}1 =
+\left\lfloor\frac{n}{k}\right\rfloor
+\]</span> 这是数论分块中非常重要的一个结论，你可以在 <a
+href="/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">洛谷P2522
+[HAOI2011]Problem b</a> 中看到它的用处。</p>
+<hr />
+<h2 id="二具体数学">二、“具体”数学</h2>
+<blockquote>
+<p>小心！本书的作者似乎把 <span class="math inline">\(i,j,k,n\)</span>
+视作“实际的数”。</p>
 </blockquote>
-<p>例如下面这个例子</p>
-<script type="math/tex; mode=display">
-S_n=\sum_{1\le j < k \le n}\frac{1}{k-j}</script><p>（作者好像很喜欢 $j,k$ ）</p>
-<p>首先书上给出了一种做法</p>
-<script type="math/tex; mode=display">
+<p>例如下面这个例子 <span class="math display">\[
+S_n=\sum_{1\le j &lt; k \le n}\frac{1}{k-j}
+\]</span> （作者好像很喜欢 <span class="math inline">\(j,k\)</span>
+）</p>
+<p>首先书上给出了一种做法 <span class="math display">\[
 \begin{aligned}
-S_n & =\sum_{1 \le k \le n} \sum_{1 \le j<k} \frac{1}{k-j}
-\\[6pt]& =\sum_{1 \le k \le n} \sum_{1 \le k-j<k} \frac{1}{j} && \texttt{用}\  k - j\  \texttt{替换}\ j
-\\[6pt]& =\sum_{1 \le k \le n} \sum_{0<j \le k-1} \frac{1}{j}
-\\[6pt]& =\sum_{1 \le k \le n} H_{k-1}
-\\[6pt]& =\sum_{1 \le k+1 \le n} H_k&& \texttt{用}\  k + 1\  \texttt{替换}\ k
-\\[6pt]& =\sum_{0 \le k<n} H_k
-\end{aligned}</script><p>其中 $H_n=\sum_{k=1}^n\frac{1}{k}$ 称为调和数。</p>
+S_n &amp; =\sum_{1 \le k \le n} \sum_{1 \le j&lt;k} \frac{1}{k-j}
+\\[6pt]&amp; =\sum_{1 \le k \le n} \sum_{1 \le k-j&lt;k} \frac{1}{j}
+&amp;&amp; \texttt{用}\  k - j\  \texttt{替换}\ j
+\\[6pt]&amp; =\sum_{1 \le k \le n} \sum_{0&lt;j \le k-1} \frac{1}{j}
+\\[6pt]&amp; =\sum_{1 \le k \le n} H_{k-1}
+\\[6pt]&amp; =\sum_{1 \le k+1 \le n} H_k&amp;&amp; \texttt{用}\  k +
+1\  \texttt{替换}\ k
+\\[6pt]&amp; =\sum_{0 \le k&lt;n} H_k
+\end{aligned}
+\]</span> 其中 <span
+class="math inline">\(H_n=\sum_{k=1}^n\frac{1}{k}\)</span>
+称为调和数。</p>
 <p>这并不是一个封闭形式，而我们目前还不会将调和数的和转化为封闭形式</p>
-<p>而实际上我们还可以这么做</p>
-<script type="math/tex; mode=display">
+<p>而实际上我们还可以这么做 <span class="math display">\[
 \begin{aligned}
-S_n & =\sum_{1 \le j<k \le n} \frac{1}{k-j}
-\\[6pt]& =\sum_{1 \le j<k+j \le n} \frac{1}{k}&& \texttt{用}\  k + j\  \texttt{替换}\ k
-\\[6pt]& =\sum_{1 \le k \le n} \sum_{1 \le j \le n-k} \frac{1}{k} && \texttt{首先对}\ j \ \texttt{求和}
-\\[6pt]& =\sum_{1 \le k \le n} \frac{n-k}{k}
-\\[6pt]& =\sum_{1 \le k \le n} \frac{n}{k}-\sum_{1 \le k \le n} 1
-\\[6pt]& =n\left(\sum_{1 \le k \le n} \frac{1}{k}\right)-n 
-\\[6pt]& =n H_n-n
-\end{aligned}</script><p>于是我们求出了 $S_n$ ，还顺便得到了 $\sum_{0 \le k&lt;n} H_k = nH_n-n$ 。</p>
-<p>实际上这种情况很常见，例如 <a href="/2024/04/24/note-16/">note[16]</a> 中本人用了两种方式推导结果，而其中一种方式却比较复杂。</p>
-<hr>
+S_n &amp; =\sum_{1 \le j&lt;k \le n} \frac{1}{k-j}
+\\[6pt]&amp; =\sum_{1 \le j&lt;k+j \le n} \frac{1}{k}&amp;&amp;
+\texttt{用}\  k + j\  \texttt{替换}\ k
+\\[6pt]&amp; =\sum_{1 \le k \le n} \sum_{1 \le j \le n-k} \frac{1}{k}
+&amp;&amp; \texttt{首先对}\ j \ \texttt{求和}
+\\[6pt]&amp; =\sum_{1 \le k \le n} \frac{n-k}{k}
+\\[6pt]&amp; =\sum_{1 \le k \le n} \frac{n}{k}-\sum_{1 \le k \le n} 1
+\\[6pt]&amp; =n\left(\sum_{1 \le k \le n} \frac{1}{k}\right)-n
+\\[6pt]&amp; =n H_n-n
+\end{aligned}
+\]</span> 于是我们求出了 <span class="math inline">\(S_n\)</span>
+，还顺便得到了 <span class="math inline">\(\sum_{0 \le k&lt;n} H_k =
+nH_n-n\)</span> 。</p>
+<p>实际上这种情况很常见，例如 <a
+href="/2024/04/24/note-16/">note[16]</a>
+中本人用了两种方式推导结果，而其中一种方式却比较复杂。</p>
+<hr />
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202404291312541.png" style="zoom:33%;" /></p>
 
                 
@@ -1264,7 +1295,7 @@ S_n & =\sum_{1 \le j<k \le n} \frac{1}{k-j}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1533,21 +1564,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

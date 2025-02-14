@@ -724,7 +724,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    687
+                    699
                 </div>
                 
 
@@ -744,34 +744,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ABC139E-League-题解"><a href="#ABC139E-League-题解" class="headerlink" title="[ABC139E] League 题解"></a>[ABC139E] League 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc139_e">[ABC139E] League</a></p>
+                <h1 id="abc139e-league-题解">[ABC139E] League 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc139_e">[ABC139E]
+League</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>将有 $N$ 个选手参加一场网球比赛。我们将称他们为 Player 1，Player 2，直到 Player N。</p>
-<p>比赛采用循环赛制，总共将进行 $\frac{N(N-1)}{2}$ 场比赛。是否可能安排这些比赛，以满足以下所有条件？</p>
+<p>将有 <span class="math inline">\(N\)</span>
+个选手参加一场网球比赛。我们将称他们为 Player 1，Player 2，直到 Player
+N。</p>
+<p>比赛采用循环赛制，总共将进行 <span
+class="math inline">\(\frac{N(N-1)}{2}\)</span>
+场比赛。是否可能安排这些比赛，以满足以下所有条件？</p>
 <p>如果答案是肯定的，还要找出所需的最小天数。</p>
 <ul>
 <li>每个选手一天最多进行一场比赛。</li>
-<li>每个选手 $i$（$1 \leq i \leq N$）按照顺序与选手 $A_{i,1}$，$A_{i,2}$，…，$A_{i,N-1}$ 进行一场比赛。</li>
+<li>每个选手 <span class="math inline">\(i\)</span>（<span
+class="math inline">\(1 \leq i \leq N\)</span>）按照顺序与选手 <span
+class="math inline">\(A_{i,1}\)</span>，<span
+class="math inline">\(A_{i,2}\)</span>，...，<span
+class="math inline">\(A_{i,N-1}\)</span> 进行一场比赛。</li>
 </ul>
 <p>提示：可以同时进行比赛，但是一天只有举办一次比赛的时间。</p>
-<p><strong>输入格式</strong>：</p>
-<script type="math/tex; mode=display">
+<p><strong>输入格式</strong>： <span class="math display">\[
 \begin{array}{llll}
 N\\
-A_{1,1} & A_{1,2} & \ldots & A_{1, N-1} \\
-A_{2,1} & A_{2,2} & \ldots & A_{2, N-1} \\
-: & & & \\
-A_{N, 1} & A_{N, 2} & \ldots & A_{N, N-1}
-\end{array}</script><p><strong>输出格式</strong>：</p>
-<p>无解输出 $-1$ ，否则输出答案。</p>
+A_{1,1} &amp; A_{1,2} &amp; \ldots &amp; A_{1, N-1} \\
+A_{2,1} &amp; A_{2,2} &amp; \ldots &amp; A_{2, N-1} \\
+: &amp; &amp; &amp; \\
+A_{N, 1} &amp; A_{N, 2} &amp; \ldots &amp; A_{N, N-1}
+\end{array}
+\]</span> <strong>输出格式</strong>：</p>
+<p>无解输出 <span class="math inline">\(-1\)</span> ，否则输出答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$3 \leq N \leq 1000,~1 \leq A_{i, j} \leq N,~A_{i, j} \neq i$ 且 $A_{i,1},A_{i,2},\cdots,A_{i,N-1}$ 两两不同 </p>
+<p><span class="math inline">\(3 \leq N \leq 1000,~1 \leq A_{i, j} \leq
+N,~A_{i, j} \neq i\)</span> 且 <span
+class="math inline">\(A_{i,1},A_{i,2},\cdots,A_{i,N-1}\)</span>
+两两不同</p>
 </blockquote>
-<p>对于连边 $i \to A_{i,1}$ ，我们建立一个节点 $(i,A_{i,1})$ ，并向 $(i,A_{i,2})$ 连边，以此类推。</p>
+<p>对于连边 <span class="math inline">\(i \to A_{i,1}\)</span>
+，我们建立一个节点 <span class="math inline">\((i,A_{i,1})\)</span>
+，并向 <span class="math inline">\((i,A_{i,2})\)</span>
+连边，以此类推。</p>
 <p>则原题有解当且仅当建出的图不存在环，并且答案即为拓扑排序后得到的最长链长度。</p>
-<p>前者不难证明。<del>后者证明不难</del>，因为所有度数为 $0$ 的节点都可以在一天内被删掉。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>前者不难证明。<del>后者证明不难</del>，因为所有度数为 <span
+class="math inline">\(0\)</span> 的节点都可以在一天内被删掉。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -813,9 +831,10 @@ A_{N, 1} & A_{N, 2} & \ldots & A_{N, N-1}
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Lskkkno1/solution-at4893">https://www.luogu.com.cn/blog/Lskkkno1/solution-at4893</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Lskkkno1/solution-at4893">https://www.luogu.com.cn/blog/Lskkkno1/solution-at4893</a></p>
 
                 
             </div>
@@ -1289,7 +1308,7 @@ A_{N, 1} & A_{N, 2} & \ldots & A_{N, N-1}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1558,21 +1577,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

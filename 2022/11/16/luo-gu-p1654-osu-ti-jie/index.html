@@ -748,29 +748,55 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1654-OSU-题解"><a href="#洛谷P1654-OSU-题解" class="headerlink" title="洛谷P1654 OSU! 题解"></a>洛谷P1654 OSU! 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1654">P1654 OSU!</a></p>
+                <h1 id="洛谷p1654-osu-题解">洛谷P1654 OSU! 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1654">P1654
+OSU!</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>osu 是一款群众喜闻乐见的休闲软件。 </p>
-<p>我们可以把osu的规则简化与改编成以下的样子: </p>
-<p>一共有 $n$ 次操作，每次操作只有成功与失败之分，成功对应 $1$ ，失败对应 $0$ ，$n$ 次操作对应为 $1$ 个长度为 $n$ 的 01 串。在这个串中连续的 $X$ 个 $1$ 可以贡献 $X^3$  的分数，这 $X$ 个 $1$ 不能被其他连续的 $1$ 所包含（也就是极长的一串 $1$ ，具体见样例解释）  </p>
-<p>现在给出 $n$ ，以及每个操作的成功率，请你输出期望分数，输出四舍五入后保留 $1$ 位小数。</p>
+<p>osu 是一款群众喜闻乐见的休闲软件。</p>
+<p>我们可以把osu的规则简化与改编成以下的样子:</p>
+<p>一共有 <span class="math inline">\(n\)</span>
+次操作，每次操作只有成功与失败之分，成功对应 <span
+class="math inline">\(1\)</span> ，失败对应 <span
+class="math inline">\(0\)</span> ，<span
+class="math inline">\(n\)</span> 次操作对应为 <span
+class="math inline">\(1\)</span> 个长度为 <span
+class="math inline">\(n\)</span> 的 01 串。在这个串中连续的 <span
+class="math inline">\(X\)</span> 个 <span
+class="math inline">\(1\)</span> 可以贡献 <span
+class="math inline">\(X^3\)</span> 的分数，这 <span
+class="math inline">\(X\)</span> 个 <span
+class="math inline">\(1\)</span> 不能被其他连续的 <span
+class="math inline">\(1\)</span> 所包含（也就是极长的一串 <span
+class="math inline">\(1\)</span> ，具体见样例解释）</p>
+<p>现在给出 <span class="math inline">\(n\)</span>
+，以及每个操作的成功率，请你输出期望分数，输出四舍五入后保留 <span
+class="math inline">\(1\)</span> 位小数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行有一个正整数 $n$ ，表示操作个数。接下去 $n$ 行每行有一个 $[0,1]$ 之间的实数，表示每个操作的成功率。</p>
+<p>第一行有一个正整数 <span class="math inline">\(n\)</span>
+，表示操作个数。接下去 <span class="math inline">\(n\)</span>
+行每行有一个 <span class="math inline">\([0,1]\)</span>
+之间的实数，表示每个操作的成功率。</p>
 <p><strong>输出格式</strong>：</p>
-<p>只有一个实数，表示答案。答案四舍五入后保留 $1$ 位小数。</p>
+<p>只有一个实数，表示答案。答案四舍五入后保留 <span
+class="math inline">\(1\)</span> 位小数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 10^5$ </p>
+<p><span class="math inline">\(1 \le n \le 10^5\)</span></p>
 </blockquote>
 <p>显然期望dp。但是这个贡献不太好计算。</p>
 <p>因为它是一个整体去算的，而 dp 的过程中整体的信息会丢失。</p>
-<p>因此我们考虑增加一个 $1$ 对原来的串的贡献。</p>
-<script type="math/tex; mode=display">
-\Delta = (x+1)^3 - x^3=3x^2 + 3x + 1</script><p>二项式定理易得上式。因此我们可以记录 $f_i,g_i,h_i$ 分别标记 $x,x^2$ 每一维的期望以及答案，则</p>
-<script type="math/tex; mode=display">
+<p>因此我们考虑增加一个 <span class="math inline">\(1\)</span>
+对原来的串的贡献。 <span class="math display">\[
+\Delta = (x+1)^3 - x^3=3x^2 + 3x + 1
+\]</span> 二项式定理易得上式。因此我们可以记录 <span
+class="math inline">\(f_i,g_i,h_i\)</span> 分别标记 <span
+class="math inline">\(x,x^2\)</span> 每一维的期望以及答案，则 <span
+class="math display">\[
 f_i = (f_{i-1} + 1)\times p_i
 \\g_i = (g_{i-1} + 2f_{i-1} + 1)\times p_i
-\\h_i = h_{i-1} + (3g_{i-1}+3f_{i-1}+1)\times p_i</script><p>最后答案就是 $h_n$ 。时间复杂度 $\mathcal{O}(n)$</p>
+\\h_i = h_{i-1} + (3g_{i-1}+3f_{i-1}+1)\times p_i
+\]</span> 最后答案就是 <span class="math inline">\(h_n\)</span>
+。时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -799,9 +825,10 @@ f_i = (f_{i-1} + 1)\times p_i
     cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/1215365487zyc/solution-p1654">https://www.luogu.com.cn/blog/1215365487zyc/solution-p1654</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/1215365487zyc/solution-p1654">https://www.luogu.com.cn/blog/1215365487zyc/solution-p1654</a></p>
 
                 
             </div>
@@ -1054,12 +1081,12 @@ f_i = (f_{i-1} + 1)\times p_i
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1283,7 +1310,7 @@ f_i = (f_{i-1} + 1)\times p_i
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1552,21 +1579,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

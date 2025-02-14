@@ -740,50 +740,71 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="C-语法-extern-关键字"><a href="#C-语法-extern-关键字" class="headerlink" title="C++语法 extern 关键字"></a>C++语法 extern 关键字</h1><p>懒得写了，到处去搬资料过来。</p>
+                <h1 id="c语法-extern-关键字">C++语法 extern 关键字</h1>
+<p>懒得写了，到处去搬资料过来。</p>
 <p>变量声明向编译器保证变量以给定的类型和名称存在</p>
 <p>这样编译器在不需要知道变量完整细节的情况下也能继续进一步的编译</p>
 <p>变量声明只在编译时有它的意义，在程序连接时编译器需要实际的变量声明。</p>
 <p>当你使用多个文件且只在其中一个文件中定义变量时，变量声明就显得非常有用。</p>
-<p>你可以使用 <strong>extern</strong> 关键字在任何地方声明一个变量。（但是定义变量的文件在程序连接时必须是可用的）</p>
+<p>你可以使用 <strong>extern</strong>
+关键字在任何地方声明一个变量。（但是定义变量的文件在程序连接时必须是可用的）</p>
 <blockquote>
 <p>注意，变量的声明不等于变量的定义。</p>
-<p>虽然你可以在 C++ 程序中多次声明一个变量，但变量只能在某个文件、函数或代码块中被定义一次。</p>
+<p>虽然你可以在 C++
+程序中多次声明一个变量，但变量只能在某个文件、函数或代码块中被定义一次。</p>
 </blockquote>
-<hr>
-<p>在C语言中，修饰符 extern 用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处引用”。</p>
+<hr />
+<p>在C语言中，修饰符 extern
+用在变量或者函数的声明前，用来说明“此变量/函数是在别处定义的，要在此处引用”。</p>
 <p><strong>1. extern修饰变量的声明</strong></p>
-<p>如果文件 a.c 需要引用 b.c 中变量 <code>int v</code>，就可以在 a.c 中声明 <code>extern int v</code> ，然后就可以引用变量 v。</p>
-<p>这里需要注意的是，被引用的变量 v 的链接属性必须是外链接（external）的</p>
-<p>也就是说 a.c 要引用到 v，不只是取决于在a.c中声明 <code>extern int v</code>，还取决于变量 <code>v</code> 本身是能够被引用到的。</p>
+<p>如果文件 a.c 需要引用 b.c 中变量 <code>int v</code>，就可以在 a.c
+中声明 <code>extern int v</code> ，然后就可以引用变量 v。</p>
+<p>这里需要注意的是，被引用的变量 v
+的链接属性必须是外链接（external）的</p>
+<p>也就是说 a.c 要引用到 v，不只是取决于在a.c中声明
+<code>extern int v</code>，还取决于变量 <code>v</code>
+本身是能够被引用到的。</p>
 <p>这涉及到c语言的另外一个话题——变量的作用域。</p>
 <p>能够被其他模块以 extern 修饰符引用到的变量通常是全局变量。</p>
-<p>还有很重要的一点是，<code>extern int v</code> 可以放在 a.c 中的任何地方</p>
-<p>比如你可以在 a.c 中的函数 fun 定义的开头处声明 <code>extern int v</code>，然后就可以引用到变量 v 了</p>
-<p>只不过这样只能在函数 fun 作用域中引用 v 罢了，这还是变量作用域的问题。</p>
-<p>对于这一点来说，很多人使用的时候都心存顾虑。好像 extern 声明只能用于文件作用域似的。</p>
+<p>还有很重要的一点是，<code>extern int v</code> 可以放在 a.c
+中的任何地方</p>
+<p>比如你可以在 a.c 中的函数 fun 定义的开头处声明
+<code>extern int v</code>，然后就可以引用到变量 v 了</p>
+<p>只不过这样只能在函数 fun 作用域中引用 v
+罢了，这还是变量作用域的问题。</p>
+<p>对于这一点来说，很多人使用的时候都心存顾虑。好像 extern
+声明只能用于文件作用域似的。</p>
 <p><br></p>
 <p><strong>2. extern修饰函数声明</strong></p>
 <p>从本质上来讲，变量和函数没有区别。函数名是指向函数二进制块开头处的指针。</p>
-<p>如果文件 a.c 需要引用 b.c 中的函数，比如在 b.c 中原型是 <code>int fun(int mu)</code></p>
-<p>那么就可以在 a.c 中声明 <code>extern int fun(int mu)</code>，然后就能使用 <code>fun</code> 来做任何事情。</p>
-<p>就像变量的声明一样，<code>extern int fun(int mu)</code> 可以放在 a.c 中任何地方，</p>
+<p>如果文件 a.c 需要引用 b.c 中的函数，比如在 b.c 中原型是
+<code>int fun(int mu)</code></p>
+<p>那么就可以在 a.c 中声明
+<code>extern int fun(int mu)</code>，然后就能使用 <code>fun</code>
+来做任何事情。</p>
+<p>就像变量的声明一样，<code>extern int fun(int mu)</code> 可以放在 a.c
+中任何地方，</p>
 <p>而不一定非要放在 a.c 的文件作用域的范围中。</p>
 <p>对其他模块中函数的引用，最常用的方法是包含这些函数声明的头文件。</p>
 <p>那么使用 extern 和包含头文件来引用函数有什么区别呢？</p>
 <p>extern 的引用方式比包含头文件要简洁得多！</p>
-<p>extern 的使用方法是直接了当的，想引用哪个函数就用 extern 声明哪个函数。</p>
+<p>extern 的使用方法是直接了当的，想引用哪个函数就用 extern
+声明哪个函数。</p>
 <p>这样做的一个明显的好处是，会加速程序的编译（确切的说是预处理）的过程，节省时间。</p>
 <p>在大型 C 程序编译过程中，这种差异是非常明显的。</p>
 <p><br></p>
-<p><strong>3. extern修饰符可用于指示 C 或者 C++ 函数的调用规范</strong></p>
-<p>比如在 C++ 中调用 C 库函数，就需要在 C++ 程序中用 extern “C” 声明要引用的函数。</p>
-<p>这是给链接器（Linker）用的，告诉链接器在链接的时候用 C 函数规范来链接。</p>
+<p><strong>3. extern修饰符可用于指示 C 或者 C++
+函数的调用规范</strong></p>
+<p>比如在 C++ 中调用 C 库函数，就需要在 C++ 程序中用 extern “C”
+声明要引用的函数。</p>
+<p>这是给链接器（Linker）用的，告诉链接器在链接的时候用 C
+函数规范来链接。</p>
 <p>主要原因是 C++ 和 C 程序编译完成后在目标代码中命名规则不同。</p>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://blog.csdn.net/pql925/article/details/82178476">https://blog.csdn.net/pql925/article/details/82178476</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/pql925/article/details/82178476">https://blog.csdn.net/pql925/article/details/82178476</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><del>感觉自己 OI 学了这么多年学的最好的就是文字排版。</del></p>
 
@@ -1243,7 +1264,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1512,21 +1533,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

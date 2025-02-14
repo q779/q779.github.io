@@ -748,54 +748,109 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4980-【模板】Polya-定理-题解"><a href="#洛谷P4980-【模板】Polya-定理-题解" class="headerlink" title="洛谷P4980 【模板】Polya 定理 题解"></a>洛谷P4980 【模板】Polya 定理 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4980">P4980 【模板】Polya 定理</a></p>
+                <h1 id="洛谷p4980-模板polya-定理-题解">洛谷P4980 【模板】Polya 定理
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4980">P4980
+【模板】Polya 定理</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个 $n$ 个点，$n$ 条边的环，有 $n$ 种颜色。</p>
-<p>给每个顶点染色，问有多少种<strong>本质不同</strong>的染色方案，答案对 $10^9+7$ 取模</p>
+<p>给定一个 <span class="math inline">\(n\)</span> 个点，<span
+class="math inline">\(n\)</span> 条边的环，有 <span
+class="math inline">\(n\)</span> 种颜色。</p>
+<p>给每个顶点染色，问有多少种<strong>本质不同</strong>的染色方案，答案对
+<span class="math inline">\(10^9+7\)</span> 取模</p>
 <p>注意本题的本质不同，定义为：<strong>只需要不能通过旋转与别的染色方案相同</strong>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入一个 $T$，表示有 $T$ 组数据</p>
-<p>第二行开始，一共 $T$ 行，每行一个整数 $n$，意思如题所示。</p>
+<p>第一行输入一个 <span class="math inline">\(T\)</span>，表示有 <span
+class="math inline">\(T\)</span> 组数据</p>
+<p>第二行开始，一共 <span class="math inline">\(T\)</span>
+行，每行一个整数 <span
+class="math inline">\(n\)</span>，意思如题所示。</p>
 <p><strong>输出格式</strong>:</p>
-<p>共 $T$ 行，每行一个数字，表示染色方案数对 $10^9+7$ 取模后的结果。</p>
+<p>共 <span class="math inline">\(T\)</span>
+行，每行一个数字，表示染色方案数对 <span
+class="math inline">\(10^9+7\)</span> 取模后的结果。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le T \le 10^3, ~1 \le n \le 10^9$</p>
+<p><span class="math inline">\(1\le T \le 10^3, ~1 \le n \le
+10^9\)</span></p>
 </blockquote>
-<p>传送门：<a href="/2024/02/13/polya-ding-li/">Pólya 定理</a> （在这篇文章里讲解了推导过程）</p>
+<p>传送门：<a href="/2024/02/13/polya-ding-li/">Pólya 定理</a>
+（在这篇文章里讲解了推导过程）</p>
 <p>首先先把 Burnside 引理复习一下。</p>
 <p><strong>Burnside 引理</strong></p>
-<p>设 $A,B$ 为有限集合，$X$ 为一些从 $A$ 到 $B$ 的映射组成的集合（这可以视作直接染色）。</p>
-<p>$G$ 是 $A$ 上的置换群，且 $X$ 中的映射在 $G$ 中的置换作用下封闭。</p>
-<p>$X / G$ 表示 $G$ 作用在 $X$ 上产生的所有等价类的集合<sup><a href="#fn_1" id="reffn_1">1</a></sup>（即本质相同的染色方案），则</p>
-<script type="math/tex; mode=display">
-|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|</script><p>其中 $X^g=\{x \mid x \in X,~g(x)=x\}$ ，也就是在置换 $g$​​ 下的不动点构成的集合。</p>
-<p>考虑原题中的旋转操作，其对应 Burnside 引理中的置换群 $G$ ，而 $X$ 即为染色操作。</p>
-<p>因此我们需要找到对于置换「 $g=$ 旋转 $k$ 次」，它的不动点有几个（也就是旋转 $k$​ 下后本质不变的染色方案）</p>
-<p>显然旋转 $k$ 次不动意味着染色方案存在长为 $a(a \mid k)$ 的循环节。</p>
-<p>又因为 $a \mid n$ ，所以 $a \mid \gcd(k,n)$ ，于是我们可以改为判定存在一个长度为 $\gcd(k,n)$ 的循环节。</p>
-<p>对于 $g=$ 旋转 $k$ 次，实际上每个子串前 $\gcd(k,n)$ 格都是可以任意取的，因此贡献为 $n^{\gcd(k, n)}$​ 。</p>
-<p>于是答案即为</p>
-<script type="math/tex; mode=display">
-\frac{1}{n}\sum_{k = 1}^n n^{\gcd(k, n)}</script><p>换一个枚举方式</p>
-<script type="math/tex; mode=display">
-\frac{1}{n}\sum_{d \mid n} n^d \sum_{k=1}^n [\gcd(k, n) = d]</script><p>用一下莫比乌斯反演的套路</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(A,B\)</span> 为有限集合，<span
+class="math inline">\(X\)</span> 为一些从 <span
+class="math inline">\(A\)</span> 到 <span
+class="math inline">\(B\)</span>
+的映射组成的集合（这可以视作直接染色）。</p>
+<p><span class="math inline">\(G\)</span> 是 <span
+class="math inline">\(A\)</span> 上的置换群，且 <span
+class="math inline">\(X\)</span> 中的映射在 <span
+class="math inline">\(G\)</span> 中的置换作用下封闭。</p>
+<p><span class="math inline">\(X / G\)</span> 表示 <span
+class="math inline">\(G\)</span> 作用在 <span
+class="math inline">\(X\)</span> 上产生的所有等价类的集合<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>（即本质相同的染色方案），则 <span
+class="math display">\[
+|X / G|=\frac{1}{|G|} \sum_{g \in G}\left|X^g\right|
+\]</span> 其中 <span class="math inline">\(X^g=\{x \mid x \in
+X,~g(x)=x\}\)</span> ，也就是在置换 <span
+class="math inline">\(g\)</span>​​ 下的不动点构成的集合。</p>
+<p>考虑原题中的旋转操作，其对应 Burnside 引理中的置换群 <span
+class="math inline">\(G\)</span> ，而 <span
+class="math inline">\(X\)</span> 即为染色操作。</p>
+<p>因此我们需要找到对于置换「 <span class="math inline">\(g=\)</span>
+旋转 <span class="math inline">\(k\)</span>
+次」，它的不动点有几个（也就是旋转 <span
+class="math inline">\(k\)</span>​ 下后本质不变的染色方案）</p>
+<p>显然旋转 <span class="math inline">\(k\)</span>
+次不动意味着染色方案存在长为 <span class="math inline">\(a(a \mid
+k)\)</span> 的循环节。</p>
+<p>又因为 <span class="math inline">\(a \mid n\)</span> ，所以 <span
+class="math inline">\(a \mid \gcd(k,n)\)</span>
+，于是我们可以改为判定存在一个长度为 <span
+class="math inline">\(\gcd(k,n)\)</span> 的循环节。</p>
+<p>对于 <span class="math inline">\(g=\)</span> 旋转 <span
+class="math inline">\(k\)</span> 次，实际上每个子串前 <span
+class="math inline">\(\gcd(k,n)\)</span> 格都是可以任意取的，因此贡献为
+<span class="math inline">\(n^{\gcd(k, n)}\)</span>​ 。</p>
+<p>于是答案即为 <span class="math display">\[
+\frac{1}{n}\sum_{k = 1}^n n^{\gcd(k, n)}
+\]</span> 换一个枚举方式 <span class="math display">\[
+\frac{1}{n}\sum_{d \mid n} n^d \sum_{k=1}^n [\gcd(k, n) = d]
+\]</span> 用一下莫比乌斯反演的套路 <span class="math display">\[
 \begin{aligned}
-&\frac{1}{n}\sum_{d \mid n} n^d \sum_{k=1}^{\left\lfloor \frac{n}{d}\right\rfloor} 
-    \left[\gcd\left(k, \left\lfloor \frac{n}{d}\right\rfloor\right) = 1\right] 
-\\[6pt]=& \frac{1}{n}\sum_{d \mid n} n^d\varphi\left(\frac{n}{d}\right)
-\end{aligned}</script><p>另外在本题中可以直接暴力求 $\varphi$ ，时间复杂度为 $\mathcal{O}(Tn^{\frac{3}{4}})$​​​​ 。</p>
-<hr>
-<p>到这里其实就完成这道题了，不过我们从推导中可以进一步得到 Pólya 定理。</p>
-<p>我们把置换 $g$​ 写作如下形式</p>
-<script type="math/tex; mode=display">
-\left(\begin{array}{cccc}1&2&\cdots&k\\a_1&a_2&\cdots&a_k\end{array}\right)</script><p>考虑将 $i$ 与 $a_i$​​ 连边，显然全部操作后会出现若干个环，并且这些环的颜色是相同的。</p>
+&amp;\frac{1}{n}\sum_{d \mid n} n^d \sum_{k=1}^{\left\lfloor
+\frac{n}{d}\right\rfloor}
+    \left[\gcd\left(k, \left\lfloor \frac{n}{d}\right\rfloor\right) =
+1\right]
+\\[6pt]=&amp; \frac{1}{n}\sum_{d \mid n}
+n^d\varphi\left(\frac{n}{d}\right)
+\end{aligned}
+\]</span> 另外在本题中可以直接暴力求 <span
+class="math inline">\(\varphi\)</span> ，时间复杂度为 <span
+class="math inline">\(\mathcal{O}(Tn^{\frac{3}{4}})\)</span>​​​​ 。</p>
+<hr />
+<p>到这里其实就完成这道题了，不过我们从推导中可以进一步得到 Pólya
+定理。</p>
+<p>我们把置换 <span class="math inline">\(g\)</span>​ 写作如下形式 <span
+class="math display">\[
+\left(\begin{array}{cccc}1&amp;2&amp;\cdots&amp;k\\a_1&amp;a_2&amp;\cdots&amp;a_k\end{array}\right)
+\]</span> 考虑将 <span class="math inline">\(i\)</span> 与 <span
+class="math inline">\(a_i\)</span>​​
+连边，显然全部操作后会出现若干个环，并且这些环的颜色是相同的。</p>
 <p>于是我们可以得到 <strong>Pólya 定理</strong>：</p>
-<p>在与 Burnside 引理相同的前置条件下， 若 $X$ 为<strong>所有</strong>从 $A$ 到 $B$ 的映射，则</p>
-<script type="math/tex; mode=display">
-|X / G|=\frac{1}{|G|} \sum_{g \in G}|B|^{c(g)}</script><p>其中 $c(g)$ 表示置换 $g$​ 能拆分成的<strong>不相交的循环置换</strong>的数量（也就是我们刚才说的那些环的数量）</p>
-<hr>
+<p>在与 Burnside 引理相同的前置条件下， 若 <span
+class="math inline">\(X\)</span> 为<strong>所有</strong>从 <span
+class="math inline">\(A\)</span> 到 <span
+class="math inline">\(B\)</span> 的映射，则 <span
+class="math display">\[
+|X / G|=\frac{1}{|G|} \sum_{g \in G}|B|^{c(g)}
+\]</span> 其中 <span class="math inline">\(c(g)\)</span> 表示置换 <span
+class="math inline">\(g\)</span>​
+能拆分成的<strong>不相交的循环置换</strong>的数量（也就是我们刚才说的那些环的数量）</p>
+<hr />
 <p>好好好，代码在这：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -849,12 +904,21 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/_post/214705">https://www.luogu.com.cn/blog/_post/214705</a></p>
-<blockquote id="fn_1">
-<sup>1</sup>. 若 $X$ 中的两个映射经过 $G$ 中的置换作用后相等，则它们在同一等价类中<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/_post/214705">https://www.luogu.com.cn/blog/_post/214705</a></p>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>若 <span
+class="math inline">\(X\)</span> 中的两个映射经过 <span
+class="math inline">\(G\)</span>
+中的置换作用后相等，则它们在同一等价类中<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
                 
             </div>
@@ -1328,7 +1392,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1314.1k</span>&nbsp;字
+                class="white-color">1360.3k</span>&nbsp;字
             
             
             
@@ -1597,21 +1661,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
