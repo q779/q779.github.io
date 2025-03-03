@@ -744,63 +744,96 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1397-NOI2013-矩阵游戏-题解"><a href="#洛谷P1397-NOI2013-矩阵游戏-题解" class="headerlink" title="洛谷P1397 [NOI2013] 矩阵游戏 题解"></a>洛谷P1397 [NOI2013] 矩阵游戏 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1397">P1397 [NOI2013] 矩阵游戏</a></p>
+                <h1 id="洛谷p1397-noi2013-矩阵游戏-题解">洛谷P1397 [NOI2013] 矩阵游戏
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1397">P1397
+[NOI2013] 矩阵游戏</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 是个喜欢矩阵的小朋友，有一天她想用电脑生成一个巨大的 $n$ 行 $m$ 列的矩阵 (你不用担心她如何存储)。她生成的这个矩阵满足一个神奇的性质：</p>
-<p>若用 $F_{i, j}$ 来表示矩阵中第 $i$ 行第 $j$ 列的元素，则 $F_{i, j}$ 满足下面的递推式：</p>
-<script type="math/tex; mode=display">
-\begin{cases} 
-F_{1, 1} & = & 1 
-\\ F_{i, j} & = & a \times F_{i, j-1} + b & j \neq 1 
-\\ F_{i, 1} & = & c \times F_{i-1, m} + d & i \neq 1 \end{cases}</script><p>递推式中 $a, b, c, d$ 都是给定的常数。</p>
-<p>现在 cxy 想知道 $F_{n, m}$ 的值是多少，请你帮助她。由于最终结果可能很大，你只需要输出 $F_{n, m}$ 除以 $10^9 + 7$ 的余数。</p>
+<p>cxy 是个喜欢矩阵的小朋友，有一天她想用电脑生成一个巨大的 <span
+class="math inline">\(n\)</span> 行 <span
+class="math inline">\(m\)</span> 列的矩阵
+(你不用担心她如何存储)。她生成的这个矩阵满足一个神奇的性质：</p>
+<p>若用 <span class="math inline">\(F_{i, j}\)</span> 来表示矩阵中第
+<span class="math inline">\(i\)</span> 行第 <span
+class="math inline">\(j\)</span> 列的元素，则 <span
+class="math inline">\(F_{i, j}\)</span> 满足下面的递推式：</p>
+<p><span class="math display">\[
+\begin{cases}
+F_{1, 1} &amp; = &amp; 1
+\\ F_{i, j} &amp; = &amp; a \times F_{i, j-1} + b &amp; j \neq 1
+\\ F_{i, 1} &amp; = &amp; c \times F_{i-1, m} + d &amp; i \neq 1
+\end{cases}
+\]</span> 递推式中 <span class="math inline">\(a, b, c, d\)</span>
+都是给定的常数。</p>
+<p>现在 cxy 想知道 <span class="math inline">\(F_{n, m}\)</span>
+的值是多少，请你帮助她。由于最终结果可能很大，你只需要输出 <span
+class="math inline">\(F_{n, m}\)</span> 除以 <span
+class="math inline">\(10^9 + 7\)</span> 的余数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>共一行，包含六个正整数 $n, m, a, b, c, d~(1\le n,m\le 10^{1000000},~1\le a,b,c,d\le 10^9)$ ，意义如题所述。</p>
+<p>共一行，包含六个正整数 <span class="math inline">\(n, m, a, b, c,
+d~(1\le n,m\le 10^{1000000},~1\le a,b,c,d\le 10^9)\)</span>
+，意义如题所述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示 $F_{n, m}$ 除以 $10^9 + 7$ 的余数。</p>
+<p>输出一行一个整数，表示 <span class="math inline">\(F_{n, m}\)</span>
+除以 <span class="math inline">\(10^9 + 7\)</span> 的余数。</p>
 </blockquote>
 <p>不容易，推了1个小时，总算推出来这题了。</p>
-<p>综合性极强的题目，涉及：<a href="/2022/09/04/shu-lie-tong-xiang-de-qiu-jie/">求解数列通项</a>、扩展欧拉定理（费马小定理）</p>
-<p>首先考虑行的递推式，即寻找 $F_{i,m}$ 与 $F_{i,1}$ 的关系</p>
-<p>定义</p>
-<script type="math/tex; mode=display">
+<p>综合性极强的题目，涉及：<a
+href="/2022/09/04/shu-lie-tong-xiang-de-qiu-jie/">求解数列通项</a>、扩展欧拉定理（费马小定理）</p>
+<p>首先考虑行的递推式，即寻找 <span
+class="math inline">\(F_{i,m}\)</span> 与 <span
+class="math inline">\(F_{i,1}\)</span> 的关系</p>
+<p>定义 <span class="math display">\[
 f^0(x) = x
 \\f^1(x) = ax+b
-\\f^{n}(x) = a\times f^{n-1}(x) + b</script><p>注意到这符合数列递推式的性质，并且是最简单的<strong>一阶线性递推数列</strong>。于是我们求个通项。</p>
-<p>其特征方程为 $x = ax + b \Rightarrow (1-a)x = b$  （不会特征方程法可以戳上面那个链接哦 &gt;w&lt;）</p>
+\\f^{n}(x) = a\times f^{n-1}(x) + b
+\]</span>
+注意到这符合数列递推式的性质，并且是最简单的<strong>一阶线性递推数列</strong>。于是我们求个通项。</p>
+<p>其特征方程为 <span class="math inline">\(x = ax + b \Rightarrow
+(1-a)x = b\)</span> （不会特征方程法可以戳上面那个链接哦 &gt;w&lt;）</p>
 <ul>
-<li><p>当 $a=1$ 时，不难发现 $f^n(x) = x + nb$ </p>
-</li>
-<li><p>当 $a\ne 1$ 时，$x_0 = \frac{b}{1-a}$ 。根据公式不难发现</p>
-<script type="math/tex; mode=display">
-f^n(x) = a^nx - b\dfrac{a^n-1}{1-a}</script></li>
+<li><p>当 <span class="math inline">\(a=1\)</span> 时，不难发现 <span
+class="math inline">\(f^n(x) = x + nb\)</span></p></li>
+<li><p>当 <span class="math inline">\(a\ne 1\)</span> 时，<span
+class="math inline">\(x_0 = \frac{b}{1-a}\)</span> 。根据公式不难发现
+<span class="math display">\[
+f^n(x) = a^nx - b\dfrac{a^n-1}{1-a}
+\]</span></p></li>
 </ul>
-<p>这里有一丢丢边界的细节，仔细想一下，可以得到</p>
-<script type="math/tex; mode=display">
-F_{i,m} = f^{m-1} (F_{i,1} )</script><p>记 $A = a^n,~B=- b\dfrac{a^n-1}{1-a}$ ，则</p>
-<script type="math/tex; mode=display">
-F_{i,m} = A\times F_{i,1} + B</script><p>然后考虑 $F_{i,1}$ 和 $F_{i-1,1}$ 的关系。</p>
-<p>首先有</p>
-<script type="math/tex; mode=display">
-F_{i,1} = c\times F_{i-1,m}+d = cA \times F_{i-1,1} + cB + d</script><p>可以发现这又是一个一阶线性递推数列的形式（第二维的 $1$ 是不变的）</p>
-<p>记 $C=cA,~D=cB+d$ 。</p>
-<p>定义</p>
-<script type="math/tex; mode=display">
+<p>这里有一丢丢边界的细节，仔细想一下，可以得到 <span
+class="math display">\[
+F_{i,m} = f^{m-1} (F_{i,1} )
+\]</span> 记 <span class="math inline">\(A = a^n,~B=-
+b\dfrac{a^n-1}{1-a}\)</span> ，则 <span class="math display">\[
+F_{i,m} = A\times F_{i,1} + B
+\]</span> 然后考虑 <span class="math inline">\(F_{i,1}\)</span> 和 <span
+class="math inline">\(F_{i-1,1}\)</span> 的关系。</p>
+<p>首先有 <span class="math display">\[
+F_{i,1} = c\times F_{i-1,m}+d = cA \times F_{i-1,1} + cB + d
+\]</span> 可以发现这又是一个一阶线性递推数列的形式（第二维的 <span
+class="math inline">\(1\)</span> 是不变的）</p>
+<p>记 <span class="math inline">\(C=cA,~D=cB+d\)</span> 。</p>
+<p>定义 <span class="math display">\[
 g^0 = F_{1,1}=1
-\\g^{n} = C\times g^{n-1} + D</script><p>此时就是和上面一样的了。</p>
-<p>我们可以实现一个函数 <code>fun(a,b,k)</code> ，具体看代码&amp;注释即可。</p>
-<p>最后考虑 $n,m\le 10^{1000000}$ 这件事。<del>据说可以用十进制快速幂？</del></p>
-<p>根据扩展欧拉定理（<del>其实这题用费马小定理就可以了，因为这题模数是质数</del>）</p>
-<script type="math/tex; mode=display">
+\\g^{n} = C\times g^{n-1} + D
+\]</span> 此时就是和上面一样的了。</p>
+<p>我们可以实现一个函数 <code>fun(a,b,k)</code>
+，具体看代码&amp;注释即可。</p>
+<p>最后考虑 <span class="math inline">\(n,m\le 10^{1000000}\)</span>
+这件事。<del>据说可以用十进制快速幂？</del></p>
+<p>根据扩展欧拉定理（<del>其实这题用费马小定理就可以了，因为这题模数是质数</del>）
+<span class="math display">\[
 \begin{aligned}
 a^b \equiv
 \begin{cases}
-a^b,&b< \varphi(m)\\\\
-a^{b \ \bmod \ \varphi(m)+\varphi(m)},&b\ge \varphi(m)
+a^b,&amp;b&lt; \varphi(m)\\\\
+a^{b \ \bmod \ \varphi(m)+\varphi(m)},&amp;b\ge \varphi(m)
 \end{cases} \pmod{m}
-\end{aligned}</script><p>然后我们只要边读边模就好了（实际上也可以实现一个函数来搞这个）</p>
-<p>时间复杂度 $O(\lg n + \log p)$</p>
+\end{aligned}
+\]</span>
+然后我们只要边读边模就好了（实际上也可以实现一个函数来搞这个）</p>
+<p>时间复杂度 <span class="math inline">\(O(\lg n + \log p)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -867,7 +900,8 @@ a^{b \ \bmod \ \varphi(m)+\varphi(m)},&b\ge \varphi(m)
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy3240%3Blg1397%3Buoj124%3Bloj2667.html">https://yhx-12243.github.io/OI-transit/records/lydsy3240%3Blg1397%3Buoj124%3Bloj2667.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy3240%3Blg1397%3Buoj124%3Bloj2667.html">https://yhx-12243.github.io/OI-transit/records/lydsy3240%3Blg1397%3Buoj124%3Bloj2667.html</a></p>
 
                 
             </div>
@@ -1082,7 +1116,7 @@ a^{b \ \bmod \ \varphi(m)+\varphi(m)},&b\ge \varphi(m)
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p107.jpg" class="responsive-img" alt="洛谷P3648 [APIO2014] 序列分割 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p41.png" class="responsive-img" alt="洛谷P3648 [APIO2014] 序列分割 题解">
                         
                         <span class="card-title">洛谷P3648 [APIO2014] 序列分割 题解</span>
                     </div>
@@ -1139,7 +1173,7 @@ a^{b \ \bmod \ \varphi(m)+\varphi(m)},&b\ge \varphi(m)
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p51.jpg" class="responsive-img" alt="UOJ31 【UR #2】猪猪侠再战括号序列 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p95.jpg" class="responsive-img" alt="UOJ31 【UR #2】猪猪侠再战括号序列 题解">
                         
                         <span class="card-title">UOJ31 【UR #2】猪猪侠再战括号序列 题解</span>
                     </div>
@@ -1332,7 +1366,7 @@ a^{b \ \bmod \ \varphi(m)+\varphi(m)},&b\ge \varphi(m)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

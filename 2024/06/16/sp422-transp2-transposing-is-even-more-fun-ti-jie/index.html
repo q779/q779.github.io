@@ -748,41 +748,92 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP422-TRANSP2-Transposing-is-Even-More-Fun-题解"><a href="#SP422-TRANSP2-Transposing-is-Even-More-Fun-题解" class="headerlink" title="SP422 TRANSP2 - Transposing is Even More Fun 题解"></a>SP422 TRANSP2 - Transposing is Even More Fun 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP422">TRANSP2 - Transposing is Even More Fun</a></p>
+                <h1 id="sp422-transp2---transposing-is-even-more-fun-题解">SP422 TRANSP2
+- Transposing is Even More Fun 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP422">TRANSP2 -
+Transposing is Even More Fun</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>假设你有一个 $2^a\times 2^b$ 的数组。它在内存中以通常的方式按顺序存储，先是第一行的值，然后是第二行的值，依此类推。你希望对它进行转置，但没有任何额外的内存。你唯一能执行的操作是交换两个内存单元的内容。进行转置所需的最少操作数是多少？</p>
+<p>假设你有一个 <span class="math inline">\(2^a\times 2^b\)</span>
+的数组。它在内存中以通常的方式按顺序存储，先是第一行的值，然后是第二行的值，依此类推。你希望对它进行转置，但没有任何额外的内存。你唯一能执行的操作是交换两个内存单元的内容。进行转置所需的最少操作数是多少？</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含测试用例的数量 $c~(1 \le c \le 4\times 10^6)$ 。</p>
-<p>每个测试用例由两个整数 $a$ 和 $b$ 组成 $(0 \le a + b \le 1\times 10^6)$ 。</p>
+<p>输入的第一行包含测试用例的数量 <span class="math inline">\(c~(1 \le c
+\le 4\times 10^6)\)</span> 。</p>
+<p>每个测试用例由两个整数 <span class="math inline">\(a\)</span> 和
+<span class="math inline">\(b\)</span> 组成 <span
+class="math inline">\((0 \le a + b \le 1\times 10^6)\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每个测试用例，输出转置一个 $2a\times 2b$ 数组所需的最少交换次数。</p>
-<p>由于这个数可能非常大，你需要输出它除以 $1000003$ 的余数（是的，$1000003$ 是一个质数:) ）。</p>
+<p>对于每个测试用例，输出转置一个 <span class="math inline">\(2a\times
+2b\)</span> 数组所需的最少交换次数。</p>
+<p>由于这个数可能非常大，你需要输出它除以 <span
+class="math inline">\(1000003\)</span> 的余数（是的，<span
+class="math inline">\(1000003\)</span> 是一个质数:) ）。</p>
 </blockquote>
-<p>我们可以把答案看作将一个序列转化为排列 $p=0,1,\cdots$ 的最少交换数。</p>
-<p>意思对于每个数 $i$ 我们连边 $i \to p_i$ 会形成若干个循环置换，每个大小为 $x$ 的循环置换贡献 $x-1$ 的次数</p>
+<p>我们可以把答案看作将一个序列转化为排列 <span
+class="math inline">\(p=0,1,\cdots\)</span> 的最少交换数。</p>
+<p>意思对于每个数 <span class="math inline">\(i\)</span> 我们连边 <span
+class="math inline">\(i \to p_i\)</span>
+会形成若干个循环置换，每个大小为 <span class="math inline">\(x\)</span>
+的循环置换贡献 <span class="math inline">\(x-1\)</span> 的次数</p>
 <p>现在的问题是如何找到这个序列中循环置换的数量。</p>
-<p>注意到对于矩阵元素 $a_{ij}$ ，它在序列上的位置为 $2^bi+j$ ，而在转置矩阵 $a^{\rm T}$ 上的位置为 $2^aj + i$ 。</p>
-<p>如果我们把这两个数看作一个 $a+b$ 位的二进制数，并首尾相接，那么交换操作就等价于旋转 $b$ 个单位。</p>
-<p>如果 $x$ 在旋转后变为 $y$ ，我们就连边 $x\to y$ ，显然最终形成的环的个数就是我们要求的循环置换的个数。</p>
-<p>注意到旋转 $b$ 个单位会把 $a+b$ 个二进制位划分成 $\gcd(a+b,\,b)$ 个大小为 $\frac{a+b}{\gcd(a + b,\,b)}$ 的环</p>
-<p>因为 $\gcd(a + b,\, b)=\gcd(a, b)$ ，所以也就是 $\gcd(a,b)$ 个大小为 $\frac{a+b}{\gcd(a,b)}$ 的等价类。</p>
-<p>不妨记 $g = \gcd(a,b),~n = \frac{a+b}{\gcd(a,b)}$ ，根据 Burnside 引理</p>
-<script type="math/tex; mode=display">
-|X / G|=\frac{1}{|G|} \sum_{\varphi_i \in G} \left|X^{\varphi_i}\right|</script><p>其中 $X^{\varphi_i}$ 为 $\varphi_i$ 作用下的不动点集合，本题中置换 $\varphi_i$ 表示将 $g$ 个大小为 $n$ 的环旋转 $i$ 个单位。</p>
-<p>而 $\varphi_i$ 作用下的不动点数量为 $\left(2^{\operatorname{gcd}(n, i)}\right)^g=2^{g \operatorname{gcd}(n, i)}$ ，这里 $2$ 是每个等价类可以染成 $0$ 或 $1$ 。</p>
-<p>那么答案就是</p>
-<script type="math/tex; mode=display">
+<p>注意到对于矩阵元素 <span class="math inline">\(a_{ij}\)</span>
+，它在序列上的位置为 <span class="math inline">\(2^bi+j\)</span>
+，而在转置矩阵 <span class="math inline">\(a^{\rm T}\)</span> 上的位置为
+<span class="math inline">\(2^aj + i\)</span> 。</p>
+<p>如果我们把这两个数看作一个 <span class="math inline">\(a+b\)</span>
+位的二进制数，并首尾相接，那么交换操作就等价于旋转 <span
+class="math inline">\(b\)</span> 个单位。</p>
+<p>如果 <span class="math inline">\(x\)</span> 在旋转后变为 <span
+class="math inline">\(y\)</span> ，我们就连边 <span
+class="math inline">\(x\to y\)</span>
+，显然最终形成的环的个数就是我们要求的循环置换的个数。</p>
+<p>注意到旋转 <span class="math inline">\(b\)</span> 个单位会把 <span
+class="math inline">\(a+b\)</span> 个二进制位划分成 <span
+class="math inline">\(\gcd(a+b,\,b)\)</span> 个大小为 <span
+class="math inline">\(\frac{a+b}{\gcd(a + b,\,b)}\)</span> 的环</p>
+<p>因为 <span class="math inline">\(\gcd(a + b,\, b)=\gcd(a, b)\)</span>
+，所以也就是 <span class="math inline">\(\gcd(a,b)\)</span> 个大小为
+<span class="math inline">\(\frac{a+b}{\gcd(a,b)}\)</span>
+的等价类。</p>
+<p>不妨记 <span class="math inline">\(g = \gcd(a,b),~n =
+\frac{a+b}{\gcd(a,b)}\)</span> ，根据 Burnside 引理 <span
+class="math display">\[
+|X / G|=\frac{1}{|G|} \sum_{\varphi_i \in G} \left|X^{\varphi_i}\right|
+\]</span> 其中 <span class="math inline">\(X^{\varphi_i}\)</span> 为
+<span class="math inline">\(\varphi_i\)</span>
+作用下的不动点集合，本题中置换 <span
+class="math inline">\(\varphi_i\)</span> 表示将 <span
+class="math inline">\(g\)</span> 个大小为 <span
+class="math inline">\(n\)</span> 的环旋转 <span
+class="math inline">\(i\)</span> 个单位。</p>
+<p>而 <span class="math inline">\(\varphi_i\)</span>
+作用下的不动点数量为 <span
+class="math inline">\(\left(2^{\operatorname{gcd}(n, i)}\right)^g=2^{g
+\operatorname{gcd}(n, i)}\)</span> ，这里 <span
+class="math inline">\(2\)</span> 是每个等价类可以染成 <span
+class="math inline">\(0\)</span> 或 <span
+class="math inline">\(1\)</span> 。</p>
+<p>那么答案就是 <span class="math display">\[
 \begin{aligned}
-\mathrm{Ans} &= \sum_{i=1}^n 2^{g \operatorname{gcd}(n, i)}
-\\[3pt] &= \sum_{d \mid n} 2^{g d} \sum_{i=1}^{\frac{n}{d}}\left[\operatorname{gcd}\left(i, \frac{n}{d}\right)=1\right] \\
-\\[3pt]&= \sum_{d \mid n} 2^{g d} \varphi\left(\frac{n}{d}\right)
-\end{aligned}</script><p>提示：这里 $\varphi(n)$ 是欧拉函数，中括号是艾弗森括号。</p>
-<p>那么我们只需要预处理 $\varphi$ 以及所有数的约数即可。</p>
+\mathrm{Ans} &amp;= \sum_{i=1}^n 2^{g \operatorname{gcd}(n, i)}
+\\[3pt] &amp;= \sum_{d \mid n} 2^{g d}
+\sum_{i=1}^{\frac{n}{d}}\left[\operatorname{gcd}\left(i,
+\frac{n}{d}\right)=1\right] \\
+\\[3pt]&amp;= \sum_{d \mid n} 2^{g d} \varphi\left(\frac{n}{d}\right)
+\end{aligned}
+\]</span> 提示：这里 <span class="math inline">\(\varphi(n)\)</span>
+是欧拉函数，中括号是艾弗森括号。</p>
+<p>那么我们只需要预处理 <span class="math inline">\(\varphi\)</span>
+以及所有数的约数即可。</p>
 <p>这里学到了一种妙妙办法，可以枚举每个数的倍数并和它连边，这样每次只需要遍历邻接表就可以了。</p>
-<p>时间复杂度</p>
-<script type="math/tex; mode=display">
-\mathcal{O}\left(V \log V + T \max_{1\le n \le V}\{ d(n)\}\right)</script><p>其中 $V = a + b$ 的值域，$d(n)$ 为 $n$ 的因子个数。根据<a href="/notations/#toc-heading-2">表格</a>可知 $V \le 10^6$ 时 $\max d(n) \le 240$ 。</p>
+<p>时间复杂度 <span class="math display">\[
+\mathcal{O}\left(V \log V + T \max_{1\le n \le V}\{ d(n)\}\right)
+\]</span> 其中 <span class="math inline">\(V = a + b\)</span>
+的值域，<span class="math inline">\(d(n)\)</span> 为 <span
+class="math inline">\(n\)</span> 的因子个数。根据<a
+href="/notations/#toc-heading-2">表格</a>可知 <span
+class="math inline">\(V \le 10^6\)</span> 时 <span
+class="math inline">\(\max d(n) \le 240\)</span> 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -850,12 +901,14 @@ rgba(0,0,0,0.2);
 <span class="token punctuation">&#125;</span></code></pre>
 <p>双倍经验：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP419">SP419 TRANSP - Transposing is Fun</a>（本题弱化版）</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP419">SP419 TRANSP -
+Transposing is Fun</a>（本题弱化版）</li>
 </ul>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">https://www.luogu.com.cn/article/z2fw12jy</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">https://www.luogu.com.cn/article/z2fw12jy</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>毒瘤题放图片。萌萌题不放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406162019336.jpg" style="zoom:50%;" /></p>
@@ -1333,7 +1386,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

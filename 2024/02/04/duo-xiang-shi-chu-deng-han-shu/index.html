@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%80%BB%E7%BB%93/">
-                                <span class="chip bg-color">总结</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%80%BB%E7%BB%93/">
+                                <span class="chip bg-color">总结</span>
                             </a>
                         
                             <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/">
@@ -756,31 +756,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="多项式初等函数"><a href="#多项式初等函数" class="headerlink" title="多项式初等函数"></a>多项式初等函数</h1><p>本文主要介绍多项式的初等函数的定义以及在 OI 中如何求解。</p>
-<p>注意，多项式的初等函数一般定义在模 $x^n$ 意义下，但是在 OI 中，多项式系数通常还需要另外模一下 $p$​ 。</p>
+                <h1 id="多项式初等函数">多项式初等函数</h1>
+<p>本文主要介绍多项式的初等函数的定义以及在 OI 中如何求解。</p>
+<p>注意，多项式的初等函数一般定义在模 <span
+class="math inline">\(x^n\)</span> 意义下，但是在 OI
+中，多项式系数通常还需要另外模一下 <span
+class="math inline">\(p\)</span>​ 。</p>
 <blockquote>
-<p><strong>友情提醒</strong>：多项式模板题里的 $n$​​​ 表示的含义可能有细微差异（表示次数/项数），请注意分辨。</p>
+<p><strong>友情提醒</strong>：多项式模板题里的 <span
+class="math inline">\(n\)</span>​​​
+表示的含义可能有细微差异（表示次数/项数），请注意分辨。</p>
 <p>另外，本文中的代码并没有完全清空数组（懒），因此<strong>注意多测的清空问题</strong>。</p>
 </blockquote>
-<hr>
-<h2 id="1-多项式求逆"><a href="#1-多项式求逆" class="headerlink" title="1. 多项式求逆"></a>1. 多项式求逆</h2><p>给定多项式 $f(x)$ ，求 $f^{-1}(x)$​ ，满足</p>
-<script type="math/tex; mode=display">
-f^{-1}(x)f(x)\equiv 1 \pmod{x^n}</script><p><strong>解法</strong>：</p>
-<p>首先，易知</p>
-<script type="math/tex; mode=display">
-[x^0]f^{-1}(x) = ([x^0]f(x))^{-1}</script><p>假设现在已经求出了 $f(x)$ 在模 $x^{\left\lceil\frac{n}{2}\right\rceil}$ 下的逆元 $f_0^{-1}(x)$ ，有</p>
-<script type="math/tex; mode=display">
+<hr />
+<h2 id="多项式求逆">1. 多项式求逆</h2>
+<p>给定多项式 <span class="math inline">\(f(x)\)</span> ，求 <span
+class="math inline">\(f^{-1}(x)\)</span>​ ，满足 <span
+class="math display">\[
+f^{-1}(x)f(x)\equiv 1 \pmod{x^n}
+\]</span> <strong>解法</strong>：</p>
+<p>首先，易知 <span class="math display">\[
+[x^0]f^{-1}(x) = ([x^0]f(x))^{-1}
+\]</span> 假设现在已经求出了 <span class="math inline">\(f(x)\)</span>
+在模 <span
+class="math inline">\(x^{\left\lceil\frac{n}{2}\right\rceil}\)</span>
+下的逆元 <span class="math inline">\(f_0^{-1}(x)\)</span> ，有 <span
+class="math display">\[
 \begin{aligned}
-f(x) f_0^{-1}(x) & \equiv 1 &\pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]f(x) f^{-1}(x) & \equiv 1 & \pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]f^{-1}(x)-f_0^{-1}(x) & \equiv 0 &\pmod{ x^{\left\lceil\frac{n}{2}\right\rceil}}
-\end{aligned}</script><p>两边平方可得</p>
-<script type="math/tex; mode=display">
-f^{-2}(x)-2 f^{-1}(x) f_0^{-1}(x)+f_0^{-2}(x) \equiv 0 \pmod{ x^n}</script><p>两边同乘 $f(x)$ 并移项可得</p>
-<script type="math/tex; mode=display">
-f^{-1}(x) \equiv f_0^{-1}(x)\left(2-f(x) f_0^{-1}(x)\right)\pmod{ x^n }</script><p>递归处理即可。</p>
-<p>时间复杂度 $T(n) = T\left(\frac{n}{2}\right) + \mathcal{O}(n \log n) = \mathcal{O}(n \log n)$​​ 。</p>
-<p>完整代码详见 <a href="/2024/02/04/luo-gu-p4238-mo-ban-duo-xiang-shi-cheng-fa-ni-ti-jie/">洛谷P4238 【模板】多项式乘法逆 题解</a></p>
+f(x) f_0^{-1}(x) &amp; \equiv 1 &amp;\pmod{
+x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]f(x) f^{-1}(x) &amp; \equiv 1 &amp; \pmod{
+x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]f^{-1}(x)-f_0^{-1}(x) &amp; \equiv 0 &amp;\pmod{
+x^{\left\lceil\frac{n}{2}\right\rceil}}
+\end{aligned}
+\]</span> 两边平方可得 <span class="math display">\[
+f^{-2}(x)-2 f^{-1}(x) f_0^{-1}(x)+f_0^{-2}(x) \equiv 0 \pmod{ x^n}
+\]</span> 两边同乘 <span class="math inline">\(f(x)\)</span> 并移项可得
+<span class="math display">\[
+f^{-1}(x) \equiv f_0^{-1}(x)\left(2-f(x) f_0^{-1}(x)\right)\pmod{ x^n }
+\]</span> 递归处理即可。</p>
+<p>时间复杂度 <span class="math inline">\(T(n) =
+T\left(\frac{n}{2}\right) + \mathcal{O}(n \log n) = \mathcal{O}(n \log
+n)\)</span>​​ 。</p>
+<p>完整代码详见 <a
+href="/2024/02/04/luo-gu-p4238-mo-ban-duo-xiang-shi-cheng-fa-ni-ti-jie/">洛谷P4238
+【模板】多项式乘法逆 题解</a></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Inv</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">qpow</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> P <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
@@ -798,29 +819,48 @@ f^{-1}(x) \equiv f_0^{-1}(x)\left(2-f(x) f_0^{-1}(x)\right)\pmod{ x^n }</script>
     <span class="token function">NTT</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> limit<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> n<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> limit<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
-<h2 id="2-多项式开根"><a href="#2-多项式开根" class="headerlink" title="2. 多项式开根"></a>2. 多项式开根</h2><p>给定多项式 $g(x)$ ，求 $f(x)$ 满足</p>
-<script type="math/tex; mode=display">
-f^2(x) \equiv g(x) \pmod{x^n}</script><p><strong>解法</strong>：</p>
-<p>首先讨论 $[x^0]g(x)$ 不为 $0$ 的情况，易知</p>
-<script type="math/tex; mode=display">
-[x^0]f(x) = \sqrt{[x^0]g(x)}</script><p>若 $[x^0]g(x)$ 没有平方根，则多项式 $g(x)$ 没有平方根</p>
+<hr />
+<h2 id="多项式开根">2. 多项式开根</h2>
+<p>给定多项式 <span class="math inline">\(g(x)\)</span> ，求 <span
+class="math inline">\(f(x)\)</span> 满足 <span class="math display">\[
+f^2(x) \equiv g(x) \pmod{x^n}
+\]</span> <strong>解法</strong>：</p>
+<p>首先讨论 <span class="math inline">\([x^0]g(x)\)</span> 不为 <span
+class="math inline">\(0\)</span> 的情况，易知 <span
+class="math display">\[
+[x^0]f(x) = \sqrt{[x^0]g(x)}
+\]</span> 若 <span class="math inline">\([x^0]g(x)\)</span>
+没有平方根，则多项式 <span class="math inline">\(g(x)\)</span>
+没有平方根</p>
 <blockquote>
-<p>另外，$\left[x^0\right] g(x)$ 可能有多个平方根，因此选取不同的根会求出不同的 $f(x)$ 。</p>
+<p>另外，<span class="math inline">\(\left[x^0\right] g(x)\)</span>
+可能有多个平方根，因此选取不同的根会求出不同的 <span
+class="math inline">\(f(x)\)</span> 。</p>
 </blockquote>
-<p>假设现在已经求出了 $g(x)$ 在模 $x^{\left\lceil\frac{n}{2}\right\rceil}$ 意义下的平方根 $f_0(x)$ ，则有</p>
-<script type="math/tex; mode=display">
+<p>假设现在已经求出了 <span class="math inline">\(g(x)\)</span> 在模
+<span
+class="math inline">\(x^{\left\lceil\frac{n}{2}\right\rceil}\)</span>
+意义下的平方根 <span class="math inline">\(f_0(x)\)</span> ，则有 <span
+class="math display">\[
 \begin{aligned}
-f_0^2(x) & \equiv g(x) \pmod{x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]f_0^2(x)-g(x) & \equiv 0 \pmod{x^{\left\lceil\frac{n}{2}\right\rceil}}
-\\[6pt]\left(f_0^2(x)-g(x)\right)^2 & \equiv 0 \pmod{x^{n}}
-\\[6pt]\left(f_0^2(x)+g(x)\right)^2 & \equiv 4 f_0^2(x) g(x) \pmod{x^{n}}
-\\[6pt]\left(\frac{f_0^2(x)+g(x)}{2 f_0(x)}\right)^2 & \equiv g(x) \pmod{x^{n}}
-\\[6pt]\frac{f_0^2(x)+g(x)}{2 f_0(x)} & \equiv f(x) \pmod{x^{n}}
-\\[6pt]2^{-1} f_0(x)+2^{-1} f_0^{-1}(x) g(x) & \equiv f(x)
-\end{aligned}</script><p>于是倍增计算即可。</p>
-<p>时间复杂度 $T(n)=T\left(\frac{n}{2}\right)+\mathcal{O}(n \log n)=\mathcal{O}(n \log n)$​</p>
-<p>完整代码详见 <a href="/2024/02/04/luo-gu-p5205-mo-ban-duo-xiang-shi-kai-gen-ti-jie/">洛谷P5205 【模板】多项式开根 题解</a></p>
+f_0^2(x) &amp; \equiv g(x) \pmod{x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]f_0^2(x)-g(x) &amp; \equiv 0
+\pmod{x^{\left\lceil\frac{n}{2}\right\rceil}}
+\\[6pt]\left(f_0^2(x)-g(x)\right)^2 &amp; \equiv 0 \pmod{x^{n}}
+\\[6pt]\left(f_0^2(x)+g(x)\right)^2 &amp; \equiv 4 f_0^2(x) g(x)
+\pmod{x^{n}}
+\\[6pt]\left(\frac{f_0^2(x)+g(x)}{2 f_0(x)}\right)^2 &amp; \equiv g(x)
+\pmod{x^{n}}
+\\[6pt]\frac{f_0^2(x)+g(x)}{2 f_0(x)} &amp; \equiv f(x) \pmod{x^{n}}
+\\[6pt]2^{-1} f_0(x)+2^{-1} f_0^{-1}(x) g(x) &amp; \equiv f(x)
+\end{aligned}
+\]</span> 于是倍增计算即可。</p>
+<p>时间复杂度 <span
+class="math inline">\(T(n)=T\left(\frac{n}{2}\right)+\mathcal{O}(n \log
+n)=\mathcal{O}(n \log n)\)</span>​</p>
+<p>完整代码详见 <a
+href="/2024/02/04/luo-gu-p5205-mo-ban-duo-xiang-shi-kai-gen-ti-jie/">洛谷P5205
+【模板】多项式开根 题解</a></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Sqrt</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
@@ -840,28 +880,56 @@ f_0^2(x) & \equiv g(x) \pmod{x^{\left\lceil\frac{n}{2}\right\rceil}}
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">%</span> P <span class="token operator">*</span> inv2 <span class="token operator">%</span> P<span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> n<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> limit<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>当 $[x^0]g(x) \ne 1$ 时，需要用二次剩余来计算 $[x^0]f(x)$​ ，详见：[链接] 咕咕咕咕咕咕。。。。</p>
+<p>当 <span class="math inline">\([x^0]g(x) \ne 1\)</span>
+时，需要用二次剩余来计算 <span class="math inline">\([x^0]f(x)\)</span>​
+，详见：[链接] 咕咕咕咕咕咕。。。。</p>
 <blockquote>
-<p>两个模板题的区别在于，前者保证 $a_0=1$ ，后者不保证 $a_0=1$ 但是保证 $a_0$ 为模 $p$ 意义下的二次剩余。</p>
+<p>两个模板题的区别在于，前者保证 <span
+class="math inline">\(a_0=1\)</span> ，后者不保证 <span
+class="math inline">\(a_0=1\)</span> 但是保证 <span
+class="math inline">\(a_0\)</span> 为模 <span
+class="math inline">\(p\)</span> 意义下的二次剩余。</p>
 </blockquote>
-<hr>
-<h2 id="3-多项式除法-amp-带余除法"><a href="#3-多项式除法-amp-带余除法" class="headerlink" title="3. 多项式除法 &amp; 带余除法"></a>3. 多项式除法 &amp; 带余除法</h2><p>给定多项式 $f(x),g(x)$ ，求 $g(x)$ 除 $f(x)$ 的商 $Q(x) $和余数 $R(x)$ 。</p>
+<hr />
+<h2 id="多项式除法-带余除法">3. 多项式除法 &amp; 带余除法</h2>
+<p>给定多项式 <span class="math inline">\(f(x),g(x)\)</span> ，求 <span
+class="math inline">\(g(x)\)</span> 除 <span
+class="math inline">\(f(x)\)</span> 的商 $Q(x) $和余数 <span
+class="math inline">\(R(x)\)</span> 。</p>
 <p><strong>解法</strong>：</p>
-<p>考虑构造变换</p>
-<script type="math/tex; mode=display">
-f^R(x)=x^{\operatorname{deg} f} f\left(\frac{1}{x}\right)</script><p>观察可知其实质为反转 $f(x)$ 的系数。</p>
-<p>设 $n=\operatorname{deg} f,~m = \operatorname{deg} g$ （多项式的次数）</p>
-<p>将 $f(x)=Q(x) g(x)+R(x)$ 中的 $x$ 替换成 $\frac{1}{x}$ 并将其两边都乘上 $x^n$ ，得到</p>
-<script type="math/tex; mode=display">
+<p>考虑构造变换 <span class="math display">\[
+f^R(x)=x^{\operatorname{deg} f} f\left(\frac{1}{x}\right)
+\]</span> 观察可知其实质为反转 <span class="math inline">\(f(x)\)</span>
+的系数。</p>
+<p>设 <span class="math inline">\(n=\operatorname{deg} f,~m =
+\operatorname{deg} g\)</span> （多项式的次数）</p>
+<p>将 <span class="math inline">\(f(x)=Q(x) g(x)+R(x)\)</span> 中的
+<span class="math inline">\(x\)</span> 替换成 <span
+class="math inline">\(\frac{1}{x}\)</span> 并将其两边都乘上 <span
+class="math inline">\(x^n\)</span> ，得到 <span class="math display">\[
 \begin{aligned}
-x^n f\left(\frac{1}{x}\right) & =x^{n-m} Q\left(\frac{1}{x}\right) x^m g\left(\frac{1}{x}\right)+x^{n-m+1} x^{m-1} R\left(\frac{1}{x}\right)
-\\[6pt] f^R(x) & =Q^R(x) g^R(x)+x^{n-m+1} R^R(x)
-\end{aligned}</script><p>注意到上式中 $R^R(x)$ 的 $x^{n-m+1}$ ，则将其放到模 $x^{n-m+1}$ 意义下即可消除 $R^R(x)$ 带来的影响.</p>
-<p>又因为 $Q^R(x)$ 的次数为 $(n - m) &lt; (n - m + 1)$ ，故 $Q^R(x)$ 不会受到影响，则</p>
-<script type="math/tex; mode=display">
-f^R(x) \equiv Q^R(x) g^R(x) \quad\left(\bmod x^{n-m+1}\right)</script><p>使用多项式求逆即可求出 $Q(x)$ ，将其反代回去即可得到 $R(x)$​ 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$ </p>
-<p>完整代码详见 <a href="/2024/02/05/luo-gu-p4512-mo-ban-duo-xiang-shi-chu-fa-ti-jie/">洛谷P4512 【模板】多项式除法 题解</a></p>
+x^n f\left(\frac{1}{x}\right) &amp; =x^{n-m} Q\left(\frac{1}{x}\right)
+x^m g\left(\frac{1}{x}\right)+x^{n-m+1} x^{m-1}
+R\left(\frac{1}{x}\right)
+\\[6pt] f^R(x) &amp; =Q^R(x) g^R(x)+x^{n-m+1} R^R(x)
+\end{aligned}
+\]</span> 注意到上式中 <span class="math inline">\(R^R(x)\)</span> 的
+<span class="math inline">\(x^{n-m+1}\)</span> ，则将其放到模 <span
+class="math inline">\(x^{n-m+1}\)</span> 意义下即可消除 <span
+class="math inline">\(R^R(x)\)</span> 带来的影响.</p>
+<p>又因为 <span class="math inline">\(Q^R(x)\)</span> 的次数为 <span
+class="math inline">\((n - m) &lt; (n - m + 1)\)</span> ，故 <span
+class="math inline">\(Q^R(x)\)</span> 不会受到影响，则 <span
+class="math display">\[
+f^R(x) \equiv Q^R(x) g^R(x) \quad\left(\bmod x^{n-m+1}\right)
+\]</span> 使用多项式求逆即可求出 <span
+class="math inline">\(Q(x)\)</span> ，将其反代回去即可得到 <span
+class="math inline">\(R(x)\)</span>​ 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
+<p>完整代码详见 <a
+href="/2024/02/05/luo-gu-p4512-mo-ban-duo-xiang-shi-chu-fa-ti-jie/">洛谷P4512
+【模板】多项式除法 题解</a></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Div</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>b<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>ans1<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>ans2<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> c<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -891,35 +959,66 @@ f^R(x) \equiv Q^R(x) g^R(x) \quad\left(\bmod x^{n-m+1}\right)</script><p>使用�
     <span class="token function">NTT</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> limit<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> ans2<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> P <span class="token operator">-</span> c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">%</span> P<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
-<h2 id="4-多项式对数函数-amp-指数函数"><a href="#4-多项式对数函数-amp-指数函数" class="headerlink" title="4. 多项式对数函数 &amp; 指数函数"></a>4. 多项式对数函数 &amp; 指数函数</h2><h3 id="多项式对数函数"><a href="#多项式对数函数" class="headerlink" title="多项式对数函数"></a>多项式对数函数</h3><p>给定整系数多项式 $f(x)$ ，求 $g(x)$ 满足</p>
-<script type="math/tex; mode=display">
-g(x) \equiv \ln f(x) \pmod{x^n}</script><p>在说明解法之前，我们先证明一个定理。</p>
-<p><strong>定理</strong>：当且仅当 $[x^0]f(x) = 1$ 时，$f(x)$ 有对数多项式。</p>
+<hr />
+<h2 id="多项式对数函数-指数函数">4. 多项式对数函数 &amp; 指数函数</h2>
+<h3 id="多项式对数函数">多项式对数函数</h3>
+<p>给定整系数多项式 <span class="math inline">\(f(x)\)</span> ，求 <span
+class="math inline">\(g(x)\)</span> 满足 <span class="math display">\[
+g(x) \equiv \ln f(x) \pmod{x^n}
+\]</span> 在说明解法之前，我们先证明一个定理。</p>
+<p><strong>定理</strong>：当且仅当 <span class="math inline">\([x^0]f(x)
+= 1\)</span> 时，<span class="math inline">\(f(x)\)</span>
+有对数多项式。</p>
 <blockquote>
 <p>证明：</p>
 <p>先证明一个引理。</p>
 <blockquote>
-<p><strong>引理</strong>：当 $\forall x\in \mathbb{Q} ,~x \ne 1$ 有 $\ln x \not\in \mathbb{Q}$ （$\mathbb{Q}$ 为有理数集）。</p>
-<p>证明：考虑反证法。若 $c=\ln x\in \mathbb{Q}$ ，则 $x = \mathrm{e}^c$ ，显然有 $c \ne 0$ 。</p>
-<p>因为 $\mathrm{e}$ 为超越数，所以 $\mathrm{e}^{c}$ 对于 $\forall c \in \mathbb{Q}$ 都有 $\mathrm{e}^c\not\in \mathbb{Q}$ ，即 $x \not\in \mathbb{Q}$ ，与假设矛盾。$\square$</p>
+<p><strong>引理</strong>：当 <span class="math inline">\(\forall x\in
+\mathbb{Q} ,~x \ne 1\)</span> 有 <span class="math inline">\(\ln x
+\not\in \mathbb{Q}\)</span> （<span
+class="math inline">\(\mathbb{Q}\)</span> 为有理数集）。</p>
+<p>证明：考虑反证法。若 <span class="math inline">\(c=\ln x\in
+\mathbb{Q}\)</span> ，则 <span class="math inline">\(x =
+\mathrm{e}^c\)</span> ，显然有 <span class="math inline">\(c \ne
+0\)</span> 。</p>
+<p>因为 <span class="math inline">\(\mathrm{e}\)</span> 为超越数，所以
+<span class="math inline">\(\mathrm{e}^{c}\)</span> 对于 <span
+class="math inline">\(\forall c \in \mathbb{Q}\)</span> 都有 <span
+class="math inline">\(\mathrm{e}^c\not\in \mathbb{Q}\)</span> ，即 <span
+class="math inline">\(x \not\in \mathbb{Q}\)</span> ，与假设矛盾。<span
+class="math inline">\(\square\)</span></p>
 </blockquote>
-<p>考虑用先求导再积分的方式获得其对数</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>当然这个 $f(x)$ 显然已经确定了它的构成，那么我们可以写成</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C \pmod{x^n}</script><p>其中 $C=\ln f(0)$​ 为积分常数。</p>
-<p>根据引理，又因为无理数在模意义下无意义，所以 $f(0) = 1$ 即 $[x^0]f(x)=1$​ 。</p>
-<p>对于除 $[x^0]f(x)$​ 外的项，显然其导数和积分都为有理数。证毕。</p>
+<p>考虑用先求导再积分的方式获得其对数 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 当然这个 <span class="math inline">\(f(x)\)</span>
+显然已经确定了它的构成，那么我们可以写成 <span class="math display">\[
+\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C
+\pmod{x^n}
+\]</span> 其中 <span class="math inline">\(C=\ln f(0)\)</span>​
+为积分常数。</p>
+<p>根据引理，又因为无理数在模意义下无意义，所以 <span
+class="math inline">\(f(0) = 1\)</span> 即 <span
+class="math inline">\([x^0]f(x)=1\)</span>​ 。</p>
+<p>对于除 <span class="math inline">\([x^0]f(x)\)</span>​
+外的项，显然其导数和积分都为有理数。证毕。</p>
 </blockquote>
 <p><strong>解法</strong>：</p>
-<p>其实我们刚刚已经推导出了</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下</p>
-<script type="math/tex; mode=display">
+<p>其实我们刚刚已经推导出了 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下
+<span class="math display">\[
 x^n = nx^{n-1}
-\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C</script><p>因此实际上我们可以 $\mathcal{O}(n)$ 求导和积分，加上求逆的 $\mathcal{O}(n \log n)$ ，总时间复杂度为 $\mathcal{O}(n \log n)$</p>
-<p>完整代码详见 <a href="/2024/02/06/luo-gu-p4725-mo-ban-duo-xiang-shi-dui-shu-han-shu-duo-xiang-shi-ln-ti-jie/">洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解</a></p>
+\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C
+\]</span> 因此实际上我们可以 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 求导和积分，加上求逆的
+<span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，总时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
+<p>完整代码详见 <a
+href="/2024/02/06/luo-gu-p4725-mo-ban-duo-xiang-shi-dui-shu-han-shu-duo-xiang-shi-ln-ti-jie/">洛谷P4725
+【模板】多项式对数函数（多项式 ln） 题解</a></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">Diff</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>b<span class="token punctuation">)</span> <span class="token comment">// 求导</span>
 <span class="token punctuation">&#123;</span>
     b<span class="token punctuation">[</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -935,71 +1034,114 @@ x^n = nx^{n-1}
     <span class="token function">Diff</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> a<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">Inv</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> a<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">Mul</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> n<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">Int</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> t<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Mul 是乘法</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<h3 id="多项式指数函数"><a href="#多项式指数函数" class="headerlink" title="多项式指数函数"></a>多项式指数函数</h3><p>给定整系数多项式 $f(x)$ ，求 $g(x)$​ 满足</p>
-<script type="math/tex; mode=display">
-g(x) \equiv \exp f(x) \pmod{x^n}</script><p><strong>定理</strong>：当且仅当 $[x^0]f(x) = 0$ 时，$f(x)$ 有指数多项式，否则常数项不收敛。</p>
+<h3 id="多项式指数函数">多项式指数函数</h3>
+<p>给定整系数多项式 <span class="math inline">\(f(x)\)</span> ，求 <span
+class="math inline">\(g(x)\)</span>​ 满足 <span class="math display">\[
+g(x) \equiv \exp f(x) \pmod{x^n}
+\]</span> <strong>定理</strong>：当且仅当 <span
+class="math inline">\([x^0]f(x) = 0\)</span> 时，<span
+class="math inline">\(f(x)\)</span> 有指数多项式，否则常数项不收敛。</p>
 <blockquote>
 <p>证明：不知道。<del>但是你想想，是吧，对吧，啊，所以它是对的</del>。</p>
 </blockquote>
 <p><strong>解法</strong>：</p>
-<p>考虑对 $\exp f(x)$ 求导</p>
-<script type="math/tex; mode=display">
-\frac{\mathrm{d} \exp f(x)}{\mathrm{d} x} \equiv \exp f(x) f^{\prime}(x) \pmod{x^n}</script><p>比较两边系数可得</p>
-<script type="math/tex; mode=display">
+<p>考虑对 <span class="math inline">\(\exp f(x)\)</span> 求导 <span
+class="math display">\[
+\frac{\mathrm{d} \exp f(x)}{\mathrm{d} x} \equiv \exp f(x) f^{\prime}(x)
+\pmod{x^n}
+\]</span> 比较两边系数可得 <span class="math display">\[
 \begin{aligned}
-& {\left[x^{n-1}\right] \frac{\mathrm{d} \exp f(x)}{\mathrm{d} x}=\sum_{i=0}^{n-1}\left(\left[x^i\right] \exp f(x)\right)\left(\left[x^{n-i-1}\right] f^{\prime}(x)\right)} \\
-& n\left[x^n\right] \exp f(x)=\sum_{i=0}^{n-1}\left(\left[x^i\right] \exp f(x)\right)\left((n-i)\left[x^{n-i}\right] f(x)\right)
-\end{aligned}</script><p>考虑分治 FFT ，时间复杂度为 $\mathcal{O}(n \log^2 n)$​ 。（听说常数很小？）</p>
+&amp; {\left[x^{n-1}\right] \frac{\mathrm{d} \exp f(x)}{\mathrm{d}
+x}=\sum_{i=0}^{n-1}\left(\left[x^i\right] \exp
+f(x)\right)\left(\left[x^{n-i-1}\right] f^{\prime}(x)\right)} \\
+&amp; n\left[x^n\right] \exp f(x)=\sum_{i=0}^{n-1}\left(\left[x^i\right]
+\exp f(x)\right)\left((n-i)\left[x^{n-i}\right] f(x)\right)
+\end{aligned}
+\]</span> 考虑分治 FFT ，时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n \log^2 n)\)</span>​
+。（听说常数很小？）</p>
 <p>代码详见 [链接] 咕咕咕。。。。</p>
-<p>当然，用牛顿迭代法可以达到 $\mathcal{O}(n \log n)$​ ，本文不打算讲。</p>
-<hr>
-<h2 id="5-多项式三角函数"><a href="#5-多项式三角函数" class="headerlink" title="5. 多项式三角函数"></a>5. 多项式三角函数</h2><p>给定多项式 $f(x)$ ，求模 $x^n$ 意义下的 $\sin f(x),\cos f(x), \tan f(x)$</p>
+<p>当然，用牛顿迭代法可以达到 <span class="math inline">\(\mathcal{O}(n
+\log n)\)</span>​ ，本文不打算讲。</p>
+<hr />
+<h2 id="多项式三角函数">5. 多项式三角函数</h2>
+<p>给定多项式 <span class="math inline">\(f(x)\)</span> ，求模 <span
+class="math inline">\(x^n\)</span> 意义下的 <span
+class="math inline">\(\sin f(x),\cos f(x), \tan f(x)\)</span></p>
 <p><strong>解法</strong>：</p>
-<p>由 $\mathrm{e}^{\mathrm{i} x}=\cos x+\mathrm{i} \sin x$ 可得</p>
-<script type="math/tex; mode=display">
+<p>由 <span class="math inline">\(\mathrm{e}^{\mathrm{i} x}=\cos
+x+\mathrm{i} \sin x\)</span> 可得 <span class="math display">\[
 \begin{aligned}
-& \sin x=\frac{\mathrm{e}^{\mathrm{i} x}-\mathrm{e}^{-\mathrm{i} x}}{2 \mathrm{i}} \\
-& \cos x=\frac{\mathrm{e}^{\mathrm{i} x}+\mathrm{e}^{-\mathrm{i} x}}{2}
-\end{aligned}</script><p>代入 $f(x)$ ，有</p>
-<script type="math/tex; mode=display">
+&amp; \sin x=\frac{\mathrm{e}^{\mathrm{i} x}-\mathrm{e}^{-\mathrm{i}
+x}}{2 \mathrm{i}} \\
+&amp; \cos x=\frac{\mathrm{e}^{\mathrm{i} x}+\mathrm{e}^{-\mathrm{i}
+x}}{2}
+\end{aligned}
+\]</span> 代入 <span class="math inline">\(f(x)\)</span> ，有 <span
+class="math display">\[
 \begin{aligned}
-\sin f(x) & =\frac{\exp (\mathrm{i} f(x))-\exp (-\mathrm{i} f(x))}{2 \mathrm{i}} \\
-\cos f(x) & =\frac{\exp (\mathrm{i} f(x))+\exp (-\mathrm{i} f(x))}{2}
-\end{aligned}</script><p>这里因为通常在 $\mathbb{Z}_{998244353}$ 上做 NTT ，因此</p>
-<script type="math/tex; mode=display">
+\sin f(x) &amp; =\frac{\exp (\mathrm{i} f(x))-\exp (-\mathrm{i} f(x))}{2
+\mathrm{i}} \\
+\cos f(x) &amp; =\frac{\exp (\mathrm{i} f(x))+\exp (-\mathrm{i}
+f(x))}{2}
+\end{aligned}
+\]</span> 这里因为通常在 <span
+class="math inline">\(\mathbb{Z}_{998244353}\)</span> 上做 NTT ，因此
+<span class="math display">\[
 \begin{aligned}
-\mathrm{i}= & \sqrt{-1} \equiv \sqrt{998244352} \quad(\bmod 998244353) \\
-\Longrightarrow \quad \mathrm{i} & \equiv 86583718 \quad(\bmod 998244353) \\
-\text { or } \quad \mathrm{i} & \equiv 911660635 \quad(\bmod 998244353)
-\end{aligned}</script><p>时间复杂度 $\mathcal{O}(n \log^2 n)$ 或 $\mathcal{O}(n \log n)$</p>
+\mathrm{i}= &amp; \sqrt{-1} \equiv \sqrt{998244352} \quad(\bmod
+998244353) \\
+\Longrightarrow \quad \mathrm{i} &amp; \equiv 86583718 \quad(\bmod
+998244353) \\
+\text { or } \quad \mathrm{i} &amp; \equiv 911660635 \quad(\bmod
+998244353)
+\end{aligned}
+\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(n \log^2
+n)\)</span> 或 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码详见 [链接] 咕咕咕。。。。</p>
-<hr>
-<h2 id="6-多项式反三角函数"><a href="#6-多项式反三角函数" class="headerlink" title="6. 多项式反三角函数"></a>6. 多项式反三角函数</h2><p>给定多项式 $f(x)$ ，求模 $x^n$ 意义下的 $\arcsin f(x),\arccos f(x), \arctan f(x)$​</p>
+<hr />
+<h2 id="多项式反三角函数">6. 多项式反三角函数</h2>
+<p>给定多项式 <span class="math inline">\(f(x)\)</span> ，求模 <span
+class="math inline">\(x^n\)</span> 意义下的 <span
+class="math inline">\(\arcsin f(x),\arccos f(x), \arctan
+f(x)\)</span>​</p>
 <p><strong>解法</strong>：</p>
-<p>对反三角函数求导再积分可得</p>
-<script type="math/tex; mode=display">
+<p>对反三角函数求导再积分可得 <span class="math display">\[
 \begin{aligned}
-\frac{\mathrm{d}}{\mathrm{d} x} \arcsin x & =\frac{1}{\sqrt{1-x^2}} \\
-\arcsin x & =\int \frac{1}{\sqrt{1-x^2}} \mathrm{~d} x \\
-\frac{\mathrm{d}}{\mathrm{d} x} \arccos x & =-\frac{1}{\sqrt{1-x^2}} \\
-\arccos x & =-\int \frac{1}{\sqrt{1-x^2}} \mathrm{~d} x \\
-\frac{\mathrm{d}}{\mathrm{d} x} \arctan x & =\frac{1}{1+x^2} \\
-\arctan x & =\int \frac{1}{1+x^2} \mathrm{~d} x
-\end{aligned}</script><p>代入 $f(x)$ 有</p>
-<script type="math/tex; mode=display">
+\frac{\mathrm{d}}{\mathrm{d} x} \arcsin x &amp; =\frac{1}{\sqrt{1-x^2}}
+\\
+\arcsin x &amp; =\int \frac{1}{\sqrt{1-x^2}} \mathrm{~d} x \\
+\frac{\mathrm{d}}{\mathrm{d} x} \arccos x &amp; =-\frac{1}{\sqrt{1-x^2}}
+\\
+\arccos x &amp; =-\int \frac{1}{\sqrt{1-x^2}} \mathrm{~d} x \\
+\frac{\mathrm{d}}{\mathrm{d} x} \arctan x &amp; =\frac{1}{1+x^2} \\
+\arctan x &amp; =\int \frac{1}{1+x^2} \mathrm{~d} x
+\end{aligned}
+\]</span> 代入 <span class="math inline">\(f(x)\)</span> 有 <span
+class="math display">\[
 \begin{aligned}
-\frac{\mathrm{d}}{\mathrm{d} x} \arcsin f(x) & =\frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \\
-\arcsin f(x) & =\int \frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \mathrm{d} x \\
-\frac{\mathrm{d}}{\mathrm{d} x} \arccos f(x) & =-\frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \\
-\arccos f(x) & =-\int \frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \mathrm{d} x \\
-\frac{\mathrm{d}}{\mathrm{d} x} \arctan f(x) & =\frac{f^{\prime}(x)}{1+f^2(x)} \\
-\arctan f(x) & =\int \frac{f^{\prime}(x)}{1+f^2(x)} \mathrm{d} x
-\end{aligned}</script><p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+\frac{\mathrm{d}}{\mathrm{d} x} \arcsin f(x) &amp;
+=\frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \\
+\arcsin f(x) &amp; =\int \frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}}
+\mathrm{d} x \\
+\frac{\mathrm{d}}{\mathrm{d} x} \arccos f(x) &amp;
+=-\frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}} \\
+\arccos f(x) &amp; =-\int \frac{f^{\prime}(x)}{\sqrt{1-f^2(x)}}
+\mathrm{d} x \\
+\frac{\mathrm{d}}{\mathrm{d} x} \arctan f(x) &amp;
+=\frac{f^{\prime}(x)}{1+f^2(x)} \\
+\arctan f(x) &amp; =\int \frac{f^{\prime}(x)}{1+f^2(x)} \mathrm{d} x
+\end{aligned}
+\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码详见 [链接] 咕咕咕。。。。</p>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://en.oi-wiki.org/math/poly/intro/#_5">https://en.oi-wiki.org/math/poly/intro/#_5</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://oiwiki.org/math/poly/elementary-func/">https://oiwiki.org/math/poly/elementary-func/</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://en.oi-wiki.org/math/poly/intro/#_5">https://en.oi-wiki.org/math/poly/intro/#_5</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://oiwiki.org/math/poly/elementary-func/">https://oiwiki.org/math/poly/elementary-func/</a></p>
 
                 
             </div>
@@ -1068,12 +1210,12 @@ g(x) \equiv \exp f(x) \pmod{x^n}</script><p><strong>定理</strong>：当且仅�
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%80%BB%E7%BB%93/">
-                                    <span class="chip bg-color">总结</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%80%BB%E7%BB%93/">
+                                    <span class="chip bg-color">总结</span>
                                 </a>
                             
                                 <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/">
@@ -1482,7 +1624,7 @@ g(x) \equiv \exp f(x) \pmod{x^n}</script><p><strong>定理</strong>：当且仅�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

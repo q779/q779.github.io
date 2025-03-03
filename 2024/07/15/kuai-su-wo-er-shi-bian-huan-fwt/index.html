@@ -544,7 +544,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p126.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p113.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -748,44 +748,79 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="快速沃尔什变换-FWT"><a href="#快速沃尔什变换-FWT" class="headerlink" title="快速沃尔什变换 FWT"></a>快速沃尔什变换 FWT</h1><p>模板题链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4717">P4717 【模板】快速莫比乌斯/沃尔什变换 (FMT/FWT)</a></p>
+                <h1 id="快速沃尔什变换-fwt">快速沃尔什变换 FWT</h1>
+<p>模板题链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4717">P4717
+【模板】快速莫比乌斯/沃尔什变换 (FMT/FWT)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定长度为 $2^n$ 两个序列 $A,B$，设 </p>
-<script type="math/tex; mode=display">
-C_i=\sum_{(j\operatorname\circ k) = i}A_j \times B_k</script><p>分别当 $\operatorname\circ$ 是 or, and, xor 时求出 $C$。</p>
+<p>给定长度为 <span class="math inline">\(2^n\)</span> 两个序列 <span
+class="math inline">\(A,B\)</span>，设 <span class="math display">\[
+C_i=\sum_{(j\operatorname\circ k) = i}A_j \times B_k
+\]</span></p>
+<p>分别当 <span class="math inline">\(\operatorname\circ\)</span> 是 or,
+and, xor 时求出 <span class="math inline">\(C\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个整数 $n$。  </p>
-<p>第二行，$2^n$ 个数 $A_0, A_1, \ldots, A_{2^n-1}$。  </p>
-<p>第三行，$2^n$ 个数 $B_0, B_1, \ldots, B_{2^n-1}$。</p>
+<p>第一行，一个整数 <span class="math inline">\(n\)</span>。</p>
+<p>第二行，<span class="math inline">\(2^n\)</span> 个数 <span
+class="math inline">\(A_0, A_1, \ldots, A_{2^n-1}\)</span>。</p>
+<p>第三行，<span class="math inline">\(2^n\)</span> 个数 <span
+class="math inline">\(B_0, B_1, \ldots, B_{2^n-1}\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>三行，每行 $2^n$ 个数，分别代表 $\operatorname\circ$ 是 or, and, xor 时 $C_0, C_1, \ldots, C_{2^n-1}$ 的值$\bmod 998244353$。</p>
+<p>三行，每行 <span class="math inline">\(2^n\)</span> 个数，分别代表
+<span class="math inline">\(\operatorname\circ\)</span> 是 or, and, xor
+时 <span class="math inline">\(C_0, C_1, \ldots, C_{2^n-1}\)</span>
+的值<span class="math inline">\(\bmod 998244353\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 17$。</p>
+<p><span class="math inline">\(1 \le n \le 17\)</span>。</p>
 </blockquote>
-<hr>
-<h3 id="mathcal-Part-0-简介"><a href="#mathcal-Part-0-简介" class="headerlink" title="$\mathcal{Part}\ 0$ 简介"></a>$\mathcal{Part}\ 0$ 简介</h3><p>在 OI 中，FWT 是用于解决对下标进行位运算卷积问题的方法。</p>
-<p>具体地，对于已知序列 $a,b$ ，FWT 可以在 $\mathcal{O}(n \log n)$ 的复杂度内计算出</p>
-<script type="math/tex; mode=display">
-c_i=\sum_{i=(j \operatorname{\circ} k)} a_j b_k</script><p>其中 $\operatorname{\circ}$ 为二元位运算的一种。在本题中即为 $\lor,\,\land,\,\oplus$ （或/与/异或）</p>
-<p>FWT 的灵感来源于 FFT ，具体思路详见参考文献2。本文仅介绍基本的原理。</p>
-<hr>
-<h3 id="mathcal-Part-1-或运算"><a href="#mathcal-Part-1-或运算" class="headerlink" title="$\mathcal{Part}\ 1$ 或运算"></a>$\mathcal{Part}\ 1$ 或运算</h3><p>计算</p>
-<script type="math/tex; mode=display">
-c_i=\sum_{i=(j \operatorname\lor k)} a_j b_k</script><p>由于 $(j \lor k) = i,~(k \lor i) = i$ 可推出 $((j \lor k) \lor i) = i$ 。</p>
-<p>考虑构造 $f_a(i) = \sum_{(j \lor i) = i}a_j$ ，那么</p>
-<script type="math/tex; mode=display">
+<hr />
+<h3 id="mathcalpart-0-简介"><span class="math inline">\(\mathcal{Part}\
+0\)</span> 简介</h3>
+<p>在 OI 中，FWT 是用于解决对下标进行位运算卷积问题的方法。</p>
+<p>具体地，对于已知序列 <span class="math inline">\(a,b\)</span> ，FWT
+可以在 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+的复杂度内计算出 <span class="math display">\[
+c_i=\sum_{i=(j \operatorname{\circ} k)} a_j b_k
+\]</span> 其中 <span class="math inline">\(\operatorname{\circ}\)</span>
+为二元位运算的一种。在本题中即为 <span
+class="math inline">\(\lor,\,\land,\,\oplus\)</span> （或/与/异或）</p>
+<p>FWT 的灵感来源于 FFT
+，具体思路详见参考文献2。本文仅介绍基本的原理。</p>
+<hr />
+<h3 id="mathcalpart-1-或运算"><span
+class="math inline">\(\mathcal{Part}\ 1\)</span> 或运算</h3>
+<p>计算 <span class="math display">\[
+c_i=\sum_{i=(j \operatorname\lor k)} a_j b_k
+\]</span> 由于 <span class="math inline">\((j \lor k) = i,~(k \lor i) =
+i\)</span> 可推出 <span class="math inline">\(((j \lor k) \lor i) =
+i\)</span> 。</p>
+<p>考虑构造 <span class="math inline">\(f_a(i) = \sum_{(j \lor i) =
+i}a_j\)</span> ，那么 <span class="math display">\[
 \begin{aligned}
-f_a \times f_b & =\left(\sum_{(j \lor i)=i} a_j\right)\left(\sum_{(k \lor i)=i} b_k\right)
-\\[6pt]& =\sum_{(j \lor i) = i}\sum_{(k \lor i)=i} a_j b_k
-\\[6pt]& =\sum_{((j \lor k) \lor i) = i} a_j b_k
-\\[6pt]& =f_c
-\end{aligned}</script><p>考虑如何求 $f_a$ ，令 $a_0$ 为 $a$ 中下标最高位为 $0$ 的那部分，$a_1$ 表示 $a$ 中下标最高位为 $1$ 的那部分，则</p>
-<script type="math/tex; mode=display">
-f_a = f_{a_0} \cup  (f_{a_0} + f_{a_1})</script><p>分治即可。反正，我们要转换回 $a$ ，根据上式则有</p>
-<script type="math/tex; mode=display">
-a = a_0 \cup (a_1 - a_0)</script><blockquote>
-<p>提示：上述公式中 $\cup$ 表示序列的拼接，$+$ 和 $-$ 表示对应位置相加减。</p>
+f_a \times f_b &amp; =\left(\sum_{(j \lor i)=i} a_j\right)\left(\sum_{(k
+\lor i)=i} b_k\right)
+\\[6pt]&amp; =\sum_{(j \lor i) = i}\sum_{(k \lor i)=i} a_j b_k
+\\[6pt]&amp; =\sum_{((j \lor k) \lor i) = i} a_j b_k
+\\[6pt]&amp; =f_c
+\end{aligned}
+\]</span> 考虑如何求 <span class="math inline">\(f_a\)</span> ，令 <span
+class="math inline">\(a_0\)</span> 为 <span
+class="math inline">\(a\)</span> 中下标最高位为 <span
+class="math inline">\(0\)</span> 的那部分，<span
+class="math inline">\(a_1\)</span> 表示 <span
+class="math inline">\(a\)</span> 中下标最高位为 <span
+class="math inline">\(1\)</span> 的那部分，则 <span
+class="math display">\[
+f_a = f_{a_0} \cup  (f_{a_0} + f_{a_1})
+\]</span> 分治即可。反正，我们要转换回 <span
+class="math inline">\(a\)</span> ，根据上式则有 <span
+class="math display">\[
+a = a_0 \cup (a_1 - a_0)
+\]</span></p>
+<blockquote>
+<p>提示：上述公式中 <span class="math inline">\(\cup\)</span>
+表示序列的拼接，<span class="math inline">\(+\)</span> 和 <span
+class="math inline">\(-\)</span> 表示对应位置相加减。</p>
 </blockquote>
 <p>这部分的代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">OR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
@@ -794,33 +829,51 @@ a = a_0 \cup (a_1 - a_0)</script><blockquote>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> o<span class="token punctuation">)</span>
             <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span><span class="token punctuation">,</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span></code></pre>
-<hr>
-<h3 id="mathcal-Part-2-与运算"><a href="#mathcal-Part-2-与运算" class="headerlink" title="$\mathcal{Part}\ 2$ 与运算"></a>$\mathcal{Part}\ 2$ 与运算</h3><p>和或运算同理，直接贴代码了。</p>
+<hr />
+<h3 id="mathcalpart-2-与运算"><span
+class="math inline">\(\mathcal{Part}\ 2\)</span> 与运算</h3>
+<p>和或运算同理，直接贴代码了。</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">AND</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> o <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> o <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> o <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> o<span class="token punctuation">)</span>
             <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">,</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span></code></pre>
-<hr>
-<h3 id="mathcal-Part-3-异或运算"><a href="#mathcal-Part-3-异或运算" class="headerlink" title="$\mathcal{Part}\ 3$ 异或运算"></a>$\mathcal{Part}\ 3$ 异或运算</h3><p>定义 $x\otimes y = \mathrm{popcount}(x\land y) \bmod 2$ ，即 $x,y$ 的与在二进制下 $1$ 的个数</p>
-<p>那么 $(i \otimes j) \oplus (i  \otimes k) = i \otimes (j \oplus k)$</p>
-<p>考虑构造</p>
-<script type="math/tex; mode=display">
-f_a(i) = \sum_{(i\otimes j) = 0} a_j - \sum_{(i\otimes j) = 1}a_j</script><p>那么</p>
-<script type="math/tex; mode=display">
+<hr />
+<h3 id="mathcalpart-3-异或运算"><span
+class="math inline">\(\mathcal{Part}\ 3\)</span> 异或运算</h3>
+<p>定义 <span class="math inline">\(x\otimes y =
+\mathrm{popcount}(x\land y) \bmod 2\)</span> ，即 <span
+class="math inline">\(x,y\)</span> 的与在二进制下 <span
+class="math inline">\(1\)</span> 的个数</p>
+<p>那么 <span class="math inline">\((i \otimes j) \oplus (i \otimes k) =
+i \otimes (j \oplus k)\)</span></p>
+<p>考虑构造 <span class="math display">\[
+f_a(i) = \sum_{(i\otimes j) = 0} a_j - \sum_{(i\otimes j) = 1}a_j
+\]</span> 那么 <span class="math display">\[
 \small
 \begin{aligned}
-f_a\times f_b & =\left(\sum_{(i \otimes j)=0} a_j-\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k-\sum_{(i \otimes k)=1} b_k\right)
-\\[6pt]& =\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i \otimes k)=0} b_k\right)-\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right)
--\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k\right)+\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right) 
-\\[6pt]& =\sum_{(i \otimes(j \oplus k))=0} a_j b_k-\sum_{(i \otimes(j \oplus k))=1} a_j b_k
-\\[6pt]& =f_c
-\end{aligned}</script><p>因此</p>
-<script type="math/tex; mode=display">
+f_a\times f_b &amp; =\left(\sum_{(i \otimes j)=0} a_j-\sum_{(i \otimes
+j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k-\sum_{(i \otimes k)=1}
+b_k\right)
+\\[6pt]&amp; =\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i
+\otimes k)=0} b_k\right)-\left(\sum_{(i \otimes j)=0}
+a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right)
+-\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0}
+b_k\right)+\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes
+k)=1} b_k\right)
+\\[6pt]&amp; =\sum_{(i \otimes(j \oplus k))=0} a_j b_k-\sum_{(i
+\otimes(j \oplus k))=1} a_j b_k
+\\[6pt]&amp; =f_c
+\end{aligned}
+\]</span> 因此 <span class="math display">\[
 f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
-\\[6pt] a = \frac{a_0 + a_1}{2} \cup \frac{a_0 - a_1}{2}</script><blockquote>
-<p>提示：这里 $\frac{1}{2}$ 也是对应位置乘上 $\frac{1}{2}$ 的意思。</p>
+\\[6pt] a = \frac{a_0 + a_1}{2} \cup \frac{a_0 - a_1}{2}
+\]</span></p>
+<blockquote>
+<p>提示：这里 <span class="math inline">\(\frac{1}{2}\)</span>
+也是对应位置乘上 <span class="math inline">\(\frac{1}{2}\)</span>
+的意思。</p>
 </blockquote>
 <p>这部分的代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">XOR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
@@ -834,9 +887,12 @@ f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
                 f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">;</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">;</span>
             <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = 1 / 2</span></code></pre>
-<p>注意这里是 $\frac{1}{2}$ 。</p>
-<hr>
-<h3 id="mathcal-Part-4-完整实现"><a href="#mathcal-Part-4-完整实现" class="headerlink" title="$\mathcal{Part}\ 4$ 完整实现"></a>$\mathcal{Part}\ 4$ 完整实现</h3><p>时间复杂度 $\mathcal{O}(n \log n)$ ，其中 $n$ 是序列的长度</p>
+<p>注意这里是 <span class="math inline">\(\frac{1}{2}\)</span> 。</p>
+<hr />
+<h3 id="mathcalpart-4-完整实现"><span
+class="math inline">\(\mathcal{Part}\ 4\)</span> 完整实现</h3>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，其中 <span class="math inline">\(n\)</span> 是序列的长度</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -901,10 +957,12 @@ f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
     <span class="token function">XOR</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> inv2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2pavj2pd">https://www.luogu.com.cn/article/2pavj2pd</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">https://www.luogu.com.cn/article/crmftzuv</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2pavj2pd">https://www.luogu.com.cn/article/2pavj2pd</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">https://www.luogu.com.cn/article/crmftzuv</a></p>
 
                 
             </div>
@@ -1123,7 +1181,7 @@ f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p141.jpg" class="responsive-img" alt="【生物】二分裂与无丝分裂的区别">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p104.jpg" class="responsive-img" alt="【生物】二分裂与无丝分裂的区别">
                         
                         <span class="card-title">【生物】二分裂与无丝分裂的区别</span>
                     </div>
@@ -1376,7 +1434,7 @@ f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

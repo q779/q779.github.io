@@ -544,7 +544,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p153.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -752,23 +752,54 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P7984-USACO21DEC-Tickets-P-题解"><a href="#洛谷P7984-USACO21DEC-Tickets-P-题解" class="headerlink" title="洛谷P7984 [USACO21DEC] Tickets P 题解"></a>洛谷P7984 [USACO21DEC] Tickets P 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7984">P7984 [USACO21DEC] Tickets P</a></p>
+                <h1 id="洛谷p7984-usaco21dec-tickets-p-题解">洛谷P7984 [USACO21DEC]
+Tickets P 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7984">P7984
+[USACO21DEC] Tickets P</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Bessie 正在参加远足旅行！她当前正在旅行的路线由编号为 $1\ldots N$（$1\le N\le 10^5$）的 $N$ 个检查点组成。</p>
-<p>有 $K~(1\le K\le 10^5)$ 张票可供购买。第 $i$ 张票可以在检查站 $c_i~(1\le c_i\le N)$ 以 $p_i~(1\le p_i\le 10^9)$ 的价格购得，并且可以用其进入所有检查站 $[a_i,b_i]$（$1\le a_i\le b_i\le N$）。在进入任何检查站之前，Bessie 必须已购买一张允许其进入该检查站的票。一旦 Bessie 可以前往某一检查站，她就可以在未来的任何时候回到该检查站。</p>
-<p>对于每一个 $i\in [1,N]$，如果 Bessie 最初只能进入检查点 $i$，输出使得可以进入检查点 $1$ 和 $N$ 所需的最低总价。如果无法这样做，输出 $-1$。</p>
+<p>Bessie 正在参加远足旅行！她当前正在旅行的路线由编号为 <span
+class="math inline">\(1\ldots N\)</span>（<span
+class="math inline">\(1\le N\le 10^5\)</span>）的 <span
+class="math inline">\(N\)</span> 个检查点组成。</p>
+<p>有 <span class="math inline">\(K~(1\le K\le 10^5)\)</span>
+张票可供购买。第 <span class="math inline">\(i\)</span> 张票可以在检查站
+<span class="math inline">\(c_i~(1\le c_i\le N)\)</span> 以 <span
+class="math inline">\(p_i~(1\le p_i\le 10^9)\)</span>
+的价格购得，并且可以用其进入所有检查站 <span
+class="math inline">\([a_i,b_i]\)</span>（<span
+class="math inline">\(1\le a_i\le b_i\le
+N\)</span>）。在进入任何检查站之前，Bessie
+必须已购买一张允许其进入该检查站的票。一旦 Bessie
+可以前往某一检查站，她就可以在未来的任何时候回到该检查站。</p>
+<p>对于每一个 <span class="math inline">\(i\in [1,N]\)</span>，如果
+Bessie 最初只能进入检查点 <span
+class="math inline">\(i\)</span>，输出使得可以进入检查点 <span
+class="math inline">\(1\)</span> 和 <span
+class="math inline">\(N\)</span> 所需的最低总价。如果无法这样做，输出
+<span class="math inline">\(-1\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含 $N$ 和 $K$。</p>
-<p>以下 $K$ 行，对于每一个 $1\le i\le K$，第 $i$ 行包含四个整数 $c_i,p_i,a_i$ 和 $b_i$。</p>
+<p>输入的第一行包含 <span class="math inline">\(N\)</span> 和 <span
+class="math inline">\(K\)</span>。</p>
+<p>以下 <span class="math inline">\(K\)</span> 行，对于每一个 <span
+class="math inline">\(1\le i\le K\)</span>，第 <span
+class="math inline">\(i\)</span> 行包含四个整数 <span
+class="math inline">\(c_i,p_i,a_i\)</span> 和 <span
+class="math inline">\(b_i\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $N$ 行，每行输出一个检查点的答案。</p>
+<p>输出 <span class="math inline">\(N\)</span>
+行，每行输出一个检查点的答案。</p>
 </blockquote>
-<p>设 $f_i$ 为以 $i$ 为起点的答案，那么</p>
-<script type="math/tex; mode=display">
-f_i = \min\left\{f_j + w(i, j)\mid (i, j) \in E\right\}</script><p>初值 $f_i = \mathrm{dis}(i,1) + \mathrm{dis}(i, n)$ 。</p>
-<p>显然这是一个最短路更新 dp 的形式。考虑用线段树优化建图，然后跑 Dijkstra 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$ </p>
+<p>设 <span class="math inline">\(f_i\)</span> 为以 <span
+class="math inline">\(i\)</span> 为起点的答案，那么 <span
+class="math display">\[
+f_i = \min\left\{f_j + w(i, j)\mid (i, j) \in E\right\}
+\]</span> 初值 <span class="math inline">\(f_i = \mathrm{dis}(i,1) +
+\mathrm{dis}(i, n)\)</span> 。</p>
+<p>显然这是一个最短路更新 dp 的形式。考虑用线段树优化建图，然后跑
+Dijkstra 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -842,9 +873,10 @@ ll d<span class="token punctuation">[</span>N<span class="token punctuation">]</
     <span class="token function">Dijkstra</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>d<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> INF <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">?</span> d<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2mcrj4ih">https://www.luogu.com.cn/article/2mcrj4ih</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2mcrj4ih">https://www.luogu.com.cn/article/2mcrj4ih</a></p>
 
                 
             </div>
@@ -1331,7 +1363,7 @@ ll d<span class="token punctuation">[</span>N<span class="token punctuation">]</
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

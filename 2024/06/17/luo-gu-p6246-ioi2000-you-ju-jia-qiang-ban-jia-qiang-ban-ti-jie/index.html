@@ -732,7 +732,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.2k
                 </div>
                 
 
@@ -752,40 +752,77 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6246-IOI2000-邮局-加强版-加强版-题解"><a href="#洛谷P6246-IOI2000-邮局-加强版-加强版-题解" class="headerlink" title="洛谷P6246 [IOI2000] 邮局 加强版 加强版 题解"></a>洛谷P6246 [IOI2000] 邮局 加强版 加强版 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6246">P6246 [IOI2000] 邮局 加强版 加强版</a></p>
+                <h1 id="洛谷p6246-ioi2000-邮局-加强版-加强版-题解">洛谷P6246 [IOI2000]
+邮局 加强版 加强版 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6246">P6246
+[IOI2000] 邮局 加强版 加强版</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>高速公路旁边有 $n$ 个村庄。高速公路表示为整数轴，每个村庄的位置用单个整数坐标标识。两个位置之间的距离是其整数坐标差的绝对值。</p>
-<p>现在要建立  $m$ 个邮局，邮局将建在一些，但不一定是所有的村庄中。为了建立邮局，应选择他们建造的位置，使每个村庄与其最近的邮局之间的距离总和最小。</p>
+<p>高速公路旁边有 <span class="math inline">\(n\)</span>
+个村庄。高速公路表示为整数轴，每个村庄的位置用单个整数坐标标识。两个位置之间的距离是其整数坐标差的绝对值。</p>
+<p>现在要建立 <span class="math inline">\(m\)</span>
+个邮局，邮局将建在一些，但不一定是所有的村庄中。为了建立邮局，应选择他们建造的位置，使每个村庄与其最近的邮局之间的距离总和最小。</p>
 <p>你要编写一个程序，已知村庄的位置和邮局的数量，计算每个村庄和最近的邮局之间所有距离的最小可能的总和。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数，分别表示村庄的数量 $n$ 和邮局的数量 $m$。</p>
-<p>第二行共 $n$ 个整数，表示每个村庄的坐标，第 $i$ 个整数表示第 $i$ 个村庄的坐标 $a_i$。</p>
+<p>第一行包含两个整数，分别表示村庄的数量 <span
+class="math inline">\(n\)</span> 和邮局的数量 <span
+class="math inline">\(m\)</span>。</p>
+<p>第二行共 <span class="math inline">\(n\)</span>
+个整数，表示每个村庄的坐标，第 <span class="math inline">\(i\)</span>
+个整数表示第 <span class="math inline">\(i\)</span> 个村庄的坐标 <span
+class="math inline">\(a_i\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证最终答案不超过 $10^9$。</p>
-<p>保证 $1 \leq m \leq n \leq 5 \times 10^5$，$0 \leq a_i \leq 2\times 10^6$，且 $a_i$ 的值在对应范围内均匀随机</p>
+<p>保证最终答案不超过 <span class="math inline">\(10^9\)</span>。</p>
+<p>保证 <span class="math inline">\(1 \leq m \leq n \leq 5 \times
+10^5\)</span>，<span class="math inline">\(0 \leq a_i \leq 2\times
+10^6\)</span>，且 <span class="math inline">\(a_i\)</span>
+的值在对应范围内均匀随机</p>
 </blockquote>
 <p>本来是看题解区都没写dp式子，想找一篇写了的看看，没想到学了个最快的解法</p>
-<p>本解法的复杂度为 $\mathcal{O}(n \log V)$ ，且无需数据随机，思路是 wqs二分 + 斜率优化。</p>
+<p>本解法的复杂度为 <span class="math inline">\(\mathcal{O}(n \log
+V)\)</span> ，且无需数据随机，思路是 wqs二分 + 斜率优化。</p>
 <p><br></p>
 <p>首先有一个经典结论（<del>我反正不知道</del>）</p>
 <blockquote>
-<p>设 $w(l,r)$ 表示在 $\left\lfloor\frac{l+r}{2}\right\rfloor$ 处建立邮局，$l$ 到 $r$ 的村庄全部去往该邮局的距离之和，则有递推式</p>
-<script type="math/tex; mode=display">
-f_{i,j} = \min_{0 \le t < i} \{f_{t,j-1} + w(t + 1, i)\}</script><p>由于 $w(l,r)$ 满足四边形不等式，故 $\mathrm{Ans}_m=f_{n,m}$ 是关于 $m$ 的凸函数（并且是下凸函数）。证明见 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/Itst/p/12805678.html">link</a></p>
+<p>设 <span class="math inline">\(w(l,r)\)</span> 表示在 <span
+class="math inline">\(\left\lfloor\frac{l+r}{2}\right\rfloor\)</span>
+处建立邮局，<span class="math inline">\(l\)</span> 到 <span
+class="math inline">\(r\)</span>
+的村庄全部去往该邮局的距离之和，则有递推式 <span class="math display">\[
+f_{i,j} = \min_{0 \le t &lt; i} \{f_{t,j-1} + w(t + 1, i)\}
+\]</span> 由于 <span class="math inline">\(w(l,r)\)</span>
+满足四边形不等式，故 <span
+class="math inline">\(\mathrm{Ans}_m=f_{n,m}\)</span> 是关于 <span
+class="math inline">\(m\)</span> 的凸函数（并且是下凸函数）。证明见 <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/Itst/p/12805678.html">link</a></p>
 </blockquote>
-<p>那么考虑 wqs 二分以消去 $m$ 的限制，即二分的斜率为 $K$ </p>
-<p>因为这是一个下凸函数，注意到</p>
-<script type="math/tex; mode=display">
-0 \ge K_{\rm Ans} = \mathrm{Ans}_{m+1} - \mathrm{Ans}_{m} \ge \mathrm{Ans}_{n} - \mathrm{Ans}_m = -\mathrm{Ans}_m</script><p>所以我们二分范围取 $[-10^9,0]$ 即可</p>
-<p>设 $f_i$ 为考虑前 $i$ 个村庄的最小花费，即 $S_i = \sum_{j=1}^{i} a_j$ ，则有</p>
-<script type="math/tex; mode=display">
-f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+\min _{0 \leq k<j}\left\{(j-k) a_j-\left(S_j-S_k\right)+f_k\right\}\right\}-K</script><p>转移枚举在位置 $j$ 放邮局即可。</p>
-<p>记 $g_j = \displaystyle \min _{0 \leq k&lt;j}\left\{(j-k) a_j-\left(S_j-S_k\right)+f_k\right\}$ ，很明显是一个斜率优化。</p>
-<p>再把 $g_j$ 代入进去，即 $f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+g_j\right\}-K$ ，这又是一个斜率优化。</p>
-<p>时间复杂度 $\mathcal{O}(n \log V)$ ，$V$ 是值域。</p>
+<p>那么考虑 wqs 二分以消去 <span class="math inline">\(m\)</span>
+的限制，即二分的斜率为 <span class="math inline">\(K\)</span></p>
+<p>因为这是一个下凸函数，注意到 <span class="math display">\[
+0 \ge K_{\rm Ans} = \mathrm{Ans}_{m+1} - \mathrm{Ans}_{m} \ge
+\mathrm{Ans}_{n} - \mathrm{Ans}_m = -\mathrm{Ans}_m
+\]</span> 所以我们二分范围取 <span
+class="math inline">\([-10^9,0]\)</span> 即可</p>
+<p>设 <span class="math inline">\(f_i\)</span> 为考虑前 <span
+class="math inline">\(i\)</span> 个村庄的最小花费，即 <span
+class="math inline">\(S_i = \sum_{j=1}^{i} a_j\)</span> ，则有 <span
+class="math display">\[
+f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+\min
+_{0 \leq k&lt;j}\left\{(j-k)
+a_j-\left(S_j-S_k\right)+f_k\right\}\right\}-K
+\]</span> 转移枚举在位置 <span class="math inline">\(j\)</span>
+放邮局即可。</p>
+<p>记 <span class="math inline">\(g_j = \displaystyle \min _{0 \leq
+k&lt;j}\left\{(j-k) a_j-\left(S_j-S_k\right)+f_k\right\}\)</span>
+，很明显是一个斜率优化。</p>
+<p>再把 <span class="math inline">\(g_j\)</span> 代入进去，即 <span
+class="math inline">\(f_i=\min _{1 \leq j \leq
+i}\left\{\left(S_i-S_j\right)-(i-j) a_j+g_j\right\}-K\)</span>
+，这又是一个斜率优化。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log V)\)</span>
+，<span class="math inline">\(V\)</span> 是值域。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -862,13 +899,16 @@ f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+\min _{0 \leq k
 <span class="token punctuation">&#125;</span></code></pre>
 <p>三倍经验：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4767">P4767 [IOI2000] 邮局 加强版</a> （<del>本题弱化版</del>）</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4677">P4677 山区建小学</a> （<del>本题弱化版的弱化版</del>）</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4767">P4767 [IOI2000]
+邮局 加强版</a> （<del>本题弱化版</del>）</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4677">P4677
+山区建小学</a> （<del>本题弱化版的弱化版</del>）</li>
 </ul>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/o0hl3n0p">https://www.luogu.com.cn/article/o0hl3n0p</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/o0hl3n0p">https://www.luogu.com.cn/article/o0hl3n0p</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>啥也不会，还是去写紫题吧。</p>
 
@@ -1126,12 +1166,12 @@ f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+\min _{0 \leq k
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
                     <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">字符串</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1349,7 +1389,7 @@ f_i=\min _{1 \leq j \leq i}\left\{\left(S_i-S_j\right)-(i-j) a_j+\min _{0 \leq k
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

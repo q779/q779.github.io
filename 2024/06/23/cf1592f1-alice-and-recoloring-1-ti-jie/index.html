@@ -544,7 +544,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p138.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p183.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -740,33 +740,62 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1592F1-Alice-and-Recoloring-1-题解"><a href="#CF1592F1-Alice-and-Recoloring-1-题解" class="headerlink" title="CF1592F1 Alice and Recoloring 1 题解"></a>CF1592F1 Alice and Recoloring 1 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1592F1">Alice and Recoloring 1</a></p>
+                <h1 id="cf1592f1-alice-and-recoloring-1-题解">CF1592F1 Alice and
+Recoloring 1 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1592F1">Alice
+and Recoloring 1</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>本题与 CF1592F2 的差异在于花费不同。</p>
-<p>给定一个 $n$ 行 $m$ 列的目标矩阵，矩阵元素只有 W 或 B ，并且你有一个初始矩阵，元素全为 W 。</p>
+<p>给定一个 <span class="math inline">\(n\)</span> 行 <span
+class="math inline">\(m\)</span> 列的目标矩阵，矩阵元素只有 W 或 B
+，并且你有一个初始矩阵，元素全为 W 。</p>
 <p>现在你可以矩阵实施以下操作：</p>
 <ul>
-<li>使用一块钱，选定一个包含 $(1,1)$ 的子矩阵，把矩阵中的元素全部反转（ W 变 B ， B 变 W ）。</li>
-<li>使用两块钱，选定一个包含 $(n,1)$ 的子矩阵，把矩阵中的元素全部反转。</li>
-<li>使用四块钱，选定一个包含 $(1,m)$ 的子矩阵，把矩阵中的元素全部反转。</li>
-<li>使用三块钱，选定一个包含 $(n,m)$ 的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用一块钱，选定一个包含 <span class="math inline">\((1,1)\)</span>
+的子矩阵，把矩阵中的元素全部反转（ W 变 B ， B 变 W ）。</li>
+<li>使用两块钱，选定一个包含 <span class="math inline">\((n,1)\)</span>
+的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用四块钱，选定一个包含 <span class="math inline">\((1,m)\)</span>
+的子矩阵，把矩阵中的元素全部反转。</li>
+<li>使用三块钱，选定一个包含 <span class="math inline">\((n,m)\)</span>
+的子矩阵，把矩阵中的元素全部反转。</li>
 </ul>
 <p>现在需要你求出把初始矩阵变为目标矩阵最少需要几块钱。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个正整数 $n$ 和 $m (1 \le n,m\le 500)$ ，意义如上文所述。</p>
-<p>接下来 $n$ 行，每行 $m$ 个字符 W 或 B 。意义如上文所述。</p>
+<p>第一行两个正整数 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(m (1 \le n,m\le 500)\)</span>
+，意义如上文所述。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，每行 <span
+class="math inline">\(m\)</span> 个字符 W 或 B 。意义如上文所述。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数，表示把初始矩阵变为目标矩阵所需的最少钱数。</p>
 </blockquote>
-<p>先做了 F2 再做的 F1，因此本题解可能比较简陋，<a href="/2024/06/22/cf1592f2-alice-and-recoloring-2-ti-jie/">F2 的题解链接</a></p>
-<p>首先注意到 $(n,1)$ 的操作和 $(1,m)$ 的操作都是没意义的，都可以用 $(1,1)$ 的操作替代。</p>
-<p>于是问题转化为，只有两种操作 $(1,1)$ 和 $(n,m)$ ，价格分别是 $1$ 和 $3$ 元。</p>
-<p>对 $a_{i,j}$ 做一遍异或后缀和（ W 为 $1$ ），也就是 $a_{i,j} \gets a_{i, j} \oplus a_{i, j+1} \oplus a_{i+1, j} \oplus a_{i+1, j+1}$ 。</p>
-<p>那么操作一就变成了取反 $a_{i,j}$，操作二变成了取反 $a_{i,j},\,a_{i,m},\,a_{n,j},\,a_{n,m}$ 。（要是做前缀和就是反过来）</p>
-<p>然后因为先做了 F2 所以这里即很简单了，这里操作二改 $4$ 个点只需要 $3$ 块，而且只需要改一次</p>
-<p>那么我们直接贪心把这些能改的点全改了即可，最后剩下的用 $1$ 取改。</p>
-<p>时间复杂度 $\mathcal{O}(nm)$</p>
+<p>先做了 F2 再做的 F1，因此本题解可能比较简陋，<a
+href="/2024/06/22/cf1592f2-alice-and-recoloring-2-ti-jie/">F2
+的题解链接</a></p>
+<p>首先注意到 <span class="math inline">\((n,1)\)</span> 的操作和 <span
+class="math inline">\((1,m)\)</span> 的操作都是没意义的，都可以用 <span
+class="math inline">\((1,1)\)</span> 的操作替代。</p>
+<p>于是问题转化为，只有两种操作 <span
+class="math inline">\((1,1)\)</span> 和 <span
+class="math inline">\((n,m)\)</span> ，价格分别是 <span
+class="math inline">\(1\)</span> 和 <span
+class="math inline">\(3\)</span> 元。</p>
+<p>对 <span class="math inline">\(a_{i,j}\)</span> 做一遍异或后缀和（ W
+为 <span class="math inline">\(1\)</span> ），也就是 <span
+class="math inline">\(a_{i,j} \gets a_{i, j} \oplus a_{i, j+1} \oplus
+a_{i+1, j} \oplus a_{i+1, j+1}\)</span> 。</p>
+<p>那么操作一就变成了取反 <span
+class="math inline">\(a_{i,j}\)</span>，操作二变成了取反 <span
+class="math inline">\(a_{i,j},\,a_{i,m},\,a_{n,j},\,a_{n,m}\)</span>
+。（要是做前缀和就是反过来）</p>
+<p>然后因为先做了 F2 所以这里即很简单了，这里操作二改 <span
+class="math inline">\(4\)</span> 个点只需要 <span
+class="math inline">\(3\)</span> 块，而且只需要改一次</p>
+<p>那么我们直接贪心把这些能改的点全改了即可，最后剩下的用 <span
+class="math inline">\(1\)</span> 取改。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nm)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1271,7 +1300,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

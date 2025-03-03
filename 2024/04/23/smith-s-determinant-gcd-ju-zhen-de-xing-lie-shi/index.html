@@ -744,95 +744,188 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Smith’s-determinant（GCD矩阵的行列式）"><a href="#Smith’s-determinant（GCD矩阵的行列式）" class="headerlink" title="Smith’s determinant（GCD矩阵的行列式）"></a>Smith’s determinant（GCD矩阵的行列式）</h1><p>翻译&amp;修改自英文原文 <a target="_blank" rel="noopener" href="https://ysharifi.wordpress.com/2023/03/03/smiths-determinant/">Smith’s determinant</a></p>
+                <h1 id="smiths-determinantgcd矩阵的行列式">Smith’s
+determinant（GCD矩阵的行列式）</h1>
+<p>翻译&amp;修改自英文原文 <a
+target="_blank" rel="noopener" href="https://ysharifi.wordpress.com/2023/03/03/smiths-determinant/">Smith’s
+determinant</a></p>
 <p><br></p>
-<p><strong>Smith’s determinant</strong>：</p>
-<script type="math/tex; mode=display">
+<p><strong>Smith’s determinant</strong>： <span class="math display">\[
 \left|\begin{array}{cccc}
-\operatorname{gcd}(1,1) & \operatorname{gcd}(1,2) & \ldots & \operatorname{gcd}(1, n) \\
-\operatorname{gcd}(2,1) & \operatorname{gcd}(2,2) & \ldots & \operatorname{gcd}(2, n) \\
-\vdots & \vdots & & \vdots \\
-\operatorname{gcd}(n, 1) & \operatorname{gcd}(n, 2) & \ldots & \operatorname{gcd}(n, n)
-\end{array}\right|=\varphi(1) \varphi(2) \cdots \varphi(n)</script><p><br></p>
-<p>考虑一个 $n\times n$ 的矩阵 $A_1 = [a_{i,j}]$ ，其中 $a_{i,j} = \gcd(i,j)$ 。</p>
-<p>1875年，一位名叫 Henry J. Smith 的爱尔兰数学家发布了一篇<a target="_blank" rel="noopener" href="https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s1-7.1.208">论文</a>（你可能从 <em>Smith normal form</em> 听说过他）</p>
-<p>他证明了 $\operatorname{det} A_1=\prod_{k=1}^n \varphi(k)$ ，其中 $\varphi$​ 表示数论中的欧拉函数。</p>
+\operatorname{gcd}(1,1) &amp; \operatorname{gcd}(1,2) &amp; \ldots &amp;
+\operatorname{gcd}(1, n) \\
+\operatorname{gcd}(2,1) &amp; \operatorname{gcd}(2,2) &amp; \ldots &amp;
+\operatorname{gcd}(2, n) \\
+\vdots &amp; \vdots &amp; &amp; \vdots \\
+\operatorname{gcd}(n, 1) &amp; \operatorname{gcd}(n, 2) &amp; \ldots
+&amp; \operatorname{gcd}(n, n)
+\end{array}\right|=\varphi(1) \varphi(2) \cdots \varphi(n)
+\]</span> <br></p>
+<p>考虑一个 <span class="math inline">\(n\times n\)</span> 的矩阵 <span
+class="math inline">\(A_1 = [a_{i,j}]\)</span> ，其中 <span
+class="math inline">\(a_{i,j} = \gcd(i,j)\)</span> 。</p>
+<p>1875年，一位名叫 Henry J. Smith 的爱尔兰数学家发布了一篇<a
+target="_blank" rel="noopener" href="https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/plms/s1-7.1.208">论文</a>（你可能从
+<em>Smith normal form</em> 听说过他）</p>
+<p>他证明了 <span class="math inline">\(\operatorname{det}
+A_1=\prod_{k=1}^n \varphi(k)\)</span> ，其中 <span
+class="math inline">\(\varphi\)</span>​ 表示数论中的欧拉函数。</p>
 <blockquote>
-<p>有趣的是，他使用了 $\psi$ 而不是 $\varphi$ 来表示欧拉函数，当然这符合当时的习惯。</p>
+<p>有趣的是，他使用了 <span class="math inline">\(\psi\)</span> 而不是
+<span class="math inline">\(\varphi\)</span>
+来表示欧拉函数，当然这符合当时的习惯。</p>
 </blockquote>
-<p>他的证明并不优雅。于是在过了很久后（长达一个世纪），Pólya 和 Szegö 给出了一个优雅的证明。</p>
+<p>他的证明并不优雅。于是在过了很久后（长达一个世纪），Pólya 和 Szegö
+给出了一个优雅的证明。</p>
 <p>他们的思路是这样的：</p>
-<p>将 $m=\sum_{d \mid m}\varphi(d)$ 的性质（欧拉反演）作用于 $m =\gcd(i,j)$ 的情况，找到 $n\times n$ 的三角矩阵 $B_1,C_1$ ，</p>
-<p>其对角线分别为 $\varphi(1),\varphi(2),\cdots,\varphi(n)$ 和 $1,1,\cdots,1$ ，并使得 $A_1 = B_1C_1$ ，则有</p>
-<script type="math/tex; mode=display">
-\operatorname{det} A_1=\operatorname{det} B_1 \operatorname{det} C_1=\varphi(1) \varphi(2) \cdots \varphi(n)</script><p>在本文中，我们将通过以上办法推广 Smith 定理</p>
-<p>即我们将找到矩阵 $\left[a_{i,j}\right]$ 的行列式，其中 $a_{i,j}=(\operatorname{gcd}(i, j))^r, r \in \mathbb{R}$ 。</p>
-<p>不过首先…（省略若干），你要知道狄利克雷卷积的一些性质</p>
-<p>比如若 $f,g$ 为积性函数，则它们的狄利克雷卷积 $f * g$ 同为积性函数，证明我之前写过，<a href="/2024/01/31/sheng-cheng-han-shu-xue-xi-bi-ji/">看这里</a></p>
+<p>将 <span class="math inline">\(m=\sum_{d \mid m}\varphi(d)\)</span>
+的性质（欧拉反演）作用于 <span class="math inline">\(m
+=\gcd(i,j)\)</span> 的情况，找到 <span class="math inline">\(n\times
+n\)</span> 的三角矩阵 <span class="math inline">\(B_1,C_1\)</span>
+，</p>
+<p>其对角线分别为 <span
+class="math inline">\(\varphi(1),\varphi(2),\cdots,\varphi(n)\)</span>
+和 <span class="math inline">\(1,1,\cdots,1\)</span> ，并使得 <span
+class="math inline">\(A_1 = B_1C_1\)</span> ，则有 <span
+class="math display">\[
+\operatorname{det} A_1=\operatorname{det} B_1 \operatorname{det}
+C_1=\varphi(1) \varphi(2) \cdots \varphi(n)
+\]</span> 在本文中，我们将通过以上办法推广 Smith 定理</p>
+<p>即我们将找到矩阵 <span
+class="math inline">\(\left[a_{i,j}\right]\)</span> 的行列式，其中 <span
+class="math inline">\(a_{i,j}=(\operatorname{gcd}(i, j))^r, r \in
+\mathbb{R}\)</span> 。</p>
+<p>不过首先...（省略若干），你要知道狄利克雷卷积的一些性质</p>
+<p>比如若 <span class="math inline">\(f,g\)</span>
+为积性函数，则它们的狄利克雷卷积 <span class="math inline">\(f *
+g\)</span> 同为积性函数，证明我之前写过，<a
+href="/2024/01/31/sheng-cheng-han-shu-xue-xi-bi-ji/">看这里</a></p>
 <p><br></p>
 <p><strong>符号</strong></p>
-<p>设 $r \in \mathbb{R}$ ，我们定义数论函数 $J_r$ 如下：（这里定义 $\mathbb{N}$ 为正整数集合）</p>
-<script type="math/tex; mode=display">
-J_r(n)=n^r \prod_{p \mid n}\left(1-\frac{1}{p^r}\right), \quad n \in \mathbb{N}</script><p>其中 $p$ 是 $n$ 的质因数。</p>
+<p>设 <span class="math inline">\(r \in \mathbb{R}\)</span>
+，我们定义数论函数 <span class="math inline">\(J_r\)</span>
+如下：（这里定义 <span class="math inline">\(\mathbb{N}\)</span>
+为正整数集合） <span class="math display">\[
+J_r(n)=n^r \prod_{p \mid n}\left(1-\frac{1}{p^r}\right), \quad n \in
+\mathbb{N}
+\]</span> 其中 <span class="math inline">\(p\)</span> 是 <span
+class="math inline">\(n\)</span> 的质因数。</p>
 <blockquote>
 <p><strong>注释</strong></p>
-<p>注意到 $J_1=\varphi$ ，即欧拉函数。如果 $r \in \mathbb{N}$  ，则 $J_r$​ 称为 Jordan 函数 (Jordan’s totient function) ，因此 Jordan 函数是欧拉函数的推广。</p>
-<p>可以证明，如果 $r,n \in \mathbb{N}$ ，则 $J_r(n)$ 是满足 $\operatorname{gcd}\left(a_1, \cdots, a_r, n\right)=1$ （ 其中 $1 \le a_i \le n$ ）的 $r$ - 元组 $(a_1,\cdots,a_r) \in \mathbb{N}^r$​ 的个数，不过我们这里用不到这个结论。</p>
+<p>注意到 <span class="math inline">\(J_1=\varphi\)</span>
+，即欧拉函数。如果 <span class="math inline">\(r \in \mathbb{N}\)</span>
+，则 <span class="math inline">\(J_r\)</span>​ 称为 Jordan 函数 (Jordan’s
+totient function) ，因此 Jordan 函数是欧拉函数的推广。</p>
+<p>可以证明，如果 <span class="math inline">\(r,n \in
+\mathbb{N}\)</span> ，则 <span class="math inline">\(J_r(n)\)</span>
+是满足 <span class="math inline">\(\operatorname{gcd}\left(a_1, \cdots,
+a_r, n\right)=1\)</span> （ 其中 <span class="math inline">\(1 \le a_i
+\le n\)</span> ）的 <span class="math inline">\(r\)</span> - 元组 <span
+class="math inline">\((a_1,\cdots,a_r) \in \mathbb{N}^r\)</span>​
+的个数，不过我们这里用不到这个结论。</p>
 </blockquote>
 <p><br></p>
 <p><strong>引理</strong></p>
-<p>若 $r \in \mathbb{R}$ ，则 $\sum_{d \mid n} J_r(d)=n^r$ 对任何 $n\in \mathbb{N}$ 恒成立。</p>
-<p>证明：考虑数论函数 $I(n)=1$ ，令 $f := J_r * I$ 。（<del>感觉这个公式好丑啊</del>）</p>
-<p>显然 $I$ 和 $J_r$ 都是积性函数，则 $f$ 也是积性函数。</p>
-<p>对于任意质数 $p$ 和 $m \in \mathbb{N}$ </p>
-<script type="math/tex; mode=display">
-J_r\left(p^m\right)=p^{m r}\left(1-\frac{1}{p^r}\right)=p^{m r}-p^{(m-1) r}</script><p>所以</p>
-<script type="math/tex; mode=display">
-f\left(p^m\right)=\left(J_r * I\right)\left(p^m\right)=\sum_{d \mid p^m} J_r(d)=\sum_{j=0}^m J_r\left(p^j\right)=1+\sum_{j=1}^m\left(p^{j r}-p^{(j-1) r}\right)=p^{m r}</script><p>则若 $\prod_{j=1}^k p_j^{m_j}$ 是 $n$ 的完全分解形式，又因为 $f$ 是积性的，</p>
-<script type="math/tex; mode=display">
-\sum_{d \mid n} J_r(d)=\left(J_r * I\right)(n)=f(n)=\prod_{j=1}^k f\left(p_j^{m_j}\right)=\prod_{j=1}^k p_j^{m_j r}=n^r</script><p>证毕。</p>
+<p>若 <span class="math inline">\(r \in \mathbb{R}\)</span> ，则 <span
+class="math inline">\(\sum_{d \mid n} J_r(d)=n^r\)</span> 对任何 <span
+class="math inline">\(n\in \mathbb{N}\)</span> 恒成立。</p>
+<p>证明：考虑数论函数 <span class="math inline">\(I(n)=1\)</span> ，令
+<span class="math inline">\(f := J_r * I\)</span>
+。（<del>感觉这个公式好丑啊</del>）</p>
+<p>显然 <span class="math inline">\(I\)</span> 和 <span
+class="math inline">\(J_r\)</span> 都是积性函数，则 <span
+class="math inline">\(f\)</span> 也是积性函数。</p>
+<p>对于任意质数 <span class="math inline">\(p\)</span> 和 <span
+class="math inline">\(m \in \mathbb{N}\)</span> <span
+class="math display">\[
+J_r\left(p^m\right)=p^{m r}\left(1-\frac{1}{p^r}\right)=p^{m r}-p^{(m-1)
+r}
+\]</span> 所以 <span class="math display">\[
+f\left(p^m\right)=\left(J_r * I\right)\left(p^m\right)=\sum_{d \mid p^m}
+J_r(d)=\sum_{j=0}^m J_r\left(p^j\right)=1+\sum_{j=1}^m\left(p^{j
+r}-p^{(j-1) r}\right)=p^{m r}
+\]</span> 则若 <span class="math inline">\(\prod_{j=1}^k
+p_j^{m_j}\)</span> 是 <span class="math inline">\(n\)</span>
+的完全分解形式，又因为 <span class="math inline">\(f\)</span> 是积性的，
+<span class="math display">\[
+\sum_{d \mid n} J_r(d)=\left(J_r * I\right)(n)=f(n)=\prod_{j=1}^k
+f\left(p_j^{m_j}\right)=\prod_{j=1}^k p_j^{m_j r}=n^r
+\]</span> 证毕。</p>
 <p><br></p>
 <p>现在我们可以开始证明 Smith 定理的一般形式了。</p>
 <p><strong>定理</strong></p>
-<p>令 $n \in \mathbb{N},r \in \mathbb{R}$ ，考虑 $n\times n$ 的矩阵 $A=[a_{i,j}]$ ，其中 $a_{i,j} = (\gcd(i,j))^r$ ，则 $\operatorname{det} A=\prod_{k=1}^n J_r(k)$ 。</p>
-<p>证明：考虑 $n\times n$ 的矩阵</p>
-<script type="math/tex; mode=display">
+<p>令 <span class="math inline">\(n \in \mathbb{N},r \in
+\mathbb{R}\)</span> ，考虑 <span class="math inline">\(n\times
+n\)</span> 的矩阵 <span class="math inline">\(A=[a_{i,j}]\)</span>
+，其中 <span class="math inline">\(a_{i,j} = (\gcd(i,j))^r\)</span> ，则
+<span class="math inline">\(\operatorname{det} A=\prod_{k=1}^n
+J_r(k)\)</span> 。</p>
+<p>证明：考虑 <span class="math inline">\(n\times n\)</span> 的矩阵
+<span class="math display">\[
 B=\left[b_{i,j}\right], \quad b_{i,j}=\left\{\begin{array}{ll}
-J_r(i) & \text { if } i \mid j \\
-0 & \text { otherwise }
-\end{array}, \quad C=\left[c_{i,j}\right], \quad c_{i,j}= \begin{cases}1 & \text { if } i \mid j \\
-0 & \text { otherwise }\end{cases}\right.</script><p>注意到 $B,C$ 均为上三角矩阵，并且他们的对角线分别为 $J_r(1),J_r(2),\cdots,J_r(n)$ 和 $1,1,\cdots,1$ 。因此</p>
-<script type="math/tex; mode=display">
-\operatorname{det} B=\prod_{k=1}^n J_r(k), \quad \operatorname{det} C=1</script><p>那么根据引理</p>
-<script type="math/tex; mode=display">
-\sum_{\ell=1}^n b_{\ell ,i} c_{\ell ,j}=\sum_{\ell|i, \ell| j} J_r(\ell) \cdot I=\sum_{\ell \mid \operatorname{gcd}(i, j)} J_r(\ell)=(\operatorname{gcd}(i, j))^r=a_{i,j}</script><p>所以 $A=B^{\mathrm{T}} C$ ，由此可得</p>
-<script type="math/tex; mode=display">
-\operatorname{det} A=\operatorname{det} B^T \operatorname{det} C=\operatorname{det} B \operatorname{det} C=\prod_{k=1}^n J_r(k)</script><p>证毕。</p>
+J_r(i) &amp; \text { if } i \mid j \\
+0 &amp; \text { otherwise }
+\end{array}, \quad C=\left[c_{i,j}\right], \quad c_{i,j}= \begin{cases}1
+&amp; \text { if } i \mid j \\
+0 &amp; \text { otherwise }\end{cases}\right.
+\]</span> 注意到 <span class="math inline">\(B,C\)</span>
+均为上三角矩阵，并且他们的对角线分别为 <span
+class="math inline">\(J_r(1),J_r(2),\cdots,J_r(n)\)</span> 和 <span
+class="math inline">\(1,1,\cdots,1\)</span> 。因此 <span
+class="math display">\[
+\operatorname{det} B=\prod_{k=1}^n J_r(k), \quad \operatorname{det} C=1
+\]</span> 那么根据引理 <span class="math display">\[
+\sum_{\ell=1}^n b_{\ell ,i} c_{\ell ,j}=\sum_{\ell|i, \ell| j} J_r(\ell)
+\cdot I=\sum_{\ell \mid \operatorname{gcd}(i, j)}
+J_r(\ell)=(\operatorname{gcd}(i, j))^r=a_{i,j}
+\]</span> 所以 <span class="math inline">\(A=B^{\mathrm{T}} C\)</span>
+，由此可得 <span class="math display">\[
+\operatorname{det} A=\operatorname{det} B^T \operatorname{det}
+C=\operatorname{det} B \operatorname{det} C=\prod_{k=1}^n J_r(k)
+\]</span> 证毕。</p>
 <p><br></p>
-<p>如果你想进一步了解 Smith-type determinants，可以阅读<a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0024379596001929?ref=pdf_download&amp;fr=RR-2&amp;rr=878cbceba8f8f1e4">这篇论文</a></p>
+<p>如果你想进一步了解 Smith-type determinants，可以阅读<a
+target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0024379596001929?ref=pdf_download&amp;fr=RR-2&amp;rr=878cbceba8f8f1e4">这篇论文</a></p>
 <p><br></p>
 <p><strong>练习1</strong></p>
-<p>用定理证明</p>
-<script type="math/tex; mode=display">
+<p>用定理证明 <span class="math display">\[
 \left|\begin{array}{cccc}
-1 & 1 & 1 & 1 \\
-1 & \sqrt{2} & 1 & \sqrt{2} \\
-1 & 1 & \sqrt{3} & 1 \\
-1 & \sqrt{2} & 1 & 2
-\end{array}\right|=(3 \sqrt{2}-4)(\sqrt{3}-1)</script><p><strong>练习2</strong></p>
-<p>证明</p>
-<script type="math/tex; mode=display">
+1 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; \sqrt{2} &amp; 1 &amp; \sqrt{2} \\
+1 &amp; 1 &amp; \sqrt{3} &amp; 1 \\
+1 &amp; \sqrt{2} &amp; 1 &amp; 2
+\end{array}\right|=(3 \sqrt{2}-4)(\sqrt{3}-1)
+\]</span></p>
+<p><strong>练习2</strong></p>
+<p>证明 <span class="math display">\[
 \left|\begin{array}{ccccc}
-\operatorname{gcd}\left(x_1, x_1\right) & \operatorname{gcd}\left(x_1, x_2\right) & \operatorname{gcd}\left(x_1, x_3\right) & \ldots & \operatorname{gcd}\left(x_1, x_n\right) \\
-\operatorname{gcd}\left(x_2, x_1\right) & \operatorname{gcd}\left(x_2, x_2\right) & \operatorname{gcd}\left(x_2, x_3\right) & \ldots & \operatorname{gcd}\left(x_2, x_n\right) \\
-\operatorname{gcd}\left(x_3, x_1\right) & \operatorname{gcd}\left(x_3, x_2\right) & \operatorname{gcd}\left(x_3, x_3\right) & \ldots & \operatorname{gcd}\left(x_3, x_n\right) \\
-\vdots & \vdots & \vdots & & \vdots \\
-\operatorname{gcd}\left(x_n, x_1\right) & \operatorname{gcd}\left(x_n, x_2\right) & \operatorname{gcd}\left(x_n, x_3\right) & \ldots & \operatorname{gcd}\left(x_n, x_n\right)
-\end{array}\right|=\varphi\left(x_1\right) \varphi\left(x_2\right) \cdots \varphi\left(x_n\right)</script><p>其实就是这道题 <a href="/2024/04/24/sp4195-mse08h-gcd-determinant-ti-jie/">SP4195 MSE08H - GCD Determinant</a></p>
-<hr>
+\operatorname{gcd}\left(x_1, x_1\right) &amp;
+\operatorname{gcd}\left(x_1, x_2\right) &amp;
+\operatorname{gcd}\left(x_1, x_3\right) &amp; \ldots &amp;
+\operatorname{gcd}\left(x_1, x_n\right) \\
+\operatorname{gcd}\left(x_2, x_1\right) &amp;
+\operatorname{gcd}\left(x_2, x_2\right) &amp;
+\operatorname{gcd}\left(x_2, x_3\right) &amp; \ldots &amp;
+\operatorname{gcd}\left(x_2, x_n\right) \\
+\operatorname{gcd}\left(x_3, x_1\right) &amp;
+\operatorname{gcd}\left(x_3, x_2\right) &amp;
+\operatorname{gcd}\left(x_3, x_3\right) &amp; \ldots &amp;
+\operatorname{gcd}\left(x_3, x_n\right) \\
+\vdots &amp; \vdots &amp; \vdots &amp; &amp; \vdots \\
+\operatorname{gcd}\left(x_n, x_1\right) &amp;
+\operatorname{gcd}\left(x_n, x_2\right) &amp;
+\operatorname{gcd}\left(x_n, x_3\right) &amp; \ldots &amp;
+\operatorname{gcd}\left(x_n, x_n\right)
+\end{array}\right|=\varphi\left(x_1\right) \varphi\left(x_2\right)
+\cdots \varphi\left(x_n\right)
+\]</span> 其实就是这道题 <a
+href="/2024/04/24/sp4195-mse08h-gcd-determinant-ti-jie/">SP4195 MSE08H -
+GCD Determinant</a></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/行列式">https://zh.wikipedia.org/zh-hans/行列式</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/行列式">https://zh.wikipedia.org/zh-hans/行列式</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>第一次翻译英文的数学文章，但愿没翻译错。</p>
 
@@ -1297,7 +1390,7 @@ J_r(i) & \text { if } i \mid j \\
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             

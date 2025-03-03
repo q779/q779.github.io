@@ -544,7 +544,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p98.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p133.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -685,12 +685,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
                             <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                 <span class="chip bg-color">字符串</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">数据结构</span>
                             </a>
                         
                     </div>
@@ -748,32 +748,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2870-USACO07DEC-Best-Cow-Line-G-题解"><a href="#洛谷P2870-USACO07DEC-Best-Cow-Line-G-题解" class="headerlink" title="洛谷P2870 [USACO07DEC] Best Cow Line G 题解"></a>洛谷P2870 [USACO07DEC] Best Cow Line G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2870">P2870 [USACO07DEC] Best Cow Line G</a></p>
+                <h1 id="洛谷p2870-usaco07dec-best-cow-line-g-题解">洛谷P2870
+[USACO07DEC] Best Cow Line G 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2870">P2870
+[USACO07DEC] Best Cow Line G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Farmer John 打算带领 $N$（$1 \leq N \leq 5 \times 10^5$）头奶牛参加一年一度的”全美农场主大奖赛“。在这场比赛中，每个参赛者必须让他的奶牛排成一列，然后带领这些奶牛从裁判面前依此走过。</p>
+<p>Farmer John 打算带领 <span class="math inline">\(N\)</span>（<span
+class="math inline">\(1 \leq N \leq 5 \times
+10^5\)</span>）头奶牛参加一年一度的”全美农场主大奖赛“。在这场比赛中，每个参赛者必须让他的奶牛排成一列，然后带领这些奶牛从裁判面前依此走过。</p>
 <p>今年，竞赛委员会在接受报名时，采用了一种新的登记规则：取每头奶牛名字的首字母，按照它们在队伍中的次序排成一列。将所有队伍的名字按字典序升序排序，从而得到出场顺序。</p>
 <p>FJ 由于事务繁忙，他希望能够尽早出场。因此他决定重排队列。</p>
 <p>他的调整方式是这样的：每次，他从原队列的首端或尾端牵出一头奶牛，将她安排到新队列尾部。重复这一操作直到所有奶牛都插入新队列为止。</p>
 <p>现在请你帮 FJ 算出按照上面这种方法能排出的字典序最小的队列。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 $N$。</p>
-<p>接下来 $N$ 行每行一个大写字母，表示初始队列。</p>
+<p>第一行一个整数 <span class="math inline">\(N\)</span>。</p>
+<p>接下来 <span class="math inline">\(N\)</span>
+行每行一个大写字母，表示初始队列。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个长度为 $N$ 的字符串，表示可能的最小字典序队列。</p>
-<p>每输出 $80$ 个字母需要一个换行。</p>
+<p>输出一个长度为 <span class="math inline">\(N\)</span>
+的字符串，表示可能的最小字典序队列。</p>
+<p>每输出 <span class="math inline">\(80\)</span>
+个字母需要一个换行。</p>
 </blockquote>
 <p>考虑贪心。如果两端不相同，就取较小的那个。</p>
-<p>如果两端相同，就比较里面那个，比如 $\tt ACSBBA$ 就去后面那个。</p>
-<p>如果里面那个也相同呢？比如 $\tt CAEAAC$ ，如果还按照刚才的取就会得到 $\tt CACAAE$ ，而正解是 $\tt{CAACAE}$ 。</p>
+<p>如果两端相同，就比较里面那个，比如 <span class="math inline">\(\tt
+ACSBBA\)</span> 就去后面那个。</p>
+<p>如果里面那个也相同呢？比如 <span class="math inline">\(\tt
+CAEAAC\)</span> ，如果还按照刚才的取就会得到 <span
+class="math inline">\(\tt CACAAE\)</span> ，而正解是 <span
+class="math inline">\(\tt{CAACAE}\)</span> 。</p>
 <p>因此我们需要一直比较直到两个不相同，我们可以二分这个长度，然后用字符串哈希比较两个串。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$ ，代码不贴了。</p>
-<p>下面再来讲讲后缀数组（SA）的做法。设 $f_i$ 为第 $i$ 个后缀，$g_i$ 为第 $i$ 个前缀。</p>
-<p>因为取两端字符的时候通常是用两个指针 $l,r$ 维护，所以下面定义 $s_l,s_r$ 为当前的两端。</p>
-<p>如果 $s_l=s_r$ ，我们直接比较 $f_l$ 和 $g_{r}$ ，取较小的那一端（其实就是上面的那个贪心）</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，代码不贴了。</p>
+<p>下面再来讲讲后缀数组（SA）的做法。设 <span
+class="math inline">\(f_i\)</span> 为第 <span
+class="math inline">\(i\)</span> 个后缀，<span
+class="math inline">\(g_i\)</span> 为第 <span
+class="math inline">\(i\)</span> 个前缀。</p>
+<p>因为取两端字符的时候通常是用两个指针 <span
+class="math inline">\(l,r\)</span> 维护，所以下面定义 <span
+class="math inline">\(s_l,s_r\)</span> 为当前的两端。</p>
+<p>如果 <span class="math inline">\(s_l=s_r\)</span> ，我们直接比较
+<span class="math inline">\(f_l\)</span> 和 <span
+class="math inline">\(g_{r}\)</span>
+，取较小的那一端（其实就是上面的那个贪心）</p>
 <p>按照套路，我们可以构造一个原串 + 0 + 反串的串，然后跑后缀排序。</p>
-<p>比如 $\tt{AABCAA}$ 可以构造 $\mathtt{AABCAA}\,0\,\mathtt{AACBAA}$​ （中间是零）。<del>不过本题其实不需要这么构造</del></p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$ ，肯定比字符串哈希慢点。</p>
+<p>比如 <span class="math inline">\(\tt{AABCAA}\)</span> 可以构造 <span
+class="math inline">\(\mathtt{AABCAA}\,0\,\mathtt{AACBAA}\)</span>​
+（中间是零）。<del>不过本题其实不需要这么构造</del></p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，肯定比字符串哈希慢点。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -829,12 +854,15 @@ rgba(0,0,0,0.2);
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">80</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/or4vdm00">https://www.luogu.com.cn/article/or4vdm00</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mv2w9gwz">https://www.luogu.com.cn/article/mv2w9gwz</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/645628">https://www.luogu.com.cn/discuss/645628</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/or4vdm00">https://www.luogu.com.cn/article/or4vdm00</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mv2w9gwz">https://www.luogu.com.cn/article/mv2w9gwz</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/645628">https://www.luogu.com.cn/discuss/645628</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>这道题感觉以前做过，不过当时连字符串哈希都没搞懂。</p>
 
@@ -905,12 +933,12 @@ rgba(0,0,0,0.2);
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                    <span class="chip bg-color">数据结构</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                                     <span class="chip bg-color">字符串</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">数据结构</span>
                                 </a>
                             
                         </div>
@@ -1055,7 +1083,7 @@ rgba(0,0,0,0.2);
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p99.jpg" class="responsive-img" alt="洛谷P4051 [JSOI2007] 字符加密 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p145.jpg" class="responsive-img" alt="洛谷P4051 [JSOI2007] 字符加密 题解">
                         
                         <span class="card-title">洛谷P4051 [JSOI2007] 字符加密 题解</span>
                     </div>
@@ -1089,12 +1117,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
                     <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">字符串</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1304,7 +1332,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1327.9k</span>&nbsp;字
+                class="white-color">1383.7k</span>&nbsp;字
             
             
             
