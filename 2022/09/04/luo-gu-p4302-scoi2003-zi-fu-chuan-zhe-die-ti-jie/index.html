@@ -544,7 +544,7 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p23.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/p27.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -728,7 +728,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    944
+                    943
                 </div>
                 
 
@@ -748,79 +748,40 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4302-scoi2003字符串折叠-题解">洛谷P4302
-[SCOI2003]字符串折叠 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4302">P4302
-[SCOI2003]字符串折叠</a></p>
+                <h1 id="洛谷P4302-SCOI2003-字符串折叠-题解"><a href="#洛谷P4302-SCOI2003-字符串折叠-题解" class="headerlink" title="洛谷P4302 [SCOI2003]字符串折叠 题解"></a>洛谷P4302 [SCOI2003]字符串折叠 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4302">P4302 [SCOI2003]字符串折叠</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>折叠的定义如下：</p>
-<ol type="1">
-<li>一个字符串可以看成它自身的折叠，记作 <span class="math inline">\(S =
-S\)</span> 。</li>
-<li><span class="math inline">\(X(S)\)</span> 是 <span
-class="math inline">\(X(X&gt;1)\)</span> 个 <span
-class="math inline">\(S\)</span> 连接在一起的串的折叠，记作 <span
-class="math inline">\(X(S) = SSSS\dots S(x
-\,\texttt{个}\,S)\)</span>。</li>
-<li>如果 <span class="math inline">\(A = A^{\prime}, B =
-B^{\prime}\)</span> ，则 <span class="math inline">\(AB =
-A^{\prime}B^{\prime}\)</span> 。例如，因为 <span
-class="math inline">\(\mathtt{3(A)} = \mathtt{AAA}, \mathtt{2(B)} =
-\mathtt{BB}\)</span>，所以 <span
-class="math inline">\(\mathtt{3(A)C2(B)} = \mathtt{AAACBB}\)</span> ，而
-<span class="math inline">\(\mathtt{2(3(A)C)2(B)} =
-\mathtt{AAACAAACBB}\)</span> 。</li>
+<p>折叠的定义如下： </p>
+<ol>
+<li>一个字符串可以看成它自身的折叠，记作 $S = S$ 。</li>
+<li>$X(S)$ 是 $X(X&gt;1)$ 个 $S$ 连接在一起的串的折叠，记作 $X(S) = SSSS\dots S(x \,\texttt{个}\,S)$。</li>
+<li>如果 $A = A^{\prime}, B = B^{\prime}$ ，则 $AB = A^{\prime}B^{\prime}$ 。例如，因为 $\mathtt{3(A)} = \mathtt{AAA}, \mathtt{2(B)} = \mathtt{BB}$，所以 $\mathtt{3(A)C2(B)} = \mathtt{AAACBB}$ ，而 $\mathtt{2(3(A)C)2(B)} = \mathtt{AAACAAACBB}$ 。</li>
 </ol>
-<p>给一个字符串，求它的最短折叠。例如 <span
-class="math inline">\(\mathtt{AAAAAAAAAABABABCCD}\)</span>
-的最短折叠为：<span
-class="math inline">\(\mathtt{9(A)3(AB)CCD}\)</span>。</p>
+<p>给一个字符串，求它的最短折叠。例如 $\mathtt{AAAAAAAAAABABABCCD}$ 的最短折叠为：$\mathtt{9(A)3(AB)CCD}$。</p>
 <p><strong>输入格式</strong>：</p>
-<p>仅一行，即字符串 <span class="math inline">\(S\)</span>
-，长度保证不超过 <span class="math inline">\(100\)</span> 。</p>
+<p>仅一行，即字符串 $S$ ，长度保证不超过 $100$ 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>仅一行，即最短的折叠长度。</p>
 </blockquote>
 <p>区间dp + kmp 神仙题。</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示区间 <span
-class="math inline">\([i,j]\)</span> 的最短折叠长度。</p>
-<p>显然边界为 <span class="math inline">\(f_{i,i} = 1\)</span>
-，最后答案为 <span class="math inline">\(f_{1,n}\)</span> 。</p>
-<p>下文中使用 <span class="math inline">\(a \downarrow b+c\)</span> 表示
-<span class="math inline">\(a \leftarrow \min\{a,b+c\}\)</span></p>
-<p>考虑转移。第一种，直接两个串合并 <span class="math display">\[
-f_{i,j} \downarrow \min_{i\le k &lt; j} \{f_{i,k} + f_{k+1,j}\}
-\]</span>
-第二种，折叠。一个原始的想法是，按套路把两个区间合并，计算他们的贡献</p>
+<p>设 $f_{i,j}$ 表示区间 $[i,j]$ 的最短折叠长度。</p>
+<p>显然边界为 $f_{i,i} = 1$ ，最后答案为 $f_{1,n}$ 。</p>
+<p>下文中使用 $a \downarrow b+c$ 表示 $a \leftarrow \min\{a,b+c\}$</p>
+<p>考虑转移。第一种，直接两个串合并</p>
+<script type="math/tex; mode=display">
+f_{i,j} \downarrow \min_{i\le k < j} \{f_{i,k} + f_{k+1,j}\}</script><p>第二种，折叠。一个原始的想法是，按套路把两个区间合并，计算他们的贡献</p>
 <p>但我们无法得知两个区间中的某个是否已经被折叠过了，以及它们各被折叠了几次</p>
 <p>于是尝试直接暴力枚举折叠后的子串长度，然后转移。</p>
-<p>记 <span class="math inline">\(d=j-i+1\)</span> ，并且 <span
-class="math inline">\([i,j]\)</span> 由 <span
-class="math inline">\(X\)</span> 个长度为 <span
-class="math inline">\(k\)</span> 的串拼接而成（ <span
-class="math inline">\(d=X\cdot k\)</span> ），则 <span
-class="math display">\[
-f_{i,j} \downarrow f_{i,i+k-1}  + \left\lfloor{\lg X}\right\rfloor + 3
-\]</span> 然后稍微优化一下，比如枚举 <span
-class="math inline">\(d\)</span> 的因数，时间复杂度 <span
-class="math inline">\(O(n^3 \log n)\)</span>
-（<del>貌似可以水过？</del>）</p>
+<p>记 $d=j-i+1$ ，并且 $[i,j]$ 由 $X$ 个长度为 $k$ 的串拼接而成（ $d=X\cdot k$ ），则</p>
+<script type="math/tex; mode=display">
+f_{i,j} \downarrow f_{i,i+k-1}  + \left\lfloor{\lg X}\right\rfloor + 3</script><p>然后稍微优化一下，比如枚举 $d$ 的因数，时间复杂度 $O(n^3 \log n)$ （<del>貌似可以水过？</del>）</p>
 <p>仔细思考可以发现，很多枚举是不必要的。</p>
-<p>根据 <strong>border</strong> 定理，一个串有长度为 <span
-class="math inline">\(k\)</span> 的周期<strong>当且仅当</strong>它有长为
-<span class="math inline">\(d-k\)</span> 的 <strong>border</strong>
-。</p>
-<p>因此我们可以预处理出每个子串的最长 <strong>border</strong> （显然跑
-<span class="math inline">\(n\)</span> 遍 <span
-class="math inline">\(\mathtt{kmp}\)</span> 即可）</p>
-<p>其实就是预处理每个子串的最小周期 <span
-class="math inline">\(k_0\)</span></p>
-<p>然后枚举 <span class="math inline">\(k=t\cdot k_0\)</span>
-为周期，这样就可以在 <span class="math inline">\(O(\log n)\)</span>
-的时间内转移第二部分了</p>
+<p>根据 <strong>border</strong> 定理，一个串有长度为 $k$ 的周期<strong>当且仅当</strong>它有长为 $d-k$ 的 <strong>border</strong> 。</p>
+<p>因此我们可以预处理出每个子串的最长 <strong>border</strong> （显然跑 $n$ 遍 $\mathtt{kmp}$ 即可）</p>
+<p>其实就是预处理每个子串的最小周期 $k_0$ </p>
+<p>然后枚举 $k=t\cdot k_0$ 为周期，这样就可以在 $O(\log n)$ 的时间内转移第二部分了</p>
 <p>结果复杂度瓶颈就变成了区间dp的转移（悲</p>
-<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
+<p>时间复杂度 $O(n^3)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -886,8 +847,7 @@ class="math inline">\(k_0\)</span></p>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1090.html">https://yhx-12243.github.io/OI-transit/records/lydsy1090.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1090.html">https://yhx-12243.github.io/OI-transit/records/lydsy1090.html</a></p>
 
                 
             </div>
@@ -1162,7 +1122,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p202.jpg" class="responsive-img" alt="CF632F Magic Matrix 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p27.jpg" class="responsive-img" alt="CF632F Magic Matrix 题解">
                         
                         <span class="card-title">CF632F Magic Matrix 题解</span>
                     </div>
@@ -1363,7 +1323,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1383.7k</span>&nbsp;字
+                class="white-color">1358.6k</span>&nbsp;字
             
             
             
@@ -1632,21 +1592,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
