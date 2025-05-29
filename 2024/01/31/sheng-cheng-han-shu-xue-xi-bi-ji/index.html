@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ '生成函数 学习笔记' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">生成函数 学习笔记</h1>
                     
                 </div>
             </div>
@@ -724,7 +710,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    3.7k
                 </div>
                 
 
@@ -744,199 +730,397 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="生成函数-学习笔记"><a href="#生成函数-学习笔记" class="headerlink" title="生成函数 学习笔记"></a>生成函数 学习笔记</h1><p>这里涉及的记号比较多，建议查阅 <a href="/notations/">博客符号&amp;记号参照表</a></p>
+                <h1 id="生成函数-学习笔记">生成函数 学习笔记</h1>
+<p>这里涉及的记号比较多，建议查阅 <a
+href="/notations/">博客符号&amp;记号参照表</a></p>
 <blockquote>
 <p>这篇文章最早写于 2022年9月25日，但是当时基本没怎么理解生成函数。</p>
 <p>本文的内容会不断添加更多东西，因为生成函数涉及的内容还是挺多的。</p>
 </blockquote>
-<p>upd. 另外，可以参考 <a href="/2024/06/24/zu-he-shu-xue-ss2.3-xue-xi-bi-ji-shang/">《组合数学》 §2.3 学习笔记（上）</a> 。</p>
-<h2 id="生成函数简介"><a href="#生成函数简介" class="headerlink" title="生成函数简介"></a>生成函数简介</h2><p>相信有很多初学者都很好奇，这个生成函数到底在干什么，为什么要搞这些东西。</p>
+<p>upd. 另外，可以参考 <a
+href="/2024/06/24/zu-he-shu-xue-ss2.3-xue-xi-bi-ji-shang/">《组合数学》
+§2.3 学习笔记（上）</a> 。</p>
+<h2 id="生成函数简介">生成函数简介</h2>
+<p>相信有很多初学者都很好奇，这个生成函数到底在干什么，为什么要搞这些东西。</p>
 <p>至少我当时也没搞明白，特别是为什么它可以在式子没有意义的情况下还能算出正确答案。</p>
 <p>因此本文会从生成函数最基础的部分出发，较为详细的解释什么是生成函数。</p>
 <p><br></p>
-<p><strong>例1</strong>：有 $1$ 克、$2$ 克、$3$ 克、$4$ 克的砝码各一枚，能称出哪几种重量？每种重量各有几种可能方案？</p>
+<p><strong>例1</strong>：有 <span class="math inline">\(1\)</span>
+克、<span class="math inline">\(2\)</span> 克、<span
+class="math inline">\(3\)</span> 克、<span
+class="math inline">\(4\)</span>
+克的砝码各一枚，能称出哪几种重量？每种重量各有几种可能方案？</p>
 <p>我不打算讲传统解法，直接讲生成函数的解法</p>
-<p>我们可以把 $1$ 克砝码看作 $(1 + x^1)$ ，前者表示不取，后者表示取一个 $1$ 克砝码</p>
-<p>同理，我们可以用 $(1 + x^2)$ 表示不取或取一个 $2$ 克砝码，用 $(1 + x^3)$ 表示不取或取一个 $3$ 克砝码等</p>
-<p>那么生成函数（实际上是普通生成函数）就是</p>
-<script type="math/tex; mode=display">
+<p>我们可以把 <span class="math inline">\(1\)</span> 克砝码看作 <span
+class="math inline">\((1 + x^1)\)</span> ，前者表示不取，后者表示取一个
+<span class="math inline">\(1\)</span> 克砝码</p>
+<p>同理，我们可以用 <span class="math inline">\((1 + x^2)\)</span>
+表示不取或取一个 <span class="math inline">\(2\)</span> 克砝码，用 <span
+class="math inline">\((1 + x^3)\)</span> 表示不取或取一个 <span
+class="math inline">\(3\)</span> 克砝码等</p>
+<p>那么生成函数（实际上是普通生成函数）就是 <span
+class="math display">\[
 \begin{aligned}
-F(x) &= \left(1+x^1\right)\left(1+x^2\right)\left(1+x^3\right)\left(1+x^4\right)
-\\[6pt]&= 1+x+x^2+2 x^3+2 x^4+2 x^5+2 x^6+2 x^7+x^8+x^9+x^{10}
-\end{aligned}</script><p>可以发现，如果记次数为 $n$ ，系数为 $a_n$ ，则重量为 $n$ 的情况有 $a_n$ 种方案。</p>
+F(x) &amp;=
+\left(1+x^1\right)\left(1+x^2\right)\left(1+x^3\right)\left(1+x^4\right)
+\\[6pt]&amp;= 1+x+x^2+2 x^3+2 x^4+2 x^5+2 x^6+2 x^7+x^8+x^9+x^{10}
+\end{aligned}
+\]</span> 可以发现，如果记次数为 <span class="math inline">\(n\)</span>
+，系数为 <span class="math inline">\(a_n\)</span> ，则重量为 <span
+class="math inline">\(n\)</span> 的情况有 <span
+class="math inline">\(a_n\)</span> 种方案。</p>
 <p>相信各位已经发现了，生成函数实际上利用了多项式相乘中的组合意义，利用多项式的形式来计算组合问题。</p>
 <p>不过先不急着下太多结论，我们再看个例子。</p>
-<p><strong>例2</strong>：求用$1$分、$2$分、$3$分的邮票贴出不同数值的方案数，每种邮票的数量是无限多的。</p>
-<p>直接给出生成函数</p>
-<script type="math/tex; mode=display">
-F(x) = \left(1+x+x^2+x^3+\ldots\right)\left(1+x^2+x^4+x^6+\ldots\right)\left(1+x^3+x^6+x^9+\ldots\right)</script><p>相信熟悉麦克劳林级数的同学已经想到了这个公式</p>
-<script type="math/tex; mode=display">
-\frac{1}{1-x}=\sum_{n=0}^{\infty} x^n=1+x+x^2+\cdots+x^n+\cdots \quad(|x| < 1)</script><p>如果代入符合条件的 $x^k$ 则有</p>
-<script type="math/tex; mode=display">
-\frac{1}{1-x^k} =\sum_{n=0}^{\infty} x^{kn}=1+x^k+x^{2k}+\cdots+x^{kn}+\cdots</script><p>那么因为生成函数只是一个「形式幂级数」（定义在后面讲）</p>
-<p>我们可以理解为，这里的形式参数 $x$ 取什么值我们不关心，只要它不影响我们计算答案就可以</p>
+<p><strong>例2</strong>：求用<span
+class="math inline">\(1\)</span>分、<span
+class="math inline">\(2\)</span>分、<span
+class="math inline">\(3\)</span>分的邮票贴出不同数值的方案数，每种邮票的数量是无限多的。</p>
+<p>直接给出生成函数 <span class="math display">\[
+F(x) =
+\left(1+x+x^2+x^3+\ldots\right)\left(1+x^2+x^4+x^6+\ldots\right)\left(1+x^3+x^6+x^9+\ldots\right)
+\]</span> 相信熟悉麦克劳林级数的同学已经想到了这个公式 <span
+class="math display">\[
+\frac{1}{1-x}=\sum_{n=0}^{\infty} x^n=1+x+x^2+\cdots+x^n+\cdots
+\quad(|x| &lt; 1)
+\]</span> 如果代入符合条件的 <span class="math inline">\(x^k\)</span>
+则有 <span class="math display">\[
+\frac{1}{1-x^k} =\sum_{n=0}^{\infty}
+x^{kn}=1+x^k+x^{2k}+\cdots+x^{kn}+\cdots
+\]</span> 那么因为生成函数只是一个「形式幂级数」（定义在后面讲）</p>
+<p>我们可以理解为，这里的形式参数 <span class="math inline">\(x\)</span>
+取什么值我们不关心，只要它不影响我们计算答案就可以</p>
 <blockquote>
 <p>进一步地讲，即使这个形式幂级数所对应的幂级数是不收敛的，我们依然可以进行运算</p>
 </blockquote>
-<p>好那么我们直接将 $F(x)$ 化简即可得到</p>
-<script type="math/tex; mode=display">
-F(x) = \frac{1}{(1-x)(1-x^2)(1-x^3)}</script><p>这个东西疑似有点过于复杂了（确信），但是我们可以通过广义二项式定理求出它的任意一项的系数。</p>
+<p>好那么我们直接将 <span class="math inline">\(F(x)\)</span>
+化简即可得到 <span class="math display">\[
+F(x) = \frac{1}{(1-x)(1-x^2)(1-x^3)}
+\]</span>
+这个东西疑似有点过于复杂了（确信），但是我们可以通过广义二项式定理求出它的任意一项的系数。</p>
 <p>不过这不是本题的目的，这里主要想告诉大家生成函数的“形式”究竟体现在哪里。</p>
-<hr>
-<h2 id="普通生成函数-OGF"><a href="#普通生成函数-OGF" class="headerlink" title="普通生成函数 OGF"></a>普通生成函数 OGF</h2><blockquote>
+<hr />
+<h2 id="普通生成函数-ogf">普通生成函数 OGF</h2>
+<blockquote>
 <p>普通生成函数（Ordinary Generating Function,OGF）</p>
 </blockquote>
 <p>到这里我们就可以给出普通生成函数的定义了。</p>
-<p>对于一个数列 $\{f_n\}$ ，定义它的普通生成函数 $F(x)$ 为以 $x$ 为未定元的一个形式幂级数，则</p>
-<script type="math/tex; mode=display">
+<p>对于一个数列 <span class="math inline">\(\{f_n\}\)</span>
+，定义它的普通生成函数 <span class="math inline">\(F(x)\)</span> 为以
+<span class="math inline">\(x\)</span> 为未定元的一个形式幂级数，则
+<span class="math display">\[
 F(x) = \sum_{n \ge 0} f_nx^n
-\\f_n = [x^n]F(x)</script><p>另一种易于理解的写法是这样的（数列为 $\{a_n\}$ ）</p>
-<script type="math/tex; mode=display">
-F(x) = \sum_{i=0}^{\infty}a_ix^i = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n + \cdots</script><h3 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h3><p>OGF 的运算很多都和多项式类似。</p>
-<script type="math/tex; mode=display">
+\\f_n = [x^n]F(x)
+\]</span> 另一种易于理解的写法是这样的（数列为 <span
+class="math inline">\(\{a_n\}\)</span> ） <span class="math display">\[
+F(x) = \sum_{i=0}^{\infty}a_ix^i = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n
++ \cdots
+\]</span></p>
+<h3 id="基本运算">基本运算</h3>
+<p>OGF 的运算很多都和多项式类似。 <span class="math display">\[
 \begin{aligned}
-&F(x) \pm G(x)&&=\left(\sum_{n \geq 0} f_n x^n\right) \pm\left(\sum_{n \geq 0} g_n x^n\right)&&=\sum_{n \geq 0}\left(f_n \pm g_n\right) x^n
-\\[8pt]&F(x)\times G(x) &&= \left(\sum_{n \geq 0} f_n x^n\right) \times \left(\sum_{n \geq 0} g_n x^n\right)&&=\sum_{n \geq 0}x^n\sum_{k=0}^{n}f_kg_{n-k}
-\\[8pt]&c \times F(x) &&= c \times\left(\sum_{n \geq 0} f_n x^n\right)&&=\sum_{n \geq 0}\left(c f_n\right) x^n
-\\[8pt]&x^{m}F(x) &&= \sum_{n \geq 0} f_{n+m} x^n &&=\frac{\sum_{n \geq 0} f_n x^n-\sum_{i=0}^{m-1} f_i x^i}{x^m}
-\\[8pt]&x^{-m}F(x) &&= \sum_{n \ge m}f_{n-m}x^n &&= \sum_{n \ge 0}f_nx^{n+m}
-\\[8pt]&F^{\prime}(x) &&= \left(\sum_{n \geq 0} f_n x^n\right)^{\prime} &&=\sum_{n \geq 0}\left((n+1) f_{n+1}\right) x^n
-\\[8pt]&\int F(x)dx &&= \int\left(\sum_{n \geq 0} f_n x^n\right) dx &&=\sum_{n>0} \frac{f_{n-1}}{n} x^n+C
-\\[8pt]&F(kx) &&= \sum_{n \ge 0}f_n (kx)^n &&= \sum_{n\ge 0}k^nf_nx^n
-\\[8pt]&-\ln (1-F(x)) &&=1+\frac{F(x)}{1}+\frac{F^2(x)}{2}+\ldots \frac{F^n(x)}{n}+\cdots&&=\sum_{n=0}^{\infty} \frac{F^n(x)}{n}
-\\[8pt]&\exp (F(x)) &&=1+\frac{F(x)}{1 !}+\frac{A^2(x)}{2 !}+\ldots \frac{A^n(x)}{n !}+\cdots &&=\sum_{n=0}^{\infty} \frac{A^n(x)}{n !}
-\end{aligned}</script><h3 id="常见的OGF"><a href="#常见的OGF" class="headerlink" title="常见的OGF"></a>常见的OGF</h3><p>下面这些常见的OGF通常可以用<strong>封闭形式</strong>代替<strong>级数形式</strong>。</p>
-<script type="math/tex; mode=display">
+&amp;F(x) \pm G(x)&amp;&amp;=\left(\sum_{n \geq 0} f_n x^n\right)
+\pm\left(\sum_{n \geq 0} g_n x^n\right)&amp;&amp;=\sum_{n \geq
+0}\left(f_n \pm g_n\right) x^n
+\\[8pt]&amp;F(x)\times G(x) &amp;&amp;= \left(\sum_{n \geq 0} f_n
+x^n\right) \times \left(\sum_{n \geq 0} g_n x^n\right)&amp;&amp;=\sum_{n
+\geq 0}x^n\sum_{k=0}^{n}f_kg_{n-k}
+\\[8pt]&amp;c \times F(x) &amp;&amp;= c \times\left(\sum_{n \geq 0} f_n
+x^n\right)&amp;&amp;=\sum_{n \geq 0}\left(c f_n\right) x^n
+\\[8pt]&amp;x^{m}F(x) &amp;&amp;= \sum_{n \geq 0} f_{n+m} x^n
+&amp;&amp;=\frac{\sum_{n \geq 0} f_n x^n-\sum_{i=0}^{m-1} f_i x^i}{x^m}
+\\[8pt]&amp;x^{-m}F(x) &amp;&amp;= \sum_{n \ge m}f_{n-m}x^n &amp;&amp;=
+\sum_{n \ge 0}f_nx^{n+m}
+\\[8pt]&amp;F^{\prime}(x) &amp;&amp;= \left(\sum_{n \geq 0} f_n
+x^n\right)^{\prime} &amp;&amp;=\sum_{n \geq 0}\left((n+1) f_{n+1}\right)
+x^n
+\\[8pt]&amp;\int F(x)dx &amp;&amp;= \int\left(\sum_{n \geq 0} f_n
+x^n\right) dx &amp;&amp;=\sum_{n&gt;0} \frac{f_{n-1}}{n} x^n+C
+\\[8pt]&amp;F(kx) &amp;&amp;= \sum_{n \ge 0}f_n (kx)^n &amp;&amp;=
+\sum_{n\ge 0}k^nf_nx^n
+\\[8pt]&amp;-\ln (1-F(x))
+&amp;&amp;=1+\frac{F(x)}{1}+\frac{F^2(x)}{2}+\ldots
+\frac{F^n(x)}{n}+\cdots&amp;&amp;=\sum_{n=0}^{\infty} \frac{F^n(x)}{n}
+\\[8pt]&amp;\exp (F(x)) &amp;&amp;=1+\frac{F(x)}{1 !}+\frac{A^2(x)}{2
+!}+\ldots \frac{A^n(x)}{n !}+\cdots &amp;&amp;=\sum_{n=0}^{\infty}
+\frac{A^n(x)}{n !}
+\end{aligned}
+\]</span></p>
+<h3 id="常见的ogf">常见的OGF</h3>
+<p>下面这些常见的OGF通常可以用<strong>封闭形式</strong>代替<strong>级数形式</strong>。
+<span class="math display">\[
 \begin{aligned}
-&\sum_{n \ge 0}[n=0] x^n &&= 1
-\\[3pt]&\sum_{n\ge 0}[n=m] x^n &&= x^m
-\\[3pt]&\sum_{n \geq 0} x^n &&=\frac{1}{1-x}
-\\[3pt]&\sum_{n \geq 0}(n+1) x^n &&=\frac{1}{(1-x)^2}
-\\[3pt]&\sum_{n \geq 0}(-1)^n x^n &&=\frac{1}{1+x}
-\\[3pt]&\sum_{n \geq 0}\dbinom{m}{n}x^n &&=(1+x)^m
-\\[3pt]&\sum_{n \geq 0}\dbinom{n+m-1}{n}x^n &&=(1-x)^{-m}
-\\[3pt]&\sum_{n>0} \frac{1}{n} x^n &&=\ln \frac{1}{1-x}
-\\[3pt]&\sum_{n>0} \frac{-(-1)^n}{n} x^n &&=\ln (1+x)
-\\[3pt]&\sum_{n \geq 0} \frac{1}{n !} x^n &&=e^x
-\end{aligned}</script><h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><a href="/2024/01/31/luo-gu-p2000-zheng-jiu-shi-jie-ti-jie/">洛谷P2000 拯救世界</a> 一道比较基础的生成函数的题</p>
-<h2 id="指数生成函数-EGF"><a href="#指数生成函数-EGF" class="headerlink" title="指数生成函数 EGF"></a>指数生成函数 EGF</h2><blockquote>
+&amp;\sum_{n \ge 0}[n=0] x^n &amp;&amp;= 1
+\\[3pt]&amp;\sum_{n\ge 0}[n=m] x^n &amp;&amp;= x^m
+\\[3pt]&amp;\sum_{n \geq 0} x^n &amp;&amp;=\frac{1}{1-x}
+\\[3pt]&amp;\sum_{n \geq 0}(n+1) x^n &amp;&amp;=\frac{1}{(1-x)^2}
+\\[3pt]&amp;\sum_{n \geq 0}(-1)^n x^n &amp;&amp;=\frac{1}{1+x}
+\\[3pt]&amp;\sum_{n \geq 0}\dbinom{m}{n}x^n &amp;&amp;=(1+x)^m
+\\[3pt]&amp;\sum_{n \geq 0}\dbinom{n+m-1}{n}x^n &amp;&amp;=(1-x)^{-m}
+\\[3pt]&amp;\sum_{n&gt;0} \frac{1}{n} x^n &amp;&amp;=\ln \frac{1}{1-x}
+\\[3pt]&amp;\sum_{n&gt;0} \frac{-(-1)^n}{n} x^n &amp;&amp;=\ln (1+x)
+\\[3pt]&amp;\sum_{n \geq 0} \frac{1}{n !} x^n &amp;&amp;=e^x
+\end{aligned}
+\]</span></p>
+<h3 id="例题">例题</h3>
+<p><a
+href="/2024/01/31/luo-gu-p2000-zheng-jiu-shi-jie-ti-jie/">洛谷P2000
+拯救世界</a> 一道比较基础的生成函数的题</p>
+<h2 id="指数生成函数-egf">指数生成函数 EGF</h2>
+<blockquote>
 <p>指数生成函数（exponential generating function，EGF）</p>
 </blockquote>
-<p>有时我们发现 $\{a_n\}$ 的性质并不好，而 $\{\frac{a_n}{n!}\}$ 的生成函数性质很好。</p>
+<p>有时我们发现 <span class="math inline">\(\{a_n\}\)</span>
+的性质并不好，而 <span class="math inline">\(\{\frac{a_n}{n!}\}\)</span>
+的生成函数性质很好。</p>
 <p>那么我们不妨定义一种新的生成函数来解决这个问题。</p>
-<p>定义 $A(x)$ 为数列 $\{a_0,a_1,\cdots,a_n\}$ 的指数函数，则</p>
-<script type="math/tex; mode=display">
-A(x) = a_0  + a_1x + \frac{a_2}{2!}x^2 + \cdots + \frac{a_n}{n!}x^n = \sum_{i=0}^{\infty}\frac{a_i}{i!}x^i</script><blockquote>
-<p>在一些资料上用 $A(x)$ 表示普通生成函数，并用 $\hat A(x)$ 表示指数生成函数。</p>
+<p>定义 <span class="math inline">\(A(x)\)</span> 为数列 <span
+class="math inline">\(\{a_0,a_1,\cdots,a_n\}\)</span> 的指数函数，则
+<span class="math display">\[
+A(x) = a_0  + a_1x + \frac{a_2}{2!}x^2 + \cdots + \frac{a_n}{n!}x^n =
+\sum_{i=0}^{\infty}\frac{a_i}{i!}x^i
+\]</span></p>
+<blockquote>
+<p>在一些资料上用 <span class="math inline">\(A(x)\)</span>
+表示普通生成函数，并用 <span class="math inline">\(\hat A(x)\)</span>
+表示指数生成函数。</p>
 </blockquote>
-<p>EGF 的运算和 OGF 是相似的，我们只要把 $\frac{1}{i!}$ 看成系数的一部分，再按照 OGF 的运算法则做即可。</p>
+<p>EGF 的运算和 OGF 是相似的，我们只要把 <span
+class="math inline">\(\frac{1}{i!}\)</span> 看成系数的一部分，再按照 OGF
+的运算法则做即可。</p>
 <p>但是毕竟引入了阶乘，在一些运算上会显得更为独特和巧妙。</p>
-<h3 id="乘法（二项卷积）"><a href="#乘法（二项卷积）" class="headerlink" title="乘法（二项卷积）"></a>乘法（二项卷积）</h3><p>设 $F(x),G(x)$ 为数列 $\{f_i\},\{g_i\}$ 的指数生成函数，则</p>
-<script type="math/tex; mode=display">
-h_n = [x^n](F(x)G(x)) = n ! \sum_{k \geq 0}\binom{n}{k}f_k g_{n-k}</script><p>数列 $\{h_n\}$ 称为 $\{f_n\}$ 和 $\{g_n\}$ 的二项卷积(Binomial Convolution)。</p>
-<p>也就是说，$\{f_n\}$ 和 $\{g_n\}$ 的二项卷积等价于 $\{\frac{f_n}{n!}\}$ 和 $\{\frac{g_n}{n!}\}$ 的普通卷积</p>
-<h3 id="导数与积分"><a href="#导数与积分" class="headerlink" title="导数与积分"></a>导数与积分</h3><script type="math/tex; mode=display">
-A^{\prime}(x) = \sum_{n \geq 0} n \frac{a_n}{n !} x^{n-1}=\sum_{n \geq 0} \frac{a_n}{(n-1) !} x^{n-1}</script><p>$A^{\prime}(x)$ 对应的数列为 $\{a_1,a_2,\cdots,a_n\}$ 。</p>
+<h3 id="乘法二项卷积">乘法（二项卷积）</h3>
+<p>设 <span class="math inline">\(F(x),G(x)\)</span> 为数列 <span
+class="math inline">\(\{f_i\},\{g_i\}\)</span> 的指数生成函数，则 <span
+class="math display">\[
+h_n = [x^n](F(x)G(x)) = n ! \sum_{k \geq 0}\binom{n}{k}f_k g_{n-k}
+\]</span> 数列 <span class="math inline">\(\{h_n\}\)</span> 称为 <span
+class="math inline">\(\{f_n\}\)</span> 和 <span
+class="math inline">\(\{g_n\}\)</span> 的二项卷积(Binomial
+Convolution)。</p>
+<p>也就是说，<span class="math inline">\(\{f_n\}\)</span> 和 <span
+class="math inline">\(\{g_n\}\)</span> 的二项卷积等价于 <span
+class="math inline">\(\{\frac{f_n}{n!}\}\)</span> 和 <span
+class="math inline">\(\{\frac{g_n}{n!}\}\)</span> 的普通卷积</p>
+<h3 id="导数与积分">导数与积分</h3>
+<p><span class="math display">\[
+A^{\prime}(x) = \sum_{n \geq 0} n \frac{a_n}{n !} x^{n-1}=\sum_{n \geq
+0} \frac{a_n}{(n-1) !} x^{n-1}
+\]</span></p>
+<p><span class="math inline">\(A^{\prime}(x)\)</span> 对应的数列为 <span
+class="math inline">\(\{a_1,a_2,\cdots,a_n\}\)</span> 。</p>
 <p>也就是说，指数生成函数上的求导相当于普通生成函数的左移。同理，积分相当于右移。</p>
-<h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><p><a href="/2024/02/02/luo-gu-p2012-zheng-jiu-shi-jie-2-ti-jie/">洛谷P2012 拯救世界2</a> 一道比较基础的指数生成函数题</p>
-<h2 id="狄利克雷生成函数-DGF"><a href="#狄利克雷生成函数-DGF" class="headerlink" title="狄利克雷生成函数 DGF"></a>狄利克雷生成函数 DGF</h2><blockquote>
+<h3 id="例题-1">例题</h3>
+<p><a
+href="/2024/02/02/luo-gu-p2012-zheng-jiu-shi-jie-2-ti-jie/">洛谷P2012
+拯救世界2</a> 一道比较基础的指数生成函数题</p>
+<h2 id="狄利克雷生成函数-dgf">狄利克雷生成函数 DGF</h2>
+<blockquote>
 <p>狄利克雷生成函数（Dirichlet series generating function，DGF）</p>
 </blockquote>
-<p>对于无穷序列 $f_1,f_2,\cdots$ 定义其狄利克雷生成函数为</p>
-<script type="math/tex; mode=display">
-\tilde{F}(x)=\sum_{i \geq 1} \frac{f_i}{i^x}</script><p>如果序列 $f$ 满足积性，即 $\forall i,j,\gcd(i,j),f_{i\cdot j}=f_if_j$ ，那么其 DGF 可以由质数幂处的取值表示</p>
-<script type="math/tex; mode=display">
-\tilde{F}(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{f_p}{p^x}+\frac{f_{p^2}}{p^{2 x}}+\frac{f_{p^3}}{p^{3 x}}+\cdots\right)</script><p>对于两个序列 $f,g$ ，其 DGF 之积对应的是两者的狄利克雷卷积序列的 DGF：</p>
-<script type="math/tex; mode=display">
-\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1} \frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid i}f_dg_{\frac{i}{d}}</script><h3 id="常见积性函数的-DGF"><a href="#常见积性函数的-DGF" class="headerlink" title="常见积性函数的 DGF"></a>常见积性函数的 DGF</h3><p>DGF 最适合用于研究与积性函数的狄利克雷卷积相关的问题。因此首先我们要了解常见积性函数的 DGF。</p>
-<h4 id="1-黎曼函数"><a href="#1-黎曼函数" class="headerlink" title="1. 黎曼函数"></a>1. 黎曼函数</h4><p>序列 $[1,1,1,\cdots]$ 的 DGF 是 $\sum_{i\ge 1}\frac{1}{i^x} = \zeta(x)$ ，其中 $\zeta$ 即为黎曼函数。</p>
-<p>由于其满足积性，因此我们可以得到 $[1,1,1,\cdots]$ 的 DGF 的另一种形式</p>
-<script type="math/tex; mode=display">
-\zeta(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{1}{p^x}+\frac{1}{p^{2 x}}+\ldots\right)=\prod_{p \in \mathcal{P}} \frac{1}{1-p^{-x}}</script><h4 id="2-莫比乌斯函数"><a href="#2-莫比乌斯函数" class="headerlink" title="2. 莫比乌斯函数"></a>2. 莫比乌斯函数</h4><p>对于莫比乌斯函数 $\mu$ ，它的 DGF 定义为</p>
-<script type="math/tex; mode=display">
-\tilde{M}(x)=\prod_{p \in \mathcal{P}}\left(1-\frac{1}{p^x}\right)=\prod_{p \in \mathcal{P}}\left(1-p^{-x}\right)</script><p>容易发现 $\zeta(x) \tilde{M}(x)=1$ ，也就是说 $\tilde{M}(x)=\sum_{n \ge 1}\frac{\mu(n)}{i^x}=\frac{1}{\zeta(x)}$ ，这个公式很重要。</p>
-<h4 id="3-欧拉函数"><a href="#3-欧拉函数" class="headerlink" title="3. 欧拉函数"></a>3. 欧拉函数</h4><p>对于欧拉函数 $\varphi$ ，它的 DGF 定义为</p>
-<script type="math/tex; mode=display">
-\tilde{\Phi}(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{p-1}{p^x}+\frac{p(p-1)}{p^{2 x}}+\frac{p^2(p-1)}{p^{3 x}}+\ldots\right)=\prod_{p \in \mathcal{P}} \frac{1-p^{-x}}{1-p^{1-x}}</script><p>因此有 $\tilde{\Phi}(x)=\frac{\zeta(x-1)}{\zeta(x)}$</p>
-<h4 id="4-幂函数"><a href="#4-幂函数" class="headerlink" title="4. 幂函数"></a>4. 幂函数</h4><p>对于函数 $I_k(n)=n^k$ ，它的 DGF 定义为</p>
-<script type="math/tex; mode=display">
-\tilde{I}_k(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{p^k}{p^x}+\frac{p^{2 k}}{p^{2 x}}+\ldots\right)=\prod_{p \in \mathcal{P}} \frac{1}{1-p^{k-x}}=\zeta(x-k)</script><p>根据这些定义，容易推导出 $\varphi <em> 1 = I$  （$</em>$ 表示狄利克雷卷积），因为 $\tilde{\Phi}(x) \zeta(x)=\zeta(x-1)$ 。</p>
-<h4 id="5-其他函数"><a href="#5-其他函数" class="headerlink" title="5. 其他函数"></a>5. 其他函数</h4><p>对于约数幂函数 $\sigma_k(n)=\sum_{d \mid n} d^k$ ，它的 DGF 可以表示为狄利克雷卷积的形式</p>
-<h3 id="狄利克雷卷积（Dirichlet-卷积）"><a href="#狄利克雷卷积（Dirichlet-卷积）" class="headerlink" title="狄利克雷卷积（Dirichlet 卷积）"></a>狄利克雷卷积（Dirichlet 卷积）</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>对于两个数论函数 $f(x)$ 和 $g(x)$ ，它们的狄利克雷卷积定义为</p>
-<script type="math/tex; mode=display">
-h(x)=\sum_{d \mid x} f(d) g\left(\frac{x}{d}\right)=\sum_{a b=x} f(a) g(b)</script><p>上式可以简记为</p>
-<script type="math/tex; mode=display">
-h = f*g</script><p>狄利克雷卷积是数论函数的重要运算，数论函数的许多性质都是通过这个运算挖掘出来的。</p>
-<p>上面我们提到了，狄利克雷卷积与狄利克雷生成函数 DGF 事实上密切相关</p>
-<script type="math/tex; mode=display">
-\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1} \frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid i}f_dg_{\frac{i}{d}}</script><p>即对于两个序列 $f,g$ ，其狄利克雷生成函数之积，对应的是两者的狄利克雷卷积序列的狄利克雷生成函数</p>
-<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><p>交换律：$f <em> g=g </em> f$</p>
-<p>结合律：$(f<em>g)</em>h=f<em>(g</em>h)$ </p>
-<p>分配律： $(f+g)<em>h = f </em> h + g * h$ </p>
-<p><strong>等式的性质</strong>：$f=g$ 的重要条件是 $f<em>h = g</em>h$ ，其中数论函数 $h(x)$ 要满足 $h(1) \ne 0$ 。</p>
-<p><strong>单位元</strong>：单位函数 $\epsilon$ 是狄利克雷卷积运算中的单位元，即对于任何数论函数 $f$ 都有 $f * \epsilon = f$ 。</p>
+<p>对于无穷序列 <span class="math inline">\(f_1,f_2,\cdots\)</span>
+定义其狄利克雷生成函数为 <span class="math display">\[
+\tilde{F}(x)=\sum_{i \geq 1} \frac{f_i}{i^x}
+\]</span> 如果序列 <span class="math inline">\(f\)</span> 满足积性，即
+<span class="math inline">\(\forall i,j,\gcd(i,j),f_{i\cdot
+j}=f_if_j\)</span> ，那么其 DGF 可以由质数幂处的取值表示 <span
+class="math display">\[
+\tilde{F}(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{f_p}{p^x}+\frac{f_{p^2}}{p^{2
+x}}+\frac{f_{p^3}}{p^{3 x}}+\cdots\right)
+\]</span> 对于两个序列 <span class="math inline">\(f,g\)</span> ，其 DGF
+之积对应的是两者的狄利克雷卷积序列的 DGF： <span class="math display">\[
+\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1}
+\frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid
+i}f_dg_{\frac{i}{d}}
+\]</span></p>
+<h3 id="常见积性函数的-dgf">常见积性函数的 DGF</h3>
+<p>DGF
+最适合用于研究与积性函数的狄利克雷卷积相关的问题。因此首先我们要了解常见积性函数的
+DGF。</p>
+<h4 id="黎曼函数">1. 黎曼函数</h4>
+<p>序列 <span class="math inline">\([1,1,1,\cdots]\)</span> 的 DGF 是
+<span class="math inline">\(\sum_{i\ge 1}\frac{1}{i^x} =
+\zeta(x)\)</span> ，其中 <span class="math inline">\(\zeta\)</span>
+即为黎曼函数。</p>
+<p>由于其满足积性，因此我们可以得到 <span
+class="math inline">\([1,1,1,\cdots]\)</span> 的 DGF 的另一种形式 <span
+class="math display">\[
+\zeta(x)=\prod_{p \in \mathcal{P}}\left(1+\frac{1}{p^x}+\frac{1}{p^{2
+x}}+\ldots\right)=\prod_{p \in \mathcal{P}} \frac{1}{1-p^{-x}}
+\]</span></p>
+<h4 id="莫比乌斯函数">2. 莫比乌斯函数</h4>
+<p>对于莫比乌斯函数 <span class="math inline">\(\mu\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{M}(x)=\prod_{p \in
+\mathcal{P}}\left(1-\frac{1}{p^x}\right)=\prod_{p \in
+\mathcal{P}}\left(1-p^{-x}\right)
+\]</span> 容易发现 <span class="math inline">\(\zeta(x)
+\tilde{M}(x)=1\)</span> ，也就是说 <span
+class="math inline">\(\tilde{M}(x)=\sum_{n \ge
+1}\frac{\mu(n)}{i^x}=\frac{1}{\zeta(x)}\)</span> ，这个公式很重要。</p>
+<h4 id="欧拉函数">3. 欧拉函数</h4>
+<p>对于欧拉函数 <span class="math inline">\(\varphi\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{\Phi}(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{p-1}{p^x}+\frac{p(p-1)}{p^{2
+x}}+\frac{p^2(p-1)}{p^{3 x}}+\ldots\right)=\prod_{p \in \mathcal{P}}
+\frac{1-p^{-x}}{1-p^{1-x}}
+\]</span> 因此有 <span
+class="math inline">\(\tilde{\Phi}(x)=\frac{\zeta(x-1)}{\zeta(x)}\)</span></p>
+<h4 id="幂函数">4. 幂函数</h4>
+<p>对于函数 <span class="math inline">\(I_k(n)=n^k\)</span> ，它的 DGF
+定义为 <span class="math display">\[
+\tilde{I}_k(x)=\prod_{p \in
+\mathcal{P}}\left(1+\frac{p^k}{p^x}+\frac{p^{2 k}}{p^{2
+x}}+\ldots\right)=\prod_{p \in \mathcal{P}}
+\frac{1}{1-p^{k-x}}=\zeta(x-k)
+\]</span> 根据这些定义，容易推导出 <span class="math inline">\(\varphi *
+1 = I\)</span> （<span class="math inline">\(*\)</span>
+表示狄利克雷卷积），因为 <span class="math inline">\(\tilde{\Phi}(x)
+\zeta(x)=\zeta(x-1)\)</span> 。</p>
+<h4 id="其他函数">5. 其他函数</h4>
+<p>对于约数幂函数 <span class="math inline">\(\sigma_k(n)=\sum_{d \mid
+n} d^k\)</span> ，它的 DGF 可以表示为狄利克雷卷积的形式</p>
+<h3 id="狄利克雷卷积dirichlet-卷积">狄利克雷卷积（Dirichlet 卷积）</h3>
+<h4 id="定义">定义</h4>
+<p>对于两个数论函数 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> ，它们的狄利克雷卷积定义为 <span
+class="math display">\[
+h(x)=\sum_{d \mid x} f(d) g\left(\frac{x}{d}\right)=\sum_{a b=x} f(a)
+g(b)
+\]</span> 上式可以简记为 <span class="math display">\[
+h = f*g
+\]</span>
+狄利克雷卷积是数论函数的重要运算，数论函数的许多性质都是通过这个运算挖掘出来的。</p>
+<p>上面我们提到了，狄利克雷卷积与狄利克雷生成函数 DGF 事实上密切相关
+<span class="math display">\[
+\tilde F(x) \cdot \tilde G(x) = \sum_{i \ge 1}\sum_{j\ge 1}
+\frac{f_ig_j}{(ij)^x} = \sum_{i \ge 1}\frac{1}{i^x}\sum_{d \mid
+i}f_dg_{\frac{i}{d}}
+\]</span> 即对于两个序列 <span class="math inline">\(f,g\)</span>
+，其狄利克雷生成函数之积，对应的是两者的狄利克雷卷积序列的狄利克雷生成函数</p>
+<h4 id="性质">性质</h4>
+<p>交换律：<span class="math inline">\(f * g=g * f\)</span></p>
+<p>结合律：<span class="math inline">\((f*g)*h=f*(g*h)\)</span></p>
+<p>分配律： <span class="math inline">\((f+g)*h = f * h + g *
+h\)</span></p>
+<p><strong>等式的性质</strong>：<span class="math inline">\(f=g\)</span>
+的重要条件是 <span class="math inline">\(f*h = g*h\)</span>
+，其中数论函数 <span class="math inline">\(h(x)\)</span> 要满足 <span
+class="math inline">\(h(1) \ne 0\)</span> 。</p>
+<p><strong>单位元</strong>：单位函数 <span
+class="math inline">\(\epsilon\)</span>
+是狄利克雷卷积运算中的单位元，即对于任何数论函数 <span
+class="math inline">\(f\)</span> 都有 <span class="math inline">\(f *
+\epsilon = f\)</span> 。</p>
 <blockquote>
-<p>具体地，单位函数 $\epsilon(n) := [n=1]$ ，即 $n=1$ 时为 $1$ ，否则为 $0$ 。</p>
-<p>狄利克雷卷积运算中的单位元不是常函数，但是在狄利克雷生成函数中等价于常数 $1$ 。</p>
-<p>狄利克雷卷积运算中的数论函数常函数 $1$，在狄利克雷生成函数中等价于黎曼函数 $\zeta$​ 。</p>
+<p>具体地，单位函数 <span class="math inline">\(\epsilon(n) :=
+[n=1]\)</span> ，即 <span class="math inline">\(n=1\)</span> 时为 <span
+class="math inline">\(1\)</span> ，否则为 <span
+class="math inline">\(0\)</span> 。</p>
+<p>狄利克雷卷积运算中的单位元不是常函数，但是在狄利克雷生成函数中等价于常数
+<span class="math inline">\(1\)</span> 。</p>
+<p>狄利克雷卷积运算中的数论函数常函数 <span
+class="math inline">\(1\)</span>，在狄利克雷生成函数中等价于黎曼函数
+<span class="math inline">\(\zeta\)</span>​ 。</p>
 </blockquote>
-<p><strong>逆元</strong>：对于任何一个满足 $f(x) \ne 0$ 的数论函数，如果有另一个数论函数 $g(x)$ 满足 $f*g = \epsilon$ ，</p>
-<p>则称 $g(x)$ 为 $f(x)$ 的逆元。由等式的性质可知，逆元是唯一的。</p>
+<p><strong>逆元</strong>：对于任何一个满足 <span
+class="math inline">\(f(x) \ne 0\)</span>
+的数论函数，如果有另一个数论函数 <span
+class="math inline">\(g(x)\)</span> 满足 <span class="math inline">\(f*g
+= \epsilon\)</span> ，</p>
+<p>则称 <span class="math inline">\(g(x)\)</span> 为 <span
+class="math inline">\(f(x)\)</span>
+的逆元。由等式的性质可知，逆元是唯一的。</p>
 <blockquote>
 <p>狄利克雷卷积运算中的逆元，在狄利克雷生成函数中相当于倒数运算。</p>
 </blockquote>
-<p>容易构造出 $g(x)$ 的表达式</p>
-<script type="math/tex; mode=display">
-g(x)=\frac{\epsilon(x)-\sum_{d \mid x, d \neq 1} f(d) g\left(\frac{x}{d}\right)}{f(1)}</script><h4 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h4><p><strong>结论1</strong>：两个积性函数的狄利克雷卷积也是积性函数。</p>
+<p>容易构造出 <span class="math inline">\(g(x)\)</span> 的表达式 <span
+class="math display">\[
+g(x)=\frac{\epsilon(x)-\sum_{d \mid x, d \neq 1} f(d)
+g\left(\frac{x}{d}\right)}{f(1)}
+\]</span></p>
+<h4 id="重要结论">重要结论</h4>
+<p><strong>结论1</strong>：两个积性函数的狄利克雷卷积也是积性函数。</p>
 <blockquote>
-<p><strong>证明</strong>：设两个积性函数为 $f(x) $和 $g(x)$ ，再记 $h = f*g$ 。</p>
-<p>设 $\gcd(a,b) = 1$ ，则</p>
-<script type="math/tex; mode=display">
-h(a)=\sum_{d_1 \mid a} f\left(d_1\right) g\left(\frac{a}{d_1}\right), h(b)=\sum_{d_2 \mid b} f\left(d_2\right) g\left(\frac{b}{d_2}\right)</script><p>所以</p>
-<script type="math/tex; mode=display">
+<p><strong>证明</strong>：设两个积性函数为 $f(x) $和 <span
+class="math inline">\(g(x)\)</span> ，再记 <span class="math inline">\(h
+= f*g\)</span> 。</p>
+<p>设 <span class="math inline">\(\gcd(a,b) = 1\)</span> ，则 <span
+class="math display">\[
+h(a)=\sum_{d_1 \mid a} f\left(d_1\right) g\left(\frac{a}{d_1}\right),
+h(b)=\sum_{d_2 \mid b} f\left(d_2\right) g\left(\frac{b}{d_2}\right)
+\]</span> 所以 <span class="math display">\[
 \begin{aligned}
-h(a) h(b) & =\sum_{d_1 \mid a} f\left(d_1\right) g\left(\frac{a}{d_1}\right) \sum_{d_2 \mid b} f\left(d_2\right) g\left(\frac{b}{d_2}\right) \\
-& =\sum_{d \mid a b} f(d) g\left(\frac{a b}{d}\right) \\
-& =h(a b)
-\end{aligned}</script><p>证毕。</p>
+h(a) h(b) &amp; =\sum_{d_1 \mid a} f\left(d_1\right)
+g\left(\frac{a}{d_1}\right) \sum_{d_2 \mid b} f\left(d_2\right)
+g\left(\frac{b}{d_2}\right) \\
+&amp; =\sum_{d \mid a b} f(d) g\left(\frac{a b}{d}\right) \\
+&amp; =h(a b)
+\end{aligned}
+\]</span> 证毕。</p>
 </blockquote>
 <p><strong>结论2</strong>：积性函数的逆元也是积性函数</p>
 <blockquote>
-<p><strong>证明</strong>：设 $f*g = \epsilon$ ，并且不妨设 $f(1)=1$ 。考虑归纳法证明：</p>
+<p><strong>证明</strong>：设 <span class="math inline">\(f*g =
+\epsilon\)</span> ，并且不妨设 <span
+class="math inline">\(f(1)=1\)</span> 。考虑归纳法证明：</p>
 <ul>
-<li><p>若 $nm=1$ ，则 $g(nm)=g(1) = 1$ ，显然成立</p>
-</li>
-<li><p>若 $nm &gt; 1(\gcd(n,m) = 1)$ ，设现在对于所有的 $xy &lt; nm(\gcd(x,y) = 1)$ 结论成立，则</p>
-<script type="math/tex; mode=display">
-g(n m)=-\sum_{d \mid n m, d \neq 1} f(d) g\left(\frac{n m}{d}\right)=-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a b}\right)</script><p>又因为 $\frac{n m}{a b}&lt;n m$ ，所以有</p>
-<script type="math/tex; mode=display">
+<li><p>若 <span class="math inline">\(nm=1\)</span> ，则 <span
+class="math inline">\(g(nm)=g(1) = 1\)</span> ，显然成立</p></li>
+<li><p>若 <span class="math inline">\(nm &gt; 1(\gcd(n,m) = 1)\)</span>
+，设现在对于所有的 <span class="math inline">\(xy &lt; nm(\gcd(x,y) =
+1)\)</span> 结论成立，则 <span class="math display">\[
+g(n m)=-\sum_{d \mid n m, d \neq 1} f(d) g\left(\frac{n
+m}{d}\right)=-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a
+b}\right)
+\]</span> 又因为 <span class="math inline">\(\frac{n m}{a b}&lt;n
+m\)</span> ，所以有 <span class="math display">\[
 \begin{aligned}
-g(n m) & =-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a b}\right)
-\\[8pt]& =-\sum_{a|n, b| m, a b \neq 1} f(a) f(b) g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
-\\[8pt]& =f(1) f(1) g(n) g(m)-\sum_{a|n, b| m} f(a) f(b) g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
-\\[8pt]& =g(n) g(m)-\sum_{a \mid n} f(a) g\left(\frac{n}{a}\right) \sum_{b \mid m} f(b) g\left(\frac{m}{b}\right)
-\\[8pt]& =g(n) g(m)-\epsilon(n)-\epsilon(m)
-\\[8pt]& =g(n) g(m)
-\end{aligned}</script></li>
+g(n m) &amp; =-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a
+b}\right)
+\\[8pt]&amp; =-\sum_{a|n, b| m, a b \neq 1} f(a) f(b)
+g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =f(1) f(1) g(n) g(m)-\sum_{a|n, b| m} f(a) f(b)
+g\left(\frac{n}{a}\right) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =g(n) g(m)-\sum_{a \mid n} f(a) g\left(\frac{n}{a}\right)
+\sum_{b \mid m} f(b) g\left(\frac{m}{b}\right)
+\\[8pt]&amp; =g(n) g(m)-\epsilon(n)-\epsilon(m)
+\\[8pt]&amp; =g(n) g(m)
+\end{aligned}
+\]</span></p></li>
 </ul>
-<p>综上可知，结论成立。$\square$</p>
+<p>综上可知，结论成立。<span class="math inline">\(\square\)</span></p>
 <p>同时这也说明，数论函数的积性，在狄利克雷生成函数中的对应具有封闭性。</p>
 </blockquote>
-<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><script type="math/tex; mode=display">
+<h5 id="例子">例子</h5>
+<p><span class="math display">\[
 \begin{aligned}
-& \epsilon=\mu * \mathbf{1} \Longleftrightarrow \epsilon(n)=\sum_{d \mid n} \mu(d)
-\\[6pt]& d=\mathbf{1} * \mathbf{1} \Longleftrightarrow d(n)=\sum_{d \mid n} 1
-\\[6pt]& \sigma=\mathrm{id} * \mathbf{1} \Longleftrightarrow \sigma(n)=\sum_{d \mid n} d
-\\[6pt]& \varphi=\mu * \mathrm{id} \Longleftrightarrow \varphi(n)=\sum_{d \mid n} d \cdot \mu\left(\frac{n}{d}\right)
-\\[6pt]& \mathrm{id}=\varphi * \mathbf{1}\Longleftrightarrow n=\sum_{d \mid n} \varphi(d)
-\end{aligned}</script><p>最后一个就是 <a href="/2024/06/25/ou-la-fan-yan/">欧拉反演</a></p>
-<hr>
+&amp; \epsilon=\mu * \mathbf{1} \Longleftrightarrow \epsilon(n)=\sum_{d
+\mid n} \mu(d)
+\\[6pt]&amp; d=\mathbf{1} * \mathbf{1} \Longleftrightarrow d(n)=\sum_{d
+\mid n} 1
+\\[6pt]&amp; \sigma=\mathrm{id} * \mathbf{1} \Longleftrightarrow
+\sigma(n)=\sum_{d \mid n} d
+\\[6pt]&amp; \varphi=\mu * \mathrm{id} \Longleftrightarrow
+\varphi(n)=\sum_{d \mid n} d \cdot \mu\left(\frac{n}{d}\right)
+\\[6pt]&amp; \mathrm{id}=\varphi * \mathbf{1}\Longleftrightarrow
+n=\sum_{d \mid n} \varphi(d)
+\end{aligned}
+\]</span></p>
+<p>最后一个就是 <a href="/2024/06/25/ou-la-fan-yan/">欧拉反演</a></p>
+<hr />
 <p><strong>参考文献&amp;鸣谢</strong>：</p>
-<p>[0] 感谢 Roundgod 对我无数的帮助 Orz （upd. 尤其是提醒我不要<del>超前点科技</del>）</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/birchtree/p/11575252.html">https://www.cnblogs.com/birchtree/p/11575252.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52817010">https://zhuanlan.zhihu.com/p/52817010</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41357771/article/details/83449481">https://blog.csdn.net/qq_41357771/article/details/83449481</a></p>
-<p>[4] <a target="_blank" rel="noopener" href="https://oiwiki.org/math/poly/dgf">https://oiwiki.org/math/poly/dgf</a></p>
+<p>[0] 感谢 Roundgod 对我无数的帮助 Orz （upd.
+尤其是提醒我不要<del>超前点科技</del>）</p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/birchtree/p/11575252.html">https://www.cnblogs.com/birchtree/p/11575252.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52817010">https://zhuanlan.zhihu.com/p/52817010</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41357771/article/details/83449481">https://blog.csdn.net/qq_41357771/article/details/83449481</a></p>
+<p>[4] <a
+target="_blank" rel="noopener" href="https://oiwiki.org/math/poly/dgf">https://oiwiki.org/math/poly/dgf</a></p>
 
                 
             </div>
@@ -1404,7 +1588,7 @@ g(n m) & =-\sum_{a|n, b| m, a b \neq 1} f(a b) g\left(\frac{n m}{a b}\right)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1673,6 +1857,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

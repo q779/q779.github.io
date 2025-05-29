@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ '洛谷P5810 [SCOI2004] 文本的输入 题解' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">洛谷P5810 [SCOI2004] 文本的输入 题解</h1>
                     
                 </div>
             </div>
@@ -744,33 +730,55 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5810-SCOI2004-文本的输入-题解"><a href="#洛谷P5810-SCOI2004-文本的输入-题解" class="headerlink" title="洛谷P5810 [SCOI2004] 文本的输入 题解"></a>洛谷P5810 [SCOI2004] 文本的输入 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5810">P5810 [SCOI2004] 文本的输入</a></p>
+                <h1 id="洛谷p5810-scoi2004-文本的输入-题解">洛谷P5810 [SCOI2004]
+文本的输入 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5810">P5810
+[SCOI2004] 文本的输入</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>人们在输入文本时，除了逐个输入这种方式外，还可以利用剪贴板进行复制，如果打入一个字母需要 $1$ 的时间，将已输入的部分复制进剪贴板需要 $5$ 的时间（<code>Ctrl</code>+<code>A</code>，<code>Ctrl</code>+<code>C</code>，再取消全选状态），将剪贴板的内容粘贴出来需要 $2$ 的时间（<code>Ctrl</code>+<code>V</code>）。</p>
-<p>如果我们不关心输入文本的内容，而只关心输入文本的长度，要输入一个长度<strong>不低于</strong> $n$ 的文本最少需要多少时间？</p>
+<p>人们在输入文本时，除了逐个输入这种方式外，还可以利用剪贴板进行复制，如果打入一个字母需要
+<span class="math inline">\(1\)</span>
+的时间，将已输入的部分复制进剪贴板需要 <span
+class="math inline">\(5\)</span>
+的时间（<code>Ctrl</code>+<code>A</code>，<code>Ctrl</code>+<code>C</code>，再取消全选状态），将剪贴板的内容粘贴出来需要
+<span class="math inline">\(2\)</span>
+的时间（<code>Ctrl</code>+<code>V</code>）。</p>
+<p>如果我们不关心输入文本的内容，而只关心输入文本的长度，要输入一个长度<strong>不低于</strong>
+<span class="math inline">\(n\)</span> 的文本最少需要多少时间？</p>
 <p>请注意，数据范围与原题略有不同。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一个正整数 $n$，表示文本的长度。</p>
+<p>一个正整数 <span
+class="math inline">\(n\)</span>，表示文本的长度。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一个正整数 $t$，表示需要的最短的时间。</p>
+<p>一个正整数 <span
+class="math inline">\(t\)</span>，表示需要的最短的时间。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$n\le 4\times 10^4$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(n\le 4\times 10^4\)</span>。</p>
 </blockquote>
-<p>考虑dp。设 $f_i$ 表示花费为 $i$ 的最大价值，转移有两种</p>
+<p>考虑dp。设 <span class="math inline">\(f_i\)</span> 表示花费为 <span
+class="math inline">\(i\)</span> 的最大价值，转移有两种</p>
 <ul>
-<li>第一种直接添加一个字符，即（这显然是 $f_i$ 的下界）<script type="math/tex; mode=display">
-f_i = f_{i-1} + 1</script></li>
-</ul>
-<ul>
-<li>第二种 copy 一次然后 paste 若干次，即<script type="math/tex; mode=display">
+<li><p>第一种直接添加一个字符，即（这显然是 <span
+class="math inline">\(f_i\)</span> 的下界） <span
+class="math display">\[
+f_i = f_{i-1} + 1
+\]</span></p></li>
+<li><p>第二种 copy 一次然后 paste 若干次，即 <span
+class="math display">\[
 \begin{aligned}
 f_i\uparrow f_{i - 2u - 5}\times(u+1)
-\end{aligned}</script>其中整数 $u$ 满足 $(u \ge 1 \,\land\, i - 2u + 5 \ge 1)$</li>
+\end{aligned}
+\]</span> 其中整数 <span class="math inline">\(u\)</span> 满足 <span
+class="math inline">\((u \ge 1 \,\land\, i - 2u + 5 \ge
+1)\)</span></p></li>
 </ul>
 <p>可以发现，时间复杂度就是答案的大小</p>
-<p>容易发现这个数一定小于等于 $7\left\lceil\log _2 n\right\rceil+1$ ，<del>刷过屏的同学们一定很清楚</del></p>
-<p>时间复杂度 $\mathcal{O}(7 \log n)$</p>
+<p>容易发现这个数一定小于等于 <span
+class="math inline">\(7\left\lceil\log _2 n\right\rceil+1\)</span>
+，<del>刷过屏的同学们一定很清楚</del></p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(7 \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -798,9 +806,10 @@ f_i\uparrow f_{i - 2u - 5}\times(u+1)
     cout <span class="token operator">&lt;&lt;</span> <span class="token operator">--</span>res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/5ab-juruo/solution-p5810">https://www.luogu.com.cn/blog/5ab-juruo/solution-p5810</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/5ab-juruo/solution-p5810">https://www.luogu.com.cn/blog/5ab-juruo/solution-p5810</a></p>
 <p>你说得对，题解是讲了常规dp方法，但是我一开始想到的就是以花费dp😎。</p>
 
                 
@@ -1266,7 +1275,7 @@ f_i\uparrow f_{i - 2u - 5}\times(u+1)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1535,6 +1544,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

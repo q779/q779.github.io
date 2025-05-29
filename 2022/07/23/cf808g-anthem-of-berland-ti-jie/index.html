@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ 'CF808G Anthem of Berland 题解' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">CF808G Anthem of Berland 题解</h1>
                     
                 </div>
             </div>
@@ -748,30 +734,59 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF808G-Anthem-of-Berland-题解"><a href="#CF808G-Anthem-of-Berland-题解" class="headerlink" title="CF808G Anthem of Berland 题解"></a>CF808G Anthem of Berland 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF808G">CF808G Anthem of Berland</a></p>
+                <h1 id="cf808g-anthem-of-berland-题解">CF808G Anthem of Berland
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF808G">CF808G
+Anthem of Berland</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $s$ 串和 $t$ 串，其中 $s$ 串包含小写字母和问号，$t$ 串只包含小写字母。</p>
-<p>假设共有 $k$ 个问号。</p>
-<p>你需要给把每个问号变成一个小写字母，共有 $26^k$ 种可能。</p>
-<p>对于每种可能，设 $t$ 匹配 $s$ 的次数为 $f_i$，请输出 $\max(f_i)$ 。</p>
-<p>$1\leq |s|,|t|\leq 10^5,|s|\times |t|\leq 10^7$</p>
+<p>给定 <span class="math inline">\(s\)</span> 串和 <span
+class="math inline">\(t\)</span> 串，其中 <span
+class="math inline">\(s\)</span> 串包含小写字母和问号，<span
+class="math inline">\(t\)</span> 串只包含小写字母。</p>
+<p>假设共有 <span class="math inline">\(k\)</span> 个问号。</p>
+<p>你需要给把每个问号变成一个小写字母，共有 <span
+class="math inline">\(26^k\)</span> 种可能。</p>
+<p>对于每种可能，设 <span class="math inline">\(t\)</span> 匹配 <span
+class="math inline">\(s\)</span> 的次数为 <span
+class="math inline">\(f_i\)</span>，请输出 <span
+class="math inline">\(\max(f_i)\)</span> 。</p>
+<p><span class="math inline">\(1\leq |s|,|t|\leq 10^5,|s|\times |t|\leq
+10^7\)</span></p>
 </blockquote>
 <p>样例三告诉你了，这题不是贪心。</p>
-<p>设 $f_i$ 表示前 $i$ 个字符的最大答案</p>
-<p>似乎不好转移，因为我们不知道上一个放的 $t$ 在哪里</p>
-<p>显然 $f_i$ 可以从 $f_{i-m}$ 转移过来，因为这里正好可以放得下一个 $t$ </p>
-<p>但是 $t$ 是可以重叠放的，例如 $t=\tt{aabaa}$ </p>
-<p>于是我们直接跳 $m$ 的 $\tt{fail}$ 数组，然后一个个转移吗？</p>
-<p>不，因为我们不知道 $f_{i-(m-j)}$ 是否放了 $t$ </p>
+<p>设 <span class="math inline">\(f_i\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个字符的最大答案</p>
+<p>似乎不好转移，因为我们不知道上一个放的 <span
+class="math inline">\(t\)</span> 在哪里</p>
+<p>显然 <span class="math inline">\(f_i\)</span> 可以从 <span
+class="math inline">\(f_{i-m}\)</span>
+转移过来，因为这里正好可以放得下一个 <span
+class="math inline">\(t\)</span></p>
+<p>但是 <span class="math inline">\(t\)</span> 是可以重叠放的，例如
+<span class="math inline">\(t=\tt{aabaa}\)</span></p>
+<p>于是我们直接跳 <span class="math inline">\(m\)</span> 的 <span
+class="math inline">\(\tt{fail}\)</span> 数组，然后一个个转移吗？</p>
+<p>不，因为我们不知道 <span class="math inline">\(f_{i-(m-j)}\)</span>
+是否放了 <span class="math inline">\(t\)</span></p>
 <blockquote>
-<p>注：放 $t$ 的方法是把新的 $t$ 的前缀和上一个 $t$ 的后缀重合着放</p>
-<p>不难发现这里要用到 $\tt{kmp}$ ，正确性显然。</p>
+<p>注：放 <span class="math inline">\(t\)</span> 的方法是把新的 <span
+class="math inline">\(t\)</span> 的前缀和上一个 <span
+class="math inline">\(t\)</span> 的后缀重合着放</p>
+<p>不难发现这里要用到 <span class="math inline">\(\tt{kmp}\)</span>
+，正确性显然。</p>
 </blockquote>
-<p>因此设 $g_i$ 表示最后一个放的 $t$ 以 $i$ 结尾，前 $i$ 个字符的最大答案</p>
-<script type="math/tex; mode=display">
-g_i=\max\{g_{i-(m-j)}+1,g_i\}</script><p>因为 $f_i$ 表示可以放或者不放 $t$ ，所以转移方程是 $f_i=\max\{f_{i-1},g_i\}$</p>
-<p>时间复杂度 $O(|s| \times |t|)$ </p>
+<p>因此设 <span class="math inline">\(g_i\)</span> 表示最后一个放的
+<span class="math inline">\(t\)</span> 以 <span
+class="math inline">\(i\)</span> 结尾，前 <span
+class="math inline">\(i\)</span> 个字符的最大答案 <span
+class="math display">\[
+g_i=\max\{g_{i-(m-j)}+1,g_i\}
+\]</span> 因为 <span class="math inline">\(f_i\)</span>
+表示可以放或者不放 <span class="math inline">\(t\)</span>
+，所以转移方程是 <span
+class="math inline">\(f_i=\max\{f_{i-1},g_i\}\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(|s| \times |t|)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -823,6 +838,7 @@ g_i=\max\{g_{i-(m-j)}+1,g_i\}</script><p>因为 $f_i$ 表示可以放或者不�
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
+
                 
             </div>
             <hr/>
@@ -1290,7 +1306,7 @@ g_i=\max\{g_{i-(m-j)}+1,g_i\}</script><p>因为 $f_i$ 表示可以放或者不�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1559,6 +1575,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

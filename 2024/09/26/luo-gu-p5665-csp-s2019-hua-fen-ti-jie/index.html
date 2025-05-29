@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ '洛谷P5665 [CSP-S2019] 划分 题解' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">洛谷P5665 [CSP-S2019] 划分 题解</h1>
                     
                 </div>
             </div>
@@ -752,91 +738,171 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5665-CSP-S2019-划分-题解"><a href="#洛谷P5665-CSP-S2019-划分-题解" class="headerlink" title="洛谷P5665 [CSP-S2019] 划分 题解"></a>洛谷P5665 [CSP-S2019] 划分 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5665">P5665 [CSP-S2019] 划分</a></p>
+                <h1 id="洛谷p5665-csp-s2019-划分-题解">洛谷P5665 [CSP-S2019] 划分
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5665">P5665
+[CSP-S2019] 划分</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>2048 年，第三十届 CSP 认证的考场上，作为选手的小明打开了第一题。这个题的样例有 $n$ 组数据，数据从 $1 \sim n$ 编号，$i$ 号数据的规模为 $a_i$。</p>
-<p>小明对该题设计出了一个暴力程序，对于一组规模为 $u$ 的数据，该程序的<strong>运行时间</strong>为 $u^2$。然而这个程序运行完一组规模为 $u$ 的数据之后，它将在任何一组规模<strong>小于</strong> $u$ 的数据上运行错误。样例中的 $a_i$ 不一定递增，但小明又想在不修改程序的情况下正确运行样例，于是小明决定使用一种非常原始的解决方案：将所有数据划分成若干个数据段，段内数据编号<strong>连续</strong>，接着将同一段内的数据合并成新数据，其规模等于段内原数据的<strong>规模之和</strong>，小明将让新数据的规模能够递增。</p>
-<p>也就是说，小明需要找到一些分界点 $1 \leq k_1 \lt k_2 \lt \cdots \lt k_p \lt n$，使得</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{k_1} a_i \leq \sum_{i=k_1+1}^{k_2} a_i \leq \cdots \leq \sum_{i=k_p+1}^{n} a_i</script><p>注意 $p$ 可以为 $0$ 且此时 $k_0 = 0$，也就是小明可以将所有数据合并在一起运行。</p>
+<p>2048 年，第三十届 CSP
+认证的考场上，作为选手的小明打开了第一题。这个题的样例有 <span
+class="math inline">\(n\)</span> 组数据，数据从 <span
+class="math inline">\(1 \sim n\)</span> 编号，<span
+class="math inline">\(i\)</span> 号数据的规模为 <span
+class="math inline">\(a_i\)</span>。</p>
+<p>小明对该题设计出了一个暴力程序，对于一组规模为 <span
+class="math inline">\(u\)</span>
+的数据，该程序的<strong>运行时间</strong>为 <span
+class="math inline">\(u^2\)</span>。然而这个程序运行完一组规模为 <span
+class="math inline">\(u\)</span>
+的数据之后，它将在任何一组规模<strong>小于</strong> <span
+class="math inline">\(u\)</span> 的数据上运行错误。样例中的 <span
+class="math inline">\(a_i\)</span>
+不一定递增，但小明又想在不修改程序的情况下正确运行样例，于是小明决定使用一种非常原始的解决方案：将所有数据划分成若干个数据段，段内数据编号<strong>连续</strong>，接着将同一段内的数据合并成新数据，其规模等于段内原数据的<strong>规模之和</strong>，小明将让新数据的规模能够递增。</p>
+<p>也就是说，小明需要找到一些分界点 <span class="math inline">\(1 \leq
+k_1 \lt k_2 \lt \cdots \lt k_p \lt n\)</span>，使得</p>
+<p><span class="math display">\[
+\sum_{i=1}^{k_1} a_i \leq \sum_{i=k_1+1}^{k_2} a_i \leq \cdots \leq
+\sum_{i=k_p+1}^{n} a_i
+\]</span> 注意 <span class="math inline">\(p\)</span> 可以为 <span
+class="math inline">\(0\)</span> 且此时 <span class="math inline">\(k_0
+= 0\)</span>，也就是小明可以将所有数据合并在一起运行。</p>
 <p>小明希望他的程序在正确运行样例情况下，运行时间也能尽量小，也就是<strong>最小化</strong></p>
-<script type="math/tex; mode=display">
-(\sum_{i=1}^{k_1} a_i)^2 + (\sum_{i=k_1+1}^{k_2} a_i)^2 + \cdots + (\sum_{i=k_p+1}^{n} a_i)^2</script><p>小明觉得这个问题非常有趣，并向你请教：给定 $n$ 和 $a_i$，请你求出最优划分方案下，小明的程序的最小运行时间。</p>
+<p><span class="math display">\[
+(\sum_{i=1}^{k_1} a_i)^2 + (\sum_{i=k_1+1}^{k_2} a_i)^2 + \cdots +
+(\sum_{i=k_p+1}^{n} a_i)^2
+\]</span> 小明觉得这个问题非常有趣，并向你请教：给定 <span
+class="math inline">\(n\)</span> 和 <span
+class="math inline">\(a_i\)</span>，请你求出最优划分方案下，小明的程序的最小运行时间。</p>
 <p><strong>输入格式</strong>：</p>
-<p>由于本题的数据范围较大，部分测试点的 $a_i$ 将在程序内生成。</p>
-<p>第一行两个整数 $n, \mathrm{type}$。$n$ 的意义见题目描述，$\mathrm{type}$ 表示输入方式。</p>
-<ol>
-<li>若 $\mathrm{type} = 0$，则该测试点的 $a_i$ <strong>直接给出</strong>。输入文件接下来：第二行 $n$ 个以空格分隔的整数 $a_i$，表示每组数据的规模。</li>
-<li>若 $\mathrm{type} = 1$，则该测试点的 $a_i$ 将<strong>特殊生成</strong>，生成方式见后文。输入文件接下来：第二行六个以空格分隔的整数 $x, y, z, b_1, b_2, m$。接下来 $m$ 行中，第 $i (1 \leq i \leq m)$ 行包含三个以空格分隔的正整数 $p_i, l_i, r_i$。</li>
-</ol>
-<p>对于 $\mathrm{type} = 1$ 的 23~25 号测试点，$a_i$ 的生成方式如下：</p>
-<p>给定整数 $x, y, z, b_1, b_2, m$，以及 $m$ 个三元组 $(p_i, l_i, r_i)$。</p>
-<p>保证 $n \geq 2$。若 $n \gt 2$，则 $\forall 3 \leq i \leq n, b_i = (x \times b_{i−1} + y \times b_{i−2} + z) \mod 2^{30}$。</p>
-<p>保证 $1 \leq p_i \leq n, p_m = n$。令 $p_0 = 0$，则 $p_i$ 还满足 $\forall 0 \leq i \lt m$ 有 $p_i \lt p_{i+1}$。</p>
-<p>对于所有 $1 \leq j \leq m$，若下标值 $i~(1 \leq i \leq n)$满足 $p_{j−1} \lt i \leq p_j$，则有</p>
-<script type="math/tex; mode=display">
-a_i = \left(b_i \bmod \left( r_j − l_j + 1 \right) \right) + l_j</script><p>上述数据生成方式仅是为了减少输入量大小，标准算法不依赖于该生成方式。</p>
+<p>由于本题的数据范围较大，部分测试点的 <span
+class="math inline">\(a_i\)</span> 将在程序内生成。</p>
+<p>第一行两个整数 <span class="math inline">\(n,
+\mathrm{type}\)</span>。<span class="math inline">\(n\)</span>
+的意义见题目描述，<span class="math inline">\(\mathrm{type}\)</span>
+表示输入方式。 1. 若 <span class="math inline">\(\mathrm{type} =
+0\)</span>，则该测试点的 <span class="math inline">\(a_i\)</span>
+<strong>直接给出</strong>。输入文件接下来：第二行 <span
+class="math inline">\(n\)</span> 个以空格分隔的整数 <span
+class="math inline">\(a_i\)</span>，表示每组数据的规模。 2. 若 <span
+class="math inline">\(\mathrm{type} = 1\)</span>，则该测试点的 <span
+class="math inline">\(a_i\)</span>
+将<strong>特殊生成</strong>，生成方式见后文。输入文件接下来：第二行六个以空格分隔的整数
+<span class="math inline">\(x, y, z, b_1, b_2, m\)</span>。接下来 <span
+class="math inline">\(m\)</span> 行中，第 <span class="math inline">\(i
+(1 \leq i \leq m)\)</span> 行包含三个以空格分隔的正整数 <span
+class="math inline">\(p_i, l_i, r_i\)</span>。</p>
+<p>对于 <span class="math inline">\(\mathrm{type} = 1\)</span> 的 23~25
+号测试点，<span class="math inline">\(a_i\)</span> 的生成方式如下：</p>
+<p>给定整数 <span class="math inline">\(x, y, z, b_1, b_2,
+m\)</span>，以及 <span class="math inline">\(m\)</span> 个三元组 <span
+class="math inline">\((p_i, l_i, r_i)\)</span>。</p>
+<p>保证 <span class="math inline">\(n \geq 2\)</span>。若 <span
+class="math inline">\(n \gt 2\)</span>，则 <span
+class="math inline">\(\forall 3 \leq i \leq n, b_i = (x \times b_{i−1} +
+y \times b_{i−2} + z) \mod 2^{30}\)</span>。</p>
+<p>保证 <span class="math inline">\(1 \leq p_i \leq n, p_m =
+n\)</span>。令 <span class="math inline">\(p_0 = 0\)</span>，则 <span
+class="math inline">\(p_i\)</span> 还满足 <span
+class="math inline">\(\forall 0 \leq i \lt m\)</span> 有 <span
+class="math inline">\(p_i \lt p_{i+1}\)</span>。</p>
+<p>对于所有 <span class="math inline">\(1 \leq j \leq
+m\)</span>，若下标值 <span class="math inline">\(i~(1 \leq i \leq
+n)\)</span>满足 <span class="math inline">\(p_{j−1} \lt i \leq
+p_j\)</span>，则有</p>
+<p><span class="math display">\[
+a_i = \left(b_i \bmod \left( r_j − l_j + 1 \right) \right) + l_j
+\]</span>
+上述数据生成方式仅是为了减少输入量大小，标准算法不依赖于该生成方式。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<div class="table-container">
 <table>
 <thead>
-<tr>
-<th style="text-align:left">测试点编号</th>
-<th style="text-align:left">$n \leq$</th>
-<th style="text-align:left">$a_i \leq$</th>
-<th style="text-align:left">$\mathrm{type} =$</th>
+<tr class="header">
+<th style="text-align: left;">测试点编号</th>
+<th style="text-align: left;"><span class="math inline">\(n
+\leq\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(a_i
+\leq\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\mathrm{type}
+=\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">$1 \sim 3$</td>
-<td style="text-align:left">$10$</td>
-<td style="text-align:left">$10$</td>
-<td style="text-align:left">$0$</td>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(1 \sim
+3\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0\)</span></td>
 </tr>
-<tr>
-<td style="text-align:left">$4 \sim 6$</td>
-<td style="text-align:left">$50$</td>
-<td style="text-align:left">$10^3$</td>
-<td style="text-align:left">$0$</td>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(4 \sim
+6\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(50\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10^3\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0\)</span></td>
 </tr>
-<tr>
-<td style="text-align:left">$7 \sim 9$</td>
-<td style="text-align:left">$400$</td>
-<td style="text-align:left">$10^4$</td>
-<td style="text-align:left">$0$</td>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(7 \sim
+9\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(400\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10^4\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0\)</span></td>
 </tr>
-<tr>
-<td style="text-align:left">$10 \sim 16$</td>
-<td style="text-align:left">$5000$</td>
-<td style="text-align:left">$10^5$</td>
-<td style="text-align:left">$0$</td>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(10 \sim
+16\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(5000\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10^5\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0\)</span></td>
 </tr>
-<tr>
-<td style="text-align:left">$17 \sim 22$</td>
-<td style="text-align:left">$5 \times 10^5$</td>
-<td style="text-align:left">$10^6$</td>
-<td style="text-align:left">$0$</td>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(17 \sim
+22\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(5 \times
+10^5\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10^6\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0\)</span></td>
 </tr>
-<tr>
-<td style="text-align:left">$23 \sim 25$</td>
-<td style="text-align:left">$4 \times 10^7$</td>
-<td style="text-align:left">$10^9$</td>
-<td style="text-align:left">$1$</td>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(23 \sim
+25\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(4 \times
+10^7\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(10^9\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(1\)</span></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>$\mathrm{type} \in \{0,1\},~2 \leq n \leq 4 \times 10^7,~1 \leq a_i \leq 10^9$ 。</p>
-<p>$1 \leq m \leq 10^5,~1 \leq l_i \leq r_i \leq 10^9,~0 \leq x,y,z,b_1,b_2 \lt 2^{30}$。</p>
+<p><span class="math inline">\(\mathrm{type} \in \{0,1\},~2 \leq n \leq
+4 \times 10^7,~1 \leq a_i \leq 10^9\)</span> 。</p>
+<p><span class="math inline">\(1 \leq m \leq 10^5,~1 \leq l_i \leq r_i
+\leq 10^9,~0 \leq x,y,z,b_1,b_2 \lt 2^{30}\)</span>。</p>
 </blockquote>
-<p>本题难度虚高。考虑 $n\le 400$ 的暴力dp，枚举分界点有</p>
-<script type="math/tex; mode=display">
-f(j,k) = \min\{f(i,j) + (S_k - S_j)^2\}</script><p>优化就是单调队列的板子。就 $23\sim25$ 的测试点比较麻烦。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>本题难度虚高。考虑 <span class="math inline">\(n\le 400\)</span>
+的暴力dp，枚举分界点有 <span class="math display">\[
+f(j,k) = \min\{f(i,j) + (S_k - S_j)^2\}
+\]</span> 优化就是单调队列的板子。就 <span
+class="math inline">\(23\sim25\)</span> 的测试点比较麻烦。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -904,9 +970,10 @@ ll <span class="token function">d</span><span class="token punctuation">(</span>
     <span class="token function">write</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/5egn0opj">https://www.luogu.com.cn/article/5egn0opj</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/5egn0opj">https://www.luogu.com.cn/article/5egn0opj</a></p>
 
                 
             </div>
@@ -1386,7 +1453,7 @@ ll <span class="token function">d</span><span class="token punctuation">(</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1655,6 +1722,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

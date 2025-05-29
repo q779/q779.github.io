@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ 'CF148D Bag of mice 题解' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">CF148D Bag of mice 题解</h1>
                     
                 </div>
             </div>
@@ -748,37 +734,55 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF148D-Bag-of-mice-题解"><a href="#CF148D-Bag-of-mice-题解" class="headerlink" title="CF148D Bag of mice 题解"></a>CF148D Bag of mice 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF148D">CF148D Bag of mice</a></p>
+                <h1 id="cf148d-bag-of-mice-题解">CF148D Bag of mice 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF148D">CF148D
+Bag of mice</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>龙和公主在争论新年夜应该做什么。龙建议飞到山上观看在月光下跳舞的仙女，而公主认为他们应该早点睡觉。他们急于达成一个友好的协议，所以决定把这交给运气。</p>
-<p>他们轮流从一个袋子里抽取老鼠，这个袋子里最初包含 $w$ 只白鼠和 $b$ 只黑鼠。第一个抽到白鼠的人获胜。在龙每次抽完老鼠后，袋子里的其余老鼠都会惊慌失措，其中一只会自己跳出袋子（公主抽老鼠时很小心，不会吓到其他老鼠）。公主先抽。公主获胜的概率是多少？</p>
+<p>他们轮流从一个袋子里抽取老鼠，这个袋子里最初包含 <span
+class="math inline">\(w\)</span> 只白鼠和 <span
+class="math inline">\(b\)</span>
+只黑鼠。第一个抽到白鼠的人获胜。在龙每次抽完老鼠后，袋子里的其余老鼠都会惊慌失措，其中一只会自己跳出袋子（公主抽老鼠时很小心，不会吓到其他老鼠）。公主先抽。公主获胜的概率是多少？</p>
 <p>如果袋子里没有老鼠了，并且没有人抽到白鼠，则龙获胜。自己跳出袋子的老鼠不算作被抽出（不决定胜负）。一旦老鼠离开袋子，它就不会再返回。每只老鼠被抽出的概率是相同的，每只老鼠跳出袋子的概率也是相同的。</p>
 <p><strong>输入格式</strong>：</p>
-<p>唯一一行输入数据包含两个整数 $w$ 和 $b$（$0 \leq w, b \leq 1000$）。</p>
+<p>唯一一行输入数据包含两个整数 <span class="math inline">\(w\)</span>
+和 <span class="math inline">\(b\)</span>（<span class="math inline">\(0
+\leq w, b \leq 1000\)</span>）。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出公主获胜的概率。如果答案的绝对误差或相对误差不超过 $10^{-9}$，则认为答案是正确的。</p>
+<p>输出公主获胜的概率。如果答案的绝对误差或相对误差不超过 <span
+class="math inline">\(10^{-9}\)</span>，则认为答案是正确的。</p>
 </blockquote>
 <p>不会翻译可以不翻译，有的人真是连 ChatGPT 都不如。</p>
-<p>设 $f(i,j)$ 表示有 $i$ 只白老鼠和 $j$ 只黑老鼠时先手获胜的概率。</p>
-<p>边界 $f(i,0)=1,~f(i,1)=\frac{i}{i+1}$ 。考虑转移，</p>
+<p>设 <span class="math inline">\(f(i,j)\)</span> 表示有 <span
+class="math inline">\(i\)</span> 只白老鼠和 <span
+class="math inline">\(j\)</span> 只黑老鼠时先手获胜的概率。</p>
+<p>边界 <span
+class="math inline">\(f(i,0)=1,~f(i,1)=\frac{i}{i+1}\)</span>
+。考虑转移，</p>
 <ul>
-<li><p>先手抽到白鼠，获胜概率为 $\frac{i}{i+j}$ 。</p>
-</li>
-<li><p>先手抽到黑鼠，后手抽到白鼠，获胜概率为 $0$ 。</p>
-</li>
-<li><p>先手抽到黑鼠，后手抽到黑鼠，跑了一只白鼠，获胜概率为</p>
-<script type="math/tex; mode=display">
-\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{i}{i+j-2} \times f(i-1, j-2)</script></li>
+<li><p>先手抽到白鼠，获胜概率为 <span
+class="math inline">\(\frac{i}{i+j}\)</span> 。</p></li>
+<li><p>先手抽到黑鼠，后手抽到白鼠，获胜概率为 <span
+class="math inline">\(0\)</span> 。</p></li>
+<li><p>先手抽到黑鼠，后手抽到黑鼠，跑了一只白鼠，获胜概率为 <span
+class="math display">\[
+\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{i}{i+j-2} \times
+f(i-1, j-2)
+\]</span></p></li>
+<li><p>先手抽到黑鼠，后手抽到黑鼠，跑了一只黑鼠，获胜概率为 <span
+class="math display">\[
+\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{j-2}{i+j-2} \times
+f(i, j-3)
+\]</span></p></li>
 </ul>
-<ul>
-<li>先手抽到黑鼠，后手抽到黑鼠，跑了一只黑鼠，获胜概率为<script type="math/tex; mode=display">
-\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{j-2}{i+j-2} \times f(i, j-3)</script></li>
-</ul>
-<p>因此</p>
-<script type="math/tex; mode=display">
-\small f(i, j)=\frac{i}{i+j}+\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{i}{i+j-2} \times f(i-1, j-2)+\frac{j}{i+j} \times \frac{j-1}{i+j-1} \times \frac{j-2}{i+j-2} \times f(i,j-3)</script><p>最后答案就是 $f(n,m)$ 。</p>
-<p>时间复杂度 $\mathcal{O}(nm)$</p>
+<p>因此 <span class="math display">\[
+\small f(i, j)=\frac{i}{i+j}+\frac{j}{i+j} \times \frac{j-1}{i+j-1}
+\times \frac{i}{i+j-2} \times f(i-1, j-2)+\frac{j}{i+j} \times
+\frac{j-1}{i+j-1} \times \frac{j-2}{i+j-2} \times f(i,j-3)
+\]</span> 最后答案就是 <span class="math inline">\(f(n,m)\)</span>
+。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nm)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -807,9 +811,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/169c3a75">https://www.luogu.com.cn/article/169c3a75</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/169c3a75">https://www.luogu.com.cn/article/169c3a75</a></p>
 
                 
             </div>
@@ -1062,12 +1067,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
                     <a href="/tags/%E5%9B%BE%E8%AE%BA/">
                         <span class="chip bg-color">图论</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                     <a href="/tags/DP/">
@@ -1285,7 +1290,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1554,6 +1559,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

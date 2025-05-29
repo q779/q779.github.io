@@ -182,7 +182,7 @@ rgba(0,0,0,0.2);
 
    <style>
     body{
-       background-image: url(/medias/bg2.webp);
+       background-image: url(/medias/banner/0.webp);
        background-repeat:no-repeat;
        background-size:cover;
        background-attachment:fixed;
@@ -550,21 +550,7 @@ rgba(0,0,0,0.2);
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ 'AT_code_festival_2017_qualb_f Largest Smallest Cyclic Shift 题解' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 70,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">AT_code_festival_2017_qualb_f Largest Smallest Cyclic Shift 题解</h1>
                     
                 </div>
             </div>
@@ -732,7 +718,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    693
+                    692
                 </div>
                 
 
@@ -752,31 +738,76 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AT-code-festival-2017-qualb-f-Largest-Smallest-Cyclic-Shift-题解"><a href="#AT-code-festival-2017-qualb-f-Largest-Smallest-Cyclic-Shift-题解" class="headerlink" title="AT_code_festival_2017_qualb_f Largest Smallest Cyclic Shift 题解"></a>AT_code_festival_2017_qualb_f Largest Smallest Cyclic Shift 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_code_festival_2017_qualb_f">Largest Smallest Cyclic Shift</a></p>
+                <h1
+id="at_code_festival_2017_qualb_f-largest-smallest-cyclic-shift-题解">AT_code_festival_2017_qualb_f
+Largest Smallest Cyclic Shift 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_code_festival_2017_qualb_f">Largest
+Smallest Cyclic Shift</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>定义 $f(S)$ 为：对于一个字符串 $S$，每次将它最左边的字符放置到字符串末尾生成的字符串集合中，字典序最小的字符串。例如：对于 $S$ 为 <code>babca</code> 的情况，$f(S)$ 即为 <code>babca</code>、<code>abcab</code>、<code>bcaba</code>、<code>cabab</code>、<code>ababc</code> 中最小的那个，即 <code>ababc</code>。</p>
-<p>你需要构造一个字符串 $T$，共包含 $X$ 个字符 <code>a</code>、$Y$ 个字符 <code>b</code> 和 $Z$ 个字符 <code>c</code>，使得 $f(T)$ 尽可能大，输出这个 $f(T)$。</p>
-<p>数据范围：$1 \le X + Y + Z \le 50$ 。</p>
+<p>定义 <span class="math inline">\(f(S)\)</span> 为：对于一个字符串
+<span
+class="math inline">\(S\)</span>，每次将它最左边的字符放置到字符串末尾生成的字符串集合中，字典序最小的字符串。例如：对于
+<span class="math inline">\(S\)</span> 为 <code>babca</code>
+的情况，<span class="math inline">\(f(S)\)</span> 即为
+<code>babca</code>、<code>abcab</code>、<code>bcaba</code>、<code>cabab</code>、<code>ababc</code>
+中最小的那个，即 <code>ababc</code>。</p>
+<p>你需要构造一个字符串 <span class="math inline">\(T\)</span>，共包含
+<span class="math inline">\(X\)</span> 个字符 <code>a</code>、<span
+class="math inline">\(Y\)</span> 个字符 <code>b</code> 和 <span
+class="math inline">\(Z\)</span> 个字符 <code>c</code>，使得 <span
+class="math inline">\(f(T)\)</span> 尽可能大，输出这个 <span
+class="math inline">\(f(T)\)</span>。</p>
+<p>数据范围：<span class="math inline">\(1 \le X + Y + Z \le 50\)</span>
+。</p>
 </blockquote>
-<p>非常有趣的贪心题。注意到 $X=Y=Z$ 时，最优方案是 $\tt abc$ 。</p>
-<p>考虑递归的构建字符串。设 $s_1,s_2,s_3$ 是当前最优的三个字符串，规定 $s_1 &lt; s_2 &lt; s_3$ 。</p>
-<p>显然我们会选择 $s_1s_3s_2$ 的形式，因为在 $s_1,s_2,s_3$ 最优的情况下你怎么转这个都是最优的。</p>
-<p>若此时再加入一个 $s_4 &gt; s_3$ ，考虑把它放到 $s_3$ 的前面，即 $s_1s_4s_3s_2$ ，也可以证明是最优的。</p>
-<p>有趣的是，这种情况下，相当于不断地把当前最小和最大的合并，即 $s_1s_4$ ，然后 $s_1s_4s_3$ ，最后加上 $s_2$</p>
-<p>这使得我们考虑，是否对于任意的 $k$ ，最优方案为 $s_1s_k \cdots s_2$ 。可以证明这是正确的。</p>
+<p>非常有趣的贪心题。注意到 <span class="math inline">\(X=Y=Z\)</span>
+时，最优方案是 <span class="math inline">\(\tt abc\)</span> 。</p>
+<p>考虑递归的构建字符串。设 <span
+class="math inline">\(s_1,s_2,s_3\)</span> 是当前最优的三个字符串，规定
+<span class="math inline">\(s_1 &lt; s_2 &lt; s_3\)</span> 。</p>
+<p>显然我们会选择 <span class="math inline">\(s_1s_3s_2\)</span>
+的形式，因为在 <span class="math inline">\(s_1,s_2,s_3\)</span>
+最优的情况下你怎么转这个都是最优的。</p>
+<p>若此时再加入一个 <span class="math inline">\(s_4 &gt; s_3\)</span>
+，考虑把它放到 <span class="math inline">\(s_3\)</span> 的前面，即 <span
+class="math inline">\(s_1s_4s_3s_2\)</span> ，也可以证明是最优的。</p>
+<p>有趣的是，这种情况下，相当于不断地把当前最小和最大的合并，即 <span
+class="math inline">\(s_1s_4\)</span> ，然后 <span
+class="math inline">\(s_1s_4s_3\)</span> ，最后加上 <span
+class="math inline">\(s_2\)</span></p>
+<p>这使得我们考虑，是否对于任意的 <span class="math inline">\(k\)</span>
+，最优方案为 <span class="math inline">\(s_1s_k \cdots s_2\)</span>
+。可以证明这是正确的。</p>
 <blockquote>
-<p><strong>证明</strong>&emsp;考虑归纳法证明。假设对于某个 $k$ ，小于等于 $k$ 的情况均成立，考虑 $k+1$ 的情况。</p>
-<p>对于串 $s_{k+1}$ ，此时 $s_1$ 依然在最前面，而因为 $s_{k+1} &gt; s_k$ ，所以 $s_k$ 后面的串都是小于 $s_{k+1}$ 的</p>
-<p>如果我们把 $s_k\cdots s_2$ 看作一个整体，那么这个串就是原来的 $s_2$ ，而 $s_{k+1}$ 相当于 $s_3$ 。</p>
+<p><strong>证明</strong> 考虑归纳法证明。假设对于某个 <span
+class="math inline">\(k\)</span> ，小于等于 <span
+class="math inline">\(k\)</span> 的情况均成立，考虑 <span
+class="math inline">\(k+1\)</span> 的情况。</p>
+<p>对于串 <span class="math inline">\(s_{k+1}\)</span> ，此时 <span
+class="math inline">\(s_1\)</span> 依然在最前面，而因为 <span
+class="math inline">\(s_{k+1} &gt; s_k\)</span> ，所以 <span
+class="math inline">\(s_k\)</span> 后面的串都是小于 <span
+class="math inline">\(s_{k+1}\)</span> 的</p>
+<p>如果我们把 <span class="math inline">\(s_k\cdots s_2\)</span>
+看作一个整体，那么这个串就是原来的 <span
+class="math inline">\(s_2\)</span> ，而 <span
+class="math inline">\(s_{k+1}\)</span> 相当于 <span
+class="math inline">\(s_3\)</span> 。</p>
 <p style="overflow: hidden; white-space: nowrap;">
-    <span style="float: left;">采用 $s_1s_3s_2$ 的规则，可得 $s_1s_{k+1}s_k\cdots s_2$ ，故 $k+1$ 的情况也满足。</span>
-    <span style="float: right;">$\square$</span>
+<span style="float: left;">采用 <span
+class="math inline">\(s_1s_3s_2\)</span> 的规则，可得 <span
+class="math inline">\(s_1s_{k+1}s_k\cdots s_2\)</span> ，故 <span
+class="math inline">\(k+1\)</span> 的情况也满足。</span> <span
+style="float: right;"><span
+class="math inline">\(\square\)</span></span>
 </p>
-
 </blockquote>
-<p>那么我们可以用一个 <code>multiset&lt;string&gt;</code> 来维护这个东西，每次取出当前的最小值和最大值合并即可。</p>
-<p>时间复杂度 $\mathcal{O}(n^2 \log n)$</p>
+<p>那么我们可以用一个 <code>multiset&lt;string&gt;</code>
+来维护这个东西，每次取出当前的最小值和最大值合并即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2 \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -807,9 +838,10 @@ multiset<span class="token operator">&lt;</span>string<span class="token operato
     cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>s<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/d47cp5sk">https://www.luogu.com.cn/article/d47cp5sk</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/d47cp5sk">https://www.luogu.com.cn/article/d47cp5sk</a></p>
 
                 
             </div>
@@ -1281,7 +1313,7 @@ multiset<span class="token operator">&lt;</span>string<span class="token operato
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1358.6k</span>&nbsp;字
+                class="white-color">1407.7k</span>&nbsp;字
             
             
             
@@ -1550,6 +1582,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
