@@ -737,60 +737,99 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1248-加工生产调度-题解"><a href="#洛谷P1248-加工生产调度-题解" class="headerlink" title="洛谷P1248 加工生产调度 题解"></a>洛谷P1248 加工生产调度 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1248">P1248 加工生产调度</a></p>
+                <h1 id="洛谷p1248-加工生产调度-题解">洛谷P1248 加工生产调度 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1248">P1248
+加工生产调度</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>某工厂收到了 $n$ 个产品的订单，这 $n$ 个产品分别在 A,B 两个车间加工，并且必须先在 A 车间加工后才可以到 B 车间加工。</p>
-<p>某个产品 $i$ 在 A、B 两车间加工的时间分别为 $A_i,B_i$。怎样安排这 $n$ 个产品的加工顺序，才能使总的加工时间最短。</p>
-<p>这里所说的加工时间是指：从开始加工第一个产品到最后所有的产品都已在 A、B 两车间加工完毕的时间。</p>
+<p>某工厂收到了 <span class="math inline">\(n\)</span> 个产品的订单，这
+<span class="math inline">\(n\)</span> 个产品分别在 A,B
+两个车间加工，并且必须先在 A 车间加工后才可以到 B 车间加工。</p>
+<p>某个产品 <span class="math inline">\(i\)</span> 在 A、B
+两车间加工的时间分别为 <span
+class="math inline">\(A_i,B_i\)</span>。怎样安排这 <span
+class="math inline">\(n\)</span>
+个产品的加工顺序，才能使总的加工时间最短。</p>
+<p>这里所说的加工时间是指：从开始加工第一个产品到最后所有的产品都已在
+A、B 两车间加工完毕的时间。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行仅—个整数 $n$，表示产品的数量。</p>
-<p>接下来一行 $n$ 个整数是表示这 $n$ 个产品在 A 车间加工各自所要的时间。</p>
-<p>最后的 $n$ 个整数是表示这 $n$ 个产品在 B 车间加工各自所要的时间。</p>
+<p>第一行仅—个整数 <span
+class="math inline">\(n\)</span>，表示产品的数量。</p>
+<p>接下来一行 <span class="math inline">\(n\)</span> 个整数是表示这
+<span class="math inline">\(n\)</span> 个产品在 A
+车间加工各自所要的时间。</p>
+<p>最后的 <span class="math inline">\(n\)</span> 个整数是表示这 <span
+class="math inline">\(n\)</span> 个产品在 B 车间加工各自所要的时间。</p>
 <p><strong>输出格式</strong>：</p>
 <p>第一行一个整数，表示最少的加工时间。</p>
 <p>第二行是一种最小加工时间的加工顺序。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\leq n\leq 10^5$ </p>
+<p><span class="math inline">\(1\leq n\leq 10^5\)</span></p>
 </blockquote>
 <p>贪心的常见套路似乎就是找到两个存在极小差异的决策，分析哪个更优，以归纳法获得最优决策。</p>
-<p>考虑只有两个元素 $(a_1,b_1),(a_2,b_2)$ 时，设 $(a_1,b_1)$ 先处理更优。</p>
-<p>先处理 $1$ 再处理 $2$ 的花费，所需时间即为最后加工完 $2$ 所需的时间</p>
-<script type="math/tex; mode=display">
-a_1 + \max\{b_1,a_2\} + b_2</script><p>先处理 $2$ 再处理 $1$ 的花费，所需时间即为最后加工完 $1$ 所需的时间</p>
-<script type="math/tex; mode=display">
-a_2 + \max\{b_2,a_1\} + b_1</script><p>根据假设可知</p>
-<script type="math/tex; mode=display">
-a_1 + \max\{b_1,a_2\} + b_2 < a_2 + \max\{b_2,a_1\} + b_1</script><p>移项得</p>
-<script type="math/tex; mode=display">
-\max\{b_1,a_2\} - b_1 - a_2< \max\{b_2,a_1\} - a_1 - b_2</script><p>可以发现不等式左右较大的项均被抵消掉了，则</p>
-<script type="math/tex; mode=display">
-- \min \{b_1,a_2\} < - \min \{b_2, a_1\}</script><p>即 $\min \{b_2, a_1\}&lt;\min \{b_1,a_2\}$ 。这个东西是有传递性的，但是我们不能直接排序。</p>
+<p>考虑只有两个元素 <span
+class="math inline">\((a_1,b_1),(a_2,b_2)\)</span> 时，设 <span
+class="math inline">\((a_1,b_1)\)</span> 先处理更优。</p>
+<p>先处理 <span class="math inline">\(1\)</span> 再处理 <span
+class="math inline">\(2\)</span> 的花费，所需时间即为最后加工完 <span
+class="math inline">\(2\)</span> 所需的时间 <span
+class="math display">\[
+a_1 + \max\{b_1,a_2\} + b_2
+\]</span> 先处理 <span class="math inline">\(2\)</span> 再处理 <span
+class="math inline">\(1\)</span> 的花费，所需时间即为最后加工完 <span
+class="math inline">\(1\)</span> 所需的时间 <span
+class="math display">\[
+a_2 + \max\{b_2,a_1\} + b_1
+\]</span> 根据假设可知 <span class="math display">\[
+a_1 + \max\{b_1,a_2\} + b_2 &lt; a_2 + \max\{b_2,a_1\} + b_1
+\]</span> 移项得 <span class="math display">\[
+\max\{b_1,a_2\} - b_1 - a_2&lt; \max\{b_2,a_1\} - a_1 - b_2
+\]</span> 可以发现不等式左右较大的项均被抵消掉了，则 <span
+class="math display">\[
+- \min \{b_1,a_2\} &lt; - \min \{b_2, a_1\}
+\]</span> 即 <span class="math inline">\(\min \{b_2, a_1\}&lt;\min
+\{b_1,a_2\}\)</span> 。这个东西是有传递性的，但是我们不能直接排序。</p>
 <p>原因在于 C++ 标准库要求用于排序的运算符必须满足严格弱序。</p>
 <p>什么是严格弱序呢？</p>
-<p>对于一个比较运算符 $&lt;$ ，记 $\not&lt;$ 为不满足该运算符，若满足以下四个条件，则称该运算符是严格弱序的。</p>
+<p>对于一个比较运算符 <span class="math inline">\(&lt;\)</span> ，记
+<span class="math inline">\(\not&lt;\)</span>
+为不满足该运算符，若满足以下四个条件，则称该运算符是严格弱序的。</p>
 <ul>
-<li>$x \not&lt; x$ （非自反性）</li>
-<li>若 $x &lt; y$ ，则 $y \not&lt; x$ （非对称性）</li>
-<li>若 $x &lt; y, ~y &lt; z$ ，则 $x &lt; z$ （传递性）</li>
-<li>若 $x \not&lt; y,~y \not&lt; x, ~y\not&lt; z,~z\not&lt; y$ ，则 $x \not&lt; z, z \not&lt; x$ （不可比性的传递性）</li>
+<li><span class="math inline">\(x \not&lt; x\)</span> （非自反性）</li>
+<li>若 <span class="math inline">\(x &lt; y\)</span> ，则 <span
+class="math inline">\(y \not&lt; x\)</span> （非对称性）</li>
+<li>若 <span class="math inline">\(x &lt; y, ~y &lt; z\)</span> ，则
+<span class="math inline">\(x &lt; z\)</span> （传递性）</li>
+<li>若 <span class="math inline">\(x \not&lt; y,~y \not&lt; x,
+~y\not&lt; z,~z\not&lt; y\)</span> ，则 <span class="math inline">\(x
+\not&lt; z, z \not&lt; x\)</span> （不可比性的传递性）</li>
 </ul>
 <p>而我们刚刚的排序并不满足不可比性的传递性。</p>
-<p>也就是说刚刚的排序有 （记 $a \downarrow b$ 为 $\min\{a,b\}$ ）</p>
-<script type="math/tex; mode=display">
-(a_x\downarrow b_y)= (b_x \downarrow a_y) 
+<p>也就是说刚刚的排序有 （记 <span class="math inline">\(a \downarrow
+b\)</span> 为 <span class="math inline">\(\min\{a,b\}\)</span> ） <span
+class="math display">\[
+(a_x\downarrow b_y)= (b_x \downarrow a_y)
 \land (a_y \downarrow b_z) = (b_y \downarrow a_z)
-\nRightarrow (a_x\downarrow b_z) = (b_x \downarrow a_z)</script><p>因此我们需要找到一个具有「不可比性的传递性」的式子。</p>
-<p>分析一下刚刚的排序条件，可以发现这个和 $a,b$ 的大小有关。</p>
-<ol>
-<li>$a_1 &lt; b_1 \land a_2 &lt; b_2$ 时，按 $a_1 &lt; a_2$ 排序。</li>
-<li>$a_1 = b_1\land a_2 = b_2$ 时，排序结果无影响。</li>
-<li>$a_1 &gt; b_1 \land a_2 &gt; b_2$ 时，按 $b_1 &gt; b_2$ 排序。 </li>
+\nRightarrow (a_x\downarrow b_z) = (b_x \downarrow a_z)
+\]</span> 因此我们需要找到一个具有「不可比性的传递性」的式子。</p>
+<p>分析一下刚刚的排序条件，可以发现这个和 <span
+class="math inline">\(a,b\)</span> 的大小有关。</p>
+<ol type="1">
+<li><span class="math inline">\(a_1 &lt; b_1 \land a_2 &lt; b_2\)</span>
+时，按 <span class="math inline">\(a_1 &lt; a_2\)</span> 排序。</li>
+<li><span class="math inline">\(a_1 = b_1\land a_2 = b_2\)</span>
+时，排序结果无影响。</li>
+<li><span class="math inline">\(a_1 &gt; b_1 \land a_2 &gt; b_2\)</span>
+时，按 <span class="math inline">\(b_1 &gt; b_2\)</span> 排序。</li>
 </ol>
-<p>可以发现这三种情况对应了 $a_i - b_i &lt; 0,~a_i - b_i = 0,~a_i - b_i &gt; 0$ </p>
-<p>因此我们将每个元素，第一维按 $\mathrm{sgn}(a_i - b_i)$ 排序，第二维按对应的排序方式排序，即可得到答案。</p>
+<p>可以发现这三种情况对应了 <span class="math inline">\(a_i - b_i &lt;
+0,~a_i - b_i = 0,~a_i - b_i &gt; 0\)</span></p>
+<p>因此我们将每个元素，第一维按 <span
+class="math inline">\(\mathrm{sgn}(a_i - b_i)\)</span>
+排序，第二维按对应的排序方式排序，即可得到答案。</p>
 <p>等有时间再研究研究这个严格弱序的东西，咕咕咕。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -825,10 +864,13 @@ a_1 + \max\{b_1,a_2\} + b_2 < a_2 + \max\{b_2,a_1\} + b_1</script><p>移项得</
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> o<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i<span class="token operator">==</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/79017/solution-p1248">题解 P1248 【加工生产调度】 - 心爱 的博客 - 洛谷博客</a> </p>
-<p>[2]  <a target="_blank" rel="noopener" href="https://ouuan.github.io/post/%E6%B5%85%E8%B0%88%E9%82%BB%E9%A1%B9%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98/#%E4%BD%BF%E7%94%A8%E9%82%BB%E9%A1%B9%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98">浅谈邻项交换排序的应用以及需要注意的问题 - ouuan的博客</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/79017/solution-p1248">题解
+P1248 【加工生产调度】 - 心爱 的博客 - 洛谷博客</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://ouuan.github.io/post/%E6%B5%85%E8%B0%88%E9%82%BB%E9%A1%B9%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BA%94%E7%94%A8%E4%BB%A5%E5%8F%8A%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98/#%E4%BD%BF%E7%94%A8%E9%82%BB%E9%A1%B9%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98">浅谈邻项交换排序的应用以及需要注意的问题
+- ouuan的博客</a></p>
 
                 
             </div>
@@ -1297,7 +1339,7 @@ a_1 + \max\{b_1,a_2\} + b_2 < a_2 + \max\{b_2,a_1\} + b_1</script><p>移项得</
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1565,6 +1607,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

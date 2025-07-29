@@ -709,7 +709,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    861
+                    863
                 </div>
                 
 
@@ -729,35 +729,62 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3157-CQOI2011-动态逆序对-题解"><a href="#洛谷P3157-CQOI2011-动态逆序对-题解" class="headerlink" title="洛谷P3157 [CQOI2011] 动态逆序对 题解"></a>洛谷P3157 [CQOI2011] 动态逆序对 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3157">P3157 [CQOI2011] 动态逆序对</a></p>
+                <h1 id="洛谷p3157-cqoi2011-动态逆序对-题解">洛谷P3157 [CQOI2011]
+动态逆序对 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3157">P3157
+[CQOI2011] 动态逆序对</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于序列 $a$​，它的逆序对数定义为集合  </p>
-<script type="math/tex; mode=display">
-\{(i,j)\mid i < j \,\land\, a_i > a_j\}</script><p>的元素个数。  </p>
-<p>现在给出 $1\sim n$ 的一个排列，按照某种顺序依次删除 $m$ 个元素。</p>
+<p>对于序列 <span
+class="math inline">\(a\)</span>​，它的逆序对数定义为集合<br />
+<span class="math display">\[
+\{(i,j)\mid i &lt; j \,\land\, a_i &gt; a_j\}
+\]</span> 的元素个数。</p>
+<p>现在给出 <span class="math inline">\(1\sim n\)</span>
+的一个排列，按照某种顺序依次删除 <span class="math inline">\(m\)</span>
+个元素。</p>
 <p>你的任务是在每次删除一个元素<strong>之前</strong>统计整个序列的逆序对数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 $n$ 和 $m$，即初始元素的个数和删除的元素个数。  </p>
-<p>以下 $n$ 行，每行包含一个 $1 \sim n$ 之间的正整数，即初始排列。  </p>
-<p>接下来 $m$​​ 行，每行一个正整数，依次为每次删除的元素。</p>
+<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(m\)</span>，即初始元素的个数和删除的元素个数。</p>
+<p>以下 <span class="math inline">\(n\)</span> 行，每行包含一个 <span
+class="math inline">\(1 \sim n\)</span> 之间的正整数，即初始排列。</p>
+<p>接下来 <span class="math inline">\(m\)</span>​​
+行，每行一个正整数，依次为每次删除的元素。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出包含 $m$ 行，依次为删除每个元素之前，逆序对的个数。</p>
+<p>输出包含 <span class="math inline">\(m\)</span>
+行，依次为删除每个元素之前，逆序对的个数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n \le 10^5,~1\le m \le 50000$​。</p>
+<p><span class="math inline">\(1\le n \le 10^5,~1\le m \le
+50000\)</span>​。</p>
 </blockquote>
 <p>考虑 CDQ 分治。</p>
-<p>方便起见，我们把初始的数看作 $n$ 个添加操作，修改为 $f_i=1$ （删除则为 $-1$ ）。</p>
-<p>记 $t_i$ 为时间戳（非修改则为 $0$ ），$x_i$ 为元素编号，$y_i$ 为元素的值。</p>
-<p>那么，一次修改 $(t_i,x_i,y_i,f_i)$ 对答案的增量 $\Delta$ 为以下条目之和：</p>
+<p>方便起见，我们把初始的数看作 <span class="math inline">\(n\)</span>
+个添加操作，修改为 <span class="math inline">\(f_i=1\)</span> （删除则为
+<span class="math inline">\(-1\)</span> ）。</p>
+<p>记 <span class="math inline">\(t_i\)</span> 为时间戳（非修改则为
+<span class="math inline">\(0\)</span> ），<span
+class="math inline">\(x_i\)</span> 为元素编号，<span
+class="math inline">\(y_i\)</span> 为元素的值。</p>
+<p>那么，一次修改 <span class="math inline">\((t_i,x_i,y_i,f_i)\)</span>
+对答案的增量 <span class="math inline">\(\Delta\)</span>
+为以下条目之和：</p>
 <ul>
-<li>满足 $t_j &lt; t_i,~x_j &gt;x_i,~y_j &lt; y_i$ 的 $j$ 的数量乘以 $f_i$ 。（自己做大哥的情况）</li>
-<li>满足 $t_{j} &lt; t_{i},~x_j &lt; x_i,~y_j &gt; y_i$ 的 $j$ 的数量乘以 $f_i$ 。（自己做小弟的情况）</li>
+<li>满足 <span class="math inline">\(t_j &lt; t_i,~x_j &gt;x_i,~y_j &lt;
+y_i\)</span> 的 <span class="math inline">\(j\)</span> 的数量乘以 <span
+class="math inline">\(f_i\)</span> 。（自己做大哥的情况）</li>
+<li>满足 <span class="math inline">\(t_{j} &lt; t_{i},~x_j &lt; x_i,~y_j
+&gt; y_i\)</span> 的 <span class="math inline">\(j\)</span> 的数量乘以
+<span class="math inline">\(f_i\)</span> 。（自己做小弟的情况）</li>
 </ul>
-<p>比如序列 $a=\{2,1\}$ ，删除 $2$ 的操作 $(1,1,2,-1)$ 对答案的增量为</p>
-<script type="math/tex; mode=display">
-1\times (-1) + 0\times(-1) = -1</script><p>注意这个是增量，别忘了前缀和一下。</p>
-<p>时间复杂度 $\mathcal{O}(n \log^2 n)$​</p>
+<p>比如序列 <span class="math inline">\(a=\{2,1\}\)</span> ，删除 <span
+class="math inline">\(2\)</span> 的操作 <span
+class="math inline">\((1,1,2,-1)\)</span> 对答案的增量为 <span
+class="math display">\[
+1\times (-1) + 0\times(-1) = -1
+\]</span> 注意这个是增量，别忘了前缀和一下。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log^2
+n)\)</span>​</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -807,8 +834,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> q<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11990">UVA11990 ``Dynamic’’ Inversion</a> （需要改成多测并开大空间）</p>
-<hr>
+<p>双倍经验：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11990">UVA11990 ``Dynamic''
+Inversion</a> （需要改成多测并开大空间）</p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>板子都敲不对。</p>
 
@@ -1278,7 +1307,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1546,6 +1575,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

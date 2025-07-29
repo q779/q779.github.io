@@ -733,31 +733,75 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3172-CQOI2015-选数-题解"><a href="#洛谷P3172-CQOI2015-选数-题解" class="headerlink" title="洛谷P3172 [CQOI2015] 选数 题解"></a>洛谷P3172 [CQOI2015] 选数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3172">P3172 [CQOI2015] 选数</a></p>
+                <h1 id="洛谷p3172-cqoi2015-选数-题解">洛谷P3172 [CQOI2015] 选数
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3172">P3172
+[CQOI2015] 选数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>我们知道，从区间 $[L,H]$（$L$ 和 $H$ 为整数）中选取 $N$ 个整数，总共有 $(H-L+1)^N$ 种方案。小 z 很好奇这样选出的数的最大公约数的规律，他决定对每种方案选出的 $N$ 个整数都求一次最大公约数，以便进一步研究。然而他很快发现工作量太大了，于是向你寻求帮助。你的任务很简单，小 z 会告诉你一个整数 $K$，你需要回答他最大公约数刚好为 $K$ 的选取方案有多少个。</p>
-<p>由于方案数较大，你只需要输出其除以 $10^9+7$ 的余数即可。</p>
+<p>我们知道，从区间 <span class="math inline">\([L,H]\)</span>（<span
+class="math inline">\(L\)</span> 和 <span
+class="math inline">\(H\)</span> 为整数）中选取 <span
+class="math inline">\(N\)</span> 个整数，总共有 <span
+class="math inline">\((H-L+1)^N\)</span> 种方案。小 z
+很好奇这样选出的数的最大公约数的规律，他决定对每种方案选出的 <span
+class="math inline">\(N\)</span>
+个整数都求一次最大公约数，以便进一步研究。然而他很快发现工作量太大了，于是向你寻求帮助。你的任务很简单，小
+z 会告诉你一个整数 <span
+class="math inline">\(K\)</span>，你需要回答他最大公约数刚好为 <span
+class="math inline">\(K\)</span> 的选取方案有多少个。</p>
+<p>由于方案数较大，你只需要输出其除以 <span
+class="math inline">\(10^9+7\)</span> 的余数即可。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入一行，包含四个空格分开的正整数，依次为 $N,K,L,H$。</p>
+<p>输入一行，包含四个空格分开的正整数，依次为 <span
+class="math inline">\(N,K,L,H\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个整数，为所求方案数除以 $10^9 + 7$ 的余数。</p>
+<p>输出一个整数，为所求方案数除以 <span class="math inline">\(10^9 +
+7\)</span> 的余数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1\le N,K\le 10^9$，$1\le L\le H\le 10^9$，$H-L\le 10^5$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le N,K\le 10^9\)</span>，<span
+class="math inline">\(1\le L\le H\le 10^9\)</span>，<span
+class="math inline">\(H-L\le 10^5\)</span>。</p>
 </blockquote>
-<p>设 $F(k)$ 表示从 $[L,R]$ 中选 $N$ 个数的最大公约数为 $k$ 或 $k$ 的倍数的方案数。</p>
-<p>设 $f(k)$ 表示从 $[L,R]$ 中选 $N$ 个数的最大公约数是 $k$ 的方案数。那么</p>
-<script type="math/tex; mode=display">
-F(k) = \sum_{n \ge k \, \land \, k \,\mid\, n} f(n)</script><p>莫反，启动！</p>
-<script type="math/tex; mode=display">
-f(k) =\sum_{n \ge k \, \land \, k \,\mid\, n} \mu(n)F\left(\frac{n}{k}\right)</script><p>显然有</p>
-<script type="math/tex; mode=display">
-F(k) = \left(\left\lfloor\frac{R}{k}\right\rfloor-\left\lfloor\frac{L-1}{k}\right\rfloor\right)^N</script><p>然而即便如此， $f(K)$ 依然不是很好求，那么我们考虑将 $L,R$ 均缩小 $K$ 倍，然后算 $f(1)$</p>
-<p>这里有一个细节，当 $K \not\mid L$ 时，$K\cdot \left\lfloor \frac{L}{K}\right\rfloor &lt; L$ ，可能会多算，所以 $L$ 要上取整。那么</p>
-<script type="math/tex; mode=display">
-f(1) = \sum_{i=1}^{\left\lfloor\frac{R}{K}\right\rfloor}\mu(i)F(i)</script><p>注意上界里是 $K$ 。那么现在问题就变成了怎么计算 $\mu$ 的前缀和。</p>
-<p>考虑杜教筛，构造 $g = \mathbf{1}$ ，那么 $(f*g)(n)=\epsilon(n)=[n=1]$ ，都非常好算。</p>
-<p>时间复杂度 $\mathcal{O}(n^{\frac{2}{3}})$ ，其中 $n$ 表示 $L,R$ 的值域，并且不受 $R-L$ 的限制。</p>
+<p>设 <span class="math inline">\(F(k)\)</span> 表示从 <span
+class="math inline">\([L,R]\)</span> 中选 <span
+class="math inline">\(N\)</span> 个数的最大公约数为 <span
+class="math inline">\(k\)</span> 或 <span
+class="math inline">\(k\)</span> 的倍数的方案数。</p>
+<p>设 <span class="math inline">\(f(k)\)</span> 表示从 <span
+class="math inline">\([L,R]\)</span> 中选 <span
+class="math inline">\(N\)</span> 个数的最大公约数是 <span
+class="math inline">\(k\)</span> 的方案数。那么 <span
+class="math display">\[
+F(k) = \sum_{n \ge k \, \land \, k \,\mid\, n} f(n)
+\]</span> 莫反，启动！ <span class="math display">\[
+f(k) =\sum_{n \ge k \, \land \, k \,\mid\, n}
+\mu(n)F\left(\frac{n}{k}\right)
+\]</span> 显然有 <span class="math display">\[
+F(k) =
+\left(\left\lfloor\frac{R}{k}\right\rfloor-\left\lfloor\frac{L-1}{k}\right\rfloor\right)^N
+\]</span> 然而即便如此， <span class="math inline">\(f(K)\)</span>
+依然不是很好求，那么我们考虑将 <span class="math inline">\(L,R\)</span>
+均缩小 <span class="math inline">\(K\)</span> 倍，然后算 <span
+class="math inline">\(f(1)\)</span></p>
+<p>这里有一个细节，当 <span class="math inline">\(K \not\mid L\)</span>
+时，<span class="math inline">\(K\cdot \left\lfloor
+\frac{L}{K}\right\rfloor &lt; L\)</span> ，可能会多算，所以 <span
+class="math inline">\(L\)</span> 要上取整。那么 <span
+class="math display">\[
+f(1) = \sum_{i=1}^{\left\lfloor\frac{R}{K}\right\rfloor}\mu(i)F(i)
+\]</span> 注意上界里是 <span class="math inline">\(K\)</span>
+。那么现在问题就变成了怎么计算 <span class="math inline">\(\mu\)</span>
+的前缀和。</p>
+<p>考虑杜教筛，构造 <span class="math inline">\(g = \mathbf{1}\)</span>
+，那么 <span class="math inline">\((f*g)(n)=\epsilon(n)=[n=1]\)</span>
+，都非常好算。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span> ，其中 <span
+class="math inline">\(n\)</span> 表示 <span
+class="math inline">\(L,R\)</span> 的值域，并且不受 <span
+class="math inline">\(R-L\)</span> 的限制。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -822,10 +866,11 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/r378p4xj">https://www.luogu.com.cn/article/r378p4xj</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/r378p4xj">https://www.luogu.com.cn/article/r378p4xj</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406271434998.png" style="zoom:40%;" /></p>
@@ -1307,7 +1352,7 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1575,6 +1620,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

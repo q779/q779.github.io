@@ -725,29 +725,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4165-SCOI2007-组队-题解"><a href="#洛谷P4165-SCOI2007-组队-题解" class="headerlink" title="洛谷P4165 [SCOI2007]组队 题解"></a>洛谷P4165 [SCOI2007]组队 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4165">P4165 [SCOI2007]组队</a></p>
+                <h1 id="洛谷p4165-scoi2007组队-题解">洛谷P4165 [SCOI2007]组队 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4165">P4165
+[SCOI2007]组队</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>NBA每年都有球员选秀环节。通常用速度和身高两项数据来衡量一个篮球运动员的基本素质。假如一支球队里速度最慢的球员速度为 $\min V$，身高最矮的球员高度为 $\min H$，那么这支球队的所有队员都应该满足: </p>
-<script type="math/tex; mode=display">
-A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V ) \le C</script><p>其中 $A,B,C$ 为给定的经验值。这个式子很容易理解，如果一个球队的球员速度和身高差距太大，会造成配合的不协调。</p>
-<p>请问作为球队管理层的你，在 $N$ 名选秀球员中，最多能有多少名符合条件的候选球员。</p>
+<p>NBA每年都有球员选秀环节。通常用速度和身高两项数据来衡量一个篮球运动员的基本素质。假如一支球队里速度最慢的球员速度为
+<span class="math inline">\(\min V\)</span>，身高最矮的球员高度为 <span
+class="math inline">\(\min H\)</span>，那么这支球队的所有队员都应该满足:
+<span class="math display">\[
+A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min
+V ) \le C
+\]</span> 其中 <span class="math inline">\(A,B,C\)</span>
+为给定的经验值。这个式子很容易理解，如果一个球队的球员速度和身高差距太大，会造成配合的不协调。</p>
+<p>请问作为球队管理层的你，在 <span class="math inline">\(N\)</span>
+名选秀球员中，最多能有多少名符合条件的候选球员。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行四个数 $N,A,B,C$ 下接 $N$ 行每行两个数描述一个球员的 $\mathtt{height}$ 和$\mathtt{speed}$ 。</p>
+<p>第一行四个数 <span class="math inline">\(N,A,B,C\)</span> 下接 <span
+class="math inline">\(N\)</span> 行每行两个数描述一个球员的 <span
+class="math inline">\(\mathtt{height}\)</span> 和<span
+class="math inline">\(\mathtt{speed}\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>最多候选球员数目。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$N \le 5\times 10^3$ ，$A,B,C$ 均在长整型以内，$\mathtt{height}$ 和 $\mathtt{speed}$ 不大于 $10^4$ 。</p>
+<p><span class="math inline">\(N \le 5\times 10^3\)</span> ，<span
+class="math inline">\(A,B,C\)</span> 均在长整型以内，<span
+class="math inline">\(\mathtt{height}\)</span> 和 <span
+class="math inline">\(\mathtt{speed}\)</span> 不大于 <span
+class="math inline">\(10^4\)</span> 。</p>
 </blockquote>
 <p>好像有人写了三维偏序，<del>真流批</del></p>
 <p>其实这题不需要三维偏序</p>
-<p>考虑枚举 $\min H$ ，然后我们会得到一个 $\min V$ 的不等式</p>
-<script type="math/tex; mode=display">
- V-\left(C - \frac{A\times (H-\min H)}{B}\right) \ge \min V</script><p>然后我们就可以算出每个球员在 $\min H$ 确定的情况下</p>
-<p>$\min V$ 在哪个范围的时候，这个球员可以被选中，考虑差分。</p>
-<p>最后枚举每个球员作为 $\min V$ ，此时可以直接查询差分数组（要先做一遍前缀和哦）</p>
-<p>注意特判 $B=0$ 的情况，此时 $\forall \min V \in [1,v_i]$ 可以选 $v_i$ 。</p>
-<p>时间复杂度 $O(n \times \max\{n,v_i\})$</p>
+<p>考虑枚举 <span class="math inline">\(\min H\)</span>
+，然后我们会得到一个 <span class="math inline">\(\min V\)</span>
+的不等式 <span class="math display">\[
+V-\left(C - \frac{A\times (H-\min H)}{B}\right) \ge \min V
+\]</span> 然后我们就可以算出每个球员在 <span class="math inline">\(\min
+H\)</span> 确定的情况下</p>
+<p><span class="math inline">\(\min V\)</span>
+在哪个范围的时候，这个球员可以被选中，考虑差分。</p>
+<p>最后枚举每个球员作为 <span class="math inline">\(\min V\)</span>
+，此时可以直接查询差分数组（要先做一遍前缀和哦）</p>
+<p>注意特判 <span class="math inline">\(B=0\)</span> 的情况，此时 <span
+class="math inline">\(\forall \min V \in [1,v_i]\)</span> 可以选 <span
+class="math inline">\(v_i\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(O(n \times
+\max\{n,v_i\})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1265,7 +1288,7 @@ A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V )
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1533,6 +1556,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

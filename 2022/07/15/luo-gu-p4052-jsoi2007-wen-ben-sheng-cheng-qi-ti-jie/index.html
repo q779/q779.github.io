@@ -737,33 +737,61 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4052-JSOI2007-文本生成器-题解"><a href="#洛谷P4052-JSOI2007-文本生成器-题解" class="headerlink" title="洛谷P4052 [JSOI2007]文本生成器 题解"></a>洛谷P4052 [JSOI2007]文本生成器 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4052">P4052 [JSOI2007]文本生成器</a></p>
+                <h1 id="洛谷p4052-jsoi2007文本生成器-题解">洛谷P4052
+[JSOI2007]文本生成器 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4052">P4052
+[JSOI2007]文本生成器</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>JSOI 交给队员 ZYX 一个任务，编制一个称之为“文本生成器”的电脑软件：该软件的使用者是一些低幼人群，他们现在使用的是 GW 文本生成器 v6 版。</p>
-<p>该软件可以随机生成一些文章——总是生成一篇长度固定且完全随机的文章。 也就是说，生成的文章中每个字符都是完全随机的。如果一篇文章中至少包含使用者们了解的一个单词，那么我们说这篇文章是可读的（我们称文章 $s$ 包含单词 $t$，当且仅当单词 $t$ 是文章 $s$ 的子串）。但是，即使按照这样的标准，使用者现在使用的 GW 文本生成器 v6 版所生成的文章也是几乎完全不可读的。ZYX 需要指出 GW 文本生成器 v6 生成的所有文本中，可读文本的数量，以便能够成功获得 v7 更新版。你能帮助他吗？</p>
-<p>答案对 $10^4 + 7$ 取模。</p>
+<p>JSOI 交给队员 ZYX
+一个任务，编制一个称之为“文本生成器”的电脑软件：该软件的使用者是一些低幼人群，他们现在使用的是
+GW 文本生成器 v6 版。</p>
+<p>该软件可以随机生成一些文章——总是生成一篇长度固定且完全随机的文章。
+也就是说，生成的文章中每个字符都是完全随机的。如果一篇文章中至少包含使用者们了解的一个单词，那么我们说这篇文章是可读的（我们称文章
+<span class="math inline">\(s\)</span> 包含单词 <span
+class="math inline">\(t\)</span>，当且仅当单词 <span
+class="math inline">\(t\)</span> 是文章 <span
+class="math inline">\(s\)</span>
+的子串）。但是，即使按照这样的标准，使用者现在使用的 GW 文本生成器 v6
+版所生成的文章也是几乎完全不可读的。ZYX 需要指出 GW 文本生成器 v6
+生成的所有文本中，可读文本的数量，以便能够成功获得 v7
+更新版。你能帮助他吗？</p>
+<p>答案对 <span class="math inline">\(10^4 + 7\)</span> 取模。</p>
 <p>对于全部的测试点，保证：</p>
 <ul>
-<li>$1 \leq n \leq 60$，$1 \leq m \leq 100$。</li>
-<li>$1 \leq |s_i| \leq 100$，其中 $|s_i|$ 表示字符串 $s_i$ 的长度。</li>
-<li>$s_i$ 中只含大写英文字母。</li>
+<li><span class="math inline">\(1 \leq n \leq 60\)</span>，<span
+class="math inline">\(1 \leq m \leq 100\)</span>。</li>
+<li><span class="math inline">\(1 \leq |s_i| \leq 100\)</span>，其中
+<span class="math inline">\(|s_i|\)</span> 表示字符串 <span
+class="math inline">\(s_i\)</span> 的长度。</li>
+<li><span class="math inline">\(s_i\)</span> 中只含大写英文字母。</li>
 </ul>
 </blockquote>
-<p>显然要建 $\tt{AC}$ 自动机。包含单词，比较麻烦。</p>
+<p>显然要建 <span class="math inline">\(\tt{AC}\)</span>
+自动机。包含单词，比较麻烦。</p>
 <p>考虑容斥，计算不包含单词的数量（不可读文本数量）</p>
 <p>「可读文本数量」等于「所有文本数量」减去「不可读文本数量」</p>
-<p>「所有文本数量」显然是 $26^m$ </p>
-<p>不难发现，一个不可读文本在 $\tt{AC}$ 自动机上跑的时候，是不会碰到「危险结点」的</p>
+<p>「所有文本数量」显然是 <span class="math inline">\(26^m\)</span></p>
+<p>不难发现，一个不可读文本在 <span
+class="math inline">\(\tt{AC}\)</span>
+自动机上跑的时候，是不会碰到「危险结点」的</p>
 <p>「危险结点」包括「是字符串结尾」的结点和「某个或某些后缀是单词」的结点</p>
 <p>危险结点的处理比较简单，只要在建自动机的时候处理一下就好了，具体看代码</p>
 <p>然后这个题目是计数题，考虑dp</p>
-<p>设 $f_{i,j}$ 表示走到 $j$ 号结点，文本长度为 $i$ 时的方案数</p>
-<p>显然 $f_{0,0} = 1$ </p>
-<script type="math/tex; mode=display">
-f_{i+1,v} = \sum_{(u,v) \in E} f_{i,u}</script><p>这里的 $(u,v) \in E$ 表示在 $\tt{AC}$ 自动机上存在 $u$ 指向 $v$ 的边</p>
-<p>「不可读文本数量」就等于 $\sum_{0 \le i \le \text{tot}} f_{m,i}$</p>
-<p>时间复杂度 $O(26 \times m \sum |s_i|)$ </p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示走到 <span
+class="math inline">\(j\)</span> 号结点，文本长度为 <span
+class="math inline">\(i\)</span> 时的方案数</p>
+<p>显然 <span class="math inline">\(f_{0,0} = 1\)</span> <span
+class="math display">\[
+f_{i+1,v} = \sum_{(u,v) \in E} f_{i,u}
+\]</span> 这里的 <span class="math inline">\((u,v) \in E\)</span> 表示在
+<span class="math inline">\(\tt{AC}\)</span> 自动机上存在 <span
+class="math inline">\(u\)</span> 指向 <span
+class="math inline">\(v\)</span> 的边</p>
+<p>「不可读文本数量」就等于 <span class="math inline">\(\sum_{0 \le i
+\le \text{tot}} f_{m,i}\)</span></p>
+<p>时间复杂度 <span class="math inline">\(O(26 \times m \sum
+|s_i|)\)</span></p>
 <p>完整代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -1326,7 +1354,7 @@ f_{i+1,v} = \sum_{(u,v) \in E} f_{i,u}</script><p>这里的 $(u,v) \in E$ 表示
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1594,6 +1622,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -729,30 +729,58 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5495-【模板】Dirichlet-前缀和-题解"><a href="#洛谷P5495-【模板】Dirichlet-前缀和-题解" class="headerlink" title="洛谷P5495 【模板】Dirichlet 前缀和 题解"></a>洛谷P5495 【模板】Dirichlet 前缀和 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5495">P5495 【模板】Dirichlet 前缀和</a></p>
+                <h1 id="洛谷p5495-模板dirichlet-前缀和-题解">洛谷P5495 【模板】Dirichlet
+前缀和 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5495">P5495
+【模板】Dirichlet 前缀和</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 $n$ 的数列 $a_1,a_2,a_3,\dots,a_n$。</p>
-<p>现在你要求出一个长度为 $n$ 的数列 $b_1,b_2,b_3,\dots,b_n$，满足</p>
-<script type="math/tex; mode=display">
-b_k=\sum_{i\mid k}a_i</script><p>由于某些神秘原因，这里的 $b_k$ 要对 $2^{32}$ 取模。</p>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的数列 <span
+class="math inline">\(a_1,a_2,a_3,\dots,a_n\)</span>。</p>
+<p>现在你要求出一个长度为 <span class="math inline">\(n\)</span> 的数列
+<span class="math inline">\(b_1,b_2,b_3,\dots,b_n\)</span>，满足</p>
+<p><span class="math display">\[
+b_k=\sum_{i\mid k}a_i
+\]</span> 由于某些神秘原因，这里的 <span
+class="math inline">\(b_k\)</span> 要对 <span
+class="math inline">\(2^{32}\)</span> 取模。</p>
 <p><strong>输入格式</strong>：</p>
 <p>为了避免过大的输入，本题的输入使用随机数生成器。</p>
-<p>输入中只有一行两个整数 $n,\mathrm{seed}$。其中 $\mathrm{seed}$ 为 $32$ 位无符号整数，用来生成数据。</p>
-<p>接下来，你要调用 $n$ 次随机数生成器，分别生成 $a_1\sim a_n$。随机生成器见原题链接。</p>
+<p>输入中只有一行两个整数 <span
+class="math inline">\(n,\mathrm{seed}\)</span>。其中 <span
+class="math inline">\(\mathrm{seed}\)</span> 为 <span
+class="math inline">\(32\)</span> 位无符号整数，用来生成数据。</p>
+<p>接下来，你要调用 <span class="math inline">\(n\)</span>
+次随机数生成器，分别生成 <span class="math inline">\(a_1\sim
+a_n\)</span>。随机生成器见原题链接。</p>
 <p><strong>输出格式</strong>：</p>
-<p>为了避免过大的输出，你只需输出一个 $32$ 位无符号整数，表示所有 $b_i$ 的异或和。</p>
+<p>为了避免过大的输出，你只需输出一个 <span
+class="math inline">\(32\)</span> 位无符号整数，表示所有 <span
+class="math inline">\(b_i\)</span> 的异或和。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\leq n\leq 2\times 10^7$，$0\leq \mathrm{seed}&lt; 2^{32}$。</p>
+<p><span class="math inline">\(1\leq n\leq 2\times 10^7\)</span>，<span
+class="math inline">\(0\leq \mathrm{seed}&lt; 2^{32}\)</span>。</p>
 </blockquote>
-<p>设 $i = \prod p_k^{\alpha_k},~j = \prod p_k^{\beta_k}$ ，其中 $p$ 均为素数。</p>
-<p>那么 $a_i$ 对 $b_j$ 有贡献当且仅当 $\forall k,~\alpha_k \le \beta_k$ 。</p>
-<p>可以发现这是一个高维前缀和，即如果我们给每个 $p$ 都开一维的话，答案可以这么算</p>
-<script type="math/tex; mode=display">
-f(x_1,x_2,\cdots,x_k) = f(x_1-1,x_2,\cdots,x_k) + f(x_1,x_2-1,\cdots,x_k)+\cdots + f(x_1,x_2,\cdots,x_k-1) - \cdots</script><p>这里没写全，后面的省略号表示容斥要减去的东西，这个应该很好理解。</p>
-<p>不过这意思有些过于蠢了。我们已经知道 $\prod p_i^{x_i}$ 了，完全可以记一个 $f_i$ ，每次从质因子处得到贡献。</p>
+<p>设 <span class="math inline">\(i = \prod p_k^{\alpha_k},~j = \prod
+p_k^{\beta_k}\)</span> ，其中 <span class="math inline">\(p\)</span>
+均为素数。</p>
+<p>那么 <span class="math inline">\(a_i\)</span> 对 <span
+class="math inline">\(b_j\)</span> 有贡献当且仅当 <span
+class="math inline">\(\forall k,~\alpha_k \le \beta_k\)</span> 。</p>
+<p>可以发现这是一个高维前缀和，即如果我们给每个 <span
+class="math inline">\(p\)</span> 都开一维的话，答案可以这么算 <span
+class="math display">\[
+f(x_1,x_2,\cdots,x_k) = f(x_1-1,x_2,\cdots,x_k) +
+f(x_1,x_2-1,\cdots,x_k)+\cdots + f(x_1,x_2,\cdots,x_k-1) - \cdots
+\]</span>
+这里没写全，后面的省略号表示容斥要减去的东西，这个应该很好理解。</p>
+<p>不过这意思有些过于蠢了。我们已经知道 <span
+class="math inline">\(\prod p_i^{x_i}\)</span> 了，完全可以记一个 <span
+class="math inline">\(f_i\)</span> ，每次从质因子处得到贡献。</p>
 <p>直接枚举质因子还是很蠢，我们可以用埃氏筛。</p>
-<p>这样时间复杂度就是 $\mathcal{O}(n \log \log n)$ ，埃氏筛的复杂度证明参考 <a href="/2022/09/15/note-5/">link</a></p>
+<p>这样时间复杂度就是 <span class="math inline">\(\mathcal{O}(n \log
+\log n)\)</span> ，埃氏筛的复杂度证明参考 <a
+href="/2022/09/15/note-5/">link</a></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1253,7 +1281,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1521,6 +1549,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -713,7 +713,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    709
+                    733
                 </div>
                 
 
@@ -733,42 +733,75 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5678-GZOI2017-河神-题解"><a href="#洛谷P5678-GZOI2017-河神-题解" class="headerlink" title="洛谷P5678 [GZOI2017]河神 题解"></a>洛谷P5678 [GZOI2017]河神 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5678">P5678 [GZOI2017]河神</a></p>
+                <h1 id="洛谷p5678-gzoi2017河神-题解">洛谷P5678 [GZOI2017]河神 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5678">P5678
+[GZOI2017]河神</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>cxy 从河神给的选择中，获得了一道当年挂掉的代数题的灵感。</p>
 <p>但现在他希望你来帮忙解答，因为他自己忙着去搜妹纸资源去了。</p>
-<p>给出数列 $\{a_n\}$ 和 $\{b_n\}$ 以及 $\{A_n\}$ 的递推关系，试求出数列 $\{A_n\}$ 第 $N$ 项。</p>
+<p>给出数列 <span class="math inline">\(\{a_n\}\)</span> 和 <span
+class="math inline">\(\{b_n\}\)</span> 以及 <span
+class="math inline">\(\{A_n\}\)</span> 的递推关系，试求出数列 <span
+class="math inline">\(\{A_n\}\)</span> 第 <span
+class="math inline">\(N\)</span> 项。</p>
 <p>递推关系为：</p>
-<script type="math/tex; mode=display">
-A_n=\begin{cases}a_n  &  0 \le n < K \\[8pt] \bigoplus (A_{n-K+t} \otimes b_t) & n \ge K \end{cases}</script><p>其中，$\otimes$ 表示与操作，$\oplus$ 表示或操作。</p>
+<p><span class="math display">\[
+A_n=\begin{cases}a_n  &amp;  0 \le n &lt; K \\[8pt] \bigoplus (A_{n-K+t}
+\otimes b_t) &amp; n \ge K \end{cases}
+\]</span> 其中，<span class="math inline">\(\otimes\)</span>
+表示与操作，<span class="math inline">\(\oplus\)</span> 表示或操作。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行两个正整数 $N$ 和 $K$ 。</p>
-<p>第二行 $K$ 个空格隔开的非负整数，表示 $\{a_n\}$。</p>
-<p>第三行 $K$ 个空格隔开的非负整数，表示 $\{b_n\}$。</p>
+<p>第一行两个正整数 <span class="math inline">\(N\)</span> 和 <span
+class="math inline">\(K\)</span> 。</p>
+<p>第二行 <span class="math inline">\(K\)</span>
+个空格隔开的非负整数，表示 <span
+class="math inline">\(\{a_n\}\)</span>。</p>
+<p>第三行 <span class="math inline">\(K\)</span>
+个空格隔开的非负整数，表示 <span
+class="math inline">\(\{b_n\}\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行，一个整数，表示$\{A_n\}$。</p>
+<p>一行，一个整数，表示<span
+class="math inline">\(\{A_n\}\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$0 \le a_i,b_i \le 2^{63} - 1,~ n \le 10^9,~ k \le 100$</p>
+<p><span class="math inline">\(0 \le a_i,b_i \le 2^{63} - 1,~ n \le
+10^9,~ k \le 100\)</span></p>
 </blockquote>
 <p>考虑推广矩阵乘法使其仍满足结合律。</p>
 <p>我们可以把 加法 变成 或运算，乘法 变成 与运算。简单证明一下：</p>
-<p>$((AB)C)_{i,j}$ 的第 $d$ 位为 $1$ 当且仅当存在至少一对 $x,y$ 使得 $A_{i, x}, B_{x, y}, C_{y, j}$ 第 $d$ 位均为 $1$ 。</p>
-<p>$(A(BC))_{i,j}$ 的第 $d$ 位为 $1$ 当且仅当存在至少一对 $x,y$ 使得 $A_{i, x}, B_{x, y}, C_{y, j}$ 第 $d$ 位均为 $1$ 。$\square$ </p>
-<p>则初始矩阵为：</p>
-<script type="math/tex; mode=display">
+<p><span class="math inline">\(((AB)C)_{i,j}\)</span> 的第 <span
+class="math inline">\(d\)</span> 位为 <span
+class="math inline">\(1\)</span> 当且仅当存在至少一对 <span
+class="math inline">\(x,y\)</span> 使得 <span
+class="math inline">\(A_{i, x}, B_{x, y}, C_{y, j}\)</span> 第 <span
+class="math inline">\(d\)</span> 位均为 <span
+class="math inline">\(1\)</span> 。</p>
+<p><span class="math inline">\((A(BC))_{i,j}\)</span> 的第 <span
+class="math inline">\(d\)</span> 位为 <span
+class="math inline">\(1\)</span> 当且仅当存在至少一对 <span
+class="math inline">\(x,y\)</span> 使得 <span
+class="math inline">\(A_{i, x}, B_{x, y}, C_{y, j}\)</span> 第 <span
+class="math inline">\(d\)</span> 位均为 <span
+class="math inline">\(1\)</span> 。<span
+class="math inline">\(\square\)</span></p>
+<p>则初始矩阵为： <span class="math display">\[
 A = \left[\begin{array}{llll}
-a_{k} & a_{k-1} & \cdots & a_{0}
-\end{array}\right]</script><p>转移矩阵：（ $e$ 为单位元，取 $2^{63} - 1$ 即可 ）</p>
-<script type="math/tex; mode=display">
+a_{k} &amp; a_{k-1} &amp; \cdots &amp; a_{0}
+\end{array}\right]
+\]</span> 转移矩阵：（ <span class="math inline">\(e\)</span>
+为单位元，取 <span class="math inline">\(2^{63} - 1\)</span> 即可 ）
+<span class="math display">\[
 M = \left[\begin{array}{ccccc}
-b_1 & e &&&
-\\b_2 && e &
-\\\vdots &&& \ddots
-\\b_{k-1} &&&& e
-\\b_k &&&&
-\end{array}\right]</script><p>只要算下 $A \times M^{n - k + 1}$ 就好啦~</p>
-<p>时间复杂度 $\mathcal{O}(k^3 \log n)$</p>
+b_1 &amp; e &amp;&amp;&amp;
+\\b_2 &amp;&amp; e &amp;
+\\\vdots &amp;&amp;&amp; \ddots
+\\b_{k-1} &amp;&amp;&amp;&amp; e
+\\b_k &amp;&amp;&amp;&amp;
+\end{array}\right]
+\]</span> 只要算下 <span class="math inline">\(A \times M^{n - k +
+1}\)</span> 就好啦~</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(k^3 \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1282,7 +1315,7 @@ mat <span class="token function">qpow</span><span class="token punctuation">(</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1550,6 +1583,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

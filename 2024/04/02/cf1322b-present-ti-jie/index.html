@@ -729,32 +729,68 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1322B-Present-题解"><a href="#CF1322B-Present-题解" class="headerlink" title="CF1322B Present 题解"></a>CF1322B Present 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1322B">CF1322B Present</a></p>
+                <h1 id="cf1322b-present-题解">CF1322B Present 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1322B">CF1322B
+Present</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个长度为 $n$ 的数列 $a$。其中第 $i$ 项为 $a_i$。</p>
-<p>请你求出 $\bigoplus_{i=1}^{n}\bigoplus_{j=i+1}^{n}(a_i+a_j)$。其中 $\oplus$ 表示按位异或操作。</p>
-<p>$2 \leq n \leq 4 \times 10^5$，$1 \leq a_i \leq 10^7$。</p>
+<p>给出一个长度为 <span class="math inline">\(n\)</span> 的数列 <span
+class="math inline">\(a\)</span>。其中第 <span
+class="math inline">\(i\)</span> 项为 <span
+class="math inline">\(a_i\)</span>。</p>
+<p>请你求出 <span
+class="math inline">\(\bigoplus_{i=1}^{n}\bigoplus_{j=i+1}^{n}(a_i+a_j)\)</span>。其中
+<span class="math inline">\(\oplus\)</span> 表示按位异或操作。</p>
+<p><span class="math inline">\(2 \leq n \leq 4 \times
+10^5\)</span>，<span class="math inline">\(1 \leq a_i \leq
+10^7\)</span>。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The first line contains a single integer $n$ — the number of integers in the array.</p>
-<p>The second line contains integers $a_1, a_2, \ldots, a_n$ .</p>
+<p>The first line contains a single integer <span
+class="math inline">\(n\)</span> — the number of integers in the
+array.</p>
+<p>The second line contains integers <span class="math inline">\(a_1,
+a_2, \ldots, a_n\)</span> .</p>
 <p><strong>输出格式</strong>：</p>
-<p>Print a single integer — xor of all pairwise sums of integers in the given array.</p>
+<p>Print a single integer — xor of all pairwise sums of integers in the
+given array.</p>
 </blockquote>
-<p>注意到 $a_i \le 10^7$ ，因此二进制的位数 $\in [0, 25]$，于是依次考虑每一位的贡献。</p>
-<p>显然，如果我们要计算两个数的和的第 $i$ 位是否为 $1$ ，至少需要这两个数前 $i$ 位的信息</p>
-<p>不妨预处理出每个数 $a_j$ 在 $i$ 相同时前 $i$ 位所对应的数，记为 $b_j$ 。</p>
-<p>如果 $b_x+b_y$ 的第 $i$ 位为 $1$​ ，则</p>
+<p>注意到 <span class="math inline">\(a_i \le 10^7\)</span>
+，因此二进制的位数 <span class="math inline">\(\in [0,
+25]\)</span>，于是依次考虑每一位的贡献。</p>
+<p>显然，如果我们要计算两个数的和的第 <span
+class="math inline">\(i\)</span> 位是否为 <span
+class="math inline">\(1\)</span> ，至少需要这两个数前 <span
+class="math inline">\(i\)</span> 位的信息</p>
+<p>不妨预处理出每个数 <span class="math inline">\(a_j\)</span> 在 <span
+class="math inline">\(i\)</span> 相同时前 <span
+class="math inline">\(i\)</span> 位所对应的数，记为 <span
+class="math inline">\(b_j\)</span> 。</p>
+<p>如果 <span class="math inline">\(b_x+b_y\)</span> 的第 <span
+class="math inline">\(i\)</span> 位为 <span
+class="math inline">\(1\)</span>​ ，则</p>
 <ul>
-<li>第 $i$ 位没有进位，则 $b_x + b_y \in [2^i,~2^{i+1}-1]$ 。</li>
-<li>第 $i$ 位进位了，但第 $i-1$ 位也进位了，则 $b_x + b_y \in [2^{i+1} + 2^i,~(2^{i+1}-1)\times 2]$ 。</li>
+<li>第 <span class="math inline">\(i\)</span> 位没有进位，则 <span
+class="math inline">\(b_x + b_y \in [2^i,~2^{i+1}-1]\)</span> 。</li>
+<li>第 <span class="math inline">\(i\)</span> 位进位了，但第 <span
+class="math inline">\(i-1\)</span> 位也进位了，则 <span
+class="math inline">\(b_x + b_y \in [2^{i+1} + 2^i,~(2^{i+1}-1)\times
+2]\)</span> 。</li>
 </ul>
 <p>那么知道这个范围有什么用处呢？</p>
-<p>通常我们要数有多少个数在区间 $[l,r]$ 内，我们可以用 $[1,r]$ 的答案减去 $[1,l)$ 的答案。</p>
-<p>于是，对于一个固定的 $b_x$ ，我们只需要找到有多少个 $b_y$ 满足 $b_x + b_y$ 小于等于某个数</p>
-<p>可以发现，当 $b$ 内的每个数都从小到大排序时，我们倒序枚举 $b_x$ ，那么 $b_y$​ 可以用一个指针来线性维护</p>
+<p>通常我们要数有多少个数在区间 <span
+class="math inline">\([l,r]\)</span> 内，我们可以用 <span
+class="math inline">\([1,r]\)</span> 的答案减去 <span
+class="math inline">\([1,l)\)</span> 的答案。</p>
+<p>于是，对于一个固定的 <span class="math inline">\(b_x\)</span>
+，我们只需要找到有多少个 <span class="math inline">\(b_y\)</span> 满足
+<span class="math inline">\(b_x + b_y\)</span> 小于等于某个数</p>
+<p>可以发现，当 <span class="math inline">\(b\)</span>
+内的每个数都从小到大排序时，我们倒序枚举 <span
+class="math inline">\(b_x\)</span> ，那么 <span
+class="math inline">\(b_y\)</span>​ 可以用一个指针来线性维护</p>
 <p>不过最后我们要的答案是他们的异或值，不是个数，这个显然可以通过数目的奇偶性判断。</p>
-<p>时间复杂度 $\mathcal{O}(n \log V)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+V)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -795,9 +831,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dn6gk2ge">https://www.luogu.com.cn/article/dn6gk2ge</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dn6gk2ge">https://www.luogu.com.cn/article/dn6gk2ge</a></p>
 
                 
             </div>
@@ -1277,7 +1314,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1545,6 +1582,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

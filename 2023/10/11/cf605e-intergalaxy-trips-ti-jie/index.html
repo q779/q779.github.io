@@ -709,7 +709,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    734
+                    1.4k
                 </div>
                 
 
@@ -729,43 +729,123 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF605E-Intergalaxy-Trips-题解"><a href="#CF605E-Intergalaxy-Trips-题解" class="headerlink" title="CF605E Intergalaxy Trips 题解"></a>CF605E Intergalaxy Trips 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF605E">CF605E Intergalaxy Trips</a></p>
+                <h1 id="cf605e-intergalaxy-trips-题解">CF605E Intergalaxy Trips
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF605E">CF605E
+Intergalaxy Trips</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $n$ 个点的有向完全图。</p>
-<p>$i \to j$ 的边每天出现的概率均为 $p_{i,j}$，若 $i = j$，有 $p_{i,j} = 1$。</p>
+<p>给定 <span class="math inline">\(n\)</span> 个点的有向完全图。</p>
+<p><span class="math inline">\(i \to j\)</span> 的边每天出现的概率均为
+<span class="math inline">\(p_{i,j}\)</span>，若 <span
+class="math inline">\(i = j\)</span>，有 <span
+class="math inline">\(p_{i,j} = 1\)</span>。</p>
 <p>每天可以选择一条存在的出边走过去或停留在原地不动。</p>
-<p>求最优策略下从 $1$ 到 $n$ 的期望天数，$n \le 10^3$。</p>
+<p>求最优策略下从 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span> 的期望天数，<span
+class="math inline">\(n \le 10^3\)</span>。</p>
 <p><strong>完整题意</strong>：</p>
-<p>最近，科学家们发现了虫洞 —— 宇宙中的一种物体，可以让你在星系和恒星系统之间旅行很长的距离。</p>
-<p>科学家们知道有 $n$ 个星系可以到达。你位于星系编号 $1$，你需要到达星系编号 $n$。从星系 $i$ 到星系 $j$，你需要乘坐虫洞 $(i,j)$，并在恰好一个星系日内，你将出现在星系 $j$。</p>
-<p>不幸的是，所需的虫洞并不总是可用的。每个星系日它们会随机消失和出现。然而，虫洞的状态在一个星系日内不会改变。从星系 $i$ 到星系 $j$ 的虫洞每天分别存在的概率为 $p_{ij}$。你可以随时了解当前存在哪些虫洞。在每个时刻，你可以选择通过现有虫洞之一前往另一个星系，或者你可以等待一个星系日，看看哪些虫洞将在第二天将你带到下一个位置。</p>
-<p>你的任务是找到从星系 $1$ 到星系 $n$ 旅行所需时间的期望值，如果你采取最佳方式行动。保证该期望值存在。</p>
+<p>最近，科学家们发现了虫洞 ——
+宇宙中的一种物体，可以让你在星系和恒星系统之间旅行很长的距离。</p>
+<p>科学家们知道有 <span class="math inline">\(n\)</span>
+个星系可以到达。你位于星系编号 <span
+class="math inline">\(1\)</span>，你需要到达星系编号 <span
+class="math inline">\(n\)</span>。从星系 <span
+class="math inline">\(i\)</span> 到星系 <span
+class="math inline">\(j\)</span>，你需要乘坐虫洞 <span
+class="math inline">\((i,j)\)</span>，并在恰好一个星系日内，你将出现在星系
+<span class="math inline">\(j\)</span>。</p>
+<p>不幸的是，所需的虫洞并不总是可用的。每个星系日它们会随机消失和出现。然而，虫洞的状态在一个星系日内不会改变。从星系
+<span class="math inline">\(i\)</span> 到星系 <span
+class="math inline">\(j\)</span> 的虫洞每天分别存在的概率为 <span
+class="math inline">\(p_{ij}\)</span>。你可以随时了解当前存在哪些虫洞。在每个时刻，你可以选择通过现有虫洞之一前往另一个星系，或者你可以等待一个星系日，看看哪些虫洞将在第二天将你带到下一个位置。</p>
+<p>你的任务是找到从星系 <span class="math inline">\(1\)</span> 到星系
+<span class="math inline">\(n\)</span>
+旅行所需时间的期望值，如果你采取最佳方式行动。保证该期望值存在。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含一个整数 $n$（$1 \leq n \leq 1000$）—— 可以到达的星系数量。</p>
-<p>然后是一个 $n$ 行 $n$ 列的矩阵。每个元素 $p_{ij}$ 代表从星系 $i$ 到星系 $j$ 存在虫洞的概率。所有概率以百分比表示，为整数。保证主对角线上的所有元素均为 $100$。</p>
+<p>输入的第一行包含一个整数 <span
+class="math inline">\(n\)</span>（<span class="math inline">\(1 \leq n
+\leq 1000\)</span>）—— 可以到达的星系数量。</p>
+<p>然后是一个 <span class="math inline">\(n\)</span> 行 <span
+class="math inline">\(n\)</span> 列的矩阵。每个元素 <span
+class="math inline">\(p_{ij}\)</span> 代表从星系 <span
+class="math inline">\(i\)</span> 到星系 <span
+class="math inline">\(j\)</span>
+存在虫洞的概率。所有概率以百分比表示，为整数。保证主对角线上的所有元素均为
+<span class="math inline">\(100\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个实数值 —— 如果采取最佳方式行动，从星系 $1$ 到星系 $n$ 旅行所需时间的期望值。你的答案将被视为正确，如果其绝对或相对误差不超过 $10^{-6}$。</p>
-<p>具体来说：假设你的答案是 $a$，而评审的答案是 $b$。检查程序将认为你的答案是正确的，如果 $\frac{|a-b|}{\max(1, b)} \leq 10^{-6}$。</p>
+<p>输出一个实数值 —— 如果采取最佳方式行动，从星系 <span
+class="math inline">\(1\)</span> 到星系 <span
+class="math inline">\(n\)</span>
+旅行所需时间的期望值。你的答案将被视为正确，如果其绝对或相对误差不超过
+<span class="math inline">\(10^{-6}\)</span>。</p>
+<p>具体来说：假设你的答案是 <span
+class="math inline">\(a\)</span>，而评审的答案是 <span
+class="math inline">\(b\)</span>。检查程序将认为你的答案是正确的，如果
+<span class="math inline">\(\frac{|a-b|}{\max(1, b)} \leq
+10^{-6}\)</span>。</p>
 </blockquote>
-<p>考虑设 $f_i$ 为 $i \to n$ 的期望耗时，那么显然我们不会跑到一个 $f_j &gt; f_i$ 的地方碰运气。</p>
-<p>因此我们只需要考虑比它更优的点。那么什么是更优的点呢？就是所有冒出来的边 $(i,j)$ 中 $f_j$ 最小的那个 $j$ </p>
-<p>考虑用转移方程的形式描述这个过程：</p>
-<script type="math/tex; mode=display">
-f_i=\sum_j^{f_j<f_i} p_{i, j} f_j \prod_k^{f_k<f_j}\left(1-p_{i, k}\right)+f_i \prod_j^{f_j<f_i}\left(1-p_{i, j}\right)+1</script><p>第一部分枚举 $j$ ， $j$ 的限制就是没有 $k(k\ne j)$ 满足 $f_k &lt; i$ 且 $(i,k)$ 存在。</p>
-<p>第二部分就是实在找不出这么个 $j$ 能走了，那就在原地绕一圈。第三部分的 $1$ 很好理解吧。</p>
-<p>则移项可得</p>
-<script type="math/tex; mode=display">
-f_i=\frac{\sum_j^{f_j<f_i} p_{i, j} f_j \prod_k^{f_k<f_j}\left(1-p_{i, k}\right)+1}{1-\prod_j^{f_j<f_i}\left(1-p_{i, j}\right)}</script><p>这个方程直接枚举看上去没法优化，因此我们不妨观察一下有什么特殊性质。</p>
-<p>首先容易发现每次更新 $i$ 的 $j$ ，显然在每次更新后是单调不增的，并且 $f_i$ 一定大于 $f_j$ 。</p>
-<p>那么如果我们找到一个最小的 $f_x$ 作为 $f_j$ ，然后去更新其他的 $f_i$ ，是不是就可以了呢？</p>
-<p>这个过程有点像 Dijkstra ，每次找出最小的 $u$ ，去尝试更新所有相邻的 $v$ 。</p>
-<p>不妨记 $g_i$ 为分数线上面一坨， $h_i = \prod_j^{f_j&lt;f_i}\left(1-p_{i, j}\right)$ ，即 $f_i = \dfrac{g_i}{1 - h_i}$ 。</p>
-<p>具体地，我们将 $f_i,g_i,h_i(i&lt;n)$ 初始都设为 $1$ ，并把 $n$ 作为初始的 $j$ ，</p>
-<p>然后每轮都枚举未被作为 $j$ 过的 $i$ ，通过新考虑 $(i,j)$ 的贡献（注意是有向完全图，所以不是 $(j,i)$ ）</p>
-<p>如果按 $g_i,h_i,f_i$ 依次更新的话，那么在 $h_i$ 被 $j$ 更新之前， 可以通过 $g_i\gets g_i  + p_{i,j}f_jh_i$ 以达到目的。</p>
-<p>因为这时的 $h_i$ 就等于 $\prod_k^{f_k&lt;f_j}\left(1-p_{i, k}\right)$ ，换句话说，截止到 $j$ ，其他所有已经考虑过的点 $k$ 都有 $f_k &lt; f_j$</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$ ，<strong>注意不要用 cin 读 double 型数据，否则会 TLE</strong> </p>
+<p>考虑设 <span class="math inline">\(f_i\)</span> 为 <span
+class="math inline">\(i \to n\)</span>
+的期望耗时，那么显然我们不会跑到一个 <span class="math inline">\(f_j
+&gt; f_i\)</span> 的地方碰运气。</p>
+<p>因此我们只需要考虑比它更优的点。那么什么是更优的点呢？就是所有冒出来的边
+<span class="math inline">\((i,j)\)</span> 中 <span
+class="math inline">\(f_j\)</span> 最小的那个 <span
+class="math inline">\(j\)</span></p>
+<p>考虑用转移方程的形式描述这个过程： <span class="math display">\[
+f_i=\sum_j^{f_j&lt;f_i} p_{i, j} f_j \prod_k^{f_k&lt;f_j}\left(1-p_{i,
+k}\right)+f_i \prod_j^{f_j&lt;f_i}\left(1-p_{i, j}\right)+1
+\]</span> 第一部分枚举 <span class="math inline">\(j\)</span> ， <span
+class="math inline">\(j\)</span> 的限制就是没有 <span
+class="math inline">\(k(k\ne j)\)</span> 满足 <span
+class="math inline">\(f_k &lt; i\)</span> 且 <span
+class="math inline">\((i,k)\)</span> 存在。</p>
+<p>第二部分就是实在找不出这么个 <span class="math inline">\(j\)</span>
+能走了，那就在原地绕一圈。第三部分的 <span
+class="math inline">\(1\)</span> 很好理解吧。</p>
+<p>则移项可得 <span class="math display">\[
+f_i=\frac{\sum_j^{f_j&lt;f_i} p_{i, j} f_j
+\prod_k^{f_k&lt;f_j}\left(1-p_{i,
+k}\right)+1}{1-\prod_j^{f_j&lt;f_i}\left(1-p_{i, j}\right)}
+\]</span>
+这个方程直接枚举看上去没法优化，因此我们不妨观察一下有什么特殊性质。</p>
+<p>首先容易发现每次更新 <span class="math inline">\(i\)</span> 的 <span
+class="math inline">\(j\)</span> ，显然在每次更新后是单调不增的，并且
+<span class="math inline">\(f_i\)</span> 一定大于 <span
+class="math inline">\(f_j\)</span> 。</p>
+<p>那么如果我们找到一个最小的 <span class="math inline">\(f_x\)</span>
+作为 <span class="math inline">\(f_j\)</span> ，然后去更新其他的 <span
+class="math inline">\(f_i\)</span> ，是不是就可以了呢？</p>
+<p>这个过程有点像 Dijkstra ，每次找出最小的 <span
+class="math inline">\(u\)</span> ，去尝试更新所有相邻的 <span
+class="math inline">\(v\)</span> 。</p>
+<p>不妨记 <span class="math inline">\(g_i\)</span> 为分数线上面一坨，
+<span class="math inline">\(h_i = \prod_j^{f_j&lt;f_i}\left(1-p_{i,
+j}\right)\)</span> ，即 <span class="math inline">\(f_i = \dfrac{g_i}{1
+- h_i}\)</span> 。</p>
+<p>具体地，我们将 <span
+class="math inline">\(f_i,g_i,h_i(i&lt;n)\)</span> 初始都设为 <span
+class="math inline">\(1\)</span> ，并把 <span
+class="math inline">\(n\)</span> 作为初始的 <span
+class="math inline">\(j\)</span> ，</p>
+<p>然后每轮都枚举未被作为 <span class="math inline">\(j\)</span> 过的
+<span class="math inline">\(i\)</span> ，通过新考虑 <span
+class="math inline">\((i,j)\)</span> 的贡献（注意是有向完全图，所以不是
+<span class="math inline">\((j,i)\)</span> ）</p>
+<p>如果按 <span class="math inline">\(g_i,h_i,f_i\)</span>
+依次更新的话，那么在 <span class="math inline">\(h_i\)</span> 被 <span
+class="math inline">\(j\)</span> 更新之前， 可以通过 <span
+class="math inline">\(g_i\gets g_i + p_{i,j}f_jh_i\)</span>
+以达到目的。</p>
+<p>因为这时的 <span class="math inline">\(h_i\)</span> 就等于 <span
+class="math inline">\(\prod_k^{f_k&lt;f_j}\left(1-p_{i,
+k}\right)\)</span> ，换句话说，截止到 <span
+class="math inline">\(j\)</span> ，其他所有已经考虑过的点 <span
+class="math inline">\(k\)</span> 都有 <span class="math inline">\(f_k
+&lt; f_j\)</span></p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
+，<strong>注意不要用 cin 读 double 型数据，否则会 TLE</strong></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -810,9 +890,10 @@ f_i=\frac{\sum_j^{f_j<f_i} p_{i, j} f_j \prod_k^{f_k<f_j}\left(1-p_{i, k}\right)
     <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SDNetFriend/solution-cf605e">https://www.luogu.com.cn/blog/SDNetFriend/solution-cf605e</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/SDNetFriend/solution-cf605e">https://www.luogu.com.cn/blog/SDNetFriend/solution-cf605e</a></p>
 
                 
             </div>
@@ -1272,7 +1353,7 @@ f_i=\frac{\sum_j^{f_j<f_i} p_{i, j} f_j \prod_k^{f_k<f_j}\left(1-p_{i, k}\right)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1540,6 +1621,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

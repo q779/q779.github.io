@@ -670,12 +670,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -733,48 +733,105 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P9869-NOIP2023-三值逻辑-题解"><a href="#洛谷P9869-NOIP2023-三值逻辑-题解" class="headerlink" title="洛谷P9869 [NOIP2023] 三值逻辑 题解"></a>洛谷P9869 [NOIP2023] 三值逻辑 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9869">P9869 [NOIP2023] 三值逻辑</a></p>
+                <h1 id="洛谷p9869-noip2023-三值逻辑-题解">洛谷P9869 [NOIP2023] 三值逻辑
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9869">P9869
+[NOIP2023] 三值逻辑</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小 L 今天学习了 Kleene 三值逻辑。</p>
-<p>在三值逻辑中，一个变量的值可能为：真（$\mathtt{True}$，简写作 $\mathtt{T}$）、假（$\mathtt{False}$，简写作 $\mathtt{F}$）或未确定（$\mathtt{Unknown}$，简写作 $\mathtt{U}$）。</p>
-<p>在三值逻辑上也可以定义逻辑运算。由于小 L 学习进度很慢，只掌握了逻辑非运算 $\lnot$，其运算法则为：</p>
-<script type="math/tex; mode=display">
-\lnot \mathtt{T} = \mathtt{F}, \lnot \mathtt{F} = \mathtt{T}, \lnot\mathtt{U} = \mathtt{U}</script><p>现在小 L 有 $n$ 个三值逻辑变量 $x_1,\cdots, x_n$。小 L 想进行一些有趣的尝试，于是他写下了 $m$ 条语句。语句有以下三种类型，其中 $\gets$ 表示赋值：</p>
-<ol>
-<li>$x_i \gets v$，其中 $v$ 为 $\mathtt{T}, \mathtt{F}, \mathtt{U}$ 的一种；</li>
-<li>$x_i \gets x_j$；</li>
-<li>$x_i \gets \lnot x_j$。</li>
+<p>在三值逻辑中，一个变量的值可能为：真（<span
+class="math inline">\(\mathtt{True}\)</span>，简写作 <span
+class="math inline">\(\mathtt{T}\)</span>）、假（<span
+class="math inline">\(\mathtt{False}\)</span>，简写作 <span
+class="math inline">\(\mathtt{F}\)</span>）或未确定（<span
+class="math inline">\(\mathtt{Unknown}\)</span>，简写作 <span
+class="math inline">\(\mathtt{U}\)</span>）。</p>
+<p>在三值逻辑上也可以定义逻辑运算。由于小 L
+学习进度很慢，只掌握了逻辑非运算 <span
+class="math inline">\(\lnot\)</span>，其运算法则为： <span
+class="math display">\[
+\lnot \mathtt{T} = \mathtt{F}, \lnot \mathtt{F} = \mathtt{T},
+\lnot\mathtt{U} = \mathtt{U}
+\]</span></p>
+<p>现在小 L 有 <span class="math inline">\(n\)</span> 个三值逻辑变量
+<span class="math inline">\(x_1,\cdots, x_n\)</span>。小 L
+想进行一些有趣的尝试，于是他写下了 <span
+class="math inline">\(m\)</span> 条语句。语句有以下三种类型，其中 <span
+class="math inline">\(\gets\)</span> 表示赋值：</p>
+<ol type="1">
+<li><span class="math inline">\(x_i \gets v\)</span>，其中 <span
+class="math inline">\(v\)</span> 为 <span
+class="math inline">\(\mathtt{T}, \mathtt{F}, \mathtt{U}\)</span>
+的一种；</li>
+<li><span class="math inline">\(x_i \gets x_j\)</span>；</li>
+<li><span class="math inline">\(x_i \gets \lnot x_j\)</span>。</li>
 </ol>
-<p>一开始，小 L 会给这些变量赋初值，然后按顺序运行这 $m$ 条语句。</p>
-<p>小 L 希望执行了所有语句后，所有变量的最终值与初值都相等。在此前提下，小 L 希望初值中 $\mathtt{Unknown}$ 的变量尽可能少。</p>
-<p>在本题中，你需要帮助小 L 找到 $\mathtt{Unknown}$ 变量个数最少的赋初值方案，使得执行了所有语句后所有变量的最终值和初始值相等。小 L 保证，至少对于本题的所有测试用例，这样的赋初值方案都必然是存在的。</p>
+<p>一开始，小 L 会给这些变量赋初值，然后按顺序运行这 <span
+class="math inline">\(m\)</span> 条语句。</p>
+<p>小 L
+希望执行了所有语句后，所有变量的最终值与初值都相等。在此前提下，小 L
+希望初值中 <span class="math inline">\(\mathtt{Unknown}\)</span>
+的变量尽可能少。</p>
+<p>在本题中，你需要帮助小 L 找到 <span
+class="math inline">\(\mathtt{Unknown}\)</span>
+变量个数最少的赋初值方案，使得执行了所有语句后所有变量的最终值和初始值相等。小
+L 保证，至少对于本题的所有测试用例，这样的赋初值方案都必然是存在的。</p>
 <p><strong>输入格式</strong>:</p>
 <p>本题的测试点包含有多组测试数据。</p>
-<p>输入的第一行包含两个整数 $c$ 和 $t$，分别表示测试点编号和测试数据组数。对于样例，$c$ 表示该样例与测试点 $c$ 拥有相同的限制条件。</p>
+<p>输入的第一行包含两个整数 <span class="math inline">\(c\)</span> 和
+<span
+class="math inline">\(t\)</span>，分别表示测试点编号和测试数据组数。对于样例，<span
+class="math inline">\(c\)</span> 表示该样例与测试点 <span
+class="math inline">\(c\)</span> 拥有相同的限制条件。</p>
 <p>接下来，对于每组测试数据：</p>
 <ul>
-<li>输入的第一行包含两个整数 $n$ 和 $m$，分别表示变量个数和语句条数。</li>
-<li>接下来 $m$ 行，按运行顺序给出每条语句。<ul>
-<li>输入的第一个字符 $v$ 描述这条语句的类型。保证 $v$ 为 <code>TFU+-</code> 的其中一种。</li>
-<li>若 $v$ 为 <code>TFU</code> 的某一种时，接下来给出一个整数 $i$，表示该语句为 $x_i \gets v$；</li>
-<li>若 $v$ 为 <code>+</code>，接下来给出两个整数 $i,j$，表示该语句为 $x_i \gets x_j$；</li>
-<li>若 $v$ 为 <code>-</code>，接下来给出两个整数 $i,j$，表示该语句为 $x_i \gets \lnot x_j$。</li>
-</ul>
-</li>
+<li>输入的第一行包含两个整数 <span class="math inline">\(n\)</span> 和
+<span
+class="math inline">\(m\)</span>，分别表示变量个数和语句条数。</li>
+<li>接下来 <span class="math inline">\(m\)</span>
+行，按运行顺序给出每条语句。
+<ul>
+<li>输入的第一个字符 <span class="math inline">\(v\)</span>
+描述这条语句的类型。保证 <span class="math inline">\(v\)</span> 为
+<code>TFU+-</code> 的其中一种。</li>
+<li>若 <span class="math inline">\(v\)</span> 为 <code>TFU</code>
+的某一种时，接下来给出一个整数 <span
+class="math inline">\(i\)</span>，表示该语句为 <span
+class="math inline">\(x_i \gets v\)</span>；</li>
+<li>若 <span class="math inline">\(v\)</span> 为
+<code>+</code>，接下来给出两个整数 <span
+class="math inline">\(i,j\)</span>，表示该语句为 <span
+class="math inline">\(x_i \gets x_j\)</span>；</li>
+<li>若 <span class="math inline">\(v\)</span> 为
+<code>-</code>，接下来给出两个整数 <span
+class="math inline">\(i,j\)</span>，表示该语句为 <span
+class="math inline">\(x_i \gets \lnot x_j\)</span>。</li>
+</ul></li>
 </ul>
 <p><strong>输出格式</strong>：</p>
-<p>对于每组测试数据输出一行一个整数，表示所有符合条件的赋初值方案中，$\mathtt{Unknown}$ 变量个数的最小值。</p>
+<p>对于每组测试数据输出一行一个整数，表示所有符合条件的赋初值方案中，<span
+class="math inline">\(\mathtt{Unknown}\)</span> 变量个数的最小值。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le t \le 6$，$1 \le n,m \le 10 ^ 5$ </p>
-<p>对于每个操作，$v$ 为 <code>TFU+-</code> 中的某个字符，$1 \le i,j \le n$ 。</p>
+<p><span class="math inline">\(1 \le t \le 6\)</span>，<span
+class="math inline">\(1 \le n,m \le 10 ^ 5\)</span></p>
+<p>对于每个操作，<span class="math inline">\(v\)</span> 为
+<code>TFU+-</code> 中的某个字符，<span class="math inline">\(1 \le i,j
+\le n\)</span> 。</p>
 </blockquote>
-<p>每个节点最终的值的来源一定是唯一的，因此不妨把 $\mathtt{T,F,U}$ 当作节点</p>
-<p>对于每条信息，我们只需要维护一个 <strong><i>fa</i></strong> 和一个 <strong><i>type</i></strong> ，分别表示值的来源和赋值类型（即 赋值 / 取反）。</p>
-<p>容易发现，给出的信息中，有一些信息会导致矛盾，也就是此时赋值 $\mathtt{T}$ 或 $\mathtt{F}$ 都不能满足题目要求</p>
+<p>每个节点最终的值的来源一定是唯一的，因此不妨把 <span
+class="math inline">\(\mathtt{T,F,U}\)</span> 当作节点</p>
+<p>对于每条信息，我们只需要维护一个 <strong><i>fa</i></strong> 和一个
+<strong><i>type</i></strong> ，分别表示值的来源和赋值类型（即 赋值 /
+取反）。</p>
+<p>容易发现，给出的信息中，有一些信息会导致矛盾，也就是此时赋值 <span
+class="math inline">\(\mathtt{T}\)</span> 或 <span
+class="math inline">\(\mathtt{F}\)</span> 都不能满足题目要求</p>
 <p>事实上，当一个环中出现的“取反边”数量为奇数时会产生矛盾，并且这与其中“赋值边”的数量无关</p>
-<p>最后不要忘记统计 $\mathtt{U}$ 的子节点构成的那些联通块。</p>
-<p>时间复杂度 $\mathcal{O}(n + m)$</p>
+<p>最后不要忘记统计 <span class="math inline">\(\mathtt{U}\)</span>
+的子节点构成的那些联通块。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n +
+m)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -850,9 +907,11 @@ vector<span class="token operator">&lt;</span>pii<span class="token operator">><
     <span class="token keyword">int</span> _<span class="token punctuation">,</span> Q<span class="token punctuation">;</span> cin <span class="token operator">>></span> _ <span class="token operator">>></span> Q<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>Q<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/August-Light/P9869-Solution">P9869 [NOIP2023] 三值逻辑 题解 - August_Light 的冰雪小屋 - 洛谷博客</a> </p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/August-Light/P9869-Solution">P9869
+[NOIP2023] 三值逻辑 题解 - August_Light 的冰雪小屋 - 洛谷博客</a></p>
 
                 
             </div>
@@ -921,12 +980,12 @@ vector<span class="token operator">&lt;</span>pii<span class="token operator">><
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -1157,12 +1216,12 @@ vector<span class="token operator">&lt;</span>pii<span class="token operator">><
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                     <a href="/tags/%E6%9E%84%E9%80%A0/">
@@ -1328,7 +1387,7 @@ vector<span class="token operator">&lt;</span>pii<span class="token operator">><
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1596,6 +1655,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

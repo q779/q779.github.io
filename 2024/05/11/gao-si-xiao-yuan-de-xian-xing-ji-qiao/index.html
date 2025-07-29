@@ -713,7 +713,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    449
+                    630
                 </div>
                 
 
@@ -733,59 +733,77 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="高斯消元的线性技巧"><a href="#高斯消元的线性技巧" class="headerlink" title="高斯消元的线性技巧"></a>高斯消元的线性技巧</h1><p>朴素的高斯消元是 $\mathcal{O}(n^3)$ 的，算法原理参考 <a href="/2022/10/05/qian-tan-gao-si-xiao-yuan/">浅谈高斯消元</a></p>
-<p>而在一些题目中，比如 <a href="/2024/05/10/luo-gu-p5516-mtoi2019-xiao-ling-de-fan-nao-ti-jie/">洛谷P5516 [MtOI2019] 小铃的烦恼</a> ，实际上我们有一种线性的技巧。</p>
-<hr>
-<p>设 $a_i,b_i,c_i$ 都是关于 $i$ 的函数或常数，$k$ 为常数，递推式（通常是概率或者期望的dp式子）</p>
-<script type="math/tex; mode=display">
-f_0=0,~f_n=k\\f_i = a_if_{i-1}+b_if_{i+1}+c_i (1\le i < n)</script><p>所对应的矩阵形如</p>
-<script type="math/tex; mode=display">
+                <h1 id="高斯消元的线性技巧">高斯消元的线性技巧</h1>
+<p>朴素的高斯消元是 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span> 的，算法原理参考 <a
+href="/2022/10/05/qian-tan-gao-si-xiao-yuan/">浅谈高斯消元</a></p>
+<p>而在一些题目中，比如 <a
+href="/2024/05/10/luo-gu-p5516-mtoi2019-xiao-ling-de-fan-nao-ti-jie/">洛谷P5516
+[MtOI2019] 小铃的烦恼</a> ，实际上我们有一种线性的技巧。</p>
+<hr />
+<p>设 <span class="math inline">\(a_i,b_i,c_i\)</span> 都是关于 <span
+class="math inline">\(i\)</span> 的函数或常数，<span
+class="math inline">\(k\)</span>
+为常数，递推式（通常是概率或者期望的dp式子） <span
+class="math display">\[
+f_0=0,~f_n=k\\f_i = a_if_{i-1}+b_if_{i+1}+c_i (1\le i &lt; n)
+\]</span> 所对应的矩阵形如 <span class="math display">\[
 \begin{bmatrix}
-1 & -a_1 & & & & & c_1\\[6pt]
--a_2 & 1 & -b_2 & & & & c_2\\[6pt]
- &  -a_3 & 1 & -b_3 & & & c_3\\[6pt]
- &  &  & \ddots && &\vdots\\[6pt]
- &  &  & -a_{n-1} & 1 & -b_{n-1} &c_{n-1}\\[6pt]
- &  &  &  && 1 & k
-\end{bmatrix}</script><p>方便起见，我们先把系数的负号去了</p>
-<script type="math/tex; mode=display">
+1 &amp; -a_1 &amp; &amp; &amp; &amp; &amp; c_1\\[6pt]
+-a_2 &amp; 1 &amp; -b_2 &amp; &amp; &amp; &amp; c_2\\[6pt]
+&amp;  -a_3 &amp; 1 &amp; -b_3 &amp; &amp; &amp; c_3\\[6pt]
+&amp;  &amp;  &amp; \ddots &amp;&amp; &amp;\vdots\\[6pt]
+&amp;  &amp;  &amp; -a_{n-1} &amp; 1 &amp; -b_{n-1} &amp;c_{n-1}\\[6pt]
+&amp;  &amp;  &amp;  &amp;&amp; 1 &amp; k
+\end{bmatrix}
+\]</span></p>
+<p>方便起见，我们先把系数的负号去了 <span class="math display">\[
 \begin{bmatrix}
-1 & x_1 & & & & & c_1\\[6pt]
-x_2 & 1 & x_3 & & & & c_2\\[6pt]
- &  x_4 & 1 & x_5 & & & c_3\\[6pt]
- &  &  & \ddots && &\vdots\\[6pt]
- &  &  & x_{2n-4} & 1 & x_{2n-3} &c_{n-1}\\[6pt]
- &  &  &  & x_{2n-2} & 1 & k
-\end{bmatrix}</script><p>用第一行消第二行的 $x_2$ </p>
-<script type="math/tex; mode=display">
+1 &amp; x_1 &amp; &amp; &amp; &amp; &amp; c_1\\[6pt]
+x_2 &amp; 1 &amp; x_3 &amp; &amp; &amp; &amp; c_2\\[6pt]
+&amp;  x_4 &amp; 1 &amp; x_5 &amp; &amp; &amp; c_3\\[6pt]
+&amp;  &amp;  &amp; \ddots &amp;&amp; &amp;\vdots\\[6pt]
+&amp;  &amp;  &amp; x_{2n-4} &amp; 1 &amp; x_{2n-3} &amp;c_{n-1}\\[6pt]
+&amp;  &amp;  &amp;  &amp; x_{2n-2} &amp; 1 &amp; k
+\end{bmatrix}
+\]</span> 用第一行消第二行的 <span class="math inline">\(x_2\)</span>
+<span class="math display">\[
 \begin{bmatrix}
-1 & x_1 & & & & & c_1\\[6pt]
- & 1 - x_1x_2 & x_3 & & & & c_2-x_2c_1\\[6pt]
- &  x_4 & 1 & x_5 & & & c_3\\[6pt]
- &  &  & \ddots && &\vdots\\[6pt]
- &  &  & x_{2n-4} & 1 & x_{2n-3} &c_{n-1}\\[6pt]
- &  &  &  & x_{2n-2} & 1 & k
-\end{bmatrix}</script><p>干脆把第二个系数也去掉</p>
-<script type="math/tex; mode=display">
+1 &amp; x_1 &amp; &amp; &amp; &amp; &amp; c_1\\[6pt]
+&amp; 1 - x_1x_2 &amp; x_3 &amp; &amp; &amp; &amp; c_2-x_2c_1\\[6pt]
+&amp;  x_4 &amp; 1 &amp; x_5 &amp; &amp; &amp; c_3\\[6pt]
+&amp;  &amp;  &amp; \ddots &amp;&amp; &amp;\vdots\\[6pt]
+&amp;  &amp;  &amp; x_{2n-4} &amp; 1 &amp; x_{2n-3} &amp;c_{n-1}\\[6pt]
+&amp;  &amp;  &amp;  &amp; x_{2n-2} &amp; 1 &amp; k
+\end{bmatrix}
+\]</span> 干脆把第二个系数也去掉 <span class="math display">\[
 \begin{bmatrix}
-1 & x_1 & & & & & c_1\\[6pt]
- & 1 & \frac{x_3}{1-x_1 x_2} & & & & \frac{c_2-x_2c_1}{1-x_1x_2}\\[6pt]
- &  x_4 & 1 & x_5 & & & c_3\\[6pt]
- &  &  & \ddots && &\vdots\\[6pt]
- &  &  & x_{2n-4} & 1 & x_{2n-3} &c_{n-1}\\[6pt]
- &  &  &  & x_{2n-2} & 1 & k
-\end{bmatrix}</script><p>以此类推，我们可以将整个矩阵转变成</p>
-<script type="math/tex; mode=display">
+1 &amp; x_1 &amp; &amp; &amp; &amp; &amp; c_1\\[6pt]
+&amp; 1 &amp; \frac{x_3}{1-x_1 x_2} &amp; &amp; &amp; &amp;
+\frac{c_2-x_2c_1}{1-x_1x_2}\\[6pt]
+&amp;  x_4 &amp; 1 &amp; x_5 &amp; &amp; &amp; c_3\\[6pt]
+&amp;  &amp;  &amp; \ddots &amp;&amp; &amp;\vdots\\[6pt]
+&amp;  &amp;  &amp; x_{2n-4} &amp; 1 &amp; x_{2n-3} &amp;c_{n-1}\\[6pt]
+&amp;  &amp;  &amp;  &amp; x_{2n-2} &amp; 1 &amp; k
+\end{bmatrix}
+\]</span> 以此类推，我们可以将整个矩阵转变成 <span
+class="math display">\[
 \begin{bmatrix}
-1 & k_1 & & & & & d_1\\[6pt]
- & 1 & k_2 & & & & d_2\\[6pt]
- &   & 1 & k_3 & & & d_3\\[6pt]
- &  &  & \ddots && &\vdots\\[6pt]
- &  &  &  & 1 & k_{n-1} &d_{n-1}\\[6pt]
- &  &  &  &  & 1 & k_n
-\end{bmatrix}</script><p>其中 $k_n$ 是 $\mathcal{O}(1)$ 可以算出的，根据之前的 $k$​​ 。</p>
-<p>那么高斯消元的过程就变简单了。我们只需要两个数组 $k_i$ 和 $d_i$ 。</p>
-<p>过程比朴素的高斯消元简单多了，只需要扫一遍，时间复杂度 $\mathcal{O}(n)$ 。</p>
+1 &amp; k_1 &amp; &amp; &amp; &amp; &amp; d_1\\[6pt]
+&amp; 1 &amp; k_2 &amp; &amp; &amp; &amp; d_2\\[6pt]
+&amp;   &amp; 1 &amp; k_3 &amp; &amp; &amp; d_3\\[6pt]
+&amp;  &amp;  &amp; \ddots &amp;&amp; &amp;\vdots\\[6pt]
+&amp;  &amp;  &amp;  &amp; 1 &amp; k_{n-1} &amp;d_{n-1}\\[6pt]
+&amp;  &amp;  &amp;  &amp;  &amp; 1 &amp; k_n
+\end{bmatrix}
+\]</span> 其中 <span class="math inline">\(k_n\)</span> 是 <span
+class="math inline">\(\mathcal{O}(1)\)</span> 可以算出的，根据之前的
+<span class="math inline">\(k\)</span>​​ 。</p>
+<p>那么高斯消元的过程就变简单了。我们只需要两个数组 <span
+class="math inline">\(k_i\)</span> 和 <span
+class="math inline">\(d_i\)</span> 。</p>
+<p>过程比朴素的高斯消元简单多了，只需要扫一遍，时间复杂度 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 。</p>
 <p>实现代码的话参考一开始给的题目链接即可。</p>
 
                 
@@ -1257,7 +1275,7 @@ x_2 & 1 & x_3 & & & & c_2\\[6pt]
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1525,6 +1543,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

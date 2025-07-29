@@ -729,33 +729,77 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AT-code-festival-2017-qualb-e-Popping-Balls-题解"><a href="#AT-code-festival-2017-qualb-e-Popping-Balls-题解" class="headerlink" title="AT_code_festival_2017_qualb_e Popping Balls 题解"></a>AT_code_festival_2017_qualb_e Popping Balls 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_code_festival_2017_qualb_e">Popping Balls</a></p>
+                <h1
+id="at_code_festival_2017_qualb_e-popping-balls-题解">AT_code_festival_2017_qualb_e
+Popping Balls 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_code_festival_2017_qualb_e">Popping
+Balls</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 $A+B$ 个球排成一行，其中左边 $A$ 个是红色的，右边 $B$ 个是蓝色的。</p>
-<p>你可以选定一对整数 $(s,t)~(1\le s&lt;t\le A + B)$，然后重复进行以下操作直到球被取完：</p>
-<p>将第一个球或第 $s$ 个球或第 $t$ 个球（当前球的数量必须够才能执行）拿出来。</p>
-<p>求最后拿出来的球的颜色序列有多少种不同方案数。答案对 $10^9+7$ 取模。</p>
+<p>有 <span class="math inline">\(A+B\)</span> 个球排成一行，其中左边
+<span class="math inline">\(A\)</span> 个是红色的，右边 <span
+class="math inline">\(B\)</span> 个是蓝色的。</p>
+<p>你可以选定一对整数 <span class="math inline">\((s,t)~(1\le s&lt;t\le
+A + B)\)</span>，然后重复进行以下操作直到球被取完：</p>
+<p>将第一个球或第 <span class="math inline">\(s\)</span> 个球或第 <span
+class="math inline">\(t\)</span>
+个球（当前球的数量必须够才能执行）拿出来。</p>
+<p>求最后拿出来的球的颜色序列有多少种不同方案数。答案对 <span
+class="math inline">\(10^9+7\)</span> 取模。</p>
 <p>方案不同当且仅当存在某一次取出的球的颜色不同。</p>
-<p>输入：$A,B$ 。输出：一行答案。数据范围：$A, B \leq 2000$。</p>
+<p>输入：<span class="math inline">\(A,B\)</span>
+。输出：一行答案。数据范围：<span class="math inline">\(A, B \leq
+2000\)</span>。</p>
 </blockquote>
 <p>非常有趣的计数题。</p>
-<p>注意到每次在 $1$ 处拿球时，$s,t$ 相当于向右移动一格；而从 $s$ 处拿球，$t$ 相当于向右一格。</p>
-<p>那么当 $s,t$ 均可用时，</p>
+<p>注意到每次在 <span class="math inline">\(1\)</span> 处拿球时，<span
+class="math inline">\(s,t\)</span> 相当于向右移动一格；而从 <span
+class="math inline">\(s\)</span> 处拿球，<span
+class="math inline">\(t\)</span> 相当于向右一格。</p>
+<p>那么当 <span class="math inline">\(s,t\)</span> 均可用时，</p>
 <ul>
-<li>若 $s$ 处是红球，那么从 $0$ 处拿球一定不劣于从 $s$ 处拿球。</li>
-<li>若 $s$ 处是蓝球，那么从 $t$ 处拿球一定不劣于从 $s$ 处拿球。</li>
+<li>若 <span class="math inline">\(s\)</span> 处是红球，那么从 <span
+class="math inline">\(0\)</span> 处拿球一定不劣于从 <span
+class="math inline">\(s\)</span> 处拿球。</li>
+<li>若 <span class="math inline">\(s\)</span> 处是蓝球，那么从 <span
+class="math inline">\(t\)</span> 处拿球一定不劣于从 <span
+class="math inline">\(s\)</span> 处拿球。</li>
 </ul>
-<p>因此只有 $t$ 不可用时才会从 $s$ 拿球。（以上的“不劣于”筛掉了很多重复且复杂的情况）</p>
-<p>考虑判断一个状态是否合法。当拿到第一个蓝球时，$t$ 放在蓝球的队首一定不劣。</p>
-<p>而之后的 $B$ 次拿球，每次都有两种合法选择，知道 $B$ 次拿完后 $t$ 失效。然后就到 $s$ 了，处理方式类似。</p>
-<p>因此考虑钦定从 $s,t$ 处拿走的第一个球均为蓝球，根据上面的推导这样是不重不漏的。</p>
-<p>枚举从 $t$ 处拿走了 $i~(1 \le i &lt; B)$ 个蓝球，从 $s$ 处拿走了 $j~(1\le j \le B - i)$ 个蓝球，</p>
-<p>那么从 $t$ 处拿球的过程中 $0$ 拿走了 $B-i$ 个红球，从 $s$ 处拿球的过程中 $0$ 拿走了 $B-i-j$ 个红球，</p>
-<p>还剩下 $A-2 B+2 i+j$ 个红球是从 $0$ 处直接拿的，要放在 $s$ 拿球过程后和 $t$ 拿球过程后这两段之间</p>
-<p>在加上 $i=B$ 即蓝球是一整段的 $A+1$ 种情况，那么总方案数为</p>
-<script type="math/tex; mode=display">
-\mathrm{Ans}=(A+1) + \sum_{i=1}^{B-1}\sum_{j=1}^{B-i}\binom{B-1}{i-1}\binom{B-i-1}{j-1}\binom{A-2B + 2i+j+2}{2}</script><p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>因此只有 <span class="math inline">\(t\)</span> 不可用时才会从 <span
+class="math inline">\(s\)</span>
+拿球。（以上的“不劣于”筛掉了很多重复且复杂的情况）</p>
+<p>考虑判断一个状态是否合法。当拿到第一个蓝球时，<span
+class="math inline">\(t\)</span> 放在蓝球的队首一定不劣。</p>
+<p>而之后的 <span class="math inline">\(B\)</span>
+次拿球，每次都有两种合法选择，知道 <span
+class="math inline">\(B\)</span> 次拿完后 <span
+class="math inline">\(t\)</span> 失效。然后就到 <span
+class="math inline">\(s\)</span> 了，处理方式类似。</p>
+<p>因此考虑钦定从 <span class="math inline">\(s,t\)</span>
+处拿走的第一个球均为蓝球，根据上面的推导这样是不重不漏的。</p>
+<p>枚举从 <span class="math inline">\(t\)</span> 处拿走了 <span
+class="math inline">\(i~(1 \le i &lt; B)\)</span> 个蓝球，从 <span
+class="math inline">\(s\)</span> 处拿走了 <span
+class="math inline">\(j~(1\le j \le B - i)\)</span> 个蓝球，</p>
+<p>那么从 <span class="math inline">\(t\)</span> 处拿球的过程中 <span
+class="math inline">\(0\)</span> 拿走了 <span
+class="math inline">\(B-i\)</span> 个红球，从 <span
+class="math inline">\(s\)</span> 处拿球的过程中 <span
+class="math inline">\(0\)</span> 拿走了 <span
+class="math inline">\(B-i-j\)</span> 个红球，</p>
+<p>还剩下 <span class="math inline">\(A-2 B+2 i+j\)</span> 个红球是从
+<span class="math inline">\(0\)</span> 处直接拿的，要放在 <span
+class="math inline">\(s\)</span> 拿球过程后和 <span
+class="math inline">\(t\)</span> 拿球过程后这两段之间</p>
+<p>在加上 <span class="math inline">\(i=B\)</span> 即蓝球是一整段的
+<span class="math inline">\(A+1\)</span> 种情况，那么总方案数为 <span
+class="math display">\[
+\mathrm{Ans}=(A+1) +
+\sum_{i=1}^{B-1}\sum_{j=1}^{B-i}\binom{B-1}{i-1}\binom{B-i-1}{j-1}\binom{A-2B
++ 2i+j+2}{2}
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -788,9 +832,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>res <span class="token operator">+</span> <span class="token punctuation">(</span>A <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7n2236go">https://www.luogu.com.cn/article/7n2236go</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7n2236go">https://www.luogu.com.cn/article/7n2236go</a></p>
 
                 
             </div>
@@ -1270,7 +1315,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1538,6 +1583,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

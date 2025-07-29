@@ -670,12 +670,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -737,26 +737,45 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF280C-Game-on-Tree-题解"><a href="#CF280C-Game-on-Tree-题解" class="headerlink" title="CF280C Game on Tree 题解"></a>CF280C Game on Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF280C">Game on Tree</a></p>
+                <h1 id="cf280c-game-on-tree-题解">CF280C Game on Tree 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF280C">Game on
+Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵有根树，结点编号从 $1$ 到 $n$。根结点为 $1$ 号结点。</p>
-<p>对于每一次操作，等概率的选择一个<strong>尚未被删去</strong>的结点并将它及其子树全部删去。当所有结点被删除之后，游戏结束；也就是说，删除 $1$ 号结点后游戏即结束。</p>
+<p>给定一棵有根树，结点编号从 <span class="math inline">\(1\)</span> 到
+<span class="math inline">\(n\)</span>。根结点为 <span
+class="math inline">\(1\)</span> 号结点。</p>
+<p>对于每一次操作，等概率的选择一个<strong>尚未被删去</strong>的结点并将它及其子树全部删去。当所有结点被删除之后，游戏结束；也就是说，删除
+<span class="math inline">\(1\)</span> 号结点后游戏即结束。</p>
 <p>要求求出删除所有结点的期望操作次数。</p>
 <p><strong>输入格式</strong></p>
-<p>第一行，一个正整数 $n(1 \le n \le 10^5)$ 表示结点数量。</p>
-<p>接下来 $n-1$ 行每行两个数，表示树上的一条连接 $a_i$ 与 $b_i$ 的边 $(a_i,b_i)$</p>
+<p>第一行，一个正整数 <span class="math inline">\(n(1 \le n \le
+10^5)\)</span> 表示结点数量。</p>
+<p>接下来 <span class="math inline">\(n-1\)</span>
+行每行两个数，表示树上的一条连接 <span
+class="math inline">\(a_i\)</span> 与 <span
+class="math inline">\(b_i\)</span> 的边 <span
+class="math inline">\((a_i,b_i)\)</span></p>
 <p>保证给定的数据是一棵树。</p>
 <p><strong>输出格式</strong></p>
-<p>输出一个实数，表示期望操作次数。答案误差在 $10^{-6}$ 之内则认为正确。</p>
+<p>输出一个实数，表示期望操作次数。答案误差在 <span
+class="math inline">\(10^{-6}\)</span> 之内则认为正确。</p>
 </blockquote>
-<p>显然，<strong>当且仅当</strong>一个节点比它的所有的祖先都要优先删除时，它会对操作次数产生 $1$ 的贡献</p>
+<p>显然，<strong>当且仅当</strong>一个节点比它的所有的祖先都要优先删除时，它会对操作次数产生
+<span class="math inline">\(1\)</span> 的贡献</p>
 <p>于是我们可以单独考虑每个点对答案的期望贡献。</p>
-<p>设 $f_i$ 为点 $i$ 直接选中时对答案的期望贡献，则</p>
-<script type="math/tex; mode=display">
-f_i = \frac{1}{p} \times 0 + p \times 1</script><p>其中 $p$ 为 $i$ 在它祖先之前的概率，显然 $p = \frac{1}{\mathtt{dep}(u)}$ ，其中 $\mathtt{dep}$ 表示深度，$\mathtt{dep}(1)=1$ 。</p>
-<p>那么答案就是 $\sum_i f_i = \sum_i \frac{1}{\mathtt{dep}(i)}$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>设 <span class="math inline">\(f_i\)</span> 为点 <span
+class="math inline">\(i\)</span> 直接选中时对答案的期望贡献，则 <span
+class="math display">\[
+f_i = \frac{1}{p} \times 0 + p \times 1
+\]</span> 其中 <span class="math inline">\(p\)</span> 为 <span
+class="math inline">\(i\)</span> 在它祖先之前的概率，显然 <span
+class="math inline">\(p = \frac{1}{\mathtt{dep}(u)}\)</span> ，其中
+<span class="math inline">\(\mathtt{dep}\)</span> 表示深度，<span
+class="math inline">\(\mathtt{dep}(1)=1\)</span> 。</p>
+<p>那么答案就是 <span class="math inline">\(\sum_i f_i = \sum_i
+\frac{1}{\mathtt{dep}(i)}\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -786,10 +805,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span>  ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/b9zdkpf1">https://www.luogu.com.cn/article/b9zdkpf1</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/b9zdkpf1">https://www.luogu.com.cn/article/b9zdkpf1</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>还是那句话，正难则反。</p>
 <p>本题不是很好找到从子树转移的方程，因此可以考虑每个节点为怎么对它的祖先产生贡献。</p>
@@ -861,12 +881,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -1265,7 +1285,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1533,6 +1553,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

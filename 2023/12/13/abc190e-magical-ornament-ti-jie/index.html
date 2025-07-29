@@ -733,22 +733,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ABC190E-Magical-Ornament-题解"><a href="#ABC190E-Magical-Ornament-题解" class="headerlink" title="[ABC190E] Magical Ornament 题解"></a>[ABC190E] Magical Ornament 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc190_e">[ABC190E] Magical Ornament</a></p>
+                <h1 id="abc190e-magical-ornament-题解">[ABC190E] Magical Ornament
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc190_e">[ABC190E] Magical
+Ornament</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>AtCoder 王国流通着 $N$ 种魔法石，编号为 $1,2,\dots,N$。高桥想要把魔法石排成一列做成装饰品。</p>
-<p>有的魔法石能够相邻放在一起，有的魔法石却不行。有 $M$ 组魔法石是可以相邻的，分别是 $($魔法石 $A_1,$ 魔法石 $B_1),\ ($ 魔法石 $A_2,$ 魔法石 $B_2),\ \dots,\ ($ 魔法石 $A_M,$ 魔法石 $B_M)$。除此之外的任何两个魔法石都不能相邻摆放。（可以相邻的魔法石摆放前后顺序不限。）</p>
-<p>请判断是否存在这样一种排列方式，使得其中包含 $C_1,C_2,\dots,C_K$ 中的每一种魔法石。如果存在，求形成这样一个序列所需的最小宝石数量。如果不存在，输出 <code>-1</code>。</p>
-<p>$1 \le N,M \le 10^5,1\le K\le 17,1\le C_i &lt; C_{i+1} \le N$</p>
+<p>AtCoder 王国流通着 <span class="math inline">\(N\)</span>
+种魔法石，编号为 <span
+class="math inline">\(1,2,\dots,N\)</span>。高桥想要把魔法石排成一列做成装饰品。</p>
+<p>有的魔法石能够相邻放在一起，有的魔法石却不行。有 <span
+class="math inline">\(M\)</span> 组魔法石是可以相邻的，分别是 <span
+class="math inline">\((\)</span>魔法石 <span
+class="math inline">\(A_1,\)</span> 魔法石 <span
+class="math inline">\(B_1),\ (\)</span> 魔法石 <span
+class="math inline">\(A_2,\)</span> 魔法石 <span
+class="math inline">\(B_2),\ \dots,\ (\)</span> 魔法石 <span
+class="math inline">\(A_M,\)</span> 魔法石 <span
+class="math inline">\(B_M)\)</span>。除此之外的任何两个魔法石都不能相邻摆放。（可以相邻的魔法石摆放前后顺序不限。）</p>
+<p>请判断是否存在这样一种排列方式，使得其中包含 <span
+class="math inline">\(C_1,C_2,\dots,C_K\)</span>
+中的每一种魔法石。如果存在，求形成这样一个序列所需的最小宝石数量。如果不存在，输出
+<code>-1</code>。</p>
+<p><span class="math inline">\(1 \le N,M \le 10^5,1\le K\le 17,1\le C_i
+&lt; C_{i+1} \le N\)</span></p>
 </blockquote>
-<p>把 $m$ 组条件看作 $A_i$ 向 $B_i$ 的一条双向边，则题目需要我们找到一条最短路径，</p>
-<p>使得 $C_1$ 到 $C_k$ 的每一个点都包含在路径中，显然这条路径很不一定是简单路径。</p>
-<p>又因为 $k$ 的范围很小，那么我们不妨考虑状压dp。</p>
-<p>记 $f_{i,S}$ 表示以 $C_i$ 为结尾且状态为 $S$ 时的最短路径，其中 $S$ 表示包含了哪些 $C$ 在这条路径上，则</p>
-<script type="math/tex; mode=display">
-f_{i,S} \downarrow \min_{j \in S}\left\{f_{j,S\setminus\{j\}} + d(i, C_j)\right\}</script><p>其中 $\downarrow$ 表示 <code>a=min(a,b)</code> ，$d$ 表示图上两点的最短路径长度的函数。</p>
-<p>这里 $d$ 因为我们只需要 $C$ 和其他点的距离，因此我们只需要 $\mathcal{O}(nk)$ 扫一下就好了</p>
-<p>时间复杂度 $\mathcal{O}(nk + k^22^k)$</p>
+<p>把 <span class="math inline">\(m\)</span> 组条件看作 <span
+class="math inline">\(A_i\)</span> 向 <span
+class="math inline">\(B_i\)</span>
+的一条双向边，则题目需要我们找到一条最短路径，</p>
+<p>使得 <span class="math inline">\(C_1\)</span> 到 <span
+class="math inline">\(C_k\)</span>
+的每一个点都包含在路径中，显然这条路径很不一定是简单路径。</p>
+<p>又因为 <span class="math inline">\(k\)</span>
+的范围很小，那么我们不妨考虑状压dp。</p>
+<p>记 <span class="math inline">\(f_{i,S}\)</span> 表示以 <span
+class="math inline">\(C_i\)</span> 为结尾且状态为 <span
+class="math inline">\(S\)</span> 时的最短路径，其中 <span
+class="math inline">\(S\)</span> 表示包含了哪些 <span
+class="math inline">\(C\)</span> 在这条路径上，则 <span
+class="math display">\[
+f_{i,S} \downarrow \min_{j \in S}\left\{f_{j,S\setminus\{j\}} + d(i,
+C_j)\right\}
+\]</span> 其中 <span class="math inline">\(\downarrow\)</span> 表示
+<code>a=min(a,b)</code> ，<span class="math inline">\(d\)</span>
+表示图上两点的最短路径长度的函数。</p>
+<p>这里 <span class="math inline">\(d\)</span> 因为我们只需要 <span
+class="math inline">\(C\)</span> 和其他点的距离，因此我们只需要 <span
+class="math inline">\(\mathcal{O}(nk)\)</span> 扫一下就好了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nk +
+k^22^k)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -808,9 +843,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1]  <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Jia-ye/solution-at-abc190-e">[ABC190E] Magical Ornament 题解 - Jia_ye 的学习笔记 - 洛谷博客</a> </p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Jia-ye/solution-at-abc190-e">[ABC190E]
+Magical Ornament 题解 - Jia_ye 的学习笔记 - 洛谷博客</a></p>
 
                 
             </div>
@@ -1286,7 +1323,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1554,6 +1591,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

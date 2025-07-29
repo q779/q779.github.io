@@ -670,12 +670,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -733,28 +733,51 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5043-【模板】树同构（-BJOI2015-树的同构）-题解"><a href="#洛谷P5043-【模板】树同构（-BJOI2015-树的同构）-题解" class="headerlink" title="洛谷P5043 【模板】树同构（[BJOI2015]树的同构） 题解"></a>洛谷P5043 【模板】树同构（[BJOI2015]树的同构） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5043">P5043 【模板】树同构（[BJOI2015]树的同构）</a></p>
+                <h1 id="洛谷p5043-模板树同构bjoi2015树的同构-题解">洛谷P5043
+【模板】树同构（[BJOI2015]树的同构） 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5043">P5043
+【模板】树同构（[BJOI2015]树的同构）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>树是一种很常见的数据结构。</p>
-<p>我们把 $N$ 个点，$N-1$ 条边的连通无向图称为树。</p>
+<p>我们把 <span class="math inline">\(N\)</span> 个点，<span
+class="math inline">\(N-1\)</span> 条边的连通无向图称为树。</p>
 <p>若将某个点作为根，从根开始遍历，则其它的点都有一个前驱，这个树就成为有根树。</p>
-<p>对于两个树 $T_1$ 和 $T_2$，如果能够把树 $T_1$ 的所有点重新标号，使得树 $T_1$ 和树 $T_2$ 完全相同，那么这两个树是同构的。也就是说，它们具有相同的形态。</p>
-<p>现在，给你 $M$ 个无根树，请你把它们按同构关系分成若干个等价类。</p>
+<p>对于两个树 <span class="math inline">\(T_1\)</span> 和 <span
+class="math inline">\(T_2\)</span>，如果能够把树 <span
+class="math inline">\(T_1\)</span> 的所有点重新标号，使得树 <span
+class="math inline">\(T_1\)</span> 和树 <span
+class="math inline">\(T_2\)</span>
+完全相同，那么这两个树是同构的。也就是说，它们具有相同的形态。</p>
+<p>现在，给你 <span class="math inline">\(M\)</span>
+个无根树，请你把它们按同构关系分成若干个等价类。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个整数 $M$。</p>
-<p>接下来 $M$ 行，每行包含若干个整数，表示一个树。第一个整数 $N$表示点数。接下来 $N$ 个整数，依次表示编号为 $1$ 到 $N$ 的每个点的父亲结点的编号。根节点父亲结点编号为 $0$。</p>
+<p>第一行，一个整数 <span class="math inline">\(M\)</span>。</p>
+<p>接下来 <span class="math inline">\(M\)</span>
+行，每行包含若干个整数，表示一个树。第一个整数 <span
+class="math inline">\(N\)</span>表示点数。接下来 <span
+class="math inline">\(N\)</span> 个整数，依次表示编号为 <span
+class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span>
+的每个点的父亲结点的编号。根节点父亲结点编号为 <span
+class="math inline">\(0\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $M$ 行，每行一个整数，表示与每个树同构的树的最小编号。</p>
+<p>输出 <span class="math inline">\(M\)</span>
+行，每行一个整数，表示与每个树同构的树的最小编号。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\leq N,M\leq 50$。</p>
+<p><span class="math inline">\(1\leq N,M\leq 50\)</span>。</p>
 </blockquote>
-<p>考虑多项式哈希，记录 dfs 序。哈希值计算方式如下：</p>
-<script type="math/tex; mode=display">
-\mathrm{hash}(u)= \mathrm{dep}(u)\cdot G^1  + \left(\mathrm{hash}(v_1)\cdot G^{1} + \mathrm{hash}(v_2)\cdot G^{1 + \mathrm{size}(v_1)} + \cdots\right)\quad\bmod P</script><p>如果是有根树，且儿子有先后遍历顺序，那么这样哈希就是对的（为什么对我也不知道）。</p>
+<p>考虑多项式哈希，记录 dfs 序。哈希值计算方式如下： <span
+class="math display">\[
+\mathrm{hash}(u)= \mathrm{dep}(u)\cdot G^1  +
+\left(\mathrm{hash}(v_1)\cdot G^{1} + \mathrm{hash}(v_2)\cdot G^{1 +
+\mathrm{size}(v_1)} + \cdots\right)\quad\bmod P
+\]</span>
+如果是有根树，且儿子有先后遍历顺序，那么这样哈希就是对的（为什么对我也不知道）。</p>
 <p>如果子节点没有先后顺序，那就按照哈希值为第一关键字、子节点的子树大小为第二关键字排序后遍历。</p>
 <p>不过题目是无根树，只需要找到重心把它当作根就好了。如果有两个重心，就比较两个哈希值。</p>
-<p>时间复杂度 $\mathcal{O}(mn \log n)$ ，复杂度瓶颈是对哈希值排序。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(mn \log
+n)\)</span> ，复杂度瓶颈是对哈希值排序。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -822,9 +845,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <span class="token keyword">if</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> f<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> j <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6xo0ugq7">https://www.luogu.com.cn/article/6xo0ugq7</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6xo0ugq7">https://www.luogu.com.cn/article/6xo0ugq7</a></p>
 
                 
             </div>
@@ -893,12 +917,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -1301,7 +1325,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1569,6 +1593,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

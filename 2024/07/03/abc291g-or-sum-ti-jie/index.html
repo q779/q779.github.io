@@ -713,7 +713,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    893
+                    897
                 </div>
                 
 
@@ -733,36 +733,65 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ABC291G-OR-Sum-题解"><a href="#ABC291G-OR-Sum-题解" class="headerlink" title="[ABC291G] OR Sum 题解"></a>[ABC291G] OR Sum 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc291_g">[ABC291G] OR Sum</a></p>
+                <h1 id="abc291g-or-sum-题解">[ABC291G] OR Sum 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc291_g">[ABC291G] OR
+Sum</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长为 $n$ 的序列 $A_i,B_i$ 。</p>
-<p>你可以对 $A$ 进行若干次循环移位操作，即</p>
+<p>给定两个长为 <span class="math inline">\(n\)</span> 的序列 <span
+class="math inline">\(A_i,B_i\)</span> 。</p>
+<p>你可以对 <span class="math inline">\(A\)</span>
+进行若干次循环移位操作，即</p>
 <ul>
-<li>对于任意 $i~(0 \le i &lt; n)$ ，令 $A’_i \gets A_{(i + 1) \bmod n}$ 。</li>
-<li>然后令 $A \gets A’$ ，这相当于让 $A$ 整体向左循环移位了一次。</li>
+<li>对于任意 <span class="math inline">\(i~(0 \le i &lt; n)\)</span>
+，令 <span class="math inline">\(A&#39;_i \gets A_{(i + 1) \bmod
+n}\)</span> 。</li>
+<li>然后令 <span class="math inline">\(A \gets A&#39;\)</span>
+，这相当于让 <span class="math inline">\(A\)</span>
+整体向左循环移位了一次。</li>
 </ul>
-<p>请求出</p>
-<script type="math/tex; mode=display">
-\max\left\{\sum_{i=0}^{n-1}\ (A_i \lor B_i)\right\}</script><p>其中 $\lor$ 表示二进制下的或运算。</p>
+<p>请求出 <span class="math display">\[
+\max\left\{\sum_{i=0}^{n-1}\ (A_i \lor B_i)\right\}
+\]</span> 其中 <span class="math inline">\(\lor\)</span>
+表示二进制下的或运算。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2 \le n \le 5\times10^5,~0 \le A_i,B_i \le 31$</p>
+<p><span class="math inline">\(2 \le n \le 5\times10^5,~0 \le A_i,B_i
+\le 31\)</span></p>
 </blockquote>
-<p>发现 $\lor$ 操作并不好做，考虑将 $A_i,B_i$ 取反，然后求 $\land$ 的最小值。</p>
-<p>枚举循环移位了 $j$ 次，考察 $A,B$ 二进制下第 $k$ 位，记为 $a,b$ 。</p>
-<p>那么记答案为 $c_j$ ，则有</p>
-<script type="math/tex; mode=display">
-c_j = \sum_{i = 0}^{n-1} a_i\cdot b_{(i + j) \bmod n}\qquad(0 \le j \le n - 1)</script><p>提示：显然对 $A$ 循环移位等价于对 $B$ 反向循环移位</p>
+<p>发现 <span class="math inline">\(\lor\)</span> 操作并不好做，考虑将
+<span class="math inline">\(A_i,B_i\)</span> 取反，然后求 <span
+class="math inline">\(\land\)</span> 的最小值。</p>
+<p>枚举循环移位了 <span class="math inline">\(j\)</span> 次，考察 <span
+class="math inline">\(A,B\)</span> 二进制下第 <span
+class="math inline">\(k\)</span> 位，记为 <span
+class="math inline">\(a,b\)</span> 。</p>
+<p>那么记答案为 <span class="math inline">\(c_j\)</span> ，则有 <span
+class="math display">\[
+c_j = \sum_{i = 0}^{n-1} a_i\cdot b_{(i + j) \bmod n}\qquad(0 \le j \le
+n - 1)
+\]</span> 提示：显然对 <span class="math inline">\(A\)</span>
+循环移位等价于对 <span class="math inline">\(B\)</span> 反向循环移位</p>
 <p>接下来就开始喵喵操作了：</p>
 <ul>
-<li>把 $b$ 复制一遍，得到 $c_j = \sum a_i \cdot b_{i + j}$ </li>
-<li>记 $k = i+j$ ，得到 $c_{k - i} = \sum a_i \cdot b_k$</li>
-<li>把 $i$ 改成 $-i$ ，得到 $c_{k + i} = \sum a_{n-1 - i}\cdot b_k$ </li>
+<li>把 <span class="math inline">\(b\)</span> 复制一遍，得到 <span
+class="math inline">\(c_j = \sum a_i \cdot b_{i + j}\)</span></li>
+<li>记 <span class="math inline">\(k = i+j\)</span> ，得到 <span
+class="math inline">\(c_{k - i} = \sum a_i \cdot b_k\)</span></li>
+<li>把 <span class="math inline">\(i\)</span> 改成 <span
+class="math inline">\(-i\)</span> ，得到 <span
+class="math inline">\(c_{k + i} = \sum a_{n-1 - i}\cdot
+b_k\)</span></li>
 </ul>
-<p>现在令 $a’$ 为 $a$ 翻转后的结果，整理可得</p>
-<script type="math/tex; mode=display">
-c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</script><p>显然这是一个卷积，而答案的值域 $V \le 1.6\times 10^7$ ，可以直接用 NTT 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>现在令 <span class="math inline">\(a&#39;\)</span> 为 <span
+class="math inline">\(a\)</span> 翻转后的结果，整理可得 <span
+class="math display">\[
+c_{i + j} = \sum_{i=0}^{n-1} a&#39;_{i}\cdot b_j\qquad (n-1 \le j \le 2n
+- 2)
+\]</span> 显然这是一个卷积，而答案的值域 <span class="math inline">\(V
+\le 1.6\times 10^7\)</span> ，可以直接用 NTT 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -848,10 +877,11 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
     cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span><span class="token function">max_element</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> f <span class="token operator">+</span> n<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/l1v7nxw8">https://www.luogu.com.cn/article/l1v7nxw8</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/l1v7nxw8">https://www.luogu.com.cn/article/l1v7nxw8</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407031746515.jpg" style="zoom:33%;" /></p>
@@ -1103,12 +1133,12 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">总结</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
                     </a>
                     
                 </div>
@@ -1323,7 +1353,7 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1591,6 +1621,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

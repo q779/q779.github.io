@@ -733,45 +733,100 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5982-PA2019-Trzy-kule-题解"><a href="#洛谷P5982-PA2019-Trzy-kule-题解" class="headerlink" title="洛谷P5982 [PA2019] Trzy kule 题解"></a>洛谷P5982 [PA2019] Trzy kule 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5982">P5982 [PA2019] Trzy kule</a></p>
+                <h1 id="洛谷p5982-pa2019-trzy-kule-题解">洛谷P5982 [PA2019] Trzy kule
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5982">P5982
+[PA2019] Trzy kule</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于两个长度为 $n$ 的 $01$ 串 $a_{1..n},b_{1..n}$，定义它们的距离 $d(a,b)=|a_1-b_1|+|a_2-b_2|+…+|a_n-b_n|$。</p>
-<p>给定三个长度为 $n$的 $01$ 串 $s_1,s_2,s_3$以及三个非负整数 $r_1,r_2,r_3(0\le r_i\le n)$，问有多少个长度为 $n$ 的 $01$ 串 $S$满足$d(S,s_1)\le r_1,d(S,s_2)\le r_2,d(S,s_3)\le r_3$ 这三个不等式中至少有一个成立。</p>
+<p>对于两个长度为 <span class="math inline">\(n\)</span> 的 <span
+class="math inline">\(01\)</span> 串 <span
+class="math inline">\(a_{1..n},b_{1..n}\)</span>，定义它们的距离 <span
+class="math inline">\(d(a,b)=|a_1-b_1|+|a_2-b_2|+...+|a_n-b_n|\)</span>。</p>
+<p>给定三个长度为 <span class="math inline">\(n\)</span>的 <span
+class="math inline">\(01\)</span> 串 <span
+class="math inline">\(s_1,s_2,s_3\)</span>以及三个非负整数 <span
+class="math inline">\(r_1,r_2,r_3(0\le r_i\le
+n)\)</span>，问有多少个长度为 <span class="math inline">\(n\)</span> 的
+<span class="math inline">\(01\)</span> 串 <span
+class="math inline">\(S\)</span>满足<span
+class="math inline">\(d(S,s_1)\le r_1,d(S,s_2)\le r_2,d(S,s_3)\le
+r_3\)</span> 这三个不等式中至少有一个成立。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个正整数 $n$。</p>
-<p>第二行一个非负整数 $r_1$，然后一个长度为 $n$ 的 $01$ 串 $s_1$。</p>
-<p>第三行一个非负整数 $r_2$，然后一个长度为 $n$ 的 $01$ 串 $s_2$。</p>
-<p>第四行一个非负整数 $r_3$，然后一个长度为 $n$  的 $01$ 串 $s_3$。</p>
+<p>第一行一个正整数 <span class="math inline">\(n\)</span>。</p>
+<p>第二行一个非负整数 <span
+class="math inline">\(r_1\)</span>，然后一个长度为 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(01\)</span> 串 <span
+class="math inline">\(s_1\)</span>。</p>
+<p>第三行一个非负整数 <span
+class="math inline">\(r_2\)</span>，然后一个长度为 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(01\)</span> 串 <span
+class="math inline">\(s_2\)</span>。</p>
+<p>第四行一个非负整数 <span
+class="math inline">\(r_3\)</span>，然后一个长度为 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(01\)</span> 串 <span
+class="math inline">\(s_3\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，即满足条件的 $S$ 的数量模 $10^9+7$。</p>
+<p>输出一行一个整数，即满足条件的 <span class="math inline">\(S\)</span>
+的数量模 <span class="math inline">\(10^9+7\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1\le n\le 10^4$。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le n\le 10^4\)</span>。</p>
 </blockquote>
 <p>条件计数的常见解法：要么容斥，要么寻找更简洁的充要条件。</p>
 <p>这道题，其实两者都有所运用。</p>
-<p>首先最基本的容斥，考虑计算不满足任何一个等式的串的个数，最后用 $2^n$ 减去它就是答案。</p>
-<p>方便起见，我们可以先把 $s_1$ 变为 $\mathtt{111\dots}$ （全为 $\mathtt{1}$ ），并将 $s_2$ 和 $s_3$ 进行变换。</p>
-<p>依次考虑每个位。由于我们的变换操作，现在这三个字符串在每位的情况只有 <code>100,101,110,111</code> 四种。</p>
-<p>不妨记这四种情况分别有 $a_1,a_2,a_3,a_4$ 种。</p>
-<p>我们枚举因 $S$ 导致的 <code>110</code> 和 <code>111</code> 的出现次数 $i,j$ ，则 <code>001</code> 和 <code>000</code> 的出现次数就为 $a_3 - i,~a_4 - j$ 。</p>
-<p>此时对应 $s_1$ 和对应 $s_2$ 的串中出现的 $\mathtt{1}$ 的个数是一样的，都是 $i + j$ ，对应 $s_3$ 的串中出现的为 $i + a_4 -j $</p>
-<p>设 <code>100</code> 和 <code>101</code> 的出现次数分别为 $x,y$ 。那么我们需要满足以下条件：</p>
-<script type="math/tex; mode=display">
+<p>首先最基本的容斥，考虑计算不满足任何一个等式的串的个数，最后用 <span
+class="math inline">\(2^n\)</span> 减去它就是答案。</p>
+<p>方便起见，我们可以先把 <span class="math inline">\(s_1\)</span> 变为
+<span class="math inline">\(\mathtt{111\dots}\)</span> （全为 <span
+class="math inline">\(\mathtt{1}\)</span> ），并将 <span
+class="math inline">\(s_2\)</span> 和 <span
+class="math inline">\(s_3\)</span> 进行变换。</p>
+<p>依次考虑每个位。由于我们的变换操作，现在这三个字符串在每位的情况只有
+<code>100,101,110,111</code> 四种。</p>
+<p>不妨记这四种情况分别有 <span
+class="math inline">\(a_1,a_2,a_3,a_4\)</span> 种。</p>
+<p>我们枚举因 <span class="math inline">\(S\)</span> 导致的
+<code>110</code> 和 <code>111</code> 的出现次数 <span
+class="math inline">\(i,j\)</span> ，则 <code>001</code> 和
+<code>000</code> 的出现次数就为 <span class="math inline">\(a_3 - i,~a_4
+- j\)</span> 。</p>
+<p>此时对应 <span class="math inline">\(s_1\)</span> 和对应 <span
+class="math inline">\(s_2\)</span> 的串中出现的 <span
+class="math inline">\(\mathtt{1}\)</span> 的个数是一样的，都是 <span
+class="math inline">\(i + j\)</span> ，对应 <span
+class="math inline">\(s_3\)</span> 的串中出现的为 $i + a_4 -j $</p>
+<p>设 <code>100</code> 和 <code>101</code> 的出现次数分别为 <span
+class="math inline">\(x,y\)</span> 。那么我们需要满足以下条件： <span
+class="math display">\[
 \begin{aligned}
-& i+j+x+y>t_1
-\\[6pt]& i+j+\left(a_1-x\right)+\left(a_2-y\right)>t_2
-\\[6pt]& i+\left(a_4-j\right)+\left(a_1-x\right)+y>t_3
-\end{aligned}</script><p>整理并合并后可以得到以下不等式：</p>
-<script type="math/tex; mode=display">
+&amp; i+j+x+y&gt;t_1
+\\[6pt]&amp; i+j+\left(a_1-x\right)+\left(a_2-y\right)&gt;t_2
+\\[6pt]&amp; i+\left(a_4-j\right)+\left(a_1-x\right)+y&gt;t_3
+\end{aligned}
+\]</span> 整理并合并后可以得到以下不等式： <span class="math display">\[
 \begin{aligned}
-&i+j>\max \left(t_1-x-y, t_2-\left(a_1-x\right)-\left(a_2-y\right)\right)
-\\[6pt]&i - j > t_3 - (a_1 - x) - y - a_4
-\end{aligned}</script><p>任意 $(i + j, i - j)$ 可以唯一确定一组 $i,j$ 。</p>
-<p>显然，可以和任何一组 $x,y$ 产生贡献的 $i,j$ ，其对应的 $(i + j, i - j)$ 都落在一个矩形区域内</p>
-<p>那么算法就出来了。枚举 $i,j$ ，其本身有 $\binom{a_3}{i}\binom{a_4}{j}$ 种不同方案，我们把它加到二维平面上的点 $(i+j,i-j)$ 处</p>
-<p>接着枚举 $x,y$ ，其本身有 $\binom{a_1}{x}\binom{a_2}{y}$ 种不同方案。接着我们只需统计矩形区域内的和，这一点可以通过预处理。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+&amp;i+j&gt;\max \left(t_1-x-y,
+t_2-\left(a_1-x\right)-\left(a_2-y\right)\right)
+\\[6pt]&amp;i - j &gt; t_3 - (a_1 - x) - y - a_4
+\end{aligned}
+\]</span> 任意 <span class="math inline">\((i + j, i - j)\)</span>
+可以唯一确定一组 <span class="math inline">\(i,j\)</span> 。</p>
+<p>显然，可以和任何一组 <span class="math inline">\(x,y\)</span>
+产生贡献的 <span class="math inline">\(i,j\)</span> ，其对应的 <span
+class="math inline">\((i + j, i - j)\)</span> 都落在一个矩形区域内</p>
+<p>那么算法就出来了。枚举 <span class="math inline">\(i,j\)</span>
+，其本身有 <span
+class="math inline">\(\binom{a_3}{i}\binom{a_4}{j}\)</span>
+种不同方案，我们把它加到二维平面上的点 <span
+class="math inline">\((i+j,i-j)\)</span> 处</p>
+<p>接着枚举 <span class="math inline">\(x,y\)</span> ，其本身有 <span
+class="math inline">\(\binom{a_1}{x}\binom{a_2}{y}\)</span>
+种不同方案。接着我们只需统计矩形区域内的和，这一点可以通过预处理。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -842,9 +897,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Mrsrz/solution-p5982">https://www.luogu.com.cn/blog/Mrsrz/solution-p5982</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Mrsrz/solution-p5982">https://www.luogu.com.cn/blog/Mrsrz/solution-p5982</a></p>
 
                 
             </div>
@@ -1304,7 +1360,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1377.4k</span>&nbsp;字
+                class="white-color">1410.5k</span>&nbsp;字
             
             
             
@@ -1572,6 +1628,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
