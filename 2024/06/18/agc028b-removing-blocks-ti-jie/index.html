@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="[AGC028B] Removing Blocks 题解, Q779的博客">
-    <meta name="description" content="Hi, 这里是q779的博客。">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -355,7 +355,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            Hi, 这里是q779的博客。
+            好看、可爱、高效，世界上最好的博客（之一）
             
         </div>
     </div>
@@ -734,69 +734,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc028b-removing-blocks-题解">[AGC028B] Removing Blocks
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc028_b">[AGC028B] Removing
-Blocks</a></p>
+                <h1 id="AGC028B-Removing-Blocks-题解"><a href="#AGC028B-Removing-Blocks-题解" class="headerlink" title="[AGC028B] Removing Blocks 题解"></a>[AGC028B] Removing Blocks 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc028_b">[AGC028B] Removing Blocks</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 <span class="math inline">\(N\)</span>
-块砖块排列成一行，从左到右编号为 <span class="math inline">\(1\)</span>
-到 <span class="math inline">\(N\)</span> 。每一个砖块都有一个重量，砖块
-<span class="math inline">\(i\)</span> 的重量为 <span
-class="math inline">\(A_i\)</span>。</p>
-<p>Snuke 会对这些 <span class="math inline">\(N\)</span>
-个砖块执行如下操作：</p>
-<p>选择一个还没有被移除的砖块，然后移除它。这个操作的代价是与被移除的砖块相邻的砖块（包括它自己）的重量之和。我们定义两块砖
-<span class="math inline">\(x\)</span> 和 <span class="math inline">\(y
-~(x \leq y)\)</span> 是相邻的，当且仅当对于所有 <span
-class="math inline">\(z ~(x \leq z \leq y)\)</span> ，砖块 <span
-class="math inline">\(z\)</span> 仍然没有被移除。</p>
-<p>有 <span class="math inline">\(N!\)</span>
-种移除砖块的可能顺序。你需要对于所有可能的顺序计算出移除完所有 <span
-class="math inline">\(N\)</span>
-块砖块的代价，并计算这些代价的和。由于答案可能非常大，答案需要对 <span
-class="math inline">\(10^9+7\)</span> 取模。</p>
+<p>有 $N$ 块砖块排列成一行，从左到右编号为 $1$ 到 $N$ 。每一个砖块都有一个重量，砖块 $i$ 的重量为 $A_i$。 </p>
+<p>Snuke 会对这些 $N$ 个砖块执行如下操作：</p>
+<p>选择一个还没有被移除的砖块，然后移除它。这个操作的代价是与被移除的砖块相邻的砖块（包括它自己）的重量之和。我们定义两块砖 $x$ 和 $y ~(x \leq y)$ 是相邻的，当且仅当对于所有 $z ~(x \leq z \leq y)$ ，砖块 $z$ 仍然没有被移除。</p>
+<p>有 $N!$ 种移除砖块的可能顺序。你需要对于所有可能的顺序计算出移除完所有 $N$ 块砖块的代价，并计算这些代价的和。由于答案可能非常大，答案需要对 $10^9+7$ 取模。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^5,~1 \le A_i \le
-10^9\)</span> 。</p>
+<p>$1 \le n \le 10^5,~1 \le A_i \le 10^9$ 。</p>
 </blockquote>
-<p>这题它本可以问你期望是什么的，但是它偏要问你期望乘以 <span
-class="math inline">\(n!\)</span> ，后面忘了。</p>
+<p>这题它本可以问你期望是什么的，但是它偏要问你期望乘以 $n!$ ，后面忘了。</p>
 <p>考虑一个任意排列，对这个排列建立权值为删除时间的满足小根堆性质的笛卡尔树</p>
-<p>则笛卡尔树上每个节点对答案的贡献就是子树内的 <span
-class="math inline">\(a_i\)</span> 之和。对应到每个节点就是 <span
-class="math inline">\(d_i\times a_i\)</span> ，<span
-class="math inline">\(d_i\)</span> 是深度。</p>
-<p>问题就转化为每个点 <span class="math inline">\(i\)</span> 的期望深度
-<span class="math inline">\(\mathrm{E}(d_i)\)</span> ，这等价于有多少个
-<span class="math inline">\(x\)</span> 是 <span
-class="math inline">\(i\)</span> 的祖先。</p>
-<p>对于某个排列，设 <span class="math inline">\(x &lt; i\)</span> 且
-<span class="math inline">\(x\)</span> 是 <span
-class="math inline">\(i\)</span> 的祖先，那么 <span
-class="math inline">\(x,\,x+1,\,\cdots,\,i-1\)</span> 都会比 <span
-class="math inline">\(i\)</span> 后删除</p>
-<p>我们只需考察 <span class="math inline">\(i\)</span> 和 <span
-class="math inline">\(x\)</span>
-的相对顺序，那么这样的方案数占总方案数的 <span
-class="math inline">\(\frac{(i-x)!}{(i-x+1)!} = \frac{1}{i-x+1}\)</span>
-。</p>
-<p>同理，若 <span class="math inline">\(x&gt;i\)</span> ，<span
-class="math inline">\(x\)</span> 是 <span
-class="math inline">\(i\)</span> 的祖先的概率为 <span
-class="math inline">\(\frac{1}{x - i + 1}\)</span> ，那么 <span
-class="math display">\[
-\mathrm{E}(d_i) = \sum_{x=1}^{i-1}\frac{1}{x - i + 1} +
-\sum_{x=i+1}^n\frac{1}{x-i+1} + 1
-\]</span> 记 <span class="math inline">\(H_x =
-\sum_{i=1}^x\frac{1}{i}\)</span> ，那么 <span class="math display">\[
-\mathrm{E}(d_i) = H_i + H_{n-i+1} - 1
-\]</span> 答案就是 <span class="math display">\[
-\mathrm{Ans} = n!\sum_{i=1}^n\left(H_i+H_{n-i+1}-1\right) \cdot a_i
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>则笛卡尔树上每个节点对答案的贡献就是子树内的 $a_i$ 之和。对应到每个节点就是 $d_i\times a_i$ ，$d_i$ 是深度。</p>
+<p>问题就转化为每个点 $i$ 的期望深度 $\mathrm{E}(d_i)$ ，这等价于有多少个 $x$ 是 $i$ 的祖先。</p>
+<p>对于某个排列，设 $x &lt; i$ 且 $x$ 是 $i$ 的祖先，那么 $x,\,x+1,\,\cdots,\,i-1$ 都会比 $i$ 后删除</p>
+<p>我们只需考察 $i$ 和 $x$ 的相对顺序，那么这样的方案数占总方案数的 $\frac{(i-x)!}{(i-x+1)!} = \frac{1}{i-x+1}$ 。</p>
+<p>同理，若 $x&gt;i$ ，$x$ 是 $i$ 的祖先的概率为 $\frac{1}{x - i + 1}$ ，那么</p>
+<script type="math/tex; mode=display">
+\mathrm{E}(d_i) = \sum_{x=1}^{i-1}\frac{1}{x - i + 1} + \sum_{x=i+1}^n\frac{1}{x-i+1} + 1</script><p>记 $H_x = \sum_{i=1}^x\frac{1}{i}$ ，那么</p>
+<script type="math/tex; mode=display">
+\mathrm{E}(d_i) = H_i + H_{n-i+1} - 1</script><p>答案就是</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans} = n!\sum_{i=1}^n\left(H_i+H_{n-i+1}-1\right) \cdot a_i</script><p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -823,11 +783,10 @@ class="math inline">\(\mathcal{O}(n)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3bels28t">https://www.luogu.com.cn/article/3bels28t</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3bels28t">https://www.luogu.com.cn/article/3bels28t</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>感觉最近看紫题好像没什么难度了一样，但是自己想还是想不太出来。</p>
 
@@ -1312,7 +1271,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3bels28t">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1407.7k</span>&nbsp;字
+                class="white-color">1377.4k</span>&nbsp;字
             
             
             
@@ -1559,8 +1518,6 @@ $(function () {
 </script>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1581,6 +1538,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

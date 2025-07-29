@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P4383 [八省联考 2018] 林克卡特树 题解, Q779的博客">
-    <meta name="description" content="Hi, 这里是q779的博客。">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -355,7 +355,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            Hi, 这里是q779的博客。
+            好看、可爱、高效，世界上最好的博客（之一）
             
         </div>
     </div>
@@ -738,116 +738,48 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4383-八省联考-2018-林克卡特树-题解">洛谷P4383 [八省联考
-2018] 林克卡特树 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4383">P4383
-[八省联考 2018] 林克卡特树</a></p>
+                <h1 id="洛谷P4383-八省联考-2018-林克卡特树-题解"><a href="#洛谷P4383-八省联考-2018-林克卡特树-题解" class="headerlink" title="洛谷P4383 [八省联考 2018] 林克卡特树 题解"></a>洛谷P4383 [八省联考 2018] 林克卡特树 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4383">P4383 [八省联考 2018] 林克卡特树</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>小 L 最近沉迷于塞尔达传说：荒野之息（The Legend of Zelda: Breath of
-The Wild）无法自拔，他尤其喜欢游戏中的迷你挑战。</p>
-<p>游戏中有一个叫做 LCT 的挑战，它的规则是这样子的：现在有一个 <span
-class="math inline">\(N\)</span> 个点的树，每条边有一个整数边权 <span
-class="math inline">\(v_i\)</span>，若 <span class="math inline">\(v_i
-\geq 0\)</span>，表示走这条边会获得 <span
-class="math inline">\(v_i\)</span> 的收益；若 <span
-class="math inline">\(v_i \lt 0\)</span> ，则表示走这条边需要支付 <span
-class="math inline">\(-v_i\)</span> 的过路费。小 L 需要控制主角 Link
-切掉（Cut）树上的恰好 <span class="math inline">\(K\)</span>
-条边，然后再连接 <span class="math inline">\(K\)</span> 条边权为 0
-的边，得到一棵新的树。接着，他会选择树上的两个点 <span
-class="math inline">\(p,q\)</span>，并沿着树上连接这两点的简单路径从
-<span class="math inline">\(p\)</span> 走到 <span
-class="math inline">\(q\)</span>，并为经过的每条边支付过路费/
-获取相应收益。</p>
-<p>海拉鲁大陆之神 TemporaryDO 想考验一下 Link。他告诉 Link，如果 Link
-能切掉合适的边、选择合适的路径从而使 总收益 - 总过路费
-最大化的话，就把传说中的大师之剑送给他。</p>
-<p>小 L 想得到大师之剑，于是他找到了你来帮忙，请你告诉他，Link 能得到的
-总收益 - 总过路费 最大是多少。</p>
+<p>小 L 最近沉迷于塞尔达传说：荒野之息（The Legend of Zelda: Breath of The Wild）无法自拔，他尤其喜欢游戏中的迷你挑战。</p>
+<p>游戏中有一个叫做 LCT 的挑战，它的规则是这样子的：现在有一个 $N$ 个点的树，每条边有一个整数边权 $v_i$，若 $v_i \geq 0$，表示走这条边会获得 $v_i$ 的收益；若 $v_i \lt 0$ ，则表示走这条边需要支付 $-v_i$ 的过路费。小 L 需要控制主角 Link 切掉（Cut）树上的恰好 $K$ 条边，然后再连接 $K$ 条边权为 0 的边，得到一棵新的树。接着，他会选择树上的两个点 $p,q$，并沿着树上连接这两点的简单路径从 $p$ 走到 $q$，并为经过的每条边支付过路费/ 获取相应收益。</p>
+<p>海拉鲁大陆之神 TemporaryDO 想考验一下 Link。他告诉 Link，如果 Link 能切掉合适的边、选择合适的路径从而使 总收益 - 总过路费 最大化的话，就把传说中的大师之剑送给他。</p>
+<p>小 L 想得到大师之剑，于是他找到了你来帮忙，请你告诉他，Link 能得到的 总收益 - 总过路费 最大是多少。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入第一行包含两个正整数 <span
-class="math inline">\(N,K\)</span>。</p>
-<p>接下来 <span class="math inline">\(N - 1\)</span>
-行，每行包含三个整数 <span
-class="math inline">\(x_i,y_i,v_i\)</span>，表示第 <span
-class="math inline">\(i\)</span> 条边连接图中的 <span
-class="math inline">\(x_i, y_i\)</span> 两点，它的边权为 <span
-class="math inline">\(v_i\)</span>。</p>
+<p>输入第一行包含两个正整数 $N,K$。</p>
+<p>接下来 $N - 1$ 行，每行包含三个整数 $x_i,y_i,v_i$，表示第 $i$ 条边连接图中的 $x_i, y_i$ 两点，它的边权为 $v_i$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 <span class="math inline">\(1 \leq N \leq 3 \times
-10^5\)</span>，<span class="math inline">\(0 \leq K \leq 3 \times
-10^5\)</span>，<span class="math inline">\(K \lt N\)</span>，<span
-class="math inline">\(1 \leq x_i,y_i \leq N\)</span>，<span
-class="math inline">\(|v_i| \leq 10^6\)</span>。</p>
+<p>保证 $1 \leq N \leq 3 \times 10^5$，$0 \leq K \leq 3 \times 10^5$，$K \lt N$，$1 \leq x_i,y_i \leq N$，$|v_i| \leq 10^6$。</p>
 </blockquote>
-<p>注意到题目相当于要求出 <span class="math inline">\(K+1\)</span>
-条不相交的链的边权和的最大值。注意单个点也算链。</p>
-<p>设 <span class="math inline">\(f(0/1/2,u,k)\)</span> 为 <span
-class="math inline">\(u\)</span> 所在子树选 <span
-class="math inline">\(k\)</span> 条链的最优解，<span
-class="math inline">\(u=0/1/2\)</span> 表示在链上的度数。</p>
+<p>注意到题目相当于要求出 $K+1$ 条不相交的链的边权和的最大值。注意单个点也算链。</p>
+<p>设 $f(0/1/2,u,k)$ 为 $u$ 所在子树选 $k$ 条链的最优解，$u=0/1/2$ 表示在链上的度数。</p>
 <ul>
-<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
-class="math inline">\(0\)</span> 时，表示 <span
-class="math inline">\(u\)</span> 不在选的链上，合并答案即可 <span
-class="math display">\[
-f_{\rm new}(0,u,i) \operatorname{\big\uparrow} f_{\rm pre}(0,u,j) +
-f(0,v,i - j)
-\]</span></p></li>
-<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
-class="math inline">\(1\)</span> 时，表示 <span
-class="math inline">\(u\)</span> 为端点，考虑 <span
-class="math inline">\(u\)</span> 为起点的链和 <span
-class="math inline">\(v\)</span> 的链接上 <span
-class="math inline">\(u\)</span> ，合并即可 <span
-class="math display">\[
+<li><p>当 $u$ 的度数为 $0$ 时，表示 $u$ 不在选的链上，合并答案即可</p>
+<script type="math/tex; mode=display">
+f_{\rm new}(0,u,i) \operatorname{\big\uparrow} f_{\rm pre}(0,u,j) + f(0,v,i - j)</script></li>
+<li><p>当 $u$ 的度数为 $1$ 时，表示 $u$ 为端点，考虑 $u$ 为起点的链和 $v$ 的链接上 $u$ ，合并即可</p>
+<script type="math/tex; mode=display">
 f_{\rm new}(1,u,i) \operatorname{\big\uparrow} \max\left\{
-f_{\rm pre}(0,u,j) +  f(1,v,i-j) + w(u,v),\ f_{\rm pre}(1,u,j) +
-f(0,v,i-j)
-\right\}
-\]</span></p></li>
-<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
-class="math inline">\(2\)</span> 时，表示 <span
-class="math inline">\(u\)</span>是链中间的一点，考虑自己和儿子组链，以及儿子和儿子组链
-<span class="math display">\[
-f_{\rm new}(2,u,i)\operatorname{\big\uparrow} \max\{f_{\rm pre} (1,u,j)
-+ f(1,v,i-j-1) + w(u,v),\ f_{\rm pre}(2,u,j) + f(0,v,i-j)\}
-\]</span></p></li>
+f_{\rm pre}(0,u,j) +  f(1,v,i-j) + w(u,v),\ f_{\rm pre}(1,u,j) + f(0,v,i-j)
+\right\}</script></li>
+<li><p>当 $u$ 的度数为 $2$ 时，表示 $u$是链中间的一点，考虑自己和儿子组链，以及儿子和儿子组链</p>
+<script type="math/tex; mode=display">
+f_{\rm new}(2,u,i)\operatorname{\big\uparrow} \max\{f_{\rm pre} (1,u,j) + f(1,v,i-j-1) + w(u,v),\ f_{\rm pre}(2,u,j) + f(0,v,i-j)\}</script></li>
 </ul>
-<p>这样我们就得到了一个 <span
-class="math inline">\(\mathcal{O}(nk)\)</span> 的树上背包解法。</p>
-<p>假设只选 <span class="math inline">\(K\)</span> 条链的结果比 <span
-class="math inline">\(K+1\)</span> 劣。注意到这相当于把 <span
-class="math inline">\(K+1\)</span> 的一条链合并了。</p>
-<p>显然合并的那条边贡献是非正数，否则我们 <span
-class="math inline">\(K+1\)</span> 的最优方案一定会合并这两条链。</p>
-<p>那么关于 <span class="math inline">\(k\)</span> 的函数 <span
-class="math inline">\(y=f(0/1/2,u,k)\)</span> 一定存在一个点 <span
-class="math inline">\(K_0\)</span> 使得 <span
-class="math inline">\(K_0\)</span> 处取到最大值。</p>
-<p>而在 <span class="math inline">\(K_0\)</span>
-后，我们将被迫拆散很多优秀的链，这将损失很多贡献。</p>
-<p>由此可以发现函数 <span class="math inline">\(y\)</span>
-是一个上凸函数。（好像证明的有点草率，但是能理解吧）</p>
-<p>那么考虑 wqs 二分即可。有关 wqs 二分的具体内容可以参考之前这篇 <a
-href="/2024/05/23/cf739e-gosha-is-hunting-ti-jie/">CF739E Gosha is
-hunting 题解</a></p>
+<p>这样我们就得到了一个 $\mathcal{O}(nk)$ 的树上背包解法。</p>
+<p>假设只选 $K$ 条链的结果比 $K+1$ 劣。注意到这相当于把 $K+1$ 的一条链合并了。</p>
+<p>显然合并的那条边贡献是非正数，否则我们 $K+1$ 的最优方案一定会合并这两条链。</p>
+<p>那么关于 $k$ 的函数 $y=f(0/1/2,u,k)$ 一定存在一个点 $K_0$ 使得 $K_0$ 处取到最大值。</p>
+<p>而在 $K_0$ 后，我们将被迫拆散很多优秀的链，这将损失很多贡献。</p>
+<p>由此可以发现函数 $y$ 是一个上凸函数。（好像证明的有点草率，但是能理解吧）</p>
+<p>那么考虑 wqs 二分即可。有关 wqs 二分的具体内容可以参考之前这篇 <a href="/2024/05/23/cf739e-gosha-is-hunting-ti-jie/">CF739E Gosha is hunting 题解</a></p>
 <p><del>如果你懒得看的话</del>，简单概括一下就是，我们二分一条切线去切原函数（因为全部算出来是线性的）</p>
-<p>然后在一番奇奇怪怪的推导之下，我们发现求出 <span
-class="math inline">\(y\)</span> 相当于给每次选择物品增加了一个额外代价
-<span class="math inline">\(-k\)</span> 。</p>
-<p>并且 wqs 二分的好处在于，它把 <span class="math inline">\(k\)</span>
-这一维省掉了，可以不考虑 <span class="math inline">\(k\)</span>
-随便选，二分会保证算出我们要的那个 <span
-class="math inline">\(k\)</span></p>
-<p>那么不考虑 <span class="math inline">\(k\)</span>
-的话就方便多了，随便 dp 一下就好了。注意 wqs
-二分到斜率相同的点时要尽可能多选。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-V)\)</span></p>
+<p>然后在一番奇奇怪怪的推导之下，我们发现求出 $y$ 相当于给每次选择物品增加了一个额外代价 $-k$ 。</p>
+<p>并且 wqs 二分的好处在于，它把 $k$ 这一维省掉了，可以不考虑 $k$ 随便选，二分会保证算出我们要的那个 $k$</p>
+<p>那么不考虑 $k$ 的话就方便多了，随便 dp 一下就好了。注意 wqs 二分到斜率相同的点时要尽可能多选。</p>
+<p>时间复杂度 $\mathcal{O}(n \log V)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -910,18 +842,15 @@ V)\)</span></p>
     <span class="token function">check</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>x <span class="token operator">+</span> l <span class="token operator">*</span> k <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dt5wolcy">https://www.luogu.com.cn/article/dt5wolcy</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dt5wolcy">https://www.luogu.com.cn/article/dt5wolcy</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片？</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407012149157.jpg" style="zoom:50%;" class="img-shadow img-margin"/></p>
-<p>另外现在 blog 不会自动给我所有的图片加上
-<code>class="img-shadow img-margin"</code> 了</p>
-<p>省得一些插图弄了阴影特别难看。另外今天又学了点 HTML
-的东西，顺便修了点以前的 bug</p>
+<p>另外现在 blog 不会自动给我所有的图片加上 <code>class=&quot;img-shadow img-margin&quot;</code> 了</p>
+<p>省得一些插图弄了阴影特别难看。另外今天又学了点 HTML 的东西，顺便修了点以前的 bug</p>
 
                 
             </div>
@@ -1195,7 +1124,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dt5wolcy">
                 <a href="/2024/07/01/cf1147e-rainbow-coins-ti-jie/">
                     <div class="card-image">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p34.png" class="responsive-img" alt="CF1147E Rainbow Coins 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p34.webp" class="responsive-img" alt="CF1147E Rainbow Coins 题解">
                         
                         <span class="card-title">CF1147E Rainbow Coins 题解</span>
                     </div>
@@ -1396,7 +1325,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dt5wolcy">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1407.7k</span>&nbsp;字
+                class="white-color">1377.4k</span>&nbsp;字
             
             
             
@@ -1643,8 +1572,6 @@ $(function () {
 </script>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1665,6 +1592,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

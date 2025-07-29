@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P5496 【模板】回文自动机（PAM） 题解, Q779的博客">
-    <meta name="description" content="Hi, 这里是q779的博客。">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -355,7 +355,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            Hi, 这里是q779的博客。
+            好看、可爱、高效，世界上最好的博客（之一）
             
         </div>
     </div>
@@ -734,99 +734,49 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5496-模板回文自动机pam-题解">洛谷P5496
-【模板】回文自动机（PAM） 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5496">P5496
-【模板】回文自动机（PAM）</a></p>
+                <h1 id="洛谷P5496-【模板】回文自动机（PAM）-题解"><a href="#洛谷P5496-【模板】回文自动机（PAM）-题解" class="headerlink" title="洛谷P5496 【模板】回文自动机（PAM） 题解"></a>洛谷P5496 【模板】回文自动机（PAM） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5496">P5496 【模板】回文自动机（PAM）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个字符串 <span
-class="math inline">\(s\)</span>。保证每个字符为小写字母。</p>
-<p>对于 <span class="math inline">\(s\)</span>
-的每个位置，请求出以该位置结尾的回文子串个数。</p>
+<p>给定一个字符串 $s$。保证每个字符为小写字母。</p>
+<p>对于 $s$ 的每个位置，请求出以该位置结尾的回文子串个数。</p>
 <p>这个字符串被进行了加密，除了第一个字符，其他字符都需要通过上一个位置的答案来解密。</p>
-<p>具体地，若第 <span class="math inline">\(i(i\geq 1)\)</span>
-个位置的答案是 <span class="math inline">\(k\)</span>，第 <span
-class="math inline">\(i+1\)</span> 个字符读入时的 <span
-class="math inline">\(\rm ASCII\)</span> 码为 <span
-class="math inline">\(c\)</span>，则第 <span
-class="math inline">\(i+1\)</span> 个字符实际的 <span
-class="math inline">\(\rm ASCII\)</span> 码为 <span
-class="math inline">\((c-97+k)\bmod
-26+97\)</span>。所有字符在加密前后都为小写字母。</p>
+<p>具体地，若第 $i(i\geq 1)$ 个位置的答案是 $k$，第 $i+1$ 个字符读入时的 $\rm ASCII$ 码为 $c$，则第 $i+1$ 个字符实际的 $\rm ASCII$ 码为 $(c-97+k)\bmod 26+97$。所有字符在加密前后都为小写字母。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行一个字符串 <span class="math inline">\(s\)</span>
-表示被加密后的串。</p>
+<p>一行一个字符串 $s$ 表示被加密后的串。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行， <span class="math inline">\(|s|\)</span> 个整数。第 <span
-class="math inline">\(i\)</span> 个整数表示原串以第 <span
-class="math inline">\(i\)</span> 个字符结尾的回文子串个数。</p>
+<p>一行， $|s|$ 个整数。第 $i$ 个整数表示原串以第 $i$ 个字符结尾的回文子串个数。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq |s|\leq 5\times 10^5\)</span>。</p>
+<p>$1\leq |s|\leq 5\times 10^5$。</p>
 </blockquote>
 <p>本题是 回文自动机 的模板题。</p>
 <p>我看题解区的回文自动机都有两个根，看不懂，就自己写了一种回文自动机。</p>
 <p>先考虑奇回文串。可以发现，奇回文串去掉两头的字符，就变成了一个新的回文串（单个字符也算）</p>
 <p>于是我们可以建一个类似于 Trie 树的东西</p>
-<p>根节点 <span class="math inline">\(0\)</span>
-还是表示空串，不过根节点的儿子 <span
-class="math inline">\(\mathtt{ch[0][c]}\)</span> 表示中间的那个字符是
-<span class="math inline">\(c\)</span> 。</p>
-<p>除此以外，每个节点 <span
-class="math inline">\(\mathtt{ch[u][c]}\)</span> 表示在父结点 <span
-class="math inline">\(u\)</span> 的基础上，两头加上字符 <span
-class="math inline">\(c\)</span> 的字符串。</p>
-<p>那么偶回文串怎么办呢？偶回文串其实可以看作中间的那个字符是 <span
-class="math inline">\(\varnothing\)</span> 。</p>
-<p>于是根节点直接多了一个儿子，我们直接把它记为节点 <span
-class="math inline">\(1\)</span> ，这样回文自动机就只有一个根了。</p>
-<p>方便起见，我们记录以每个节点结尾的最长回文串长 <span
-class="math inline">\(\tt len\)</span> 。定义 <span
-class="math inline">\(\mathtt{len[0]}=-1,~\mathtt{len[1]} = 0\)</span>
-。</p>
-<p><span class="math inline">\(\tt{fail}\)</span> 数组的构建和 AC
-自动机类似，定义为最长回文后缀的结尾节点。</p>
-<p>定义 <span class="math inline">\(\mathtt{fail[1]} = 0\)</span>
-，其他情况 <span
-class="math inline">\(\mathtt{fail[u]}=\mathtt{ch[fail[fa(u)][c]}\)</span>​
-。</p>
-<p>这里是因为，<span class="math inline">\(u\)</span>
-的最长回文后缀，等于 <span class="math inline">\(fa(u)\)</span>
-的最长回文后缀加上字符 <span class="math inline">\(c\)</span></p>
-<p>那么我们现在有一个初始有两个节点和 <span
-class="math inline">\(\mathtt{fail}\)</span>
-数组的奇怪数据结构，接下来该干什么呢？</p>
-<p>考虑维护一个指针 <span class="math inline">\(p\)</span> ，初始 <span
-class="math inline">\(p=0\)</span> ，然后依次考虑每个字符 <span
-class="math inline">\(s_i\)</span> 。</p>
+<p>根节点 $0$ 还是表示空串，不过根节点的儿子 $\mathtt{ch[0][c]}$ 表示中间的那个字符是 $c$ 。</p>
+<p>除此以外，每个节点 $\mathtt{ch[u][c]}$ 表示在父结点 $u$ 的基础上，两头加上字符 $c$ 的字符串。</p>
+<p>那么偶回文串怎么办呢？偶回文串其实可以看作中间的那个字符是 $\varnothing$ 。</p>
+<p>于是根节点直接多了一个儿子，我们直接把它记为节点 $1$ ，这样回文自动机就只有一个根了。</p>
+<p>方便起见，我们记录以每个节点结尾的最长回文串长 $\tt len$ 。定义 $\mathtt{len[0]}=-1,~\mathtt{len[1]} = 0$ 。</p>
+<p>$\tt{fail}$ 数组的构建和 AC 自动机类似，定义为最长回文后缀的结尾节点。</p>
+<p>定义 $\mathtt{fail[1]} = 0$ ，其他情况 $\mathtt{fail[u]}=\mathtt{ch[fail[fa(u)][c]}$​ 。</p>
+<p>这里是因为，$u$ 的最长回文后缀，等于 $fa(u)$ 的最长回文后缀加上字符 $c$</p>
+<p>那么我们现在有一个初始有两个节点和 $\mathtt{fail}$ 数组的奇怪数据结构，接下来该干什么呢？</p>
+<p>考虑维护一个指针 $p$ ，初始 $p=0$ ，然后依次考虑每个字符 $s_i$ 。</p>
 <ul>
-<li><p>如果 <span class="math inline">\(p\)</span>​ 指向的节点有 <span
-class="math inline">\(s_i\)</span>
-这个儿子，那么直接往这个儿子走即可，答案就是这个儿子的答案。</p></li>
-<li><p>否则新建 <span class="math inline">\(s_i\)</span> 这个儿子，它的
-<span class="math inline">\(\tt len\)</span> 定义为 <span
-class="math inline">\(\mathtt{len[p]}+2\)</span> ，</p>
-<p>接着我们构建它的失配指针 <span
-class="math inline">\(\mathtt{fail}\)</span> ，即 <span
-class="math inline">\(\mathtt{ch[p][s_i]}\)</span>
-的最长回文后缀（的结尾节点）。</p>
-<p>记一个临时变量 <span class="math inline">\(q\gets p\)</span> ，不停让
-<span class="math inline">\(q\gets \mathtt{fail[q]}\)</span> ，</p>
-<p>直到 <span class="math inline">\(q\)</span> 表示的字符串两头加上
-<span class="math inline">\(s_i\)</span> 后等于 <span
-class="math inline">\(\mathtt{ch[p][s_i]}\)</span> 表示的字符串</p>
-<p>于是 <span class="math inline">\(\mathtt{ch[p][s_i]}\)</span> 的
-<span class="math inline">\(\mathtt{fail}\)</span> 即为 <span
-class="math inline">\(\mathtt{ch[q][s_i]}\)</span> 。</p></li>
+<li><p>如果 $p$​ 指向的节点有 $s_i$ 这个儿子，那么直接往这个儿子走即可，答案就是这个儿子的答案。</p>
+</li>
+<li><p>否则新建 $s_i$ 这个儿子，它的 $\tt len$ 定义为 $\mathtt{len[p]}+2$ ，</p>
+<p>接着我们构建它的失配指针 $\mathtt{fail}$ ，即 $\mathtt{ch[p][s_i]}$ 的最长回文后缀（的结尾节点）。</p>
+<p>记一个临时变量 $q\gets p$ ，不停让 $q\gets \mathtt{fail[q]}$ ，</p>
+<p>直到 $q$ 表示的字符串两头加上 $s_i$ 后等于 $\mathtt{ch[p][s_i]}$ 表示的字符串</p>
+<p>于是 $\mathtt{ch[p][s_i]}$ 的 $\mathtt{fail}$ 即为 $\mathtt{ch[q][s_i]}$ 。</p>
+</li>
 </ul>
-<p>然后令 <span class="math inline">\(p=\mathtt{ch[p][s_i]}\)</span>
-，继续考虑 <span class="math inline">\(s_i + 1\)</span> 。</p>
+<p>然后令 $p=\mathtt{ch[p][s_i]}$ ，继续考虑 $s_i + 1$ 。</p>
 <p>答案统计的话，类似于 AC 自动机统计 Fail 树，直接看代码吧。</p>
-<p>分析一下复杂度，每增加一个节点，当前深度增加 <span
-class="math inline">\(1\)</span> 层</p>
-<p>而跳 <span class="math inline">\(\mathtt{fail}\)</span> 每次至少减少
-<span class="math inline">\(1\)</span> 层，至多减少【当前深度】层。</p>
-<p>故时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>分析一下复杂度，每增加一个节点，当前深度增加 $1$ 层</p>
+<p>而跳 $\mathtt{fail}$ 每次至少减少 $1$ 层，至多减少【当前深度】层。</p>
+<p>故时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -864,11 +814,10 @@ class="math inline">\(1\)</span> 层</p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">https://www.luogu.com.cn/article/ntc6yyfd</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">https://www.luogu.com.cn/article/ntc6yyfd</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放个图片，很符合我现在的心情。</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405312114078.png" style="zoom:50%;" /></p>
@@ -1146,7 +1095,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">
                     <div class="card-image">
                         
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p6.jpg" class="responsive-img" alt="CF163E e-Government 题解">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/p100.jpg" class="responsive-img" alt="CF163E e-Government 题解">
                         
                         <span class="card-title">CF163E e-Government 题解</span>
                     </div>
@@ -1351,7 +1300,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1407.7k</span>&nbsp;字
+                class="white-color">1377.4k</span>&nbsp;字
             
             
             
@@ -1598,8 +1547,6 @@ $(function () {
 </script>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1620,6 +1567,21 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
