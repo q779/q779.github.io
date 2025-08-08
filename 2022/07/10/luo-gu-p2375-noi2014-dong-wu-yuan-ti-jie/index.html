@@ -241,7 +241,7 @@ rgba(0,0,0,0.2);
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/medias/loading.gif" data-original="/medias/logo.webp" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Q779的博客</span>
                 </a>
@@ -349,7 +349,7 @@ rgba(0,0,0,0.2);
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/loading.gif" data-original="/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/medias/loading.gif" data-original="/medias/logo.webp" class="logo-img circle responsive-img">
         
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
@@ -1270,7 +1270,7 @@ class="math inline">\(s\)</span></p>
 </main>
 
 
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script>
+<script src="/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
 <script>
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
@@ -1445,55 +1445,56 @@ $(function () {
                     datas.forEach(function (data) {
                         var isMatch = true;
                         var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        // 注释掉内容相关搜索
+                        // var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
                         var data_url = data.url;
                         data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
                         var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
+                        // var index_content = -1;
+                        // var first_occur = -1;
+                        // 只匹配标题，内容相关的判断注释掉
+                        if (data_title !== '') {
                             keywords.forEach(function (keyword, i) {
                                 index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
+                                // index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 /* && index_content < 0 */) {
                                     isMatch = false;
                                 } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
+                                    // if (index_content < 0) {
+                                    //     index_content = 0;
+                                    // }
+                                    // if (i === 0) {
+                                    //     first_occur = index_content;
+                                    // }
                                 }
                             });
+                        } else {
+                            isMatch = false;
                         }
                         // show search results
                         if (isMatch) {
                             str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
+                            // 不显示内容摘要
+                            // var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            // if (first_occur >= 0) {
+                            //     var start = first_occur - 20;
+                            //     var end = first_occur + 80;
+                            //     if (start < 0) {
+                            //         start = 0;
+                            //     }
+                            //     if (start === 0) {
+                            //         end = 100;
+                            //     }
+                            //     if (end > content.length) {
+                            //         end = content.length;
+                            //     }
+                            //     var match_content = content.substr(start, end);
+                            //     keywords.forEach(function (keyword) {
+                            //         var regS = new RegExp(keyword, "gi");
+                            //         match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                            //     });
+                            //     str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            // }
                             str += "</li>";
                         }
                     });
@@ -1507,7 +1508,6 @@ $(function () {
     searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
-
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
@@ -1589,7 +1589,7 @@ $(function () {
         <script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
-                preloadRatio: 1.25,
+                preloadRatio: 1,
                 processImages: null,
             };
         </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
