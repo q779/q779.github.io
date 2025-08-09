@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -722,7 +722,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    912
+                    275
                 </div>
                 
 
@@ -742,48 +742,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3181-haoi2016-找相同字符-题解">洛谷P3181 [HAOI2016]
-找相同字符 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3181">P3181
-[HAOI2016] 找相同字符</a></p>
+                <h1 id="洛谷P3181-HAOI2016-找相同字符-题解"><a href="#洛谷P3181-HAOI2016-找相同字符-题解" class="headerlink" title="洛谷P3181 [HAOI2016] 找相同字符 题解"></a>洛谷P3181 [HAOI2016] 找相同字符 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3181">P3181 [HAOI2016] 找相同字符</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>给定两个字符串，求出在两个字符串中各取出一个子串使得这两个子串相同的方案数。</p>
 <p>两个方案不同当且仅当这两个子串中有一个位置不同。</p>
 <p><strong>输入格式</strong>：</p>
-<p>两行，两个字符串 <span class="math inline">\(S,T\)</span>，长度分别为
-<span class="math inline">\(n,m\)</span>。</p>
+<p>两行，两个字符串 $S,T$，长度分别为 $n,m$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一个整数表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n,m\le 2\times
-10^5\)</span>，字符串中只有小写字母。</p>
+<p>$1\le n,m\le 2\times 10^5$，字符串中只有小写字母。</p>
 </blockquote>
-<p>建议先去看一下 <a
-href="/2024/06/05/luo-gu-p4248-ahoi2013-chai-yi-ti-jie/">洛谷P4248
-[AHOI2013] 差异 题解</a></p>
-<p>主要是要知道下面这个东西以及怎么算。 <span class="math display">\[
+<p>建议先去看一下 <a href="/2024/06/05/luo-gu-p4248-ahoi2013-chai-yi-ti-jie/">洛谷P4248 [AHOI2013] 差异 题解</a> </p>
+<p>主要是要知道下面这个东西以及怎么算。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\sum_{1 \leq i&lt;j \leq n} \operatorname{lcp}\left(\mathrm{Suf}(i),
-\mathrm{Suf}(j)\right)
-&amp;=\sum_{1 \leq i&lt;j \leq n} \operatorname{LCP}\left(i,j\right)
-\\[6pt]&amp;= \sum_{1 \leq i&lt;j \leq n}\left( \min_{i+1\le k \le
-j}\{\texttt{height[k]}\}\right)
-\end{aligned}
-\]</span> 那么考虑把两个串用一个分隔符拼在一起，这样答案就是 <span
-class="math display">\[
-\sum_{1 \le i &lt; j \le n + m + 1}
-\operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))
-- \sum_{1 \le i &lt; j \le n}
-\operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))
-- \sum_{n + 1 \le i &lt; j \le n + m + 1}
-\operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))
-\]</span> 后面减掉的是因为多算了在同一个串的两个后缀的答案。</p>
-<p>不过前面那个东西在两个串全是 <span
-class="math inline">\(\tt{aaaa}\)</span> 的时候会爆 long long ，要开
-<code>__int128</code> 。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
-，复杂度瓶颈是建后缀数组。</p>
+\sum_{1 \leq i<j \leq n} \operatorname{lcp}\left(\mathrm{Suf}(i), \mathrm{Suf}(j)\right) 
+&=\sum_{1 \leq i<j \leq n} \operatorname{LCP}\left(i,j\right)
+\\[6pt]&= \sum_{1 \leq i<j \leq n}\left( \min_{i+1\le k \le j}\{\texttt{height[k]}\}\right)
+\end{aligned}</script><p>那么考虑把两个串用一个分隔符拼在一起，这样答案就是</p>
+<script type="math/tex; mode=display">
+\sum_{1 \le i < j \le n + m + 1} \operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))
+- \sum_{1 \le i < j \le n} \operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))
+- \sum_{n + 1 \le i < j \le n + m + 1} \operatorname{lcp}(\mathrm{Suf}(i),\,\mathrm{Suf}(j))</script><p>后面减掉的是因为多算了在同一个串的两个后缀的答案。</p>
+<p>不过前面那个东西在两个串全是 $\tt{aaaa}$ 的时候会爆 long long ，要开 <code>__int128</code> 。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$ ，复杂度瓶颈是建后缀数组。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -856,7 +840,7 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
     cout <span class="token operator">&lt;&lt;</span> _1 <span class="token operator">-</span> _2 <span class="token operator">-</span> _3 <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406061041837.png" style="zoom:50%;" /></p>
@@ -1336,7 +1320,7 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

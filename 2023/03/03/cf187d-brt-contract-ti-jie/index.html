@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -726,7 +726,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.1k
                 </div>
                 
 
@@ -746,92 +746,38 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf187d-brt-contract-题解">CF187D BRT Contract 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF187D">CF187D
-BRT Contract</a></p>
+                <h1 id="CF187D-BRT-Contract-题解"><a href="#CF187D-BRT-Contract-题解" class="headerlink" title="CF187D BRT Contract 题解"></a>CF187D BRT Contract 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF187D">CF187D BRT Contract</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 每天都要通过一条路从家到学校，这条路的起点是 cxy
-家，终点则是学校。</p>
+<p>cxy 每天都要通过一条路从家到学校，这条路的起点是 cxy 家，终点则是学校。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202303030729492.png" style="zoom: 67%;" /></p>
-<p>这条路中间还有 <span class="math inline">\(n\)</span> 个路口，从第
-<span class="math inline">\(i - 1\)</span> 个路口走到第 <span
-class="math inline">\(i\)</span> 个路口需要 <span
-class="math inline">\(d_i\)</span> 秒，每个路口都有一个红绿灯。</p>
-<p>更具体地，绿灯持续时间是 <span class="math inline">\(g\)</span>
-秒，红灯持续时间是 <span class="math inline">\(r\)</span> 秒。每天从第
-<span class="math inline">\(0\)</span> 秒开始，所有灯都是绿灯，持续
-<span class="math inline">\(g\)</span> 秒之后变为红灯，再过 <span
-class="math inline">\(r\)</span>
-秒变成绿灯，以此类推，并且同一时刻所有灯都是相同状态。</p>
+<p>这条路中间还有 $n$ 个路口，从第 $i - 1$ 个路口走到第 $i$ 个路口需要 $d_i$ 秒，每个路口都有一个红绿灯。</p>
+<p>更具体地，绿灯持续时间是 $g$ 秒，红灯持续时间是 $r$ 秒。每天从第 $0$ 秒开始，所有灯都是绿灯，持续 $g$ 秒之后变为红灯，再过 $r$ 秒变成绿灯，以此类推，并且同一时刻所有灯都是相同状态。</p>
 <p>当cxy到达一个路口，若是绿灯则可直接通过，若是红灯则需原地等待至绿灯。</p>
-<p>若到达某一路口时灯的状态正好发生改变，则视到达路口时灯的颜色为其改变后的颜色，例如第
-<span class="math inline">\(g\)</span>
-秒到达一个路口则视为遇到红灯。</p>
-<p>现在 cxy 预计了接下来 <span class="math inline">\(q\)</span>
-天从家出发的时间，第 <span class="math inline">\(j\)</span> 天将会在第
-<span class="math inline">\(t_j\)</span>
-秒从家出发，她希望你告诉她每天到达学校的最早时间。你可以假定一天内 cxy
-一定可以到达学校。</p>
+<p>若到达某一路口时灯的状态正好发生改变，则视到达路口时灯的颜色为其改变后的颜色，例如第 $g$ 秒到达一个路口则视为遇到红灯。</p>
+<p>现在 cxy 预计了接下来 $q$ 天从家出发的时间，第 $j$ 天将会在第 $t_j$ 秒从家出发，她希望你告诉她每天到达学校的最早时间。你可以假定一天内 cxy 一定可以到达学校。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The first line of input contains three space-separated positive
-integers <span class="math inline">\(n,g,r(1\le n\le 10^{5},~2\le g+r\le
-10^{9})\)</span> — the number of intersections, duration of green phase
-and duration of red phase. Next line contains <span
-class="math inline">\(n+1\)</span> integers <span
-class="math inline">\(l_{i}(1\le l_{i}\le 10^{9})\)</span> — the time to
-pass the <span class="math inline">\(i\)</span> -th road segment in the
-path from source to destination.</p>
-<p>Next line contains a single integer <span
-class="math inline">\(q(1\le q\le 10^{5})\)</span> — the number of buses
-in a day. The <span class="math inline">\(i\)</span> -th of next <span
-class="math inline">\(q\)</span> lines contains a single integer <span
-class="math inline">\(t_{i}(1\le t_{i}\le 10^{9})\)</span> — the time
-when <span class="math inline">\(i\)</span> -th bus leaves the source
-station.</p>
+<p>The first line of input contains three space-separated positive integers $n,g,r(1\le n\le 10^{5},~2\le g+r\le 10^{9})$ — the number of intersections, duration of green phase and duration of red phase. Next line contains $n+1$ integers $l_{i}(1\le l_{i}\le 10^{9})$ — the time to pass the $i$ -th road segment in the path from source to destination.</p>
+<p>Next line contains a single integer $q(1\le q\le 10^{5})$ — the number of buses in a day. The $i$ -th of next $q$ lines contains a single integer $t_{i}(1\le t_{i}\le 10^{9})$ — the time when $i$ -th bus leaves the source station.</p>
 <p><strong>输出格式</strong>：</p>
-<p>In the <span class="math inline">\(i\)</span> -th line of output you
-should print a single integer — the time that <span
-class="math inline">\(i\)</span> -th bus gets to destination.</p>
-<p>Please do not use the %lld specifier to read or write 64-bit integers
-in С++. It is preferred to use cin, cout streams or the %I64d
-specifier.</p>
+<p>In the $i$ -th line of output you should print a single integer — the time that $i$ -th bus gets to destination.</p>
+<p>Please do not use the %lld specifier to read or write 64-bit integers in С++. It is preferred to use cin, cout streams or the %I64d specifier.</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 <span class="math inline">\(1\leq n, q \leq 10^5, ~2 \leq g+r
-\leq 10^9,~ 1\le d_i, t_j \leq 10^9\)</span>。</p>
+<p>保证 $1\leq n, q \leq 10^5, ~2 \leq g+r \leq 10^9,~ 1\le d_i, t_j \leq 10^9$。 </p>
 </blockquote>
-<p>注意到是否会在红绿灯停下只与当前时刻 <span
-class="math inline">\(\bmod (g + r)\)</span> 的值有关</p>
-<p>并且在一次停下后，这个值会暂时清零。不妨设 <span
-class="math inline">\(f_i\)</span> 表示 <span
-class="math inline">\(0\)</span> 时刻从 <span
-class="math inline">\(i\)</span> 出发的花费。</p>
+<p>注意到是否会在红绿灯停下只与当前时刻 $\bmod (g + r)$ 的值有关</p>
+<p>并且在一次停下后，这个值会暂时清零。不妨设 $f_i$ 表示 $0$ 时刻从 $i$ 出发的花费。</p>
 <p>不过首先我们要解决的问题是：如何找到第一个需要等红灯的位置呢？</p>
-<p>设从开始到第 <span class="math inline">\(i\)</span> 个位置的距离模
-<span class="math inline">\((g + r)\)</span> 的余数为 <span
-class="math inline">\(p\)</span> ，出发的时间为 <span
-class="math inline">\(t\)</span></p>
-<p>若满足 <span class="math inline">\(g \le (t + p) \bmod (g +
-r)\)</span> ，则会在 <span class="math inline">\(i\)</span> 处停下。
-<span class="math inline">\(p\)</span> 是固定的，我们看看 <span
-class="math inline">\(t\)</span> 的范围： <span class="math display">\[
+<p>设从开始到第 $i$ 个位置的距离模 $(g + r)$ 的余数为 $p$ ，出发的时间为 $t$ </p>
+<p>若满足 $g \le (t + p) \bmod (g + r)$ ，则会在 $i$ 处停下。 $p$ 是固定的，我们看看 $t$ 的范围：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; p \leq g &amp;&amp;\Rightarrow&amp;&amp; t \in[g-p, r+g-1-p] \\
-&amp; g&lt;p &amp;&amp;\Rightarrow&amp;&amp; t \in[0, r+g-1-p]
-\cup[m-p+g, m-1]
-\end{aligned}
-\]</span> 所以在这些范围的 <span class="math inline">\(t\)</span> 都会在
-<span class="math inline">\(i\)</span>
-停下。这个可以用动态开点线段树维护（区间推平+单点查）</p>
-<p>那么 <span class="math inline">\(f_i\)</span>
-怎么计算呢？我们假设没有经过红灯直接到达 <span
-class="math inline">\(i\)</span> 。</p>
-<p>考虑以该方式查询：在家等 <span class="math inline">\(q\)</span>
-秒到绿灯，这等价于时刻 <span class="math inline">\(0\)</span>
-，最后花费时间减去从家到 <span class="math inline">\(i\)</span> 和等的
-<span class="math inline">\(q\)</span> 即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-m)\)</span></p>
+& p \leq g &&\Rightarrow&& t \in[g-p, r+g-1-p] \\
+& g<p &&\Rightarrow&& t \in[0, r+g-1-p] \cup[m-p+g, m-1]
+\end{aligned}</script><p>所以在这些范围的 $t$ 都会在 $i$ 停下。这个可以用动态开点线段树维护（区间推平+单点查）</p>
+<p>那么 $f_i$ 怎么计算呢？我们假设没有经过红灯直接到达 $i$ 。</p>
+<p>考虑以该方式查询：在家等 $q$ 秒到绿灯，这等价于时刻 $0$ ，最后花费时间减去从家到 $i$ 和等的 $q$ 即可。</p>
+<p>时间复杂度 $\mathcal{O}(n \log m)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -898,10 +844,9 @@ m)\)</span></p>
     cin <span class="token operator">>></span> _Q<span class="token punctuation">;</span> <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">;</span> _Q<span class="token operator">--</span><span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cin <span class="token operator">>></span> x<span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token function">Query</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ChengMD/solution-cf187d">https://www.luogu.com.cn/blog/ChengMD/solution-cf187d</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ChengMD/solution-cf187d">https://www.luogu.com.cn/blog/ChengMD/solution-cf187d</a></p>
 
                 
             </div>
@@ -1382,7 +1327,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ChengMD/solut
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

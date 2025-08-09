@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -746,109 +746,68 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc058f-authentic-tree-dp-题解">[AGC058F] Authentic Tree DP
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc058_f">[AGC058F] Authentic
-Tree DP</a></p>
+                <h1 id="AGC058F-Authentic-Tree-DP-题解"><a href="#AGC058F-Authentic-Tree-DP-题解" class="headerlink" title="[AGC058F] Authentic Tree DP 题解"></a>[AGC058F] Authentic Tree DP 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc058_f">[AGC058F] Authentic Tree DP</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于一棵 <span class="math inline">\(n\)</span> 个节点的无根树 <span
-class="math inline">\(T\)</span>，我们按如下方式定义函数 <span
-class="math inline">\(f(T)\)</span> ：</p>
+<p>对于一棵 $n$ 个节点的无根树 $T$，我们按如下方式定义函数 $f(T)$ ：</p>
 <ul>
-<li><p>若 <span class="math inline">\(n=1\)</span> ，定义 <span
-class="math inline">\(f(T) = 1\)</span>。</p></li>
-<li><p>若 <span class="math inline">\(n&gt;1\)</span> ，定义 <span
-class="math display">\[
-f(T) = \frac{\sum_{e\in T} f(T_1(e)) \times f(T_2(e))}{n}
-\]</span> 其中 <span class="math inline">\(e\)</span> 是 <span
-class="math inline">\(T\)</span> 中的一条边，<span
-class="math inline">\(T_1(e),T_2(e)\)</span> 表示 <span
-class="math inline">\(T\)</span> 切断 <span
-class="math inline">\(e\)</span> 后分裂成的两棵新的树。</p></li>
+<li><p>若 $n=1$ ，定义 $f(T) = 1$。</p>
+</li>
+<li><p>若 $n&gt;1$ ，定义</p>
+<script type="math/tex; mode=display">
+f(T) = \frac{\sum_{e\in T} f(T_1(e)) \times f(T_2(e))}{n}</script><p>其中 $e$ 是 $T$ 中的一条边，$T_1(e),T_2(e)$ 表示 $T$ 切断 $e$ 后分裂成的两棵新的树。</p>
+</li>
 </ul>
-<p>现在给定一棵 <span class="math inline">\(n~(2\le n\le 5000)\)</span>
-个节点的树 <span class="math inline">\(T\)</span>，编号从 <span
-class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 。</p>
-<p>请输出 <span class="math inline">\(f(T) \bmod 998244353\)</span>
-的值。</p>
+<p>现在给定一棵 $n~(2\le n\le 5000)$ 个节点的树 $T$，编号从 $1$ 到 $n$ 。</p>
+<p>请输出 $f(T) \bmod 998244353$ 的值。</p>
 </blockquote>
 <p>非常喵喵的思维+dp题。</p>
-<p>注意到这个奇怪的定义式，如果把 <span
-class="math inline">\(\frac{1}{n}\)</span> 改成 <span
-class="math inline">\(\frac{1}{n-1}\)</span> ，那么它的组合意义是：</p>
+<p>注意到这个奇怪的定义式，如果把 $\frac{1}{n}$ 改成 $\frac{1}{n-1}$ ，那么它的组合意义是：</p>
 <ul>
-<li>将一棵树随机删除一条边，再分为两棵子树分别进行这样的操作，最终整个图变成
-<span class="math inline">\(n\)</span> 个独立点的概率。</li>
+<li>将一棵树随机删除一条边，再分为两棵子树分别进行这样的操作，最终整个图变成 $n$ 个独立点的概率。</li>
 </ul>
-<p>显然这个概率是 <span class="math inline">\(1\)</span> 。考虑将题目的
-<span class="math inline">\(\frac{1}{n}\)</span> 转化为 <span
-class="math inline">\(\frac{1}{n-1}\)</span> 的情况。</p>
-<p>可以想到的是，<span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(n-1\)</span> 最为紧密的联系，就是点数和边数。</p>
-<p>考虑对每个边建一个边点，这样就有 <span
-class="math inline">\(2n-1\)</span> 个点，且组合意义变为了</p>
+<p>显然这个概率是 $1$ 。考虑将题目的 $\frac{1}{n}$ 转化为 $\frac{1}{n-1}$ 的情况。</p>
+<p>可以想到的是，$n$ 和 $n-1$ 最为紧密的联系，就是点数和边数。</p>
+<p>考虑对每个边建一个边点，这样就有 $2n-1$ 个点，且组合意义变为了</p>
 <ul>
 <li>将一棵树随机删除一个点，再分为两棵子树分别进行这样的操作，最终将整棵树删完的概率。</li>
 </ul>
-<p>显然这个概率还是 <span class="math inline">\(1\)</span> 。</p>
-<p>不过这并不符合题意（点数不一样）。那怎么样才能使得点数为 <span
-class="math inline">\(n\)</span> 呢？</p>
-<p>接下来就是本题最为喵喵的人类智慧操作了：给每个边点连 <span
-class="math inline">\(-1\)</span> 个点，这样点数就是 <span
-class="math inline">\(n\)</span> 了。</p>
-<p>由于我们求的是模 <span class="math inline">\(P\)</span>
-意义下的答案，所以这 <span class="math inline">\(-1\)</span>
-个点其实就是连 <span class="math inline">\(P-1\)</span> 个点。</p>
+<p>显然这个概率还是 $1$ 。</p>
+<p>不过这并不符合题意（点数不一样）。那怎么样才能使得点数为 $n$ 呢？</p>
+<p>接下来就是本题最为喵喵的人类智慧操作了：给每个边点连 $-1$ 个点，这样点数就是 $n$ 了。</p>
+<p>由于我们求的是模 $P$ 意义下的答案，所以这 $-1$ 个点其实就是连 $P-1$ 个点。</p>
 <p>点数的问题解决了，然而根据刚才的组合意义，我们会在删除边点的同时删除原树上的点。</p>
 <p>于是我们需要强制钦定所有边点的删除顺序先于周围的点，</p>
-<p>这样每次删除的时候所有分出来的树的大小都与原来树上对应部分的大小模
-<span class="math inline">\(P\)</span> 意义下相等</p>
+<p>这样每次删除的时候所有分出来的树的大小都与原来树上对应部分的大小模 $P$ 意义下相等</p>
 <p>考虑以删除顺序为每条边定向，即边点指向周围的点。</p>
 <p>这样树上就有很多儿子指父亲，父亲指儿子的情况</p>
 <p>考虑容斥，我们钦定每个儿子先于父亲的限制变成父亲先于儿子或不限制，这样就是一棵外向树了。</p>
-<p>设 <span class="math inline">\(f(i,j)\)</span> 为 <span
-class="math inline">\(i\)</span> 所在子树钦定有边的外向树大小为 <span
-class="math inline">\(j\)</span> 时满足要求的概率。</p>
+<p>设 $f(i,j)$ 为 $i$ 所在子树钦定有边的外向树大小为 $j$ 时满足要求的概率。</p>
 <ul>
-<li><p>对于原树上的点 <span class="math inline">\(u\)</span>
-，每个儿子都是边点，那么枚举儿子 <span class="math inline">\(v\)</span>
-，考虑</p>
+<li><p>对于原树上的点 $u$ ，每个儿子都是边点，那么枚举儿子 $v$ ，考虑</p>
 <ul>
-<li><p>直接删掉，有 <span class="math display">\[
-f_{\rm now}(u,i)\operatorname{\big\uparrow} f_{\rm
-pre}(u,i)\cdot  \sum_{j=1}^{\mathrm{size}(v)} f(v,j)
-\]</span> 这里 <span class="math inline">\(\uparrow\)</span>
-表示增量。</p></li>
-<li><p>变成上到下，有 <span class="math display">\[
-f_{\rm now}(u,i+j) \operatorname{\big\uparrow} f_{\rm pre}(u,i+j) -
-f(u,i)\cdot f(v,j)
-\]</span> 这里是因为钦定了一条边反向，所以系数为 <span
-class="math inline">\(-1\)</span> 。</p></li>
-</ul></li>
-<li><p>对于边点 <span class="math inline">\(u\)</span>
-，每条限制都是向下的，则 <span class="math display">\[
-f_{\rm now}(u,i + j)\operatorname{\big\uparrow} f_{\rm pre}(u,i+j)
-+f(u,i)\cdot f(v,j)
-\]</span></p></li>
+<li><p>直接删掉，有</p>
+<script type="math/tex; mode=display">
+f_{\rm now}(u,i)\operatorname{\big\uparrow} f_{\rm pre}(u,i)\cdot  \sum_{j=1}^{\mathrm{size}(v)} f(v,j)</script><p>这里 $\uparrow$ 表示增量。</p>
+</li>
+<li><p>变成上到下，有</p>
+<script type="math/tex; mode=display">
+f_{\rm now}(u,i+j) \operatorname{\big\uparrow} f_{\rm pre}(u,i+j) - f(u,i)\cdot f(v,j)</script><p>这里是因为钦定了一条边反向，所以系数为 $-1$ 。</p>
+</li>
 </ul>
-<p>最后，由于每个点 <span class="math inline">\(u\)</span>
-在外向树中是第一个被删除的，所以 <span class="math display">\[
-f(u,i)\gets f(u,i)\cdot \frac{1}{i}
-\]</span> 不过边点还有 <span class="math inline">\(P-1\)</span>
-个额外点。注意到，当前边点加上这些点的 <span
-class="math inline">\(\mathrm{size}\)</span> 为 <span
-class="math inline">\(0\)</span> 。</p>
-<p>且这些点的 <span class="math inline">\(f\)</span> 值仅有 <span
-class="math inline">\(f(u,1)=1\)</span>
-，而每个边点只会有一个儿子是原树上的点</p>
-<p>因此这个边点最终的值就是那个唯一原树上的儿子，即 <span
-class="math display">\[
-f(u,i)\gets f(v,i)\cdot \frac{1}{i}
-\]</span> 那么这就是一个树上背包，直接转移即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+</li>
+<li><p>对于边点 $u$ ，每条限制都是向下的，则</p>
+<script type="math/tex; mode=display">
+f_{\rm now}(u,i + j)\operatorname{\big\uparrow} f_{\rm pre}(u,i+j) +f(u,i)\cdot f(v,j)</script></li>
+</ul>
+<p>最后，由于每个点 $u$ 在外向树中是第一个被删除的，所以</p>
+<script type="math/tex; mode=display">
+f(u,i)\gets f(u,i)\cdot \frac{1}{i}</script><p>不过边点还有 $P-1$ 个额外点。注意到，当前边点加上这些点的 $\mathrm{size}$ 为 $0$ 。</p>
+<p>且这些点的 $f$ 值仅有 $f(u,1)=1$ ，而每个边点只会有一个儿子是原树上的点</p>
+<p>因此这个边点最终的值就是那个唯一原树上的儿子，即</p>
+<script type="math/tex; mode=display">
+f(u,i)\gets f(v,i)\cdot \frac{1}{i}</script><p>那么这就是一个树上背包，直接转移即可。</p>
+<p>时间复杂度 $\mathcal{O}(n^2)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -900,12 +859,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f4tdwbg3">https://www.luogu.com.cn/article/f4tdwbg3</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/45t2chr7">https://www.luogu.com.cn/article/45t2chr7</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f4tdwbg3">https://www.luogu.com.cn/article/f4tdwbg3</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/45t2chr7">https://www.luogu.com.cn/article/45t2chr7</a></p>
 
                 
             </div>
@@ -1386,7 +1343,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/45t2chr7">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

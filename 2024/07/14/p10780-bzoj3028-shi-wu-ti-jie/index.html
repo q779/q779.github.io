@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -738,86 +738,63 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="p10780-bzoj3028-食物-题解">P10780 BZOJ3028 食物 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10780">P10780
-BZOJ3028 食物</a></p>
+                <h1 id="P10780-BZOJ3028-食物-题解"><a href="#P10780-BZOJ3028-食物-题解" class="headerlink" title="P10780 BZOJ3028 食物 题解"></a>P10780 BZOJ3028 食物 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10780">P10780 BZOJ3028 食物</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy
-这次又要出去旅游了，和上次不同的是，她这次要去宇宙探险！我们暂且不讨论她有多么
-NC，她又幻想了她应该带一些什么东西。理所当然的，你当然要帮她计算携带
-<span class="math inline">\(n\)</span> 件物品的方案数。</p>
+<p>cxy 这次又要出去旅游了，和上次不同的是，她这次要去宇宙探险！我们暂且不讨论她有多么 NC，她又幻想了她应该带一些什么东西。理所当然的，你当然要帮她计算携带 $n$ 件物品的方案数。</p>
 <p>她这次又准备带一些受欢迎的食物，如：蜜桃多啦，鸡块啦，承德汉堡等等。</p>
 <p>当然，她又有一些稀奇古怪的限制：</p>
 <p>每种食物的限制如下：</p>
 <ul>
 <li>承德汉堡：偶数个；</li>
-<li>可乐：<span class="math inline">\(0\)</span> 个或 <span
-class="math inline">\(1\)</span> 个；</li>
-<li>鸡腿：<span class="math inline">\(0\)</span> 个，<span
-class="math inline">\(1\)</span> 个或 <span
-class="math inline">\(2\)</span> 个；</li>
+<li>可乐：$0$ 个或 $1$ 个；</li>
+<li>鸡腿：$0$ 个，$1$ 个或 $2$ 个；</li>
 <li>蜜桃多：奇数个；</li>
-<li>鸡块：<span class="math inline">\(4\)</span> 的倍数个；</li>
-<li>包子：<span class="math inline">\(0\)</span> 个，<span
-class="math inline">\(1\)</span> 个，<span
-class="math inline">\(2\)</span> 个或 <span
-class="math inline">\(3\)</span> 个；</li>
+<li>鸡块：$4$ 的倍数个；</li>
+<li>包子：$0$ 个，$1$ 个，$2$ 个或 $3$ 个；</li>
 <li>土豆片炒肉：不超过一个；</li>
-<li>面包：<span class="math inline">\(3\)</span> 的倍数个；</li>
+<li>面包：$3$ 的倍数个；</li>
 </ul>
-<p>注意，这里我们懒得考虑 cxy
-对于带的食物该怎么搭配着吃，也认为每种食物都是以「个」为单位（反正是幻想嘛），只要总数加起来是
-<span class="math inline">\(n\)</span> 就算一种方案。因此，对于给出的
-<span class="math inline">\(n\)</span>，你需要计算出方案数，并对 <span
-class="math inline">\(10007\)</span> 取模。</p>
+<p>注意，这里我们懒得考虑 cxy 对于带的食物该怎么搭配着吃，也认为每种食物都是以「个」为单位（反正是幻想嘛），只要总数加起来是 $n$ 就算一种方案。因此，对于给出的 $n$，你需要计算出方案数，并对 $10007$ 取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一个整数 <span class="math inline">\(n\)</span>，表示总数。</p>
+<p>一个整数 $n$，表示总数。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一个整数，表示方案数模 <span
-class="math inline">\(10007\)</span>。</p>
+<p>一个整数，表示方案数模 $10007$。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有数据，<span class="math inline">\(1\leq n\leq
-10^{500}\)</span>；</p>
+<p>对于所有数据，$1\leq n\leq 10^{500}$；</p>
 </blockquote>
 <p>考虑生成函数：</p>
-<ol type="1">
-<li><p>汉堡偶数个，那么 <span class="math display">\[
-f_1(x)=\sum_{n \geq 0} x^{2 n} = \frac{1}{1-x^2}
-\]</span></p></li>
-<li><p>可乐 0/1 个，那么 <span class="math display">\[
-f_2(x)=x^0+x^1=1+x
-\]</span></p></li>
-<li><p>鸡腿 0/1/2 个，那么 <span class="math display">\[
-f_3(x)=1+x+x^2
-\]</span></p></li>
-<li><p>蜜桃多奇数个，那么 <span class="math display">\[
-f_4(x)=\sum_{n \geq 0} x^{2 n+1} = x\sum_{n \ge 0}x^{2n} =
-\frac{x}{1-x^2}
-\]</span></p></li>
-<li><p>鸡块 <span class="math inline">\(4^k\)</span> 个，那么 <span
-class="math display">\[
-f_5(x)=\sum_{n \geq 0} x^{4 n} = \frac{1}{1-x^4}
-\]</span></p></li>
-<li><p>包子 0/1/2/3 个，那么 <span class="math display">\[
-f_6(x)=1+x+x^2+x^3 = (1 + x) (1 + x^2)
-\]</span></p></li>
-<li><p>土豆片炒肉 0/1 个，那么 <span class="math display">\[
-f_7(x) = 1+x
-\]</span></p></li>
-<li><p>面包 <span class="math inline">\(3^k\)</span> 个，那么 <span
-class="math display">\[
-f_8(x) = \sum_{n \geq 0} x^{3 n}=\frac{1}{1-x^3}
-\]</span></p></li>
+<ol>
+<li><p>汉堡偶数个，那么</p>
+<script type="math/tex; mode=display">
+f_1(x)=\sum_{n \geq 0} x^{2 n} = \frac{1}{1-x^2}</script></li>
+<li><p>可乐 0/1 个，那么</p>
+<script type="math/tex; mode=display">
+f_2(x)=x^0+x^1=1+x</script></li>
+<li><p>鸡腿 0/1/2 个，那么</p>
+<script type="math/tex; mode=display">
+f_3(x)=1+x+x^2</script></li>
+<li><p>蜜桃多奇数个，那么</p>
+<script type="math/tex; mode=display">
+f_4(x)=\sum_{n \geq 0} x^{2 n+1} = x\sum_{n \ge 0}x^{2n} = \frac{x}{1-x^2}</script></li>
+<li><p>鸡块 $4^k$ 个，那么</p>
+<script type="math/tex; mode=display">
+f_5(x)=\sum_{n \geq 0} x^{4 n} = \frac{1}{1-x^4}</script></li>
+<li><p>包子 0/1/2/3 个，那么</p>
+<script type="math/tex; mode=display">
+f_6(x)=1+x+x^2+x^3 = (1 + x) (1 + x^2)</script></li>
+<li><p>土豆片炒肉 0/1 个，那么</p>
+<script type="math/tex; mode=display">
+f_7(x) = 1+x</script></li>
+<li><p>面包 $3^k$ 个，那么</p>
+<script type="math/tex; mode=display">
+f_8(x) = \sum_{n \geq 0} x^{3 n}=\frac{1}{1-x^3}</script></li>
 </ol>
-<p>把上面这些 <span class="math inline">\(f\)</span> 全部乘起来，得到
-<span class="math display">\[
-F(x) = x(1-x)^{-4}
-\]</span> 那么第 <span class="math inline">\(n-1\)</span> 项的系数为
-<span class="math display">\[
-\binom{-4}{n-1}(-1)^{n-1} = \binom{n+2}{3} = \frac{n(n+1)(n+2)}{6}
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(\log_{10}n)\)</span></p>
+<p>把上面这些 $f$ 全部乘起来，得到</p>
+<script type="math/tex; mode=display">
+F(x) = x(1-x)^{-4}</script><p>那么第 $n-1$ 项的系数为</p>
+<script type="math/tex; mode=display">
+\binom{-4}{n-1}(-1)^{n-1} = \binom{n+2}{3} = \frac{n(n+1)(n+2)}{6}</script><p>时间复杂度 $\mathcal{O}(\log_{10}n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -846,11 +823,10 @@ class="math inline">\(\mathcal{O}(\log_{10}n)\)</span></p>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span> n <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">*</span> <span class="token number">1668</span> <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangtianli/p/bzoj3028.html">https://www.cnblogs.com/zhangtianli/p/bzoj3028.html</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangtianli/p/bzoj3028.html">https://www.cnblogs.com/zhangtianli/p/bzoj3028.html</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img class="img-shadow img-margin" src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407141307959.jpg" style="zoom:50%;" /></p>
@@ -1314,7 +1290,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangtianli/p/bzoj3
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

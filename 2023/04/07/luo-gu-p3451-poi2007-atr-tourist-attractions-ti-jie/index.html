@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -742,70 +742,34 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3451-poi2007atr-tourist-attractions-题解">洛谷P3451
-[POI2007]ATR-Tourist Attractions 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3451">P3451
-[POI2007]ATR-Tourist Attractions</a></p>
+                <h1 id="洛谷P3451-POI2007-ATR-Tourist-Attractions-题解"><a href="#洛谷P3451-POI2007-ATR-Tourist-Attractions-题解" class="headerlink" title="洛谷P3451 [POI2007]ATR-Tourist Attractions 题解"></a>洛谷P3451 [POI2007]ATR-Tourist Attractions 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3451">P3451 [POI2007]ATR-Tourist Attractions</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一张有 <span class="math inline">\(n\)</span> 个点 <span
-class="math inline">\(m\)</span> 条边的无向图，每条边有边权。</p>
-<p>你需要找一条从 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 的最短路径，并且这条路径在满足给出的
-<span class="math inline">\(g\)</span> 个限制的情况下可以在所有编号从
-<span class="math inline">\(2\)</span> 到 <span
-class="math inline">\(k+1\)</span> 的点上经过。</p>
-<p>每个限制条件形如 <span class="math inline">\(r_i,
-s_i\)</span>，表示经过 <span class="math inline">\(s_i\)</span>
-之前必须曾经过 <span class="math inline">\(r_i\)</span> 。</p>
+<p>给出一张有 $n$ 个点 $m$ 条边的无向图，每条边有边权。  </p>
+<p>你需要找一条从 $1$ 到 $n$ 的最短路径，并且这条路径在满足给出的 $g$ 个限制的情况下可以在所有编号从 $2$ 到 $k+1$ 的点上经过。</p>
+<p>每个限制条件形如 $r_i, s_i$，表示经过 $s_i$ 之前必须曾经过 $r_i$ 。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行三个整数 <span class="math inline">\(n,m,k\)</span>。</p>
-<p>之后 <span class="math inline">\(m\)</span> 行，每行三个整数 <span
-class="math inline">\(p_i, q_i, l_i\)</span>，表示在 <span
-class="math inline">\(p_i\)</span> 和 <span
-class="math inline">\(q_i\)</span> 之间有一条权为 <span
-class="math inline">\(l_i\)</span> 的边。</p>
-<p>之后一行一个整数 <span class="math inline">\(g\)</span>。</p>
-<p>之后 <span class="math inline">\(g\)</span> 行，每行两个整数 <span
-class="math inline">\(r_i, s_i\)</span>，表示一个限制条件。</p>
+<p>第一行三个整数 $n,m,k$。</p>
+<p>之后 $m$ 行，每行三个整数 $p_i, q_i, l_i$，表示在 $p_i$ 和 $q_i$ 之间有一条权为 $l_i$ 的边。</p>
+<p>之后一行一个整数 $g$。</p>
+<p>之后 $g$ 行，每行两个整数 $r_i, s_i$，表示一个限制条件。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一行一个整数，表示最短路径的长度。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2\le n\le2\times10^4,~1\le
-m\le2\times10^5,~0\le k\le\min(20, n-2),~1\le p_i&lt;q_i\le
-n\)</span></p>
-<p><span class="math inline">\(1\le l_i\le 10^3,~2\le r_i, s_i\le k+1,
-r_i\not=s_i\)</span> ，数据保证不存在重边且一定有解。</p>
+<p>$2\le n\le2\times10^4,~1\le m\le2\times10^5,~0\le k\le\min(20, n-2),~1\le p_i&lt;q_i\le n$</p>
+<p>$1\le l_i\le 10^3,~2\le r_i, s_i\le k+1, r_i\not=s_i$ ，数据保证不存在重边且一定有解。</p>
 </blockquote>
-<p>注意到除了这几个必须经过的点和 <span
-class="math inline">\(1,n\)</span> 以外，其他的点其实没有意义</p>
-<p>因为我们在这几个点之间走来走去的时候，一定是走的最短路，所以我们先处理出这
-<span class="math inline">\(k\)</span> 个点的最短路。</p>
-<p>考虑状压dp。这里需要特判一下 <span class="math inline">\(k=0\)</span>
-的情况，这个就是一个最短路的事。</p>
-<p>设 <span class="math inline">\(f_{S,i}\)</span> 表示停留在这 <span
-class="math inline">\(k + 1\)</span> 个点的 <span
-class="math inline">\(i\)</span> 上，已经过 <span
-class="math inline">\(2\)</span> 到 <span
-class="math inline">\(k+1\)</span> 的点的状态为 <span
-class="math inline">\(S\)</span> 时的最小花费，则 <span
-class="math display">\[
-f_{j, S \cup\{j\}} \downarrow f_{i, S}+\operatorname{dist}(i, j)
-\]</span> 其中 <span class="math inline">\(j\)</span>
-是符合条件的点。最后的答案即为 <span class="math inline">\(f_{i,
-U}+\operatorname{dist}(i, n)\)</span> ，其中 <span
-class="math inline">\(U\)</span> 为全集。</p>
-<p>然后你会发现这题只有 64MiB
-的空间，直接dp肯定要爆空间。那么怎么优化空间呢？</p>
-<p>容易发现，状态 <span class="math inline">\(T\)</span> 得到 <span
-class="math inline">\(S\)</span> 的贡献，当且仅当 <span
-class="math inline">\(|S| \le |T| \le |S| + 1\)</span> 。</p>
+<p>注意到除了这几个必须经过的点和 $1,n$ 以外，其他的点其实没有意义</p>
+<p>因为我们在这几个点之间走来走去的时候，一定是走的最短路，所以我们先处理出这 $k$ 个点的最短路。</p>
+<p>考虑状压dp。这里需要特判一下 $k=0$ 的情况，这个就是一个最短路的事。</p>
+<p>设 $f_{S,i}$ 表示停留在这 $k + 1$ 个点的 $i$ 上，已经过 $2$ 到 $k+1$ 的点的状态为 $S$ 时的最小花费，则</p>
+<script type="math/tex; mode=display">
+f_{j, S \cup\{j\}} \downarrow f_{i, S}+\operatorname{dist}(i, j)</script><p>其中 $j$ 是符合条件的点。最后的答案即为 $f_{i, U}+\operatorname{dist}(i, n)$ ，其中 $U$ 为全集。</p>
+<p>然后你会发现这题只有 64MiB 的空间，直接dp肯定要爆空间。那么怎么优化空间呢？</p>
+<p>容易发现，状态 $T$ 得到 $S$ 的贡献，当且仅当 $|S| \le |T| \le |S| + 1$ 。</p>
 <p>因此我们可以把这些状态按他们的基数排序，并利用滚动数组的思想优化空间，具体见代码</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(km\log n +
-k^22^k)\)</span></p>
-<p>空间复杂度 <span
-class="math inline">\(\mathcal{O}\left(2k\cdot\binom{k}{k/2} +
-2^k\right)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(km\log n + k^22^k)$</p>
+<p>空间复杂度 $\mathcal{O}\left(2k\cdot\binom{k}{k/2} + 2^k\right)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -898,10 +862,9 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1097%3Blg3451.html">https://yhx-12243.github.io/OI-transit/records/lydsy1097%3Blg3451.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1097%3Blg3451.html">https://yhx-12243.github.io/OI-transit/records/lydsy1097%3Blg3451.html</a></p>
 
                 
             </div>
@@ -1374,7 +1337,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

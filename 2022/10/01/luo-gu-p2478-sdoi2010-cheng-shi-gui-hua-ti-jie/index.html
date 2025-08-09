@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -746,148 +746,84 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2478-sdoi2010城市规划-题解">洛谷P2478 [SDOI2010]城市规划
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2478">P2478
-[SDOI2010]城市规划</a></p>
+                <h1 id="洛谷P2478-SDOI2010-城市规划-题解"><a href="#洛谷P2478-SDOI2010-城市规划-题解" class="headerlink" title="洛谷P2478 [SDOI2010]城市规划 题解"></a>洛谷P2478 [SDOI2010]城市规划 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2478">P2478 [SDOI2010]城市规划</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>给定一个带点权沙漠（多棵仙人掌），求最大权独立集。</p>
-<p>此处独立集的定义为集合中任意两个结点的最短路径长度不小于 <span
-class="math inline">\(3\)</span> （就是隔两个结点）</p>
+<p>此处独立集的定义为集合中任意两个结点的最短路径长度不小于 $3$ （就是隔两个结点）</p>
 <p>独立集的权值定义为独立集中所有的点的权值的和。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(n\le 10^6,m\le 2\times
-10^6\)</span>，且点权 <span class="math inline">\(0\le h_i \le
-1000\)</span>。</p>
+<p>$n\le 10^6,m\le 2\times 10^6$，且点权 $0\le h_i \le 1000$。</p>
 <p><strong>提示</strong>：</p>
 <p>原题给出的是<strong>点仙人掌</strong>组成的沙漠。</p>
 <p>点仙人掌的定义为：<strong>每个点</strong>至多存在于一个简单环内的无向连通图。</p>
 <p>边仙人掌的定义为：<strong>每条边</strong>至多存在于一个简单环内的无向连通图。</p>
-<p>考虑这样一张图 <code>(1,2) (1,3) (2,3) (3,4) (3,5) (4,5)</code>
-。它就是边仙人掌，而不是点仙人掌。</p>
+<p>考虑这样一张图 <code>(1,2) (1,3) (2,3) (3,4) (3,5) (4,5)</code> 。它就是边仙人掌，而不是点仙人掌。</p>
 </blockquote>
-<p>仙人掌dp套dp神题，想了我大概 <span class="math inline">\(5\)</span>
-个小时（<del>其实是沙漠</del>）</p>
-<p>我们可以用 <span class="math inline">\(\mathtt{Tarjan}\)</span>
-找环，然后分别考虑树上dp和环上dp。</p>
-<p>设 <span class="math inline">\(f_{i,0/1/2}\)</span> ，则</p>
+<p>仙人掌dp套dp神题，想了我大概 $5$ 个小时（<del>其实是沙漠</del>）</p>
+<p>我们可以用 $\mathtt{Tarjan}$ 找环，然后分别考虑树上dp和环上dp。</p>
+<p>设 $f_{i,0/1/2}$ ，则</p>
 <ul>
-<li><span class="math inline">\(f_{i,0}\)</span> 表示选了 <span
-class="math inline">\(i\)</span> ， <span
-class="math inline">\(i\)</span> 所在子树的最大价值</li>
-<li><span class="math inline">\(f_{i,1}\)</span> 表示选了 <span
-class="math inline">\(i\)</span> 的某个儿子， <span
-class="math inline">\(i\)</span> 所在子树的最大价值</li>
-<li><span class="math inline">\(f_{i,2}\)</span> 表示 <span
-class="math inline">\(i\)</span> 和它儿子都没选，子树的最大价值</li>
+<li>$f_{i,0}$ 表示选了 $i$ ， $i$ 所在子树的最大价值</li>
+<li>$f_{i,1}$ 表示选了 $i$ 的某个儿子， $i$ 所在子树的最大价值</li>
+<li>$f_{i,2}$ 表示 $i$ 和它儿子都没选，子树的最大价值</li>
 </ul>
 <p>这里子树的定义为</p>
 <ul>
-<li>若 <span class="math inline">\(u\)</span> 不在环上或 <span
-class="math inline">\(u\)</span> 是环顶，则子树定义为缩点后 <span
-class="math inline">\(\mathtt{DFS}\)</span>
-树上的子树，不考虑返祖边和横叉边。</li>
-<li>若 <span class="math inline">\(u\)</span>
-在环上但不是环顶，则子树定义为 <span
-class="math inline">\(\mathtt{DFS}\)</span>
-树上「所有不在环上的儿子」的子树与 <span
-class="math inline">\(u\)</span> 的并。</li>
+<li>若 $u$ 不在环上或 $u$ 是环顶，则子树定义为缩点后 $\mathtt{DFS}$ 树上的子树，不考虑返祖边和横叉边。</li>
+<li>若 $u$ 在环上但不是环顶，则子树定义为 $\mathtt{DFS}$ 树上「所有不在环上的儿子」的子树与 $u$ 的并。</li>
 </ul>
-<p>下文中使用 <span class="math inline">\(a \uparrow b+c\)</span> 表示
-<code>a += b+c</code> 。在讲解之前先给一张图方便理解。</p>
+<p>下文中使用 $a \uparrow b+c$ 表示 <code>a += b+c</code> 。在讲解之前先给一张图方便理解。</p>
 <p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/10/01/fmEzaJUPLcMT7yI.png" style="zoom:50%;" /></p>
 <p><strong>树上dp部分</strong>：</p>
-<p>显然叶子结点有 <span
-class="math inline">\(f_{u,0}=h_u,~f_{u,1}=f_{u,2}=0\)</span> 。</p>
-<p>考虑转移。设 <span class="math inline">\(u\)</span> 为非叶子结点，
-<span class="math inline">\(v \in \mathtt{son}(u)\)</span> ，则 <span
-class="math display">\[
+<p>显然叶子结点有 $f_{u,0}=h_u,~f_{u,1}=f_{u,2}=0$ 。</p>
+<p>考虑转移。设 $u$ 为非叶子结点， $v \in \mathtt{son}(u)$ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f_{u,0} &amp;\uparrow f_{v,2}
-\\[6pt]f_{u,2} &amp;\uparrow \max\{f_{v,1},~f_{v,2}\}
-\end{aligned}
-\]</span> 显然 <span class="math inline">\(f_{u,1}\)</span> 需要在 <span
-class="math inline">\(f_{u,0},f_{u,2}\)</span> 计算完再计算</p>
-<p>因为恰好只能选一个儿子，所以我们可以按 <span
-class="math inline">\(f_{u,2}\)</span>
-的方式转移，并考虑选的那个儿子对应的增量，则 <span
-class="math display">\[
-f_{u,1} = f_{u,2} + \max\left\{f_{v,0} - \max\{f_{v,1}, ~
-f_{v,2}\}\right\}
-\]</span> 注意到后面那个式子是可以在算 <span
-class="math inline">\(f_{u,0}\)</span> 和 <span
-class="math inline">\(f_{u,2}\)</span> 的时候算出来的。</p>
-<p>因为用了 <span class="math inline">\(\mathtt{Tarjan}\)</span>
-，所以在做 <span class="math inline">\(u\)</span> 的树上dp部分时，不会把
-<span class="math inline">\(u\)</span> 的环上dp部分给多算进去。</p>
+f_{u,0} &\uparrow f_{v,2}
+\\[6pt]f_{u,2} &\uparrow \max\{f_{v,1},~f_{v,2}\}
+\end{aligned}</script><p>显然 $f_{u,1}$ 需要在 $f_{u,0},f_{u,2}$ 计算完再计算</p>
+<p>因为恰好只能选一个儿子，所以我们可以按 $f_{u,2}$ 的方式转移，并考虑选的那个儿子对应的增量，则</p>
+<script type="math/tex; mode=display">
+f_{u,1} = f_{u,2} + \max\left\{f_{v,0} - \max\{f_{v,1}, ~ f_{v,2}\}\right\}</script><p>注意到后面那个式子是可以在算 $f_{u,0}$ 和 $f_{u,2}$ 的时候算出来的。</p>
+<p>因为用了 $\mathtt{Tarjan}$ ，所以在做 $u$ 的树上dp部分时，不会把 $u$ 的环上dp部分给多算进去。</p>
 <p><br></p>
 <p><strong>环上dp部分</strong>：</p>
-<p>设环顶为 <span class="math inline">\(u\)</span> （即 <span
-class="math inline">\(\mathtt{DFS}\)</span> 树上深度最小的那个点）</p>
-<p>记环上点按深度大到小依次为 <span
-class="math inline">\(c_1,c_2,\cdots,c_k\)</span> ，则有 <span
-class="math inline">\(c_k = u\)</span> 。</p>
-<p>设 <span class="math inline">\(\mathtt{calc}(l,r)\)</span>
-表示规定了环上 <span class="math inline">\(c_{l-1},c_{r+1}\)</span>
-不能选，他们之间的结点 <span class="math inline">\(c_{l\sim
-r}\)</span>按照题意随便选的最大价值。</p>
-<p>类似于 <span class="math inline">\(f\)</span>
-的定义，对于每个要处理的环，我们设一个 <span
-class="math inline">\(g_{i,0/1/2}\)</span> 。</p>
+<p>设环顶为 $u$ （即 $\mathtt{DFS}$ 树上深度最小的那个点）</p>
+<p>记环上点按深度大到小依次为 $c_1,c_2,\cdots,c_k$ ，则有 $c_k = u$ 。</p>
+<p>设 $\mathtt{calc}(l,r)$ 表示规定了环上 $c_{l-1},c_{r+1}$ 不能选，他们之间的结点 $c_{l\sim r}$按照题意随便选的最大价值。</p>
+<p>类似于 $f$ 的定义，对于每个要处理的环，我们设一个 $g_{i,0/1/2}$ 。</p>
 <ul>
-<li><span class="math inline">\(g_{i,0}\)</span> 表示选了 <span
-class="math inline">\(c_i\)</span> ，<span
-class="math inline">\(c_i\)</span> 所在子树的最大价值。</li>
-<li><span class="math inline">\(g_{i,1}\)</span> 表示选了 <span
-class="math inline">\(c_i\)</span> 的某个儿子，<span
-class="math inline">\(c_i\)</span> 所在子树的最大价值。</li>
-<li><span class="math inline">\(g_{i,2}\)</span> 表示 <span
-class="math inline">\(c_i\)</span> 和儿子都没选，<span
-class="math inline">\(c_i\)</span> 所在子树的最大价值</li>
+<li>$g_{i,0}$ 表示选了 $c_i$ ，$c_i$ 所在子树的最大价值。</li>
+<li>$g_{i,1}$ 表示选了 $c_i$ 的某个儿子，$c_i$ 所在子树的最大价值。</li>
+<li>$g_{i,2}$ 表示 $c_i$ 和儿子都没选，$c_i$ 所在子树的最大价值</li>
 </ul>
-<p>边界：<span class="math inline">\(g_{l-1,0} = 0, ~g_{l-1,1} =
-f_{c_{l-1},1},~g_{l-1,2} = f_{c_{l-1},2}\)</span> 。</p>
-<p>考虑转移，不难发现有 <span class="math display">\[
+<p>边界：$g_{l-1,0} = 0, ~g_{l-1,1} = f_{c_{l-1},1},~g_{l-1,2} = f_{c_{l-1},2}$ 。</p>
+<p>考虑转移，不难发现有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-g_{i,0} &amp;= g_{i-1,2} + f_{c_i,0}
-\\[6pt] g_{i,2} &amp;= \max\left\{g_{i-1,1},~g_{i-1,2}\right\} +
-f_{c_i,2}
-\\[6pt] g_{i,1} &amp;= \max\left\{g_{i-1,0} + f_{c_i,2},
-~\max\{g_{i-1,1},~g_{i-1,2}\} + f_{c_i,1}\right\}
-\end{aligned}
-\]</span> 注意 <span class="math inline">\(l \le i \le r+1\)</span>
-，<span class="math inline">\(\mathtt{calc}(l,r) =
-\max\{g_{r+1,1},~g_{r+1,2}\}\)</span> 。</p>
-<p>特别地，如果 <span class="math inline">\(l &gt; r+1\)</span> ，则定义
-<span class="math inline">\(\mathtt{calc}(l,r)=0\)</span> 。</p>
-<p>接着考虑 <span class="math inline">\(f_{u,0/1/2}\)</span>
-（环顶）的转移，不难发现（注意这里还是增量，因为可能不止一个儿子在环上）
-<span class="math display">\[
+g_{i,0} &= g_{i-1,2} + f_{c_i,0}
+\\[6pt] g_{i,2} &= \max\left\{g_{i-1,1},~g_{i-1,2}\right\} + f_{c_i,2}
+\\[6pt] g_{i,1} &= \max\left\{g_{i-1,0} + f_{c_i,2}, ~\max\{g_{i-1,1},~g_{i-1,2}\} + f_{c_i,1}\right\}
+\end{aligned}</script><p>注意 $l \le i \le r+1$ ，$\mathtt{calc}(l,r) = \max\{g_{r+1,1},~g_{r+1,2}\}$ 。</p>
+<p>特别地，如果 $l &gt; r+1$ ，则定义 $\mathtt{calc}(l,r)=0$ 。</p>
+<p>接着考虑 $f_{u,0/1/2}$ （环顶）的转移，不难发现（注意这里还是增量，因为可能不止一个儿子在环上）</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f_{u,0} &amp;\uparrow f_{c_1,2} + f_{c_{k-1},2} + \mathtt{calc}(3,k-3)
-\\[6pt] f_{u,2} &amp;\uparrow \mathtt{calc}(2,k-2)
-\end{aligned}
-\]</span> <span class="math inline">\(f_{u,1}\)</span>
-不同于树上dp部分，要在 <span
-class="math inline">\(f_{u,0},f_{u,2}\)</span> 之前算。</p>
+f_{u,0} &\uparrow f_{c_1,2} + f_{c_{k-1},2} + \mathtt{calc}(3,k-3)
+\\[6pt] f_{u,2} &\uparrow \mathtt{calc}(2,k-2)
+\end{aligned}</script><p>$f_{u,1}$ 不同于树上dp部分，要在 $f_{u,0},f_{u,2}$ 之前算。</p>
 <ul>
-<li>选择了环外子结点，则 <span class="math inline">\(f_{u,1} \gets
-f_{u,1} + \mathtt{calc}(2,k-2)\)</span></li>
-<li>选择了 <span class="math inline">\(c_1\)</span> ，则 <span
-class="math inline">\(f_{u,1} \gets f_{u,2} + f_{c_2,2} + f_{c_1,0} +
-\mathtt{calc}(4,k-2)\)</span></li>
-<li>选择了 <span class="math inline">\(c_{k-1}\)</span> ，则 <span
-class="math inline">\(f_{u,1} \gets f_{u,2} + f_{c_{k-2},2} +
-f_{c_{k-1},0} + \mathtt{calc}(2,k-4)\)</span></li>
+<li>选择了环外子结点，则 $f_{u,1} \gets f_{u,1}  + \mathtt{calc}(2,k-2)$</li>
+<li>选择了 $c_1$ ，则 $f_{u,1} \gets f_{u,2} + f_{c_2,2} + f_{c_1,0} + \mathtt{calc}(4,k-2)$</li>
+<li>选择了 $c_{k-1}$ ，则 $f_{u,1} \gets f_{u,2} + f_{c_{k-2},2} + f_{c_{k-1},0} + \mathtt{calc}(2,k-4)$</li>
 </ul>
-<p>综上，有 <span class="math display">\[
+<p>综上，有</p>
+<script type="math/tex; mode=display">
 f_{u,1} \gets \max\begin{cases}f_{u,1}  + \mathtt{calc}(2,k-2)
 \\[6pt]f_{u,2} + f_{c_2,2} + f_{c_1,0} + \mathtt{calc}(4,k-2)
 \\[6pt]f_{u,2} + f_{c_{k-2},2} + f_{c_{k-1},0} + \mathtt{calc}(2,k-4)
-\end{cases}
-\]</span> 时间复杂度 <span
-class="math inline">\(\mathcal{O}(n+m)\)</span></p>
+\end{cases}</script><p>时间复杂度 $\mathcal{O}(n+m)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1000,10 +936,9 @@ class="math inline">\(\mathcal{O}(n+m)\)</span></p>
     <span class="token function">print</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ix-35/solution-p2478">https://www.luogu.com.cn/blog/ix-35/solution-p2478</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ix-35/solution-p2478">https://www.luogu.com.cn/blog/ix-35/solution-p2478</a></p>
 
                 
             </div>
@@ -1480,7 +1415,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/ix-35/solutio
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

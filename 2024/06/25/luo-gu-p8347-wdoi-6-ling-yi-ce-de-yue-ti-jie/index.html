@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -742,62 +742,38 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p8347-wdoi-6另一侧的月-题解">洛谷P8347 「Wdoi-6」另一侧的月
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8347">P8347
-「Wdoi-6」另一侧的月</a></p>
+                <h1 id="洛谷P8347-「Wdoi-6」另一侧的月-题解"><a href="#洛谷P8347-「Wdoi-6」另一侧的月-题解" class="headerlink" title="洛谷P8347 「Wdoi-6」另一侧的月 题解"></a>洛谷P8347 「Wdoi-6」另一侧的月 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8347">P8347 「Wdoi-6」另一侧的月</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 <span class="math inline">\(n\)</span> 个节点的树（保证 <span
-class="math inline">\(n\ge 2\)</span>），Hifuu 和 Luna
-交替操作，前者先手。每回合操作者选择一个节点，将「该节点」和「所有与该节点相连的边」删除，形成若干个连通块，操作者再从中保留一个连通块。如果该回合结束后只剩下一个节点，则该回合的操作者失败，另一个人胜利。问谁存在必胜策略。</p>
+<p>给定 $n$ 个节点的树（保证 $n\ge 2$），Hifuu 和 Luna 交替操作，前者先手。每回合操作者选择一个节点，将「该节点」和「所有与该节点相连的边」删除，形成若干个连通块，操作者再从中保留一个连通块。如果该回合结束后只剩下一个节点，则该回合的操作者失败，另一个人胜利。问谁存在必胜策略。</p>
 <p><strong>输入格式</strong>：</p>
-<p>本题多组数据。第一行输入一个正整数 <span
-class="math inline">\(T\)</span>，表示数据组数。对于每一组数据：</p>
+<p>本题多组数据。第一行输入一个正整数 $T$，表示数据组数。对于每一组数据：</p>
 <ul>
-<li>第一行有一个正整数 <span class="math inline">\(n\)</span>。</li>
-<li>接下来 <span class="math inline">\(n-1\)</span> 行，每行两个正整数
-<span class="math inline">\(u_i,v_i\)</span>。表示一条连接节点 <span
-class="math inline">\(u_i\)</span> 和 <span
-class="math inline">\(v_i\)</span> 的双向的灵能输送渠道。</li>
+<li>第一行有一个正整数 $n$。</li>
+<li>接下来 $n-1$ 行，每行两个正整数 $u_i,v_i$。表示一条连接节点 $u_i$ 和 $v_i$ 的双向的灵能输送渠道。</li>
 </ul>
 <p><strong>输出格式</strong>：</p>
-<p>对于每一组数据，输出莲子和梅莉是否能够到达月之都。具体而言，若她们存在必定能到达月之都的策略，则输出
-<span class="math inline">\(\texttt{Hifuu}\)</span>，否则输出 <span
-class="math inline">\(\texttt{Luna}\)</span>。</p>
+<p>对于每一组数据，输出莲子和梅莉是否能够到达月之都。具体而言，若她们存在必定能到达月之都的策略，则输出 $\texttt{Hifuu}$，否则输出 $\texttt{Luna}$。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \leq T \leq 5\)</span>，<span
-class="math inline">\(2 \le n \le
-10^5\)</span>，输入数据构成一棵树。</p>
+<p>$1 \leq T \leq 5$，$2 \le n \le 10^5$，输入数据构成一棵树。</p>
 </blockquote>
 <p>考虑较小情况时先手是否必胜。显然，一个点是必胜的，两个点是必败的，三个点又是必胜的。</p>
-<p>有意思的是，当点变成 <span class="math inline">\(4\)</span>
-个的时候，菊花图是必败的，而链是必胜的。这俩的唯一区别就在于点的度数不同。</p>
+<p>有意思的是，当点变成 $4$ 个的时候，菊花图是必败的，而链是必胜的。这俩的唯一区别就在于点的度数不同。</p>
 <p>于是我们大胆猜测：任意状态<strong>先手必败</strong>当且仅当<strong>所有点的度数均为奇数</strong>。</p>
 <blockquote>
-<p><strong>证明</strong> 记所有点的均为奇点的状态为 <span
-class="math inline">\(\rm P\)</span>
-，相对应的记存在至少一个偶点的状态为 <span class="math inline">\(\rm
-N\)</span> 。</p>
-<p>显然我们只需证明 <span class="math inline">\(\rm P\)</span>
-的后继全为 <span class="math inline">\(\rm N\)</span> ，且 <span
-class="math inline">\(\rm N\)</span> 存在至少一个后继为 <span
-class="math inline">\(\rm P\)</span> 即可。</p>
+<p><strong>证明</strong>&emsp;记所有点的均为奇点的状态为 $\rm P$ ，相对应的记存在至少一个偶点的状态为 $\rm N$ 。</p>
+<p>显然我们只需证明 $\rm P$ 的后继全为 $\rm N$ ，且 $\rm N$ 存在至少一个后继为 $\rm P$ 即可。</p>
 <p>注意到题目中的切法实际上只是删除了某一条边，并且选择它的某一侧作为后继状态。</p>
 <ul>
-<li><p>对于 <span class="math inline">\(\rm P\)</span>
-态，切一条边会使两个点变成偶点，无论留哪个都会变为 <span
-class="math inline">\(\rm N\)</span> 。</p></li>
-<li><p>对于 <span class="math inline">\(\rm N\)</span>
-态，由于偶点的个数有限，故随意钦定一个根后必有一棵子树只有根节点是偶点，</p>
-<p>选择这棵子树作为后继（也就是切它到父节点的边），可以得到 <span
-class="math inline">\(\rm P\)</span> 的后继。<span
-style="float: right;"><span
-class="math inline">\(\square\)</span></span></p></li>
+<li><p>对于 $\rm P$ 态，切一条边会使两个点变成偶点，无论留哪个都会变为 $\rm N$ 。</p>
+</li>
+<li><p>对于 $\rm N$ 态，由于偶点的个数有限，故随意钦定一个根后必有一棵子树只有根节点是偶点，</p>
+<p>选择这棵子树作为后继（也就是切它到父节点的边），可以得到 $\rm P$ 的后继。<span style="float: right;">$\square$</span></p>
+</li>
 </ul>
 </blockquote>
 <p>因此我们只需要判一下有没有偶点即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -826,17 +802,14 @@ class="math inline">\(\square\)</span></span></p></li>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/59tk349y">https://www.luogu.com.cn/article/59tk349y</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/59tk349y">https://www.luogu.com.cn/article/59tk349y</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <blockquote>
-<p><img
-src="https://cdn.luogu.com.cn/upload/image_hosting/ikxrpn7c.png" /></p>
-<p>「人类的梦想之一，月面旅行对一般人也终于成为可能！」<br />
-「从下个月起日本各个旅行公司将开始展开旅行」</p>
+<p><img src="/medias/loading.gif" data-original="https://cdn.luogu.com.cn/upload/image_hosting/ikxrpn7c.png" alt=""></p>
+<p>「人类的梦想之一，月面旅行对一般人也终于成为可能！」<br>「从下个月起日本各个旅行公司将开始展开旅行」   </p>
 <p>然而，月球的表面，有着将月之都与荒凉的无生命星球隔开的一道结界。只要这道结界存在，人们只能看到石头罢了。</p>
 <p>而月面旅行的费用，也绝不是身为大学生的莲子与梅莉二人所能承担的。但是，她们想要探寻的是，被结界所包裹的，有着高度发达文明的月之都。</p>
 <p>这，便是另一侧的月。梅莉她看见了。兔子在捣药，身着华美的服装，优雅地在天空中起舞的天女。</p>
@@ -1314,7 +1287,7 @@ src="https://cdn.luogu.com.cn/upload/image_hosting/ikxrpn7c.png" /></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

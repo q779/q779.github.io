@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -746,72 +746,34 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf739e-gosha-is-hunting-题解">CF739E Gosha is hunting 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF739E">Gosha is
-hunting</a></p>
+                <h1 id="CF739E-Gosha-is-hunting-题解"><a href="#CF739E-Gosha-is-hunting-题解" class="headerlink" title="CF739E Gosha is hunting 题解"></a>CF739E Gosha is hunting 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF739E">Gosha is hunting</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>你要抓神奇宝贝！现在一共有 <span class="math inline">\(n\)</span>
-只神奇宝贝，而你有 <span class="math inline">\(a\)</span> 个『宝贝球』和
-<span class="math inline">\(b\)</span> 个『超级球』。</p>
-<p>『宝贝球』抓到第 <span class="math inline">\(i\)</span>
-只神奇宝贝的概率是 <span
-class="math inline">\(p_i\)</span>，『超级球』抓到的概率则是 <span
-class="math inline">\(u_i\)</span> 。</p>
+<p>你要抓神奇宝贝！现在一共有 $n$ 只神奇宝贝，而你有 $a$ 个『宝贝球』和 $b$ 个『超级球』。</p>
+<p>『宝贝球』抓到第  $i$  只神奇宝贝的概率是 $p_i$，『超级球』抓到的概率则是 $u_i$ 。</p>
 <p>不能往同一只神奇宝贝上使用超过一个同种的『球』，但是可以往同一只上既使用『宝贝球』又使用『超级球』（都抓到算一个）。</p>
 <p>请合理分配每个球抓谁，使得你抓到神奇宝贝的总个数期望最大，并输出这个值。</p>
-<p><span class="math inline">\(2\le n \le 2000,~0 \le a,b \le n,~0 \le
-p_i,u_i \le 1\)</span>。</p>
+<p>$2\le n \le 2000,~0 \le a,b \le n,~0 \le p_i,u_i \le 1$。</p>
 </blockquote>
 <p>一道 wqs二分 的好题呀</p>
-<p>设 <span class="math inline">\(f_{i,j,k}\)</span> 表示前 <span
-class="math inline">\(i\)</span> 只神奇宝贝，用了 <span
-class="math inline">\(j\)</span> 个宝贝球和 <span
-class="math inline">\(k\)</span> 个超级球的最大期望，则 <span
-class="math display">\[
-f_{i,j,k} =\max\left\{ f_{i-1,j-1,k} +p_i,\,f_{i-1,j,k-1} +
-u_i,\,f_{i-1,j-1,k-1} + p_i +u_i - p_iu_i  \right\}
-\]</span> 可以发现，当 <span class="math inline">\(i,j\)</span>
-固定时，关于 <span class="math inline">\(k\)</span> 的函数 <span
-class="math inline">\(f_{i,j,k}\)</span> 是一个上凸壳。</p>
-<p>这一点可能不太显然，参考 wqs二分
-的模型，我们会优先用收益大的超级球，则 <span class="math display">\[
-g(k) - g(k-1) \ge g(k + 1)-g(k)
-\]</span> 这意味着，随着 <span class="math inline">\(k\)</span>
-的增大，<span class="math inline">\(g(k)\)</span> 关于点 <span
-class="math inline">\((k,g(k))\)</span>
-的切线斜率是<strong>单调递减</strong>的，即 <span
-class="math inline">\(g(k)\)</span> 为上凸函数</p>
+<p>设 $f_{i,j,k}$ 表示前 $i$ 只神奇宝贝，用了 $j$ 个宝贝球和 $k$ 个超级球的最大期望，则</p>
+<script type="math/tex; mode=display">
+f_{i,j,k} =\max\left\{ f_{i-1,j-1,k} +p_i,\,f_{i-1,j,k-1} + u_i,\,f_{i-1,j-1,k-1} + p_i +u_i - p_iu_i  \right\}</script><p>可以发现，当 $i,j$ 固定时，关于 $k$ 的函数 $f_{i,j,k}$ 是一个上凸壳。</p>
+<p>这一点可能不太显然，参考 wqs二分 的模型，我们会优先用收益大的超级球，则</p>
+<script type="math/tex; mode=display">
+g(k) - g(k-1) \ge g(k + 1)-g(k)</script><p>这意味着，随着 $k$ 的增大，$g(k)$ 关于点 $(k,g(k))$ 的切线斜率是<strong>单调递减</strong>的，即 $g(k)$ 为上凸函数</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405231632797.jpg" style="zoom:23%;" /></p>
-<p>注意到这个单调递减了吗，我们可以去二分一条切线的斜率 <span
-class="math inline">\(c\)</span> 。</p>
-<p>当 <span class="math inline">\(c\)</span> 固定时，我们考察这条切线过
-<span class="math inline">\(g(k)\)</span>
-上每个点时截距的最大值，这个截距显然是 <span
-class="math inline">\(f(k)=g(k)-ck\)</span></p>
-<p>此时的 <span class="math inline">\(f(k)\)</span>
-相当于每个物品的价值减少了 <span class="math inline">\(c\)</span>
-时、<strong>不限制选的物品个数</strong>选出的最优方案。</p>
+<p>注意到这个单调递减了吗，我们可以去二分一条切线的斜率 $c$ 。</p>
+<p>当 $c$ 固定时，我们考察这条切线过 $g(k)$ 上每个点时截距的最大值，这个截距显然是 $f(k)=g(k)-ck$</p>
+<p>此时的 $f(k)$ 相当于每个物品的价值减少了 $c$ 时、<strong>不限制选的物品个数</strong>选出的最优方案。</p>
 <p>当然我们不需要这个最优方案的价值，我们需要知道这个最优方案用了多少个物品。</p>
-<p>例如，如果最优方案用了 <span class="math inline">\(x &lt; k\)</span>
-个物品，那说明我们需要小一些的 <span class="math inline">\(c\)</span>
-。</p>
-<p>最终当 <span class="math inline">\(x=k\)</span> 时，我们只需要把
-<span class="math inline">\(f(k)\)</span> 加上 <span
-class="math inline">\(ck\)</span> 就是我们一开始需要的 <span
-class="math inline">\(g(k)\)</span> 了，即 <span
-class="math inline">\(f_{i,j,k}\)</span> 。</p>
-<p>这么做的话时间复杂度是 <span class="math inline">\(\mathcal{O}(n^2
-\log n)\)</span> 的，因为 <span class="math inline">\(k\)</span>
-这一维可以贪心。</p>
-<p>我们考察一个位置从 不用超级球 到 用超级球，答案的增加量为 <span
-class="math display">\[
-\Delta_i = \max(p_i + u_i - p_iu_i - c, p_i) - \max(u - k_i, 0)
-\]</span> 实际上我们不用 dp <span class="math inline">\(j\)</span>
-这一维，只需要按 <span class="math inline">\(\Delta_i\)</span>
-排序即可（甚至可以分四种情况归并以省掉排序，这样少一个 log）</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log^2
-n)\)</span></p>
+<p>例如，如果最优方案用了 $x &lt; k$ 个物品，那说明我们需要小一些的 $c$ 。</p>
+<p>最终当 $x=k$ 时，我们只需要把 $f(k)$ 加上 $ck$ 就是我们一开始需要的 $g(k)$ 了，即 $f_{i,j,k}$ 。</p>
+<p>这么做的话时间复杂度是 $\mathcal{O}(n^2 \log n)$ 的，因为 $k$ 这一维可以贪心。</p>
+<p>我们考察一个位置从 不用超级球 到 用超级球，答案的增加量为</p>
+<script type="math/tex; mode=display">
+\Delta_i = \max(p_i + u_i - p_iu_i - c, p_i) - \max(u - k_i, 0)</script><p>实际上我们不用 dp $j$ 这一维，只需要按 $\Delta_i$ 排序即可（甚至可以分四种情况归并以省掉排序，这样少一个 log）</p>
+<p>时间复杂度 $\mathcal{O}(n \log^2 n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 2022-06-19 11:55:23</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -872,18 +834,14 @@ n)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> sum<span class="token operator">+</span>l<span class="token operator">*</span>b <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/czn8f40f">https://www.luogu.com.cn/article/czn8f40f</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/iz96kajl">https://www.luogu.com.cn/article/iz96kajl</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/ydtz/p/16536706.html">https://www.cnblogs.com/ydtz/p/16536706.html</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/czn8f40f">https://www.luogu.com.cn/article/czn8f40f</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/iz96kajl">https://www.luogu.com.cn/article/iz96kajl</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ydtz/p/16536706.html">https://www.cnblogs.com/ydtz/p/16536706.html</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
-<p>这道题在我 2022年6月19日
-AC，但是<del>非常奇怪的是</del>竟然没有写题解。</p>
+<p>这道题在我 2022年6月19日 AC，但是<del>非常奇怪的是</del>竟然没有写题解。</p>
 <p>如果不是 mygr 巨佬做到这题，我可能永远都不会想起来这道题目。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405231836231.png" style="zoom:30%;" /></p>
 
@@ -1354,7 +1312,7 @@ AC，但是<del>非常奇怪的是</del>竟然没有写题解。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

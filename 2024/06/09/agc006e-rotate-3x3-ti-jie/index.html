@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -738,48 +738,30 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc006e-rotate-3x3-题解">[AGC006E] Rotate 3x3 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc006_e">[AGC006E] Rotate
-3x3</a></p>
+                <h1 id="AGC006E-Rotate-3x3-题解"><a href="#AGC006E-Rotate-3x3-题解" class="headerlink" title="[AGC006E] Rotate 3x3 题解"></a>[AGC006E] Rotate 3x3 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc006_e">[AGC006E] Rotate 3x3</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一个 <span class="math inline">\(3\)</span> 行 <span
-class="math inline">\(N\)</span> 列的初始矩阵，<span
-class="math inline">\((i,j)\)</span> 位置的数为 <span
-class="math inline">\(i+3\times j-3\)</span>。</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406091454813.png" /></p>
-<p>然后有一个这样的操作：选择一个 <span class="math inline">\(3 \times
-3\)</span> 的子矩阵，将这个子矩阵旋转 <span
-class="math inline">\(180°\)</span>（具体见下面的图）。</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406091454773.png" /></p>
-<p>现在给出一个 <span class="math inline">\(3\)</span> 行 <span
-class="math inline">\(N\)</span> 列的矩阵（矩阵中的数各不相同）</p>
+<p>有一个 $3$ 行 $N$ 列的初始矩阵，$(i,j)$ 位置的数为 $i+3\times j-3$。  </p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406091454813.png" alt=""></p>
+<p>然后有一个这样的操作：选择一个 $3 \times 3$ 的子矩阵，将这个子矩阵旋转 $180°$（具体见下面的图）。</p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406091454773.png" alt=""></p>
+<p>现在给出一个 $3$ 行 $N$ 列的矩阵（矩阵中的数各不相同）</p>
 <p>问能否通过若干次上述操作将初始矩阵变为给定的矩阵。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行给出 <span class="math inline">\(n\)</span> ，然后三行共 <span
-class="math inline">\(3 \times n\)</span> 个数表示初始矩阵。</p>
+<p>第一行给出 $n$ ，然后三行共 $3 \times n$ 个数表示初始矩阵。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n \le 10^5,~1 \le a_{i,j} \le
-3n\)</span> 。</p>
+<p>$1\le n \le 10^5,~1 \le a_{i,j} \le 3n$ 。</p>
 </blockquote>
-<p>看题解区好多 <span class="math inline">\(\mathcal{O}(n)\)</span>
-的神仙解法，我来讲一讲好理解的 <span class="math inline">\(\mathcal{O}(n
-\log n)\)</span> 解法吧。</p>
+<p>看题解区好多 $\mathcal{O}(n)$ 的神仙解法，我来讲一讲好理解的 $\mathcal{O}(n \log n)$ 解法吧。</p>
 <p>首先判掉明显不对的情况，这样每一行就可以看作一个数，并且有正负之分</p>
-<p>注意到一次旋转只会交换奇偶性相同的相邻两列，即 <span
-class="math inline">\(i\)</span> 和 <span
-class="math inline">\(i+2\)</span> 。</p>
+<p>注意到一次旋转只会交换奇偶性相同的相邻两列，即 $i$ 和 $i+2$ 。</p>
 <p>那么不考虑正负的问题，把奇数列和偶数列分别换到正确的位置，操作数就是他们各自的逆序对数。</p>
 <p>然后因为给了最终结果，所以正负是已知的，而且我们做的每个操作都是必须的。</p>
 <p>那么一次奇数列的翻转会改变偶数列的一列的奇偶，偶数列也是一样的。</p>
 <p>于是我们只需要判断一下「奇/偶数的操作数的奇偶性」和「偶/奇数的负数列的个数的奇偶性」就好了</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -820,11 +802,10 @@ n)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Yes"</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k3s0to06">https://www.luogu.com.cn/article/k3s0to06</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k3s0to06">https://www.luogu.com.cn/article/k3s0to06</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>想是想出来了，但是不相信自己能想出来，难评。</p>
 
@@ -1295,7 +1276,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/k3s0to06">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

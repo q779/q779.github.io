@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -734,53 +734,24 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc006d-median-pyramid-hard-题解">[AGC006D] Median Pyramid Hard
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc006_d">[AGC006D] Median
-Pyramid Hard</a></p>
+                <h1 id="AGC006D-Median-Pyramid-Hard-题解"><a href="#AGC006D-Median-Pyramid-Hard-题解" class="headerlink" title="[AGC006D] Median Pyramid Hard 题解"></a>[AGC006D] Median Pyramid Hard 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc006_d">[AGC006D] Median Pyramid Hard</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个 <span class="math inline">\(N~(1 \le N \le 10^5)\)</span>
-层的方格金字塔，自顶向下依次标号为第 <span
-class="math inline">\(1\)</span> 到第 <span
-class="math inline">\(N\)</span> 层。</p>
-<p>其中第 <span class="math inline">\(i~(1 \le i \le N)\)</span> 层有
-<span class="math inline">\(2i - 1\)</span>
-个方格（具体形态见下面的图）</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202408041852823.png" /></p>
-<p>第 <span class="math inline">\(N\)</span> 层有一个 <span
-class="math inline">\(1\)</span> 到 <span
-class="math inline">\(2N-1\)</span>
-的排列，其他层的数字按以下规则生成：</p>
+<p>给出一个 $N~(1 \le N \le 10^5)$ 层的方格金字塔，自顶向下依次标号为第 $1$ 到第 $N$ 层。  </p>
+<p>其中第 $i~(1 \le i \le N)$ 层有 $2i - 1$ 个方格（具体形态见下面的图）</p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202408041852823.png" alt=""></p>
+<p>第 $N$ 层有一个 $1$ 到 $2N-1$ 的排列，其他层的数字按以下规则生成：</p>
 <ul>
-<li>方格 <span class="math inline">\(b\)</span> 中填写的整数，是方格
-<span class="math inline">\(b\)</span>
-正下方、左下方和右下方方格中所写整数的中位数。</li>
+<li>方格 $b$ 中填写的整数，是方格 $b$ 正下方、左下方和右下方方格中所写整数的中位数。  </li>
 </ul>
-<p>现在给出第 <span class="math inline">\(N\)</span>
-层的数字，请你求第一层的数字。</p>
+<p>现在给出第 $N$ 层的数字，请你求第一层的数字。</p>
 </blockquote>
-<p>考虑二分最上层这个数 <span class="math inline">\(\ge
-x\)</span>，然后令 <span class="math inline">\(\ge x\)</span> 的数为
-<span class="math inline">\(1\)</span> ，<span
-class="math inline">\(&lt;x\)</span> 的的数为 <span
-class="math inline">\(0\)</span> 。</p>
+<p>考虑二分最上层这个数 $\ge x$，然后令 $\ge x$ 的数为 $1$ ，$&lt;x$ 的的数为 $0$ 。</p>
 <p>那么原题可以转化为，每次操作对于相邻的三个数，</p>
-<p>如果 <span class="math inline">\(1\)</span> 的个数 <span
-class="math inline">\(\ge 3\)</span> 则为 <span
-class="math inline">\(1\)</span> ，否则为 <span
-class="math inline">\(0\)</span> ，最终最上面的那个数是 <span
-class="math inline">\(0\)</span> 还是 <span
-class="math inline">\(1\)</span> 。</p>
-<p>这样问题就变成了 <span class="math inline">\(0,1\)</span>
-序列如何快速判断了，接下来就是找规律了，请参考 <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6f6z73pc">link</a> 或者下图</p>
+<p>如果 $1$ 的个数 $\ge 3$ 则为 $1$ ，否则为 $0$ ，最终最上面的那个数是 $0$ 还是 $1$ 。</p>
+<p>这样问题就变成了 $0,1$ 序列如何快速判断了，接下来就是找规律了，请参考 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6f6z73pc">link</a> 或者下图</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202408041854607.png" style="zoom:40%;" /></p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
-，当然这题还有 <span class="math inline">\(\mathcal{O}(n)\)</span>
-的解法，也是基于这一规律的。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$ ，当然这题还有 $\mathcal{O}(n)$ 的解法，也是基于这一规律的。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -819,15 +790,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6f6z73pc">
     cout <span class="token operator">&lt;&lt;</span> l <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong></p>
 <p>就是上面那个link。</p>
-<hr />
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>没图片，但是推歌。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1853327677&amp;auto=0&amp;height=66">
-</iframe>
-
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1853327677&auto=0&height=66"></iframe>
                 
             </div>
             <hr/>
@@ -1295,7 +1264,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6f6z73pc">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

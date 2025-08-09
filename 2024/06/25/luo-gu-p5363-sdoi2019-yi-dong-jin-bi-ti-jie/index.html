@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -746,83 +746,36 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5363-sdoi2019-移动金币-题解">洛谷P5363 [SDOI2019] 移动金币
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5363">P5363
-[SDOI2019] 移动金币</a></p>
+                <h1 id="洛谷P5363-SDOI2019-移动金币-题解"><a href="#洛谷P5363-SDOI2019-移动金币-题解" class="headerlink" title="洛谷P5363 [SDOI2019] 移动金币 题解"></a>洛谷P5363 [SDOI2019] 移动金币 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5363">P5363 [SDOI2019] 移动金币</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Alice 和 Bob 将要进行如下的一场游戏。二人轮流操作，且 Alice
-先行。</p>
+<p>Alice 和 Bob 将要进行如下的一场游戏。二人轮流操作，且 Alice 先行。</p>
 <p>当轮到一个玩家的时候，他可以选择一枚金币，并将其向左移动任意多格，且至少移动一格。金币不能被移出棋盘，也不能越过其它金币。</p>
-<p>一个 <span class="math inline">\(1\times n\)</span>
-的棋盘上最初摆放有 <span class="math inline">\(m\)</span>
-枚金币。其中每一枚金币占据了一个独立的格子，任意一个格子内最多只有一枚金币。</p>
-<p>如果轮到一个玩家的时候他已经无法做出任何有效操作了（显然这个时候
-<span class="math inline">\(m\)</span> 枚金币恰好落在最左侧的 <span
-class="math inline">\(m\)</span> 个格子中），则被判定为输家。已经知道
-Alice 和 Bob
-都是极致聪明的人，他们在任何局面下总能做出最优的操作。那么有多少初始状态能保证
-Alice 必胜呢？</p>
+<p>一个 $1\times n$ 的棋盘上最初摆放有 $m$ 枚金币。其中每一枚金币占据了一个独立的格子，任意一个格子内最多只有一枚金币。</p>
+<p>如果轮到一个玩家的时候他已经无法做出任何有效操作了（显然这个时候 $m$ 枚金币恰好落在最左侧的 $m$ 个格子中），则被判定为输家。已经知道 Alice 和 Bob 都是极致聪明的人，他们在任何局面下总能做出最优的操作。那么有多少初始状态能保证 Alice 必胜呢？</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入仅有一行并包含两个正整数，依次为 <span
-class="math inline">\(n\)</span> 和 <span
-class="math inline">\(m\)</span>，如题目所述。</p>
+<p>输入仅有一行并包含两个正整数，依次为 $n$ 和 $m$，如题目所述。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一个整数，表示有多少初始状态可以保证 Alice
-作为先手方能先手必胜。</p>
-<p>由于答案可能很大，请输出关于 <span
-class="math inline">\(10^9+9\)</span> 取模后的值。</p>
+<p>输出一个整数，表示有多少初始状态可以保证 Alice 作为先手方能先手必胜。</p>
+<p>由于答案可能很大，请输出关于 $10^9+9$ 取模后的值。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n\le 1.5\times 10^5\)</span> 且
-<span class="math inline">\(1\le m\le 50\)</span>。</p>
+<p>$1\le n\le 1.5\times 10^5$ 且 $1\le m\le 50$。</p>
 </blockquote>
-<p>考虑如何判断一个状态是否为先手必胜态 <span class="math inline">\(\rm
-N\)</span> 。</p>
-<p>记 <span class="math inline">\(x_i\)</span> 为每个棋子的位置，并记
-<span class="math inline">\(b_i = x_i - x_{i-1}-1\)</span>
-为每个棋子初始可以移动的格数。</p>
-<p>注意到当第 <span class="math inline">\(i\)</span> 个金币移动 <span
-class="math inline">\(x\)</span> 格时，会使得 <span
-class="math inline">\(b_i \gets b_i - x\)</span> 且 <span
-class="math inline">\(b_{i + 1} \gets b_{i + 1} + x\)</span> 。</p>
-<p>于是这就变成了一个反着的阶梯博弈，也就是从 <span
-class="math inline">\(m + 1\)</span> 开始的阶梯博弈，参考 <a
-href="/2024/06/25/luo-gu-p3480-poi2009-kam-pebbles-ti-jie/">P3480
-题解</a> 。</p>
-<p>阶梯博弈的结论是，先手为 <span class="math inline">\(\rm N/P\)</span>
-取决与奇数堆的 Nim 游戏是什么。</p>
-<p>本题因为是反过来的，所以先手为必败态 <span class="math inline">\(\rm
-P\)</span> 当且仅当 <span
-class="math inline">\(n,\,n-2,\,\cdots\)</span> 这些位置满足异或和为
-<span class="math inline">\(0\)</span> 。</p>
-<p>如果求出有多少个状态为 <span class="math inline">\(\rm P\)</span>
-，那么用总数减去 <span class="math inline">\(\rm P\)</span>
-的状态数就是答案了。</p>
-<p>现在问题就变成了将 <span class="math inline">\(n\)</span> 个格子放进
-<span class="math inline">\(m+1\)</span> 个盒子里，盒子可空，且与 <span
-class="math inline">\(m + 1\)</span> 奇偶性相同的盒子异或和为 <span
-class="math inline">\(0\)</span> 。</p>
-<p>这个异或和不太好直接搞，套路地考虑枚举二进制下每一位 <span
-class="math inline">\(2^i\)</span> ，每次我们会放偶数个这样的位。</p>
-<p>考虑设 <span class="math inline">\(f(i,j)\)</span> 为考虑前 <span
-class="math inline">\(i\)</span> 位（从低到高），还剩 <span
-class="math inline">\(j\)</span> 个格子没放到盒子里时状态为 <span
-class="math inline">\(\rm P\)</span> 的方案数。那么 <span
-class="math display">\[
-f(i,j) = \sum_{k\ \mathrm{is\ even}}
-\binom{\left\lfloor\frac{m+1}{2}\right\rfloor}{k}f(i + 1,j - k\cdot 2^i)
-\]</span> 其中 <span
-class="math inline">\(\left\lfloor\frac{m+1}{2}\right\rfloor\)</span>
-是盒子的个数。</p>
-<p>这样子还可能有剩余的格子没有塞到盒子里。考虑插板法塞到与 <span
-class="math inline">\(m+1\)</span> 奇偶性不同的位置，那么 <span
-class="math display">\[
-\mathrm{Ans} = \binom{n}{m} - \sum_{i=0}^{n - m}\binom{i +
-\left\lfloor\frac{m+1}{2}\right\rfloor -
-1}{\left\lfloor\frac{m+1}{2}\right\rfloor -1}f(i,0)
-\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(nm \log
-n)\)</span></p>
+<p>考虑如何判断一个状态是否为先手必胜态 $\rm N$ 。</p>
+<p>记 $x_i$ 为每个棋子的位置，并记 $b_i = x_i - x_{i-1}-1$ 为每个棋子初始可以移动的格数。</p>
+<p>注意到当第 $i$ 个金币移动 $x$ 格时，会使得 $b_i \gets b_i - x$ 且 $b_{i + 1} \gets b_{i + 1} + x$ 。</p>
+<p>于是这就变成了一个反着的阶梯博弈，也就是从 $m + 1$ 开始的阶梯博弈，参考 <a href="/2024/06/25/luo-gu-p3480-poi2009-kam-pebbles-ti-jie/">P3480 题解</a> 。</p>
+<p>阶梯博弈的结论是，先手为 $\rm N/P$ 取决与奇数堆的 Nim 游戏是什么。</p>
+<p>本题因为是反过来的，所以先手为必败态 $\rm P$ 当且仅当 $n,\,n-2,\,\cdots$ 这些位置满足异或和为 $0$ 。</p>
+<p>如果求出有多少个状态为 $\rm P$ ，那么用总数减去 $\rm P$ 的状态数就是答案了。</p>
+<p>现在问题就变成了将 $n$ 个格子放进 $m+1$ 个盒子里，盒子可空，且与 $m + 1$ 奇偶性相同的盒子异或和为 $0$ 。</p>
+<p>这个异或和不太好直接搞，套路地考虑枚举二进制下每一位 $2^i$ ，每次我们会放偶数个这样的位。</p>
+<p>考虑设 $f(i,j)$ 为考虑前 $i$ 位（从低到高），还剩 $j$ 个格子没放到盒子里时状态为 $\rm P$ 的方案数。那么</p>
+<script type="math/tex; mode=display">
+f(i,j) = \sum_{k\ \mathrm{is\ even}} \binom{\left\lfloor\frac{m+1}{2}\right\rfloor}{k}f(i + 1,j - k\cdot 2^i)</script><p>其中 $\left\lfloor\frac{m+1}{2}\right\rfloor$ 是盒子的个数。</p>
+<p>这样子还可能有剩余的格子没有塞到盒子里。考虑插板法塞到与 $m+1$ 奇偶性不同的位置，那么</p>
+<script type="math/tex; mode=display">
+\mathrm{Ans} = \binom{n}{m} - \sum_{i=0}^{n - m}\binom{i + \left\lfloor\frac{m+1}{2}\right\rfloor - 1}{\left\lfloor\frac{m+1}{2}\right\rfloor -1}f(i,0)</script><p>时间复杂度 $\mathcal{O}(nm \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -872,11 +825,10 @@ n)\)</span></p>
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token function">C</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> m<span class="token punctuation">)</span> <span class="token operator">+</span> mod <span class="token operator">-</span> res<span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9f76q5ni">https://www.luogu.com.cn/article/9f76q5ni</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9f76q5ni">https://www.luogu.com.cn/article/9f76q5ni</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406251935801.jpg" style="zoom:24%;" /></p>
@@ -1356,7 +1308,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/9f76q5ni">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

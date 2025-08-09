@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -722,7 +722,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    854
+                    844
                 </div>
                 
 
@@ -742,62 +742,37 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p3768-简单的数学题-题解">洛谷P3768 简单的数学题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3768">P3768
-简单的数学题</a></p>
+                <h1 id="洛谷P3768-简单的数学题-题解"><a href="#洛谷P3768-简单的数学题-题解" class="headerlink" title="洛谷P3768 简单的数学题 题解"></a>洛谷P3768 简单的数学题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3768">P3768 简单的数学题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>输入一个整数 <span class="math inline">\(n\)</span> 和一个整数 <span
-class="math inline">\(p\)</span>，你需要求出：</p>
-<p><span class="math display">\[
-\left(\sum_{i=1}^n\sum_{j=1}^n ij \gcd(i,j)\right) \bmod p
-\]</span> 其中 <span class="math inline">\(\gcd(a,b)\)</span> 表示 <span
-class="math inline">\(a\)</span> 与 <span
-class="math inline">\(b\)</span> 的最大公约数。</p>
+<p>输入一个整数 $n$ 和一个整数 $p$，你需要求出：</p>
+<script type="math/tex; mode=display">
+\left(\sum_{i=1}^n\sum_{j=1}^n ij \gcd(i,j)\right) \bmod p</script><p>其中 $\gcd(a,b)$ 表示 $a$ 与 $b$ 的最大公约数。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行两个整数 <span class="math inline">\(p,n\)</span>。</p>
+<p>一行两个整数 $p,n$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n \le 10^{10},~5 \times 10^8 \leq p
-\leq 1.1 \times 10^9\)</span> 且 <span class="math inline">\(p\)</span>
-为质数。时限 4s。</p>
+<p>$1\le n \le 10^{10},~5 \times 10^8 \leq p \leq 1.1 \times 10^9$ 且 $p$ 为质数。时限 4s。</p>
 </blockquote>
-<p>考虑欧拉反演。 <span class="math display">\[
+<p>考虑欧拉反演。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\sum_{i=1}^n \sum_{j=1}^n i j \operatorname{gcd}(i, j)
-&amp; =\sum_{i=1}^n \sum_{j=1}^n i j \sum_{k\mid i,\, k\mid j}
-\varphi(k)
-\\[4pt]&amp; =\sum_{k=1}^n \varphi(k) \sum_{k \mid i} \sum_{k \mid j} i
-j
-\\[4pt]&amp; =\sum_{k=1}^n \varphi(k) \cdot k^2 \cdot
-\left(\sum_{i=1}^{\left\lfloor n/k \right\rfloor} i\right)^2
-\\[4pt]&amp; =\sum_{k=1}^n k^2\varphi(k) \sum_{i=1}^{\left\lfloor
-n/k\right\rfloor} i^3
-\\[4pt]&amp; =\sum_{k=1}^n k^2\varphi(k) S\left(\left\lfloor
-n/k\right\rfloor\right) &amp;&amp; S(n) =
-\left(\frac{n(n+1)}{2}\right)^2
-\end{aligned}
-\]</span> 显然 <span class="math inline">\(S(n)\)</span>
-可以数论分块，因此我们只需要求出 <span
-class="math inline">\(k^2\varphi(k)\)</span> 的前缀和。</p>
-<p>考虑杜教筛。记 <span class="math inline">\(f=\varphi \cdot
-\mathrm{id}^2\)</span> ，设 <span
-class="math inline">\(g=\mathrm{id}^2\)</span> ，则 <span
-class="math display">\[
+\sum_{i=1}^n \sum_{j=1}^n i j \operatorname{gcd}(i, j) 
+& =\sum_{i=1}^n \sum_{j=1}^n i j \sum_{k\mid i,\, k\mid j} \varphi(k)
+\\[4pt]& =\sum_{k=1}^n \varphi(k) \sum_{k \mid i} \sum_{k \mid j} i j
+\\[4pt]& =\sum_{k=1}^n \varphi(k) \cdot k^2 \cdot \left(\sum_{i=1}^{\left\lfloor n/k \right\rfloor} i\right)^2
+\\[4pt]& =\sum_{k=1}^n k^2\varphi(k) \sum_{i=1}^{\left\lfloor n/k\right\rfloor} i^3
+\\[4pt]& =\sum_{k=1}^n k^2\varphi(k) S\left(\left\lfloor n/k\right\rfloor\right) && S(n) = \left(\frac{n(n+1)}{2}\right)^2
+\end{aligned}</script><p>显然 $S(n)$ 可以数论分块，因此我们只需要求出 $k^2\varphi(k)$ 的前缀和。</p>
+<p>考虑杜教筛。记 $f=\varphi \cdot \mathrm{id}^2$ ，设 $g=\mathrm{id}^2$ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-(f*g)(n) &amp;= \sum_{d \mid n}\varphi(d)d^2\cdot \frac{n^2}{d^2}
-\\[6pt] &amp;= n^2\sum_{d \mid n}\varphi(d)
-\\[6pt] &amp;= n^3
-\end{aligned}
-\]</span> 那么前缀和就是一个 <span class="math inline">\(\sum
-i^2\)</span> 和 <span class="math inline">\(\sum i^3\)</span> ，分别是
-<span class="math inline">\(\frac{n(n+1)(2 n+1)}{6}\)</span> 和 <span
-class="math inline">\(\left(\frac{n(n+1)}{2}\right)^2\)</span> 。</p>
-<p>时间复杂度 <span
-class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span>
-，因为杜教筛有记忆化，所以筛一次就能筛出这 <span
-class="math inline">\(\mathcal{O}(\sqrt{n})\)</span> 个值。</p>
+(f*g)(n) &= \sum_{d \mid n}\varphi(d)d^2\cdot \frac{n^2}{d^2}
+\\[6pt] &= n^2\sum_{d \mid n}\varphi(d)
+\\[6pt] &= n^3
+\end{aligned}</script><p>那么前缀和就是一个 $\sum i^2$ 和 $\sum i^3$ ，分别是 $\frac{n(n+1)(2 n+1)}{6}$ 和 $\left(\frac{n(n+1)}{2}\right)^2$ 。</p>
+<p>时间复杂度 $\mathcal{O}(n^{\frac{2}{3}})$ ，因为杜教筛有记忆化，所以筛一次就能筛出这 $\mathcal{O}(\sqrt{n})$ 个值。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -864,10 +839,9 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/omfefkfd">https://www.luogu.com.cn/article/omfefkfd</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/omfefkfd">https://www.luogu.com.cn/article/omfefkfd</a></p>
 
                 
             </div>
@@ -1343,7 +1317,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/omfefkfd">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

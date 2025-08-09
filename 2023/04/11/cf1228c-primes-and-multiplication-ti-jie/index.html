@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -738,68 +738,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1228c-primes-and-multiplication-题解">CF1228C Primes and
-Multiplication 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1228C">CF1228C
-Primes and Multiplication</a></p>
+                <h1 id="CF1228C-Primes-and-Multiplication-题解"><a href="#CF1228C-Primes-and-Multiplication-题解" class="headerlink" title="CF1228C Primes and Multiplication 题解"></a>CF1228C Primes and Multiplication 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1228C">CF1228C Primes and Multiplication</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>首先先介绍一些涉及到的定义：</p>
-<p>定义 <span class="math inline">\(\mathbb{P}(x)\)</span>
-表示x的质因子集合。举例来说，<span class="math inline">\(\mathbb{P}(140)
-= \{2, 5, 7\}\)</span>，<span class="math inline">\(\mathbb{P}(169) =
-\{13\}\)</span>。</p>
-<p>定义 <span class="math inline">\(g(x, p)\)</span> 表示存在一个最大的
-<span class="math inline">\(k \in \mathbb{N}_+\)</span> ，使得 <span
-class="math inline">\(x\)</span> 可以被 <span
-class="math inline">\(p^k\)</span> 整除（ 即<span
-class="math inline">\(p^k \mid x \ \land\ p^{k+1}\not\mid x\)</span>
-），那么 <span class="math inline">\(g(x, p) = p^k\)</span>
-。举例来说：</p>
+<p>定义 $\mathbb{P}(x)$ 表示x的质因子集合。举例来说，$\mathbb{P}(140) = \{2, 5, 7\}$，$\mathbb{P}(169) = \{13\}$。</p>
+<p>定义 $g(x, p)$ 表示存在一个最大的 $k \in \mathbb{N}_+$ ，使得 $x$ 可以被 $p^k$ 整除（ 即$p^k \mid x \ \land\ p^{k+1}\not\mid x$ ），那么 $g(x, p) = p^k$ 。举例来说：</p>
 <ul>
-<li><span class="math inline">\(g(45, 3) = 9\)</span> （ <span
-class="math inline">\(45\)</span>可以被 <span class="math inline">\(3^2
-= 9\)</span> 整除但是不能被 <span class="math inline">\(3^3=27\)</span>
-整除）</li>
-<li><span class="math inline">\(g(63, 7) = 7\)</span> （ <span
-class="math inline">\(63\)</span> 可以被 <span class="math inline">\(7^1
-= 7\)</span> 整除但是不能被 <span class="math inline">\(7^2=49\)</span>
-整除）</li>
+<li>$g(45, 3) = 9$ （ $45$可以被 $3^2 = 9$ 整除但是不能被 $3^3=27$ 整除）</li>
+<li>$g(63, 7) = 7$ （ $63$ 可以被 $7^1 = 7$ 整除但是不能被 $7^2=49$ 整除）</li>
 </ul>
-<p>定义 <span class="math inline">\(f(x, y)\)</span> 表示所有 <span
-class="math inline">\(g(y, p)~(p \in \mathbb{P}(x))\)</span>
-的乘积，举例来说：</p>
+<p>定义 $f(x, y)$ 表示所有 $g(y, p)~(p \in \mathbb{P}(x))$ 的乘积，举例来说：</p>
 <ul>
-<li><span class="math inline">\(f(30, 70) = g(70,2)·g(70,3)·g(70, 5) =
-2^1·3^0·5^1 = 10\)</span></li>
-<li><span class="math inline">\(f(525,63) = g(63,3)·g(63,5)·g(63,7) =
-3^2·5^0·7^1 = 63\)</span></li>
+<li>$f(30, 70) = g(70,2)·g(70,3)·g(70, 5) = 2^1·3^0·5^1 = 10$</li>
+<li>$f(525,63) = g(63,3)·g(63,5)·g(63,7) = 3^2·5^0·7^1 = 63$</li>
 </ul>
-<p>现在给出两个整数 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(n\)</span> ，请计算出 <span
-class="math inline">\(f(x,1)·f(x,2)\dots f(x,n)~\bmod~(10^9+7)\)</span>
-的值。</p>
+<p>现在给出两个整数 $x$ 和 $n$ ，请计算出 $f(x,1)·f(x,2)\dots f(x,n)~\bmod~(10^9+7)$ 的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>The only line contains integers <span
-class="math inline">\(x\)</span> and <span
-class="math inline">\(n\)</span> ( <span class="math inline">\(2 \le x
-\le 10^{9}\)</span> , <span class="math inline">\(1 \le n \le
-10^{18}\)</span> ) — the numbers used in formula.</p>
+<p>The only line contains integers $x$ and $n$ ( $2 \le x \le 10^{9}$ , $1 \le n \le 10^{18}$ ) — the numbers used in formula.</p>
 <p><strong>输出格式</strong>：</p>
 <p>Print the answer.</p>
 </blockquote>
-<p>可以发现其实就是给了我们一个 <span
-class="math inline">\(\mathbb{P}\)</span> ，然后让我们求 <span
-class="math inline">\(\prod_{1 \le i \le n,~ p_j \in \mathbb{P}}
-g(i,p_j)\)</span></p>
-<p>我们先来考虑 <span class="math inline">\(|\mathbb{P}|=1\)</span>
-的情况，也就是只有一个质因子 <span class="math inline">\(p\)</span>
-时的答案，容易发现其贡献为 <span class="math display">\[
-p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots
-\]</span> 由于贡献的计算是相互独立的，所以多个 <span
-class="math inline">\(p\)</span> 就多算几次就好了</p>
-<p>时间复杂度 <span
-class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
+<p>可以发现其实就是给了我们一个 $\mathbb{P}$ ，然后让我们求 $\prod_{1 \le i \le n,~ p_j \in \mathbb{P}} g(i,p_j)$</p>
+<p>我们先来考虑 $|\mathbb{P}|=1$ 的情况，也就是只有一个质因子 $p$ 时的答案，容易发现其贡献为</p>
+<script type="math/tex; mode=display">
+p^{n/p}\times p^{n/p^2} \times p^{n/p^3} \times\cdots</script><p>由于贡献的计算是相互独立的，所以多个 $p$ 就多算几次就好了</p>
+<p>时间复杂度 $\mathcal{O}(\sqrt{n})$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1317,7 +1281,7 @@ class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -722,7 +722,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    658
+                    652
                 </div>
                 
 
@@ -742,60 +742,38 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf603a-alternative-thinking-题解">CF603A Alternative Thinking
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF603A">CF603A
-Alternative Thinking</a></p>
+                <h1 id="CF603A-Alternative-Thinking-题解"><a href="#CF603A-Alternative-Thinking-题解" class="headerlink" title="CF603A Alternative Thinking 题解"></a>CF603A Alternative Thinking 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF603A">CF603A Alternative Thinking</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>现有一个长度为 <span class="math inline">\(n\)</span> 的 01 串,
-可以进行一次区间翻转 ( 起点终点随意, 并且区间里的值 1 变 0, 0 变 1 ),
-得到一个新的 01 串, 使得得到的新的 01 串中的一个子串最长
-(子串不一定连续), 且这个子串是 01 间隔的，没有连续两个字符相同。比如
-<code>0101</code> , <code>101</code> 和<code>1010</code> 是合法的,
-<code>100</code>, <code>1100</code> 是不合法的。试求翻转后最长 01
-间隔子串的长度.</p>
+<p>现有一个长度为 $n$ 的 01 串, 可以进行一次区间翻转 ( 起点终点随意, 并且区间里的值 1 变 0, 0 变 1 ), 得到一个新的 01 串, 使得得到的新的 01 串中的一个子串最长 (子串不一定连续), 且这个子串是 01 间隔的，没有连续两个字符相同。比如 <code>0101</code> , <code>101</code> 和<code>1010</code> 是合法的, <code>100</code>, <code>1100</code> 是不合法的。试求翻转后最长 01 间隔子串的长度. </p>
 <p><strong>输入格式</strong>：</p>
-<p>The first line contains the number of questions on the olympiad <span
-class="math inline">\(n ~(1\le n \le 10^5)\)</span>.</p>
-<p>The following line contains a binary string of length <span
-class="math inline">\(n\)</span> representing Kevin's results on the
-USAICO.</p>
+<p>The first line contains the number of questions on the olympiad $n ~(1\le n \le 10^5)$.</p>
+<p>The following line contains a binary string of length $n$ representing Kevin’s results on the USAICO.</p>
 <p><strong>输出格式</strong>：</p>
-<p>Output a single integer, the length of the longest possible
-alternating subsequence that Kevin can create in his string after
-flipping a single substring.</p>
+<p>Output a single integer, the length of the longest possible alternating subsequence that Kevin can create in his string after flipping a single substring.</p>
 </blockquote>
 <p>题面啥的懒得修了，看得懂就好（大雾）</p>
 <p>这题一开始还以为要什么子序列，结果一看，这玩意在dp的时候贪心选就好了。</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示前 <span
-class="math inline">\(i\)</span> 个字符的答案：</p>
+<p>设 $f_{i,j}$ 表示前 $i$ 个字符的答案：</p>
 <ul>
-<li>当 <span class="math inline">\(j = 0\)</span> 时，表示第 <span
-class="math inline">\(i\)</span>
-个字符不翻转，并且没有使用过翻转操作。</li>
-<li>当 <span class="math inline">\(j = 1\)</span> 时，表示第 <span
-class="math inline">\(i\)</span> 个字符不翻转，并且使用过翻转操作</li>
-<li>当 <span class="math inline">\(j = 2\)</span> 时，表示第 <span
-class="math inline">\(i\)</span> 个字符要翻转。</li>
+<li>当 $j = 0$ 时，表示第 $i$ 个字符不翻转，并且没有使用过翻转操作。</li>
+<li>当 $j = 1$ 时，表示第 $i$ 个字符不翻转，并且使用过翻转操作</li>
+<li>当 $j = 2$ 时，表示第 $i$ 个字符要翻转。</li>
 </ul>
-<p>考虑转移。当 <span class="math inline">\(a_i = a_{i-1}\)</span>
-时，有 <span class="math display">\[
+<p>考虑转移。当 $a_i = a_{i-1}$ 时，有</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; f_{i, 0}=f_{i-1,0} \\
-&amp; f_{i, 1}=\max \left(f_{i-1,2}+1, f_{i-1,1}\right) \\
-&amp; f_{i, 2}=\max \left(f_{i-1,2}, f_{i-1,0}+1\right)
-\end{aligned}
-\]</span> 否则 <span class="math display">\[
+& f_{i, 0}=f_{i-1,0} \\
+& f_{i, 1}=\max \left(f_{i-1,2}+1, f_{i-1,1}\right) \\
+& f_{i, 2}=\max \left(f_{i-1,2}, f_{i-1,0}+1\right)
+\end{aligned}</script><p>否则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp; f_{i, 0}=f_{i-1,0}+1 \\
-&amp; f_{i, 1}=\max \left(f_{i-1,1}+1, f_{i-1,2}\right) \\
-&amp; f_{i, 2}=\max \left(f_{i-1,2}+1, f_{i-1,0}\right)
-\end{aligned}
-\]</span> 边界：<span class="math inline">\(f(1,j) = 1\)</span>
-。最后的答案为 <span class="math inline">\(\max\{f(n,j)\}\)</span>
-。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+& f_{i, 0}=f_{i-1,0}+1 \\
+& f_{i, 1}=\max \left(f_{i-1,1}+1, f_{i-1,2}\right) \\
+& f_{i, 2}=\max \left(f_{i-1,2}+1, f_{i-1,0}\right)
+\end{aligned}</script><p>边界：$f(1,j) = 1$ 。最后的答案为 $\max\{f(n,j)\}$ 。</p>
+<p>时间复杂度 $\mathcal{O}(n)$ </p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1302,7 +1280,7 @@ class="math inline">\(i\)</span> 个字符要翻转。</li>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

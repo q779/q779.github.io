@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -738,107 +738,43 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4462-cqoi2018-异或序列-题解">洛谷P4462 [CQOI2018] 异或序列
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4462">P4462
-[CQOI2018] 异或序列</a></p>
+                <h1 id="洛谷P4462-CQOI2018-异或序列-题解"><a href="#洛谷P4462-CQOI2018-异或序列-题解" class="headerlink" title="洛谷P4462 [CQOI2018] 异或序列 题解"></a>洛谷P4462 [CQOI2018] 异或序列 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4462">P4462 [CQOI2018] 异或序列</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>已知一个长度为 <span class="math inline">\(n\)</span> 的整数数列
-<span class="math inline">\(a_1,a_2,\dots,a_n\)</span>，给定查询参数
-<span class="math inline">\(l,r\)</span>，问在 <span
-class="math inline">\(a_l,a_{l+1},\dots,a_r\)</span>
-区间内，有多少子区间满足异或和等于 <span
-class="math inline">\(k\)</span>。也就是说，对于所有的 <span
-class="math inline">\(x,y (l \leq x \leq y \leq r)\)</span>，能够满足
-<span class="math inline">\(a_x \bigoplus a_{x+1} \bigoplus \dots
-\bigoplus a_y = k\)</span> 的 <span class="math inline">\(x,y\)</span>
-有多少组。</p>
+<p>已知一个长度为 $n$ 的整数数列 $a_1,a_2,\dots,a_n$，给定查询参数 $l,r$，问在 $a_l,a_{l+1},\dots,a_r$ 区间内，有多少子区间满足异或和等于 $k$。也就是说，对于所有的 $x,y (l \leq x \leq y \leq r)$，能够满足 $a_x \bigoplus a_{x+1} \bigoplus \dots \bigoplus a_y = k$ 的 $x,y$ 有多少组。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入文件第一行，为 <span class="math inline">\(3\)</span> 个整数
-<span class="math inline">\(n,m,k\)</span>。</p>
-<p>第二行为空格分开的 <span class="math inline">\(n\)</span> 个整数，即
-<span class="math inline">\(a_1,a_2,..a_n\)</span>。</p>
-<p>接下来 <span class="math inline">\(m\)</span> 行，每行两个整数 <span
-class="math inline">\(l_j,r_j\)</span>，表示一次查询。</p>
+<p>输入文件第一行，为 $3$ 个整数 $n,m,k$。</p>
+<p>第二行为空格分开的 $n$ 个整数，即 $a_1,a_2,..a_n$。</p>
+<p>接下来 $m$ 行，每行两个整数 $l_j,r_j$，表示一次查询。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出文件共 <span class="math inline">\(m\)</span>
-行，对应每个查询的计算结果。</p>
+<p>输出文件共 $m$ 行，对应每个查询的计算结果。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(30\%\)</span> 的数据，<span
-class="math inline">\(1 \leq n, m \leq 1000\)</span>。</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1 \leq n, m \leq 10^5\)</span>，<span
-class="math inline">\(0 \leq k, a_i \leq 10^5\)</span>，<span
-class="math inline">\(1 \leq l_j \leq r_j \leq n\)</span>。</p>
+<p>对于 $30\%$ 的数据，$1 \leq n, m \leq 1000$。</p>
+<p>对于 $100\%$ 的数据，$1 \leq n, m \leq 10^5$，$0 \leq k, a_i \leq 10^5$，$1 \leq l_j \leq r_j \leq n$。</p>
 </blockquote>
 <p>发现我连莫队的板子都没有，赶紧补一补。关键词：莫队 模板</p>
-<p>区间异或和可以用前缀和预处理一下，题目就变成了 <span
-class="math inline">\([l - 1,r]\)</span> 内存在多少个二元组 <span
-class="math inline">\((x,y)\)</span> 满足 <span
-class="math inline">\(x\oplus y = k\)</span> 。</p>
+<p>区间异或和可以用前缀和预处理一下，题目就变成了 $[l - 1,r]$ 内存在多少个二元组 $(x,y)$ 满足 $x\oplus y  = k$ 。</p>
 <p>然后我们来讲这道题怎么用莫队做，以及莫队是啥。</p>
 <p>莫队是一种<strong>离线</strong>+分块的<del>暴力</del>算法，大概的感觉就是两个小手🖐️在询问间跳来跳去。</p>
 <p>莫队的使用非常广泛甚至可以扯到组合计数题（<del>反正我不会</del>），比如今天集训的防AK题（<del>反正听不懂</del>）</p>
-<p>例如一个询问 <span class="math inline">\([3,5]\)</span> 和另一个询问
-<span class="math inline">\([1,4]\)</span> ，我们先暴力把 <span
-class="math inline">\([3,5]\)</span> 的答案算出来。</p>
-<p>那么怎么算 <span class="math inline">\([1,4]\)</span>
-呢？此时两个小手🖐️ <span class="math inline">\(l,r\)</span> 分别在 <span
-class="math inline">\(3,5\)</span> 上，我们把他们跳到 <span
-class="math inline">\(1,4\)</span> 上。</p>
-<p>具体地，<span class="math inline">\(l\)</span> 从 <span
-class="math inline">\(3\)</span> 暴力移到 <span
-class="math inline">\(1\)</span> ，然后把答案算进去，此时两个小手🖐️
-<span class="math inline">\(l,r\)</span> 分别在 <span
-class="math inline">\(1,5\)</span> 上，并且我们有 <span
-class="math inline">\([1,5]\)</span> 的答案了</p>
-<p>然后我们把 <span class="math inline">\(r\)</span> 从 <span
-class="math inline">\(5\)</span> 暴力移到 <span
-class="math inline">\(4\)</span>
-，并把原来计算的贡献删掉。最后两个小手🖐️ <span
-class="math inline">\(l,r\)</span> 就分别在 <span
-class="math inline">\(1,4\)</span> 啦！</p>
+<p>例如一个询问 $[3,5]$ 和另一个询问 $[1,4]$ ，我们先暴力把 $[3,5]$ 的答案算出来。</p>
+<p>那么怎么算 $[1,4]$ 呢？此时两个小手🖐️ $l,r$ 分别在 $3,5$ 上，我们把他们跳到 $1,4$ 上。</p>
+<p>具体地，$l$ 从 $3$ 暴力移到 $1$ ，然后把答案算进去，此时两个小手🖐️ $l,r$ 分别在 $1,5$ 上，并且我们有 $[1,5]$ 的答案了</p>
+<p>然后我们把 $r$ 从 $5$ 暴力移到 $4$ ，并把原来计算的贡献删掉。最后两个小手🖐️ $l,r$ 就分别在 $1,4$ 啦！</p>
 <p>那么问题来了，这跟暴力有啥区别？哎，<del>都用分块了，这能叫暴力吗</del>。</p>
-<p>不妨记块长为 <span class="math inline">\(B\)</span>
-，我们按照以下规则对询问 <span class="math inline">\(q_i\)</span>
-进行排序：</p>
+<p>不妨记块长为 $B$ ，我们按照以下规则对询问 $q_i$ 进行排序：</p>
 <ul>
-<li>询问 <span class="math inline">\(l\)</span> 所处的块相同时，按 <span
-class="math inline">\(r\)</span> 递增排序。</li>
-<li>询问 <span class="math inline">\(l\)</span>
-所处的块不同时，按所处块的编号 <span
-class="math inline">\(\mathtt{bl}\)</span> 递增排序。</li>
+<li>询问 $l$ 所处的块相同时，按 $r$ 递增排序。</li>
+<li>询问 $l$ 所处的块不同时，按所处块的编号 $\mathtt{bl}$ 递增排序。</li>
 </ul>
-<p>然后我们来分析一下复杂度（认为 <span
-class="math inline">\(n,m\)</span> 同阶）。</p>
+<p>然后我们来分析一下复杂度（认为 $n,m$ 同阶）。</p>
 <ul>
-<li>在同一个块内，右端点移动不超过 <span
-class="math inline">\(\mathcal{O}(n)\)</span> ，有 <span
-class="math inline">\(\mathcal{O}(\frac{n}{B})\)</span>
-个块，这部分复杂度为 <span
-class="math inline">\(\mathcal{O}(\frac{n^2}{B})\)</span></li>
-<li>在块间转移时，右端点移动不超过 <span
-class="math inline">\(\mathcal{O}(n)\)</span> ，有 <span
-class="math inline">\(\mathcal{O}(\frac{n}{B})\)</span>
-个块，这部分复杂度为 <span
-class="math inline">\(\mathcal{O}(\frac{n^2}{B})\)</span></li>
-<li>在同一个块内，左端点移动不超过 <span
-class="math inline">\(\mathcal{O}(B^2)\)</span> ，有 <span
-class="math inline">\(\mathcal{O}(\frac{n}{B})\)</span>
-个块，这部分复杂度为 <span
-class="math inline">\(\mathcal{O}(nB)\)</span></li>
-<li>在块间转移时，左端点移动不超过 <span
-class="math inline">\(\mathcal{O}(2B)\)</span> ，有 <span
-class="math inline">\(\mathcal{O}(\frac{n}{B})\)</span>
-个块，这部分复杂度为 <span
-class="math inline">\(\mathcal{O}(n)\)</span></li>
+<li>在同一个块内，右端点移动不超过 $\mathcal{O}(n)$ ，有 $\mathcal{O}(\frac{n}{B})$ 个块，这部分复杂度为 $\mathcal{O}(\frac{n^2}{B})$</li>
+<li>在块间转移时，右端点移动不超过 $\mathcal{O}(n)$ ，有 $\mathcal{O}(\frac{n}{B})$ 个块，这部分复杂度为 $\mathcal{O}(\frac{n^2}{B})$</li>
+<li>在同一个块内，左端点移动不超过 $\mathcal{O}(B^2)$ ，有 $\mathcal{O}(\frac{n}{B})$ 个块，这部分复杂度为 $\mathcal{O}(nB)$</li>
+<li>在块间转移时，左端点移动不超过 $\mathcal{O}(2B)$ ，有 $\mathcal{O}(\frac{n}{B})$ 个块，这部分复杂度为 $\mathcal{O}(n)$ </li>
 </ul>
-<p>因此总复杂度为 <span
-class="math inline">\(\mathcal{O}(nB+\frac{n^2}{B})\)</span> ，<span
-class="math inline">\(B\)</span> 取 <span
-class="math inline">\(\sqrt{n}\)</span> 时复杂度为 <span
-class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span> 最优。</p>
+<p>因此总复杂度为 $\mathcal{O}(nB+\frac{n^2}{B})$ ，$B$ 取 $\sqrt{n}$ 时复杂度为 $\mathcal{O}(n\sqrt{n})$ 最优。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1340,7 +1276,7 @@ class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span> 最优。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

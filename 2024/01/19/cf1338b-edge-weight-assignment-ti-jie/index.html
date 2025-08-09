@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -742,41 +742,23 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1338b-edge-weight-assignment-题解">CF1338B Edge Weight
-Assignment 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1338B">CF1338B
-Edge Weight Assignment</a></p>
+                <h1 id="CF1338B-Edge-Weight-Assignment-题解"><a href="#CF1338B-Edge-Weight-Assignment-题解" class="headerlink" title="CF1338B Edge Weight Assignment 题解"></a>CF1338B Edge Weight Assignment 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1338B">CF1338B Edge Weight Assignment</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 <span class="math inline">\(n(3 \le n\le 10^5)\)</span>
-个点的无根树</p>
-<p>要求给每条边分配一个<strong>正整数</strong>权值，使得任意两个叶子节点之间路径上的边权异或值为
-<span class="math inline">\(0\)</span>。</p>
-<p>求最少要多少种不同权值，以及最多可以使用多少种不同权值。
-填入的边权值可以为任意大。</p>
+<p>给定一棵 $n(3 \le n\le 10^5)$ 个点的无根树</p>
+<p>要求给每条边分配一个<strong>正整数</strong>权值，使得任意两个叶子节点之间路径上的边权异或值为 $0$。</p>
+<p>求最少要多少种不同权值，以及最多可以使用多少种不同权值。 填入的边权值可以为任意大。  </p>
 </blockquote>
 <p>直觉告诉我们，第二个问题的答案和第一个问题的答案高度相关（<del>废话</del>）。</p>
-<p>先找一个度数不为 <span class="math inline">\(1\)</span>
-的点作根，那么题目就转化为：叶子节点到根的路径上边权异或值相同。</p>
-<p>如果所有这样的路径长度的奇偶性都相同，那么可以全部填 <span
-class="math inline">\(1\)</span> 。</p>
-<p>否则我们可以...等等，好像并不能靠填 <span
-class="math inline">\(0,1\)</span>
-到达这个目的，怎么办呢？（<del>写完才发现是正整数</del>）</p>
-<p>观察样例可以发现，<span class="math inline">\(\left((01)_2 \land
-(10)_2\right) \oplus (11)_2 = 0\)</span> ，也就是说我们可以用 <span
-class="math inline">\(1,2,3\)</span> 来填。</p>
-<p>对于长为偶数的路径就填 <span
-class="math inline">\(1,2,1,\cdots,1,2\)</span>
-，对于奇数的路径，就在最后一条边填 <span
-class="math inline">\(3\)</span> 。</p>
+<p>先找一个度数不为 $1$ 的点作根，那么题目就转化为：叶子节点到根的路径上边权异或值相同。</p>
+<p>如果所有这样的路径长度的奇偶性都相同，那么可以全部填 $1$ 。</p>
+<p>否则我们可以…等等，好像并不能靠填 $0,1$ 到达这个目的，怎么办呢？（<del>写完才发现是正整数</del>）</p>
+<p>观察样例可以发现，$\left((01)_2 \land (10)_2\right) \oplus (11)_2 = 0$ ，也就是说我们可以用 $1,2,3$ 来填。</p>
+<p>对于长为偶数的路径就填 $1,2,1,\cdots,1,2$ ，对于奇数的路径，就在最后一条边填 $3$ 。</p>
 <p>那么第一个问题就解决了，我们来考虑第二个问题。</p>
 <p>同样观察样例可以发现，如果树上某一条简单路径不包含任何一个叶子节点，</p>
-<p>那么我们可以较为随意地填上面的数，例如将 <span
-class="math inline">\(2,1,2\)</span> 换成 <span
-class="math inline">\(2,4,7\)</span> ，这一部分很容易用 dp 统计。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>那么我们可以较为随意地填上面的数，例如将 $2,1,2$ 换成 $2,4,7$ ，这一部分很容易用 dp 统计。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -814,14 +796,12 @@ n)\)</span></p>
     <span class="token function">dfs</span><span class="token punctuation">(</span>rt<span class="token punctuation">,</span> rt<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>res <span class="token operator">%</span> num <span class="token operator">?</span> <span class="token number">3</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span> <span class="token operator">&lt;&lt;</span> dp<span class="token punctuation">[</span>rt<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/gyh20/solution-cf1338b">https://www.luogu.com.cn/blog/gyh20/solution-cf1338b</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/gyh20/solution-cf1338b">https://www.luogu.com.cn/blog/gyh20/solution-cf1338b</a></p>
+<hr>
 <p>放个图</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202401191545541.png" /></p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202401191545541.png" alt=""></p>
 
                 
             </div>
@@ -1290,7 +1270,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202401191545541.pn
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

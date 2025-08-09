@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -750,121 +750,64 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4331-balticoi-2004-sequence-数字序列-题解">洛谷P4331
-[BalticOI 2004] Sequence 数字序列 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4331">P4331
-[BalticOI 2004] Sequence 数字序列</a></p>
+                <h1 id="洛谷P4331-BalticOI-2004-Sequence-数字序列-题解"><a href="#洛谷P4331-BalticOI-2004-Sequence-数字序列-题解" class="headerlink" title="洛谷P4331 [BalticOI 2004] Sequence 数字序列 题解"></a>洛谷P4331 [BalticOI 2004] Sequence 数字序列 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4331">P4331 [BalticOI 2004] Sequence 数字序列</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个整数序列 <span class="math inline">\(a_1, a_2, \cdots ,
-a_n\)</span>，求出一个递增序列 <span class="math inline">\(b_1 &lt; b_2
-&lt; ··· &lt; b_n\)</span>，</p>
-<p>使得序列 <span class="math inline">\(a_i\)</span> 和 <span
-class="math inline">\(b_i\)</span> 的各项之差的绝对值之和 <span
-class="math inline">\(|a_1 - b_1| + |a_2 - b_2| + \cdots + |a_n -
-b_n|\)</span> 最小。</p>
+<p>给定一个整数序列 $a_1, a_2, \cdots , a_n$，求出一个递增序列 $b_1 &lt; b_2 &lt; ··· &lt; b_n$，</p>
+<p>使得序列 $a_i$ 和 $b_i$ 的各项之差的绝对值之和 $|a_1 - b_1| + |a_2 - b_2| + \cdots + |a_n - b_n|$ 最小。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行为数字 <span class="math inline">\(n
-(1≤n≤10^6)\)</span>，接下来一行共有 <span
-class="math inline">\(n\)</span> 个数字，表示序列 <span
-class="math inline">\(a_i (0≤a_i≤2^{31}-1)\)</span>。</p>
+<p>第一行为数字 $n (1≤n≤10^6)$，接下来一行共有 $n$ 个数字，表示序列 $a_i (0≤a_i≤2^{31}-1)$。</p>
 <p><strong>输出格式</strong>：</p>
 <p>第一行输出最小的绝对值之和。</p>
-<p>第二行输出序列 <span
-class="math inline">\(b_i\)</span>，若有多种方案，只需输出其中一种。</p>
+<p>第二行输出序列 $b_i$，若有多种方案，只需输出其中一种。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\le n\le 10^6 , 0\le a_i\le
-2^{31}-1\)</span>；</p>
+<p>$1\le n\le 10^6 , 0\le a_i\le 2^{31}-1$；</p>
 </blockquote>
 <p>本题可以转化为另一个模型，即</p>
 <blockquote>
-<p>给定序列 <span class="math inline">\(a_i\)</span>
-，每次可以将任意元素加 <span class="math inline">\(1\)</span> 或减 <span
-class="math inline">\(1\)</span> ，求使得序列严格递增的最小操作数。</p>
+<p>给定序列 $a_i$ ，每次可以将任意元素加 $1$ 或减 $1$ ，求使得序列严格递增的最小操作数。</p>
 </blockquote>
-<p>令 <span class="math inline">\(a_i \gets a_i - i\)</span>
-，那么只需要单调不降即可。</p>
-<p>设 <span class="math inline">\(f(i,j)\)</span> 表示考虑前 <span
-class="math inline">\(i\)</span> 个数 <span class="math inline">\(b_i =
-j\)</span> 时的最小花费，那么 <span class="math display">\[
-f(i,j) = \min_{1\le k \le j}\left\{f(i-1,k) + |a_i - j|\right\}
-\]</span> 这里需要用到 slope trick 。slope trick
-是一种优化凸函数dp的方法。</p>
-<p>考虑记 <span class="math inline">\(F_i(x) = f(i,x)\)</span> ，定义
-<span class="math inline">\(G_{i}(x) = \min_{1 \le k \le x}
-F_i(x)\)</span> ，那么转移方程可以写成 <span class="math display">\[
-F_i(x)=G_{i-1}(x) + |a_i-x|
-\]</span> 不难发现，<span class="math inline">\(F_i(x)\)</span> 是关于
-<span class="math inline">\(x\)</span> 的一个下凸函数。</p>
-<p>我们只需要找到 <span class="math inline">\(F_i(x)\)</span>
-最小值的位置即可。观察方程，可以发现我们需要快速维护 <span
-class="math inline">\(G_i(x)\)</span></p>
+<p>令 $a_i \gets a_i - i$ ，那么只需要单调不降即可。</p>
+<p>设 $f(i,j)$ 表示考虑前 $i$ 个数 $b_i = j$ 时的最小花费，那么</p>
+<script type="math/tex; mode=display">
+f(i,j) = \min_{1\le k \le j}\left\{f(i-1,k) + |a_i - j|\right\}</script><p>这里需要用到 slope trick 。slope trick 是一种优化凸函数dp的方法。</p>
+<p>考虑记 $F_i(x) = f(i,x)$ ，定义 $G_{i}(x) = \min_{1 \le k \le x} F_i(x)$ ，那么转移方程可以写成</p>
+<script type="math/tex; mode=display">
+F_i(x)=G_{i-1}(x) + |a_i-x|</script><p>不难发现，$F_i(x)$ 是关于 $x$ 的一个下凸函数。</p>
+<p>我们只需要找到 $F_i(x)$ 最小值的位置即可。观察方程，可以发现我们需要快速维护 $G_i(x)$</p>
 <p>怎么维护呢？由于这个函数是一个分段函数，并且每一段都是一次函数</p>
 <p>所以我们可以维护所有分段点以及最右端的一次函数（也就是最后一段的一次函数）。</p>
-<p>由于每一个关键点都使得斜率改变了 <span
-class="math inline">\(1\)</span> ，所以相邻段如果斜率的差大于 <span
-class="math inline">\(1\)</span> ，需要存两遍这个关键点。</p>
-<p>现在考虑如何用已知的 <span class="math inline">\(F_{i-1}(x)\)</span>
-和 <span class="math inline">\(G_{i-1}(x)\)</span> 来快速维护 <span
-class="math inline">\(F_i(x)\)</span> 。</p>
-<p>记 <span class="math inline">\(p_i\)</span> 为使得 <span
-class="math inline">\(F_i(x)\)</span> 取到最小值的 <span
-class="math inline">\(x\)</span> ，注意到</p>
-<ol type="1">
-<li><p>显然 <span class="math inline">\(p_i\)</span>
-前的所有函数斜率单调递减，而 <span class="math inline">\(p_i\)</span>
-后的所有函数斜率单调递增。</p></li>
-<li><p>并且在 <span class="math inline">\(p_i\)</span>
-两侧的斜率分别为正或为负。</p></li>
-<li><p><span class="math inline">\(F_i(x)\)</span> 是 <span
-class="math inline">\(F_{i-1}(x)\)</span> 上的叠加，叠加的就是 <span
-class="math inline">\(|a_i-x|\)</span> 。</p></li>
-<li><p>斜率为正的点是没有用的，因为我们的转移是由 <span
-class="math inline">\(F_{i-1}(x)\)</span> 到 <span
-class="math inline">\(F_i(y)\)</span> 的，其中 <span
-class="math inline">\(x \le y\)</span></p>
-<p>所以当我们需要 <span class="math inline">\(F_i(y)\)</span>
-时，可以直接从 <span class="math inline">\(F_{i-1}(x)\)</span>
-推过来。</p></li>
+<p>由于每一个关键点都使得斜率改变了 $1$ ，所以相邻段如果斜率的差大于 $1$ ，需要存两遍这个关键点。</p>
+<p>现在考虑如何用已知的 $F_{i-1}(x)$ 和 $G_{i-1}(x)$ 来快速维护 $F_i(x)$ 。</p>
+<p>记 $p_i$ 为使得 $F_i(x)$ 取到最小值的 $x$ ，注意到</p>
+<ol>
+<li><p>显然 $p_i$ 前的所有函数斜率单调递减，而 $p_i$ 后的所有函数斜率单调递增。</p>
+</li>
+<li><p>并且在 $p_i$ 两侧的斜率分别为正或为负。</p>
+</li>
+<li><p>$F_i(x)$ 是 $F_{i-1}(x)$ 上的叠加，叠加的就是 $|a_i-x|$ 。</p>
+</li>
+<li><p>斜率为正的点是没有用的，因为我们的转移是由 $F_{i-1}(x)$ 到 $F_i(y)$ 的，其中 $x \le y$ </p>
+<p>所以当我们需要 $F_i(y)$ 时，可以直接从 $F_{i-1}(x)$ 推过来。</p>
+</li>
 </ol>
-<p>综合以上几点，我们只需要维护所有左侧斜率小于 <span
-class="math inline">\(0\)</span> 的关键点即可。</p>
-<p>现在考虑 <span class="math inline">\(p_{i-1}\)</span> 和 <span
-class="math inline">\(a_i\)</span> 的关系。</p>
-<ol type="1">
-<li><p>若 <span class="math inline">\(p_{i-1} \le a_i\)</span>
-，在函数叠加的时候，斜率相当于全递减了 <span
-class="math inline">\(1\)</span> 。</p>
-<p>那么我们没必要将 <span class="math inline">\(a_i\)</span> 减小到
-<span class="math inline">\(p_{i-1}\)</span> ，此时 <span
-class="math inline">\(p_i=a_i\)</span> 为当前的最优解。</p>
-<p>于是我们只需要将 <span class="math inline">\(a_i\)</span>
-扔到关键点里就好了。</p></li>
-<li><p>若 <span class="math inline">\(p_{i-1} &gt; a_i\)</span>
-，此时我们需要将 <span class="math inline">\(a_i\)</span> 提到 <span
-class="math inline">\(p_{i-1}\)</span>
-才能保证单调不降，因此这一块的贡献为 <span
-class="math inline">\(p_{i-1}-a_i\)</span> 。</p>
-<p>那么对于所有 <span class="math inline">\(x &lt; a_i\)</span>
-，斜率都降低了 <span class="math inline">\(1\)</span> ，而 <span
-class="math inline">\(a_i &lt; x \le p_{i-1}\)</span> 的斜率都增加了
-<span class="math inline">\(1\)</span> 。</p>
-<p>此时 <span class="math inline">\(p_i\)</span>
-这个点显然导致了相邻的斜率差大于 <span class="math inline">\(1\)</span>
-，需要将这个点放两次。</p>
-<p>然后将 <span class="math inline">\(p_{i-1}\)</span> 扔出去（现在
-<span class="math inline">\(p_{i-1}\)</span>
-不是最小点了）。当然这里可能存在多个关键点相等的情况</p>
-<p>但是因为 <span class="math inline">\(a_{i-1}\)</span> 改到 <span
-class="math inline">\(a_i\)</span> ，和 <span
-class="math inline">\(a_i\)</span> 改到 <span
-class="math inline">\(a_{i-1}\)</span> 的贡献是一样的</p>
-<p>于是我们会发现，将 <span class="math inline">\(a_i,a_{i-1}\)</span>
-改成两者较小一定是最优的。</p></li>
+<p>综合以上几点，我们只需要维护所有左侧斜率小于 $0$ 的关键点即可。</p>
+<p>现在考虑 $p_{i-1}$ 和 $a_i$ 的关系。</p>
+<ol>
+<li><p>若 $p_{i-1} \le a_i$ ，在函数叠加的时候，斜率相当于全递减了 $1$ 。</p>
+<p>那么我们没必要将 $a_i$ 减小到 $p_{i-1}$ ，此时 $p_i=a_i$ 为当前的最优解。</p>
+<p>于是我们只需要将 $a_i$ 扔到关键点里就好了。</p>
+</li>
+<li><p>若 $p_{i-1} &gt; a_i$ ，此时我们需要将 $a_i$ 提到 $p_{i-1}$ 才能保证单调不降，因此这一块的贡献为 $p_{i-1}-a_i$ 。</p>
+<p>那么对于所有 $x &lt; a_i$ ，斜率都降低了 $1$ ，而 $a_i &lt; x \le p_{i-1}$ 的斜率都增加了 $1$ 。</p>
+<p>此时 $p_i$ 这个点显然导致了相邻的斜率差大于 $1$ ，需要将这个点放两次。</p>
+<p>然后将 $p_{i-1}$ 扔出去（现在 $p_{i-1}$ 不是最小点了）。当然这里可能存在多个关键点相等的情况</p>
+<p>但是因为 $a_{i-1}$ 改到 $a_i$ ，和 $a_i$ 改到 $a_{i-1}$ 的贡献是一样的</p>
+<p>于是我们会发现，将 $a_i,a_{i-1}$ 改成两者较小一定是最优的。</p>
+</li>
 </ol>
 <p>那么我们只需要维护一个优先队列就可以维护关键点了。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -895,25 +838,18 @@ n)\)</span></p>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p>本题是五倍经验。</p>
-<ol type="1">
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF13C">CF13C
-Sequence</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4597">P4597 序列
-sequence</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF713C">CF713C Sonya and
-Problem Wihtout a Legend</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2893">P2893
-[USACO08FEB]Making the Grade G</a></li>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF13C">CF13C Sequence</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4597">P4597 序列 sequence</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF713C">CF713C Sonya and Problem Wihtout a Legend</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2893">P2893 [USACO08FEB]Making the Grade G</a></li>
 </ol>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/Plozia/p/16142283.html">https://www.cnblogs.com/Plozia/p/16142283.html</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6fzverez">https://www.luogu.com.cn/article/6fzverez</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.luogu.com/article/2hc3sjyp">https://www.luogu.com/article/2hc3sjyp</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/Plozia/p/16142283.html">https://www.cnblogs.com/Plozia/p/16142283.html</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/6fzverez">https://www.luogu.com.cn/article/6fzverez</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.luogu.com/article/2hc3sjyp">https://www.luogu.com/article/2hc3sjyp</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>感觉似懂非懂，以后再来研究吧，咕咕咕。</p>
 
@@ -1404,7 +1340,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com/article/2hc3sjyp">htt
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             

@@ -184,7 +184,7 @@ rgba(0,0,0,0.2);
         body{
             background-image: url(/medias/banner/0.webp);
             background-repeat:no-repeat;
-            background-size: 100% 100%;
+            background-size:cover;
             background-attachment:fixed;
         }
 
@@ -742,58 +742,30 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf662b-graph-coloring-题解">CF662B Graph Coloring 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF662B">Graph
-Coloring</a></p>
+                <h1 id="CF662B-Graph-Coloring-题解"><a href="#CF662B-Graph-Coloring-题解" class="headerlink" title="CF662B Graph Coloring 题解"></a>CF662B Graph Coloring 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF662B">Graph Coloring</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一张 <span class="math inline">\(n\)</span> 个点，<span
-class="math inline">\(m\)</span>
-条边的无向图，一开始每条边可能是红色或者蓝色，</p>
+<p>给出一张 $n$ 个点，$m$ 条边的无向图，一开始每条边可能是红色或者蓝色，</p>
 <p>翻转一个点可以使相连的边变成相反的颜色，要求把所有边变成红色或者蓝色</p>
 <p>问最少需要翻转的点数，并给出具体的方案</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入 <span
-class="math inline">\(n,m\)</span>，分别表示点的数量和边的数量 <span
-class="math inline">\((1\leq n,m\leq 100000)\)</span> 。</p>
-<p>第二至 <span class="math inline">\(m+1\)</span> 行 <span
-class="math inline">\(u_i,v_i,c_i\)</span>，分别表示无向边的两个点以及它的颜色，保证没有重边和自环</p>
+<p>第一行输入 $n,m$，分别表示点的数量和边的数量 $(1\leq n,m\leq 100000)$ 。</p>
+<p>第二至 $m+1$ 行 $u_i,v_i,c_i$，分别表示无向边的两个点以及它的颜色，保证没有重边和自环</p>
 <p><strong>输出格式</strong>：</p>
-<p>如果没有方法使其合法输出 <span
-class="math inline">\(-1\)</span>，</p>
+<p>如果没有方法使其合法输出 $-1$，</p>
 <p>否则第一行输出最少需要翻转的点数，第二行用空格分隔输出翻转点的编号，只需要输出一种方案</p>
 </blockquote>
-<p>考虑对全部染成 <span class="math inline">\(\mathbf{R}\)</span>
-和全部染成 <span class="math inline">\(\mathbf{B}\)</span> 的方案取
-min。</p>
-<p>下面以 <span class="math inline">\(\mathbf{R}\)</span>
-为例。显然每个点至多翻转 <span class="math inline">\(1\)</span>
-次，那么记 <span class="math inline">\(i\)</span> 为点 <span
-class="math inline">\(i\)</span> 不翻转，<span class="math inline">\(i +
-n\)</span> 为点 <span class="math inline">\(i\)</span> 翻转。</p>
+<p>考虑对全部染成 $\mathbf{R}$ 和全部染成 $\mathbf{B}$ 的方案取 min。</p>
+<p>下面以 $\mathbf{R}$ 为例。显然每个点至多翻转 $1$ 次，那么记 $i$ 为点 $i$ 不翻转，$i + n$ 为点 $i$ 翻转。</p>
 <ul>
-<li>若 <span class="math inline">\(c_i = \mathbf{R}\)</span>
-，连<strong>双向边</strong> <span
-class="math inline">\((u_i,v_i)\)</span> 和 <span
-class="math inline">\((u_i + n,\,v_i + n)\)</span>
-，即要么同时翻转，要么同时不翻转。</li>
-<li>否则，连<strong>双向边</strong> <span
-class="math inline">\((u_i,\,v_i + n)\)</span> 和 <span
-class="math inline">\((u_i + n,\,v_i)\)</span>
-，即翻转一个的话，另一个就不能翻转。</li>
+<li>若 $c_i = \mathbf{R}$ ，连<strong>双向边</strong> $(u_i,v_i)$ 和 $(u_i + n,\,v_i + n)$ ，即要么同时翻转，要么同时不翻转。</li>
+<li>否则，连<strong>双向边</strong> $(u_i,\,v_i + n)$ 和 $(u_i + n,\,v_i)$ ，即翻转一个的话，另一个就不能翻转。</li>
 </ul>
-<p>直接跑 2–SAT，如果 <span class="math inline">\(i\)</span> 和 <span
-class="math inline">\(i + n\)</span> 在一个
-SCC（强连通分量）内则无解。</p>
-<p>由于本题连的都是双向边，所以选点 <span
-class="math inline">\(i\)</span> 就必须选整个 SCC。</p>
-<p>那么对于 <span class="math inline">\(i\)</span> 和 <span
-class="math inline">\(i+n\)</span> 所在的两个 SCC
-，我们只需要贪心地选择点数少的那个即可</p>
-<p>因为每个 <span class="math inline">\(i\)</span> 都在 SCC
-中，所以这么选一定是最优的。当然这题也可以并查集，都是双向边嘛。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n +
-m)\)</span></p>
+<p>直接跑 2–SAT，如果 $i$ 和 $i + n$ 在一个 SCC（强连通分量）内则无解。</p>
+<p>由于本题连的都是双向边，所以选点 $i$ 就必须选整个 SCC。</p>
+<p>那么对于 $i$ 和 $i+n$ 所在的两个 SCC ，我们只需要贪心地选择点数少的那个即可</p>
+<p>因为每个 $i$ 都在 SCC 中，所以这么选一定是最优的。当然这题也可以并查集，都是双向边嘛。</p>
+<p>时间复杂度 $\mathcal{O}(n + m)$</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -871,35 +843,27 @@ m)\)</span></p>
         cout <span class="token operator">&lt;&lt;</span> G<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> iEND<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr />
-<p>然后这里最后第四行有个超级无敌大坑！！！为此我还发了一个<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/877117">讨论</a>，感谢评论区那位巨佬。</p>
-<p>如果把那个 <code>(int)</code> 去掉，交上去会发现除了 C++20 都会
-<strong>Runtime error on test 36</strong> 。</p>
-<p>因为我习惯 <code>#define int long long</code>
-，所以这句话翻译出来应该是：</p>
+<hr>
+<p>然后这里最后第四行有个超级无敌大坑！！！为此我还发了一个<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/877117">讨论</a>，感谢评论区那位巨佬。</p>
+<p>如果把那个 <code>(int)</code> 去掉，交上去会发现除了 C++20 都会 <strong>Runtime error on test 36</strong> 。</p>
+<p>因为我习惯 <code>#define int long long</code> ，所以这句话翻译出来应该是：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> iEND <span class="token operator">=</span> G<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>ans<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> iEND<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     cout <span class="token operator">&lt;&lt;</span> G<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> iEND<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>注意到这里 <code>G[k].ans.size()</code> 它的类型是
-<strong>size_t</strong> ，这个东西取决于机器是 32 位还是 64 位</p>
+<p>注意到这里 <code>G[k].ans.size()</code> 它的类型是 <strong>size_t</strong> ，这个东西取决于机器是 32 位还是 64 位</p>
 <p>然后 CodeForces 上除了 Cpp20 是 64 位机器，其他都是 32 位机器。</p>
 <ul>
-<li><p>对于 32 位机器，这里 size_t 的类型是 <code>unsigned int</code>
-，</p>
-<p>则 <code>G[k].ans</code>
-为空时，<code>(i32u)0-1==(i64)I32U_MAX</code> ，出问题了</p></li>
-<li><p>对于 64 位机器，这里 size_t 的类型是
-<code>unsigned long long</code> ，</p>
-<p>则 <code>G[k].ans</code>
-为空时，<code>(i64u)0-1==(i64)I64U_MAX==-1</code> ，逃过一劫。</p></li>
+<li><p>对于 32 位机器，这里 size_t 的类型是 <code>unsigned int</code> ，</p>
+<p>则 <code>G[k].ans</code> 为空时，<code>(i32u)0-1==(i64)I32U_MAX</code> ，出问题了</p>
+</li>
+<li><p>对于 64 位机器，这里 size_t 的类型是 <code>unsigned long long</code> ，</p>
+<p>则 <code>G[k].ans</code> 为空时，<code>(i64u)0-1==(i64)I64U_MAX==-1</code> ，逃过一劫。</p>
+</li>
 </ul>
 <p>这就导致我之前一直挂，找了半天都找不到原因。</p>
-<p>因此各位，以后碰到 size_t 一定要转成 <code>int</code>
-啊！！！！！</p>
-<hr />
+<p>因此各位，以后碰到 size_t 一定要转成 <code>int</code> 啊！！！！！</p>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/0pbt6kuk">https://www.luogu.com.cn/article/0pbt6kuk</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/0pbt6kuk">https://www.luogu.com.cn/article/0pbt6kuk</a></p>
 
                 
             </div>
@@ -1376,7 +1340,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/0pbt6kuk">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402k</span>&nbsp;字
+                class="white-color">1368.9k</span>&nbsp;字
             
             
             
