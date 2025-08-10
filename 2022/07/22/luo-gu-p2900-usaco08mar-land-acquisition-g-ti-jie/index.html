@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,39 +743,72 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2900-USACO08MAR-Land-Acquisition-G-题解"><a href="#洛谷P2900-USACO08MAR-Land-Acquisition-G-题解" class="headerlink" title="洛谷P2900 [USACO08MAR]Land Acquisition G 题解"></a>洛谷P2900 [USACO08MAR]Land Acquisition G 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2900">P2900 [USACO08MAR]Land Acquisition G</a></p>
+                <h1 id="洛谷p2900-usaco08marland-acquisition-g-题解">洛谷P2900
+[USACO08MAR]Land Acquisition G 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2900">P2900
+[USACO08MAR]Land Acquisition G</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Farmer John 准备扩大他的农场，眼前他正在考虑购买 $N$ 块长方形的土地。</p>
-<p>如果 FJ 单买一块土地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长乘以最大的宽。比如 FJ 并购一块 $3 \times 5$ 和一块 $5 \times 3$ 的土地，他只需要支付 $5 \times 5=25$ 元， 比单买合算。</p>
-<p>FJ 希望买下所有的土地。他发现，将这些土地分成不同的小组来并购可以节省经费。 给定每份土地的尺寸，请你帮助他计算购买所有土地所需的最小费用。</p>
-<p>第一行一个整数 $N$（$1 \leq N \leq 5 \times 10^4$）。</p>
-<p>接下来 $N$ 行，每行两个整数 $w_i$ 和 $l_i$，代表第 $i$ 块土地的长和宽。保证土地的长和宽不超过 $10^6$。</p>
+<p>Farmer John 准备扩大他的农场，眼前他正在考虑购买 <span
+class="math inline">\(N\)</span> 块长方形的土地。</p>
+<p>如果 FJ
+单买一块土地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长乘以最大的宽。比如
+FJ 并购一块 <span class="math inline">\(3 \times 5\)</span> 和一块 <span
+class="math inline">\(5 \times 3\)</span> 的土地，他只需要支付 <span
+class="math inline">\(5 \times 5=25\)</span> 元， 比单买合算。</p>
+<p>FJ
+希望买下所有的土地。他发现，将这些土地分成不同的小组来并购可以节省经费。
+给定每份土地的尺寸，请你帮助他计算购买所有土地所需的最小费用。</p>
+<p>第一行一个整数 <span class="math inline">\(N\)</span>（<span
+class="math inline">\(1 \leq N \leq 5 \times 10^4\)</span>）。</p>
+<p>接下来 <span class="math inline">\(N\)</span> 行，每行两个整数 <span
+class="math inline">\(w_i\)</span> 和 <span
+class="math inline">\(l_i\)</span>，代表第 <span
+class="math inline">\(i\)</span> 块土地的长和宽。保证土地的长和宽不超过
+<span class="math inline">\(10^6\)</span>。</p>
 <p>输出买下所有土地的最小费用。</p>
 </blockquote>
 <p>斜率优化板子题。</p>
 <p>首先可以推出来一个原始的转移方程</p>
-<p>设 $f_i$ 表示买前 $i$ 个土地的最小花费</p>
-<script type="math/tex; mode=display">
-f_i=\min\{f_{j} +  \text{mxw}\{j+1,i\} \times \text{mxl}\{j+1,i\}\}</script><p>但是这样子根本没法优化。</p>
+<p>设 <span class="math inline">\(f_i\)</span> 表示买前 <span
+class="math inline">\(i\)</span> 个土地的最小花费 <span
+class="math display">\[
+f_i=\min\{f_{j} +  \text{mxw}\{j+1,i\} \times \text{mxl}\{j+1,i\}\}
+\]</span> 但是这样子根本没法优化。</p>
 <p>考虑怎样的土地可以对答案计算产生贡献（也就是必须计算花费的）</p>
 <p>或者说，怎样的土地不能产生贡献</p>
-<p>设土地 $i,j$ 满足 $w_i \ge w_j,~l_i \ge l_j$</p>
-<p>则购买 $i$ 的时候， $j$ 可以与其并购并且不增加额外的花费</p>
-<p>因此我们将所有物品按 $w_i$ 从大到小排序后所有能产生贡献的一定 $l_i$ 比之前大</p>
-<p>即 $\forall i&lt;j,w_i\ge w_j,l_i\le l_j$</p>
+<p>设土地 <span class="math inline">\(i,j\)</span> 满足 <span
+class="math inline">\(w_i \ge w_j,~l_i \ge l_j\)</span></p>
+<p>则购买 <span class="math inline">\(i\)</span> 的时候， <span
+class="math inline">\(j\)</span> 可以与其并购并且不增加额外的花费</p>
+<p>因此我们将所有物品按 <span class="math inline">\(w_i\)</span>
+从大到小排序后所有能产生贡献的一定 <span
+class="math inline">\(l_i\)</span> 比之前大</p>
+<p>即 <span class="math inline">\(\forall i&lt;j,w_i\ge w_j,l_i\le
+l_j\)</span></p>
 <p>至此，我们可以推出更好的转移方程</p>
-<p>设 $f_i$ 表示买前 $i$ 个土地的最小花费</p>
-<script type="math/tex; mode=display">
-f_i = \min\{f_j + w_{j+1}\times l_i \}</script><p>当 $i$ 固定时，考虑怎样的一个 $j\,(i&gt;j&gt;k)$ 使得 $j$ 比 $k$ 更优</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(f_i\)</span> 表示买前 <span
+class="math inline">\(i\)</span> 个土地的最小花费 <span
+class="math display">\[
+f_i = \min\{f_j + w_{j+1}\times l_i \}
+\]</span> 当 <span class="math inline">\(i\)</span>
+固定时，考虑怎样的一个 <span
+class="math inline">\(j\,(i&gt;j&gt;k)\)</span> 使得 <span
+class="math inline">\(j\)</span> 比 <span
+class="math inline">\(k\)</span> 更优 <span class="math display">\[
 f_{j}+w_{j+1}\times l_i \le f_k + w_{k+1} \times l_i
-\\f_j-f_k \le l_i \times (w_{k+1}-w_{j+1})</script><p>由于 $w$ 是递减的，即 $w_{k+1} \ge w_{j+1}$ ，因此移项可得</p>
-<script type="math/tex; mode=display">
-\dfrac{f_j-f_k}{w_{k+1}-w_{j+1}} \le l_i</script><p>把右边的看作斜率，然后就是斜率优化</p>
-<p>因为要求最小化 $f_i$ ，因此我们要维护一个下凸壳</p>
-<p>关于凸壳的问题，可以看这篇 <a target="_blank" rel="noopener" href="https://q779.github.io/2022/06/18/luo-gu-p3195-hnoi2008-wan-ju-zhuang-xiang-ti-jie/">P3195 [HNOI2008]玩具装箱</a></p>
-<p>时间复杂度 $O(n \log n)$ </p>
+\\f_j-f_k \le l_i \times (w_{k+1}-w_{j+1})
+\]</span> 由于 <span class="math inline">\(w\)</span> 是递减的，即 <span
+class="math inline">\(w_{k+1} \ge w_{j+1}\)</span> ，因此移项可得 <span
+class="math display">\[
+\dfrac{f_j-f_k}{w_{k+1}-w_{j+1}} \le l_i
+\]</span> 把右边的看作斜率，然后就是斜率优化</p>
+<p>因为要求最小化 <span class="math inline">\(f_i\)</span>
+，因此我们要维护一个下凸壳</p>
+<p>关于凸壳的问题，可以看这篇 <a
+target="_blank" rel="noopener" href="https://q779.github.io/2022/06/18/luo-gu-p3195-hnoi2008-wan-ju-zhuang-xiang-ti-jie/">P3195
+[HNOI2008]玩具装箱</a></p>
+<p>时间复杂度 <span class="math inline">\(O(n \log n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -828,7 +862,8 @@ f_{j}+w_{j+1}\times l_i \le f_k + w_{k+1} \times l_i
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P2900">https://www.luogu.com.cn/problem/solution/P2900</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P2900">https://www.luogu.com.cn/problem/solution/P2900</a></p>
 
                 
             </div>
@@ -962,7 +997,7 @@ f_{j}+w_{j+1}\times l_i \le f_k + w_{k+1} \times l_i
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1297,7 +1332,7 @@ f_{j}+w_{j+1}\times l_i \le f_k + w_{k+1} \times l_i
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1566,21 +1601,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

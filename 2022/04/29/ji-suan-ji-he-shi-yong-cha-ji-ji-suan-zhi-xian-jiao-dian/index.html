@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,12 +743,20 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="计算几何-使用叉积计算直线交点"><a href="#计算几何-使用叉积计算直线交点" class="headerlink" title="[计算几何] 使用叉积计算直线交点"></a>[计算几何] 使用叉积计算直线交点</h1><blockquote>
+                <h1 id="计算几何-使用叉积计算直线交点">[计算几何]
+使用叉积计算直线交点</h1>
+<blockquote>
 <p>upd.本文写于远古时期，有空再来修改。</p>
 </blockquote>
-<p>已知直线 $AB$ 和 $CD$ ，其交点为 $P$ ， 求 $P$ 的坐标。</p>
-<p>计算几何中一般存储向量 $\mathbf{p},\mathbf{v}$ 表示起点的向量和方向向量</p>
-<p>例如直线 $AB$ 一般存储为 $\overset{\longrightarrow}{OA},\overset{\longrightarrow}{AB}$ </p>
+<p>已知直线 <span class="math inline">\(AB\)</span> 和 <span
+class="math inline">\(CD\)</span> ，其交点为 <span
+class="math inline">\(P\)</span> ， 求 <span
+class="math inline">\(P\)</span> 的坐标。</p>
+<p>计算几何中一般存储向量 <span
+class="math inline">\(\mathbf{p},\mathbf{v}\)</span>
+表示起点的向量和方向向量</p>
+<p>例如直线 <span class="math inline">\(AB\)</span> 一般存储为 <span
+class="math inline">\(\overset{\longrightarrow}{OA},\overset{\longrightarrow}{AB}\)</span></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">const</span> <span class="token keyword">double</span> eps<span class="token operator">=</span><span class="token number">1e-10</span><span class="token punctuation">;</span>
 <span class="token keyword">struct</span> <span class="token class-name">vct</span><span class="token punctuation">&#123;</span><span class="token keyword">double</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>p<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">pf</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
@@ -775,19 +784,25 @@ vct <span class="token keyword">operator</span><span class="token operator">/</s
 <p>因此，可以得到下图</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030027966.png" style="zoom:50%;" /></p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405030027768.png" style="zoom:50%;" /></p>
-<p>其中 $\mathbf{v_1},\mathbf{v_2}$ 为方向向量， $P=\mathbf{p_1} + t\mathbf{v_1}$ </p>
-<p>因为</p>
-<script type="math/tex; mode=display">
-(\mathbf{p_1}+t\mathbf{v_1}-\mathbf{p_2}) \times \mathbf{v_2} = 0</script><p>所以</p>
-<script type="math/tex; mode=display">
-t = \frac{(\mathbf{p_2}-\mathbf{p_1})\times \mathbf{v_2}}{\mathbf{v_1}\times \mathbf{v_2}}</script><p>代入 $P=\mathbf{p_1} + t\mathbf{v_1}$ 即可</p>
+<p>其中 <span class="math inline">\(\mathbf{v_1},\mathbf{v_2}\)</span>
+为方向向量， <span class="math inline">\(P=\mathbf{p_1} +
+t\mathbf{v_1}\)</span></p>
+<p>因为 <span class="math display">\[
+(\mathbf{p_1}+t\mathbf{v_1}-\mathbf{p_2}) \times \mathbf{v_2} = 0
+\]</span> 所以 <span class="math display">\[
+t = \frac{(\mathbf{p_2}-\mathbf{p_1})\times
+\mathbf{v_2}}{\mathbf{v_1}\times \mathbf{v_2}}
+\]</span> 代入 <span class="math inline">\(P=\mathbf{p_1} +
+t\mathbf{v_1}\)</span> 即可</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp">vct <span class="token function">intersect</span><span class="token punctuation">(</span>line a<span class="token punctuation">,</span>line b<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">double</span> x<span class="token operator">=</span><span class="token function">cross</span><span class="token punctuation">(</span>b<span class="token punctuation">.</span>way<span class="token punctuation">,</span>a<span class="token punctuation">.</span>p<span class="token operator">-</span>b<span class="token punctuation">.</span>p<span class="token punctuation">)</span><span class="token operator">/</span><span class="token function">cross</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>way<span class="token punctuation">,</span>b<span class="token punctuation">.</span>way<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> a<span class="token punctuation">.</span>p<span class="token operator">+</span>a<span class="token punctuation">.</span>way<span class="token operator">*</span>x<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>完整代码摘自<a href="/2022/04/27/uva12307-smallest-enclosing-rectangle-ti-jie/">这里</a> <del>其实是懒得再打一遍 qwq</del></p>
+<p>完整代码摘自<a
+href="/2022/04/27/uva12307-smallest-enclosing-rectangle-ti-jie/">这里</a>
+<del>其实是懒得再打一遍 qwq</del></p>
 
                 
             </div>
@@ -921,7 +936,7 @@ t = \frac{(\mathbf{p_2}-\mathbf{p_1})\times \mathbf{v_2}}{\mathbf{v_1}\times \ma
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1263,7 +1278,7 @@ t = \frac{(\mathbf{p_2}-\mathbf{p_1})\times \mathbf{v_2}}{\mathbf{v_1}\times \ma
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1532,21 +1547,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -738,31 +739,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2312-NOIP2014-提高组-解方程-题解"><a href="#洛谷P2312-NOIP2014-提高组-解方程-题解" class="headerlink" title="洛谷P2312 [NOIP2014 提高组] 解方程 题解"></a>洛谷P2312 [NOIP2014 提高组] 解方程 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2312">P2312 [NOIP2014 提高组] 解方程</a></p>
+                <h1 id="洛谷p2312-noip2014-提高组-解方程-题解">洛谷P2312 [NOIP2014
+提高组] 解方程 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2312">P2312
+[NOIP2014 提高组] 解方程</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>已知多项式方程：</p>
-<script type="math/tex; mode=display">
-a_0+a_1x+a_2x^2+\cdots+a_nx^n=0</script><p> 求这个方程在 $[1,m]$  内的整数解（$n$ 和 $m$ 均为正整数）。</p>
+<p><span class="math display">\[
+a_0+a_1x+a_2x^2+\cdots+a_nx^n=0
+\]</span> 求这个方程在 <span class="math inline">\([1,m]\)</span>
+内的整数解（<span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(m\)</span> 均为正整数）。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入共 $n + 2$  行。  </p>
-<p>第一行包含 $2$ 个整数 $n, m$ ，每两个整数之间用一个空格隔开。  </p>
-<p>接下来的 $n+1$ 行每行包含一个整数，依次为 $a_0,a_1,a_2\ldots a_n$ 。</p>
+<p>输入共 <span class="math inline">\(n + 2\)</span> 行。</p>
+<p>第一行包含 <span class="math inline">\(2\)</span> 个整数 <span
+class="math inline">\(n, m\)</span> ，每两个整数之间用一个空格隔开。</p>
+<p>接下来的 <span class="math inline">\(n+1\)</span>
+行每行包含一个整数，依次为 <span class="math inline">\(a_0,a_1,a_2\ldots
+a_n\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>第一行输出方程在 $[1,m]$  内的整数解的个数。  </p>
-<p>接下来每行一个整数，按照从小到大的顺序依次输出方程在 $[1,m]$  内的一个整数解。</p>
+<p>第一行输出方程在 <span class="math inline">\([1,m]\)</span>
+内的整数解的个数。</p>
+<p>接下来每行一个整数，按照从小到大的顺序依次输出方程在 <span
+class="math inline">\([1,m]\)</span> 内的一个整数解。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$0&lt;n\le 100,|a_i|\le 10^{10000},a_0\ne 0,m&lt;10^6$ 。</p>
+<p><span class="math inline">\(0&lt;n\le 100,|a_i|\le 10^{10000},a_0\ne
+0,m&lt;10^6\)</span> 。</p>
 </blockquote>
-<p>这个题有点哈希的味道。注意到对于质数 $p$ ，</p>
-<script type="math/tex; mode=display">
-a_0+a_1x+a_2x^2+\cdots+a_nx^n\equiv 0 \pmod{p}</script><p>是原命题成立的一个必要不充分条件，不过在<strong>绝大多数情况下</strong>都是充分的。</p>
-<p>那么我们随便取两个 $p_1,p_2$ 模一模，看看是不是都为 $0$ 就好啦，这种情况下出错的概率低到<del>难以置信</del>。</p>
+<p>这个题有点哈希的味道。注意到对于质数 <span
+class="math inline">\(p\)</span> ， <span class="math display">\[
+a_0+a_1x+a_2x^2+\cdots+a_nx^n\equiv 0 \pmod{p}
+\]</span>
+是原命题成立的一个必要不充分条件，不过在<strong>绝大多数情况下</strong>都是充分的。</p>
+<p>那么我们随便取两个 <span class="math inline">\(p_1,p_2\)</span>
+模一模，看看是不是都为 <span class="math inline">\(0\)</span>
+就好啦，这种情况下出错的概率低到<del>难以置信</del>。</p>
 <p>然后就被卡常了。</p>
-<p>注意到 $p^k$ 的个数远小于其他的数的数量，又因为</p>
-<script type="math/tex; mode=display">
-f(x) \equiv 0 \pmod{p} \quad\Rightarrow\quad f(x + kp)\equiv 0\pmod {p}</script><p>所以我们可以取一个比较小的 $p_1$ ，比如 $10007$ ，然后预处理出哪些 $x$ 可能有解</p>
-<p>这样就不用跑两遍大常数的 $\mathcal{O}(nm)$ 了。</p>
+<p>注意到 <span class="math inline">\(p^k\)</span>
+的个数远小于其他的数的数量，又因为 <span class="math display">\[
+f(x) \equiv 0 \pmod{p} \quad\Rightarrow\quad f(x + kp)\equiv 0\pmod {p}
+\]</span> 所以我们可以取一个比较小的 <span
+class="math inline">\(p_1\)</span> ，比如 <span
+class="math inline">\(10007\)</span> ，然后预处理出哪些 <span
+class="math inline">\(x\)</span> 可能有解</p>
+<p>这样就不用跑两遍大常数的 <span
+class="math inline">\(\mathcal{O}(nm)\)</span> 了。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -812,7 +834,7 @@ f(x) \equiv 0 \pmod{p} \quad\Rightarrow\quad f(x + kp)\equiv 0\pmod {p}</script>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> tot<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>最近没找什么图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406092342718.jpg" style="zoom:40%;" /></p>
@@ -945,7 +967,7 @@ f(x) \equiv 0 \pmod{p} \quad\Rightarrow\quad f(x + kp)\equiv 0\pmod {p}</script>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1284,7 +1306,7 @@ f(x) \equiv 0 \pmod{p} \quad\Rightarrow\quad f(x + kp)\equiv 0\pmod {p}</script>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1553,21 +1575,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

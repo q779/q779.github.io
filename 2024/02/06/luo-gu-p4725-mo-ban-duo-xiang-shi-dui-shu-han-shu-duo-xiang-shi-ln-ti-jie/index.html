@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,46 +743,88 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4725-【模板】多项式对数函数（多项式-ln）-题解"><a href="#洛谷P4725-【模板】多项式对数函数（多项式-ln）-题解" class="headerlink" title="洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解"></a>洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4725">P4725 【模板】多项式对数函数（多项式 ln）</a></p>
+                <h1 id="洛谷p4725-模板多项式对数函数多项式-ln-题解">洛谷P4725
+【模板】多项式对数函数（多项式 ln） 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4725">P4725
+【模板】多项式对数函数（多项式 ln）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出 $n-1$ 次多项式 $A(x)$，求一个 $\bmod{\:x^n}$ 下的多项式 $B(x)$，满足 $B(x) \equiv \ln A(x)$ 。</p>
-<p>在模 $998244353$  意义下进行，且 $a_i \in [0, 998244353) \cap \mathbb{Z}$ 。保证 $a_0 = 1$ 。</p>
+<p>给出 <span class="math inline">\(n-1\)</span> 次多项式 <span
+class="math inline">\(A(x)\)</span>，求一个 <span
+class="math inline">\(\bmod{\:x^n}\)</span> 下的多项式 <span
+class="math inline">\(B(x)\)</span>，满足 <span
+class="math inline">\(B(x) \equiv \ln A(x)\)</span> 。</p>
+<p>在模 <span class="math inline">\(998244353\)</span> 意义下进行，且
+<span class="math inline">\(a_i \in [0, 998244353) \cap
+\mathbb{Z}\)</span> 。保证 <span class="math inline">\(a_0 = 1\)</span>
+。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 $n$ 。</p>
-<p>下一行有 $n$ 个整数，依次表示多项式的系数 $a_0, a_1, \cdots, a_{n-1}$ 。</p>
+<p>第一行一个整数 <span class="math inline">\(n\)</span> 。</p>
+<p>下一行有 <span class="math inline">\(n\)</span>
+个整数，依次表示多项式的系数 <span class="math inline">\(a_0, a_1,
+\cdots, a_{n-1}\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $n$ 个整数，表示答案多项式中的系数 $a_0, a_1, \cdots, a_{n-1}$ 。</p>
+<p>输出 <span class="math inline">\(n\)</span>
+个整数，表示答案多项式中的系数 <span class="math inline">\(a_0, a_1,
+\cdots, a_{n-1}\)</span> 。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1\le n \le 10^5$ 。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le n \le 10^5\)</span> 。</p>
 </blockquote>
-<p>给定整系数多项式 $f(x)$ ，求 $g(x)$ 满足</p>
-<script type="math/tex; mode=display">
-g(x) \equiv \ln f(x) \pmod{x^n}</script><p>在说明解法之前，我们先证明一个定理。</p>
-<p><strong>定理</strong>：当且仅当 $[x^0]f(x) = 1$ 时，$f(x)$ 有对数多项式。</p>
+<p>给定整系数多项式 <span class="math inline">\(f(x)\)</span> ，求 <span
+class="math inline">\(g(x)\)</span> 满足 <span class="math display">\[
+g(x) \equiv \ln f(x) \pmod{x^n}
+\]</span> 在说明解法之前，我们先证明一个定理。</p>
+<p><strong>定理</strong>：当且仅当 <span class="math inline">\([x^0]f(x)
+= 1\)</span> 时，<span class="math inline">\(f(x)\)</span>
+有对数多项式。</p>
 <blockquote>
 <p>证明：</p>
 <p>先证明一个引理。</p>
 <blockquote>
-<p><strong>引理</strong>：当 $\forall x\in \mathbb{Q} ,~x \ne 1$ 有 $\ln x \not\in \mathbb{Q}$ （$\mathbb{Q}$ 为有理数集）。</p>
-<p>证明：考虑反证法。若 $c=\ln x\in \mathbb{Q}$ ，则 $x = \mathrm{e}^c$ ，显然有 $c \ne 0$ 。</p>
-<p>因为 $\mathrm{e}$ 为超越数，所以 $\mathrm{e}^{c}$ 对于 $\forall c \in \mathbb{Q}$ 都有 $\mathrm{e}^c\not\in \mathbb{Q}$ ，即 $x \not\in \mathbb{Q}$ ，与假设矛盾。$\square$</p>
+<p><strong>引理</strong>：当 <span class="math inline">\(\forall x\in
+\mathbb{Q} ,~x \ne 1\)</span> 有 <span class="math inline">\(\ln x
+\not\in \mathbb{Q}\)</span> （<span
+class="math inline">\(\mathbb{Q}\)</span> 为有理数集）。</p>
+<p>证明：考虑反证法。若 <span class="math inline">\(c=\ln x\in
+\mathbb{Q}\)</span> ，则 <span class="math inline">\(x =
+\mathrm{e}^c\)</span> ，显然有 <span class="math inline">\(c \ne
+0\)</span> 。</p>
+<p>因为 <span class="math inline">\(\mathrm{e}\)</span> 为超越数，所以
+<span class="math inline">\(\mathrm{e}^{c}\)</span> 对于 <span
+class="math inline">\(\forall c \in \mathbb{Q}\)</span> 都有 <span
+class="math inline">\(\mathrm{e}^c\not\in \mathbb{Q}\)</span> ，即 <span
+class="math inline">\(x \not\in \mathbb{Q}\)</span> ，与假设矛盾。<span
+class="math inline">\(\square\)</span></p>
 </blockquote>
-<p>考虑用先求导再积分的方式获得其对数</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>当然这个 $f(x)$ 显然已经确定了它的构成，那么我们可以写成</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C \pmod{x^n}</script><p>其中 $C=\ln f(0)$​ 为积分常数。</p>
-<p>根据引理，又因为无理数在模意义下无意义，所以 $f(0) = 1$ 即 $[x^0]f(x)=1$​ 。</p>
-<p>对于除 $[x^0]f(x)$​ 外的项，显然其导数和积分都为有理数。证毕。</p>
+<p>考虑用先求导再积分的方式获得其对数 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 当然这个 <span class="math inline">\(f(x)\)</span>
+显然已经确定了它的构成，那么我们可以写成 <span class="math display">\[
+\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C
+\pmod{x^n}
+\]</span> 其中 <span class="math inline">\(C=\ln f(0)\)</span>​
+为积分常数。</p>
+<p>根据引理，又因为无理数在模意义下无意义，所以 <span
+class="math inline">\(f(0) = 1\)</span> 即 <span
+class="math inline">\([x^0]f(x)=1\)</span>​ 。</p>
+<p>对于除 <span class="math inline">\([x^0]f(x)\)</span>​
+外的项，显然其导数和积分都为有理数。证毕。</p>
 </blockquote>
 <p><strong>解法</strong>：</p>
-<p>其实我们刚刚已经推导出了</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下</p>
-<script type="math/tex; mode=display">
+<p>其实我们刚刚已经推导出了 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下
+<span class="math display">\[
 x^n = nx^{n-1}
-\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C</script><p>因此实际上我们可以 $\mathcal{O}(n)$ 求导和积分，加上求逆的 $\mathcal{O}(n \log n)$ ，总时间复杂度为 $\mathcal{O}(n \log n)$</p>
+\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C
+\]</span> 因此实际上我们可以 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 求导和积分，加上求逆的
+<span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，总时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -879,8 +922,10 @@ x^n = nx^{n-1}
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
-<p>传送门：<a href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a> 。</p>
+<hr />
+<p>传送门：<a
+href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a>
+。</p>
 
                 
             </div>
@@ -1014,7 +1059,7 @@ x^n = nx^{n-1}
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1349,7 +1394,7 @@ x^n = nx^{n-1}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1618,21 +1663,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

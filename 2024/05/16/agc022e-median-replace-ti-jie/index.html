@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -722,7 +723,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    820
+                    826
                 </div>
                 
 
@@ -742,57 +743,90 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC022E-Median-Replace-题解"><a href="#AGC022E-Median-Replace-题解" class="headerlink" title="[AGC022E] Median Replace 题解"></a>[AGC022E] Median Replace 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc022_e">[AGC022E] Median Replace</a></p>
+                <h1 id="agc022e-median-replace-题解">[AGC022E] Median Replace 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc022_e">[AGC022E] Median
+Replace</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有个长度为 $N$（$N$ 为奇数）的 $\texttt{01}$ 串 $s$，其中有若干位置是 $\texttt{?}$。  </p>
-<p>一次操作可将 $3$​ 个连续的字符替换成这三个数的中位数。  </p>
-<p>求有多少将 $\texttt ?$ 替换成 $\texttt0$ 或 $\texttt1$ 的方案使得进行 $\frac{N-1}{2}$ 次操作后的字符串可以是 $\texttt1$​。</p>
+<p>有个长度为 <span class="math inline">\(N\)</span>（<span
+class="math inline">\(N\)</span> 为奇数）的 <span
+class="math inline">\(\texttt{01}\)</span> 串 <span
+class="math inline">\(s\)</span>，其中有若干位置是 <span
+class="math inline">\(\texttt{?}\)</span>。</p>
+<p>一次操作可将 <span class="math inline">\(3\)</span>​
+个连续的字符替换成这三个数的中位数。</p>
+<p>求有多少将 <span class="math inline">\(\texttt ?\)</span> 替换成
+<span class="math inline">\(\texttt0\)</span> 或 <span
+class="math inline">\(\texttt1\)</span> 的方案使得进行 <span
+class="math inline">\(\frac{N-1}{2}\)</span> 次操作后的字符串可以是
+<span class="math inline">\(\texttt1\)</span>​。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行，给定 $s$ 。</p>
+<p>一行，给定 <span class="math inline">\(s\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，答案</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\leq N\leq300000$ 且 $N$ 为奇数。</p>
+<p><span class="math inline">\(1\leq N\leq300000\)</span> 且 <span
+class="math inline">\(N\)</span> 为奇数。</p>
 </blockquote>
 <p>做多替换三个的题了，还以为是把每个位置都换成中位数……（<del>我就说大早上写题会弱智吧</del>）</p>
-<p>容易发现，如果一个字符串由 $a$ 个连续的 $\mathtt{1}$ 和 $b$ 个连续的 $\mathtt{0}$ 拼接而成，则当 $a &gt; b$ 时一定合法。</p>
-<p>考虑维护一个从栈顶到栈底由一段连续的 $\mathtt{0}$ 和一段连续的 $\mathtt{1}$ 组成的栈，然后依次加入每个 $s_i$ ，则</p>
+<p>容易发现，如果一个字符串由 <span class="math inline">\(a\)</span>
+个连续的 <span class="math inline">\(\mathtt{1}\)</span> 和 <span
+class="math inline">\(b\)</span> 个连续的 <span
+class="math inline">\(\mathtt{0}\)</span> 拼接而成，则当 <span
+class="math inline">\(a &gt; b\)</span> 时一定合法。</p>
+<p>考虑维护一个从栈顶到栈底由一段连续的 <span
+class="math inline">\(\mathtt{0}\)</span> 和一段连续的 <span
+class="math inline">\(\mathtt{1}\)</span> 组成的栈，然后依次加入每个
+<span class="math inline">\(s_i\)</span> ，则</p>
 <ul>
-<li>若 $s_i = \mathtt{0}$​​ ，<ul>
-<li>若栈顶为 $\mathtt 0$ ，当栈顶有 $2$ 个 $\mathtt 0$ 时可以替换成一个 $\mathtt 0$ ，否则入栈。</li>
-<li>若栈顶为 $\mathtt 1$ ，直接入栈。</li>
-</ul>
-</li>
-<li>若 $s_i = \mathtt{1}$ ，<ul>
-<li>若栈顶为 $\mathtt 0$ ，新加入的 $\mathtt 1$ 可以和栈顶的 $\mathtt 0$ 抵消。</li>
-<li>若栈顶为 $\mathtt 1$ ，仅在 $\mathtt 1$ 只有一个时加入。</li>
-</ul>
-</li>
+<li>若 <span class="math inline">\(s_i = \mathtt{0}\)</span>​​ ，
+<ul>
+<li>若栈顶为 <span class="math inline">\(\mathtt 0\)</span> ，当栈顶有
+<span class="math inline">\(2\)</span> 个 <span
+class="math inline">\(\mathtt 0\)</span> 时可以替换成一个 <span
+class="math inline">\(\mathtt 0\)</span> ，否则入栈。</li>
+<li>若栈顶为 <span class="math inline">\(\mathtt 1\)</span>
+，直接入栈。</li>
+</ul></li>
+<li>若 <span class="math inline">\(s_i = \mathtt{1}\)</span> ，
+<ul>
+<li>若栈顶为 <span class="math inline">\(\mathtt 0\)</span> ，新加入的
+<span class="math inline">\(\mathtt 1\)</span> 可以和栈顶的 <span
+class="math inline">\(\mathtt 0\)</span> 抵消。</li>
+<li>若栈顶为 <span class="math inline">\(\mathtt 1\)</span> ，仅在 <span
+class="math inline">\(\mathtt 1\)</span> 只有一个时加入。</li>
+</ul></li>
 </ul>
 <p>那么这个栈就用很小的状态数就维护了一个串是否合法。</p>
-<p>于是可以考虑 dp 了。设 $f(i,a,b)$ 为考虑到第 $i$ 位，栈内有 $a$ 个 $\mathtt 1$ 和 $b$ 个 $\mathtt 0$ 的方案数，考虑转移：</p>
+<p>于是可以考虑 dp 了。设 <span class="math inline">\(f(i,a,b)\)</span>
+为考虑到第 <span class="math inline">\(i\)</span> 位，栈内有 <span
+class="math inline">\(a\)</span> 个 <span class="math inline">\(\mathtt
+1\)</span> 和 <span class="math inline">\(b\)</span> 个 <span
+class="math inline">\(\mathtt 0\)</span> 的方案数，考虑转移：</p>
 <ul>
-<li><p>若 $s_{i+1}=\mathtt 0$​ ，则</p>
-<script type="math/tex; mode=display">
+<li><p>若 <span class="math inline">\(s_{i+1}=\mathtt 0\)</span>​ ，则
+<span class="math display">\[
 \begin{aligned}
-&f(i + 1,\,a,\,1) \uparrow f(i,\,a,\,2) + f(i,\,a,\,0)
-\\[6pt] &f(i + 1,\,a,\,2) \uparrow f(i,\,a,\,1)
-\end{aligned}</script></li>
-<li><p>若 $s_{i+1} = \mathtt 1$​ ，则</p>
-<script type="math/tex; mode=display">
+&amp;f(i + 1,\,a,\,1) \uparrow f(i,\,a,\,2) + f(i,\,a,\,0)
+\\[6pt] &amp;f(i + 1,\,a,\,2) \uparrow f(i,\,a,\,1)
+\end{aligned}
+\]</span></p></li>
+<li><p>若 <span class="math inline">\(s_{i+1} = \mathtt 1\)</span>​ ，则
+<span class="math display">\[
 \begin{aligned}
-&f(i + 1,\,a,\,b-1) \uparrow f(i,\,a,\,b) &(b\ne 0)
-\\[8pt] & \begin{cases} 
-    f(i + 1,\,1,\,0)\uparrow f(i,\,0,\,0)
+&amp;f(i + 1,\,a,\,b-1) \uparrow f(i,\,a,\,b) &amp;(b\ne 0)
+\\[8pt] &amp; \begin{cases}
+  f(i + 1,\,1,\,0)\uparrow f(i,\,0,\,0)
 \\[6pt] f(i + 1,\,2,\,0)\uparrow f(i,\,1,\,0)
 \\[6pt] f(i + 1,\,2,\,0)\uparrow f(i,\,2,\,0)
-\end{cases} & (b = 0)
-\end{aligned}</script></li>
-<li><p>若 $s_{i + 1} = \mathtt{?}$ ，则把上面两种转移都做一遍即可。</p>
-</li>
+\end{cases} &amp; (b = 0)
+\end{aligned}
+\]</span></p></li>
+<li><p>若 <span class="math inline">\(s_{i + 1} = \mathtt{?}\)</span>
+，则把上面两种转移都做一遍即可。</p></li>
 </ul>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -840,10 +874,11 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">https://www.luogu.com.cn/article/t1y87bs5</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">https://www.luogu.com.cn/article/t1y87bs5</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>题又不会做…睡觉睡觉（困）</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405160802915.png" style="zoom:50%;" /></p>
@@ -980,7 +1015,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1148,12 +1183,12 @@ rgba(0,0,0,0.2);
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%9E%8E%E6%90%9E/">
-                        <span class="chip bg-color">瞎搞</span>
-                    </a>
-                    
                     <a href="/tags/%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9E%8E%E6%90%9E/">
+                        <span class="chip bg-color">瞎搞</span>
                     </a>
                     
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
@@ -1319,7 +1354,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1588,21 +1623,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

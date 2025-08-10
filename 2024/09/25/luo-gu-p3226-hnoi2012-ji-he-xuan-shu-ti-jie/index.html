@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -722,7 +723,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    755
+                    772
                 </div>
                 
 
@@ -742,30 +743,53 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3226-HNOI2012-集合选数-题解"><a href="#洛谷P3226-HNOI2012-集合选数-题解" class="headerlink" title="洛谷P3226 [HNOI2012] 集合选数 题解"></a>洛谷P3226 [HNOI2012] 集合选数 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3226">P3226 [HNOI2012] 集合选数</a></p>
+                <h1 id="洛谷p3226-hnoi2012-集合选数-题解">洛谷P3226 [HNOI2012] 集合选数
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3226">P3226
+[HNOI2012] 集合选数</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>《集合论与图论》这门课程有一道作业题，要求同学们求出 $\{ 1, 2, 3, 4, 5 \}$ 的所有满足以下条件的子集：若 $x$ 在该子集中，则 $2x$ 和 $3x$ 不能在该子集中。</p>
-<p>同学们不喜欢这种具有枚举性质的题目，于是把它变成了以下问题：对于任意一个正整数 $n \le 10^5$，如何求出 $\{1,2,\ldots ,n\}$ 的满足上述约束条件的子集的个数（只需输出对 $10^9+1$ 取模的结果），现在这个问题就交给你了。</p>
+<p>《集合论与图论》这门课程有一道作业题，要求同学们求出 <span
+class="math inline">\(\{ 1, 2, 3, 4, 5 \}\)</span>
+的所有满足以下条件的子集：若 <span class="math inline">\(x\)</span>
+在该子集中，则 <span class="math inline">\(2x\)</span> 和 <span
+class="math inline">\(3x\)</span> 不能在该子集中。</p>
+<p>同学们不喜欢这种具有枚举性质的题目，于是把它变成了以下问题：对于任意一个正整数
+<span class="math inline">\(n \le 10^5\)</span>，如何求出 <span
+class="math inline">\(\{1,2,\ldots ,n\}\)</span>
+的满足上述约束条件的子集的个数（只需输出对 <span
+class="math inline">\(10^9+1\)</span>
+取模的结果），现在这个问题就交给你了。</p>
 <p><strong>输入格式</strong>：</p>
-<p>只有一行，其中有一个正整数 $n$。$30 \%$ 的数据满足 $n \le 20$。</p>
+<p>只有一行，其中有一个正整数 <span
+class="math inline">\(n\)</span>。<span class="math inline">\(30
+\%\)</span> 的数据满足 <span class="math inline">\(n \le
+20\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>仅包含一个正整数，表示 $\{1,2,\ldots ,n\}$ 有多少个满足上述约束条件的子集。</p>
+<p>仅包含一个正整数，表示 <span class="math inline">\(\{1,2,\ldots
+,n\}\)</span> 有多少个满足上述约束条件的子集。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100 \%$ 的数据，$1 \le n \le 10^5$。</p>
+<p>对于 <span class="math inline">\(100 \%\)</span> 的数据，<span
+class="math inline">\(1 \le n \le 10^5\)</span>。</p>
 </blockquote>
-<p>考虑构造如下系数矩阵</p>
-<script type="math/tex; mode=display">
+<p>考虑构造如下系数矩阵 <span class="math display">\[
 \begin{matrix}
-1&2&4&8&16&32&\cdots
-\\[6pt]3&6&12&24&48&96&\cdots
-\\[6pt]9&18&36&72&\cdots
-\\[6pt]27&\cdots
-\end{matrix}</script><p>其中 $1$ 表示 $x$ ，$2$ 表示 $2x$ 。初始 $x=1$ 。</p>
-<p>我们对每个没有在前一个矩阵出现过的 $x$ 都构造这样的矩阵。</p>
+1&amp;2&amp;4&amp;8&amp;16&amp;32&amp;\cdots
+\\[6pt]3&amp;6&amp;12&amp;24&amp;48&amp;96&amp;\cdots
+\\[6pt]9&amp;18&amp;36&amp;72&amp;\cdots
+\\[6pt]27&amp;\cdots
+\end{matrix}
+\]</span> 其中 <span class="math inline">\(1\)</span> 表示 <span
+class="math inline">\(x\)</span> ，<span
+class="math inline">\(2\)</span> 表示 <span
+class="math inline">\(2x\)</span> 。初始 <span
+class="math inline">\(x=1\)</span> 。</p>
+<p>我们对每个没有在前一个矩阵出现过的 <span
+class="math inline">\(x\)</span> 都构造这样的矩阵。</p>
 <p>那么问题就变成了，对于每个矩阵，选择矩阵中的一些数，要求不能选相邻的数的方案数</p>
 <p>把每个矩阵的方案数乘起来就是答案。求法考虑状压dp即可，详见代码。</p>
-<p>时间复杂度 $\mathcal{O}(\mathrm{ok})$ </p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(\mathrm{ok})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -823,9 +847,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/b42lqqan">https://www.luogu.com.cn/article/b42lqqan</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/b42lqqan">https://www.luogu.com.cn/article/b42lqqan</a></p>
 
                 
             </div>
@@ -959,7 +984,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1302,7 +1327,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1571,21 +1596,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

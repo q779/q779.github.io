@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,51 +743,87 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF935F-Fafa-and-Array-题解"><a href="#CF935F-Fafa-and-Array-题解" class="headerlink" title="CF935F Fafa and Array 题解"></a>CF935F Fafa and Array 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF935F">Fafa and Array</a></p>
+                <h1 id="cf935f-fafa-and-array-题解">CF935F Fafa and Array 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF935F">Fafa and
+Array</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个序列 $a$，定义函数 $f(a)=\sum_{i=1}^{n-1}|a_i-a_{i+1}|$。</p>
+<p>给出一个序列 <span class="math inline">\(a\)</span>，定义函数 <span
+class="math inline">\(f(a)=\sum_{i=1}^{n-1}|a_i-a_{i+1}|\)</span>。</p>
 <p>给出两种操作:</p>
 <ul>
-<li><p>$\texttt{1 l r x}$，表示在区间 $[l,r]$ 内找一个位置，</p>
-<p>使得把这个位置的值加上 $x$ 后 $f(a)$ 最大，求这个最大值（修改是临时的）。</p>
-</li>
-<li><p>$\texttt{2 l r x}$，表示把区间 $[l,r]$ 加上 $x$。 </p>
-</li>
+<li><p><span class="math inline">\(\texttt{1 l r x}\)</span>，表示在区间
+<span class="math inline">\([l,r]\)</span> 内找一个位置，</p>
+<p>使得把这个位置的值加上 <span class="math inline">\(x\)</span> 后
+<span class="math inline">\(f(a)\)</span>
+最大，求这个最大值（修改是临时的）。</p></li>
+<li><p><span class="math inline">\(\texttt{2 l r x}\)</span>，表示把区间
+<span class="math inline">\([l,r]\)</span> 加上 <span
+class="math inline">\(x\)</span>。</p></li>
 </ul>
 <p><strong>输入格式</strong></p>
-<p>第一行一个正整数 $n~(3 \le n \le 10^5)$ ，表示数组的长度。</p>
-<p>第二行 $n$ 个正整数 $a_{1},a_{2},…,a_{n}~(0  &lt; a_i \le 10^9)$ ，表示数组的元素。</p>
-<p>第三行一个正整数 $q~(1 \le q \le 10^5)$ ，表示询问的个数。</p>
-<p>接下来 $q$ 行，第 $i$ 行有四个整数 $t_i,l_i,r_i,x_i~(t_i \in\{1, 2\},\,1&lt;l_i \leq r_i&lt;n,\, 0&lt;x_i \leq 10^9)$ 。</p>
+<p>第一行一个正整数 <span class="math inline">\(n~(3 \le n \le
+10^5)\)</span> ，表示数组的长度。</p>
+<p>第二行 <span class="math inline">\(n\)</span> 个正整数 <span
+class="math inline">\(a_{1},a_{2},...,a_{n}~(0 &lt; a_i \le
+10^9)\)</span> ，表示数组的元素。</p>
+<p>第三行一个正整数 <span class="math inline">\(q~(1 \le q \le
+10^5)\)</span> ，表示询问的个数。</p>
+<p>接下来 <span class="math inline">\(q\)</span> 行，第 <span
+class="math inline">\(i\)</span> 行有四个整数 <span
+class="math inline">\(t_i,l_i,r_i,x_i~(t_i \in\{1, 2\},\,1&lt;l_i \leq
+r_i&lt;n,\, 0&lt;x_i \leq 10^9)\)</span> 。</p>
 <p>数据保证至少有一个询问。</p>
 <p><strong>输出格式</strong></p>
 <p>对于每个询问，输出一行答案。</p>
 </blockquote>
-<p>注意到在某个 $a_i$ 上修改造成的影响与 $a_{i-1},a_{i+1}$ 有关，因此考察 $a_i + x$ 与 $a_{i-1},a_{i+1}$ 间的大小关系</p>
+<p>注意到在某个 <span class="math inline">\(a_i\)</span>
+上修改造成的影响与 <span class="math inline">\(a_{i-1},a_{i+1}\)</span>
+有关，因此考察 <span class="math inline">\(a_i + x\)</span> 与 <span
+class="math inline">\(a_{i-1},a_{i+1}\)</span> 间的大小关系</p>
 <ul>
-<li><p>若 $a_i+x&lt;a_{i-1}\, \land \, a_i+x&lt;a_{i+1}$ ，则贡献为 $\Delta = -2x$ 。</p>
-</li>
-<li><p>若 $a_{i-1}&lt;a_i+x&lt;a_{i+1}$ ，则贡献为</p>
-<script type="math/tex; mode=display">
+<li><p>若 <span class="math inline">\(a_i+x&lt;a_{i-1}\, \land \,
+a_i+x&lt;a_{i+1}\)</span> ，则贡献为 <span class="math inline">\(\Delta
+= -2x\)</span> 。</p></li>
+<li><p>若 <span
+class="math inline">\(a_{i-1}&lt;a_i+x&lt;a_{i+1}\)</span> ，则贡献为
+<span class="math display">\[
 \begin{aligned}
-\Delta&=\left(\left|\left(a_i+x\right)-a_{i+1}\right|+\left|a_{i-1}-\left(a_i+x\right)\right|\right)-\left(\left|a_i-a_{i+1}\right|+\left|a_{i-1}-a_i\right|\right)
-\\[8pt] & =-x+\left|a_i-a_{i-1}+x\right|+\left|a_i-a_{i-1}\right| \quad\leq 0
-\end{aligned}</script></li>
-<li><p>若 $a_{i-1} \leq a_i+x\,\land\, a_{i+1} \leq a_i+x$ ，</p>
+\Delta&amp;=\left(\left|\left(a_i+x\right)-a_{i+1}\right|+\left|a_{i-1}-\left(a_i+x\right)\right|\right)-\left(\left|a_i-a_{i+1}\right|+\left|a_{i-1}-a_i\right|\right)
+\\[8pt] &amp; =-x+\left|a_i-a_{i-1}+x\right|+\left|a_i-a_{i-1}\right|
+\quad\leq 0
+\end{aligned}
+\]</span></p></li>
+<li><p>若 <span class="math inline">\(a_{i-1} \leq a_i+x\,\land\,
+a_{i+1} \leq a_i+x\)</span> ，</p>
 <ul>
-<li>$a_{i-1} \leq a_i,~a_{i+1} \leq a_i$ ，那么 $\Delta = 2x$ 。</li>
-<li>$a_{i-1} \leq a_i&lt;a_{i+1}$ ，那么 $\Delta = 2x - 2(a_{i+1} - a_i)$ 。</li>
-<li>$a_i&lt;a_{i-1}\, \land \, a_i&lt;a_{i+1}$ ，那么 $\Delta = 2x - 2((a_{i-1} - a_i) + (a_{i+1} - a_i))$ 。</li>
+<li><span class="math inline">\(a_{i-1} \leq a_i,~a_{i+1} \leq
+a_i\)</span> ，那么 <span class="math inline">\(\Delta = 2x\)</span>
+。</li>
+<li><span class="math inline">\(a_{i-1} \leq a_i&lt;a_{i+1}\)</span>
+，那么 <span class="math inline">\(\Delta = 2x - 2(a_{i+1} -
+a_i)\)</span> 。</li>
+<li><span class="math inline">\(a_i&lt;a_{i-1}\, \land \,
+a_i&lt;a_{i+1}\)</span> ，那么 <span class="math inline">\(\Delta = 2x -
+2((a_{i-1} - a_i) + (a_{i+1} - a_i))\)</span> 。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>显然只有第三种情况贡献为正，也就是对可以让 $f(a)$ 增大。</p>
-<p>考虑用线段树维护 $\max \left(0, a_{i-1}-a_i\right)+\max \left(0, a_{i+1}-a_i\right)$ 的最小值。</p>
-<p>这个差分一下就是 $\max \left(0,-a_{i-1}\right)+\max \left(0, a_i\right)$ 的最小值，需要特判 $l=1$ 和 $r=n$ 的情况。</p>
-<p>那么贡献可能为负吗？显然当 $l=r$ 时我们只能强行修改，特判即可。</p>
-<p>注意线段树单点修改了 $x$ 后 $x+1$ 的那个最小值会变更，需要额外跑一遍修改。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>显然只有第三种情况贡献为正，也就是对可以让 <span
+class="math inline">\(f(a)\)</span> 增大。</p>
+<p>考虑用线段树维护 <span class="math inline">\(\max \left(0,
+a_{i-1}-a_i\right)+\max \left(0, a_{i+1}-a_i\right)\)</span>
+的最小值。</p>
+<p>这个差分一下就是 <span class="math inline">\(\max
+\left(0,-a_{i-1}\right)+\max \left(0, a_i\right)\)</span>
+的最小值，需要特判 <span class="math inline">\(l=1\)</span> 和 <span
+class="math inline">\(r=n\)</span> 的情况。</p>
+<p>那么贡献可能为负吗？显然当 <span class="math inline">\(l=r\)</span>
+时我们只能强行修改，特判即可。</p>
+<p>注意线段树单点修改了 <span class="math inline">\(x\)</span> 后 <span
+class="math inline">\(x+1\)</span>
+的那个最小值会变更，需要额外跑一遍修改。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -860,10 +897,11 @@ rgba(0,0,0,0.2);
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xzmyel52">https://www.luogu.com.cn/article/xzmyel52</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xzmyel52">https://www.luogu.com.cn/article/xzmyel52</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>Typora 怎么偷偷给我更新了？怪不得某个 bug 没了。</p>
 
@@ -999,7 +1037,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1342,7 +1380,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1611,21 +1649,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

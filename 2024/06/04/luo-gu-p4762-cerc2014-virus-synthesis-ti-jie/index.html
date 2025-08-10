@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -683,12 +684,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                             <a href="/tags/%E7%94%9F%E7%89%A9/">
@@ -750,41 +751,66 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4762-CERC2014-Virus-synthesis-题解"><a href="#洛谷P4762-CERC2014-Virus-synthesis-题解" class="headerlink" title="洛谷P4762 [CERC2014] Virus synthesis 题解"></a>洛谷P4762 [CERC2014] Virus synthesis 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4762">P4762 [CERC2014] Virus synthesis</a></p>
+                <h1 id="洛谷p4762-cerc2014-virus-synthesis-题解">洛谷P4762 [CERC2014]
+Virus synthesis 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4762">P4762
+[CERC2014] Virus synthesis</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>病毒通常对您的健康有害。那么用……其他病毒来对抗它们怎么样呢？在这个问题中，您需要找出如何合成这种好的病毒。</p>
-<p>我们为您准备了一组由字母 $\texttt{A}, \texttt{G}, \texttt{T}$ 和 $\texttt{C}$ 组成的字符串。它们对应于我们想要合成的病毒的 DNA 核苷酸序列，使用以下操作：</p>
+<p>我们为您准备了一组由字母 <span class="math inline">\(\texttt{A},
+\texttt{G}, \texttt{T}\)</span> 和 <span
+class="math inline">\(\texttt{C}\)</span>
+组成的字符串。它们对应于我们想要合成的病毒的 DNA
+核苷酸序列，使用以下操作：</p>
 <ul>
 <li>在现有序列的开头或末尾添加一个核苷酸。</li>
-<li>复制序列，反转复制的片段，并将其粘贴到原始序列的开头或末尾（例如，$\tt AGTC$ 可以变成 $\tt AGTCCTGA$ 或 $\tt CTGAAGTC$）。</li>
+<li>复制序列，反转复制的片段，并将其粘贴到原始序列的开头或末尾（例如，<span
+class="math inline">\(\tt AGTC\)</span> 可以变成 <span
+class="math inline">\(\tt AGTCCTGA\)</span> 或 <span
+class="math inline">\(\tt CTGAAGTC\)</span>）。</li>
 </ul>
 <p>我们关心的是效率，因为我们有很多这样的序列，其中一些非常长。找出一种方法，以最少的操作次数合成它们。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含测试用例的数量 $T$。接下来的每一行描述一个测试用例：</p>
-<p>每个测试用例由一行非空字符串组成。字符串仅使用大写字母 $\texttt{A}, \texttt{C}, \texttt{G}$ 和 $\tt T$，长度不超过 $100,000$ 个字符。</p>
+<p>输入的第一行包含测试用例的数量 <span
+class="math inline">\(T\)</span>。接下来的每一行描述一个测试用例：</p>
+<p>每个测试用例由一行非空字符串组成。字符串仅使用大写字母 <span
+class="math inline">\(\texttt{A}, \texttt{C}, \texttt{G}\)</span> 和
+<span class="math inline">\(\tt T\)</span>，长度不超过 <span
+class="math inline">\(100,000\)</span> 个字符。</p>
 <p><strong>输出格式</strong>：</p>
 <p>对于每个测试用例，输出一行，包含构建给定序列所需的最少操作总数。</p>
 </blockquote>
-<p>$\mathcal{Part}\  1$</p>
+<p><span class="math inline">\(\mathcal{Part}\  1\)</span></p>
 <p>题目的描述很有意思，这不禁让我们提出一个疑问：真的存在可以对抗病毒的病毒吗？</p>
 <p>事实上真的有这种病毒，他们称为<strong>噬病毒体（Virophage）</strong>，通常与巨型病毒共同感染。</p>
 <p>噬病毒体依靠共同感染的巨型病毒的病毒复制工厂进行自身复制，并且这个过程会导致巨型病毒失活。</p>
-<p>更有意思的是，这种病毒的确是双链 DNA 病毒，符合题目的描述。<del>怀疑出题人对生物学有不少研究。</del></p>
+<p>更有意思的是，这种病毒的确是双链 DNA
+病毒，符合题目的描述。<del>怀疑出题人对生物学有不少研究。</del></p>
 <p>除此以外，题目描述写的是 fighting ，亦有“竞争”之意。</p>
 <p>这让人联想到噬菌体，他们虽然不直接攻击别的病毒，但是会使宿主细胞裂解</p>
 <p>这实际上破坏了其他能感染这种宿主细胞的病毒的生存坏境，因此他们的确构成竞争关系。</p>
 <p><br></p>
-<p>$\mathcal{Part}\  2$</p>
+<p><span class="math inline">\(\mathcal{Part}\  2\)</span></p>
 <p><del>不过以上知识对这道题的解法没有提供任何帮助。</del></p>
 <p>注意到第二种操作（复制序列的操作）相对于第一种操作一定不劣</p>
-<p>对于一个<strong>偶回文串</strong> $A$ ，如果在它两头加上一个相同的字符可以得到 $B$ ，</p>
-<p>那么 $B$ 的操作数至多为 $A$ 的操作数加 $1$ ，因为我们可以构造半个 $A$ 并添加上这个字符，再复制它。</p>
-<p>考虑对给定字符串构建 PAM （回文自动机），并额外维护每个偶回文串的不超过其长度一半的最长回文后缀。</p>
+<p>对于一个<strong>偶回文串</strong> <span
+class="math inline">\(A\)</span>
+，如果在它两头加上一个相同的字符可以得到 <span
+class="math inline">\(B\)</span> ，</p>
+<p>那么 <span class="math inline">\(B\)</span> 的操作数至多为 <span
+class="math inline">\(A\)</span> 的操作数加 <span
+class="math inline">\(1\)</span> ，因为我们可以构造半个 <span
+class="math inline">\(A\)</span> 并添加上这个字符，再复制它。</p>
+<p>考虑对给定字符串构建 PAM
+（回文自动机），并额外维护每个偶回文串的不超过其长度一半的最长回文后缀。</p>
 <p>这个最长回文后缀可以通过跳 fail 树得到，总复杂度是线性的。</p>
-<p>设 $f(u)$ 为节点 $u$ 的答案，则最终答案为 $\min\{\,f(u) + n - \mathrm{len}(u)\}$ 。</p>
+<p>设 <span class="math inline">\(f(u)\)</span> 为节点 <span
+class="math inline">\(u\)</span> 的答案，则最终答案为 <span
+class="math inline">\(\min\{\,f(u) + n - \mathrm{len}(u)\}\)</span>
+。</p>
 <p>我看题解区好多都跑了一遍 bfs ，实际上不需要的。</p>
-<p>时间复杂度 $\mathcal{O}(n)$ </p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -840,10 +866,11 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3jlcqooh">https://www.luogu.com.cn/article/3jlcqooh</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/3jlcqooh">https://www.luogu.com.cn/article/3jlcqooh</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406042050619.png" alt="噬病毒体在寄生程度不同时存在差异" style="zoom:50%;" /></p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406042048182.png" alt="噬病毒体和卫星病毒相似但不同" style="zoom:50%;" /></p>
@@ -919,12 +946,12 @@ rgba(0,0,0,0.2);
                                     <span class="chip bg-color">DP</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                                 <a href="/tags/%E7%94%9F%E7%89%A9/">
@@ -988,7 +1015,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1315,7 +1342,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1584,21 +1611,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

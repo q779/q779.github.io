@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,31 +743,63 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6097-【模板】子集卷积-题解"><a href="#洛谷P6097-【模板】子集卷积-题解" class="headerlink" title="洛谷P6097 【模板】子集卷积 题解"></a>洛谷P6097 【模板】子集卷积 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097 【模板】子集卷积</a></p>
+                <h1 id="洛谷p6097-模板子集卷积-题解">洛谷P6097 【模板】子集卷积
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097
+【模板】子集卷积</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长度为 $2^n$ 的序列 $a_0,a_1,\cdots,a_{2^n-1}$ 和 $b_0,b_1,\cdots,b_{2^n-1}$</p>
-<p>你需要求出一个序列 $c_0,c_1,\cdots,c_{2^n-1}$，其中 $c_k$ 满足：</p>
-<script type="math/tex; mode=display">
-c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j</script><p>其中 $\lor$ 表示按位或，$\land$ 表示按位与。答案对 $10^9+9$ 取模。</p>
+<p>给定两个长度为 <span class="math inline">\(2^n\)</span> 的序列 <span
+class="math inline">\(a_0,a_1,\cdots,a_{2^n-1}\)</span> 和 <span
+class="math inline">\(b_0,b_1,\cdots,b_{2^n-1}\)</span></p>
+<p>你需要求出一个序列 <span
+class="math inline">\(c_0,c_1,\cdots,c_{2^n-1}\)</span>，其中 <span
+class="math inline">\(c_k\)</span> 满足： <span class="math display">\[
+c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j
+\]</span> 其中 <span class="math inline">\(\lor\)</span>
+表示按位或，<span class="math inline">\(\land\)</span>
+表示按位与。答案对 <span class="math inline">\(10^9+9\)</span>
+取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入一个正整数 $n$ ，表示集合的大小。</p>
-<p>第二行有 $2^n$ 个整数，描述了 $a$。</p>
-<p>第三行有 $2^n$ 个整数，描述了 $b$。</p>
+<p>第一行输入一个正整数 <span class="math inline">\(n\)</span>
+，表示集合的大小。</p>
+<p>第二行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(a\)</span>。</p>
+<p>第三行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(b\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行 $2^n$ 个整数，表示 $c$。</p>
+<p>输出一行 <span class="math inline">\(2^n\)</span> 个整数，表示 <span
+class="math inline">\(c\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n\le 20$，$0\le a_i,b_i&lt; 10^9+9$。</p>
+<p><span class="math inline">\(1\le n\le 20\)</span>，<span
+class="math inline">\(0\le a_i,b_i&lt; 10^9+9\)</span>。</p>
 </blockquote>
-<p>才发现这个 $2^n-1$ 个数就是 $n$ 个元素的所有非空集合，$a_i,b_i$ 就是集合 $i$ 的两种权值。</p>
-<p>称 $c_k = \sum_{(i \lor j) = k} a_ib_j$ 为「子集并卷积」运算。显然这个可以用 <a href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 $\mathcal{O}(n \log n)$ 的复杂度内计算出来。</p>
-<p>考虑原题，第一个限制 $(i \lor j) = k$ 很简单，直接 FWT 就可以。</p>
-<p>第二个限制 $(i \land j) = 0$ ，也就是 $S_i \cap S_j = \varnothing$ ，这等价于 $|S_i| + |S_j|=|S_i \cup S_j|$ </p>
-<p>考虑额外开一维记录元素个数。即，设 $f_{i,j} = a_j\times [|j|=i],~g_{i,j} = b_j[|j|=i]$ </p>
-<p>并类似的设 $h_{i,j}$ 为答案，那么</p>
-<script type="math/tex; mode=display">
-h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运算，那么答案 $c_i = h_{|i|,i}$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n^22^n)$</p>
+<p>才发现这个 <span class="math inline">\(2^n-1\)</span> 个数就是 <span
+class="math inline">\(n\)</span> 个元素的所有非空集合，<span
+class="math inline">\(a_i,b_i\)</span> 就是集合 <span
+class="math inline">\(i\)</span> 的两种权值。</p>
+<p>称 <span class="math inline">\(c_k = \sum_{(i \lor j) = k}
+a_ib_j\)</span> 为「子集并卷积」运算。显然这个可以用 <a
+href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span>
+的复杂度内计算出来。</p>
+<p>考虑原题，第一个限制 <span class="math inline">\((i \lor j) =
+k\)</span> 很简单，直接 FWT 就可以。</p>
+<p>第二个限制 <span class="math inline">\((i \land j) = 0\)</span>
+，也就是 <span class="math inline">\(S_i \cap S_j = \varnothing\)</span>
+，这等价于 <span class="math inline">\(|S_i| + |S_j|=|S_i \cup
+S_j|\)</span></p>
+<p>考虑额外开一维记录元素个数。即，设 <span
+class="math inline">\(f_{i,j} = a_j\times [|j|=i],~g_{i,j} =
+b_j[|j|=i]\)</span></p>
+<p>并类似的设 <span class="math inline">\(h_{i,j}\)</span> 为答案，那么
+<span class="math display">\[
+h_i = \sum_{k=0}^i f_k *g_{i-k}
+\]</span> 其中 <span class="math inline">\(*\)</span>
+表示子集并卷积运算，那么答案 <span class="math inline">\(c_i =
+h_{|i|,i}\)</span> 。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^22^n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -804,9 +837,10 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">[</span><span class="token function">popc</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
 
                 
             </div>
@@ -940,7 +974,7 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1278,7 +1312,7 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1547,21 +1581,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -738,15 +739,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Sparse-Table（ST-表）学习笔记"><a href="#Sparse-Table（ST-表）学习笔记" class="headerlink" title="Sparse Table（ST 表）学习笔记"></a>Sparse Table（ST 表）学习笔记</h1><p>很少写算法和数据结构的讲解，但是 ST 表还是有必要写一下的，这里面细节很多。</p>
-<p>稀疏表（ST 表）是一种常用的 RMQ 数据结构，适合于<strong>不带修改的可重复贡献问题</strong></p>
-<p>所谓可重复贡献问题，是指对于运算 $\operatorname{opt}$ 有 $x \operatorname{opt} x = x$ 的区间询问，例如 $\max,\min,\gcd$ 等</p>
-<p>ST 表基于倍增的思想，可以做到 $\mathcal{O}(n \log n)$ 预处理，$\mathcal{O}(1)$ 回答询问。注意，不支持修改。</p>
-<p>定义 $f(i,j)$ 为区间 $[i,i + 2^j -1]$ 的最大值，显然 $f(i,0) = a_i$ 。考虑转移 $j &gt; 0$ 的情况</p>
-<script type="math/tex; mode=display">
-f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 $[l,r]$ ，我们记 $k = \left\lfloor \log_2 (r - l + 1)\right\rfloor$ ，则询问的答案为</p>
-<script type="math/tex; mode=display">
-\max\{f(l,k),~f(r - 2^k + 1, k)\}</script><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3865">模板题</a>代码：</p>
+                <h1 id="sparse-tablest-表学习笔记">Sparse Table（ST 表）学习笔记</h1>
+<p>很少写算法和数据结构的讲解，但是 ST
+表还是有必要写一下的，这里面细节很多。</p>
+<p>稀疏表（ST 表）是一种常用的 RMQ
+数据结构，适合于<strong>不带修改的可重复贡献问题</strong></p>
+<p>所谓可重复贡献问题，是指对于运算 <span
+class="math inline">\(\operatorname{opt}\)</span> 有 <span
+class="math inline">\(x \operatorname{opt} x = x\)</span>
+的区间询问，例如 <span class="math inline">\(\max,\min,\gcd\)</span>
+等</p>
+<p>ST 表基于倍增的思想，可以做到 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span> 预处理，<span
+class="math inline">\(\mathcal{O}(1)\)</span>
+回答询问。注意，不支持修改。</p>
+<p>定义 <span class="math inline">\(f(i,j)\)</span> 为区间 <span
+class="math inline">\([i,i + 2^j -1]\)</span> 的最大值，显然 <span
+class="math inline">\(f(i,0) = a_i\)</span> 。考虑转移 <span
+class="math inline">\(j &gt; 0\)</span> 的情况 <span
+class="math display">\[
+f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}
+\]</span> 对于询问 <span class="math inline">\([l,r]\)</span> ，我们记
+<span class="math inline">\(k = \left\lfloor \log_2 (r - l +
+1)\right\rfloor\)</span> ，则询问的答案为 <span class="math display">\[
+\max\{f(l,k),~f(r - 2^k + 1, k)\}
+\]</span> <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3865">模板题</a>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -778,13 +796,23 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>接下来我来解释一些细节。首先预处理 log <strong>几乎是必须的</strong>，并且一些题会卡这个（被卡过）。</p>
-<p>可能你们会想到自带的 <code>log()</code> 和 <code>log2()</code> 函数，查阅官方文档可以发现，这些函数都是针对于浮点数的。</p>
-<p>据我所知，这几个函数实现的时候用的应该是牛顿迭代法，复杂度会带上一个近似于 $\mathcal{O}(\log x)$ 的。</p>
-<p>因此一般采用预处理 log ，或者用 <code>__lg()</code> 。后者的实现方式是利用 <code>__builtin_clz()</code> ，不推荐使用。</p>
-<p>然后是询问中的 <code>max(st[k][l], st[k][r - (1 &lt;&lt; k) + 1])</code> ，可能和一些人的写法不一样。</p>
-<p>你们有可能见过回答 <code>max(st[l+(1&lt;&lt;k)-1][k], st[r][k])</code> 的，<del>比如我以前的代码就是这么写的</del></p>
-<p>其实它这种代码的定义跟我的不太一样，它的 $f(i,j)$ 定义的是 $[i - 2^j +1, ~i]$ 的最大值。</p>
+<p>接下来我来解释一些细节。首先预处理 log
+<strong>几乎是必须的</strong>，并且一些题会卡这个（被卡过）。</p>
+<p>可能你们会想到自带的 <code>log()</code> 和 <code>log2()</code>
+函数，查阅官方文档可以发现，这些函数都是针对于浮点数的。</p>
+<p>据我所知，这几个函数实现的时候用的应该是牛顿迭代法，复杂度会带上一个近似于
+<span class="math inline">\(\mathcal{O}(\log x)\)</span> 的。</p>
+<p>因此一般采用预处理 log ，或者用 <code>__lg()</code>
+。后者的实现方式是利用 <code>__builtin_clz()</code> ，不推荐使用。</p>
+<p>然后是询问中的
+<code>max(st[k][l], st[k][r - (1 &lt;&lt; k) + 1])</code>
+，可能和一些人的写法不一样。</p>
+<p>你们有可能见过回答
+<code>max(st[l+(1&lt;&lt;k)-1][k], st[r][k])</code>
+的，<del>比如我以前的代码就是这么写的</del></p>
+<p>其实它这种代码的定义跟我的不太一样，它的 <span
+class="math inline">\(f(i,j)\)</span> 定义的是 <span
+class="math inline">\([i - 2^j +1, ~i]\)</span> 的最大值。</p>
 <p>我以前的代码（部分），并且采用了另一种构建方式，<strong>仅供参考</strong>：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">,</span>lg<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">change</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
@@ -813,11 +841,23 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>然后再说一下板子代码里 <code>r-l+1</code> 和 <code>r-l</code> 都可以是怎么回事。</p>
-<p>根据定义，$k$ 算出来不一样当且仅当 $r-l+1$ 刚好为 $2$ 的次幂，并且会算成 $k-1$ </p>
-<p>这个时候 $f(l,k)$ 的位置就是 $[l,r]$ 的答案，并且 $r - 2^k + 1 = l$ 。如果换成 $k-1$ 事实上等价于回答 $f(l,k)$ 。</p>
-<p>所以说 ST 表的细节还是蛮多的。 ST 表的用途不是很广泛，一般是需要 $\mathcal{O}(1)$ 询问的时候才会用到。</p>
-<p>比如传说中的 $\mathcal{O}(\log n) \sim \mathcal{O}(1)$ 询问 LCA ，就是用到了 ST 表维护欧拉序。这里就不讲了（大雾）</p>
+<p>然后再说一下板子代码里 <code>r-l+1</code> 和 <code>r-l</code>
+都可以是怎么回事。</p>
+<p>根据定义，<span class="math inline">\(k\)</span> 算出来不一样当且仅当
+<span class="math inline">\(r-l+1\)</span> 刚好为 <span
+class="math inline">\(2\)</span> 的次幂，并且会算成 <span
+class="math inline">\(k-1\)</span></p>
+<p>这个时候 <span class="math inline">\(f(l,k)\)</span> 的位置就是 <span
+class="math inline">\([l,r]\)</span> 的答案，并且 <span
+class="math inline">\(r - 2^k + 1 = l\)</span> 。如果换成 <span
+class="math inline">\(k-1\)</span> 事实上等价于回答 <span
+class="math inline">\(f(l,k)\)</span> 。</p>
+<p>所以说 ST 表的细节还是蛮多的。 ST 表的用途不是很广泛，一般是需要
+<span class="math inline">\(\mathcal{O}(1)\)</span>
+询问的时候才会用到。</p>
+<p>比如传说中的 <span class="math inline">\(\mathcal{O}(\log n) \sim
+\mathcal{O}(1)\)</span> 询问 LCA ，就是用到了 ST
+表维护欧拉序。这里就不讲了（大雾）</p>
 
                 
             </div>
@@ -947,7 +987,7 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1282,7 +1322,7 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1551,21 +1591,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

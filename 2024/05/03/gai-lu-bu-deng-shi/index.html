@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -718,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    973
+                    975
                 </div>
                 
 
@@ -738,58 +739,110 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="概率不等式"><a href="#概率不等式" class="headerlink" title="概率不等式"></a>概率不等式</h1><p>算法竞赛中有时会用到随机化算法，这些算法的正确性与时空复杂度通常依赖于「某些随机事件发生的概率很小」这一前提。</p>
-<p>例如，快速排序的复杂度依赖于「所选的 <code>pivot</code> 元素几乎是最小或最大元素」这一事件较少发生。</p>
+                <h1 id="概率不等式">概率不等式</h1>
+<p>算法竞赛中有时会用到随机化算法，这些算法的正确性与时空复杂度通常依赖于「某些随机事件发生的概率很小」这一前提。</p>
+<p>例如，快速排序的复杂度依赖于「所选的 <code>pivot</code>
+元素几乎是最小或最大元素」这一事件较少发生。</p>
 <p>本文将简要介绍一些用于分析随机化算法的工具并给出几个简单应用的例子。</p>
-<hr>
-<h2 id="Union-bound"><a href="#Union-bound" class="headerlink" title="Union bound"></a>Union bound</h2><p>记 $A_1,\cdots,A_m$ 为随机事件，则</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}\left(\bigcup_{i=1}^m A_i\right) \leq \sum_{i=1}^m \mathrm{Pr}(A_i)</script><p>即：一组事件中至少一个发生的概率，不超过每一个的发生概率之和。</p>
+<hr />
+<h2 id="union-bound">Union bound</h2>
+<p>记 <span class="math inline">\(A_1,\cdots,A_m\)</span> 为随机事件，则
+<span class="math display">\[
+\mathrm{Pr}\left(\bigcup_{i=1}^m A_i\right) \leq \sum_{i=1}^m
+\mathrm{Pr}(A_i)
+\]</span>
+即：一组事件中至少一个发生的概率，不超过每一个的发生概率之和。</p>
 <p>实际上，这一结论还可以稍作加强：</p>
 <ul>
-<li>一组事件中至少一者发生的概率，<strong>不小于</strong> 每一个的发生概率之和，减掉每两个同时发生的概率之和。</li>
-<li>一组事件中至少一者发生的概率，<strong>不超过</strong> 每一个的发生概率之和，减掉每两个同时发生的概率之和，加上每三个同时发生的概率之和。</li>
+<li>一组事件中至少一者发生的概率，<strong>不小于</strong>
+每一个的发生概率之和，减掉每两个同时发生的概率之和。</li>
+<li>一组事件中至少一者发生的概率，<strong>不超过</strong>
+每一个的发生概率之和，减掉每两个同时发生的概率之和，加上每三个同时发生的概率之和。</li>
 <li>……</li>
 </ul>
 <p>随着层数越来越多，交替出现的上界和下界也越来越紧。这一系列结论形式上类似容斥原理，证明过程也和容斥类似，这里略去。</p>
-<hr>
-<h2 id="Markov-不等式"><a href="#Markov-不等式" class="headerlink" title="Markov 不等式"></a>Markov 不等式</h2><p>设 $X$ 是一个取值非负的随机变量，则对任意正实数 $a$ 有</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}(X \ge a) \le \frac{\mathrm{E}(X)}{a}</script><p>由于 Markov 不等式本身并没有用到随机变量除期望外的与分布有关的任何信息，因此直接应用这个不等式得到的约束通常很松。</p>
+<hr />
+<h2 id="markov-不等式">Markov 不等式</h2>
+<p>设 <span class="math inline">\(X\)</span>
+是一个取值非负的随机变量，则对任意正实数 <span
+class="math inline">\(a\)</span> 有 <span class="math display">\[
+\mathrm{Pr}(X \ge a) \le \frac{\mathrm{E}(X)}{a}
+\]</span> 由于 Markov
+不等式本身并没有用到随机变量除期望外的与分布有关的任何信息，因此直接应用这个不等式得到的约束通常很松。</p>
 <p><strong>证明</strong>：</p>
-<p>记 $\mathrm{I}$ 为事件 $X \ge a$ 的示性函数，则</p>
-<script type="math/tex; mode=display">
-\mathrm{I} \le \frac{X}{a}</script><p>进而</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}(X \ge a) =\mathrm{E\cdot I} \le \mathrm{E}\left(\frac{X}{a}\right) = \frac{\mathrm{E}(X)}{a}</script><hr>
-<h2 id="Chebyshev-不等式"><a href="#Chebyshev-不等式" class="headerlink" title="Chebyshev 不等式"></a>Chebyshev 不等式</h2><p>设 $X$ 是一随机变量，则对任意的 $a &gt; 0$ 有</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge a\right) \le \frac{\mathrm{Var}(X)}{a^2}</script><p>特别地，当 $a$ 取 $k\sigma$ 时有（ $\sigma$ 是 $X$ 的标准差）</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge k\sigma\right) \le \frac{1}{k^2}</script><p><strong>证明</strong>：</p>
-<p>由已知，有</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge a\right) = \mathrm{Pr}\left(\left(X-\mathrm{E}(X)\right)^2 \ge a^2\right)</script><p>注意到 $(X-\mathrm{E}(X))^2$ 非负，故由 Markov 不等式可知</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}\left(\left(X-\mathrm{E}(X)\right)^2 \ge a^2\right) \le \frac{\mathrm{E}(X-\mathrm{E}(X))^2}{a^2} = \frac{\mathrm{Var}(X)}{a^2}</script><hr>
-<h2 id="Chernoff-不等式"><a href="#Chernoff-不等式" class="headerlink" title="Chernoff 不等式"></a>Chernoff 不等式</h2><p>一般的 Chernoff 不等式可以从直接对随机变量 $\mathrm{e}^{tX}$ 应用 Markov 不等式得出：</p>
-<p>设 $X$ 是一随机变量，则对任意的 $t &gt; 0$ 都有</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}(X \geq a)=\mathrm{Pr}\left(\mathrm{e}^{t X}>\mathrm{e}^{t a}\right) \leq \frac{\mathrm{E}( \mathrm{e}^{t X})}{\mathrm{e}^{t a}}</script><p>类似地，当 $t &lt; 0$​ 时有</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}(X \le a)=\mathrm{Pr}\left(\mathrm{e}^{t X}>\mathrm{e}^{t a}\right) \leq \frac{\mathrm{E}( \mathrm{e}^{t X})}{\mathrm{e}^{t a}}</script><h3 id="Poisson-试验之和的-Chernoff-不等式"><a href="#Poisson-试验之和的-Chernoff-不等式" class="headerlink" title="Poisson 试验之和的 Chernoff 不等式"></a>Poisson 试验之和的 Chernoff 不等式</h3><p>这一段先咕咕咕。</p>
-<hr>
-<h2 id="Hoeffding-不等式"><a href="#Hoeffding-不等式" class="headerlink" title="Hoeffding 不等式"></a>Hoeffding 不等式</h2><p>若 $X_1,\cdots,X_n$ 为互相独立的实随机变量且 $X_i \in [a_i,b_i]$ ，记随机变量 $X = \sum_{i=1}^nX_i$ ，则</p>
-<script type="math/tex; mode=display">
-\mathrm{Pr}(|X-\mathrm{E}(X)| \geq \epsilon) \leq 2 \exp \left(\frac{-2 \epsilon^2}{\sum_{i=1}^n\left(b_i-a_i\right)^2}\right)</script><p>Chernoff 不等式和 Hoeffding 不等式都限制了随机变量偏离其期望值的程度。</p>
-<p>这两个不等式的证明过程较为冗长，有兴趣的同学可以查阅 Probability and Computing 一书中的相关章节。 </p>
-<p>从经验上讲，如果 $\mathrm{E}(X)$ 不太接近 $a_1 + \cdots + a_n$ ，则该不等式给出的界往往相对比较紧；</p>
-<p>如果非常接近的话（UOJ72），给出的界往往很松，此时更好的选择是使用 Chernoff 不等式</p>
-<hr>
-<h2 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h2><p>咕咕咕。。</p>
-<hr>
+<p>记 <span class="math inline">\(\mathrm{I}\)</span> 为事件 <span
+class="math inline">\(X \ge a\)</span> 的示性函数，则 <span
+class="math display">\[
+\mathrm{I} \le \frac{X}{a}
+\]</span> 进而 <span class="math display">\[
+\mathrm{Pr}(X \ge a) =\mathrm{E\cdot I} \le
+\mathrm{E}\left(\frac{X}{a}\right) = \frac{\mathrm{E}(X)}{a}
+\]</span></p>
+<hr />
+<h2 id="chebyshev-不等式">Chebyshev 不等式</h2>
+<p>设 <span class="math inline">\(X\)</span> 是一随机变量，则对任意的
+<span class="math inline">\(a &gt; 0\)</span> 有 <span
+class="math display">\[
+\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge a\right) \le
+\frac{\mathrm{Var}(X)}{a^2}
+\]</span> 特别地，当 <span class="math inline">\(a\)</span> 取 <span
+class="math inline">\(k\sigma\)</span> 时有（ <span
+class="math inline">\(\sigma\)</span> 是 <span
+class="math inline">\(X\)</span> 的标准差） <span
+class="math display">\[
+\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge k\sigma\right) \le \frac{1}{k^2}
+\]</span> <strong>证明</strong>：</p>
+<p>由已知，有 <span class="math display">\[
+\mathrm{Pr}\left(|X-\mathrm{E}(X)| \ge a\right) =
+\mathrm{Pr}\left(\left(X-\mathrm{E}(X)\right)^2 \ge a^2\right)
+\]</span> 注意到 <span
+class="math inline">\((X-\mathrm{E}(X))^2\)</span> 非负，故由 Markov
+不等式可知 <span class="math display">\[
+\mathrm{Pr}\left(\left(X-\mathrm{E}(X)\right)^2 \ge a^2\right) \le
+\frac{\mathrm{E}(X-\mathrm{E}(X))^2}{a^2} = \frac{\mathrm{Var}(X)}{a^2}
+\]</span></p>
+<hr />
+<h2 id="chernoff-不等式">Chernoff 不等式</h2>
+<p>一般的 Chernoff 不等式可以从直接对随机变量 <span
+class="math inline">\(\mathrm{e}^{tX}\)</span> 应用 Markov
+不等式得出：</p>
+<p>设 <span class="math inline">\(X\)</span> 是一随机变量，则对任意的
+<span class="math inline">\(t &gt; 0\)</span> 都有 <span
+class="math display">\[
+\mathrm{Pr}(X \geq a)=\mathrm{Pr}\left(\mathrm{e}^{t X}&gt;\mathrm{e}^{t
+a}\right) \leq \frac{\mathrm{E}( \mathrm{e}^{t X})}{\mathrm{e}^{t a}}
+\]</span> 类似地，当 <span class="math inline">\(t &lt; 0\)</span>​ 时有
+<span class="math display">\[
+\mathrm{Pr}(X \le a)=\mathrm{Pr}\left(\mathrm{e}^{t X}&gt;\mathrm{e}^{t
+a}\right) \leq \frac{\mathrm{E}( \mathrm{e}^{t X})}{\mathrm{e}^{t a}}
+\]</span></p>
+<h3 id="poisson-试验之和的-chernoff-不等式">Poisson 试验之和的 Chernoff
+不等式</h3>
+<p>这一段先咕咕咕。</p>
+<hr />
+<h2 id="hoeffding-不等式">Hoeffding 不等式</h2>
+<p>若 <span class="math inline">\(X_1,\cdots,X_n\)</span>
+为互相独立的实随机变量且 <span class="math inline">\(X_i \in
+[a_i,b_i]\)</span> ，记随机变量 <span class="math inline">\(X =
+\sum_{i=1}^nX_i\)</span> ，则 <span class="math display">\[
+\mathrm{Pr}(|X-\mathrm{E}(X)| \geq \epsilon) \leq 2 \exp \left(\frac{-2
+\epsilon^2}{\sum_{i=1}^n\left(b_i-a_i\right)^2}\right)
+\]</span> Chernoff 不等式和 Hoeffding
+不等式都限制了随机变量偏离其期望值的程度。</p>
+<p>这两个不等式的证明过程较为冗长，有兴趣的同学可以查阅 Probability and
+Computing 一书中的相关章节。</p>
+<p>从经验上讲，如果 <span class="math inline">\(\mathrm{E}(X)\)</span>
+不太接近 <span class="math inline">\(a_1 + \cdots + a_n\)</span>
+，则该不等式给出的界往往相对比较紧；</p>
+<p>如果非常接近的话（UOJ72），给出的界往往很松，此时更好的选择是使用
+Chernoff 不等式</p>
+<hr />
+<h2 id="应用举例">应用举例</h2>
+<p>咕咕咕。。</p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/probability/concentration-inequality/">https://oi-wiki.org/math/probability/concentration-inequality/</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://oi-wiki.org/math/probability/concentration-inequality/">https://oi-wiki.org/math/probability/concentration-inequality/</a></p>
 
                 
             </div>
@@ -919,7 +972,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1246,7 +1299,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1515,21 +1568,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

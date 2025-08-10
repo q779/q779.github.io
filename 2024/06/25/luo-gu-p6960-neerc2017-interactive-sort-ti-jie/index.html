@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -679,12 +680,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%9E%84%E9%80%A0/">
-                                <span class="chip bg-color">构造</span>
-                            </a>
-                        
                             <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
                                 <span class="chip bg-color">随机化</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                <span class="chip bg-color">构造</span>
                             </a>
                         
                             <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -746,25 +747,51 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6960-NEERC2017-Interactive-Sort-题解"><a href="#洛谷P6960-NEERC2017-Interactive-Sort-题解" class="headerlink" title="洛谷P6960 [NEERC2017] Interactive Sort 题解"></a>洛谷P6960 [NEERC2017] Interactive Sort 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6960">P6960 [NEERC2017] Interactive Sort</a></p>
+                <h1 id="洛谷p6960-neerc2017-interactive-sort-题解">洛谷P6960 [NEERC2017]
+Interactive Sort 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6960">P6960
+[NEERC2017] Interactive Sort</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道 IO 交互题。</p>
-<p>有一个长度为 $n~(n\le 10^4)$ 的排列，将排列按奇偶分为两个序列</p>
-<p>记所有偶数组成的序列为 $a$ ，所有奇数组成的序列为 $b$ ，初始未知。</p>
-<p>你可以进行不超过 $3\times 10^5$ 次询问 <code>? i j</code>，每次交互库会返回一个 <code>&lt;</code> 或 <code>&gt;</code> 表示 $a_i$ 和 $b_j$ 的大小关系。</p>
-<p>最后你需要求出 $a,b$ 并输出，格式为 <code>! a b</code>。保证数据随机。</p>
+<p>有一个长度为 <span class="math inline">\(n~(n\le 10^4)\)</span>
+的排列，将排列按奇偶分为两个序列</p>
+<p>记所有偶数组成的序列为 <span class="math inline">\(a\)</span>
+，所有奇数组成的序列为 <span class="math inline">\(b\)</span>
+，初始未知。</p>
+<p>你可以进行不超过 <span class="math inline">\(3\times 10^5\)</span>
+次询问 <code>? i j</code>，每次交互库会返回一个 <code>&lt;</code> 或
+<code>&gt;</code> 表示 <span class="math inline">\(a_i\)</span> 和 <span
+class="math inline">\(b_j\)</span> 的大小关系。</p>
+<p>最后你需要求出 <span class="math inline">\(a,b\)</span>
+并输出，格式为 <code>! a b</code>。保证数据随机。</p>
 </blockquote>
 <p>首先最简单的方案就是暴力询问每个偶数和每个奇数。</p>
-<p>注意到每次询问偶数 $a_i$ ，都会将奇数序列分为两个集合，分别是大于 $a_i$ 的和小于 $a_i$ 的。（$a_i=n$ 除外）</p>
-<p>那么当我们每询问出一个 $a_i$ ，$b$ 中的某个集合就会分成两个。</p>
+<p>注意到每次询问偶数 <span class="math inline">\(a_i\)</span>
+，都会将奇数序列分为两个集合，分别是大于 <span
+class="math inline">\(a_i\)</span> 的和小于 <span
+class="math inline">\(a_i\)</span> 的。（<span
+class="math inline">\(a_i=n\)</span> 除外）</p>
+<p>那么当我们每询问出一个 <span class="math inline">\(a_i\)</span>
+，<span class="math inline">\(b\)</span> 中的某个集合就会分成两个。</p>
 <p>如果我们取集合内的任意一个元素作为集合的权值，那么这些集合的权值显然是单调的</p>
-<p>于是对于每个 $a_i$ ，我们二分出它可能位于<strong>哪两个块</strong>，然后暴力比较块里面的元素</p>
-<p>这样就可以将一个已知集合划分成两个，同时也知道 $a_i$ 的值。</p>
-<p>我们考虑按随机的顺序问 $a_i$ （不过这题保证了随机所以顺序问也可以）</p>
-<p>问完 $i$ 个 $a$ 后每个块的期望大小约为 $\frac{n}{2i}$ 。暴力问两个块，最坏情况下期望问 $\frac{n}{i}$ 次。</p>
-<p>再加上二分的次数，故期望询问次数为 $\sum_{i=1}^n \log_2i$ ，当 $n=10^4$ 次期望询问 $1.45 \times 10^5$ 次。</p>
-<p>时间复杂度 $\mathcal{O}(n \ln n)$</p>
+<p>于是对于每个 <span class="math inline">\(a_i\)</span>
+，我们二分出它可能位于<strong>哪两个块</strong>，然后暴力比较块里面的元素</p>
+<p>这样就可以将一个已知集合划分成两个，同时也知道 <span
+class="math inline">\(a_i\)</span> 的值。</p>
+<p>我们考虑按随机的顺序问 <span class="math inline">\(a_i\)</span>
+（不过这题保证了随机所以顺序问也可以）</p>
+<p>问完 <span class="math inline">\(i\)</span> 个 <span
+class="math inline">\(a\)</span> 后每个块的期望大小约为 <span
+class="math inline">\(\frac{n}{2i}\)</span>
+。暴力问两个块，最坏情况下期望问 <span
+class="math inline">\(\frac{n}{i}\)</span> 次。</p>
+<p>再加上二分的次数，故期望询问次数为 <span
+class="math inline">\(\sum_{i=1}^n \log_2i\)</span> ，当 <span
+class="math inline">\(n=10^4\)</span> 次期望询问 <span
+class="math inline">\(1.45 \times 10^5\)</span> 次。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \ln
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -827,10 +854,11 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
     vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> v1<span class="token punctuation">,</span> v2<span class="token punctuation">;</span> <span class="token function">answer</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/y4f0185w">https://www.luogu.com.cn/article/y4f0185w</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/y4f0185w">https://www.luogu.com.cn/article/y4f0185w</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406250030872.jpg" style="zoom:24%;" /></p>
@@ -902,12 +930,12 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%9E%84%E9%80%A0/">
-                                    <span class="chip bg-color">构造</span>
-                                </a>
-                            
                                 <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
                                     <span class="chip bg-color">随机化</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                    <span class="chip bg-color">构造</span>
                                 </a>
                             
                                 <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -971,7 +999,7 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1302,7 +1330,7 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1571,21 +1599,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

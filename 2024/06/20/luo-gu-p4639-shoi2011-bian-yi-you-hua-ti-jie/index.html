@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,36 +743,66 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4639-SHOI2011-编译优化-题解"><a href="#洛谷P4639-SHOI2011-编译优化-题解" class="headerlink" title="洛谷P4639 [SHOI2011] 编译优化 题解"></a>洛谷P4639 [SHOI2011] 编译优化 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4639">P4639 [SHOI2011] 编译优化</a></p>
+                <h1 id="洛谷p4639-shoi2011-编译优化-题解">洛谷P4639 [SHOI2011] 编译优化
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4639">P4639
+[SHOI2011] 编译优化</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>就像 PASCAL 语言和 C/C++ 语言一样， SH 语言也是一种编程语言。 SH 语言共有 $26$ 个寄存器，用大写拉丁字母 A, B, … , Z 表示。 SH 语言的程序中，第一行依次是这 $26$ 个寄存器的初始值，用空格分隔。程序的第二行起，每一行都是一条命令。 SH 语言有三种命令，如下表所示（在格式这一列中，用下划线代替实际语言中的一个空格）。</p>
+<p>就像 PASCAL 语言和 C/C++ 语言一样， SH 语言也是一种编程语言。 SH
+语言共有 <span class="math inline">\(26\)</span>
+个寄存器，用大写拉丁字母 A, B, … , Z 表示。 SH
+语言的程序中，第一行依次是这 <span class="math inline">\(26\)</span>
+个寄存器的初始值，用空格分隔。程序的第二行起，每一行都是一条命令。 SH
+语言有三种命令，如下表所示（在格式这一列中，用下划线代替实际语言中的一个空格）。</p>
 <ul>
-<li><p><code>ADD</code>命令 格式：<code>ADD_R1_R2</code>  功能：将寄存器 R2 的值加到寄存器 R1 上。 限制：无。</p>
-</li>
-<li><p><code>GOTO</code> 命令 格式：<code>IF _R_ &lt; _I1_ GOTO _LINE_ I2</code> 功能：如果寄存器 R 的值小于立即数 I1 ，则跳转至第 I2 （ $\ge 2$ ）行，否则继续执行下一行。限制：至多出现一次，且只可能出现在第 I2 行之后。</p>
-</li>
-<li><p><code>PRINT</code> 命令 格式：<code>PRINT_R</code> 功能：打印寄存器 R 的值。限制：出现且仅出现在最后一行。</p>
-</li>
+<li><p><code>ADD</code>命令 格式：<code>ADD_R1_R2</code> 功能：将寄存器
+R2 的值加到寄存器 R1 上。 限制：无。</p></li>
+<li><p><code>GOTO</code> 命令
+格式：<code>IF _R_ &lt; _I1_ GOTO _LINE_ I2</code> 功能：如果寄存器 R
+的值小于立即数 I1 ，则跳转至第 I2 （ <span class="math inline">\(\ge
+2\)</span>
+）行，否则继续执行下一行。限制：至多出现一次，且只可能出现在第 I2
+行之后。</p></li>
+<li><p><code>PRINT</code> 命令 格式：<code>PRINT_R</code>
+功能：打印寄存器 R 的值。限制：出现且仅出现在最后一行。</p></li>
 </ul>
-<p>现给定一个 SH 语言的程序，请输出 <code>PRINT</code> 命令打印的值。</p>
+<p>现给定一个 SH 语言的程序，请输出 <code>PRINT</code>
+命令打印的值。</p>
 <p><strong>输入格式</strong>：</p>
-<p>每个输入文件都是一个 SH 语言的程序。输入文件保证：所有寄存器的初始值以及 <code>GOTO</code> 命令中出现的立即数，均为不超过 $2^{63}-1$ 的非负整数，但程序执行过程中寄存器的值不限于此。</p>
+<p>每个输入文件都是一个 SH
+语言的程序。输入文件保证：所有寄存器的初始值以及 <code>GOTO</code>
+命令中出现的立即数，均为不超过 <span
+class="math inline">\(2^{63}-1\)</span>
+的非负整数，但程序执行过程中寄存器的值不限于此。</p>
 <p><strong>输出格式</strong>：</p>
-<p>每个输出文件只有一行，包含一个整数，即 <code>PRINT</code> 命令所打印的值。</p>
+<p>每个输出文件只有一行，包含一个整数，即 <code>PRINT</code>
+命令所打印的值。</p>
 <p><strong>说明/提示</strong>：</p>
-<p>在每个测试点，如果您的输出与标准答案完全一致，您将能得到该测试点的全部分数；否则，您将在该测试点得 $0$ 分。</p>
-<p>本题为提交答案题，所有的 $10$ 个输入文件 <code>compiler1.in ~ compiler10.in</code> 都已存放在题目背景的下载链接中。对于每个输入文件，您需要分别给出相应的输出文件 <code>compiler1.out ~ compiler10.out</code>。</p>
+<p>在每个测试点，如果您的输出与标准答案完全一致，您将能得到该测试点的全部分数；否则，您将在该测试点得
+<span class="math inline">\(0\)</span> 分。</p>
+<p>本题为提交答案题，所有的 <span class="math inline">\(10\)</span>
+个输入文件 <code>compiler1.in ~ compiler10.in</code>
+都已存放在题目背景的下载链接中。对于每个输入文件，您需要分别给出相应的输出文件
+<code>compiler1.out ~ compiler10.out</code>。</p>
 <p>注意：您只需提交输出文件而无需提交任何程序。</p>
-<p>附件： <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/fe/api/problem/downloadAttachment/pnne78aj">link</a></p>
+<p>附件： <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/fe/api/problem/downloadAttachment/pnne78aj">link</a></p>
 </blockquote>
 <p>光看这题面和奇怪的风格，还以为要手写编译器呢。</p>
 <p>由于 GOTO 只会出现一次，所以我们只需要搞明白循环在干什么就行了。</p>
-<p>注意到 <code>ADD A B</code> 出现多次等于 <code>A += B * k</code> ，然后这又只有 26 个字母，很容易想到矩阵快速幂。</p>
-<p>因为矩阵快速幂里那个贡献矩阵中 $A_{ij}$ 的含义就是 $i$ 对 $j$ 的贡献，结合矩阵乘法其实也很好理解。</p>
+<p>注意到 <code>ADD A B</code> 出现多次等于 <code>A += B * k</code>
+，然后这又只有 26 个字母，很容易想到矩阵快速幂。</p>
+<p>因为矩阵快速幂里那个贡献矩阵中 <span
+class="math inline">\(A_{ij}\)</span> 的含义就是 <span
+class="math inline">\(i\)</span> 对 <span
+class="math inline">\(j\)</span>
+的贡献，结合矩阵乘法其实也很好理解。</p>
 <p>所以我们只需要写个矩阵快速幂跑一跑就好了，不过这题最好直接算出来每个幂，方便判断。</p>
-<p>理论上来说这题是需要写高精度的，但是数据里面都没有爆 long long ，那也省得浪费时间了。</p>
-<p>时间复杂度 $\mathcal{O}(26^3 \log n)$</p>
+<p>理论上来说这题是需要写高精度的，但是数据里面都没有爆 long long
+，那也省得浪费时间了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(26^3 \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -844,9 +875,10 @@ rgba(0,0,0,0.2);
 <span class="token number">89442725</span>
 <span class="token number">1000000000000000000</span>
 <span class="token number">2828427128</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dvuddf63">https://www.luogu.com.cn/article/dvuddf63</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dvuddf63">https://www.luogu.com.cn/article/dvuddf63</a></p>
 
                 
             </div>
@@ -980,7 +1012,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1327,7 +1359,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1596,21 +1628,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

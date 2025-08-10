@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,60 +743,110 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P10800-「CZOI-R1」卡牌-题解"><a href="#洛谷P10800-「CZOI-R1」卡牌-题解" class="headerlink" title="洛谷P10800 「CZOI-R1」卡牌 题解"></a>洛谷P10800 「CZOI-R1」卡牌 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10800">P10800 「CZOI-R1」卡牌</a></p>
+                <h1 id="洛谷p10800-czoi-r1卡牌-题解">洛谷P10800 「CZOI-R1」卡牌
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10800">P10800
+「CZOI-R1」卡牌</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>Alice 和 Bob 正在玩卡牌游戏。</p>
 <p>每张卡牌有四个属性：攻击、防御、速度、血量。</p>
 <p>我们称一张卡牌能胜过另一张卡牌，当且仅当其至少有三个属性都大于另一张卡牌。</p>
-<p>Bob 拥有 $m$ 张卡牌，而 Alice 拥有每个属性值在 $[1, n]$ 的所有 $n^4$ 张卡牌。</p>
+<p>Bob 拥有 <span class="math inline">\(m\)</span> 张卡牌，而 Alice
+拥有每个属性值在 <span class="math inline">\([1, n]\)</span> 的所有
+<span class="math inline">\(n^4\)</span> 张卡牌。</p>
 <p>现在 Alice 想知道：她有多少张卡牌可以胜过所有 Bob 的卡牌？</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 $n, m$，分别表示属性值上限和 Bob 的卡牌数量。</p>
-<p>接下来 $m$ 行，每行四个整数 $a_i, b_i, c_i, d_i$，表示 Bob 一张卡牌的属性。</p>
+<p>第一行包含两个整数 <span class="math inline">\(n,
+m\)</span>，分别表示属性值上限和 Bob 的卡牌数量。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行四个整数 <span
+class="math inline">\(a_i, b_i, c_i, d_i\)</span>，表示 Bob
+一张卡牌的属性。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示答案对 $2^{32}$ 取模后的结果。</p>
+<p>输出一行一个整数，表示答案对 <span
+class="math inline">\(2^{32}\)</span> 取模后的结果。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于所有测试数据，$1 \le n, m \le 5 \times 10^5$，$1 \le a_i, b_i, c_i, d_i \le n$。</p>
+<p>对于所有测试数据，<span class="math inline">\(1 \le n, m \le 5 \times
+10^5\)</span>，<span class="math inline">\(1 \le a_i, b_i, c_i, d_i \le
+n\)</span>。</p>
 </blockquote>
 <p>因为参考文献1写的非常清楚，并不需要补充过多废话，所以本文大部分段落和原文表述类似。</p>
 <p>显然一张卡牌满足条件，则任何严格大于它的卡牌都满足条件</p>
-<p>因此满足条件的卡牌是连续的。考虑设 $f(i,j,k)$ 为前三种属性为 $i,j,k$ 时满足要求的卡牌数量。</p>
-<p>考虑加入一张 $(a,b,c,d)$ 的卡牌时：</p>
+<p>因此满足条件的卡牌是连续的。考虑设 <span
+class="math inline">\(f(i,j,k)\)</span> 为前三种属性为 <span
+class="math inline">\(i,j,k\)</span> 时满足要求的卡牌数量。</p>
+<p>考虑加入一张 <span class="math inline">\((a,b,c,d)\)</span>
+的卡牌时：</p>
 <ul>
-<li>小于两种属性大于当前牌的牌显然不行，有 $f(i,j,k) \gets 0$</li>
-<li>已经有两种属性大于当前牌，则需要一个更强的属性 $\in (d,n]$ ，于是 $f(i,j,k)\downarrow (n - d)$ 。</li>
+<li>小于两种属性大于当前牌的牌显然不行，有 <span
+class="math inline">\(f(i,j,k) \gets 0\)</span></li>
+<li>已经有两种属性大于当前牌，则需要一个更强的属性 <span
+class="math inline">\(\in (d,n]\)</span> ，于是 <span
+class="math inline">\(f(i,j,k)\downarrow (n - d)\)</span> 。</li>
 <li>已经有三种属性大于当前牌，肯定 ok ，故没有影响。</li>
 </ul>
-<p>怎么优化呢？注意到当 $n=3$ 时，加入了一张 $(1,1,2,2)$ 的卡牌，此时 $f$ 的值是这样的：</p>
-<script type="math/tex; mode=display">
+<p>怎么优化呢？注意到当 <span class="math inline">\(n=3\)</span>
+时，加入了一张 <span class="math inline">\((1,1,2,2)\)</span>
+的卡牌，此时 <span class="math inline">\(f\)</span> 的值是这样的： <span
+class="math display">\[
 \begin{array}{|lll|lll|llll|}
-\hline0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
-0 & 1 & 1 & 0 & 1 & 1 & 1 & 3 & 3 \\
-0 & 1 & 1 & 0 & 1 & 1 & 1 & 3 & 3\\\hline
-\end{array}</script><p>其中每一行表示 $i$ ，每一列表示 $j$ ，每一个块（或者说每一层）表示 $k$ 。</p>
+\hline0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1
+\\
+0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 3 &amp; 3 \\
+0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 3 &amp;
+3\\\hline
+\end{array}
+\]</span> 其中每一行表示 <span class="math inline">\(i\)</span>
+，每一列表示 <span class="math inline">\(j\)</span>
+，每一个块（或者说每一层）表示 <span class="math inline">\(k\)</span>
+。</p>
 <p>可以发现，我们做的操作等价于</p>
 <ul>
-<li>将前 $a$ 行对 $n-d$ 取 min</li>
-<li>将前 $b$ 列对 $n-d$ 取 min</li>
-<li>将前 $c$ 层对 $n-d$ 取 min</li>
-<li>将一个左上角为原点，右下角为 $(a,b,n)$ 的长方体置零；</li>
-<li>将一个左上角为原点，右下角为 $(a,n,c)$ 的长方体置零；</li>
-<li>将一个左上角为原点，右下角为 $(n,b,c)$ 的长方体置零。</li>
+<li>将前 <span class="math inline">\(a\)</span> 行对 <span
+class="math inline">\(n-d\)</span> 取 min</li>
+<li>将前 <span class="math inline">\(b\)</span> 列对 <span
+class="math inline">\(n-d\)</span> 取 min</li>
+<li>将前 <span class="math inline">\(c\)</span> 层对 <span
+class="math inline">\(n-d\)</span> 取 min</li>
+<li>将一个左上角为原点，右下角为 <span
+class="math inline">\((a,b,n)\)</span> 的长方体置零；</li>
+<li>将一个左上角为原点，右下角为 <span
+class="math inline">\((a,n,c)\)</span> 的长方体置零；</li>
+<li>将一个左上角为原点，右下角为 <span
+class="math inline">\((n,b,c)\)</span> 的长方体置零。</li>
 </ul>
-<p>考虑记 $a_i$ 为每一行的最小值，$b_i$ 为每一列的最小值，$c_i$ 为每一层的最小值。</p>
-<p>那么 $a_i,b_i,c_i$ 只需要从后往前推一遍就能 $\mathcal{O}(n)$ 得到了。</p>
+<p>考虑记 <span class="math inline">\(a_i\)</span>
+为每一行的最小值，<span class="math inline">\(b_i\)</span>
+为每一列的最小值，<span class="math inline">\(c_i\)</span>
+为每一层的最小值。</p>
+<p>那么 <span class="math inline">\(a_i,b_i,c_i\)</span>
+只需要从后往前推一遍就能 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 得到了。</p>
 <p>现在考虑统计答案。考虑对每一层分别求和，同时维护每一列的和。</p>
-<p>具体地，我们用数据结构维护以下区间 $[l,r]$ 的信息：</p>
-<ol>
-<li>用 $b_j$ 覆盖时 $b_j$ 在列区间 $[l,r]$ 的和；</li>
-<li>用 $b_j$ 覆盖时 $a_i$ 在列区间 $[l,r]$ 的和；</li>
-<li>用 $c_i$ 覆盖时 $a_i$ 在列区间 $[l,r]$ 的和；</li>
-<li>用 $c_i$ 覆盖时 $c_i$ 在列区间 $[l,r]$ 的和。</li>
+<p>具体地，我们用数据结构维护以下区间 <span
+class="math inline">\([l,r]\)</span> 的信息：</p>
+<ol type="1">
+<li>用 <span class="math inline">\(b_j\)</span> 覆盖时 <span
+class="math inline">\(b_j\)</span> 在列区间 <span
+class="math inline">\([l,r]\)</span> 的和；</li>
+<li>用 <span class="math inline">\(b_j\)</span> 覆盖时 <span
+class="math inline">\(a_i\)</span> 在列区间 <span
+class="math inline">\([l,r]\)</span> 的和；</li>
+<li>用 <span class="math inline">\(c_i\)</span> 覆盖时 <span
+class="math inline">\(a_i\)</span> 在列区间 <span
+class="math inline">\([l,r]\)</span> 的和；</li>
+<li>用 <span class="math inline">\(c_i\)</span> 覆盖时 <span
+class="math inline">\(c_i\)</span> 在列区间 <span
+class="math inline">\([l,r]\)</span> 的和。</li>
 </ol>
-<p>那么我们枚举枚举每一层，处理被取消置零的行和不被 $c_i$ 覆盖的行，</p>
-<p>利用以上四个信息，得到每一列的和后，考虑 $b_j$ 和 $c_i$ 覆盖了哪些列，然后去掉被置零的列即可。</p>
-<p>时间复杂度 $\mathcal{O}(m + n \log n)$ </p>
+<p>那么我们枚举枚举每一层，处理被取消置零的行和不被 <span
+class="math inline">\(c_i\)</span> 覆盖的行，</p>
+<p>利用以上四个信息，得到每一列的和后，考虑 <span
+class="math inline">\(b_j\)</span> 和 <span
+class="math inline">\(c_i\)</span>
+覆盖了哪些列，然后去掉被置零的列即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(m + n \log
+n)\)</span></p>
 <p>代码：（<del>建议看参考文献1的，我没写注释</del>）</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -916,9 +967,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/r2byu69b">https://www.luogu.com.cn/article/r2byu69b</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/r2byu69b">https://www.luogu.com.cn/article/r2byu69b</a></p>
 
                 
             </div>
@@ -1052,7 +1104,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1391,7 +1443,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1660,21 +1712,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

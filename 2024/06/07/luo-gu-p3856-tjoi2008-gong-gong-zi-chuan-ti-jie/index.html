@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -683,12 +684,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">DP</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -746,7 +747,10 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3856-TJOI2008-公共子串-题解"><a href="#洛谷P3856-TJOI2008-公共子串-题解" class="headerlink" title="洛谷P3856 [TJOI2008] 公共子串 题解"></a>洛谷P3856 [TJOI2008] 公共子串 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3856">P3856 [TJOI2008] 公共子串</a></p>
+                <h1 id="洛谷p3856-tjoi2008-公共子串-题解">洛谷P3856 [TJOI2008] 公共子串
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3856">P3856
+[TJOI2008] 公共子串</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>题目虽然叫公共子串，但实际上求的是公共子序列。</p>
@@ -757,19 +761,33 @@ rgba(0,0,0,0.2);
 <p><strong>输出格式</strong>：</p>
 <p>一行，答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>字符串长度 $\le 100$ 。</p>
+<p>字符串长度 <span class="math inline">\(\le 100\)</span> 。</p>
 </blockquote>
 <p>才知道这个东西叫子序列自动机，就下面这个</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token operator">~</span>i<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token number">26</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> ch<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> ch<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
     ch<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>s<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token char">'a'</span><span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>这个东西维护了每个位置的下一个 $c$ 字符在哪里。</p>
-<p>那就很简单了，设 $f(i,j,k)$ 为仅考虑「 $i$ 到 $|A|$ 、$j$ 到 $|B|$ 、$k$ 到 $|C|$ 」的公共子序列。</p>
-<p>这样从 $f(0,0,0)$ 开始搜，每次枚举字符 $c$ ，当 $i,j,k$ 都有下一个 $c$ 时，</p>
-<p>不妨记他们分别在 $u,v,w$ ，那么这个 $c$ 就可以拼接 $f(u,v,w)$ 的任意公共子序列上（包括空串）。</p>
-<p>最后减一下多算的空串就好了。如果不理解可以看看<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/tih5j8ce">这篇</a>递推的题解，不过我觉得记忆化搜索还蛮巧妙的。</p>
-<p>时间复杂度 $\mathcal{O}(n^3)$</p>
+<p>这个东西维护了每个位置的下一个 <span class="math inline">\(c\)</span>
+字符在哪里。</p>
+<p>那就很简单了，设 <span class="math inline">\(f(i,j,k)\)</span>
+为仅考虑「 <span class="math inline">\(i\)</span> 到 <span
+class="math inline">\(|A|\)</span> 、<span
+class="math inline">\(j\)</span> 到 <span
+class="math inline">\(|B|\)</span> 、<span
+class="math inline">\(k\)</span> 到 <span
+class="math inline">\(|C|\)</span> 」的公共子序列。</p>
+<p>这样从 <span class="math inline">\(f(0,0,0)\)</span>
+开始搜，每次枚举字符 <span class="math inline">\(c\)</span> ，当 <span
+class="math inline">\(i,j,k\)</span> 都有下一个 <span
+class="math inline">\(c\)</span> 时，</p>
+<p>不妨记他们分别在 <span class="math inline">\(u,v,w\)</span>
+，那么这个 <span class="math inline">\(c\)</span> 就可以拼接 <span
+class="math inline">\(f(u,v,w)\)</span>
+的任意公共子序列上（包括空串）。</p>
+<p>最后减一下多算的空串就好了。如果不理解可以看看<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/tih5j8ce">这篇</a>递推的题解，不过我觉得记忆化搜索还蛮巧妙的。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -811,11 +829,13 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">+</span> mod<span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>本题双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1819">P1819 公共子序列</a> ，要数组开大&amp;取模一下。</p>
-<hr>
+<p>本题双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1819">P1819
+公共子序列</a> ，要数组开大&amp;取模一下。</p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/nbfrnfab">https://www.luogu.com.cn/article/nbfrnfab</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/nbfrnfab">https://www.luogu.com.cn/article/nbfrnfab</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>子序列自动机也是数据结构！另外 Pio 这个衣服好可爱呀~</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406072250308.png" style="zoom:50%;" /></p>
@@ -891,12 +911,12 @@ rgba(0,0,0,0.2);
                                     <span class="chip bg-color">DP</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -956,7 +976,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1291,7 +1311,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1560,21 +1580,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

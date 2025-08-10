@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -738,14 +739,39 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2888-USACO07NOV-Cow-Hurdles-S-题解"><a href="#洛谷P2888-USACO07NOV-Cow-Hurdles-S-题解" class="headerlink" title="洛谷P2888 [USACO07NOV]Cow Hurdles S 题解"></a>洛谷P2888 [USACO07NOV]Cow Hurdles S 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2888">P2888 [USACO07NOV]Cow Hurdles S</a></p>
+                <h1 id="洛谷p2888-usaco07novcow-hurdles-s-题解">洛谷P2888
+[USACO07NOV]Cow Hurdles S 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2888">P2888
+[USACO07NOV]Cow Hurdles S</a></p>
 <blockquote>
-<p><strong>题意</strong>：Farmer John 想让她的奶牛准备郡级跳跃比赛，贝茜和她的伙伴们正在练习跨栏。她们很累，所以她们想消耗最少的能量来跨栏。 显然，对于一头奶牛跳过几个矮栏是很容易的，但是高栏却很难。于是，奶牛们总是关心路径上最高的栏的高度。 奶牛的训练场中有 $N (1 ≤ N ≤ 300)$ 个站台，分别标记为 $1\dots N$ 。所有站台之间有 $M (1 ≤ M ≤ 25,000)$ 条单向路径，第i条路经是从站台 $S_i$ 开始，到站台 $E_i$ ，其中最高的栏的高度为$H_i (1 ≤ H_i ≤ 1,000,000)$。无论如何跑，奶牛们都要跨栏。 奶牛们有 $T (1 ≤ T ≤ 40,000)$ 个训练任务要完成。第 $i$ 个任务包含两个数字 $A_i$ 和 $B_i (1 ≤ A_i ≤ N; 1 ≤ B_i ≤ N)$，表示奶牛必须从站台 $A_i$ 跑到站台 $B_i$ ，可以路过别的站台。奶牛们想找一条路径从站台 $A_i$ 到站台 $B_i$ ，使路径上最高的栏的高度最小。 你的任务就是写一个程序，计算出路径上最高的栏的高度的最小值。</p>
+<p><strong>题意</strong>：Farmer John
+想让她的奶牛准备郡级跳跃比赛，贝茜和她的伙伴们正在练习跨栏。她们很累，所以她们想消耗最少的能量来跨栏。
+显然，对于一头奶牛跳过几个矮栏是很容易的，但是高栏却很难。于是，奶牛们总是关心路径上最高的栏的高度。
+奶牛的训练场中有 <span class="math inline">\(N (1 ≤ N ≤ 300)\)</span>
+个站台，分别标记为 <span class="math inline">\(1\dots N\)</span>
+。所有站台之间有 <span class="math inline">\(M (1 ≤ M ≤ 25,000)\)</span>
+条单向路径，第i条路经是从站台 <span class="math inline">\(S_i\)</span>
+开始，到站台 <span class="math inline">\(E_i\)</span>
+，其中最高的栏的高度为<span class="math inline">\(H_i (1 ≤ H_i ≤
+1,000,000)\)</span>。无论如何跑，奶牛们都要跨栏。 奶牛们有 <span
+class="math inline">\(T (1 ≤ T ≤ 40,000)\)</span> 个训练任务要完成。第
+<span class="math inline">\(i\)</span> 个任务包含两个数字 <span
+class="math inline">\(A_i\)</span> 和 <span class="math inline">\(B_i (1
+≤ A_i ≤ N; 1 ≤ B_i ≤ N)\)</span>，表示奶牛必须从站台 <span
+class="math inline">\(A_i\)</span> 跑到站台 <span
+class="math inline">\(B_i\)</span>
+，可以路过别的站台。奶牛们想找一条路径从站台 <span
+class="math inline">\(A_i\)</span> 到站台 <span
+class="math inline">\(B_i\)</span> ，使路径上最高的栏的高度最小。
+你的任务就是写一个程序，计算出路径上最高的栏的高度的最小值。</p>
 </blockquote>
 <p>分析题目可以发现这是一张具有非负权重的有向图</p>
 <p>我们只需要找到一条路径使得这条路径上所有的边权中最大值最小即可</p>
-<h2 id="Floyd解法"><a href="#Floyd解法" class="headerlink" title="Floyd解法"></a>Floyd解法</h2><p>别看这个 $n\le300$ ，跑起来还是飞快地（数据有点水）</p>
-<p>容易推出方程 <code>f[i][j]=min(f[i][j],max(f[i][k],f[k][j]));</code></p>
+<h2 id="floyd解法">Floyd解法</h2>
+<p>别看这个 <span class="math inline">\(n\le300\)</span>
+，跑起来还是飞快地（数据有点水）</p>
+<p>容易推出方程
+<code>f[i][j]=min(f[i][j],max(f[i][k],f[k][j]));</code></p>
 <p>不过我有点不放心就加了个小剪枝 qwq 虽然只快了<code>3ms</code></p>
 <p>代码如下</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//Floyd</span>
@@ -792,15 +818,16 @@ rgba(0,0,0,0.2);
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><blockquote>
+<h2 id="其他解法">其他解法</h2>
+<blockquote>
 <p>关于<strong>SPFA</strong>，她死了。</p>
 </blockquote>
 <p><del>开个玩笑而已</del></p>
 <p>不过我们可以用理论复杂度较低的<strong>dijkstra</strong></p>
-<p>注意到 $N\le300$ </p>
+<p>注意到 <span class="math inline">\(N\le300\)</span></p>
 <p>那么离线解决即可</p>
-<p>时间复杂度 $O(N^2\log M + T)$</p>
-<p>不过实际情况下由于dijkstra常数较大，跑的甚至比Floyd慢…</p>
+<p>时间复杂度 <span class="math inline">\(O(N^2\log M + T)\)</span></p>
+<p>不过实际情况下由于dijkstra常数较大，跑的甚至比Floyd慢...</p>
 <p>代码如下</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1011,7 +1038,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1092,13 +1119,13 @@ rgba(0,0,0,0.2);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2613-mo-ban-you-li-shu-qu-yu-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2912-usaco08oct-pasture-walking-g-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p190.webp" class="responsive-img" alt="洛谷P2613 【模板】有理数取余 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p146.webp" class="responsive-img" alt="洛谷P2912 [USACO08OCT]Pasture Walking G 题解">
                         
-                        <span class="card-title">洛谷P2613 【模板】有理数取余 题解</span>
+                        <span class="card-title">洛谷P2912 [USACO08OCT]Pasture Walking G 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1130,8 +1157,8 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -1145,13 +1172,13 @@ rgba(0,0,0,0.2);
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2912-usaco08oct-pasture-walking-g-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p3188-hnoi2007-meng-huan-dao-bao-zhu-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p146.webp" class="responsive-img" alt="洛谷P2912 [USACO08OCT]Pasture Walking G 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p61.webp" class="responsive-img" alt="洛谷P3188 [HNOI2007]梦幻岛宝珠 题解">
                         
-                        <span class="card-title">洛谷P2912 [USACO08OCT]Pasture Walking G 题解</span>
+                        <span class="card-title">洛谷P3188 [HNOI2007]梦幻岛宝珠 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1183,8 +1210,8 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
                 </div>
@@ -1346,7 +1373,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1615,21 +1642,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

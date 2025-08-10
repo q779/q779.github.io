@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -746,32 +747,77 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1370F2-The-Hidden-Pair-Hard-Version-题解"><a href="#CF1370F2-The-Hidden-Pair-Hard-Version-题解" class="headerlink" title="CF1370F2 The Hidden Pair (Hard Version) 题解"></a>CF1370F2 The Hidden Pair (Hard Version) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1370F2">The Hidden Pair (Hard Version)</a></p>
+                <h1 id="cf1370f2-the-hidden-pair-hard-version-题解">CF1370F2 The Hidden
+Pair (Hard Version) 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1370F2">The
+Hidden Pair (Hard Version)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p><strong>这是一道交互题</strong>，且本题有多组数据。</p>
-<p>已知一棵 $n$ 个顶点的树（边集已知），其中有两个不同的顶点被暗中做了标记。</p>
+<p>已知一棵 <span class="math inline">\(n\)</span>
+个顶点的树（边集已知），其中有两个不同的顶点被暗中做了标记。</p>
 <p>你现在需要通过若干次询问，猜出两个被标记顶点的编号。</p>
-<p>一次询问的格式为 <code>? c x1 x2 ... xc</code>，表示向交互库请求关于 $x_1,x_2,\cdots,x_c$ 这 $c(c \le n)$ 个点的信息。</p>
-<p>对于一次询问，交互库的返回格式为 <code>x d</code>，表示在询问的集合中，到两个被标记点的距离之和最小的点是 $x$，这个最小值为 $d$。如果有多个最小值点，$x$ 的值可能是其中任意一个。</p>
-<p>如果已经知晓答案，请用 <code>! x y</code> 的格式来输出你的答案，任意顺序均可。在这之后，你会收到一个字符串 <code>Correct</code> 或者 <code>Incorrect</code>，代表你的猜测是否正确。如果收到了 <code>Incorrect</code>，请立即终止程序，否则请继续处理下一组数据。</p>
-<p>对于每组数据，请你在不超过 $11$ 次询问之内给出答案。</p>
-<p>$1\le t\le 10,~2\le n\le 1000$。</p>
+<p>一次询问的格式为 <code>? c x1 x2 ... xc</code>，表示向交互库请求关于
+<span class="math inline">\(x_1,x_2,\cdots,x_c\)</span> 这 <span
+class="math inline">\(c(c \le n)\)</span> 个点的信息。</p>
+<p>对于一次询问，交互库的返回格式为
+<code>x d</code>，表示在询问的集合中，到两个被标记点的距离之和最小的点是
+<span class="math inline">\(x\)</span>，这个最小值为 <span
+class="math inline">\(d\)</span>。如果有多个最小值点，<span
+class="math inline">\(x\)</span> 的值可能是其中任意一个。</p>
+<p>如果已经知晓答案，请用 <code>! x y</code>
+的格式来输出你的答案，任意顺序均可。在这之后，你会收到一个字符串
+<code>Correct</code> 或者
+<code>Incorrect</code>，代表你的猜测是否正确。如果收到了
+<code>Incorrect</code>，请立即终止程序，否则请继续处理下一组数据。</p>
+<p>对于每组数据，请你在不超过 <span class="math inline">\(11\)</span>
+次询问之内给出答案。</p>
+<p><span class="math inline">\(1\le t\le 10,~2\le n\le
+1000\)</span>。</p>
 </blockquote>
-<p>我寻思正解根本不会有 <code>Incorrect</code> ，错解肯定会 <code>Incorrect</code> ，绷不住了。</p>
-<p>因为问的节点数没有限制，所以考虑第一次询问所有的节点，把得到的节点和值记为 $\mathrm{root}$ 和 $\rm len$</p>
-<p>可以发现，$\mathrm{root}$ 一定位于被标记的两个点 $x \leadsto y$ 的链上，这显然缩小了查询的范围</p>
-<p>考虑将 $\mathrm{root}$ 提作根（<del>从命名来看早有预谋</del>），规定 $d_x \ge d_y$ ，$d$ 表示此时节点的深度，根的深度为 $1$ 。</p>
-<p>那么我们用一条水平线 $y=i$ 去截这棵树的话，也就是询问 $d_z=i$ 的所有 $z$ 时</p>
+<p>我寻思正解根本不会有 <code>Incorrect</code> ，错解肯定会
+<code>Incorrect</code> ，绷不住了。</p>
+<p>因为问的节点数没有限制，所以考虑第一次询问所有的节点，把得到的节点和值记为
+<span class="math inline">\(\mathrm{root}\)</span> 和 <span
+class="math inline">\(\rm len\)</span></p>
+<p>可以发现，<span class="math inline">\(\mathrm{root}\)</span>
+一定位于被标记的两个点 <span class="math inline">\(x \leadsto y\)</span>
+的链上，这显然缩小了查询的范围</p>
+<p>考虑将 <span class="math inline">\(\mathrm{root}\)</span>
+提作根（<del>从命名来看早有预谋</del>），规定 <span
+class="math inline">\(d_x \ge d_y\)</span> ，<span
+class="math inline">\(d\)</span> 表示此时节点的深度，根的深度为 <span
+class="math inline">\(1\)</span> 。</p>
+<p>那么我们用一条水平线 <span class="math inline">\(y=i\)</span>
+去截这棵树的话，也就是询问 <span class="math inline">\(d_z=i\)</span>
+的所有 <span class="math inline">\(z\)</span> 时</p>
 <ul>
-<li>若返回的距离之和等于 $\rm len$ ，那么这个点要么位于 $\mathrm{root} \leadsto x$ 上，要么位于 $\mathrm{root} \leadsto y$ 上。</li>
-<li>若返回的距离之和大于 $\rm len$ ，那么这个点 $z$ 肯定有 $d_z &lt; d_x$ ，绝对不可能是 $x,y$ 其中之一。</li>
+<li>若返回的距离之和等于 <span class="math inline">\(\rm len\)</span>
+，那么这个点要么位于 <span class="math inline">\(\mathrm{root} \leadsto
+x\)</span> 上，要么位于 <span class="math inline">\(\mathrm{root}
+\leadsto y\)</span> 上。</li>
+<li>若返回的距离之和大于 <span class="math inline">\(\rm len\)</span>
+，那么这个点 <span class="math inline">\(z\)</span> 肯定有 <span
+class="math inline">\(d_z &lt; d_x\)</span> ，绝对不可能是 <span
+class="math inline">\(x,y\)</span> 其中之一。</li>
 </ul>
-<p>于是这引导我们去二分这条水平线的深度，并且最终我们会得到 $x$ （除非 $d_x=d_y$ 才可能是 $y$ ）</p>
-<p>此时我们把 $x$ 提作根，再询问一遍新的 $d_{\rm len + 1}$ 即可得到 $y$ 。这里加 $1$ 是因为根的深度为 $1$ 。</p>
-<p>二分的区间只需要取到 $\left[\left\lceil\frac{\mathrm{len}}{2}\right\rceil,\,\mathrm{len}\right]$ ，那么加上必要的两次询问，总询问数是 $2 + \log_2\left(\frac{n}{2}\right)\le 11$ 次。</p>
-<p>注意特判一下 $\mathrm{len}=1$ 的情况，这种情况不会进入二分，为此我调了好久，难绷。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>于是这引导我们去二分这条水平线的深度，并且最终我们会得到 <span
+class="math inline">\(x\)</span> （除非 <span
+class="math inline">\(d_x=d_y\)</span> 才可能是 <span
+class="math inline">\(y\)</span> ）</p>
+<p>此时我们把 <span class="math inline">\(x\)</span>
+提作根，再询问一遍新的 <span class="math inline">\(d_{\rm len +
+1}\)</span> 即可得到 <span class="math inline">\(y\)</span> 。这里加
+<span class="math inline">\(1\)</span> 是因为根的深度为 <span
+class="math inline">\(1\)</span> 。</p>
+<p>二分的区间只需要取到 <span
+class="math inline">\(\left[\left\lceil\frac{\mathrm{len}}{2}\right\rceil,\,\mathrm{len}\right]\)</span>
+，那么加上必要的两次询问，总询问数是 <span class="math inline">\(2 +
+\log_2\left(\frac{n}{2}\right)\le 11\)</span> 次。</p>
+<p>注意特判一下 <span class="math inline">\(\mathrm{len}=1\)</span>
+的情况，这种情况不会进入二分，为此我调了好久，难绷。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -835,11 +881,14 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1370F1">CF1370F1 The Hidden Pair (Easy Version)</a></p>
-<hr>
+<p>双倍经验：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1370F1">CF1370F1 The Hidden
+Pair (Easy Version)</a></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/tqpvcb0l">https://www.luogu.com.cn/article/tqpvcb0l</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/tqpvcb0l">https://www.luogu.com.cn/article/tqpvcb0l</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>发现我可以刷有 hard version 的题达到双倍经验。<del>天才！</del></p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406181643067.png" style="zoom:40%;" /></p>
@@ -980,7 +1029,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1323,7 +1372,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1592,21 +1641,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

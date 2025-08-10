@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -726,7 +727,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    718
+                    719
                 </div>
                 
 
@@ -746,29 +747,53 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC005D-K-Perm-Counting-题解"><a href="#AGC005D-K-Perm-Counting-题解" class="headerlink" title="[AGC005D] ~K Perm Counting 题解"></a>[AGC005D] ~K Perm Counting 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc005_d">[AGC005D] ~K Perm Counting</a></p>
+                <h1 id="agc005d-k-perm-counting-题解">[AGC005D] ~K Perm Counting
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc005_d">[AGC005D] ~K Perm
+Counting</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>如果一个排列 $P$ 满足对于所有的 $i$ 都有 $|P_i-i|\neq k$，则称排列 $P$ 为合法的。</p>
-<p>现给出 $n$ 和 $k$，求有多少种合法的排列。</p>
-<p>由于答案很大，请输出答案对 $924844033$ 取模的结果。</p>
+<p>如果一个排列 <span class="math inline">\(P\)</span> 满足对于所有的
+<span class="math inline">\(i\)</span> 都有 <span
+class="math inline">\(|P_i-i|\neq k\)</span>，则称排列 <span
+class="math inline">\(P\)</span> 为合法的。</p>
+<p>现给出 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(k\)</span>，求有多少种合法的排列。</p>
+<p>由于答案很大，请输出答案对 <span
+class="math inline">\(924844033\)</span> 取模的结果。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2\leq n\leq 2\times 10^3$，$1\leq k\leq n-1$。</p>
+<p><span class="math inline">\(2\leq n\leq 2\times 10^3\)</span>，<span
+class="math inline">\(1\leq k\leq n-1\)</span>。</p>
 </blockquote>
-<p>如果我们把每个点不能放的位置画成一行，那么可以得到下图（$n=7,k=2$ ，图来自参考文献1）</p>
+<p>如果我们把每个点不能放的位置画成一行，那么可以得到下图（<span
+class="math inline">\(n=7,k=2\)</span> ，图来自参考文献1）</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202409191938429.png" style="zoom:45%;" /></p>
-<p>图中阴影部分是不可以放的，并且每行每列都只能有一个格子被选中（可以认为是放 $n$ 个互不攻击的车）</p>
-<p>正难则反，考虑容斥。设 $f_i$ 为钦定 $i$ 个阴影格子放车。答案为</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^n(-1)^if_i\cdot (n-i)!</script><p>那么 $f_i$ 怎么求呢？根据定义，$f_i$ 的选择要求车之间互不攻击。</p>
+<p>图中阴影部分是不可以放的，并且每行每列都只能有一个格子被选中（可以认为是放
+<span class="math inline">\(n\)</span> 个互不攻击的车）</p>
+<p>正难则反，考虑容斥。设 <span class="math inline">\(f_i\)</span>
+为钦定 <span class="math inline">\(i\)</span> 个阴影格子放车。答案为
+<span class="math display">\[
+\sum_{i=0}^n(-1)^if_i\cdot (n-i)!
+\]</span> 那么 <span class="math inline">\(f_i\)</span>
+怎么求呢？根据定义，<span class="math inline">\(f_i\)</span>
+的选择要求车之间互不攻击。</p>
 <p>如果我们把每个阴影格子与其不能同时选的格子连边，可以得到下图</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202409192003399.png" style="zoom: 45%;" /></p>
-<p>那么 $f_i$ 就是这张图的独立集个数。注意到这张图由多条链构成。</p>
-<p>考虑重新设 $f(i,j)$ 为前 $i$ 个位置，选了 $j$ 个点构成独立集的方案数，边界 $f(0,0)=1$ ，那么</p>
-<script type="math/tex; mode=display">
+<p>那么 <span class="math inline">\(f_i\)</span>
+就是这张图的独立集个数。注意到这张图由多条链构成。</p>
+<p>考虑重新设 <span class="math inline">\(f(i,j)\)</span> 为前 <span
+class="math inline">\(i\)</span> 个位置，选了 <span
+class="math inline">\(j\)</span> 个点构成独立集的方案数，边界 <span
+class="math inline">\(f(0,0)=1\)</span> ，那么 <span
+class="math display">\[
 f(i,0) = f(i-1,0)
-\\[6pt]f(i,j) = f(i-1,j) + f(i-1-[\lnot a_{i-1}],\, j-1)\quad (j > 0)</script><p>这里 $a_{i-1}$ 表示 $i-1$ 和 $i$ 是否不相连，这个是可以线性求出来的。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$ </p>
+\\[6pt]f(i,j) = f(i-1,j) + f(i-1-[\lnot a_{i-1}],\, j-1)\quad (j &gt; 0)
+\]</span> 这里 <span class="math inline">\(a_{i-1}\)</span> 表示 <span
+class="math inline">\(i-1\)</span> 和 <span
+class="math inline">\(i\)</span>
+是否不相连，这个是可以线性求出来的。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -811,14 +836,18 @@ f(i,0) = f(i-1,0)
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>这道题还可以用多项式什么的 $\mathcal{O}(n\log n)$ ，这里不讲了（<del>因为不会</del>）</p>
-<hr>
+<p>这道题还可以用多项式什么的 <span
+class="math inline">\(\mathcal{O}(n\log n)\)</span>
+，这里不讲了（<del>因为不会</del>）</p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/u5s75fn2">https://www.luogu.com.cn/article/u5s75fn2</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/u5s75fn2">https://www.luogu.com.cn/article/u5s75fn2</a></p>
 <p style="overflow: hidden;">
-    <span style="float: left;">超级感谢 Roundgod 对我的帮助！</span>
-    <span style="float: left;"><img src="/medias/loading.gif" data-original="/libs/waline/emojis/bmoji_give_love.png" style="zoom:25%;"></span>
+<span style="float: left;">超级感谢 Roundgod 对我的帮助！</span> <span
+style="float: left;"><img src="/medias/loading.gif" data-original="/libs/waline/emojis/bmoji_give_love.png" style="zoom:25%;"></span>
 </p>
+
                 
             </div>
             <hr/>
@@ -955,7 +984,7 @@ f(i,0) = f(i-1,0)
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1289,7 +1318,7 @@ f(i,0) = f(i-1,0)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1558,21 +1587,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

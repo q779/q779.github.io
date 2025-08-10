@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -679,12 +680,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -742,49 +743,99 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5496-【模板】回文自动机（PAM）-题解"><a href="#洛谷P5496-【模板】回文自动机（PAM）-题解" class="headerlink" title="洛谷P5496 【模板】回文自动机（PAM） 题解"></a>洛谷P5496 【模板】回文自动机（PAM） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5496">P5496 【模板】回文自动机（PAM）</a></p>
+                <h1 id="洛谷p5496-模板回文自动机pam-题解">洛谷P5496
+【模板】回文自动机（PAM） 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5496">P5496
+【模板】回文自动机（PAM）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个字符串 $s$。保证每个字符为小写字母。</p>
-<p>对于 $s$ 的每个位置，请求出以该位置结尾的回文子串个数。</p>
+<p>给定一个字符串 <span
+class="math inline">\(s\)</span>。保证每个字符为小写字母。</p>
+<p>对于 <span class="math inline">\(s\)</span>
+的每个位置，请求出以该位置结尾的回文子串个数。</p>
 <p>这个字符串被进行了加密，除了第一个字符，其他字符都需要通过上一个位置的答案来解密。</p>
-<p>具体地，若第 $i(i\geq 1)$ 个位置的答案是 $k$，第 $i+1$ 个字符读入时的 $\rm ASCII$ 码为 $c$，则第 $i+1$ 个字符实际的 $\rm ASCII$ 码为 $(c-97+k)\bmod 26+97$。所有字符在加密前后都为小写字母。</p>
+<p>具体地，若第 <span class="math inline">\(i(i\geq 1)\)</span>
+个位置的答案是 <span class="math inline">\(k\)</span>，第 <span
+class="math inline">\(i+1\)</span> 个字符读入时的 <span
+class="math inline">\(\rm ASCII\)</span> 码为 <span
+class="math inline">\(c\)</span>，则第 <span
+class="math inline">\(i+1\)</span> 个字符实际的 <span
+class="math inline">\(\rm ASCII\)</span> 码为 <span
+class="math inline">\((c-97+k)\bmod
+26+97\)</span>。所有字符在加密前后都为小写字母。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行一个字符串 $s$ 表示被加密后的串。</p>
+<p>一行一个字符串 <span class="math inline">\(s\)</span>
+表示被加密后的串。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一行， $|s|$ 个整数。第 $i$ 个整数表示原串以第 $i$ 个字符结尾的回文子串个数。</p>
+<p>一行， <span class="math inline">\(|s|\)</span> 个整数。第 <span
+class="math inline">\(i\)</span> 个整数表示原串以第 <span
+class="math inline">\(i\)</span> 个字符结尾的回文子串个数。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\leq |s|\leq 5\times 10^5$。</p>
+<p><span class="math inline">\(1\leq |s|\leq 5\times 10^5\)</span>。</p>
 </blockquote>
 <p>本题是 回文自动机 的模板题。</p>
 <p>我看题解区的回文自动机都有两个根，看不懂，就自己写了一种回文自动机。</p>
 <p>先考虑奇回文串。可以发现，奇回文串去掉两头的字符，就变成了一个新的回文串（单个字符也算）</p>
 <p>于是我们可以建一个类似于 Trie 树的东西</p>
-<p>根节点 $0$ 还是表示空串，不过根节点的儿子 $\mathtt{ch[0][c]}$ 表示中间的那个字符是 $c$ 。</p>
-<p>除此以外，每个节点 $\mathtt{ch[u][c]}$ 表示在父结点 $u$ 的基础上，两头加上字符 $c$ 的字符串。</p>
-<p>那么偶回文串怎么办呢？偶回文串其实可以看作中间的那个字符是 $\varnothing$ 。</p>
-<p>于是根节点直接多了一个儿子，我们直接把它记为节点 $1$ ，这样回文自动机就只有一个根了。</p>
-<p>方便起见，我们记录以每个节点结尾的最长回文串长 $\tt len$ 。定义 $\mathtt{len[0]}=-1,~\mathtt{len[1]} = 0$ 。</p>
-<p>$\tt{fail}$ 数组的构建和 AC 自动机类似，定义为最长回文后缀的结尾节点。</p>
-<p>定义 $\mathtt{fail[1]} = 0$ ，其他情况 $\mathtt{fail[u]}=\mathtt{ch[fail[fa(u)][c]}$​ 。</p>
-<p>这里是因为，$u$ 的最长回文后缀，等于 $fa(u)$ 的最长回文后缀加上字符 $c$</p>
-<p>那么我们现在有一个初始有两个节点和 $\mathtt{fail}$ 数组的奇怪数据结构，接下来该干什么呢？</p>
-<p>考虑维护一个指针 $p$ ，初始 $p=0$ ，然后依次考虑每个字符 $s_i$ 。</p>
+<p>根节点 <span class="math inline">\(0\)</span>
+还是表示空串，不过根节点的儿子 <span
+class="math inline">\(\mathtt{ch[0][c]}\)</span> 表示中间的那个字符是
+<span class="math inline">\(c\)</span> 。</p>
+<p>除此以外，每个节点 <span
+class="math inline">\(\mathtt{ch[u][c]}\)</span> 表示在父结点 <span
+class="math inline">\(u\)</span> 的基础上，两头加上字符 <span
+class="math inline">\(c\)</span> 的字符串。</p>
+<p>那么偶回文串怎么办呢？偶回文串其实可以看作中间的那个字符是 <span
+class="math inline">\(\varnothing\)</span> 。</p>
+<p>于是根节点直接多了一个儿子，我们直接把它记为节点 <span
+class="math inline">\(1\)</span> ，这样回文自动机就只有一个根了。</p>
+<p>方便起见，我们记录以每个节点结尾的最长回文串长 <span
+class="math inline">\(\tt len\)</span> 。定义 <span
+class="math inline">\(\mathtt{len[0]}=-1,~\mathtt{len[1]} = 0\)</span>
+。</p>
+<p><span class="math inline">\(\tt{fail}\)</span> 数组的构建和 AC
+自动机类似，定义为最长回文后缀的结尾节点。</p>
+<p>定义 <span class="math inline">\(\mathtt{fail[1]} = 0\)</span>
+，其他情况 <span
+class="math inline">\(\mathtt{fail[u]}=\mathtt{ch[fail[fa(u)][c]}\)</span>​
+。</p>
+<p>这里是因为，<span class="math inline">\(u\)</span>
+的最长回文后缀，等于 <span class="math inline">\(fa(u)\)</span>
+的最长回文后缀加上字符 <span class="math inline">\(c\)</span></p>
+<p>那么我们现在有一个初始有两个节点和 <span
+class="math inline">\(\mathtt{fail}\)</span>
+数组的奇怪数据结构，接下来该干什么呢？</p>
+<p>考虑维护一个指针 <span class="math inline">\(p\)</span> ，初始 <span
+class="math inline">\(p=0\)</span> ，然后依次考虑每个字符 <span
+class="math inline">\(s_i\)</span> 。</p>
 <ul>
-<li><p>如果 $p$​ 指向的节点有 $s_i$ 这个儿子，那么直接往这个儿子走即可，答案就是这个儿子的答案。</p>
-</li>
-<li><p>否则新建 $s_i$ 这个儿子，它的 $\tt len$ 定义为 $\mathtt{len[p]}+2$ ，</p>
-<p>接着我们构建它的失配指针 $\mathtt{fail}$ ，即 $\mathtt{ch[p][s_i]}$ 的最长回文后缀（的结尾节点）。</p>
-<p>记一个临时变量 $q\gets p$ ，不停让 $q\gets \mathtt{fail[q]}$ ，</p>
-<p>直到 $q$ 表示的字符串两头加上 $s_i$ 后等于 $\mathtt{ch[p][s_i]}$ 表示的字符串</p>
-<p>于是 $\mathtt{ch[p][s_i]}$ 的 $\mathtt{fail}$ 即为 $\mathtt{ch[q][s_i]}$ 。</p>
-</li>
+<li><p>如果 <span class="math inline">\(p\)</span>​ 指向的节点有 <span
+class="math inline">\(s_i\)</span>
+这个儿子，那么直接往这个儿子走即可，答案就是这个儿子的答案。</p></li>
+<li><p>否则新建 <span class="math inline">\(s_i\)</span> 这个儿子，它的
+<span class="math inline">\(\tt len\)</span> 定义为 <span
+class="math inline">\(\mathtt{len[p]}+2\)</span> ，</p>
+<p>接着我们构建它的失配指针 <span
+class="math inline">\(\mathtt{fail}\)</span> ，即 <span
+class="math inline">\(\mathtt{ch[p][s_i]}\)</span>
+的最长回文后缀（的结尾节点）。</p>
+<p>记一个临时变量 <span class="math inline">\(q\gets p\)</span> ，不停让
+<span class="math inline">\(q\gets \mathtt{fail[q]}\)</span> ，</p>
+<p>直到 <span class="math inline">\(q\)</span> 表示的字符串两头加上
+<span class="math inline">\(s_i\)</span> 后等于 <span
+class="math inline">\(\mathtt{ch[p][s_i]}\)</span> 表示的字符串</p>
+<p>于是 <span class="math inline">\(\mathtt{ch[p][s_i]}\)</span> 的
+<span class="math inline">\(\mathtt{fail}\)</span> 即为 <span
+class="math inline">\(\mathtt{ch[q][s_i]}\)</span> 。</p></li>
 </ul>
-<p>然后令 $p=\mathtt{ch[p][s_i]}$ ，继续考虑 $s_i + 1$ 。</p>
+<p>然后令 <span class="math inline">\(p=\mathtt{ch[p][s_i]}\)</span>
+，继续考虑 <span class="math inline">\(s_i + 1\)</span> 。</p>
 <p>答案统计的话，类似于 AC 自动机统计 Fail 树，直接看代码吧。</p>
-<p>分析一下复杂度，每增加一个节点，当前深度增加 $1$ 层</p>
-<p>而跳 $\mathtt{fail}$ 每次至少减少 $1$ 层，至多减少【当前深度】层。</p>
-<p>故时间复杂度 $\mathcal{O}(n)$</p>
+<p>分析一下复杂度，每增加一个节点，当前深度增加 <span
+class="math inline">\(1\)</span> 层</p>
+<p>而跳 <span class="math inline">\(\mathtt{fail}\)</span> 每次至少减少
+<span class="math inline">\(1\)</span> 层，至多减少【当前深度】层。</p>
+<p>故时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -822,10 +873,11 @@ rgba(0,0,0,0.2);
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">https://www.luogu.com.cn/article/ntc6yyfd</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ntc6yyfd">https://www.luogu.com.cn/article/ntc6yyfd</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放个图片，很符合我现在的心情。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405312114078.png" style="zoom:50%;" /></p>
@@ -897,12 +949,12 @@ rgba(0,0,0,0.2);
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -962,7 +1014,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1081,12 +1133,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">字符串</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -1142,12 +1194,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">图论</span>
                     </a>
                     
-                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">字符串</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -1309,7 +1361,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1578,21 +1630,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

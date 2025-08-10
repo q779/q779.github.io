@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -746,53 +747,100 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF103E-Buying-Sets-题解"><a href="#CF103E-Buying-Sets-题解" class="headerlink" title="CF103E Buying Sets 题解"></a>CF103E Buying Sets 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF103E">Buying Sets</a></p>
+                <h1 id="cf103e-buying-sets-题解">CF103E Buying Sets 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF103E">Buying
+Sets</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一个大小为 $n~(1 \le n \le 300)$ 的全集，每个元素是一个数</p>
-<p>现在有 $n$ 个子集，大小分别为 $m_i$ ，题目保证任意 $k$ 个子集的并的大小 $\ge k$ 。</p>
+<p>有一个大小为 <span class="math inline">\(n~(1 \le n \le 300)\)</span>
+的全集，每个元素是一个数</p>
+<p>现在有 <span class="math inline">\(n\)</span> 个子集，大小分别为
+<span class="math inline">\(m_i\)</span> ，题目保证任意 <span
+class="math inline">\(k\)</span> 个子集的并的大小 <span
+class="math inline">\(\ge k\)</span> 。</p>
 <p>每个子集有一个可正可负的权值，你需要选出一些子集使得这些子集并的大小等于子集个数，</p>
-<p>且所选子集的权值和最小。可以为空集。保证 $\sum m_i \le 10^6$ 。</p>
+<p>且所选子集的权值和最小。可以为空集。保证 <span
+class="math inline">\(\sum m_i \le 10^6\)</span> 。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行 $n$ ，接下来 $n$ 行：每行第一个数是 $m_i$ ，接下来 $m_i$ 个数是集合中的数。</p>
-<p>最后一行 $n$ 个数，表示每个子集</p>
+<p>第一行 <span class="math inline">\(n\)</span> ，接下来 <span
+class="math inline">\(n\)</span> 行：每行第一个数是 <span
+class="math inline">\(m_i\)</span> ，接下来 <span
+class="math inline">\(m_i\)</span> 个数是集合中的数。</p>
+<p>最后一行 <span class="math inline">\(n\)</span>
+个数，表示每个子集</p>
 <p><strong>输出格式</strong></p>
 <p>一行，即权值和的最小值。</p>
 </blockquote>
 <p>考虑将权值取反，这样只需要求最大权值。</p>
-<p>注意到，如果我们将集合看作一些点，$n$ 个数看作 $n$ 个点，将集合与其中的点连边</p>
+<p>注意到，如果我们将集合看作一些点，<span
+class="math inline">\(n\)</span> 个数看作 <span
+class="math inline">\(n\)</span> 个点，将集合与其中的点连边</p>
 <p>那么，不考虑「子集并的大小等于子集个数」这个限制的话，这就是一个经典的<strong>最大权闭合子图</strong>问题。</p>
 <blockquote>
 <p>最大权闭合子图问题，就是给定一张有向图，每个点有点权（可能为负）。</p>
-<p>现在要找到一个点权和最大的子图，满足如果 $u$ 在这个子图中，那么所有 $u$ 的后继都在子图中。</p>
+<p>现在要找到一个点权和最大的子图，满足如果 <span
+class="math inline">\(u\)</span> 在这个子图中，那么所有 <span
+class="math inline">\(u\)</span> 的后继都在子图中。</p>
 <p>这个问题可以用最小割解决。</p>
 <ul>
-<li>对于点权 $w_i &gt; 0$ 的点，连边 $S\to i$ ，容量为 $w_i$ 。</li>
-<li>对于点权 $w_i &lt; 0$ 的点，连边 $i \to T$ ，容量为 $-w_i$ （显然是正数）。</li>
-<li>对于原图中的边 $e \in E$ ，连边 $e$ 即可，容量为 $+\infty$ 。</li>
+<li>对于点权 <span class="math inline">\(w_i &gt; 0\)</span> 的点，连边
+<span class="math inline">\(S\to i\)</span> ，容量为 <span
+class="math inline">\(w_i\)</span> 。</li>
+<li>对于点权 <span class="math inline">\(w_i &lt; 0\)</span> 的点，连边
+<span class="math inline">\(i \to T\)</span> ，容量为 <span
+class="math inline">\(-w_i\)</span> （显然是正数）。</li>
+<li>对于原图中的边 <span class="math inline">\(e \in E\)</span> ，连边
+<span class="math inline">\(e\)</span> 即可，容量为 <span
+class="math inline">\(+\infty\)</span> 。</li>
 </ul>
-<p>那么答案就是<strong>所有正点权的权值之和</strong> 减去 最小割。证明略。</p>
+<p>那么答案就是<strong>所有正点权的权值之和</strong> 减去
+最小割。证明略。</p>
 </blockquote>
 <p>现在考虑「子集并的大小等于子集个数」。</p>
-<p>记 $\mathrm{INF}$ 为一个极大值（正数），$w_i$ 为取反后的集合的权值。</p>
+<p>记 <span class="math inline">\(\mathrm{INF}\)</span>
+为一个极大值（正数），<span class="math inline">\(w_i\)</span>
+为取反后的集合的权值。</p>
 <p>考虑以下最小割模型：</p>
 <ul>
-<li>$S$ 连向集合，容量为 $\mathrm{INF} + w_i$ （割掉这条边相当于<strong>不选</strong>这个集合）。</li>
-<li>集合连向集合内的元素，容量为 $\rm INF$ 。</li>
-<li>元素向 $T$ 连边，容量为 $\rm INF$ （割掉这条边相当于<strong>选</strong>这个元素）。</li>
+<li><span class="math inline">\(S\)</span> 连向集合，容量为 <span
+class="math inline">\(\mathrm{INF} + w_i\)</span>
+（割掉这条边相当于<strong>不选</strong>这个集合）。</li>
+<li>集合连向集合内的元素，容量为 <span class="math inline">\(\rm
+INF\)</span> 。</li>
+<li>元素向 <span class="math inline">\(T\)</span> 连边，容量为 <span
+class="math inline">\(\rm INF\)</span>
+（割掉这条边相当于<strong>选</strong>这个元素）。</li>
 </ul>
 <p>不难发现，在最小割方案中，割掉集合连向集合内的数字的边是不优的。</p>
-<p>由于题目保证任意 $k$ 个子集的并的大小 $\ge k$ ，根据 Hall 定理（如下）</p>
+<p>由于题目保证任意 <span class="math inline">\(k\)</span>
+个子集的并的大小 <span class="math inline">\(\ge k\)</span> ，根据 Hall
+定理（如下）</p>
 <blockquote>
-<p>对于一个二分图 $G\sim (X,Y)$ ，$X$ 存在一个匹配的充分必要条件为：</p>
-<p>对于 $X$ 的任意子集 $S$ ，$S$ 的邻居的个数 $|N(S)|$ 满足 $|N(S)| \ge |S|$ 。</p>
-<p>换句话说，左侧任选 $i$ 个点，右侧都至少有 $i$ 个点跟它对应。</p>
+<p>对于一个二分图 <span class="math inline">\(G\sim (X,Y)\)</span>
+，<span class="math inline">\(X\)</span>
+存在一个匹配的充分必要条件为：</p>
+<p>对于 <span class="math inline">\(X\)</span> 的任意子集 <span
+class="math inline">\(S\)</span> ，<span
+class="math inline">\(S\)</span> 的邻居的个数 <span
+class="math inline">\(|N(S)|\)</span> 满足 <span
+class="math inline">\(|N(S)| \ge |S|\)</span> 。</p>
+<p>换句话说，左侧任选 <span class="math inline">\(i\)</span>
+个点，右侧都至少有 <span class="math inline">\(i\)</span>
+个点跟它对应。</p>
 </blockquote>
-<p>即这个图是一定存在完美匹配的，且满足 $|N(S)| \ge |S|$ ，所以至少会割掉 $n$ 条边</p>
-<p>又因为边权最少为 $\mathrm{INF}$ ，所以不会选超过 $n$ 条边，否则一定不优。</p>
-<p>那么设最小割选了集合 $S$ 包括的（表示元素的）点，那么有</p>
-<script type="math/tex; mode=display">
-|S| = |N(S)|</script><p>时间复杂度 $\mathcal{O}\left(|V|^2|E|\right)$ ，其中 $|V| = \mathcal{O}(n),|E| = \mathcal{O}(n^2)$ 。</p>
+<p>即这个图是一定存在完美匹配的，且满足 <span
+class="math inline">\(|N(S)| \ge |S|\)</span> ，所以至少会割掉 <span
+class="math inline">\(n\)</span> 条边</p>
+<p>又因为边权最少为 <span class="math inline">\(\mathrm{INF}\)</span>
+，所以不会选超过 <span class="math inline">\(n\)</span>
+条边，否则一定不优。</p>
+<p>那么设最小割选了集合 <span class="math inline">\(S\)</span>
+包括的（表示元素的）点，那么有 <span class="math display">\[
+|S| = |N(S)|
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}\left(|V|^2|E|\right)\)</span> ，其中
+<span class="math inline">\(|V| = \mathcal{O}(n),|E| =
+\mathcal{O}(n^2)\)</span> 。</p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -863,11 +911,13 @@ rgba(0,0,0,0.2);
     res <span class="token operator">-=</span> <span class="token function">Dinic</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> INF <span class="token operator">*</span> n<span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token operator">-</span>res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>双倍经验：<a target="_blank" rel="noopener" href="https://loj.ac/p/6045">LOJ6045 「雅礼集训 2017 Day8」价</a></p>
-<hr>
+<p>双倍经验：<a target="_blank" rel="noopener" href="https://loj.ac/p/6045">LOJ6045 「雅礼集训 2017
+Day8」价</a></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xd366l3z">https://www.luogu.com.cn/article/xd366l3z</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xd366l3z">https://www.luogu.com.cn/article/xd366l3z</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>然后 cxy 填了通信工程，据说是填反了。难绷。</p>
 <p>通信工程应该……也要学 C++ 的罢。😡😡😡。</p>
@@ -1008,7 +1058,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1343,7 +1393,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1612,21 +1662,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

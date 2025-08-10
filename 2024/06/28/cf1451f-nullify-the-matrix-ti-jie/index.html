@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -718,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    555
+                    554
                 </div>
                 
 
@@ -738,29 +739,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1451F-Nullify-The-Matrix-题解"><a href="#CF1451F-Nullify-The-Matrix-题解" class="headerlink" title="CF1451F Nullify The Matrix 题解"></a>CF1451F Nullify The Matrix 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1451F">Nullify The Matrix</a></p>
+                <h1 id="cf1451f-nullify-the-matrix-题解">CF1451F Nullify The Matrix
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1451F">Nullify
+The Matrix</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Ashish 和 Jeel 在玩游戏，有一个 $n\times m$ 的棋盘，每个格子有一个非负整数的权值。</p>
-<p>两个人轮流操作，每次操作先选择一个权值非 $0$ 的格子作为起点，然后选择起点右下角的一个格子作为终点，然后选择它们之间的一条最短路径，然后给起点的权值减一个正整数、路径上每个点的权值随意加减（也可以不改变），但是都不能改成负数。</p>
-<p>不能操作（全变成 $0$）就输了，Ashish 先手，问谁必胜。</p>
+<p>Ashish 和 Jeel 在玩游戏，有一个 <span class="math inline">\(n\times
+m\)</span> 的棋盘，每个格子有一个非负整数的权值。</p>
+<p>两个人轮流操作，每次操作先选择一个权值非 <span
+class="math inline">\(0\)</span>
+的格子作为起点，然后选择起点右下角的一个格子作为终点，然后选择它们之间的一条最短路径，然后给起点的权值减一个正整数、路径上每个点的权值随意加减（也可以不改变），但是都不能改成负数。</p>
+<p>不能操作（全变成 <span
+class="math inline">\(0\)</span>）就输了，Ashish 先手，问谁必胜。</p>
 </blockquote>
-<p>这道题的思路和 <a href="/2024/06/28/cf1149e-election-promises-ti-jie/">CF1149E</a> 挺像的。</p>
-<p>记 $f_i = \bigoplus_{x+y=p}a_{x,y}$ ，那么先手必败当且仅当 $\forall i$ 有 $f_i = 0$ ；否则先手必胜。</p>
+<p>这道题的思路和 <a
+href="/2024/06/28/cf1149e-election-promises-ti-jie/">CF1149E</a>
+挺像的。</p>
+<p>记 <span class="math inline">\(f_i =
+\bigoplus_{x+y=p}a_{x,y}\)</span> ，那么先手必败当且仅当 <span
+class="math inline">\(\forall i\)</span> 有 <span
+class="math inline">\(f_i = 0\)</span> ；否则先手必胜。</p>
 <blockquote>
-<p><strong>证明</strong>&emsp;记 $\rm N$ 为先手必胜态，$\rm P$ 为先手必败态。</p>
+<p><strong>证明</strong> 记 <span class="math inline">\(\rm N\)</span>
+为先手必胜态，<span class="math inline">\(\rm P\)</span>
+为先手必败态。</p>
 <p>考虑证明在此最优策略下原问题转化一个有向图游戏。</p>
 <ul>
-<li><p>终止状态，显然为 $\rm P$ 。</p>
-</li>
-<li><p>对于 $\rm P$ 态，即 $\forall i, f_i = 0$ 时，任意修改都会导致某个 $f_i\ne 0$ 。那么 $\rm P$ 的后继均为 $\rm N$ 。</p>
-</li>
-<li><p>对于 $\rm N$ 态，即 $\exists i, f_i \ne 0$ 时，我们找到最小的 $i$ ，它对应第 $i$ 个斜线</p>
-<p>取这个斜线二进制最高位所在的那个 $a_{x,y}$ 为起点，然后类似于那道题一路改过去就好了。<span style="float: right;">$\square$</span></p>
-</li>
+<li><p>终止状态，显然为 <span class="math inline">\(\rm P\)</span>
+。</p></li>
+<li><p>对于 <span class="math inline">\(\rm P\)</span> 态，即 <span
+class="math inline">\(\forall i, f_i = 0\)</span>
+时，任意修改都会导致某个 <span class="math inline">\(f_i\ne 0\)</span>
+。那么 <span class="math inline">\(\rm P\)</span> 的后继均为 <span
+class="math inline">\(\rm N\)</span> 。</p></li>
+<li><p>对于 <span class="math inline">\(\rm N\)</span> 态，即 <span
+class="math inline">\(\exists i, f_i \ne 0\)</span> 时，我们找到最小的
+<span class="math inline">\(i\)</span> ，它对应第 <span
+class="math inline">\(i\)</span> 个斜线</p>
+<p>取这个斜线二进制最高位所在的那个 <span
+class="math inline">\(a_{x,y}\)</span>
+为起点，然后类似于那道题一路改过去就好了。<span
+style="float: right;"><span
+class="math inline">\(\square\)</span></span></p></li>
 </ul>
 </blockquote>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -789,9 +813,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2cnf2wjz">https://www.luogu.com.cn/article/2cnf2wjz</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2cnf2wjz">https://www.luogu.com.cn/article/2cnf2wjz</a></p>
 
                 
             </div>
@@ -921,7 +946,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1040,16 +1065,16 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
                     <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                         <span class="chip bg-color">字符串</span>
                     </a>
                     
                     <a href="/tags/%E6%9E%84%E9%80%A0/">
                         <span class="chip bg-color">构造</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1268,7 +1293,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1537,21 +1562,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

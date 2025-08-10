@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -734,21 +735,44 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1304C-Air-Conditioner-题解"><a href="#CF1304C-Air-Conditioner-题解" class="headerlink" title="CF1304C Air Conditioner 题解"></a>CF1304C Air Conditioner 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1304C">Air Conditioner</a></p>
+                <h1 id="cf1304c-air-conditioner-题解">CF1304C Air Conditioner 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1304C">Air
+Conditioner</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一个餐馆中有个空调，每分钟可以选择上调 $1$ 个单位的温度或下调 $1$ 个单位的温度，当然你也可以选择不变，初始的温度为 $m$ 。</p>
-<p>有 $n$ 个食客，每个食客会在 $t_i$ 时间点到达，他所能适应的最低温度是 $l_i$ ，最高温度是 $r_i$ ，他只会在 $t_i$ 时刻逗留。</p>
-<p>如果温度不在食客的适应范围内，他就会不舒服，请你判断，空调能否使得 $n$ 位来就餐的食客都感到舒服。</p>
-<p><strong>本题多组数据</strong>，数据组数不大于 $500$。</p>
-<p>$1\le n\le 100$，$-10^9\le m,l_i,r_i\le 10^9$，$1\le t_i\le 10^9$​ 。</p>
+<p>一个餐馆中有个空调，每分钟可以选择上调 <span
+class="math inline">\(1\)</span> 个单位的温度或下调 <span
+class="math inline">\(1\)</span>
+个单位的温度，当然你也可以选择不变，初始的温度为 <span
+class="math inline">\(m\)</span> 。</p>
+<p>有 <span class="math inline">\(n\)</span> 个食客，每个食客会在 <span
+class="math inline">\(t_i\)</span> 时间点到达，他所能适应的最低温度是
+<span class="math inline">\(l_i\)</span> ，最高温度是 <span
+class="math inline">\(r_i\)</span> ，他只会在 <span
+class="math inline">\(t_i\)</span> 时刻逗留。</p>
+<p>如果温度不在食客的适应范围内，他就会不舒服，请你判断，空调能否使得
+<span class="math inline">\(n\)</span> 位来就餐的食客都感到舒服。</p>
+<p><strong>本题多组数据</strong>，数据组数不大于 <span
+class="math inline">\(500\)</span>。</p>
+<p><span class="math inline">\(1\le n\le 100\)</span>，<span
+class="math inline">\(-10^9\le m,l_i,r_i\le 10^9\)</span>，<span
+class="math inline">\(1\le t_i\le 10^9\)</span>​ 。</p>
 </blockquote>
-<p>鉴于 $l_i,r_i$ 的范围，我们不可能（也不需要）求出具体的调节方案。</p>
-<p>设 $[l,r]$ 表示当前能达到的区间，初始 $l = r= m$ 。</p>
-<p>每经过 $t$ 分钟，当前能到达的区间就变成了 $[l - t, r + t]$ 。</p>
-<p>考虑第 $i$ 个顾客，经过了 $d=t_i - t_{i-1}$ 分钟，可到达区间为 $[l-d,r+d]$ 。</p>
-<p>我们把这个区间与 $[l_i,r_i]$ 取交集，如果为空则无解，否则我们得到了满足前 $i$ 个顾客时仍能到达的区间</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>鉴于 <span class="math inline">\(l_i,r_i\)</span>
+的范围，我们不可能（也不需要）求出具体的调节方案。</p>
+<p>设 <span class="math inline">\([l,r]\)</span>
+表示当前能达到的区间，初始 <span class="math inline">\(l = r= m\)</span>
+。</p>
+<p>每经过 <span class="math inline">\(t\)</span>
+分钟，当前能到达的区间就变成了 <span class="math inline">\([l - t, r +
+t]\)</span> 。</p>
+<p>考虑第 <span class="math inline">\(i\)</span> 个顾客，经过了 <span
+class="math inline">\(d=t_i - t_{i-1}\)</span> 分钟，可到达区间为 <span
+class="math inline">\([l-d,r+d]\)</span> 。</p>
+<p>我们把这个区间与 <span class="math inline">\([l_i,r_i]\)</span>
+取交集，如果为空则无解，否则我们得到了满足前 <span
+class="math inline">\(i\)</span> 个顾客时仍能到达的区间</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -907,7 +931,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1238,7 +1262,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1507,21 +1531,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

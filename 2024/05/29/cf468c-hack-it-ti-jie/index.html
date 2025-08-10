@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -722,7 +723,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    628
+                    642
                 </div>
                 
 
@@ -742,49 +743,72 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF468C-Hack-it-题解"><a href="#CF468C-Hack-it-题解" class="headerlink" title="CF468C Hack it! 题解"></a>CF468C Hack it! 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF468C">Hack it!</a></p>
+                <h1 id="cf468c-hack-it-题解">CF468C Hack it! 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF468C">Hack
+it!</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小 X 最近遇到了下面的问题。</p>
-<p>我们定义函数 $f(x)$ 为 $x$ 的各个数位之和。</p>
-<p>比如说，$f(1234)=1+2+3+4=10$。任务是，计算 $\sum_{i=l}^rf(i)\bmod a$​ 的值。</p>
-<p>小 X 很快就解决了这个问题。于是小 X 锁定了这道题，然后开始 hack 别人。他看到了下面这段代码：</p>
+<p>我们定义函数 <span class="math inline">\(f(x)\)</span> 为 <span
+class="math inline">\(x\)</span> 的各个数位之和。</p>
+<p>比如说，<span
+class="math inline">\(f(1234)=1+2+3+4=10\)</span>。任务是，计算 <span
+class="math inline">\(\sum_{i=l}^rf(i)\bmod a\)</span>​ 的值。</p>
+<p>小 X 很快就解决了这个问题。于是小 X 锁定了这道题，然后开始 hack
+别人。他看到了下面这段代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp">ans <span class="token operator">=</span> <span class="token function">solve</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span> r<span class="token punctuation">)</span> <span class="token operator">%</span> a<span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span>ans <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> ans <span class="token operator">+=</span> a<span class="token punctuation">;</span></code></pre>
-<p>显而易见地，这段代码会在 $\sum_{i=l}^rf(i)\equiv 0 \pmod a$ 时输出错误。</p>
-<p>小 X 会告诉你题目中的 $a$​ 是多少，现在请你为小 X 构造一个 hack 数据。</p>
+<p>显而易见地，这段代码会在 <span
+class="math inline">\(\sum_{i=l}^rf(i)\equiv 0 \pmod a\)</span>
+时输出错误。</p>
+<p>小 X 会告诉你题目中的 <span class="math inline">\(a\)</span>​
+是多少，现在请你为小 X 构造一个 hack 数据。</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入包括一行，即小 X 给定的 $a$ 的值（$1\le a\le 10^{18}$）。输入保证有解。</p>
+<p>输入包括一行，即小 X 给定的 <span class="math inline">\(a\)</span>
+的值（<span class="math inline">\(1\le a\le
+10^{18}\)</span>）。输入保证有解。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出两个整数：$L,R$，满足 $1\leq L\leq R\leq 10^{200}$，同时 $\sum_{i=l}^rf(i)\equiv 0 \pmod a$，即你构造的 hack 数据。</p>
+<p>输出两个整数：<span class="math inline">\(L,R\)</span>，满足 <span
+class="math inline">\(1\leq L\leq R\leq 10^{200}\)</span>，同时 <span
+class="math inline">\(\sum_{i=l}^rf(i)\equiv 0 \pmod
+a\)</span>，即你构造的 hack 数据。</p>
 </blockquote>
-<p>非常巧妙的题，建议先做这道题 <a href="/2024/05/29/luo-gu-p2602-zjoi2010-shu-zi-ji-shu-ti-jie-shu-wei-dp-mo-ban/">P2602 [ZJOI2010] 数字计数</a></p>
-<p>设 $\sum_{i=0}^{10^{18}-1} f(i) \equiv p \pmod{a}$ ，则</p>
-<script type="math/tex; mode=display">
+<p>非常巧妙的题，建议先做这道题 <a
+href="/2024/05/29/luo-gu-p2602-zjoi2010-shu-zi-ji-shu-ti-jie-shu-wei-dp-mo-ban/">P2602
+[ZJOI2010] 数字计数</a></p>
+<p>设 <span class="math inline">\(\sum_{i=0}^{10^{18}-1} f(i) \equiv p
+\pmod{a}\)</span> ，则 <span class="math display">\[
 \begin{aligned}
-\sum_{i=0}^{10^{18}-1} f(i) &\equiv f(10^{18} + 0) + \sum_{i=0}^{10^{18}-1} f(i)
-\\[6pt]&\equiv1 + f(0) + \sum_{i=1}^{10^{18}-1}f(i)
-\\[6pt]&\equiv p + 1 \pmod{a}
-\end{aligned}</script><p>同理，我们可以得到</p>
-<script type="math/tex; mode=display">
+\sum_{i=0}^{10^{18}-1} f(i) &amp;\equiv f(10^{18} + 0) +
+\sum_{i=0}^{10^{18}-1} f(i)
+\\[6pt]&amp;\equiv1 + f(0) + \sum_{i=1}^{10^{18}-1}f(i)
+\\[6pt]&amp;\equiv p + 1 \pmod{a}
+\end{aligned}
+\]</span> 同理，我们可以得到 <span class="math display">\[
 \begin{aligned}
-& \sum_{i=2}^{10^{18}+1} f(i) \equiv p+2 \pmod{a}
-\\[6pt]& \sum_{i=3}^{10^{18}+2} f(i) \equiv p+3 \pmod{a}
-\\[6pt]& \quad\cdots\cdots
-\\[6pt]& \sum_{i=r}^{10^{18}+r-1} f(i) \equiv p+r \pmod{a}
-\\[6pt]& \quad\cdots\cdots
-\\[6pt]& \sum_{i=a-p}^{10^{18}+a-p-1} f(i) \equiv p+a-p \pmod{a}
-\end{aligned}</script><p>最后一行显然 $p+a-p \equiv 0 \pmod{a}$ 。</p>
-<p>那么我们只需要求出 $p$ 即可，即 $\sum_{i=0}^{10^{18}-1} f(i)$​。</p>
-<script type="math/tex; mode=display">
+&amp; \sum_{i=2}^{10^{18}+1} f(i) \equiv p+2 \pmod{a}
+\\[6pt]&amp; \sum_{i=3}^{10^{18}+2} f(i) \equiv p+3 \pmod{a}
+\\[6pt]&amp; \quad\cdots\cdots
+\\[6pt]&amp; \sum_{i=r}^{10^{18}+r-1} f(i) \equiv p+r \pmod{a}
+\\[6pt]&amp; \quad\cdots\cdots
+\\[6pt]&amp; \sum_{i=a-p}^{10^{18}+a-p-1} f(i) \equiv p+a-p \pmod{a}
+\end{aligned}
+\]</span> 最后一行显然 <span class="math inline">\(p+a-p \equiv 0
+\pmod{a}\)</span> 。</p>
+<p>那么我们只需要求出 <span class="math inline">\(p\)</span> 即可，即
+<span class="math inline">\(\sum_{i=0}^{10^{18}-1} f(i)\)</span>​。 <span
+class="math display">\[
 \begin{aligned}
-\sum_{i=0}^{10^{18}-1} f(i) & = 45 \times 10^{17}+10 \times \sum_{i=0}^{10^{17}-1} f(i)
-\\[6pt]&= 45 \times 10^{17}+10 \times\left(45 \times 10^{16}\right)+100 \times \sum_{i=0}^{11^{16}-1} f(i)
-\\[6pt]&= \cdots\cdots
-\\[6pt]&= 18 \times 45 \times 10^{17}
-\\[6pt]&= 81 \times 10^{18}
-\end{aligned}</script><p>于是这题就做完啦！</p>
-<p>时间复杂度 $\mathcal{O}(1)$</p>
+\sum_{i=0}^{10^{18}-1} f(i) &amp; = 45 \times 10^{17}+10 \times
+\sum_{i=0}^{10^{17}-1} f(i)
+\\[6pt]&amp;= 45 \times 10^{17}+10 \times\left(45 \times
+10^{16}\right)+100 \times \sum_{i=0}^{11^{16}-1} f(i)
+\\[6pt]&amp;= \cdots\cdots
+\\[6pt]&amp;= 18 \times 45 \times 10^{17}
+\\[6pt]&amp;= 81 \times 10^{18}
+\end{aligned}
+\]</span> 于是这题就做完啦！</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(1)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -806,9 +830,10 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> l <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span> <span class="token operator">&lt;&lt;</span> r<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/cfuugfja">https://www.luogu.com.cn/article/cfuugfja</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/cfuugfja">https://www.luogu.com.cn/article/cfuugfja</a></p>
 
                 
             </div>
@@ -942,7 +967,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1113,12 +1138,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">图论</span>
                     </a>
                     
-                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">字符串</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -1280,7 +1305,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1549,21 +1574,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

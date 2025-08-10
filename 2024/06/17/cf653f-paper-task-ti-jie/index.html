@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -679,12 +680,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                 <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
                     </div>
@@ -742,25 +743,62 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF653F-Paper-task-题解"><a href="#CF653F-Paper-task-题解" class="headerlink" title="CF653F Paper task 题解"></a>CF653F Paper task 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF653F">Paper task</a></p>
+                <h1 id="cf653f-paper-task-题解">CF653F Paper task 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF653F">Paper
+task</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 $n$ 的括号串，问有多少种本质不同的合法括号子串。</p>
-<p>输入：长度 $n$ 和字符串 $S$ ，$S$ 仅包含 <code>(</code> 和 <code>)</code> 。输出：答案。数据范围：$1\le n\leq 5\times 10^5$ 。</p>
+<p>给定一个长度为 <span class="math inline">\(n\)</span>
+的括号串，问有多少种本质不同的合法括号子串。</p>
+<p>输入：长度 <span class="math inline">\(n\)</span> 和字符串 <span
+class="math inline">\(S\)</span> ，<span
+class="math inline">\(S\)</span> 仅包含 <code>(</code> 和 <code>)</code>
+。输出：答案。数据范围：<span class="math inline">\(1\le n\leq 5\times
+10^5\)</span> 。</p>
 </blockquote>
-<p>考虑怎么算合法子串。把 <code>(</code> 和 <code>)</code> 分别看作 $1$ 和 $-1$ ，记 $d_i$ 为他们的前缀和。</p>
-<p>那么一个任意字符串 $S$ 是合法的当且仅当 $\forall i(1 &lt; i \le |S|) ,~d_i \ge d_1 - 1$ 且 $d_{|S|} = d_1 - 1,~d_1 = 1$ 。</p>
-<p>对于固定的 $i$ ，考虑二分合法的长度，用 ST 表维护区间 min ，这样可以找到最远的 $r$ 使得 $S[i..r]$ 合法</p>
-<p>现在需要统计 $[i,r]$ 里有多少个点的 $d$ 刚好等于 $d_i-1$ ，这个可以用 vector 维护每个值的位置二分得到。</p>
-<p>那么如何求出本质不同的子串呢？思路有点类似于这道题 <a href="/2024/06/08/luo-gu-p2408-bu-tong-zi-chuan-ge-shu-ti-jie/">P2408 不同子串个数</a> 。</p>
-<p>即对于排名为 $i$ 的后缀，它多统计的子串个数至多为 $\operatorname{LCP}(i,i-1)$ ，也就是 $\operatorname{height} i$</p>
-<p>记每个位置 $i$ 我们二分到的是 $r_i$ ，那么多统计的就是区间</p>
-<script type="math/tex; mode=display">
-\left[\operatorname{sa}(i),~\min\{\operatorname{sa}(i) +\operatorname{height}(i)-1,\, r_{\operatorname{sa}(i)}\} \right]</script><p>中的合法串的个数。减去即可。注意 $S_i= \mathtt{)}$ 的情况</p>
-<p><del>至于为什么说和 P2408 有点像，是因为这样统计是不重不漏的，然后证明比较类似而已</del>。</p>
-<p>证明：因为所有后缀按字典序排序，故不存在前缀 $S$ 不为 $\mathrm{LCP}(i-1,i)$ 却为 $\mathrm{LCP}(i-k,i)$ ，其中 $k &gt; 1$ 。</p>
-<p>然后我们每次都减去了 $i$ 相对于 $i-1$ 多统计的部分（或者说统计正确了），于是这么统计是不重不漏的。$\square$</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>考虑怎么算合法子串。把 <code>(</code> 和 <code>)</code> 分别看作
+<span class="math inline">\(1\)</span> 和 <span
+class="math inline">\(-1\)</span> ，记 <span
+class="math inline">\(d_i\)</span> 为他们的前缀和。</p>
+<p>那么一个任意字符串 <span class="math inline">\(S\)</span>
+是合法的当且仅当 <span class="math inline">\(\forall i(1 &lt; i \le |S|)
+,~d_i \ge d_1 - 1\)</span> 且 <span class="math inline">\(d_{|S|} = d_1
+- 1,~d_1 = 1\)</span> 。</p>
+<p>对于固定的 <span class="math inline">\(i\)</span>
+，考虑二分合法的长度，用 ST 表维护区间 min ，这样可以找到最远的 <span
+class="math inline">\(r\)</span> 使得 <span
+class="math inline">\(S[i..r]\)</span> 合法</p>
+<p>现在需要统计 <span class="math inline">\([i,r]\)</span>
+里有多少个点的 <span class="math inline">\(d\)</span> 刚好等于 <span
+class="math inline">\(d_i-1\)</span> ，这个可以用 vector
+维护每个值的位置二分得到。</p>
+<p>那么如何求出本质不同的子串呢？思路有点类似于这道题 <a
+href="/2024/06/08/luo-gu-p2408-bu-tong-zi-chuan-ge-shu-ti-jie/">P2408
+不同子串个数</a> 。</p>
+<p>即对于排名为 <span class="math inline">\(i\)</span>
+的后缀，它多统计的子串个数至多为 <span
+class="math inline">\(\operatorname{LCP}(i,i-1)\)</span> ，也就是 <span
+class="math inline">\(\operatorname{height} i\)</span></p>
+<p>记每个位置 <span class="math inline">\(i\)</span> 我们二分到的是
+<span class="math inline">\(r_i\)</span> ，那么多统计的就是区间 <span
+class="math display">\[
+\left[\operatorname{sa}(i),~\min\{\operatorname{sa}(i)
++\operatorname{height}(i)-1,\, r_{\operatorname{sa}(i)}\} \right]
+\]</span> 中的合法串的个数。减去即可。注意 <span
+class="math inline">\(S_i= \mathtt{)}\)</span> 的情况</p>
+<p><del>至于为什么说和 P2408
+有点像，是因为这样统计是不重不漏的，然后证明比较类似而已</del>。</p>
+<p>证明：因为所有后缀按字典序排序，故不存在前缀 <span
+class="math inline">\(S\)</span> 不为 <span
+class="math inline">\(\mathrm{LCP}(i-1,i)\)</span> 却为 <span
+class="math inline">\(\mathrm{LCP}(i-k,i)\)</span> ，其中 <span
+class="math inline">\(k &gt; 1\)</span> 。</p>
+<p>然后我们每次都减去了 <span class="math inline">\(i\)</span> 相对于
+<span class="math inline">\(i-1\)</span>
+多统计的部分（或者说统计正确了），于是这么统计是不重不漏的。<span
+class="math inline">\(\square\)</span></p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -863,10 +901,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mckej0hf">https://www.luogu.com.cn/article/mckej0hf</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/mckej0hf">https://www.luogu.com.cn/article/mckej0hf</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>还是萌萌题适合我。</p>
 
@@ -937,12 +976,12 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                                     <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
                         </div>
@@ -1002,7 +1041,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1352,7 +1391,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1621,21 +1660,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

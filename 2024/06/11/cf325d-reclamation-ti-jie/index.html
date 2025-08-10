@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,27 +743,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF325D-Reclamation-题解"><a href="#CF325D-Reclamation-题解" class="headerlink" title="CF325D Reclamation 题解"></a>CF325D Reclamation 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
+                <h1 id="cf325d-reclamation-题解">CF325D Reclamation 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个大小为 $r \times c$ 的二维环形网格图，每一行的第 $1$ 格和第 $c$ 格相邻。  </p>
-<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" alt=""></p>
-<p>现在按照给定的顺序将 $n$ 个格子变成障碍物。</p>
-<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 $1$ 行到第 $r$ 行的路径。</p>
+<p>给定一个大小为 <span class="math inline">\(r \times c\)</span>
+的二维环形网格图，每一行的第 <span class="math inline">\(1\)</span>
+格和第 <span class="math inline">\(c\)</span> 格相邻。</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" /></p>
+<p>现在按照给定的顺序将 <span class="math inline">\(n\)</span>
+个格子变成障碍物。</p>
+<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 <span
+class="math inline">\(1\)</span> 行到第 <span
+class="math inline">\(r\)</span> 行的路径。</p>
 <p>如果一个格子不可以变成障碍，就跳过该操作并且继续处理接下来的格子。路径为四相邻规则。</p>
-<p>你需要求出最多可以有多少个格子变成障碍物。  </p>
+<p>你需要求出最多可以有多少个格子变成障碍物。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行有三个整数 $r,c,n(1 \le r,c \le 3000, 1 \le n \le 3 \times 10^5)$。  </p>
-<p>接下来 $n$ 行，每行两个正整数 $r_i , c_i$，表示将位于 $r_i $ 行，$c_i$ 列的格子变成障碍物。  </p>
+<p>第一行有三个整数 <span class="math inline">\(r,c,n(1 \le r,c \le
+3000, 1 \le n \le 3 \times 10^5)\)</span>。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，每行两个正整数
+<span class="math inline">\(r_i , c_i\)</span>，表示将位于 $r_i $
+行，<span class="math inline">\(c_i\)</span> 列的格子变成障碍物。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一个整数表示答案。</p>
 </blockquote>
 <p>如果删掉一格后环不再构成四连通，那么这个点和其他已删除的点将圆柱的侧面截断。</p>
 <p>换句话说，此时这个环（或者说曲面）上存在一个由已删除点构成的<strong>八连通块</strong>。</p>
 <p>维护环的连通性十分麻烦。考虑断环为链，然后用并查集维护已删除点的连通性。</p>
-<p>这样我们只需要判断删除操作是否会使得 $(x,y)$ 和 $(x,y+c)$ 连通即可。</p>
-<p>注意每次删除一个点，要把 $(x,y)$ 和 $(x,y+c)$ 都标记。</p>
-<p>时间复杂度 $\mathcal{O}(n\alpha(n) + 2rc)$</p>
+<p>这样我们只需要判断删除操作是否会使得 <span
+class="math inline">\((x,y)\)</span> 和 <span
+class="math inline">\((x,y+c)\)</span> 连通即可。</p>
+<p>注意每次删除一个点，要把 <span class="math inline">\((x,y)\)</span>
+和 <span class="math inline">\((x,y+c)\)</span> 都标记。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\alpha(n) +
+2rc)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -833,15 +849,16 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>其实这道题还蛮简单的，不过不太好描述，导致这篇题解写了好久。</p>
 <p>放音乐。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1468515491&auto=0&height=66"></iframe>
-
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1468515491&amp;auto=0&amp;height=66">
+</iframe>
 <blockquote>
 <p>从此就 收剑入鞘洒脱放下执着</p>
 <p>不再说 万事蹉跎是一杯苦酒</p>
@@ -982,7 +999,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1158,12 +1175,12 @@ rgba(0,0,0,0.2);
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <span class="chip bg-color">字符串</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
@@ -1325,7 +1342,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1594,21 +1611,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

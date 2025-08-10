@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -718,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    550
+                    744
                 </div>
                 
 
@@ -738,18 +739,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ABC254D-Together-Square-题解"><a href="#ABC254D-Together-Square-题解" class="headerlink" title="[ABC254D] Together Square 题解"></a>[ABC254D] Together Square 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc254_d">[ABC254D] Together Square</a></p>
+                <h1 id="abc254d-together-square-题解">[ABC254D] Together Square
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc254_d">[ABC254D] Together
+Square</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定 $n$，求满足以下条件的二元组 $(i, j)$ 数量：$1 \le i, j \le n, i \times j = k^2(k \in \mathbb{N}^*)$。</p>
-<p>$1 \le n \le 2 \times 10^5$</p>
+<p>给定 <span class="math inline">\(n\)</span>，求满足以下条件的二元组
+<span class="math inline">\((i, j)\)</span> 数量：<span
+class="math inline">\(1 \le i, j \le n, i \times j = k^2(k \in
+\mathbb{N}^*)\)</span>。</p>
+<p><span class="math inline">\(1 \le n \le 2 \times 10^5\)</span></p>
 </blockquote>
 <p>先来讲讲常规做法：</p>
-<p>记 $f_i$ 为 $i$ 最大的完全平方数因子，然后我们可以得到这样一个式子</p>
-<script type="math/tex; mode=display">
-i \times j=f_i \times \frac{i}{f_i} \times f_j \times \frac{j}{f_j}</script><p>整理一下可得</p>
-<script type="math/tex; mode=display">
-\frac{i}{f_i}=\frac{j}{f_j}</script><p>统计一下 $\frac{i}{f_i}$ 即可。 时间复杂度 $\mathcal{O}(n \sqrt{n})$ 或者用筛法可以到 $\mathcal{O}(n \log n)$</p>
+<p>记 <span class="math inline">\(f_i\)</span> 为 <span
+class="math inline">\(i\)</span>
+最大的完全平方数因子，然后我们可以得到这样一个式子 <span
+class="math display">\[
+i \times j=f_i \times \frac{i}{f_i} \times f_j \times \frac{j}{f_j}
+\]</span> 整理一下可得 <span class="math display">\[
+\frac{i}{f_i}=\frac{j}{f_j}
+\]</span> 统计一下 <span class="math inline">\(\frac{i}{f_i}\)</span>
+即可。 时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\sqrt{n})\)</span> 或者用筛法可以到 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -782,19 +796,35 @@ i \times j=f_i \times \frac{i}{f_i} \times f_j \times \frac{j}{f_j}</script><p>�
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>然后来讲讲更快的 $\mathcal{O}(\sqrt{n})$ 的解法。</p>
+<p>然后来讲讲更快的 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span> 的解法。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202401101140984.png" style="zoom:33%;" /></p>
-<p>考虑讲题目要枚举的 $i,j$ 拆成 $i=a^2\times c,~j = b^2\times c$ ，暂且仅考虑 $i &lt; j$ </p>
-<p>由 $i &lt; j &lt; n$ 得</p>
-<script type="math/tex; mode=display">
-a^2 < b^2 < \frac{n}{c}</script><p>即</p>
-<script type="math/tex; mode=display">
-a<b<\sqrt{\frac{n}{c}}</script><p>对于确定的 $a,b$ ，显然有 $1 \le c \le \frac{n}{b^2}$ ，于是它的贡献似乎是 $\left\lfloor\frac{n}{b^2}\right\rfloor$ 。</p>
-<p>事实上，如果 $a,b$ 不互质，则显然会被 $a^{\prime} = \frac{a}{\gcd(a,b)}$ 的枚举包含，因此贡献是</p>
-<script type="math/tex; mode=display">
-\left\lfloor\frac{n}{b^2}\right\rfloor \times[\operatorname{gcd}(a, b)=1]</script><p>这个互质真是非常巧妙，以至于刚好满足了 $\varphi(b)$ 的定义。</p>
-<p>于是我们只需要枚举 $i(i^2 \le n)$ ，每次加上 $\varphi(i)\times \left\lfloor\frac{n}{i^2}\right\rfloor$ 即可。</p>
-<p>时间复杂度 $\mathcal{O}(\sqrt{n})$</p>
+<p>考虑讲题目要枚举的 <span class="math inline">\(i,j\)</span> 拆成
+<span class="math inline">\(i=a^2\times c,~j = b^2\times c\)</span>
+，暂且仅考虑 <span class="math inline">\(i &lt; j\)</span></p>
+<p>由 <span class="math inline">\(i &lt; j &lt; n\)</span> 得 <span
+class="math display">\[
+a^2 &lt; b^2 &lt; \frac{n}{c}
+\]</span> 即 <span class="math display">\[
+a&lt;b&lt;\sqrt{\frac{n}{c}}
+\]</span> 对于确定的 <span class="math inline">\(a,b\)</span> ，显然有
+<span class="math inline">\(1 \le c \le \frac{n}{b^2}\)</span>
+，于是它的贡献似乎是 <span
+class="math inline">\(\left\lfloor\frac{n}{b^2}\right\rfloor\)</span>
+。</p>
+<p>事实上，如果 <span class="math inline">\(a,b\)</span>
+不互质，则显然会被 <span class="math inline">\(a^{\prime} =
+\frac{a}{\gcd(a,b)}\)</span> 的枚举包含，因此贡献是 <span
+class="math display">\[
+\left\lfloor\frac{n}{b^2}\right\rfloor \times[\operatorname{gcd}(a,
+b)=1]
+\]</span> 这个互质真是非常巧妙，以至于刚好满足了 <span
+class="math inline">\(\varphi(b)\)</span> 的定义。</p>
+<p>于是我们只需要枚举 <span class="math inline">\(i(i^2 \le n)\)</span>
+，每次加上 <span class="math inline">\(\varphi(i)\times
+\left\lfloor\frac{n}{i^2}\right\rfloor\)</span> 即可。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -829,10 +859,12 @@ a<b<\sqrt{\frac{n}{c}}</script><p>对于确定的 $a,b$ ，显然有 $1 \le c \l
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>res <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> n<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/16807362.html">https://www.cnblogs.com/CDOI-24374/p/16807362.html</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/tsawke/p/17032751.html">https://www.cnblogs.com/tsawke/p/17032751.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/CDOI-24374/p/16807362.html">https://www.cnblogs.com/CDOI-24374/p/16807362.html</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/tsawke/p/17032751.html">https://www.cnblogs.com/tsawke/p/17032751.html</a></p>
 
                 
             </div>
@@ -962,7 +994,7 @@ a<b<\sqrt{\frac{n}{c}}</script><p>对于确定的 $a,b$ ，显然有 $1 \le c \l
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1292,7 +1324,7 @@ a<b<\sqrt{\frac{n}{c}}</script><p>对于确定的 $a,b$ ，显然有 $1 \le c \l
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1561,21 +1593,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

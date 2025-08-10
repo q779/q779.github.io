@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -726,7 +727,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    926
+                    927
                 </div>
                 
 
@@ -746,37 +747,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1540B-Tree-Array-题解"><a href="#CF1540B-Tree-Array-题解" class="headerlink" title="CF1540B Tree Array 题解"></a>CF1540B Tree Array 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree Array</a></p>
+                <h1 id="cf1540b-tree-array-题解">CF1540B Tree Array 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree
+Array</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 $n$​ 个节点的树。  </p>
+<p>给定一棵 <span class="math inline">\(n\)</span>​ 个节点的树。</p>
 <p>对于这棵树，我们通过下列方法来生成一个序列：</p>
-<ol>
-<li>等概率选择这 $n$ 个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
+<ol type="1">
+<li>等概率选择这 <span class="math inline">\(n\)</span>
+个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
 <li>在所有没被打上标记且与至少一个打上标记的节点相连的节点中等概率选择一个节点并对这个节点打上标记</li>
-<li>重复步骤 2 直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
+<li>重复步骤 2
+直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
 </ol>
-<p>求生成序列的期望逆序对数对 $10^9+7$​​ 取模后的值。</p>
+<p>求生成序列的期望逆序对数对 <span
+class="math inline">\(10^9+7\)</span>​​ 取模后的值。</p>
 <p>输入：树；输出：答案</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2\leq n\leq200$ ，保证给出的是棵树</p>
+<p><span class="math inline">\(2\leq n\leq200\)</span>
+，保证给出的是棵树</p>
 </blockquote>
 <p>首先可以发现，这个标记的过程和第一个点息息相关</p>
 <p>考虑枚举第一个被标记的点，然后把它提成根节点。</p>
 <p>那么现在所有的点对</p>
 <ul>
-<li><p>是祖先关系的，一定会产生贡献 $0/1$ 的贡献。</p>
-</li>
-<li><p>不是祖先关系的，当他们的 LCA 被加入后，接下来的任何标记都可以解释为：</p>
-<p>两个栈， $p$ 概率弹第一个栈栈顶，$p$ 概率弹第二个栈栈顶，$1-2p$​ 概率啥也不干，问第一个栈先空的概率。</p>
-<p>模型中两个栈就是 $x$ 和 $y$ 分别到 LCA 的距离，那么仅考虑 $(x,y)$ 他们的 $p=\frac{1}{2}$ （相互独立+期望线性性）</p>
-<p>这个可以dp预处理出来，设两个栈分别有 $i,j$ 个元素时第一个栈先空的概率为 $f(i,j)$ ，那么</p>
-<script type="math/tex; mode=display">
-f(i,0)=0,~f(0,j)=1 \quad(i,j > 0)
-\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))</script></li>
+<li><p>是祖先关系的，一定会产生贡献 <span
+class="math inline">\(0/1\)</span> 的贡献。</p></li>
+<li><p>不是祖先关系的，当他们的 LCA
+被加入后，接下来的任何标记都可以解释为：</p>
+<p>两个栈， <span class="math inline">\(p\)</span>
+概率弹第一个栈栈顶，<span class="math inline">\(p\)</span>
+概率弹第二个栈栈顶，<span class="math inline">\(1-2p\)</span>​
+概率啥也不干，问第一个栈先空的概率。</p>
+<p>模型中两个栈就是 <span class="math inline">\(x\)</span> 和 <span
+class="math inline">\(y\)</span> 分别到 LCA 的距离，那么仅考虑 <span
+class="math inline">\((x,y)\)</span> 他们的 <span
+class="math inline">\(p=\frac{1}{2}\)</span> （相互独立+期望线性性）</p>
+<p>这个可以dp预处理出来，设两个栈分别有 <span
+class="math inline">\(i,j\)</span> 个元素时第一个栈先空的概率为 <span
+class="math inline">\(f(i,j)\)</span> ，那么 <span
+class="math display">\[
+f(i,0)=0,~f(0,j)=1 \quad(i,j &gt; 0)
+\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))
+\]</span></p></li>
 </ul>
-<p>于是我们只需要对每个根节点跑一遍处理一下 LCA，然后暴力枚举点对就好了</p>
-<p>时间复杂度 $\mathcal{O}(n^3\log n)$ ，写 <a href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 $\mathcal{O}(n^3)$ </p>
+<p>于是我们只需要对每个根节点跑一遍处理一下
+LCA，然后暴力枚举点对就好了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3\log
+n)\)</span> ，写 <a
+href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -842,10 +863,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放张好看的图</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405281118183.png" style="zoom:30%;" /></p>
@@ -986,7 +1008,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1321,7 +1343,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1590,21 +1612,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

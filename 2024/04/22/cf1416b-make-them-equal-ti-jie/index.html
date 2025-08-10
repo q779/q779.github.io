@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,28 +743,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1416B-Make-Them-Equal-题解"><a href="#CF1416B-Make-Them-Equal-题解" class="headerlink" title="CF1416B Make Them Equal 题解"></a>CF1416B Make Them Equal 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1416B">Make Them Equal</a></p>
+                <h1 id="cf1416b-make-them-equal-题解">CF1416B Make Them Equal 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1416B">Make
+Them Equal</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个序列 $a$，求出一个长度不超过 $3n$ 的操作序列，使序列 $a$ 中每个元素相等。</p>
-<p>定义一次操作为：选出 $(i,j,x)$ 三元组，满足 $i,j$ 为序列合法下标，$x$ 为 $10^9$ 以内非负整数，令 $a_i\gets a_i-x\cdot i,a_j\gets a_j+x\cdot i$。</p>
-<p>必须保证操作过程中的任意时刻序列 $a$ 中每个元素都非负。</p>
-<p>输出时先输出操作次数 $k$，然后输出 $k$ 行操作序列。</p>
-<p>数据组数 $t\le10^4$，序列长度 $\sum n\le10^4$，元素大小 $1\le a_i\le10^5$。</p>
+<p>给出一个序列 <span
+class="math inline">\(a\)</span>，求出一个长度不超过 <span
+class="math inline">\(3n\)</span> 的操作序列，使序列 <span
+class="math inline">\(a\)</span> 中每个元素相等。</p>
+<p>定义一次操作为：选出 <span class="math inline">\((i,j,x)\)</span>
+三元组，满足 <span class="math inline">\(i,j\)</span>
+为序列合法下标，<span class="math inline">\(x\)</span> 为 <span
+class="math inline">\(10^9\)</span> 以内非负整数，令 <span
+class="math inline">\(a_i\gets a_i-x\cdot i,a_j\gets a_j+x\cdot
+i\)</span>。</p>
+<p>必须保证操作过程中的任意时刻序列 <span
+class="math inline">\(a\)</span> 中每个元素都非负。</p>
+<p>输出时先输出操作次数 <span class="math inline">\(k\)</span>，然后输出
+<span class="math inline">\(k\)</span> 行操作序列。</p>
+<p>数据组数 <span class="math inline">\(t\le10^4\)</span>，序列长度
+<span class="math inline">\(\sum n\le10^4\)</span>，元素大小 <span
+class="math inline">\(1\le a_i\le10^5\)</span>。</p>
 </blockquote>
 <p>感觉这种题目很喜欢找到一种，就像游戏机制一样的性质，使劲钻空子。</p>
-<p>首先如果 $n \not\mid \sum a_i$  一定无解，因为最终每个数一定会变成平均数。</p>
-<p>注意到 $i=1$ 的自由度最高，如果所有的多余的值都放在 $i=1$ 上那么这道题就非常简单了。</p>
-<p>考虑用以下方案移动 $i \in [2,n]$ 的 $a_i$ 的值：</p>
-<ol>
-<li>用 $a_1$ 把 $a_i$ 补成 $i$ 的倍数</li>
-<li>把 $a_i$ 移到 $a_1$ （即 $a_1 \gets a_i,~a_i \gets 0$ ）</li>
+<p>首先如果 <span class="math inline">\(n \not\mid \sum a_i\)</span>
+一定无解，因为最终每个数一定会变成平均数。</p>
+<p>注意到 <span class="math inline">\(i=1\)</span>
+的自由度最高，如果所有的多余的值都放在 <span
+class="math inline">\(i=1\)</span> 上那么这道题就非常简单了。</p>
+<p>考虑用以下方案移动 <span class="math inline">\(i \in [2,n]\)</span>
+的 <span class="math inline">\(a_i\)</span> 的值：</p>
+<ol type="1">
+<li>用 <span class="math inline">\(a_1\)</span> 把 <span
+class="math inline">\(a_i\)</span> 补成 <span
+class="math inline">\(i\)</span> 的倍数</li>
+<li>把 <span class="math inline">\(a_i\)</span> 移到 <span
+class="math inline">\(a_1\)</span> （即 <span class="math inline">\(a_1
+\gets a_i,~a_i \gets 0\)</span> ）</li>
 </ol>
-<p>最后，处理完所有的 $i$ 后，把 $a_1$ 均分给每个 $a_i$ 。</p>
-<p>这个方案唯一的疑点就是第一步 $a_1$ 有没有足够的值去填补。</p>
-<p>事实上一定是有的：显然 $a_i \ge 1$ ，因此在处理到第 $i$ 个数时 $a_1=\left(\sum_{1\le l &lt; i}{a_l}\right) \ge i-1$​ 。</p>
-<p>这样操作数就是 $3(n-1)$ ，符合题目要求。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>最后，处理完所有的 <span class="math inline">\(i\)</span> 后，把
+<span class="math inline">\(a_1\)</span> 均分给每个 <span
+class="math inline">\(a_i\)</span> 。</p>
+<p>这个方案唯一的疑点就是第一步 <span class="math inline">\(a_1\)</span>
+有没有足够的值去填补。</p>
+<p>事实上一定是有的：显然 <span class="math inline">\(a_i \ge 1\)</span>
+，因此在处理到第 <span class="math inline">\(i\)</span> 个数时 <span
+class="math inline">\(a_1=\left(\sum_{1\le l &lt; i}{a_l}\right) \ge
+i-1\)</span>​ 。</p>
+<p>这样操作数就是 <span class="math inline">\(3(n-1)\)</span>
+，符合题目要求。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -803,9 +833,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f54n6a4j">https://www.luogu.com.cn/article/f54n6a4j</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f54n6a4j">https://www.luogu.com.cn/article/f54n6a4j</a></p>
 
                 
             </div>
@@ -939,7 +970,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1266,7 +1297,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1535,21 +1566,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

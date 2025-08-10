@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -738,26 +739,54 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ARC119C-ARC-Wrecker-2-题解"><a href="#ARC119C-ARC-Wrecker-2-题解" class="headerlink" title="[ARC119C] ARC Wrecker 2 题解"></a>[ARC119C] ARC Wrecker 2 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc119_c">[ARC119C] ARC Wrecker 2</a></p>
+                <h1 id="arc119c-arc-wrecker-2-题解">[ARC119C] ARC Wrecker 2 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc119_c">[ARC119C] ARC
+Wrecker 2</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>在 AtCoder 街道上有 $N$ 座建筑物，从西到东编号为 $1$ 到 $N$。初始时，建筑物 $1, 2, \ldots, N$ 的高度分别为 $A_1, A_2, \ldots, A_N$。</p>
-<p>cxy 是 ARC Wrecker 公司的总裁，她计划选择整数 $l$ 和 $r$ $(1 \leq l &lt; r \leq N)$，并使得建筑物 $l, l+1, \ldots, r$ 的高度全部变为 $0$。为了达成这个目标，她可以任意次数任意顺序地使用以下两种操作：</p>
-<ol>
-<li>设置一个整数 $x$ $(l \leq x \leq r-1)$ 并使得建筑物 $x$ 和 $x+1$ 的高度各增加 $1$。</li>
-<li>设置一个整数 $x$ $(l \leq x \leq r-1)$ 并使得建筑物 $x$ 和 $x+1$ 的高度各减少 $1$。这种操作仅当这两座建筑物的高度都大于等于 $1$ 时才能进行。</li>
+<p>在 AtCoder 街道上有 <span class="math inline">\(N\)</span>
+座建筑物，从西到东编号为 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(N\)</span>。初始时，建筑物 <span
+class="math inline">\(1, 2, \ldots, N\)</span> 的高度分别为 <span
+class="math inline">\(A_1, A_2, \ldots, A_N\)</span>。</p>
+<p>cxy 是 ARC Wrecker 公司的总裁，她计划选择整数 <span
+class="math inline">\(l\)</span> 和 <span
+class="math inline">\(r\)</span> <span class="math inline">\((1 \leq l
+&lt; r \leq N)\)</span>，并使得建筑物 <span class="math inline">\(l,
+l+1, \ldots, r\)</span> 的高度全部变为 <span
+class="math inline">\(0\)</span>。为了达成这个目标，她可以任意次数任意顺序地使用以下两种操作：</p>
+<ol type="1">
+<li>设置一个整数 <span class="math inline">\(x\)</span> <span
+class="math inline">\((l \leq x \leq r-1)\)</span> 并使得建筑物 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(x+1\)</span> 的高度各增加 <span
+class="math inline">\(1\)</span>。</li>
+<li>设置一个整数 <span class="math inline">\(x\)</span> <span
+class="math inline">\((l \leq x \leq r-1)\)</span> 并使得建筑物 <span
+class="math inline">\(x\)</span> 和 <span
+class="math inline">\(x+1\)</span> 的高度各减少 <span
+class="math inline">\(1\)</span>。这种操作仅当这两座建筑物的高度都大于等于
+<span class="math inline">\(1\)</span> 时才能进行。</li>
 </ol>
-<p>请注意，$x$ 的范围取决于 $(l,r)$。</p>
-<p>有多少种 $(l,r)$ 的选择可以让 cxy 实现她的计划？</p>
+<p>请注意，<span class="math inline">\(x\)</span> 的范围取决于 <span
+class="math inline">\((l,r)\)</span>。</p>
+<p>有多少种 <span class="math inline">\((l,r)\)</span> 的选择可以让 cxy
+实现她的计划？</p>
 <p><strong>数据范围</strong>：</p>
-<p> $2 \leq N \leq 3\times 10^5,~1 \leq A_i \leq 10^9$</p>
+<p><span class="math inline">\(2 \leq N \leq 3\times 10^5,~1 \leq A_i
+\leq 10^9\)</span></p>
 </blockquote>
 <p>这个消数值的属于是经典题了。<del>经典题就经典在每次你看到相似的都不会</del></p>
 <p>容易发现同奇偶性的数可以相互传递数值，而单个修改的操作是同时抵消奇偶性不同的两个数。</p>
 <p>因此我们可以得到一个结论，一段区间如果可以被删光，则奇数位的和与偶数位的和相等。</p>
-<p>显然这个只需要把偶数位乘以 $-1$ 就可以转化为「区间和为 $0$ 」了，考虑前缀和处理。</p>
-<p>一段区间 $[l,r]$ 合法当且仅当 $S_{l-1} = S_r$ ，然后就是简单的组合计数问题了</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>显然这个只需要把偶数位乘以 <span class="math inline">\(-1\)</span>
+就可以转化为「区间和为 <span class="math inline">\(0\)</span>
+」了，考虑前缀和处理。</p>
+<p>一段区间 <span class="math inline">\([l,r]\)</span> 合法当且仅当
+<span class="math inline">\(S_{l-1} = S_r\)</span>
+，然后就是简单的组合计数问题了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -784,9 +813,10 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/back-to-you/Solutions-arc119c">https://www.luogu.com.cn/blog/back-to-you/Solutions-arc119c</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/back-to-you/Solutions-arc119c">https://www.luogu.com.cn/blog/back-to-you/Solutions-arc119c</a></p>
 
                 
             </div>
@@ -916,7 +946,7 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1251,7 +1281,7 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1520,21 +1550,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

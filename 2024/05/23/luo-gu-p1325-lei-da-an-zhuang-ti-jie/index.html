@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -738,25 +739,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1325-雷达安装-题解"><a href="#洛谷P1325-雷达安装-题解" class="headerlink" title="洛谷P1325 雷达安装 题解"></a>洛谷P1325 雷达安装 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1325">P1325 雷达安装</a> &amp; <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1193">UVA1193</a></p>
+                <h1 id="洛谷p1325-雷达安装-题解">洛谷P1325 雷达安装 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1325">P1325
+雷达安装</a> &amp; <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1193">UVA1193</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>假设海岸线是一条无限延伸的直线。它的一侧是陆地，另一侧是海洋。每一座小岛是在海面上的一个点。雷达必须安装在陆地上（包括海岸线），并且每个雷达都有相同的扫描范围 $d$。你的任务是建立尽量少的雷达站，使所有小岛都在扫描范围之内。</p>
-<p>数据使用笛卡尔坐标系，定义海岸线为 $x$ 轴。在 $x$​ 轴上方为海洋，下方为陆地。</p>
+<p>假设海岸线是一条无限延伸的直线。它的一侧是陆地，另一侧是海洋。每一座小岛是在海面上的一个点。雷达必须安装在陆地上（包括海岸线），并且每个雷达都有相同的扫描范围
+<span
+class="math inline">\(d\)</span>。你的任务是建立尽量少的雷达站，使所有小岛都在扫描范围之内。</p>
+<p>数据使用笛卡尔坐标系，定义海岸线为 <span
+class="math inline">\(x\)</span> 轴。在 <span
+class="math inline">\(x\)</span>​ 轴上方为海洋，下方为陆地。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405231803095.png" style="zoom:40%;" /></p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包括 $2$ 个整数 $n$ 和 $d$，$n$ 是岛屿数目，$d$ 是雷达扫描范围。</p>
-<p>接下来 $n$ 行，每行两个整数，为岛屿坐标。</p>
+<p>第一行包括 <span class="math inline">\(2\)</span> 个整数 <span
+class="math inline">\(n\)</span> 和 <span
+class="math inline">\(d\)</span>，<span class="math inline">\(n\)</span>
+是岛屿数目，<span class="math inline">\(d\)</span> 是雷达扫描范围。</p>
+<p>接下来 <span class="math inline">\(n\)</span>
+行，每行两个整数，为岛屿坐标。</p>
 <p><strong>输出格式</strong>：</p>
-<p>一个整数表示最少需要的雷达数目，若不可能覆盖所有岛屿，输出 <code>-1</code>。</p>
+<p>一个整数表示最少需要的雷达数目，若不可能覆盖所有岛屿，输出
+<code>-1</code>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于全部数据，$n\le1000,~d \le 2\times 10^4,~ | x_i | \le 2 \times 10^6,~ 0 \le y_i \le 2\times 10^4$。</p>
+<p>对于全部数据，<span class="math inline">\(n\le1000,~d \le 2\times
+10^4,~ | x_i | \le 2 \times 10^6,~ 0 \le y_i \le 2\times
+10^4\)</span>。</p>
 </blockquote>
 <p>考察如何圆的位置不是很方便，但是我们可以计算出每个点最远可以在哪放圆</p>
-<p>设这个区间为 $[l,r]$ ，则 $l = x_i - \sqrt{d^2-y^2},~r=x_i - \sqrt{d^2+y^2}$</p>
+<p>设这个区间为 <span class="math inline">\([l,r]\)</span> ，则 <span
+class="math inline">\(l = x_i - \sqrt{d^2-y^2},~r=x_i -
+\sqrt{d^2+y^2}\)</span></p>
 <p>那么问题就转化为了，区间上有若干条线段，要找最小的集合数使得每个集合内的线段相交。</p>
 <p>这个我们可以直接贪心扫过去，因为任何一条线都一定会加入某个集合。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -789,10 +807,11 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xkvpnqo6">https://www.luogu.com.cn/article/xkvpnqo6</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xkvpnqo6">https://www.luogu.com.cn/article/xkvpnqo6</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>应该放张图活跃气氛。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405231834587.png" style="zoom:30%;" /></p>
@@ -925,7 +944,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1268,7 +1287,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1537,21 +1556,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

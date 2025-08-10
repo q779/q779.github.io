@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,30 +743,56 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC027D-Modulo-Matrix-题解"><a href="#AGC027D-Modulo-Matrix-题解" class="headerlink" title="[AGC027D] Modulo Matrix 题解"></a>[AGC027D] Modulo Matrix 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc027_d">[AGC027D] Modulo Matrix</a></p>
+                <h1 id="agc027d-modulo-matrix-题解">[AGC027D] Modulo Matrix 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc027_d">[AGC027D] Modulo
+Matrix</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>构造一个 $N\times N$ 的矩阵. 要求：</p>
+<p>构造一个 <span class="math inline">\(N\times N\)</span> 的矩阵.
+要求：</p>
 <ul>
-<li>所有元素 $a_{i,j}$ 互不相同。</li>
-<li>满足 $1\le a_{i,j}\leq 10^{15}$。</li>
-<li>对于任意相邻（上下左右）的数字 ，$\max(x,y)\bmod \min(x,y)$ 都相等，且均为正整数。</li>
+<li>所有元素 <span class="math inline">\(a_{i,j}\)</span>
+互不相同。</li>
+<li>满足 <span class="math inline">\(1\le a_{i,j}\leq
+10^{15}\)</span>。</li>
+<li>对于任意相邻（上下左右）的数字 ，<span
+class="math inline">\(\max(x,y)\bmod \min(x,y)\)</span>
+都相等，且均为正整数。</li>
 </ul>
 <p>可以证明方案一定存在。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2 \le N \le 500$ 。</p>
+<p><span class="math inline">\(2 \le N \le 500\)</span> 。</p>
 </blockquote>
 <p>简单跑一跑暴力就会发现符合条件的情况还是很多的</p>
-<p><del>容易</del>想到一种构造，如果 $(i + j) \bmod 2=0$ ，就比较随便的填一个数</p>
-<p>否则填周围四个相邻格子的最小公倍数 $+1$ ，即 $a_{i,j} = \operatorname{lcm}\left(a_{i-1, j}, a_{i, j-1}, a_{i+1, j}, a_{i, j+1}\right)+1$</p>
-<p>这样子随便搞的话值域大约为 $\mathcal{O}(n^8)$ ，过不了。</p>
-<p>注意到 $\operatorname{lcm}(a,b,c,d)$ 的大小不仅与运算的 $a,b,c,d$  的数量级有关，还与他们的 $\gcd$ 有关</p>
-<p>考虑最大化 $\gcd$ 以降低 $\operatorname{lcm}(a,b,c,d)$ 的数量级，注意这里不是 $\gcd(a,b,c,d)$ ，是相邻两个的 $\gcd$ 。</p>
-<p>容易想到令 $a_{i,j} = p_{i-j}\times q_{i + j}$ ，其中 $p,q$ 均为质数。</p>
-<p>注意要调整一下质数的顺序，这样 $\operatorname{lcm}$ 约为 $\mathcal{O}\left((n \ln n)^4\right)$ ，具体构造如下：</p>
+<p><del>容易</del>想到一种构造，如果 <span class="math inline">\((i + j)
+\bmod 2=0\)</span> ，就比较随便的填一个数</p>
+<p>否则填周围四个相邻格子的最小公倍数 <span
+class="math inline">\(+1\)</span> ，即 <span
+class="math inline">\(a_{i,j} = \operatorname{lcm}\left(a_{i-1, j},
+a_{i, j-1}, a_{i+1, j}, a_{i, j+1}\right)+1\)</span></p>
+<p>这样子随便搞的话值域大约为 <span
+class="math inline">\(\mathcal{O}(n^8)\)</span> ，过不了。</p>
+<p>注意到 <span
+class="math inline">\(\operatorname{lcm}(a,b,c,d)\)</span>
+的大小不仅与运算的 <span class="math inline">\(a,b,c,d\)</span>
+的数量级有关，还与他们的 <span class="math inline">\(\gcd\)</span>
+有关</p>
+<p>考虑最大化 <span class="math inline">\(\gcd\)</span> 以降低 <span
+class="math inline">\(\operatorname{lcm}(a,b,c,d)\)</span>
+的数量级，注意这里不是 <span
+class="math inline">\(\gcd(a,b,c,d)\)</span> ，是相邻两个的 <span
+class="math inline">\(\gcd\)</span> 。</p>
+<p>容易想到令 <span class="math inline">\(a_{i,j} = p_{i-j}\times q_{i +
+j}\)</span> ，其中 <span class="math inline">\(p,q\)</span>
+均为质数。</p>
+<p>注意要调整一下质数的顺序，这样 <span
+class="math inline">\(\operatorname{lcm}\)</span> 约为 <span
+class="math inline">\(\mathcal{O}\left((n \ln n)^4\right)\)</span>
+，具体构造如下：</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406202237340.webp" style="zoom:67%;" /></p>
 <p><del>不要问我怎么想到这么构造的，我反正想不出来</del>，但是这个构造确实很牛批。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -810,10 +837,12 @@ rgba(0,0,0,0.2);
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/vsj1shf7">https://www.luogu.com.cn/article/vsj1shf7</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/m15t8xco">https://www.luogu.com.cn/article/m15t8xco</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/vsj1shf7">https://www.luogu.com.cn/article/vsj1shf7</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/m15t8xco">https://www.luogu.com.cn/article/m15t8xco</a></p>
 
                 
             </div>
@@ -947,7 +976,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1286,7 +1315,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1555,21 +1584,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

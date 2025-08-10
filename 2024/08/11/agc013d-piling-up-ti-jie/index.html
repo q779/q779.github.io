@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,32 +743,59 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="AGC013D-Piling-Up-题解"><a href="#AGC013D-Piling-Up-题解" class="headerlink" title="[AGC013D] Piling Up 题解"></a>[AGC013D] Piling Up 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc013_d">[AGC013D] Piling Up</a></p>
+                <h1 id="agc013d-piling-up-题解">[AGC013D] Piling Up 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc013_d">[AGC013D] Piling
+Up</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>一开始有 $n$ 个颜色为黑白的球，但不知道黑白色分别有多少。</p>
-<p>$m$ 次操作，每次先拿出一个球，再放入黑白球各一个，再拿出一个球，</p>
+<p>一开始有 <span class="math inline">\(n\)</span>
+个颜色为黑白的球，但不知道黑白色分别有多少。</p>
+<p><span class="math inline">\(m\)</span>
+次操作，每次先拿出一个球，再放入黑白球各一个，再拿出一个球，</p>
 <p>最后拿出的球按顺序排列会形成一个颜色序列，求颜色序列有多少种。</p>
-<p>答案对 $10^9+7$ 取模。</p>
+<p>答案对 <span class="math inline">\(10^9+7\)</span> 取模。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n, m \le 3000$ 。</p>
+<p><span class="math inline">\(1 \le n, m \le 3000\)</span> 。</p>
 </blockquote>
-<p>考虑设黑球初始有 $x_0$ 个，则白球有 $n - x_0$ 个。</p>
-<p>记 $x_i$ 为 $i$ 次操作后的黑球数量，考察 $i+1$ 的每种情况：</p>
-<ol>
-<li>两次都取黑球，要求 $x_i &gt; 0$ ，有 $x_{i+1} = x_i -1$ 。</li>
-<li>先黑球后白球，要求 $x_i &gt; 0$ ，有 $x_{i+1} = x_i$ 。</li>
-<li>先白球后黑球，要求 $x_i &lt; n$ ，有 $x_{i+1}=x_i$ 。</li>
-<li>两次都取白球，要求 $x_i &lt; n$ ，有 $x_{i+1} = x_i + 1$ 。</li>
+<p>考虑设黑球初始有 <span class="math inline">\(x_0\)</span>
+个，则白球有 <span class="math inline">\(n - x_0\)</span> 个。</p>
+<p>记 <span class="math inline">\(x_i\)</span> 为 <span
+class="math inline">\(i\)</span> 次操作后的黑球数量，考察 <span
+class="math inline">\(i+1\)</span> 的每种情况：</p>
+<ol type="1">
+<li>两次都取黑球，要求 <span class="math inline">\(x_i &gt; 0\)</span>
+，有 <span class="math inline">\(x_{i+1} = x_i -1\)</span> 。</li>
+<li>先黑球后白球，要求 <span class="math inline">\(x_i &gt; 0\)</span>
+，有 <span class="math inline">\(x_{i+1} = x_i\)</span> 。</li>
+<li>先白球后黑球，要求 <span class="math inline">\(x_i &lt; n\)</span>
+，有 <span class="math inline">\(x_{i+1}=x_i\)</span> 。</li>
+<li>两次都取白球，要求 <span class="math inline">\(x_i &lt; n\)</span>
+，有 <span class="math inline">\(x_{i+1} = x_i + 1\)</span> 。</li>
 </ol>
-<p>那么对于一种操作序列，根据以上关系式，我们可以确定 $x_0$ 的区间。</p>
-<p>考虑设 $f(i,j)$ 为 $x_i=j$ 时前 $i$ 次操作的合法方案数。</p>
-<p>初始 $f(0,j) = 1$ ，答案为 $\sum f(n,j)$ 。转移显然。</p>
-<p>不过这样的 dp 是会算重的，当 $x_0$ 的合法区间长度不为 $1$ 时，就可能统计到其他的情况。</p>
-<p>考虑重新设 $f(i,j)$ 为 $x_i = j$ 时前 $i$ 次操作的合法方案数，要求 $j$ 没有达到过 $0$ 。</p>
-<p>同时设 $g(i,j)$ 为 $x_i = j$ 时前前 $i$ 次操作的合法方案数，不过要求 $j$ 至少达到过一次 $0$ 。</p>
-<p>答案就是 $\sum g(n,j)$ 。这样我们对于每个区间只统计了一次，于是这题就做完了</p>
-<p>时间复杂度 $\mathcal{O}(nm)$</p>
+<p>那么对于一种操作序列，根据以上关系式，我们可以确定 <span
+class="math inline">\(x_0\)</span> 的区间。</p>
+<p>考虑设 <span class="math inline">\(f(i,j)\)</span> 为 <span
+class="math inline">\(x_i=j\)</span> 时前 <span
+class="math inline">\(i\)</span> 次操作的合法方案数。</p>
+<p>初始 <span class="math inline">\(f(0,j) = 1\)</span> ，答案为 <span
+class="math inline">\(\sum f(n,j)\)</span> 。转移显然。</p>
+<p>不过这样的 dp 是会算重的，当 <span class="math inline">\(x_0\)</span>
+的合法区间长度不为 <span class="math inline">\(1\)</span>
+时，就可能统计到其他的情况。</p>
+<p>考虑重新设 <span class="math inline">\(f(i,j)\)</span> 为 <span
+class="math inline">\(x_i = j\)</span> 时前 <span
+class="math inline">\(i\)</span> 次操作的合法方案数，要求 <span
+class="math inline">\(j\)</span> 没有达到过 <span
+class="math inline">\(0\)</span> 。</p>
+<p>同时设 <span class="math inline">\(g(i,j)\)</span> 为 <span
+class="math inline">\(x_i = j\)</span> 时前前 <span
+class="math inline">\(i\)</span> 次操作的合法方案数，不过要求 <span
+class="math inline">\(j\)</span> 至少达到过一次 <span
+class="math inline">\(0\)</span> 。</p>
+<p>答案就是 <span class="math inline">\(\sum g(n,j)\)</span>
+。这样我们对于每个区间只统计了一次，于是这题就做完了</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nm)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -817,10 +845,12 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/cy68zxln">https://www.luogu.com.cn/article/cy68zxln</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/rxlwqm73">https://www.luogu.com.cn/article/rxlwqm73</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/cy68zxln">https://www.luogu.com.cn/article/cy68zxln</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/rxlwqm73">https://www.luogu.com.cn/article/rxlwqm73</a></p>
 
                 
             </div>
@@ -954,7 +984,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1289,7 +1319,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1558,21 +1588,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

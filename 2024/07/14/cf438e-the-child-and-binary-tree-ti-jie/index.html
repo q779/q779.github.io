@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -746,32 +747,63 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF438E-The-Child-and-Binary-Tree-题解"><a href="#CF438E-The-Child-and-Binary-Tree-题解" class="headerlink" title="CF438E The Child and Binary Tree 题解"></a>CF438E The Child and Binary Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF438E">The Child and Binary Tree</a></p>
+                <h1 id="cf438e-the-child-and-binary-tree-题解">CF438E The Child and
+Binary Tree 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF438E">The Child
+and Binary Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 很喜欢计算机科学，而且尤其喜欢二叉树。 考虑一个含有 $n$ 个互异正整数的序列 $c_1,c_2\cdots,c_n$。如果一棵带点权的有根二叉树满足其所有顶点的权值都在集合  $\{c_1,c_2,\cdots,c_n\}$ 中，cxy 就会将其称作神犇的。</p>
+<p>cxy 很喜欢计算机科学，而且尤其喜欢二叉树。 考虑一个含有 <span
+class="math inline">\(n\)</span> 个互异正整数的序列 <span
+class="math inline">\(c_1,c_2\cdots,c_n\)</span>。如果一棵带点权的有根二叉树满足其所有顶点的权值都在集合
+<span class="math inline">\(\{c_1,c_2,\cdots,c_n\}\)</span> 中，cxy
+就会将其称作神犇的。</p>
 <p>并且她认为，一棵带点权的树的权值，是其所有顶点权值的总和。</p>
-<p>给出一个整数 $m$，你能对于任意的 $1\leq s\leq m$ 计算出权值为 $s$ 的神犇二叉树的个数吗？</p>
-<p>我们只需要知道答案关于 $998244353$ 取模后的值。</p>
-<p>参照下图以更好的理解什么样的两棵二叉树会被视为不同的。 </p>
+<p>给出一个整数 <span class="math inline">\(m\)</span>，你能对于任意的
+<span class="math inline">\(1\leq s\leq m\)</span> 计算出权值为 <span
+class="math inline">\(s\)</span> 的神犇二叉树的个数吗？</p>
+<p>我们只需要知道答案关于 <span class="math inline">\(998244353\)</span>
+取模后的值。</p>
+<p>参照下图以更好的理解什么样的两棵二叉树会被视为不同的。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407142233910.webp" style="zoom:67%;" /></p>
 <p><strong>输入格式</strong>：</p>
-<p>输入第一行有 $2$ 个整数  $n,m$ $(1\leq n,m\leq 10^5)$。 第二行有 $n$ 个用空格隔开的互异的整数  $c_1,c_2\cdots,c_n$ $(1\le c_i\le10^5)$。</p>
+<p>输入第一行有 <span class="math inline">\(2\)</span> 个整数 <span
+class="math inline">\(n,m\)</span> <span class="math inline">\((1\leq
+n,m\leq 10^5)\)</span>。 第二行有 <span class="math inline">\(n\)</span>
+个用空格隔开的互异的整数 <span
+class="math inline">\(c_1,c_2\cdots,c_n\)</span> <span
+class="math inline">\((1\le c_i\le10^5)\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $m$ 行，每行有一个整数。第 $i$ 行应当含有权值恰为 $i$ 的神犇二叉树的总数。请输出答案关于 $998244353$ 取模的结果。</p>
+<p>输出 <span class="math inline">\(m\)</span> 行，每行有一个整数。第
+<span class="math inline">\(i\)</span> 行应当含有权值恰为 <span
+class="math inline">\(i\)</span> 的神犇二叉树的总数。请输出答案关于
+<span class="math inline">\(998244353\)</span> 取模的结果。</p>
 </blockquote>
-<p>非常有趣的题目。设 $f_i$ 表示点权和为 $i$ 的二叉树的个数，$g_i$ 为权值 $i$ 在 $c$ 中的出现次数。</p>
-<p>边界 $f_0 = 1, g_0 = 1$ 。转移考虑钦定当前位选什么，则</p>
-<script type="math/tex; mode=display">
-f_n=\sum_{i=1}^n g_i \sum_{j=1}^{n-i} f_j f_{n-i-j}\quad (n > 0)</script><p>记 $F(x)$ 为 $f_i$ 的生成函数，$G(x)$ 为 $g_i$ 的生成函数，则上式可写作</p>
-<script type="math/tex; mode=display">
-F = G * F^2+1</script><p>利用求根公式可得</p>
-<script type="math/tex; mode=display">
-F=\frac{1 \pm \sqrt{1-4 G}}{2 G}</script><p>注意到取正号时 $F$ 形式上不收敛，即 $\lim\limits_{x \to 0} =\infty$ ，取负号的情况 $F=\frac{1 - \sqrt{1-4 G}}{2 G}$ 即可</p>
-<p>进一步化简得到</p>
-<script type="math/tex; mode=display">
-F=\frac{2}{1+\sqrt{1-4 G}}</script><p>考虑多项式开根+求逆。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>非常有趣的题目。设 <span class="math inline">\(f_i\)</span>
+表示点权和为 <span class="math inline">\(i\)</span>
+的二叉树的个数，<span class="math inline">\(g_i\)</span> 为权值 <span
+class="math inline">\(i\)</span> 在 <span
+class="math inline">\(c\)</span> 中的出现次数。</p>
+<p>边界 <span class="math inline">\(f_0 = 1, g_0 = 1\)</span>
+。转移考虑钦定当前位选什么，则 <span class="math display">\[
+f_n=\sum_{i=1}^n g_i \sum_{j=1}^{n-i} f_j f_{n-i-j}\quad (n &gt; 0)
+\]</span> 记 <span class="math inline">\(F(x)\)</span> 为 <span
+class="math inline">\(f_i\)</span> 的生成函数，<span
+class="math inline">\(G(x)\)</span> 为 <span
+class="math inline">\(g_i\)</span> 的生成函数，则上式可写作 <span
+class="math display">\[
+F = G * F^2+1
+\]</span> 利用求根公式可得 <span class="math display">\[
+F=\frac{1 \pm \sqrt{1-4 G}}{2 G}
+\]</span> 注意到取正号时 <span class="math inline">\(F\)</span>
+形式上不收敛，即 <span class="math inline">\(\lim\limits_{x \to 0}
+=\infty\)</span> ，取负号的情况 <span class="math inline">\(F=\frac{1 -
+\sqrt{1-4 G}}{2 G}\)</span> 即可</p>
+<p>进一步化简得到 <span class="math display">\[
+F=\frac{2}{1+\sqrt{1-4 G}}
+\]</span> 考虑多项式开根+求逆。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -875,9 +907,10 @@ F=\frac{2}{1+\sqrt{1-4 G}}</script><p>考虑多项式开根+求逆。</p>
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> m<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/eb5zgb9x">https://www.luogu.com.cn/article/eb5zgb9x</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/eb5zgb9x">https://www.luogu.com.cn/article/eb5zgb9x</a></p>
 
                 
             </div>
@@ -1015,7 +1048,7 @@ F=\frac{2}{1+\sqrt{1-4 G}}</script><p>考虑多项式开根+求逆。</p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1350,7 +1383,7 @@ F=\frac{2}{1+\sqrt{1-4 G}}</script><p>考虑多项式开根+求逆。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1619,21 +1652,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

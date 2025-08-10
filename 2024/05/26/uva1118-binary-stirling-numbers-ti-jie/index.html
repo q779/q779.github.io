@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -718,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    682
+                    686
                 </div>
                 
 
@@ -738,46 +739,80 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="UVA1118-Binary-Stirling-Numbers-题解"><a href="#UVA1118-Binary-Stirling-Numbers-题解" class="headerlink" title="UVA1118 Binary Stirling Numbers 题解"></a>UVA1118 Binary Stirling Numbers 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1118">Binary Stirling Numbers</a> 或者 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP106">SP106</a></p>
+                <h1 id="uva1118-binary-stirling-numbers-题解">UVA1118 Binary Stirling
+Numbers 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA1118">Binary
+Stirling Numbers</a> 或者 <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP106">SP106</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>The Stirling number of the second kind $S(n, m)$ represents the number of ways to partition a set of $n$ things into $m$​ nonempty subsets. For example, there are seven ways to split a four-element set into two parts:</p>
-<script type="math/tex; mode=display">
+<p>The Stirling number of the second kind <span
+class="math inline">\(S(n, m)\)</span> represents the number of ways to
+partition a set of <span class="math inline">\(n\)</span> things into
+<span class="math inline">\(m\)</span>​ nonempty subsets. For example,
+there are seven ways to split a four-element set into two parts: <span
+class="math display">\[
 \begin{gathered}
-\{1,2,3\} \cup\{4\},\{1,2,4\} \cup\{3\},\{1,3,4\} \cup\{2\},\{2,3,4\} \cup\{1\} \\
+\{1,2,3\} \cup\{4\},\{1,2,4\} \cup\{3\},\{1,3,4\} \cup\{2\},\{2,3,4\}
+\cup\{1\} \\
 \{1,2\} \cup\{3,4\},\{1,3\} \cup\{2,4\},\{1,4\} \cup\{2,3\} .
-\end{gathered}</script><p>We can compute $S(n, m)$​ using the recurrence,</p>
-<script type="math/tex; mode=display">
-S(n, m)=m S(n-1, m)+S(n-1, m-1)</script><p>but your task is slightly different: </p>
-<p>给定整数 $n,m$ ，计算出 $S(n,m)$ 的奇偶性，也就是 $S(n,m) \bmod 2$ 。</p>
-<p>输入：多组数据，$n,m$ 。输出：答案。</p>
+\end{gathered}
+\]</span> We can compute <span class="math inline">\(S(n, m)\)</span>​
+using the recurrence, <span class="math display">\[
+S(n, m)=m S(n-1, m)+S(n-1, m-1)
+\]</span> but your task is slightly different:</p>
+<p>给定整数 <span class="math inline">\(n,m\)</span> ，计算出 <span
+class="math inline">\(S(n,m)\)</span> 的奇偶性，也就是 <span
+class="math inline">\(S(n,m) \bmod 2\)</span> 。</p>
+<p>输入：多组数据，<span class="math inline">\(n,m\)</span>
+。输出：答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le m \le n \le 10^9$ 。</p>
+<p><span class="math inline">\(1 \le m \le n \le 10^9\)</span> 。</p>
 </blockquote>
-<p>首先</p>
-<script type="math/tex; mode=display">
+<p>首先 <span class="math display">\[
 \begin{aligned}
-& S(n, m)=S(n-1, m-1)+m \times S(n-1, m) 
-\\[6pt] & S(0,0)=1, ~S(n, 0)=S(0, m)=0 
-\end{aligned}</script><p>那么</p>
-<script type="math/tex; mode=display">
+&amp; S(n, m)=S(n-1, m-1)+m \times S(n-1, m)
+\\[6pt] &amp; S(0,0)=1, ~S(n, 0)=S(0, m)=0
+\end{aligned}
+\]</span> 那么 <span class="math display">\[
 S(n, m) \equiv\left\{\begin{array}{ll}
-S(n-1, m-1) & m \bmod 2=0 \\[8pt]
-S(n-1, m-1)+S(n-1, m) & m \bmod 2=1
-\end{array}\pmod 2\right.</script><p>可以作图如下（<del>这个图怎么看上去是歪的啊</del>）</p>
+S(n-1, m-1) &amp; m \bmod 2=0 \\[8pt]
+S(n-1, m-1)+S(n-1, m) &amp; m \bmod 2=1
+\end{array}\pmod 2\right.
+\]</span> 可以作图如下（<del>这个图怎么看上去是歪的啊</del>）</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405260915794.png" style="zoom:50%;" /></p>
-<p>图中红线表示 $S(n-1,m-1)$ 到 $S(n,m)$ 的转移，蓝线表示 $S(n-1,m)$ 到 $S(n,m)$ 的转移。</p>
-<p>因为只有红线能增加 $m$ ，所以从 $(0,0)$ 到 $(n,m)$ 的转移中，红线经过了 $m$ 次，则蓝线经过了 $n-m$​ 次。</p>
-<p>而对于点 $(n,m)$ ，能用的蓝线的数量 $k=\left\lfloor\frac{m+1}{2}\right\rfloor$ ，即将 $n-m$ 次蓝线划分为不超过 $k$ 个连续段。</p>
-<script type="math/tex; mode=display">
-S(n,m)\equiv\binom{n-m+k-1}{k-1}\pmod{2}</script><p>于是问题转化为组合数的奇偶性问题。</p>
-<p>根据 Lucas 定理，</p>
-<script type="math/tex; mode=display">
-\binom{n}{m} \equiv\binom{\left\lfloor\frac{n}{2}\right\rfloor}{\left\lfloor\frac{m}{2}\right\rfloor} \times\binom{ n \bmod 2}{m \bmod 2} \pmod{2}</script><p>这实际上就是在考察 $m$ 的每个二进制位</p>
-<p>可以发现，当且仅当 $n,m$ 这一位同时为 $1$ ，答案才可能是 $1$ 。</p>
-<p>即，当且仅当 $(n \land m)=m$ （$\land$ 表示二进制按位与） ，$\binom{n}{m} \bmod 2=1$​ 。</p>
+<p>图中红线表示 <span class="math inline">\(S(n-1,m-1)\)</span> 到 <span
+class="math inline">\(S(n,m)\)</span> 的转移，蓝线表示 <span
+class="math inline">\(S(n-1,m)\)</span> 到 <span
+class="math inline">\(S(n,m)\)</span> 的转移。</p>
+<p>因为只有红线能增加 <span class="math inline">\(m\)</span> ，所以从
+<span class="math inline">\((0,0)\)</span> 到 <span
+class="math inline">\((n,m)\)</span> 的转移中，红线经过了 <span
+class="math inline">\(m\)</span> 次，则蓝线经过了 <span
+class="math inline">\(n-m\)</span>​ 次。</p>
+<p>而对于点 <span class="math inline">\((n,m)\)</span>
+，能用的蓝线的数量 <span
+class="math inline">\(k=\left\lfloor\frac{m+1}{2}\right\rfloor\)</span>
+，即将 <span class="math inline">\(n-m\)</span> 次蓝线划分为不超过 <span
+class="math inline">\(k\)</span> 个连续段。 <span
+class="math display">\[
+S(n,m)\equiv\binom{n-m+k-1}{k-1}\pmod{2}
+\]</span> 于是问题转化为组合数的奇偶性问题。</p>
+<p>根据 Lucas 定理， <span class="math display">\[
+\binom{n}{m}
+\equiv\binom{\left\lfloor\frac{n}{2}\right\rfloor}{\left\lfloor\frac{m}{2}\right\rfloor}
+\times\binom{ n \bmod 2}{m \bmod 2} \pmod{2}
+\]</span> 这实际上就是在考察 <span class="math inline">\(m\)</span>
+的每个二进制位</p>
+<p>可以发现，当且仅当 <span class="math inline">\(n,m\)</span>
+这一位同时为 <span class="math inline">\(1\)</span> ，答案才可能是 <span
+class="math inline">\(1\)</span> 。</p>
+<p>即，当且仅当 <span class="math inline">\((n \land m)=m\)</span>
+（<span class="math inline">\(\land\)</span> 表示二进制按位与） ，<span
+class="math inline">\(\binom{n}{m} \bmod 2=1\)</span>​ 。</p>
 <p>于是原题就可以做了。</p>
-<p>单次询问时间复杂度 $\mathcal{O}(1)$</p>
+<p>单次询问时间复杂度 <span
+class="math inline">\(\mathcal{O}(1)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -803,11 +838,13 @@ S(n,m)\equiv\binom{n-m+k-1}{k-1}\pmod{2}</script><p>于是问题转化为组合�
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/u3g9is8w">https://www.luogu.com.cn/article/u3g9is8w</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7cxxhl0r">https://www.luogu.com.cn/article/7cxxhl0r</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/u3g9is8w">https://www.luogu.com.cn/article/u3g9is8w</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7cxxhl0r">https://www.luogu.com.cn/article/7cxxhl0r</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405260957280.jpg" style="zoom:30%;" /></p>
 
@@ -939,7 +976,7 @@ S(n,m)\equiv\binom{n-m+k-1}{k-1}\pmod{2}</script><p>于是问题转化为组合�
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1286,7 +1323,7 @@ S(n,m)\equiv\binom{n-m+k-1}{k-1}\pmod{2}</script><p>于是问题转化为组合�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1555,21 +1592,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

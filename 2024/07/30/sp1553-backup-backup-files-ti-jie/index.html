@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -742,27 +743,59 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SP1553-BACKUP-Backup-Files-题解"><a href="#SP1553-BACKUP-Backup-Files-题解" class="headerlink" title="SP1553 BACKUP - Backup Files 题解"></a>SP1553 BACKUP - Backup Files 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1553">BACKUP - Backup Files</a></p>
+                <h1 id="sp1553-backup---backup-files-题解">SP1553 BACKUP - Backup Files
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1553">BACKUP -
+Backup Files</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>你在一家 IT 公司为大型写字楼或办公楼的计算机数据做备份。然而数据备份的工作是枯燥乏味的，因此你想设计一个系统让不同的办公楼彼此之间互相备份，而你则坐在家中尽享计算机游戏的乐趣。</p>
+<p>你在一家 IT
+公司为大型写字楼或办公楼的计算机数据做备份。然而数据备份的工作是枯燥乏味的，因此你想设计一个系统让不同的办公楼彼此之间互相备份，而你则坐在家中尽享计算机游戏的乐趣。</p>
 <p>已知办公楼都位于同一条街上。你决定给这些办公楼配对（两个一组）。每一对办公楼可以通过在这两个建筑物之间铺设网络电缆使得它们可以互相备份。</p>
-<p>然而，网络电缆的费用很高。当地电信公司仅能为你提供 $k$ 条网络电缆，这意味着你仅能为 $k$ 对办公楼（或总计 $2k$ 个办公楼）安排备份。任一个办公楼都属于唯一的配对组（换句话说，这 $2k$ 个办公楼一定是相异的）。</p>
-<p>此外，电信公司需按网络电缆的长度（公里数）收费。因而，你需要选择这 $k$ 对办公楼使得电缆的总长度尽可能短。换句话说，你需要选择这 $k$ 对办公楼，使得每一对办公楼之间的距离之和（总距离）尽可能小。</p>
-<p>下面给出一个示例，假定你有 $5$ 个客户，其办公楼都在一条街上，如下图所示。这 $5$ 个办公楼分别位于距离大街起点 1km, 3km, 4km, 6km 和 12km 处。电信公司仅为你提供 $k=2$ 条电缆。</p>
+<p>然而，网络电缆的费用很高。当地电信公司仅能为你提供 <span
+class="math inline">\(k\)</span> 条网络电缆，这意味着你仅能为 <span
+class="math inline">\(k\)</span> 对办公楼（或总计 <span
+class="math inline">\(2k\)</span>
+个办公楼）安排备份。任一个办公楼都属于唯一的配对组（换句话说，这 <span
+class="math inline">\(2k\)</span> 个办公楼一定是相异的）。</p>
+<p>此外，电信公司需按网络电缆的长度（公里数）收费。因而，你需要选择这
+<span class="math inline">\(k\)</span>
+对办公楼使得电缆的总长度尽可能短。换句话说，你需要选择这 <span
+class="math inline">\(k\)</span>
+对办公楼，使得每一对办公楼之间的距离之和（总距离）尽可能小。</p>
+<p>下面给出一个示例，假定你有 <span class="math inline">\(5\)</span>
+个客户，其办公楼都在一条街上，如下图所示。这 <span
+class="math inline">\(5\)</span> 个办公楼分别位于距离大街起点 1km, 3km,
+4km, 6km 和 12km 处。电信公司仅为你提供 <span
+class="math inline">\(k=2\)</span> 条电缆。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407302110944.png" style="zoom:80%;" /></p>
-<p>上例中最好的配对方案是将第 1 个和第 2 个办公楼相连，第 3 个和第 4 个办公楼相连。这样可按要求使用 $k=2$ 条电缆。第 1 条电缆的长度是 3km - 1km = 2km，第 2 条电缆的长度是 6km - 4km = 2km。这种配对方案需要总长 4km 的网络电缆，满足距离之和最小的要求。</p>
+<p>上例中最好的配对方案是将第 1 个和第 2 个办公楼相连，第 3 个和第 4
+个办公楼相连。这样可按要求使用 <span class="math inline">\(k=2\)</span>
+条电缆。第 1 条电缆的长度是 3km - 1km = 2km，第 2 条电缆的长度是 6km -
+4km = 2km。这种配对方案需要总长 4km
+的网络电缆，满足距离之和最小的要求。</p>
 <p><strong>输入格式</strong>：</p>
 <p>本题有多组数据。</p>
-<p>每组输入文件的第一行包含整数 $n$ 和 $k$，其中 $n~(1\le n\le 10^5)$ 表示办公楼的数目，$k~(1\le k\le \frac{n}{2})$ 表示可利用的网络电缆的数目。</p>
-<p>接下来的 $n$ 行每行仅包含一个整数 $(0\le s\le 10^9)$ ，表示每个办公楼到大街起点处的距离。</p>
+<p>每组输入文件的第一行包含整数 <span class="math inline">\(n\)</span>
+和 <span class="math inline">\(k\)</span>，其中 <span
+class="math inline">\(n~(1\le n\le 10^5)\)</span>
+表示办公楼的数目，<span class="math inline">\(k~(1\le k\le
+\frac{n}{2})\)</span> 表示可利用的网络电缆的数目。</p>
+<p>接下来的 <span class="math inline">\(n\)</span> 行每行仅包含一个整数
+<span class="math inline">\((0\le s\le 10^9)\)</span>
+，表示每个办公楼到大街起点处的距离。</p>
 <p>这些整数将按照从小到大的顺序依次出现。</p>
 <p><strong>输出格式</strong>：</p>
-<p>每组输出文件应当由一个正整数组成，给出将 2K 个相异的办公楼连成 K 对所需的网络电缆的最小总长度。</p>
+<p>每组输出文件应当由一个正整数组成，给出将 2K 个相异的办公楼连成 K
+对所需的网络电缆的最小总长度。</p>
 </blockquote>
-<p>记 $w_i = a_{i + 1} - a_i$ ，问题就变成选 $k$ 对，容易设计出 dp 方程。</p>
-<p>显然这个 dp 方程是一个凸函数，考虑 wqs 二分即可。检验的话也是一个简单 dp 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log V)$</p>
+<p>记 <span class="math inline">\(w_i = a_{i + 1} - a_i\)</span>
+，问题就变成选 <span class="math inline">\(k\)</span> 对，容易设计出 dp
+方程。</p>
+<p>显然这个 dp 方程是一个凸函数，考虑 wqs 二分即可。检验的话也是一个简单
+dp 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+V)\)</span></p>
 <p>代码：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -817,10 +850,12 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3620">P3620 [APIO/CTSC2007] 数据备份</a></p>
-<hr>
+<p>双倍经验：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3620">P3620
+[APIO/CTSC2007] 数据备份</a></p>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/qrigcsmi">https://www.luogu.com.cn/article/qrigcsmi</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/qrigcsmi">https://www.luogu.com.cn/article/qrigcsmi</a></p>
 
                 
             </div>
@@ -954,7 +989,7 @@ rgba(0,0,0,0.2);
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️',
+    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1285,7 +1320,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1368.9k</span>&nbsp;字
+                class="white-color">1402.1k</span>&nbsp;字
             
             
             
@@ -1554,21 +1589,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
