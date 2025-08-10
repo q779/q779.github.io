@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -28,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="/en/css/my.css">
 
     <script src="/en/libs/jquery/jquery.min.js"></script>
-    <!-- <script src="/live2d-widget/autoload.js"></script> -->
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -180,14 +180,23 @@ rgba(0,0,0,0.2);
 
 
 
-   <style>
-    body{
-       background-image: url(/medias/bg2.webp);
-       background-repeat:no-repeat;
-       background-size:cover;
-       background-attachment:fixed;
-    }
-</style>
+   
+    <style>
+        body{
+            background-image: url(/medias/banner/0.webp);
+            background-repeat:no-repeat;
+            background-size:cover;
+            background-attachment:fixed;
+        }
+
+        @media only screen and (max-width: 1024px) {
+            /* 分辨率小于1024时不显示背景图 */
+            body {
+                background-image: none; 
+            }
+        }
+    </style>
+
 
 
 
@@ -224,7 +233,7 @@ rgba(0,0,0,0.2);
 <body>
     
         <div id="loading-container">
-             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <p class="loading-text">Shh~ Stealing the page from the server . . .</p> 
              <div class="loading-image">
                  <div></div>
                  <div></div>
@@ -242,7 +251,7 @@ rgba(0,0,0,0.2);
             <div class="brand-logo">
                 <a href="/en/" class="waves-effect waves-light">
                     
-                    <img src="/en/medias/logo.png" class="logo-img" alt="LOGO">
+                    <img src="/en/medias/logo.webp" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">Q779’s Blog</span>
                 </a>
@@ -350,7 +359,7 @@ rgba(0,0,0,0.2);
 
     <div class="mobile-head bg-color">
         
-        <img src="/en/medias/logo.png" class="logo-img circle responsive-img">
+        <img src="/en/medias/logo.webp" class="logo-img circle responsive-img no-lazy" alt="LOGO">
         
         <div class="logo-name">Q779’s Blog</div>
         <div class="logo-desc">
@@ -544,27 +553,13 @@ rgba(0,0,0,0.2);
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/en/medias/featureimages/p218.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/en/medias/featureimages/p12.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand center">
                     
-                        <h1 class="description center-align post-title">
-                            <span id="post-title"></span>
-                        </h1>
-                        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                        <script>
-                            var typedObj = new Typed("#post-title", {
-                                strings: [ 'Essays 2025-01-31' ],
-                                startDelay: 500,
-                                typeSpeed: 75,
-                                loop: false,
-                                backSpeed: 50,
-                                showCursor: true,
-                                cursorChar: '_',
-                            });
-                        </script>
+                        <h1 class="description center-align post-title">Essays 2025-01-31</h1>
                     
                 </div>
             </div>
@@ -877,7 +872,7 @@ been completely <strong>abandon</strong>ed.</p>
                     <div class="card-image">
                         
                         
-                        <img src="/en/medias/featureimages/p218.jpg" class="responsive-img" alt="Essays 2025-01-31">
+                        <img src="/en/medias/featureimages/p12.webp" class="responsive-img" alt="Essays 2025-01-31">
                         
                         <span class="card-title">Essays 2025-01-31</span>
                     </div>
@@ -927,7 +922,7 @@ been completely <strong>abandon</strong>ed.</p>
                     <div class="card-image">
                         
                         
-                        <img src="/en/medias/featureimages/p52.jpg" class="responsive-img" alt="CF794C Naming Company Solution">
+                        <img src="/en/medias/featureimages/p74.webp" class="responsive-img" alt="CF794C Naming Company Solution">
                         
                         <span class="card-title">CF794C Naming Company Solution</span>
                     </div>
@@ -1274,55 +1269,56 @@ $(function () {
                     datas.forEach(function (data) {
                         var isMatch = true;
                         var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        // 注释掉内容相关搜索
+                        // var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
                         var data_url = data.url;
                         data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
                         var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
+                        // var index_content = -1;
+                        // var first_occur = -1;
+                        // 只匹配标题，内容相关的判断注释掉
+                        if (data_title !== '') {
                             keywords.forEach(function (keyword, i) {
                                 index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
+                                // index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 /* && index_content < 0 */) {
                                     isMatch = false;
                                 } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
+                                    // if (index_content < 0) {
+                                    //     index_content = 0;
+                                    // }
+                                    // if (i === 0) {
+                                    //     first_occur = index_content;
+                                    // }
                                 }
                             });
+                        } else {
+                            isMatch = false;
                         }
                         // show search results
                         if (isMatch) {
                             str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
+                            // 不显示内容摘要
+                            // var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            // if (first_occur >= 0) {
+                            //     var start = first_occur - 20;
+                            //     var end = first_occur + 80;
+                            //     if (start < 0) {
+                            //         start = 0;
+                            //     }
+                            //     if (start === 0) {
+                            //         end = 100;
+                            //     }
+                            //     if (end > content.length) {
+                            //         end = content.length;
+                            //     }
+                            //     var match_content = content.substr(start, end);
+                            //     keywords.forEach(function (keyword) {
+                            //         var regS = new RegExp(keyword, "gi");
+                            //         match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                            //     });
+                            //     str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            // }
                             str += "</li>";
                         }
                     });
@@ -1336,7 +1332,6 @@ $(function () {
     searchFunc('/en/search.xml', 'searchInput', 'searchResult');
 });
 </script>
-
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
@@ -1371,8 +1366,6 @@ $(function () {
 </script>
 
     
-    <script src="/en/libs/others/clicklove.js" async="async"></script>
-    
     
     <script async src="/en/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1393,6 +1386,21 @@ $(function () {
     
     <script src="/en/libs/instantpage/instantpage.js" type="module"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
