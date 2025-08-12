@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF915F Imbalance Value of a Tree 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,66 +739,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf915f-imbalance-value-of-a-tree-题解">CF915F Imbalance Value of
-a Tree 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F
-Imbalance Value of a Tree</a></p>
+                <h1 id="CF915F-Imbalance-Value-of-a-Tree-题解"><a href="#CF915F-Imbalance-Value-of-a-Tree-题解" class="headerlink" title="CF915F Imbalance Value of a Tree 题解"></a>CF915F Imbalance Value of a Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF915F">CF915F Imbalance Value of a Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 <span class="math inline">\(n\)</span>
-个点的树，每个点有点权 <span class="math inline">\(a_i\)</span> 。</p>
-<p>定义 <span class="math inline">\(I(x,y)\)</span> 为 <span
-class="math inline">\(x\)</span> 到 <span
-class="math inline">\(y\)</span> 的简单路径上的 <span
-class="math inline">\(\max\{a_i\}-\min\{a_i\}\)</span></p>
-<p>求 <span class="math display">\[
-\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)
-\]</span> <strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 10^6\)</span></p>
+<p>给定一棵 $n$ 个点的树，每个点有点权 $a_i$ 。</p>
+<p>定义 $I(x,y)$ 为 $x$ 到 $y$ 的简单路径上的 $\max\{a_i\}-\min\{a_i\}$</p>
+<p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n} I(i,j)</script><p><strong>数据范围</strong>：</p>
+<p>$1 \le n \le 10^6$</p>
 </blockquote>
-<p>这个 <span class="math inline">\(I(i,j)\)</span>
-是真的难看。考虑化简。 <span class="math display">\[
-\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)
-\]</span> <span class="math inline">\(f(i,j)\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 的简单路径上的 <span
-class="math inline">\(\max\{a_i\}\)</span></p>
-<p><span class="math inline">\(g(i,j)\)</span> 表示 <span
-class="math inline">\(i\)</span> 到 <span
-class="math inline">\(j\)</span> 的简单路径上的 <span
-class="math inline">\(\min\{a_i\}\)</span></p>
+<p>这个 $I(i,j)$ 是真的难看。考虑化简。</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)-\sum_{i=1}^{n}\sum_{j=1}^{n} g(i,j)</script><p>$f(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\max\{a_i\}$</p>
+<p>$g(i,j)$ 表示 $i$ 到 $j$ 的简单路径上的 $\min\{a_i\}$</p>
 <p>套路地，由于我们只需要知道总答案，而并非每一条路径的答案</p>
 <p>于是考虑每个点的贡献。但是这个点就很不好处理。</p>
 <p>我们可以先看看最熟悉的<strong>边权</strong>怎么处理</p>
 <p>不失一般性，考虑<strong>边权最大值</strong>的贡献。</p>
 <p>如果是边权的话，我们可以把所有的边从小到大排序</p>
 <p>然后一条条边的加入，计算贡献后合并边两端的结点</p>
-<p>对于当前的边 <span class="math inline">\((u,v)\)</span>
-，它的贡献就是 <span class="math display">\[
-w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)
-\]</span> 其中 <span class="math inline">\(\mathrm{size}(u)\)</span>
-表示当前 <span class="math inline">\(u\)</span> 所在连通块的大小。</p>
+<p>对于当前的边 $(u,v)$ ，它的贡献就是</p>
+<script type="math/tex; mode=display">
+w_{\text{mx}}(u,v) \times \mathrm{size}(u) \times \mathrm{size}(v)</script><p>其中 $\mathrm{size}(u)$ 表示当前 $u$ 所在连通块的大小。</p>
 <p>然后我们考虑点权怎么处理</p>
-<p>考虑一条路径 <span class="math inline">\(a \rightarrow b \rightarrow
-c\)</span></p>
-<p>它的点权最大值就是（<del>懒得写 <span
-class="math inline">\(a_a,a_b,a_c\)</span> ，看得懂就好</del>） <span
-class="math display">\[
-\max\{a,b,c\}
-\]</span> 根据 <span class="math inline">\(\max\)</span>
-多次嵌套不变的性质，可知 <span class="math display">\[
-\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}
-\]</span> 注意到这构成了 <span
-class="math inline">\((a,b),(b,c)\)</span>
-的配对，于是我们就可以把<strong>点权化为边权</strong>了。 <span
-class="math display">\[
-w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}
-\]</span> 最小值也是一样的，就是从大到小排序而已。</p>
-<p>时间复杂度 <span class="math inline">\(O(n)\)</span></p>
-<p>树上的题目，如果 <span class="math inline">\(n\le 10^6\)</span>
-，一般都是 <span class="math inline">\(O(n)\)</span> 的</p>
+<p>考虑一条路径 $a \rightarrow b \rightarrow c$</p>
+<p>它的点权最大值就是（<del>懒得写 $a_a,a_b,a_c$ ，看得懂就好</del>）</p>
+<script type="math/tex; mode=display">
+\max\{a,b,c\}</script><p>根据 $\max$ 多次嵌套不变的性质，可知</p>
+<script type="math/tex; mode=display">
+\max\{a,b,c\}=\max\left\{\max\{a,b\}, ~\max\{b,c\}\right\}</script><p>注意到这构成了 $(a,b),(b,c)$ 的配对，于是我们就可以把<strong>点权化为边权</strong>了。</p>
+<script type="math/tex; mode=display">
+w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}</script><p>最小值也是一样的，就是从大到小排序而已。</p>
+<p>时间复杂度 $O(n)$ </p>
+<p>树上的题目，如果 $n\le 10^6$ ，一般都是 $O(n)$ 的</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -857,10 +829,9 @@ w_{\text{mx}}(u,v) \leftarrow \max\{a_u,a_v\}
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solution-cf915f">https://www.luogu.com.cn/blog/36957/solution-cf915f</a></p>
 
                 
             </div>
@@ -986,7 +957,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -994,7 +964,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1337,7 +1307,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1405,13 +1375,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1421,7 +1391,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1429,13 +1399,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1451,7 +1421,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/36957/solutio
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1606,21 +1576,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1201E2 Knightmare (hard) 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -747,108 +743,46 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1201e2-knightmare-hard-题解">CF1201E2 Knightmare (hard)
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1201E2">Knightmare
-(hard)</a></p>
+                <h1 id="CF1201E2-Knightmare-hard-题解"><a href="#CF1201E2-Knightmare-hard-题解" class="headerlink" title="CF1201E2 Knightmare (hard) 题解"></a>CF1201E2 Knightmare (hard) 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1201E2">Knightmare (hard)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>本题是交互题。</p>
-<p>Alice 和 Bob 在 <span class="math inline">\(n \times m\)</span>
-的国际象棋棋盘上下棋，<span class="math inline">\(n,m\)</span>
-<strong>都是偶数</strong>。</p>
-<p>棋盘上有一个黑棋 <span class="math inline">\(\unicode{x265E}\)</span>
-和一个白棋 <span class="math inline">\(\unicode{x2658}\)</span>
-，白棋先手，走法同国际象棋中的骑士（同中国象棋的马）。</p>
-<p>现在双方要将棋子跳到目标点。白棋的目标点是 <span
-class="math inline">\(\left(\frac{n}{2},
-\frac{m}{2}\right)\)</span>，黑棋的目标点是 <span
-class="math inline">\(\left(\frac{n}{2} + 1,
-\frac{m}{2}\right)\)</span>。</p>
+<p>Alice 和 Bob 在 $n \times m$ 的国际象棋棋盘上下棋，$n,m$ <strong>都是偶数</strong>。</p>
+<p>棋盘上有一个黑棋 $\unicode{x265E}$ 和一个白棋 $\unicode{x2658}$ ，白棋先手，走法同国际象棋中的骑士（同中国象棋的马）。</p>
+<p>现在双方要将棋子跳到目标点。白棋的目标点是 $\left(\frac{n}{2}, \frac{m}{2}\right)$，黑棋的目标点是 $\left(\frac{n}{2} + 1, \frac{m}{2}\right)$。</p>
 <p>游戏胜利的条件如下：</p>
 <ul>
 <li>棋子到达了目标点，<strong>且当前对方棋子不能攻击到目标点</strong>。</li>
 <li>吃掉了对方的棋子。</li>
 </ul>
-<p>如果 <span class="math inline">\(350\)</span>
-回合后游戏未结束，则视为平局。</p>
-<p>请你帮助 Alice 选择黑棋 <span
-class="math inline">\(\unicode{x265E}\)</span> 或白棋 <span
-class="math inline">\(\unicode{x2658}\)</span>
-以赢得这场游戏。可以证明一定 Alice 存在必胜策略。</p>
+<p>如果 $350$ 回合后游戏未结束，则视为平局。</p>
+<p>请你帮助 Alice 选择黑棋 $\unicode{x265E}$ 或白棋 $\unicode{x2658}$ 以赢得这场游戏。可以证明一定 Alice 存在必胜策略。</p>
 <p><strong>交互格式</strong>：</p>
-<p>读入 <span class="math inline">\(n,m,x_0,y_0,x_1,y_1(6\le n,m\le
-1000)\)</span> 表示棋盘大小以及白棋黑棋的初始位置 <span
-class="math inline">\((x_0,y_0)\)</span> 和 <span
-class="math inline">\((x_1,y_1)\)</span> 。</p>
-<p>此时你应该输出一行 <span class="math inline">\(\tt BLACK\)</span>
-或者 <span class="math inline">\(\tt WHITE\)</span>
-，表示初始选择的棋子是黑棋 <span
-class="math inline">\(\unicode{x265E}\)</span> 还是白棋 <span
-class="math inline">\(\unicode{x2658}\)</span>。</p>
-<p>当轮到你走棋时，输出 <span class="math inline">\(x,y\)</span>
-，表示走到 <span class="math inline">\((x,y)\)</span>
-。如果你获得了胜利，请立刻结束程序。</p>
+<p>读入 $n,m,x_0,y_0,x_1,y_1(6\le n,m\le 1000)$ 表示棋盘大小以及白棋黑棋的初始位置 $(x_0,y_0)$ 和 $(x_1,y_1)$ 。</p>
+<p>此时你应该输出一行 $\tt BLACK$ 或者 $\tt WHITE$ ，表示初始选择的棋子是黑棋 $\unicode{x265E}$ 还是白棋 $\unicode{x2658}$。</p>
+<p>当轮到你走棋时，输出 $x,y$ ，表示走到 $(x,y)$ 。如果你获得了胜利，请立刻结束程序。</p>
 <p>请注意：<strong>交互器是有适应能力的</strong>。也就是说，它的招数可能会随着你的招数的变化而变化。</p>
 </blockquote>
 <p>思维题 + 大模拟。</p>
-<p><del>众所周知</del>，在国际象棋中，当 <span
-class="math inline">\(\unicode{x265E}\)</span> 和 <span
-class="math inline">\(\unicode{x2658}\)</span> 所处的格子异色时，<span
-class="math inline">\(\unicode{x2658}\)</span> 可以吃 <span
-class="math inline">\(\unicode{x265E}\)</span> ；反之 <span
-class="math inline">\(\unicode{x265E}\)</span> 可以吃 <span
-class="math inline">\(\unicode{x2658}\)</span> 。</p>
-<p>不妨考虑异色的情况，也就是 <span
-class="math inline">\(\unicode{x2658}\)</span> 可以吃 <span
-class="math inline">\(\unicode{x265E}\)</span> 的情况。</p>
+<p><del>众所周知</del>，在国际象棋中，当 $\unicode{x265E}$ 和 $\unicode{x2658}$ 所处的格子异色时，$\unicode{x2658}$ 可以吃 $\unicode{x265E}$ ；反之 $\unicode{x265E}$ 可以吃 $\unicode{x2658}$ 。</p>
+<p>不妨考虑异色的情况，也就是 $\unicode{x2658}$ 可以吃 $\unicode{x265E}$ 的情况。</p>
 <ul>
-<li><p>如果 <span class="math inline">\(\unicode{x2658}\)</span>
-到终点的距离小于等于 <span
-class="math inline">\(\unicode{x265E}\)</span>
-到终点的距离，那跑就完事了，反正 <span
-class="math inline">\(\unicode{x265E}\)</span> 肯定吃不了它。</p>
-<p>形式化地，这种情况需要满足 <span
-class="math inline">\(\mathrm{dis}(S_\unicode{x2658},T_\unicode{x2658})
-\le \mathrm{dis}(S_{\unicode{x265E}}, T_{\unicode{x265E}})\)</span>
-，<span class="math inline">\(S,T\)</span>
-表示起点和终点的位置。</p></li>
-<li><p>反之，<span class="math inline">\(\unicode{x2658}\)</span>
-跑是肯定跑不过了，只能考虑去吃 <span
-class="math inline">\(\unicode{x265E}\)</span> 。显然，最好的办法就是往
-<span class="math inline">\(\unicode{x265E}\)</span> 的终点 <span
-class="math inline">\(T_{\unicode{x265E}}\)</span> 跑。</p>
-<p>这种情况需要满足 <span
-class="math inline">\(\mathrm{dis}(S_{\unicode{x2658}},
-T_{\unicode{x265E}}) \le
-\mathrm{dis}(S_{\unicode{x265E}},T_{\unicode{x2658}}) + 1\)</span> ，加
-<span class="math inline">\(1\)</span> 是因为 <span
-class="math inline">\(\unicode{x265E}\)</span> 可能到了终点刚好被 <span
-class="math inline">\(\unicode{x2658}\)</span> 一步吃掉</p>
-<p>如果 <span class="math inline">\(\unicode{x2658}\)</span> 到了 <span
-class="math inline">\(\unicode{x265E}\)</span> 的终点 <span
-class="math inline">\(T_{\unicode{x265E}}\)</span> 还没吃掉它，那 <span
-class="math inline">\(\unicode{x2658}\)</span> 和 <span
-class="math inline">\(\unicode{x265E}\)</span> 肯定距离不少于 <span
-class="math inline">\(2\)</span> ，此时他们同色。</p>
-<p>然而 <span class="math inline">\(\unicode{x265E}\)</span>
-不可能缩短距离去送死，那么距离就变成了不少于 <span
-class="math inline">\(3\)</span> 。</p>
-<p>又因为 <span class="math inline">\(\mathrm{dis}(T_{\unicode{x2658}},
-T_{\unicode{x265E}}) = 3\)</span> ，于是 <span
-class="math inline">\(\unicode{x2658}\)</span>
-在这种情况下，先一口气冲到 <span
-class="math inline">\(T_{\unicode{x265E}}\)</span> ，再跳到 <span
-class="math inline">\(T_{\unicode{x2658}}\)</span> 就完事了。</p></li>
-<li><p>什么？上面两个条件都不满足？那还选什么 <span
-class="math inline">\(\unicode{x2658}\)</span> ，直接选 <span
-class="math inline">\(\unicode{x265E}\)</span> 跑不就完事了。</p></li>
+<li><p>如果 $\unicode{x2658}$ 到终点的距离小于等于 $\unicode{x265E}$ 到终点的距离，那跑就完事了，反正 $\unicode{x265E}$ 肯定吃不了它。</p>
+<p>形式化地，这种情况需要满足 $\mathrm{dis}(S_\unicode{x2658},T_\unicode{x2658}) \le \mathrm{dis}(S_{\unicode{x265E}}, T_{\unicode{x265E}})$  ，$S,T$ 表示起点和终点的位置。</p>
+</li>
+<li><p>反之，$\unicode{x2658}$ 跑是肯定跑不过了，只能考虑去吃 $\unicode{x265E}$ 。显然，最好的办法就是往 $\unicode{x265E}$ 的终点 $T_{\unicode{x265E}}$ 跑。</p>
+<p>这种情况需要满足 $\mathrm{dis}(S_{\unicode{x2658}}, T_{\unicode{x265E}}) \le \mathrm{dis}(S_{\unicode{x265E}},T_{\unicode{x2658}}) + 1$ ，加 $1$ 是因为 $\unicode{x265E}$ 可能到了终点刚好被 $\unicode{x2658}$ 一步吃掉</p>
+<p>如果 $\unicode{x2658}$ 到了 $\unicode{x265E}$ 的终点 $T_{\unicode{x265E}}$ 还没吃掉它，那 $\unicode{x2658}$ 和 $\unicode{x265E}$ 肯定距离不少于 $2$ ，此时他们同色。</p>
+<p>然而 $\unicode{x265E}$ 不可能缩短距离去送死，那么距离就变成了不少于 $3$ 。</p>
+<p>又因为 $\mathrm{dis}(T_{\unicode{x2658}}, T_{\unicode{x265E}}) = 3$ ，于是 $\unicode{x2658}$ 在这种情况下，先一口气冲到 $T_{\unicode{x265E}}$ ，再跳到 $T_{\unicode{x2658}}$ 就完事了。</p>
+</li>
+<li><p>什么？上面两个条件都不满足？那还选什么 $\unicode{x2658}$ ，直接选 $\unicode{x265E}$ 跑不就完事了。</p>
+</li>
 </ul>
 <p>于是这道题目就变成了一个大模拟。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(nm)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(nm)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -1007,16 +941,13 @@ pii <span class="token function">get</span><span class="token punctuation">(</sp
         <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dwwy1fks">https://www.luogu.com.cn/article/dwwy1fks</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dwwy1fks">https://www.luogu.com.cn/article/dwwy1fks</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
-<p><del>被本题解满篇的 <span
-class="math inline">\(\unicode{x2658}\)</span> 和 <span
-class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
+<p><del>被本题解满篇的 $\unicode{x2658}$ 和 $\unicode{x265E}$ 震撼到了吗？</del></p>
 <p>如果没有，那肯定被代码的弱智大分讨震撼到了吧。（<del>虽然我抄的是参考文献的代码</del>）</p>
 
                 
@@ -1147,7 +1078,6 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1155,7 +1085,7 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1274,12 +1204,12 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
-                        <span class="chip bg-color">随机化</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
+                        <span class="chip bg-color">随机化</span>
                     </a>
                     
                 </div>
@@ -1498,7 +1428,7 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1566,13 +1496,13 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1582,7 +1512,7 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1590,13 +1520,13 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1612,7 +1542,7 @@ class="math inline">\(\unicode{x265E}\)</span> 震撼到了吗？</del></p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1767,21 +1697,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

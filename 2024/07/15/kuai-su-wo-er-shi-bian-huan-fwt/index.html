@@ -7,7 +7,7 @@
     <meta name="keywords" content="快速沃尔什变换 FWT, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,135 +739,82 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="快速沃尔什变换-fwt">快速沃尔什变换 FWT</h1>
-<p>模板题链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4717">P4717
-【模板】快速莫比乌斯/沃尔什变换 (FMT/FWT)</a></p>
+                <h1 id="快速沃尔什变换-FWT"><a href="#快速沃尔什变换-FWT" class="headerlink" title="快速沃尔什变换 FWT"></a>快速沃尔什变换 FWT</h1><p>模板题链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4717">P4717 【模板】快速莫比乌斯/沃尔什变换 (FMT/FWT)</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定长度为 <span class="math inline">\(2^n\)</span> 两个序列 <span
-class="math inline">\(A,B\)</span>，设 <span class="math display">\[
-C_i=\sum_{(j\operatorname\circ k) = i}A_j \times B_k
-\]</span></p>
-<p>分别当 <span class="math inline">\(\operatorname\circ\)</span> 是 or,
-and, xor 时求出 <span class="math inline">\(C\)</span>。</p>
+<p>给定长度为 $2^n$ 两个序列 $A,B$，设 </p>
+<script type="math/tex; mode=display">
+C_i=\sum_{(j\operatorname\circ k) = i}A_j \times B_k</script><p>分别当 $\operatorname\circ$ 是 or, and, xor 时求出 $C$。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个整数 <span class="math inline">\(n\)</span>。</p>
-<p>第二行，<span class="math inline">\(2^n\)</span> 个数 <span
-class="math inline">\(A_0, A_1, \ldots, A_{2^n-1}\)</span>。</p>
-<p>第三行，<span class="math inline">\(2^n\)</span> 个数 <span
-class="math inline">\(B_0, B_1, \ldots, B_{2^n-1}\)</span>。</p>
+<p>第一行，一个整数 $n$。  </p>
+<p>第二行，$2^n$ 个数 $A_0, A_1, \ldots, A_{2^n-1}$。  </p>
+<p>第三行，$2^n$ 个数 $B_0, B_1, \ldots, B_{2^n-1}$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>三行，每行 <span class="math inline">\(2^n\)</span> 个数，分别代表
-<span class="math inline">\(\operatorname\circ\)</span> 是 or, and, xor
-时 <span class="math inline">\(C_0, C_1, \ldots, C_{2^n-1}\)</span>
-的值<span class="math inline">\(\bmod 998244353\)</span>。</p>
+<p>三行，每行 $2^n$ 个数，分别代表 $\operatorname\circ$ 是 or, and, xor 时 $C_0, C_1, \ldots, C_{2^n-1}$ 的值$\bmod 998244353$。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n \le 17\)</span>。</p>
+<p>$1 \le n \le 17$。</p>
 </blockquote>
-<hr />
-<h3 id="mathcalpart-0-简介"><span class="math inline">\(\mathcal{Part}\
-0\)</span> 简介</h3>
-<p>在 OI 中，FWT 是用于解决对下标进行位运算卷积问题的方法。</p>
-<p>具体地，对于已知序列 <span class="math inline">\(a,b\)</span> ，FWT
-可以在 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
-的复杂度内计算出 <span class="math display">\[
-c_i=\sum_{i=(j \operatorname{\circ} k)} a_j b_k
-\]</span> 其中 <span class="math inline">\(\operatorname{\circ}\)</span>
-为二元位运算的一种。在本题中即为 <span
-class="math inline">\(\lor,\,\land,\,\oplus\)</span> （或/与/异或）</p>
-<p>FWT 的灵感来源于 FFT
-，具体思路详见参考文献2。本文仅介绍基本的原理。</p>
-<hr />
-<h3 id="mathcalpart-1-或运算"><span
-class="math inline">\(\mathcal{Part}\ 1\)</span> 或运算</h3>
-<p>计算 <span class="math display">\[
-c_i=\sum_{i=(j \operatorname\lor k)} a_j b_k
-\]</span> 由于 <span class="math inline">\((j \lor k) = i,~(k \lor i) =
-i\)</span> 可推出 <span class="math inline">\(((j \lor k) \lor i) =
-i\)</span> 。</p>
-<p>考虑构造 <span class="math inline">\(f_a(i) = \sum_{(j \lor i) =
-i}a_j\)</span> ，那么 <span class="math display">\[
+<hr>
+<h3 id="mathcal-Part-0-简介"><a href="#mathcal-Part-0-简介" class="headerlink" title="$\mathcal{Part}\ 0$ 简介"></a>$\mathcal{Part}\ 0$ 简介</h3><p>在 OI 中，FWT 是用于解决对下标进行位运算卷积问题的方法。</p>
+<p>具体地，对于已知序列 $a,b$ ，FWT 可以在 $\mathcal{O}(n \log n)$ 的复杂度内计算出</p>
+<script type="math/tex; mode=display">
+c_i=\sum_{i=(j \operatorname{\circ} k)} a_j b_k</script><p>其中 $\operatorname{\circ}$ 为二元位运算的一种。在本题中即为 $\lor,\,\land,\,\oplus$ （或/与/异或）</p>
+<p>FWT 的灵感来源于 FFT ，具体思路详见参考文献2。本文仅介绍基本的原理。</p>
+<hr>
+<h3 id="mathcal-Part-1-或运算"><a href="#mathcal-Part-1-或运算" class="headerlink" title="$\mathcal{Part}\ 1$ 或运算"></a>$\mathcal{Part}\ 1$ 或运算</h3><p>计算</p>
+<script type="math/tex; mode=display">
+c_i=\sum_{i=(j \operatorname\lor k)} a_j b_k</script><p>由于 $(j \lor k) = i,~(k \lor i) = i$ 可推出 $((j \lor k) \lor i) = i$ 。</p>
+<p>考虑构造 $f_a(i) = \sum_{(j \lor i) = i}a_j$ ，那么</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f_a \times f_b &amp; =\left(\sum_{(j \lor i)=i} a_j\right)\left(\sum_{(k
-\lor i)=i} b_k\right)
-\\[6pt]&amp; =\sum_{(j \lor i) = i}\sum_{(k \lor i)=i} a_j b_k
-\\[6pt]&amp; =\sum_{((j \lor k) \lor i) = i} a_j b_k
-\\[6pt]&amp; =f_c
-\end{aligned}
-\]</span> 考虑如何求 <span class="math inline">\(f_a\)</span> ，令 <span
-class="math inline">\(a_0\)</span> 为 <span
-class="math inline">\(a\)</span> 中下标最高位为 <span
-class="math inline">\(0\)</span> 的那部分，<span
-class="math inline">\(a_1\)</span> 表示 <span
-class="math inline">\(a\)</span> 中下标最高位为 <span
-class="math inline">\(1\)</span> 的那部分，则 <span
-class="math display">\[
-f_a = f_{a_0} \cup  (f_{a_0} + f_{a_1})
-\]</span> 分治即可。反正，我们要转换回 <span
-class="math inline">\(a\)</span> ，根据上式则有 <span
-class="math display">\[
-a = a_0 \cup (a_1 - a_0)
-\]</span></p>
-<blockquote>
-<p>提示：上述公式中 <span class="math inline">\(\cup\)</span>
-表示序列的拼接，<span class="math inline">\(+\)</span> 和 <span
-class="math inline">\(-\)</span> 表示对应位置相加减。</p>
+f_a \times f_b & =\left(\sum_{(j \lor i)=i} a_j\right)\left(\sum_{(k \lor i)=i} b_k\right)
+\\[6pt]& =\sum_{(j \lor i) = i}\sum_{(k \lor i)=i} a_j b_k
+\\[6pt]& =\sum_{((j \lor k) \lor i) = i} a_j b_k
+\\[6pt]& =f_c
+\end{aligned}</script><p>考虑如何求 $f_a$ ，令 $a_0$ 为 $a$ 中下标最高位为 $0$ 的那部分，$a_1$ 表示 $a$ 中下标最高位为 $1$ 的那部分，则</p>
+<script type="math/tex; mode=display">
+f_a = f_{a_0} \cup  (f_{a_0} + f_{a_1})</script><p>分治即可。反正，我们要转换回 $a$ ，根据上式则有</p>
+<script type="math/tex; mode=display">
+a = a_0 \cup (a_1 - a_0)</script><blockquote>
+<p>提示：上述公式中 $\cup$ 表示序列的拼接，$+$ 和 $-$ 表示对应位置相加减。</p>
 </blockquote>
 <p>这部分的代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">OR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">OR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> o <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> o <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> o <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> o<span class="token punctuation">)</span>
             <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span><span class="token punctuation">,</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span></code></pre>
-<hr />
-<h3 id="mathcalpart-2-与运算"><span
-class="math inline">\(\mathcal{Part}\ 2\)</span> 与运算</h3>
-<p>和或运算同理，直接贴代码了。</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">AND</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<h3 id="mathcal-Part-2-与运算"><a href="#mathcal-Part-2-与运算" class="headerlink" title="$\mathcal{Part}\ 2$ 与运算"></a>$\mathcal{Part}\ 2$ 与运算</h3><p>和或运算同理，直接贴代码了。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">AND</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> o <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> o <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> o <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> o<span class="token punctuation">)</span>
             <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">,</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span></code></pre>
-<hr />
-<h3 id="mathcalpart-3-异或运算"><span
-class="math inline">\(\mathcal{Part}\ 3\)</span> 异或运算</h3>
-<p>定义 <span class="math inline">\(x\otimes y =
-\mathrm{popcount}(x\land y) \bmod 2\)</span> ，即 <span
-class="math inline">\(x,y\)</span> 的与在二进制下 <span
-class="math inline">\(1\)</span> 的个数</p>
-<p>那么 <span class="math inline">\((i \otimes j) \oplus (i \otimes k) =
-i \otimes (j \oplus k)\)</span></p>
-<p>考虑构造 <span class="math display">\[
-f_a(i) = \sum_{(i\otimes j) = 0} a_j - \sum_{(i\otimes j) = 1}a_j
-\]</span> 那么 <span class="math display">\[
+<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = - 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<h3 id="mathcal-Part-3-异或运算"><a href="#mathcal-Part-3-异或运算" class="headerlink" title="$\mathcal{Part}\ 3$ 异或运算"></a>$\mathcal{Part}\ 3$ 异或运算</h3><p>定义 $x\otimes y = \mathrm{popcount}(x\land y) \bmod 2$ ，即 $x,y$ 的与在二进制下 $1$ 的个数</p>
+<p>那么 $(i \otimes j) \oplus (i  \otimes k) = i \otimes (j \oplus k)$</p>
+<p>考虑构造</p>
+<script type="math/tex; mode=display">
+f_a(i) = \sum_{(i\otimes j) = 0} a_j - \sum_{(i\otimes j) = 1}a_j</script><p>那么</p>
+<script type="math/tex; mode=display">
 \small
 \begin{aligned}
-f_a\times f_b &amp; =\left(\sum_{(i \otimes j)=0} a_j-\sum_{(i \otimes
-j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k-\sum_{(i \otimes k)=1}
-b_k\right)
-\\[6pt]&amp; =\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i
-\otimes k)=0} b_k\right)-\left(\sum_{(i \otimes j)=0}
-a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right)
--\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0}
-b_k\right)+\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes
-k)=1} b_k\right)
-\\[6pt]&amp; =\sum_{(i \otimes(j \oplus k))=0} a_j b_k-\sum_{(i
-\otimes(j \oplus k))=1} a_j b_k
-\\[6pt]&amp; =f_c
-\end{aligned}
-\]</span> 因此 <span class="math display">\[
+f_a\times f_b & =\left(\sum_{(i \otimes j)=0} a_j-\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k-\sum_{(i \otimes k)=1} b_k\right)
+\\[6pt]& =\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i \otimes k)=0} b_k\right)-\left(\sum_{(i \otimes j)=0} a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right)
+-\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=0} b_k\right)+\left(\sum_{(i \otimes j)=1} a_j\right)\left(\sum_{(i \otimes k)=1} b_k\right) 
+\\[6pt]& =\sum_{(i \otimes(j \oplus k))=0} a_j b_k-\sum_{(i \otimes(j \oplus k))=1} a_j b_k
+\\[6pt]& =f_c
+\end{aligned}</script><p>因此</p>
+<script type="math/tex; mode=display">
 f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
-\\[6pt] a = \frac{a_0 + a_1}{2} \cup \frac{a_0 - a_1}{2}
-\]</span></p>
-<blockquote>
-<p>提示：这里 <span class="math inline">\(\frac{1}{2}\)</span>
-也是对应位置乘上 <span class="math inline">\(\frac{1}{2}\)</span>
-的意思。</p>
+\\[6pt] a = \frac{a_0 + a_1}{2} \cup \frac{a_0 - a_1}{2}</script><blockquote>
+<p>提示：这里 $\frac{1}{2}$ 也是对应位置乘上 $\frac{1}{2}$ 的意思。</p>
 </blockquote>
 <p>这部分的代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">XOR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">XOR</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> o <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> o <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> o <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">,</span> k <span class="token operator">&lt;&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> o<span class="token punctuation">)</span>
@@ -881,15 +824,12 @@ f_a = (f_{a_0} + f_{a_1})\cup(f_{a_0} - f_{a_1})
                 f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">+</span> mod <span class="token operator">-</span> <span class="token number">2</span> <span class="token operator">*</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">%</span> mod<span class="token punctuation">)</span> <span class="token operator">%</span> mod<span class="token punctuation">;</span>
                 f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">;</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">[</span>i <span class="token operator">+</span> j <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">*</span> x <span class="token operator">%</span> mod<span class="token punctuation">;</span>
             <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = 1 / 2</span></code></pre>
-<p>注意这里是 <span class="math inline">\(\frac{1}{2}\)</span> 。</p>
-<hr />
-<h3 id="mathcalpart-4-完整实现"><span
-class="math inline">\(\mathcal{Part}\ 4\)</span> 完整实现</h3>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
-，其中 <span class="math inline">\(n\)</span> 是序列的长度</p>
+<span class="token punctuation">&#125;</span> <span class="token comment">// a -> f(a) 则 x = 1, f(a) -> a 则 x = 1 / 2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意这里是 $\frac{1}{2}$ 。</p>
+<hr>
+<h3 id="mathcal-Part-4-完整实现"><a href="#mathcal-Part-4-完整实现" class="headerlink" title="$\mathcal{Part}\ 4$ 完整实现"></a>$\mathcal{Part}\ 4$ 完整实现</h3><p>时间复杂度 $\mathcal{O}(n \log n)$ ，其中 $n$ 是序列的长度</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -951,13 +891,11 @@ class="math inline">\(\mathcal{Part}\ 4\)</span> 完整实现</h3>
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">%</span> mod<span class="token punctuation">;</span>
     <span class="token function">XOR</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> inv2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2pavj2pd">https://www.luogu.com.cn/article/2pavj2pd</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">https://www.luogu.com.cn/article/crmftzuv</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2pavj2pd">https://www.luogu.com.cn/article/2pavj2pd</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">https://www.luogu.com.cn/article/crmftzuv</a></p>
 
                 
             </div>
@@ -1083,7 +1021,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1091,7 +1028,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1430,7 +1367,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1498,13 +1435,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1514,7 +1451,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1522,13 +1459,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1544,7 +1481,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/crmftzuv">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1699,21 +1636,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="时间戳优化树状数组的频繁清空, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -735,29 +731,20 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="时间戳优化树状数组的频繁清空">时间戳优化树状数组的频繁清空</h1>
-<p>来自<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/637997"><span
-class="citation" data-cites="zx2017">@zx2017</span></a>老师的ppt Orz</p>
+                <h1 id="时间戳优化树状数组的频繁清空"><a href="#时间戳优化树状数组的频繁清空" class="headerlink" title="时间戳优化树状数组的频繁清空"></a>时间戳优化树状数组的频繁清空</h1><p>来自<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/637997">@zx2017</a>老师的ppt Orz</p>
 <p><strong>适用场景：</strong></p>
-<p>给定 <span class="math inline">\(T\)</span> 组数据，每组数据有 <span
-class="math inline">\(Q\)</span> 个询问，询问给定 <span
-class="math inline">\(n\)</span> 个数的区间和</p>
-<p><strong>数据范围</strong>：<span class="math inline">\(T\le 2\times
-10^5,~\sum Q \le 2\times 10^5,~n\le 5\times 10^5\)</span></p>
-<p>注意，这里只限制了 <span class="math inline">\(\sum Q\)</span>
-，并没有限制 <span class="math inline">\(\sum n\)</span></p>
-<p>对于每组数据不能直接去清空数组，因为 <span class="math inline">\(T
-\times n\)</span> 肯定爆炸</p>
+<p>给定 $T$ 组数据，每组数据有 $Q$ 个询问，询问给定 $n$ 个数的区间和</p>
+<p><strong>数据范围</strong>：$T\le 2\times 10^5,~\sum Q \le 2\times 10^5,~n\le 5\times 10^5$</p>
+<p>注意，这里只限制了 $\sum Q$ ，并没有限制 $\sum n$ </p>
+<p>对于每组数据不能直接去清空数组，因为 $T \times n$ 肯定爆炸</p>
 <p>考虑维护一个时间戳<code>now</code>，也就是现在是第几组数据</p>
 <p>对于是这组数据的，也就是<code>t[i]==now</code>的情况，直接用</p>
 <p>如果不是这组数据的，我们要先清零，再加。</p>
-<p>注意到 <code>tree[i]=0,tree[i]+=v</code> 其实等价于
-<code>tree[i]=v</code></p>
+<p>注意到 <code>tree[i]=0,tree[i]+=v</code> 其实等价于 <code>tree[i]=v</code></p>
 <p>由于我们只有查询到一个树上结点，才会去判断它的时间戳</p>
-<p>因此这类题目的时间复杂度可以控制在 <span class="math inline">\(O(\sum
-Q \log \sum Q)\)</span></p>
+<p>因此这类题目的时间复杂度可以控制在 $O(\sum Q \log \sum Q)$ </p>
 <p>修改部分的代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> tree<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>t<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>now<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> tree<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>t<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>now<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> v<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>x<span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">+=</span><span class="token function">lowbit</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -771,15 +758,13 @@ Q \log \sum Q)\)</span></p>
         <span class="token keyword">if</span><span class="token punctuation">(</span>t<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>now<span class="token punctuation">)</span> res<span class="token operator">+=</span>tree<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
         <span class="token keyword">else</span> t<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>now<span class="token punctuation">,</span>tree<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// res+=0</span>
    	<span class="token keyword">return</span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后我感觉这个东西是可以搞到线段树上的</p>
 <p>具体的，维护每个树上结点的时间戳 <code>t[N&lt;&lt;2]</code></p>
 <p>这样可能可以维护更多的区间性质</p>
 <p>问了一下老师，确实可以这么去搞</p>
 <p>代码还没写，目前没找到类似思想的题目，但是这个技巧挺有趣的。</p>
-<p><strong>upd.20220722</strong> <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P1120 小木棍</a>
-，清空临时标记数组vis，类似于这个优化</p>
+<p><strong>upd.20220722</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P1120 小木棍</a> ，清空临时标记数组vis，类似于这个优化</p>
 <p>这么一说，好像匈牙利算法也是可以这么优化的来着。。。</p>
 
                 
@@ -898,7 +883,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -906,7 +890,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1249,7 +1233,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1317,13 +1301,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1333,7 +1317,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1341,13 +1325,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1363,7 +1347,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P11
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1518,21 +1502,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

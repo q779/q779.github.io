@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P4141 消失之物 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -719,7 +715,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    669
+                    667
                 </div>
                 
 
@@ -739,68 +735,44 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4141-消失之物-题解">洛谷P4141 消失之物 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4141">P4141
-消失之物</a></p>
+                <h1 id="洛谷P4141-消失之物-题解"><a href="#洛谷P4141-消失之物-题解" class="headerlink" title="洛谷P4141 消失之物 题解"></a>洛谷P4141 消失之物 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4141">P4141 消失之物</a></p>
 <blockquote>
-<p><strong>题意</strong>：ftiasch 有 <span
-class="math inline">\(n\)</span> 个物品, 体积分别是 <span
-class="math inline">\(w_1,w_2,\dots,w_n\)</span> 。由于她的疏忽，第
-<span class="math inline">\(i\)</span> 个物品丢失了。</p>
-<p>“要使用剩下的 <span class="math inline">\(n-1\)</span> 物品装满容积为
-<span class="math inline">\(x\)</span>
-的背包，有几种方法呢？”——这是经典的问题了。</p>
-<p>她把答案记为 <span
-class="math inline">\(\text{cnt}(i,x)\)</span>，想要得到所有 <span
-class="math inline">\(i \in [1,n] ,x \in [1,m]\)</span> 的 <span
-class="math inline">\(\text{cnt}(i,x)\)</span> 表格。</p>
+<p><strong>题意</strong>：ftiasch 有 $n$ 个物品, 体积分别是 $w_1,w_2,\dots,w_n$ 。由于她的疏忽，第 $i$ 个物品丢失了。</p>
+<p>“要使用剩下的 $n-1$ 物品装满容积为 $x$ 的背包，有几种方法呢？”——这是经典的问题了。</p>
+<p>她把答案记为 $\text{cnt}(i,x)$，想要得到所有 $i \in [1,n] ,x \in [1,m]$ 的 $\text{cnt}(i,x)$ 表格。</p>
 <p>只需要输出末位数字。</p>
 </blockquote>
-<p>设 <span class="math inline">\(f[i][j]\)</span> 为只用前 <span
-class="math inline">\(i\)</span>
-件物品，不考虑删除任何物品时，<strong>恰好</strong>装满容量为 <span
-class="math inline">\(j\)</span> 的背包的方案数，显然有 <span
-class="math display">\[
-f[i][j]=f[i-1][j]+f[i-1][j-w[i]]
-\]</span> 滚动数组一下就是</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp">f<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+<p>设 $f[i][j]$ 为只用前 $i$ 件物品，不考虑删除任何物品时，<strong>恰好</strong>装满容量为 $j$ 的背包的方案数，显然有</p>
+<script type="math/tex; mode=display">
+f[i][j]=f[i-1][j]+f[i-1][j-w[i]]</script><p>滚动数组一下就是</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">f<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>m<span class="token punctuation">;</span> j<span class="token operator">>=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">--</span><span class="token punctuation">)</span>
-		f<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>f<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>那么现在求出来的 <span class="math inline">\(f[i]\)</span>
-也就是原来的 <span class="math inline">\(f[n][i]\)</span> 了</p>
-<p>于是设 <span class="math inline">\(g[i][j]\)</span> 为不考虑物品
-<span class="math inline">\(i\)</span> 的贡献恰好装满容量为 <span
-class="math inline">\(j\)</span> 的背包的方案数</p>
-<p>首先容易想到一个<strong>看起来正确</strong>的柿子（其实是错的） <span
-class="math display">\[
-g[i][j]=f[n][j]-f[n][j-w[i]]
-\]</span> 为什么错呢？因为 <span
-class="math inline">\(f[n][j-w[i]]\)</span> 中也可能含有 <span
-class="math inline">\(w[i]\)</span> 的贡献！</p>
-<p>那么其实稍微改一改就对了 <span class="math display">\[
-g[i][j]=f[n][j]-g[i][j-w[i]]
-\]</span> 此时的 <span class="math inline">\(g[i][j-w[i]]\)</span>
-恰好删除了物品 <span class="math inline">\(i\)</span> 的贡献，不错</p>
-<p>注意这个 <span class="math inline">\(g[i][j]\)</span> 需要 <span
-class="math inline">\(j\)</span> 顺推，因为我们需要 <span
-class="math inline">\(g[i][j-w[i]]\)</span></p>
+		f<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">+=</span>f<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>那么现在求出来的 $f[i]$ 也就是原来的 $f[n][i]$ 了</p>
+<p>于是设 $g[i][j]$ 为不考虑物品 $i$ 的贡献恰好装满容量为 $j$ 的背包的方案数</p>
+<p>首先容易想到一个<strong>看起来正确</strong>的柿子（其实是错的）</p>
+<script type="math/tex; mode=display">
+g[i][j]=f[n][j]-f[n][j-w[i]]</script><p>为什么错呢？因为 $f[n][j-w[i]]$ 中也可能含有 $w[i]$ 的贡献！</p>
+<p>那么其实稍微改一改就对了</p>
+<script type="math/tex; mode=display">
+g[i][j]=f[n][j]-g[i][j-w[i]]</script><p>此时的 $g[i][j-w[i]]$ 恰好删除了物品 $i$ 的贡献，不错</p>
+<p>注意这个 $g[i][j]$ 需要 $j$ 顺推，因为我们需要 $g[i][j-w[i]]$</p>
 <p>然后这个柿子还是不够精简</p>
-<p>注意到我们其实并不需要记录 <span class="math inline">\(i\)</span>
-这一状态，因为我们其实不需要保存这些信息</p>
-<p>加上之前的滚动数组优化，柿子可以化简为 <span class="math display">\[
+<p>注意到我们其实并不需要记录 $i$ 这一状态，因为我们其实不需要保存这些信息</p>
+<p>加上之前的滚动数组优化，柿子可以化简为</p>
+<script type="math/tex; mode=display">
 g[j]=
 \begin{cases}
-f[j]-g[j-w[i]],&amp;j \ge w[i],
-\\f[j],&amp;\text{default.}
-\end{cases}
-\]</span> 嗯，其实还可以化简。</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">memcpy</span><span class="token punctuation">(</span>g<span class="token punctuation">,</span>f<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+f[j]-g[j-w[i]],&j \ge w[i],
+\\f[j],&\text{default.}
+\end{cases}</script><p>嗯，其实还可以化简。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">memcpy</span><span class="token punctuation">(</span>g<span class="token punctuation">,</span>f<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-	g<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">-=</span>g<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
-<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
+	g<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">-=</span>g<span class="token punctuation">[</span>j<span class="token operator">-</span>w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>时间复杂度 $O(nm)$ </p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -830,7 +802,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
         cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -952,7 +924,6 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -960,7 +931,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1041,13 +1012,13 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p5322-bjoi2019-pai-bing-bu-zhen-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p4095-heoi2013-eden-de-xin-bei-bao-wen-ti-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p127.webp" class="responsive-img" alt="洛谷P5322 [BJOI2019] 排兵布阵 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p199.webp" class="responsive-img" alt="洛谷P4095 [HEOI2013]Eden 的新背包问题 题解">
                         
-                        <span class="card-title">洛谷P5322 [BJOI2019] 排兵布阵 题解</span>
+                        <span class="card-title">洛谷P4095 [HEOI2013]Eden 的新背包问题 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1083,6 +1054,10 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
                         <span class="chip bg-color">DP</span>
                     </a>
                     
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1094,13 +1069,13 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p5365-snoi2017-ying-xiong-lian-meng-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p4139-shang-di-yu-ji-he-de-zheng-que-yong-fa-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p193.webp" class="responsive-img" alt="洛谷P5365 [SNOI2017] 英雄联盟 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p146.webp" class="responsive-img" alt="洛谷P4139 上帝与集合的正确用法 题解">
                         
-                        <span class="card-title">洛谷P5365 [SNOI2017] 英雄联盟 题解</span>
+                        <span class="card-title">洛谷P4139 上帝与集合的正确用法 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1132,8 +1107,8 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/DP/">
-                        <span class="chip bg-color">DP</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1295,7 +1270,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1363,13 +1338,13 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1379,7 +1354,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1387,13 +1362,13 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1409,7 +1384,7 @@ f[j]-g[j-w[i]],&amp;j \ge w[i],
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1564,21 +1539,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

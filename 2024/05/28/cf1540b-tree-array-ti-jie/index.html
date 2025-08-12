@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1540B Tree Array 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -680,12 +676,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                             <a href="/tags/DP/">
@@ -727,7 +723,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    927
+                    926
                 </div>
                 
 
@@ -747,59 +743,39 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1540b-tree-array-题解">CF1540B Tree Array 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree
-Array</a></p>
+                <h1 id="CF1540B-Tree-Array-题解"><a href="#CF1540B-Tree-Array-题解" class="headerlink" title="CF1540B Tree Array 题解"></a>CF1540B Tree Array 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1540B">Tree Array</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一棵 <span class="math inline">\(n\)</span>​ 个节点的树。</p>
+<p>给定一棵 $n$​ 个节点的树。  </p>
 <p>对于这棵树，我们通过下列方法来生成一个序列：</p>
-<ol type="1">
-<li>等概率选择这 <span class="math inline">\(n\)</span>
-个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
+<ol>
+<li>等概率选择这 $n$ 个节点中的一个节点，并对这个节点打上标记（初始时没有节点被打上标记）</li>
 <li>在所有没被打上标记且与至少一个打上标记的节点相连的节点中等概率选择一个节点并对这个节点打上标记</li>
-<li>重复步骤 2
-直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
+<li>重复步骤 2 直到所有节点都被打上标记，此时生成的序列就是所有节点编号按照节点被打上标记的时间排序后的形成的序列。</li>
 </ol>
-<p>求生成序列的期望逆序对数对 <span
-class="math inline">\(10^9+7\)</span>​​ 取模后的值。</p>
+<p>求生成序列的期望逆序对数对 $10^9+7$​​ 取模后的值。</p>
 <p>输入：树；输出：答案</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2\leq n\leq200\)</span>
-，保证给出的是棵树</p>
+<p>$2\leq n\leq200$ ，保证给出的是棵树</p>
 </blockquote>
 <p>首先可以发现，这个标记的过程和第一个点息息相关</p>
 <p>考虑枚举第一个被标记的点，然后把它提成根节点。</p>
 <p>那么现在所有的点对</p>
 <ul>
-<li><p>是祖先关系的，一定会产生贡献 <span
-class="math inline">\(0/1\)</span> 的贡献。</p></li>
-<li><p>不是祖先关系的，当他们的 LCA
-被加入后，接下来的任何标记都可以解释为：</p>
-<p>两个栈， <span class="math inline">\(p\)</span>
-概率弹第一个栈栈顶，<span class="math inline">\(p\)</span>
-概率弹第二个栈栈顶，<span class="math inline">\(1-2p\)</span>​
-概率啥也不干，问第一个栈先空的概率。</p>
-<p>模型中两个栈就是 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(y\)</span> 分别到 LCA 的距离，那么仅考虑 <span
-class="math inline">\((x,y)\)</span> 他们的 <span
-class="math inline">\(p=\frac{1}{2}\)</span> （相互独立+期望线性性）</p>
-<p>这个可以dp预处理出来，设两个栈分别有 <span
-class="math inline">\(i,j\)</span> 个元素时第一个栈先空的概率为 <span
-class="math inline">\(f(i,j)\)</span> ，那么 <span
-class="math display">\[
-f(i,0)=0,~f(0,j)=1 \quad(i,j &gt; 0)
-\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))
-\]</span></p></li>
+<li><p>是祖先关系的，一定会产生贡献 $0/1$ 的贡献。</p>
+</li>
+<li><p>不是祖先关系的，当他们的 LCA 被加入后，接下来的任何标记都可以解释为：</p>
+<p>两个栈， $p$ 概率弹第一个栈栈顶，$p$ 概率弹第二个栈栈顶，$1-2p$​ 概率啥也不干，问第一个栈先空的概率。</p>
+<p>模型中两个栈就是 $x$ 和 $y$ 分别到 LCA 的距离，那么仅考虑 $(x,y)$ 他们的 $p=\frac{1}{2}$ （相互独立+期望线性性）</p>
+<p>这个可以dp预处理出来，设两个栈分别有 $i,j$ 个元素时第一个栈先空的概率为 $f(i,j)$ ，那么</p>
+<script type="math/tex; mode=display">
+f(i,0)=0,~f(0,j)=1 \quad(i,j > 0)
+\\[6pt]f(i,j) = \frac{1}{2}(f(i-1,j)+f(i,j-1))</script></li>
 </ul>
-<p>于是我们只需要对每个根节点跑一遍处理一下
-LCA，然后暴力枚举点对就好了</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^3\log
-n)\)</span> ，写 <a
-href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 <span
-class="math inline">\(\mathcal{O}(n^3)\)</span></p>
+<p>于是我们只需要对每个根节点跑一遍处理一下 LCA，然后暴力枚举点对就好了</p>
+<p>时间复杂度 $\mathcal{O}(n^3\log n)$ ，写 <a href="/2023/03/16/tarjan-suan-fa-qiu-lca/">Tarjan</a> 的话就是 $\mathcal{O}(n^3)$ </p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -862,12 +838,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">https://www.luogu.com.cn/article/py32yyp8</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放张好看的图</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405281118183.png" style="zoom:30%;" /></p>
@@ -939,12 +914,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                                 <a href="/tags/DP/">
@@ -1000,7 +975,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1008,7 +982,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1343,7 +1317,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1411,13 +1385,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1427,7 +1401,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1435,13 +1409,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1457,7 +1431,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/py32yyp8">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1612,21 +1586,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

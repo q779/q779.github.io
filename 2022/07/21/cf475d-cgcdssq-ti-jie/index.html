@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF475D CGCDSSQ 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,60 +739,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf475d-cgcdssq-题解">CF475D CGCDSSQ 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF475D">CF475D
-CGCDSSQ</a></p>
+                <h1 id="CF475D-CGCDSSQ-题解"><a href="#CF475D-CGCDSSQ-题解" class="headerlink" title="CF475D CGCDSSQ 题解"></a>CF475D CGCDSSQ 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF475D">CF475D CGCDSSQ</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个长度为 <span class="math inline">\(n\)</span> 的序列和 <span
-class="math inline">\(q\)</span> 个询问，</p>
-<p>每个询问输出一行，询问满足 <span
-class="math inline">\(\gcd\{a_l,a_{l+1},\dots,a_r\}=x\)</span> 的 <span
-class="math inline">\([l,r]\)</span> 的对数</p>
-<p><span class="math inline">\(1 \le n \le 10^5,~1 \le q \le 3 \times
-10^5,~1 \le a_i,x_i \le 10^9\)</span></p>
+<p>给出一个长度为 $n$ 的序列和 $q$ 个询问，</p>
+<p>每个询问输出一行，询问满足 $\gcd\{a_l,a_{l+1},\dots,a_r\}=x$ 的 $[l,r]$ 的对数</p>
+<p>$1 \le n \le 10^5,~1 \le q \le 3 \times 10^5,~1 \le a_i,x_i \le 10^9$ </p>
 </blockquote>
 <p>这题有一个很有趣的结论。</p>
-<p>区间 <span class="math inline">\(\gcd\)</span> 最多有 <span
-class="math inline">\(\mathcal{O}(n\log \omega)\)</span> 种可能的值（记
-<span class="math inline">\(\omega = \max\{a_i\}\)</span>）</p>
-<p>即 <span class="math inline">\(l\)</span> 固定时，<span
-class="math inline">\([l,r]\)</span> 的区间 <span
-class="math inline">\(\gcd\)</span> 至多有 <span
-class="math inline">\(\mathcal{O}(\log \omega)\)</span> 种取值。</p>
+<p>区间 $\gcd$ 最多有 $\mathcal{O}(n\log \omega)$ 种可能的值（记 $\omega = \max\{a_i\}$）</p>
+<p>即 $l$ 固定时，$[l,r]$ 的区间 $\gcd$ 至多有 $\mathcal{O}(\log \omega)$ 种取值。</p>
 <p>证明：</p>
-<p>假设区间 <span class="math inline">\(\gcd\)</span> 在 <span
-class="math inline">\(i\)</span> 处发生了变化，此时新的 <span
-class="math inline">\(\gcd\)</span> 一定是原 <span
-class="math inline">\(\gcd\)</span> 的因数</p>
-<p>因此新的 <span class="math inline">\(\gcd\)</span>
-至少缩小了一半，则至多有 <span class="math inline">\(\mathcal{O}(\log
-\omega)\)</span> 种取值。</p>
+<p>假设区间 $\gcd$ 在 $i$ 处发生了变化，此时新的 $\gcd$ 一定是原 $\gcd$ 的因数</p>
+<p>因此新的 $\gcd$ 至少缩小了一半，则至多有 $\mathcal{O}(\log \omega)$ 种取值。</p>
 <p>这样我们就可以预处理所有答案，用个<code>unordered_map</code>记录了</p>
 <blockquote>
 <p>注：这里其实可以优化一下，不用记录所有答案，只记录询问的答案</p>
 </blockquote>
 <p>那么答案怎么统计呢？</p>
-<p>区间 <span class="math inline">\(\gcd\)</span> 直接用 <span
-class="math inline">\(\mathtt{st}\)</span> 表维护，应该很容易想到。</p>
-<p>当 <span class="math inline">\(l\)</span> 固定时，至多有 <span
-class="math inline">\(\mathcal{O}(\log \omega)\)</span>
-种取值，而这个值一定随着右端点的增大<strong>单调不升</strong>。</p>
+<p>区间 $\gcd$ 直接用 $\mathtt{st}$ 表维护，应该很容易想到。</p>
+<p>当 $l$ 固定时，至多有 $\mathcal{O}(\log \omega)$ 种取值，而这个值一定随着右端点的增大<strong>单调不升</strong>。</p>
 <p>因此考虑二分右端点，然后记录下答案啥的</p>
-<p>注意 <span class="math inline">\(\mathtt{st}\)</span>
-表一定要预处理查询时候的<code>lg[]</code>数组，因为<code>log()</code>常数比较大</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log n + n\log
-\omega)\)</span></p>
+<p>注意 $\mathtt{st}$ 表一定要预处理查询时候的<code>lg[]</code>数组，因为<code>log()</code>常数比较大</p>
+<p>时间复杂度 $\mathcal{O}(n\log n + n\log \omega)$</p>
 <blockquote>
-<p><span class="math inline">\(\mathtt{ST}\)</span> 表处理 <span
-class="math inline">\(\gcd\)</span> 复杂度为 <span
-class="math inline">\(\mathcal{O}\left(n (\log n +
-\log\omega)\right)\)</span></p>
-<p>证明：详见 <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">参考文献[1]</a></p>
+<p>$\mathtt{ST}$ 表处理 $\gcd$ 复杂度为 $\mathcal{O}\left(n (\log n + \log\omega)\right)$ </p>
+<p>证明：详见 <a target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">参考文献[1]</a></p>
 </blockquote>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -883,11 +854,10 @@ unordered_map<span class="token operator">&lt;</span><span class="token keyword"
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>ans<span class="token punctuation">[</span>q<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https://oi-wiki.org/ds/sparse-table/</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https://oi-wiki.org/ds/sparse-table/</a></p>
 
                 
             </div>
@@ -1013,7 +983,6 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1021,7 +990,7 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1360,7 +1329,7 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1428,13 +1397,13 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1444,7 +1413,7 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1452,13 +1421,13 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1474,7 +1443,7 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/ds/sparse-table/">https
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1629,21 +1598,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

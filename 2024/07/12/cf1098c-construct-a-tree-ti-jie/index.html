@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1098C Construct a tree 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,67 +739,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1098c-construct-a-tree-题解">CF1098C Construct a tree
-题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1098C">Construct a tree</a></p>
+                <h1 id="CF1098C-Construct-a-tree-题解"><a href="#CF1098C-Construct-a-tree-题解" class="headerlink" title="CF1098C Construct a tree 题解"></a>CF1098C Construct a tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1098C">Construct a tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>Misha
-在雪地森林中漫步，他对树木如此着迷，以至于决定自己绘制一棵树！</p>
-<p>Misha 想构造一棵有 <span class="math inline">\(n\)</span>
-个顶点的有根树，顶点从 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 编号，其中根的编号为 <span
-class="math inline">\(1\)</span>。每个其他顶点都有一个父节点 <span
-class="math inline">\(p_i\)</span>，且 <span
-class="math inline">\(i\)</span> 是顶点 <span
-class="math inline">\(p_i\)</span> 的子节点。顶点 <span
-class="math inline">\(u\)</span> 属于顶点 <span
-class="math inline">\(v\)</span> 的子树，当且仅当从 <span
-class="math inline">\(u\)</span> 开始通过父节点（<span
-class="math inline">\(u\)</span>, <span
-class="math inline">\(p_{u}\)</span>, <span
-class="math inline">\(p_{p_{u}}\)</span>, ...）可以到达 <span
-class="math inline">\(v\)</span>。显然，<span
-class="math inline">\(v\)</span>
-属于它自己的子树，子树中的顶点数量称为子树的大小。Misha
-只对每个顶点都属于顶点 1 的子树的树感兴趣。</p>
-<p>下面是一个有 6 个顶点的树。顶点 2 的子树包含顶点
-2、3、4、5。因此其子树的大小是 4。</p>
+<p>Misha 在雪地森林中漫步，他对树木如此着迷，以至于决定自己绘制一棵树！</p>
+<p>Misha 想构造一棵有 $n$ 个顶点的有根树，顶点从 $1$ 到 $n$ 编号，其中根的编号为 $1$。每个其他顶点都有一个父节点 $p_i$，且 $i$ 是顶点 $p_i$ 的子节点。顶点 $u$ 属于顶点 $v$ 的子树，当且仅当从 $u$ 开始通过父节点（$u$, $p_{u}$, $p_{p_{u}}$, …）可以到达 $v$。显然，$v$ 属于它自己的子树，子树中的顶点数量称为子树的大小。Misha 只对每个顶点都属于顶点 1 的子树的树感兴趣。</p>
+<p>下面是一个有 6 个顶点的树。顶点 2 的子树包含顶点 2、3、4、5。因此其子树的大小是 4。 </p>
 <p><img src="/medias/loading.gif" data-original="https://cdn.luogu.com.cn/upload/vjudge_pic/CF1098C/c0bc9c82cdcd20b087d88b1afdb2ab79756ebad2.png" style="zoom:50%;" /></p>
-<p>树的分支系数定义为任意顶点的最大子节点数。例如，上述树的分支系数为
-2。你的任务是构造一棵有 <span class="math inline">\(n\)</span>
-个顶点的树，使所有顶点的子树大小之和等于 <span
-class="math inline">\(s\)</span>，并且分支系数尽可能小。</p>
+<p>树的分支系数定义为任意顶点的最大子节点数。例如，上述树的分支系数为 2。你的任务是构造一棵有 $n$ 个顶点的树，使所有顶点的子树大小之和等于 $s$，并且分支系数尽可能小。</p>
 <p><strong>输入格式</strong></p>
-<p>唯一的输入行，包含两个整数 <span class="math inline">\(n\)</span> 和
-<span class="math inline">\(s\)</span> 。</p>
-<p>树的顶点数量和所需的子树大小之和（<span class="math inline">\(2 \le n
-\le 10^5\)</span>；<span class="math inline">\(1 \le s \le
-10^{10}\)</span>）。</p>
+<p>唯一的输入行，包含两个整数 $n$ 和 $s$ 。</p>
+<p>树的顶点数量和所需的子树大小之和（$2 \le n \le 10^5$；$1 \le s \le 10^{10}$）。</p>
 <p><strong>输出格式</strong>：</p>
 <p>如果所需的树不存在，则输出 <code>No</code>。</p>
-<p>否则在第一行输出 <code>Yes</code>，接下来一行输出整数 <span
-class="math inline">\(p_2\)</span>，<span
-class="math inline">\(p_3\)</span>，...，<span
-class="math inline">\(p_n\)</span>，其中 <span
-class="math inline">\(p_i\)</span> 表示顶点 <span
-class="math inline">\(i\)</span> 的父节点。</p>
+<p>否则在第一行输出 <code>Yes</code>，接下来一行输出整数 $p_2$，$p_3$，…，$p_n$，其中 $p_i$ 表示顶点 $i$ 的父节点。</p>
 </blockquote>
-<p>这道题类似于 <a
-href="/2022/11/02/cf1311e-construct-the-binary-tree-ti-jie/">CF1311E
-Construct the Binary Tree</a> 。</p>
+<p>这道题类似于 <a href="/2022/11/02/cf1311e-construct-the-binary-tree-ti-jie/">CF1311E Construct the Binary Tree</a> 。</p>
 <p>首先子树大小的和可以转化为每个节点的深度的和。</p>
-<p>因为要求度数最小的方案，考虑二分最大度数 <span
-class="math inline">\(k\)</span> 。显然度数越小，子树和越大。</p>
-<p>由于深度最小的完全 <span class="math inline">\(k\)</span>
-叉树的深度和最小，所以对于合法的 <span class="math inline">\(k\)</span>
-，我们可以从最小的情况扩展。</p>
+<p>因为要求度数最小的方案，考虑二分最大度数 $k$ 。显然度数越小，子树和越大。</p>
+<p>由于深度最小的完全 $k$ 叉树的深度和最小，所以对于合法的 $k$ ，我们可以从最小的情况扩展。</p>
 <p>考虑记录每个深度的节点的个数，以及每个节点的深度。考虑从深度最深的节点开始扩展即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -857,12 +815,11 @@ n)\)</span></p>
         cout <span class="token operator">&lt;&lt;</span> j <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">++</span>cnt<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">https://www.luogu.com.cn/article/lwa77mqw</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">https://www.luogu.com.cn/article/lwa77mqw</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img class="img-shadow img-margin" src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407130023262.jpg" style="zoom:45%;" /></p>
@@ -993,7 +950,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1001,7 +957,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1336,7 +1292,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1404,13 +1360,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1420,7 +1376,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1428,13 +1384,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1450,7 +1406,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lwa77mqw">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1605,21 +1561,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

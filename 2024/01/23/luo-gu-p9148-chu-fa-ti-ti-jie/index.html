@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P9148 除法题 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,73 +735,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p9148-除法题-题解">洛谷P9148 除法题 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9148">P9148
-除法题</a></p>
+                <h1 id="洛谷P9148-除法题-题解"><a href="#洛谷P9148-除法题-题解" class="headerlink" title="洛谷P9148 除法题 题解"></a>洛谷P9148 除法题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9148">P9148 除法题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定大小为 <span class="math inline">\(n\)</span> 的集合 <span
-class="math inline">\(a\)</span>，保证其中元素互不相同且均为正整数。</p>
-<p>如果我们从中<strong>按顺序</strong>取出三个元素 <span
-class="math inline">\(a, b, c\)</span>，则共有 <span
-class="math inline">\(n \cdot (n-1) \cdot (n-2)\)</span>
-种不同的选择方案。</p>
-<p>现在对于一种选择方案 <span
-class="math inline">\((a,b,c)\)</span>，定义其权值为 <span
-class="math inline">\(\Bigl\lfloor\dfrac{a}{b}\Bigr\rfloor\Bigl\lfloor\dfrac{a}{c}\Bigr\rfloor\Bigl\lfloor\dfrac{b}{c}\Bigr\rfloor\)</span>。</p>
-<p>你需要对所有的选择方案计算权值的总和，你只需输出这个总和对 <span
-class="math inline">\(2^{32}\)</span> 取模的结果。</p>
-<p>注：<span class="math inline">\(\lfloor a\rfloor\)</span> 表示不大于
-<span class="math inline">\(a\)</span> 的最大整数。如 <span
-class="math inline">\(\lfloor 2.4\rfloor=2\)</span>、<span
-class="math inline">\(\lfloor 5\rfloor=5\)</span>。</p>
+<p>给定大小为 $n$ 的集合 $a$，保证其中元素互不相同且均为正整数。</p>
+<p>如果我们从中<strong>按顺序</strong>取出三个元素 $a, b, c$，则共有 $n \cdot (n-1) \cdot (n-2)$ 种不同的选择方案。</p>
+<p>现在对于一种选择方案 $(a,b,c)$，定义其权值为 $\Bigl\lfloor\dfrac{a}{b}\Bigr\rfloor\Bigl\lfloor\dfrac{a}{c}\Bigr\rfloor\Bigl\lfloor\dfrac{b}{c}\Bigr\rfloor$。</p>
+<p>你需要对所有的选择方案计算权值的总和，你只需输出这个总和对 $2^{32}$ 取模的结果。</p>
+<p>注：$\lfloor a\rfloor$ 表示不大于 $a$ 的最大整数。如 $\lfloor 2.4\rfloor=2$、$\lfloor 5\rfloor=5$。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行，一个正整数 <span
-class="math inline">\(n\)</span>，表示序列的长度。</p>
-<p>第二行，<span class="math inline">\(n\)</span> 个正整数 <span
-class="math inline">\(a_1, a_2, \ldots, a_n\)</span>，每个数描述了集合
-<span class="math inline">\(a\)</span> 的一个元素，这些数互不相同。</p>
+<p>第一行，一个正整数 $n$，表示序列的长度。</p>
+<p>第二行，$n$ 个正整数 $a_1, a_2, \ldots, a_n$，每个数描述了集合 $a$ 的一个元素，这些数互不相同。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个整数，表示答案对 <span
-class="math inline">\(2^{32}\)</span> 取模的结果。</p>
+<p>输出一行一个整数，表示答案对 $2^{32}$ 取模的结果。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
-class="math inline">\(1 \le n, a_i \le 5000\)</span>。</p>
+<p>对于 $100\%$ 的数据，$1 \le n, a_i \le 5000$。</p>
 </blockquote>
-<p>很容易想到去枚举 <span class="math inline">\(a,b\)</span>
-，但是仔细想想会发现 <span class="math inline">\(c\)</span>
-很不好枚举</p>
-<p>相反，如果我们枚举 <span class="math inline">\(c\)</span>
-，考察它对哪些 <span class="math inline">\(a,b\)</span>
-产生了贡献，这却是能做的。</p>
-<p>可以发现，因为值域 <span class="math inline">\(V\)</span> 很小，所以
-<span class="math inline">\(\left\lfloor
-\frac{V}{c}\right\rfloor\)</span> 的值域则更为小。</p>
-<p>并且对于一个 <span class="math inline">\(\left\lfloor
-\frac{a}{c}\right\rfloor\)</span> ，它包含了 <span
-class="math inline">\([a_1, a_2]\)</span> 内的所有整数，所有 <span
-class="math inline">\(a \in [a_1,a_2]\)</span> 的 <span
-class="math inline">\(\left\lfloor \frac{a}{c}\right\rfloor\)</span>
-是相等的</p>
-<p>那么对于 <span class="math inline">\(\left\lfloor
-\frac{a}{c}\right\rfloor,\left\lfloor \frac{b}{c}\right\rfloor\)</span>
-，它包含了一个矩阵 <span
-class="math inline">\((a_1,b_1),(a_2,b_2)\)</span>
-内的所有点，这个统计很容易由二维差分做到。</p>
-<p>分析一下时间复杂度。枚举 <span class="math inline">\(c\)</span>
-这一部分的时间复杂度为 <span class="math display">\[
-\sum_{i=1}^V \frac{V}{i} \times \frac{V}{i}=V^2 \times \sum_{i=1}^V
-\frac{1}{i^2}
-\]</span> 这里需要一个小知识 <span class="math display">\[
-\sum_{i = 1}^{\infty} \frac{1}{i^2}=\frac{\pi^2}{6}
-\]</span> 因此这部分的时间复杂度为 <span
-class="math inline">\(\mathcal{O}(V^2)\)</span> 。枚举 <span
-class="math inline">\(a,b\)</span> 计算答案的部分显然也是 <span
-class="math inline">\(\mathcal{O}(V^2)\)</span></p>
-<p>总时间复杂度 <span
-class="math inline">\(\mathcal{O}(V^2)\)</span></p>
+<p>很容易想到去枚举 $a,b$ ，但是仔细想想会发现 $c$ 很不好枚举</p>
+<p>相反，如果我们枚举 $c$ ，考察它对哪些 $a,b$ 产生了贡献，这却是能做的。</p>
+<p>可以发现，因为值域 $V$ 很小，所以 $\left\lfloor \frac{V}{c}\right\rfloor$ 的值域则更为小。</p>
+<p>并且对于一个 $\left\lfloor \frac{a}{c}\right\rfloor$ ，它包含了 $[a_1, a_2]$ 内的所有整数，所有 $a \in [a_1,a_2]$ 的 $\left\lfloor \frac{a}{c}\right\rfloor$ 是相等的</p>
+<p>那么对于 $\left\lfloor \frac{a}{c}\right\rfloor,\left\lfloor \frac{b}{c}\right\rfloor$ ，它包含了一个矩阵 $(a_1,b_1),(a_2,b_2)$ 内的所有点，这个统计很容易由二维差分做到。</p>
+<p>分析一下时间复杂度。枚举 $c$ 这一部分的时间复杂度为</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^V \frac{V}{i} \times \frac{V}{i}=V^2 \times \sum_{i=1}^V \frac{1}{i^2}</script><p>这里需要一个小知识</p>
+<script type="math/tex; mode=display">
+\sum_{i = 1}^{\infty} \frac{1}{i^2}=\frac{\pi^2}{6}</script><p>因此这部分的时间复杂度为 $\mathcal{O}(V^2)$ 。枚举 $a,b$ 计算答案的部分显然也是 $\mathcal{O}(V^2)$</p>
+<p>总时间复杂度 $\mathcal{O}(V^2)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
@@ -847,11 +805,10 @@ class="math inline">\(\mathcal{O}(V^2)\)</span></p>
             <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">></span> j <span class="token operator">&amp;&amp;</span> vis<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> vis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> <span class="token punctuation">(</span>i <span class="token operator">/</span> j<span class="token punctuation">)</span> <span class="token operator">*</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution-p9148">https://www.luogu.com.cn/blog/McHf/solution-p9148</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution-p9148">https://www.luogu.com.cn/blog/McHf/solution-p9148</a></p>
 
                 
             </div>
@@ -973,7 +930,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -981,7 +937,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1308,7 +1264,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1376,13 +1332,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1392,7 +1348,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1400,13 +1356,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1422,7 +1378,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/McHf/solution
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1577,21 +1533,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

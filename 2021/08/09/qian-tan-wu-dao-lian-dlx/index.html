@@ -7,7 +7,7 @@
     <meta name="keywords" content="浅谈舞蹈链(DLX), Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -719,7 +715,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4k
+                    3.7k
                 </div>
                 
 
@@ -739,136 +735,45 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈舞蹈链dlx">浅谈舞蹈链(DLX)</h1>
-<h2 id="一舞蹈链">一、舞蹈链</h2>
-<p><strong>舞蹈链</strong> (Dancing links)，也叫 <strong>DLX</strong>
-，是由 Donald Knuth
-提出的数据结构，目的是快速实现他提出的<strong>X算法</strong>。X算法是一种递归算法，时间复杂度不确定，深度优先，通过回溯寻找<strong>精确覆盖问题</strong>所有可能的解</p>
+                <h1 id="浅谈舞蹈链-DLX"><a href="#浅谈舞蹈链-DLX" class="headerlink" title="浅谈舞蹈链(DLX)"></a>浅谈舞蹈链(DLX)</h1><h2 id="一、舞蹈链"><a href="#一、舞蹈链" class="headerlink" title="一、舞蹈链"></a>一、舞蹈链</h2><p><strong>舞蹈链</strong> (Dancing links)，也叫 <strong>DLX</strong> ，是由 Donald Knuth 提出的数据结构，目的是快速实现他提出的<strong>X算法</strong>。X算法是一种递归算法，时间复杂度不确定，深度优先，通过回溯寻找<strong>精确覆盖问题</strong>所有可能的解</p>
 <p>（以上摘自维基百科）</p>
 <p>舞蹈链的主要思想来源于<strong>双向链表</strong></p>
-<p>我们设 <span class="math inline">\(l[x]\)</span> 表示元素 <span
-class="math inline">\(x\)</span> 的左指针， <span
-class="math inline">\(r[x]\)</span> 表示元素 <span
-class="math inline">\(x\)</span> 的右指针</p>
-<p>显然，如果想要删除元素 <span class="math inline">\(x\)</span>
-，我们可以做以下操作</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp">r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// x左侧的元素的右指针指向x右侧的元素</span>
-l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// x右侧的元素的左指针指向x左侧的元素</span></code></pre>
-<p>那恢复元素 <span class="math inline">\(x\)</span> 呢？
-我们可以发现删除 <span class="math inline">\(x\)</span> 的时候， <span
-class="math inline">\(x\)</span> 的左右指针并没有改变，即 <span
-class="math inline">\(l[x]\)</span> 和 <span
-class="math inline">\(r[x]\)</span>
-并没有改变，于是我们可以做以下操作</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp">r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span> <span class="token comment">// x左侧的元素的右指针重新指向x</span>
-l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span> <span class="token comment">// x右侧的元素的左指针重新指向x</span></code></pre>
-<p>这样如果 <span class="math inline">\(x\)</span>
-左右两侧没有改变，我们就可以恢复 <span class="math inline">\(x\)</span>
-所在的位置</p>
+<p>我们设 $l[x]$ 表示元素 $x$ 的左指针， $r[x]$ 表示元素 $x$ 的右指针</p>
+<p>显然，如果想要删除元素 $x$ ，我们可以做以下操作</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// x左侧的元素的右指针指向x右侧的元素</span>
+l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// x右侧的元素的左指针指向x左侧的元素</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>那恢复元素 $x$ 呢？ 我们可以发现删除 $x$ 的时候， $x$ 的左右指针并没有改变，即 $l[x]$ 和 $r[x]$ 并没有改变，于是我们可以做以下操作</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span> <span class="token comment">// x左侧的元素的右指针重新指向x</span>
+l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span> <span class="token comment">// x右侧的元素的左指针重新指向x</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这样如果 $x$ 左右两侧没有改变，我们就可以恢复 $x$ 所在的位置</p>
 <p>那么<strong>精确覆盖问题</strong>又是什么呢？</p>
-<p>给定矩阵，要求选出一个由若干行组成的集合，使得每一列上都有且仅有一个
-<span class="math inline">\(1\)</span></p>
-<p><span
-class="math display">\[\begin{pmatrix}0&amp;0&amp;1&amp;0&amp;1&amp;1&amp;0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1 \\
-0&amp;1&amp;1&amp;0&amp;0&amp;1&amp;0 \\
-1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-0&amp;0&amp;0&amp;1&amp;1&amp;0&amp;1\end{pmatrix}\]</span></p>
-<p>例如该矩阵选出的行为 <span class="math inline">\(1,4,5\)</span>
-行</p>
+<p>给定矩阵，要求选出一个由若干行组成的集合，使得每一列上都有且仅有一个 $1$ </p>
+<script type="math/tex; mode=display">\begin{pmatrix}0&0&1&0&1&1&0 \\ 1&0&0&1&0&0&1 \\ 0&1&1&0&0&1&0 \\ 1&0&0&1&0&0&0 \\ 0&1&0&0&0&0&1 \\ 0&0&0&1&1&0&1\end{pmatrix}</script><p>例如该矩阵选出的行为 $1,4,5$ 行</p>
 <p>我们来模拟一下朴素<strong>X算法</strong>求解的过程</p>
 <p>以下过程用<strong>红色</strong>表示选择了这一行，<strong>绿色</strong>表示存在冲突的元素，<strong>灰色</strong>表示删除的行</p>
 <p>1.选择第一行</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1 \\
-0&amp;1&amp;1&amp;0&amp;0&amp;1&amp;0 \\
-1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-0&amp;0&amp;0&amp;1&amp;1&amp;0&amp;1\end{pmatrix}\]</span></p>
-<p>2.标记所有和第一行冲突的元素</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1 \\
-0&amp;1&amp;\color{green}1&amp;0&amp;0&amp;\color{green}1&amp;0 \\
-1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-0&amp;0&amp;0&amp;1&amp;\color{green}1&amp;0&amp;1\end{pmatrix}\]</span></p>
-<p>3.删除存在冲突的行</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1 \\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}1\end{pmatrix}\]</span></p>
-<p>4.接着选择第二行</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\
-\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1
-\\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}1\end{pmatrix}\]</span></p>
-<p>5.标记与第二行冲突的元素</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\
-\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1
-\\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0
-\\ \color{green}1&amp;0&amp;0&amp;\color{green}1&amp;0&amp;0&amp;0 \\
-0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;\color{green}1 \\
-\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}1\end{pmatrix}\]</span></p>
-<p>6.删除存在冲突的行</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\
-\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1
-\\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0
-\\
-\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}0
-\\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1
-\\
-\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}1\end{pmatrix}\]</span></p>
-<p>7.发现没有可以选择的行了，而已选的不满足要求，回溯，选择第四行</p>
-<p><span
-class="math display">\[\begin{pmatrix}\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}1&amp;\color{red}1&amp;\color{red}0
-\\ 1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1 \\
-\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}0
-\\
-\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}1&amp;\color{red}0&amp;\color{red}0&amp;\color{red}0
-\\ 0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;1 \\
-\color{grey}0&amp;\color{grey}0&amp;\color{grey}0&amp;\color{grey}1&amp;\color{grey}1&amp;\color{grey}0&amp;\color{grey}1\end{pmatrix}\]</span>
-8.接下来的同理，不断执行，直到找到答案</p>
-<p>我们会发现， <span class="math inline">\(X\)</span>
-算法花了大量的时间在找 <span class="math inline">\(1\)</span>
-，而且删改很不方便</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ 1&0&0&1&0&0&1 \\ 0&1&1&0&0&1&0 \\ 1&0&0&1&0&0&0 \\ 0&1&0&0&0&0&1 \\ 0&0&0&1&1&0&1\end{pmatrix}</script><p>2.标记所有和第一行冲突的元素</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ 1&0&0&1&0&0&1 \\ 0&1&\color{green}1&0&0&\color{green}1&0 \\ 1&0&0&1&0&0&0 \\ 0&1&0&0&0&0&1 \\ 0&0&0&1&\color{green}1&0&1\end{pmatrix}</script><p>3.删除存在冲突的行</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ 1&0&0&1&0&0&1 \\ \color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0 \\ 1&0&0&1&0&0&0 \\ 0&1&0&0&0&0&1 \\ \color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}1\end{pmatrix}</script><p>4.接着选择第二行</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ \color{red}1&\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}0&\color{red}1 \\ \color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0 \\ 1&0&0&1&0&0&0 \\ 0&1&0&0&0&0&1 \\ \color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}1\end{pmatrix}</script><p>5.标记与第二行冲突的元素</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ \color{red}1&\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}0&\color{red}1 \\ \color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0 \\ \color{green}1&0&0&\color{green}1&0&0&0 \\ 0&1&0&0&0&0&\color{green}1 \\ \color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}1\end{pmatrix}</script><p>6.删除存在冲突的行</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ \color{red}1&\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}0&\color{red}1 \\ \color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0 \\ \color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}0 \\ \color{grey}0&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1 \\ \color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}1\end{pmatrix}</script><p>7.发现没有可以选择的行了，而已选的不满足要求，回溯，选择第四行</p>
+<script type="math/tex; mode=display">\begin{pmatrix}\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}1&\color{red}1&\color{red}0 \\ 1&0&0&1&0&0&1 \\ \color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}0 \\ \color{red}1&\color{red}0&\color{red}0&\color{red}1&\color{red}0&\color{red}0&\color{red}0 \\ 0&1&0&0&0&0&1 \\ \color{grey}0&\color{grey}0&\color{grey}0&\color{grey}1&\color{grey}1&\color{grey}0&\color{grey}1\end{pmatrix}</script><p>8.接下来的同理，不断执行，直到找到答案</p>
+<p>我们会发现， $X$ 算法花了大量的时间在找 $1$ ，而且删改很不方便</p>
 <p>为了解决这个问题，舞蹈链就产生了</p>
-<p>模板题 <span class="math inline">\(\to\)</span> <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4929">P4929
-【模板】舞蹈链（DLX）</a></p>
-<p>（注：为了方便讲述，以下引用<a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/mzchuan/p/11469809.html">这篇博客</a>中的图片（感谢图片的作者！））</p>
+<p>模板题 $\to$ <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4929">P4929 【模板】舞蹈链（DLX）</a></p>
+<p>（注：为了方便讲述，以下引用<a target="_blank" rel="noopener" href="https://www.cnblogs.com/mzchuan/p/11469809.html">这篇博客</a>中的图片（感谢图片的作者！））</p>
 <p>舞蹈链的结构即<strong>交叉十字循环双向链</strong>，本文中以数组形式实现链表</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">;</span> <span class="token comment">// 行、列数</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">;</span> <span class="token comment">// 行、列数</span>
 <span class="token keyword">int</span> u<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>d<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>l<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>r<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>h<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">;</span> 
 <span class="token comment">// 每个结点的上下左右指针；每一行的头指针</span>
 
 <span class="token keyword">int</span> row<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>col<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>s<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>ansk<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">,</span>pos<span class="token punctuation">;</span> 
-<span class="token comment">// 每个结点原先所在的行、列；每一列的结点个数；ansk记录搜索信息；结点总数</span></code></pre>
+<span class="token comment">// 每个结点原先所在的行、列；每一列的结点个数；ansk记录搜索信息；结点总数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如下图所示</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.png" />
-别急！我们一步一步来实现这个复杂的数据结构</p>
-<p>首先初始化上方的<strong>列头结点</strong></p>
-<p>我们可以称列头结点为限制，行头结点为决策 （注：这个做题的时候有用）
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.png" alt=""><br>别急！我们一步一步来实现这个复杂的数据结构</p>
+<p>首先初始化上方的<strong>列头结点</strong> </p>
+<p>我们可以称列头结点为限制，行头结点为决策 （注：这个做题的时候有用）<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
 	<span class="token punctuation">&#123;</span>
@@ -880,9 +785,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.pn
 	<span class="token function">memset</span><span class="token punctuation">(</span>h<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//每一行的头结点都为空</span>
 	<span class="token function">memset</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//每一列的结点数都为0</span>
 	pos<span class="token operator">=</span>m<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">//已经搭建好了m个列头结点，下一个加入的结点从m+1开始编号</span>
-<span class="token punctuation">&#125;</span></code></pre>
-接下来，我们来把插入结点的功能完成（注：这里比较复杂，可以感性理解一下）
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">link</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> x<span class="token punctuation">,</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><br>接下来，我们来把插入结点的功能完成（注：这里比较复杂，可以感性理解一下）<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">link</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> x<span class="token punctuation">,</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	s<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">//所在的列结点数加1</span>
 	row<span class="token punctuation">[</span>pos<span class="token punctuation">]</span><span class="token operator">=</span>x<span class="token punctuation">;</span>col<span class="token punctuation">[</span>pos<span class="token punctuation">]</span><span class="token operator">=</span>y<span class="token punctuation">;</span> <span class="token comment">//记录编号为pos的结点（即新加入的结点）的行和列</span>
@@ -899,7 +802,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.pn
 		l<span class="token punctuation">[</span>h<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>pos<span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	pos<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">//下一个结点不要标错号了</span>
-<span class="token punctuation">&#125;</span></code></pre> 现在我们来完成删除和恢复操作（差不多的） <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">rm</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><br>现在我们来完成删除和恢复操作（差不多的）<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">rm</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> y<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>l<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">;</span>r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>r<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//删除y列的结点（这个位置已经填满了）</span>
 	<span class="token keyword">for</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> i<span class="token operator">=</span>d<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">;</span> i<span class="token operator">!=</span>y<span class="token punctuation">;</span> i<span class="token operator">=</span>d<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
@@ -920,8 +823,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.pn
 			s<span class="token punctuation">[</span>col<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
 		<span class="token punctuation">&#125;</span>
 	r<span class="token punctuation">[</span>l<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>y<span class="token punctuation">;</span>l<span class="token punctuation">[</span>r<span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span>y<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<del>然后可以开始跳舞了</del> 主体部分，就是深度优先搜索 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">dance</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> dep<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><br><del>然后可以开始跳舞了</del><br>主体部分，就是深度优先搜索<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">dance</span><span class="token punctuation">(</span>R <span class="token keyword">int</span> dep<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
 	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>r<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token comment">//所有的列头结点都被选了，说明成功了</span>
 	<span class="token punctuation">&#123;</span>
@@ -942,17 +844,11 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101770.pn
 	<span class="token punctuation">&#125;</span>
 	<span class="token function">rv</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-如果您不太理解的话，可以看看下面的动图（注：其实和之前模拟的有些相似）</p>
-<p>算法执行过程 （注：图片是<a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/mzchuan/p/11469809.html">这篇博客</a>的）</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101192.gif" /></p>
-<p>最终的答案即下图 （选择 <span class="math inline">\(1,4,5\)</span> ）
-<img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101078.png" />
-最后贴上完整代码</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><br>如果您不太理解的话，可以看看下面的动图（注：其实和之前模拟的有些相似）</p>
+<p>算法执行过程 （注：图片是<a target="_blank" rel="noopener" href="https://www.cnblogs.com/mzchuan/p/11469809.html">这篇博客</a>的）</p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101192.gif" alt=""></p>
+<p>最终的答案即下图 （选择 $1,4,5$ ）<br><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101078.png" alt=""><br>最后贴上完整代码</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1053,33 +949,28 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202403042101078.pn
 		<span class="token punctuation">&#125;</span>
 	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">dance</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"No Solution!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <HR>
-<h2 id="二例题">二、例题</h2>
-<p>如果您看到这里，还是很明白的话，那么我们来讲个例题</p>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP13980">SP13980
-SUDOGOB - Sudoku goblin</a></p>
-<p><strong>题意</strong>：给定一个 <span class="math inline">\(9 \times
-9\)</span> 的数独，输出可填的方案数，多组数据</p>
-<p><del>选择这个例题当然不是让你写暴搜的</del></p>
+
+<h2 id="二、例题"><a href="#二、例题" class="headerlink" title="二、例题"></a>二、例题</h2><p>如果您看到这里，还是很明白的话，那么我们来讲个例题</p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP13980">SP13980 SUDOGOB - Sudoku goblin</a></p>
+<p><strong>题意</strong>：给定一个 $9 \times 9$ 的数独，输出可填的方案数，多组数据</p>
+<p><del>选择这个例题当然不是让你写暴搜的</del> </p>
 <p>首先考虑决策</p>
-<p>每个格子上填数字，至多有 <span class="math inline">\(9\times 9\times
-9 = 729\)</span> 种决策</p>
+<p>每个格子上填数字，至多有 $9\times 9\times 9 = 729$ 种决策</p>
 <p>再考虑限制</p>
-<ol type="1">
+<ol>
 <li>每个点只能填一个数</li>
 <li>每行一个数只能填一次</li>
 <li>每列一个数只能填一次</li>
 <li>每个九宫格一个数只能填一次</li>
 </ol>
-<p>限制数为 <span class="math inline">\(9\times 9 \times 4 =
-324\)</span></p>
+<p>限制数为 $9\times 9 \times 4 = 324$</p>
 <p>对于精准覆盖问题，我们本质上是在选择若干<strong>决策</strong>，使其恰好满足所有<strong>限制</strong>条件</p>
 <p>因此这题可以用 DLX 求解</p>
-<p>那么 <code>MAXN</code>只要开到 729*324
-就行了（注：不过开大点保险）</p>
-<p>这题唯一的细节是插入结点的行、列，<del>还是很简单的题目</del></p>
-<p>代码如下 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<p>那么 <code>MAXN</code>只要开到 729*324 就行了（注：不过开大点保险）</p>
+<p>这题唯一的细节是插入结点的行、列，<del>还是很简单的题目</del> </p>
+<p>代码如下<br><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">R</span> <span class="token expression"><span class="token keyword">register</span></span></span>
@@ -1208,11 +1099,10 @@ SUDOGOB - Sudoku goblin</a></p>
 				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld%c"</span><span class="token punctuation">,</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">" \n"</span><span class="token punctuation">[</span>j<span class="token operator">==</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre></p>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
 <p>当然，如果您有兴趣的话，可以去做下这道题</p>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1110">SP1110
-SUDOKU - Sudoku</a></p>
-<p>这道题就是上一题的加强版，其实没什么区别，如果您理解了例题的话，<del>这题就很简单了</del></p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP1110">SP1110 SUDOKU - Sudoku</a></p>
+<p>这道题就是上一题的加强版，其实没什么区别，如果您理解了例题的话，<del>这题就很简单了</del> </p>
 
                 
             </div>
@@ -1334,7 +1224,6 @@ SUDOKU - Sudoku</a></p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1342,7 +1231,7 @@ SUDOKU - Sudoku</a></p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1672,7 +1561,7 @@ SUDOKU - Sudoku</a></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1740,13 +1629,13 @@ SUDOKU - Sudoku</a></p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1756,7 +1645,7 @@ SUDOKU - Sudoku</a></p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1764,13 +1653,13 @@ SUDOKU - Sudoku</a></p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1786,7 +1675,7 @@ SUDOKU - Sudoku</a></p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1941,21 +1830,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

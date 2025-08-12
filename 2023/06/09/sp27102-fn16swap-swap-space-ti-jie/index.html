@@ -7,7 +7,7 @@
     <meta name="keywords" content="SP27102 FN16SWAP - Swap Space 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -735,104 +731,34 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sp27102-fn16swap---swap-space-题解">SP27102 FN16SWAP - Swap
-Space 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP27102">SP27102
-FN16SWAP - Swap Space</a></p>
+                <h1 id="SP27102-FN16SWAP-Swap-Space-题解"><a href="#SP27102-FN16SWAP-Swap-Space-题解" class="headerlink" title="SP27102 FN16SWAP - Swap Space 题解"></a>SP27102 FN16SWAP - Swap Space 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP27102">SP27102 FN16SWAP - Swap Space</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>你管理着一个拥有多个计算机的大型集群，这些计算机上的硬盘使用各种不同的文件系统类型存储数据。最近，你决定将所有文件系统统一为相同类型。这是一个相当大的挑战，因为所有的硬盘目前都在使用中，它们都装满了重要数据，而且你不能承受任何数据丢失的风险。此外，将一个硬盘重新格式化为新的文件系统可能会显著改变其容量。为了使重新格式化成为可能，你将不得不购买一个额外的硬盘。显然，你希望通过尽量减小额外存储的大小来节省费用。</p>
 <p>你可以以任何顺序重新格式化硬盘。在重新格式化一个硬盘之前，你必须将该硬盘上的所有数据移动到一个或多个其他硬盘上，必要时可以进行数据的分割。在一个硬盘重新格式化后，你可以立即开始使用它来存储来自其他硬盘的数据。并不需要将所有数据放在它们最初所在的硬盘上——事实上，如果某些硬盘在新的文件系统中具有较小的容量，这样做甚至可能是不可能的。同时，一些数据可能会被放在额外的硬盘上。</p>
-<p>举个例子，假设你有四个硬盘 <span
-class="math inline">\(A\)</span>、<span
-class="math inline">\(B\)</span>、<span class="math inline">\(C\)</span>
-和 <span
-class="math inline">\(D\)</span>，它们的容量（旧文件系统）分别为 <span
-class="math inline">\(6\)</span>、<span
-class="math inline">\(1\)</span>、<span class="math inline">\(3\)</span>
-和 <span class="math inline">\(3\)</span> <span
-class="math inline">\(\text{GB}\)</span>。在新的文件系统下，它们的容量变为
-<span class="math inline">\(6\)</span>、<span
-class="math inline">\(7\)</span>、<span class="math inline">\(5\)</span>
-和 <span class="math inline">\(5\)</span> <span
-class="math inline">\(\text{GB}\)</span>。如果你只购买了 <span
-class="math inline">\(1\)</span> <span
-class="math inline">\(\text{GB}\)</span> 的额外空间，你可以将硬盘 <span
-class="math inline">\(B\)</span> 上的数据移动到这里，然后重新格式化硬盘
-<span class="math inline">\(B\)</span>。现在，你在硬盘 <span
-class="math inline">\(B\)</span> 上有 <span
-class="math inline">\(7\)</span> <span
-class="math inline">\(\text{GB}\)</span> 的空闲空间，所以你可以将硬盘
-<span class="math inline">\(A\)</span> 上的 <span
-class="math inline">\(6\)</span> <span
-class="math inline">\(\text{GB}\)</span>
-数据移动到这里，并重新格式化硬盘 <span
-class="math inline">\(A\)</span>。最后，你将来自硬盘 <span
-class="math inline">\(C\)</span> 和 <span
-class="math inline">\(D\)</span> 的总共六个<span
-class="math inline">\(\text{GB}\)</span>的数据移动到硬盘 <span
-class="math inline">\(A\)</span> 上，并重新格式化硬盘 <span
-class="math inline">\(C\)</span> 和 <span
-class="math inline">\(D\)</span>。</p>
+<p>举个例子，假设你有四个硬盘 $A$、$B$、$C$ 和 $D$，它们的容量（旧文件系统）分别为 $6$、$1$、$3$ 和 $3$ $\text{GB}$。在新的文件系统下，它们的容量变为 $6$、$7$、$5$ 和 $5$ $\text{GB}$。如果你只购买了 $1$ $\text{GB}$ 的额外空间，你可以将硬盘 $B$ 上的数据移动到这里，然后重新格式化硬盘 $B$。现在，你在硬盘 $B$ 上有 $7$ $\text{GB}$ 的空闲空间，所以你可以将硬盘 $A$ 上的 $6$ $\text{GB}$ 数据移动到这里，并重新格式化硬盘 $A$。最后，你将来自硬盘 $C$ 和 $D$ 的总共六个$\text{GB}$的数据移动到硬盘 $A$ 上，并重新格式化硬盘 $C$ 和 $D$。</p>
 <p><strong>输入格式</strong>：</p>
 <p>多个测试用例，直到输入结束为止。对于每个测试用例：</p>
-<p>输入以包含一个整数 <span class="math inline">\(n\)</span>（<span
-class="math inline">\(1 \le n \le
-10^6\)</span>）的行开始，表示你的集群中的硬盘数量。接下来的 <span
-class="math inline">\(n\)</span> 行描述每个硬盘的容量，每行包含两个整数
-<span class="math inline">\(a\)</span> 和 <span
-class="math inline">\(b\)</span>，其中 <span
-class="math inline">\(a\)</span> 是旧文件系统下的容量，<span
-class="math inline">\(b\)</span> 是新文件系统下的容量。</p>
-<p>所有容量以<span
-class="math inline">\(\text{GB}\)</span>为单位，并满足 <span
-class="math inline">\(1 \le a, b \le
-10^9\)</span>。（一千个PB应该足够大了，对吧？）</p>
+<p>输入以包含一个整数 $n$（$1 \le n \le 10^6$）的行开始，表示你的集群中的硬盘数量。接下来的 $n$ 行描述每个硬盘的容量，每行包含两个整数 $a$ 和 $b$，其中 $a$ 是旧文件系统下的容量，$b$ 是新文件系统下的容量。</p>
+<p>所有容量以$\text{GB}$为单位，并满足 $1 \le a, b \le 10^9$。（一千个PB应该足够大了，对吧？）</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每个测试用例，显示必须购买的额外容量（以<span
-class="math inline">\(\text{GB}\)</span>为单位），以重新格式化硬盘。</p>
+<p>对于每个测试用例，显示必须购买的额外容量（以$\text{GB}$为单位），以重新格式化硬盘。</p>
 </blockquote>
-<p>依稀记得 Roundgod
-老师说过的，贪心题，通常考虑两个不同元素，会优先选哪个。</p>
-<p>我们先来考虑 <span class="math inline">\(x \le y\)</span>
-的元素。如果 <span class="math inline">\(x\)</span>
-相同，那么选哪个都一样。如果 <span class="math inline">\(y\)</span>
-相同，肯定选 <span class="math inline">\(x\)</span> 小的。</p>
-<p>然后考虑 <span class="math inline">\(x &gt; y\)</span> 的情况。如果
-<span class="math inline">\(x\)</span> 相同，不确定。如果 <span
-class="math inline">\(y\)</span> 相同，肯定选 <span
-class="math inline">\(x\)</span> 小的。</p>
-<p>看上去我们没法确定两个 <span class="math inline">\(x\)</span>
-相等时的顺序，但是 <span class="math inline">\(y\)</span>
-的角度似乎还有路可走。</p>
-<p>设两个元素 <span class="math inline">\(y_1 &gt; y_2\)</span>
-。可以证明，如果先吃掉 <span class="math inline">\(y_1\)</span> 再吃掉
-<span class="math inline">\(y_2\)</span> 不够时，即使先吃 <span
-class="math inline">\(y_2\)</span> 也不可能够。</p>
-<p>证明：设钱数为 <span class="math inline">\(t\)</span> ，根据描述有
-<span class="math inline">\(t - (x_1-y_1) &lt; x_2\)</span> ，则 <span
-class="math inline">\(t-(x_1-y_2) &lt; x_2\)</span> 即 <span
-class="math inline">\(t-(x_2-y_2) &lt; x_1\)</span> <span
-class="math inline">\(\square\)</span></p>
-<p>反之，先吃 <span class="math inline">\(y_2\)</span>
-的决策<del>用脚想想都知道</del>有反例。所以我们一定会优先选 <span
-class="math inline">\(y\)</span> 大的。</p>
-<p>因此我们只需要把 <span class="math inline">\(x\le y\)</span> 的按
-<span class="math inline">\(x\)</span> 从小到大排序，<span
-class="math inline">\(x &gt; y\)</span> 的按 <span
-class="math inline">\(y\)</span> 从大到小排序，然后扫一遍就好啦。</p>
+<p>依稀记得 Roundgod 老师说过的，贪心题，通常考虑两个不同元素，会优先选哪个。</p>
+<p>我们先来考虑 $x \le y$ 的元素。如果 $x$ 相同，那么选哪个都一样。如果 $y$ 相同，肯定选 $x$ 小的。</p>
+<p>然后考虑 $x &gt; y$ 的情况。如果 $x$ 相同，不确定。如果 $y$ 相同，肯定选 $x$ 小的。</p>
+<p>看上去我们没法确定两个 $x$ 相等时的顺序，但是 $y$ 的角度似乎还有路可走。</p>
+<p>设两个元素 $y_1 &gt; y_2$ 。可以证明，如果先吃掉 $y_1$ 再吃掉 $y_2$ 不够时，即使先吃 $y_2$ 也不可能够。</p>
+<p>证明：设钱数为 $t$ ，根据描述有 $t - (x_1-y_1) &lt; x_2$ ，则 $t-(x_1-y_2) &lt; x_2$ 即 $t-(x_2-y_2) &lt; x_1$ $\square$</p>
+<p>反之，先吃 $y_2$ 的决策<del>用脚想想都知道</del>有反例。所以我们一定会优先选 $y$ 大的。</p>
+<p>因此我们只需要把 $x\le y$ 的按 $x$ 从小到大排序，$x &gt; y$ 的按 $y$ 从大到小排序，然后扫一遍就好啦。</p>
 <blockquote>
-<p>对了，关于 <span class="math inline">\(x&gt;y\)</span>
-的情况，还有一种理解方式，<del>就是比较难想到</del>：</p>
-<p>考虑“时间倒流”，由减少变为增加，并根据 <span
-class="math inline">\(x\le y\)</span> 的贪心策略得知此时加容量时要按
-<span class="math inline">\(y\)</span> 从小到大排序</p>
+<p>对了，关于 $x&gt;y$ 的情况，还有一种理解方式，<del>就是比较难想到</del>：</p>
+<p>考虑“时间倒流”，由减少变为增加，并根据 $x\le y$ 的贪心策略得知此时加容量时要按 $y$ 从小到大排序</p>
 </blockquote>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
-<p>代码：（<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/564110">三倍经验</a>喵~）</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>代码：（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/564110">三倍经验</a>喵~）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -875,7 +801,7 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
     <span class="token comment">// freopen("check.out","w",stdout);</span>
     <span class="token keyword">int</span> n<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>cin <span class="token operator">>></span> n<span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -993,7 +919,6 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1001,7 +926,7 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1336,7 +1261,7 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1404,13 +1329,13 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1420,7 +1345,7 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1428,13 +1353,13 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1450,7 +1375,7 @@ pii a<span class="token punctuation">[</span>N<span class="token punctuation">]<
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1605,21 +1530,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

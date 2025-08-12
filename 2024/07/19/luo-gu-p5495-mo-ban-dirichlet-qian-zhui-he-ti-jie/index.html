@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P5495 【模板】Dirichlet 前缀和 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,60 +735,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5495-模板dirichlet-前缀和-题解">洛谷P5495 【模板】Dirichlet
-前缀和 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5495">P5495
-【模板】Dirichlet 前缀和</a></p>
+                <h1 id="洛谷P5495-【模板】Dirichlet-前缀和-题解"><a href="#洛谷P5495-【模板】Dirichlet-前缀和-题解" class="headerlink" title="洛谷P5495 【模板】Dirichlet 前缀和 题解"></a>洛谷P5495 【模板】Dirichlet 前缀和 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5495">P5495 【模板】Dirichlet 前缀和</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个长度为 <span class="math inline">\(n\)</span> 的数列 <span
-class="math inline">\(a_1,a_2,a_3,\dots,a_n\)</span>。</p>
-<p>现在你要求出一个长度为 <span class="math inline">\(n\)</span> 的数列
-<span class="math inline">\(b_1,b_2,b_3,\dots,b_n\)</span>，满足</p>
-<p><span class="math display">\[
-b_k=\sum_{i\mid k}a_i
-\]</span> 由于某些神秘原因，这里的 <span
-class="math inline">\(b_k\)</span> 要对 <span
-class="math inline">\(2^{32}\)</span> 取模。</p>
+<p>给定一个长度为 $n$ 的数列 $a_1,a_2,a_3,\dots,a_n$。</p>
+<p>现在你要求出一个长度为 $n$ 的数列 $b_1,b_2,b_3,\dots,b_n$，满足</p>
+<script type="math/tex; mode=display">
+b_k=\sum_{i\mid k}a_i</script><p>由于某些神秘原因，这里的 $b_k$ 要对 $2^{32}$ 取模。</p>
 <p><strong>输入格式</strong>：</p>
 <p>为了避免过大的输入，本题的输入使用随机数生成器。</p>
-<p>输入中只有一行两个整数 <span
-class="math inline">\(n,\mathrm{seed}\)</span>。其中 <span
-class="math inline">\(\mathrm{seed}\)</span> 为 <span
-class="math inline">\(32\)</span> 位无符号整数，用来生成数据。</p>
-<p>接下来，你要调用 <span class="math inline">\(n\)</span>
-次随机数生成器，分别生成 <span class="math inline">\(a_1\sim
-a_n\)</span>。随机生成器见原题链接。</p>
+<p>输入中只有一行两个整数 $n,\mathrm{seed}$。其中 $\mathrm{seed}$ 为 $32$ 位无符号整数，用来生成数据。</p>
+<p>接下来，你要调用 $n$ 次随机数生成器，分别生成 $a_1\sim a_n$。随机生成器见原题链接。</p>
 <p><strong>输出格式</strong>：</p>
-<p>为了避免过大的输出，你只需输出一个 <span
-class="math inline">\(32\)</span> 位无符号整数，表示所有 <span
-class="math inline">\(b_i\)</span> 的异或和。</p>
+<p>为了避免过大的输出，你只需输出一个 $32$ 位无符号整数，表示所有 $b_i$ 的异或和。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq n\leq 2\times 10^7\)</span>，<span
-class="math inline">\(0\leq \mathrm{seed}&lt; 2^{32}\)</span>。</p>
+<p>$1\leq n\leq 2\times 10^7$，$0\leq \mathrm{seed}&lt; 2^{32}$。</p>
 </blockquote>
-<p>设 <span class="math inline">\(i = \prod p_k^{\alpha_k},~j = \prod
-p_k^{\beta_k}\)</span> ，其中 <span class="math inline">\(p\)</span>
-均为素数。</p>
-<p>那么 <span class="math inline">\(a_i\)</span> 对 <span
-class="math inline">\(b_j\)</span> 有贡献当且仅当 <span
-class="math inline">\(\forall k,~\alpha_k \le \beta_k\)</span> 。</p>
-<p>可以发现这是一个高维前缀和，即如果我们给每个 <span
-class="math inline">\(p\)</span> 都开一维的话，答案可以这么算 <span
-class="math display">\[
-f(x_1,x_2,\cdots,x_k) = f(x_1-1,x_2,\cdots,x_k) +
-f(x_1,x_2-1,\cdots,x_k)+\cdots + f(x_1,x_2,\cdots,x_k-1) - \cdots
-\]</span>
-这里没写全，后面的省略号表示容斥要减去的东西，这个应该很好理解。</p>
-<p>不过这意思有些过于蠢了。我们已经知道 <span
-class="math inline">\(\prod p_i^{x_i}\)</span> 了，完全可以记一个 <span
-class="math inline">\(f_i\)</span> ，每次从质因子处得到贡献。</p>
+<p>设 $i = \prod p_k^{\alpha_k},~j = \prod p_k^{\beta_k}$ ，其中 $p$ 均为素数。</p>
+<p>那么 $a_i$ 对 $b_j$ 有贡献当且仅当 $\forall k,~\alpha_k \le \beta_k$ 。</p>
+<p>可以发现这是一个高维前缀和，即如果我们给每个 $p$ 都开一维的话，答案可以这么算</p>
+<script type="math/tex; mode=display">
+f(x_1,x_2,\cdots,x_k) = f(x_1-1,x_2,\cdots,x_k) + f(x_1,x_2-1,\cdots,x_k)+\cdots + f(x_1,x_2,\cdots,x_k-1) - \cdots</script><p>这里没写全，后面的省略号表示容斥要减去的东西，这个应该很好理解。</p>
+<p>不过这意思有些过于蠢了。我们已经知道 $\prod p_i^{x_i}$ 了，完全可以记一个 $f_i$ ，每次从质因子处得到贡献。</p>
 <p>直接枚举质因子还是很蠢，我们可以用埃氏筛。</p>
-<p>这样时间复杂度就是 <span class="math inline">\(\mathcal{O}(n \log
-\log n)\)</span> ，埃氏筛的复杂度证明参考 <a
-href="/2022/09/15/note-5/">link</a></p>
+<p>这样时间复杂度就是 $\mathcal{O}(n \log \log n)$ ，埃氏筛的复杂度证明参考 <a href="/2022/09/15/note-5/">link</a></p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
@@ -822,7 +790,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -944,7 +912,6 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -952,7 +919,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1291,7 +1258,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1359,13 +1326,13 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1375,7 +1342,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1383,13 +1350,13 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1405,7 +1372,7 @@ uint <span class="token function">rd</span><span class="token punctuation">(</sp
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1560,21 +1527,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="[AGC022E] Median Replace 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -723,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    826
+                    820
                 </div>
                 
 
@@ -743,92 +739,59 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc022e-median-replace-题解">[AGC022E] Median Replace 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc022_e">[AGC022E] Median
-Replace</a></p>
+                <h1 id="AGC022E-Median-Replace-题解"><a href="#AGC022E-Median-Replace-题解" class="headerlink" title="[AGC022E] Median Replace 题解"></a>[AGC022E] Median Replace 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc022_e">[AGC022E] Median Replace</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有个长度为 <span class="math inline">\(N\)</span>（<span
-class="math inline">\(N\)</span> 为奇数）的 <span
-class="math inline">\(\texttt{01}\)</span> 串 <span
-class="math inline">\(s\)</span>，其中有若干位置是 <span
-class="math inline">\(\texttt{?}\)</span>。</p>
-<p>一次操作可将 <span class="math inline">\(3\)</span>​
-个连续的字符替换成这三个数的中位数。</p>
-<p>求有多少将 <span class="math inline">\(\texttt ?\)</span> 替换成
-<span class="math inline">\(\texttt0\)</span> 或 <span
-class="math inline">\(\texttt1\)</span> 的方案使得进行 <span
-class="math inline">\(\frac{N-1}{2}\)</span> 次操作后的字符串可以是
-<span class="math inline">\(\texttt1\)</span>​。</p>
+<p>有个长度为 $N$（$N$ 为奇数）的 $\texttt{01}$ 串 $s$，其中有若干位置是 $\texttt{?}$。  </p>
+<p>一次操作可将 $3$​ 个连续的字符替换成这三个数的中位数。  </p>
+<p>求有多少将 $\texttt ?$ 替换成 $\texttt0$ 或 $\texttt1$ 的方案使得进行 $\frac{N-1}{2}$ 次操作后的字符串可以是 $\texttt1$​。</p>
 <p><strong>输入格式</strong>：</p>
-<p>一行，给定 <span class="math inline">\(s\)</span> 。</p>
+<p>一行，给定 $s$ 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行，答案</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1\leq N\leq300000\)</span> 且 <span
-class="math inline">\(N\)</span> 为奇数。</p>
+<p>$1\leq N\leq300000$ 且 $N$ 为奇数。</p>
 </blockquote>
 <p>做多替换三个的题了，还以为是把每个位置都换成中位数……（<del>我就说大早上写题会弱智吧</del>）</p>
-<p>容易发现，如果一个字符串由 <span class="math inline">\(a\)</span>
-个连续的 <span class="math inline">\(\mathtt{1}\)</span> 和 <span
-class="math inline">\(b\)</span> 个连续的 <span
-class="math inline">\(\mathtt{0}\)</span> 拼接而成，则当 <span
-class="math inline">\(a &gt; b\)</span> 时一定合法。</p>
-<p>考虑维护一个从栈顶到栈底由一段连续的 <span
-class="math inline">\(\mathtt{0}\)</span> 和一段连续的 <span
-class="math inline">\(\mathtt{1}\)</span> 组成的栈，然后依次加入每个
-<span class="math inline">\(s_i\)</span> ，则</p>
+<p>容易发现，如果一个字符串由 $a$ 个连续的 $\mathtt{1}$ 和 $b$ 个连续的 $\mathtt{0}$ 拼接而成，则当 $a &gt; b$ 时一定合法。</p>
+<p>考虑维护一个从栈顶到栈底由一段连续的 $\mathtt{0}$ 和一段连续的 $\mathtt{1}$ 组成的栈，然后依次加入每个 $s_i$ ，则</p>
 <ul>
-<li>若 <span class="math inline">\(s_i = \mathtt{0}\)</span>​​ ，
-<ul>
-<li>若栈顶为 <span class="math inline">\(\mathtt 0\)</span> ，当栈顶有
-<span class="math inline">\(2\)</span> 个 <span
-class="math inline">\(\mathtt 0\)</span> 时可以替换成一个 <span
-class="math inline">\(\mathtt 0\)</span> ，否则入栈。</li>
-<li>若栈顶为 <span class="math inline">\(\mathtt 1\)</span>
-，直接入栈。</li>
-</ul></li>
-<li>若 <span class="math inline">\(s_i = \mathtt{1}\)</span> ，
-<ul>
-<li>若栈顶为 <span class="math inline">\(\mathtt 0\)</span> ，新加入的
-<span class="math inline">\(\mathtt 1\)</span> 可以和栈顶的 <span
-class="math inline">\(\mathtt 0\)</span> 抵消。</li>
-<li>若栈顶为 <span class="math inline">\(\mathtt 1\)</span> ，仅在 <span
-class="math inline">\(\mathtt 1\)</span> 只有一个时加入。</li>
-</ul></li>
+<li>若 $s_i = \mathtt{0}$​​ ，<ul>
+<li>若栈顶为 $\mathtt 0$ ，当栈顶有 $2$ 个 $\mathtt 0$ 时可以替换成一个 $\mathtt 0$ ，否则入栈。</li>
+<li>若栈顶为 $\mathtt 1$ ，直接入栈。</li>
+</ul>
+</li>
+<li>若 $s_i = \mathtt{1}$ ，<ul>
+<li>若栈顶为 $\mathtt 0$ ，新加入的 $\mathtt 1$ 可以和栈顶的 $\mathtt 0$ 抵消。</li>
+<li>若栈顶为 $\mathtt 1$ ，仅在 $\mathtt 1$ 只有一个时加入。</li>
+</ul>
+</li>
 </ul>
 <p>那么这个栈就用很小的状态数就维护了一个串是否合法。</p>
-<p>于是可以考虑 dp 了。设 <span class="math inline">\(f(i,a,b)\)</span>
-为考虑到第 <span class="math inline">\(i\)</span> 位，栈内有 <span
-class="math inline">\(a\)</span> 个 <span class="math inline">\(\mathtt
-1\)</span> 和 <span class="math inline">\(b\)</span> 个 <span
-class="math inline">\(\mathtt 0\)</span> 的方案数，考虑转移：</p>
+<p>于是可以考虑 dp 了。设 $f(i,a,b)$ 为考虑到第 $i$ 位，栈内有 $a$ 个 $\mathtt 1$ 和 $b$ 个 $\mathtt 0$ 的方案数，考虑转移：</p>
 <ul>
-<li><p>若 <span class="math inline">\(s_{i+1}=\mathtt 0\)</span>​ ，则
-<span class="math display">\[
+<li><p>若 $s_{i+1}=\mathtt 0$​ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;f(i + 1,\,a,\,1) \uparrow f(i,\,a,\,2) + f(i,\,a,\,0)
-\\[6pt] &amp;f(i + 1,\,a,\,2) \uparrow f(i,\,a,\,1)
-\end{aligned}
-\]</span></p></li>
-<li><p>若 <span class="math inline">\(s_{i+1} = \mathtt 1\)</span>​ ，则
-<span class="math display">\[
+&f(i + 1,\,a,\,1) \uparrow f(i,\,a,\,2) + f(i,\,a,\,0)
+\\[6pt] &f(i + 1,\,a,\,2) \uparrow f(i,\,a,\,1)
+\end{aligned}</script></li>
+<li><p>若 $s_{i+1} = \mathtt 1$​ ，则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;f(i + 1,\,a,\,b-1) \uparrow f(i,\,a,\,b) &amp;(b\ne 0)
-\\[8pt] &amp; \begin{cases}
-  f(i + 1,\,1,\,0)\uparrow f(i,\,0,\,0)
+&f(i + 1,\,a,\,b-1) \uparrow f(i,\,a,\,b) &(b\ne 0)
+\\[8pt] & \begin{cases} 
+    f(i + 1,\,1,\,0)\uparrow f(i,\,0,\,0)
 \\[6pt] f(i + 1,\,2,\,0)\uparrow f(i,\,1,\,0)
 \\[6pt] f(i + 1,\,2,\,0)\uparrow f(i,\,2,\,0)
-\end{cases} &amp; (b = 0)
-\end{aligned}
-\]</span></p></li>
-<li><p>若 <span class="math inline">\(s_{i + 1} = \mathtt{?}\)</span>
-，则把上面两种转移都做一遍即可。</p></li>
+\end{cases} & (b = 0)
+\end{aligned}</script></li>
+<li><p>若 $s_{i + 1} = \mathtt{?}$ ，则把上面两种转移都做一遍即可。</p>
+</li>
 </ul>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -873,12 +836,11 @@ class="math inline">\(\mathtt 0\)</span> 的方案数，考虑转移：</p>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> b <span class="token operator">&lt;=</span> a<span class="token punctuation">;</span> b<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> f<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">https://www.luogu.com.cn/article/t1y87bs5</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">https://www.luogu.com.cn/article/t1y87bs5</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>题又不会做…睡觉睡觉（困）</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405160802915.png" style="zoom:50%;" /></p>
@@ -1007,7 +969,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1015,7 +976,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1354,7 +1315,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1422,13 +1383,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1438,7 +1399,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1446,13 +1407,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1468,7 +1429,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/t1y87bs5">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1623,21 +1584,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

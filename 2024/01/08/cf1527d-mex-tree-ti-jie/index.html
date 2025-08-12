@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1527D MEX Tree 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -680,12 +676,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                 <span class="chip bg-color">数学</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -743,49 +739,25 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1527d-mex-tree-题解">CF1527D MEX Tree 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1527D">CF1527D
-MEX Tree</a></p>
+                <h1 id="CF1527D-MEX-Tree-题解"><a href="#CF1527D-MEX-Tree-题解" class="headerlink" title="CF1527D MEX Tree 题解"></a>CF1527D MEX Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1527D">CF1527D MEX Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>本题有多组测试数据。</p>
-<p>给出一棵 <span class="math inline">\(n\)</span> 个点的树，点从 <span
-class="math inline">\(0\)</span> 到 <span class="math inline">\(n -
-1\)</span> 编号。定义一条路径的权值是路径上所有点编号的 <span
-class="math inline">\(\operatorname{mex}\)</span>。对于每个 <span
-class="math inline">\(0\le i\le n\)</span> 求出 <span
-class="math inline">\(\operatorname{mex}\)</span> 为 <span
-class="math inline">\(i\)</span>
-的路径有几条。注意，这里统计的路径需要包括至少一条边。</p>
-<p>一个集合的 <span class="math inline">\(\operatorname{mex}\)</span>
-定义为最小的不在集合中的非负整数。</p>
+<p>给出一棵 $n$ 个点的树，点从 $0$ 到 $n - 1$ 编号。定义一条路径的权值是路径上所有点编号的 $\operatorname{mex}$。对于每个 $0\le i\le n$ 求出 $\operatorname{mex}$ 为 $i$ 的路径有几条。注意，这里统计的路径需要包括至少一条边。</p>
+<p>一个集合的 $\operatorname{mex}$ 定义为最小的不在集合中的非负整数。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2 \le n \le 2\times 10^5, \sum n_i \le
-2\times 10^5\)</span> 。</p>
+<p>$2 \le n \le 2\times 10^5, \sum n_i \le 2\times 10^5$ 。</p>
 </blockquote>
-<p>先考虑在链上怎么做。我们从 <span class="math inline">\(0\)</span>
-开始往上推，设当前枚举到了 <span class="math inline">\(x\)</span> 。</p>
-<p>可以发现 <span class="math inline">\(0\)</span> 到 <span
-class="math inline">\(x\)</span> 的数一定会在一个区间 <span
-class="math inline">\([l,r]\)</span> 内，根据乘法原理可知 <span
-class="math inline">\(\mathrm{mex} &gt; x\)</span> 的路径数有 <span
-class="math inline">\(l\times (n - r + 1)\)</span> 条。</p>
-<p>接着考虑在树上怎么做。显然，到了树上，<span
-class="math inline">\(0\)</span> 到 <span
-class="math inline">\(x\)</span> 就很难在同一条链上了。</p>
-<p>不过我们注意到，如果 <span class="math inline">\(0\)</span> 到 <span
-class="math inline">\(x\)</span>
-不在一条链上，那么能通过这些数的路径也不存在。</p>
-<p>否则一定可以用一条链连接 <span class="math inline">\(0\)</span> 到
-<span class="math inline">\(x\)</span>
-，于是我们可以维护这条链和链两端的节点数。</p>
-<p>具体地，如果当前点不在链上，就不停跳 <strong><i>fa</i></strong>
-直到找到已经在链上的点。</p>
+<p>先考虑在链上怎么做。我们从 $0$ 开始往上推，设当前枚举到了 $x$ 。</p>
+<p>可以发现 $0$ 到 $x$ 的数一定会在一个区间 $[l,r]$ 内，根据乘法原理可知 $\mathrm{mex} &gt; x$ 的路径数有 $l\times (n - r + 1)$ 条。</p>
+<p>接着考虑在树上怎么做。显然，到了树上，$0$ 到 $x$ 就很难在同一条链上了。</p>
+<p>不过我们注意到，如果 $0$ 到 $x$ 不在一条链上，那么能通过这些数的路径也不存在。</p>
+<p>否则一定可以用一条链连接 $0$ 到 $x$ ，于是我们可以维护这条链和链两端的节点数。</p>
+<p>具体地，如果当前点不在链上，就不停跳 <strong><i>fa</i></strong> 直到找到已经在链上的点。</p>
 <p>如果这个点是端点，那么更新端点，否则一定不是一条链。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n\log n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -838,11 +810,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token comment">// freopen("check.out","w",stdout);</span>
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Great!</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupurei/solution-cf1527d">https://www.luogu.com.cn/blog/LilliaAsupurei/solution-cf1527d</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupurei/solution-cf1527d">https://www.luogu.com.cn/blog/LilliaAsupurei/solution-cf1527d</a></p>
 
                 
             </div>
@@ -911,12 +882,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%B0%E5%AD%A6/">
                                     <span class="chip bg-color">数学</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -968,7 +939,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -976,7 +946,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1057,13 +1027,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/01/09/luo-gu-p9228-yuan-shen-ti-jie/">
+                <a href="/2024/01/08/ban-xiao-shi-man-hua-27.3-bi-ji-shi-me-shi-wu-xian-yi-jin/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p222.webp" class="responsive-img" alt="洛谷P9228 原神 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p151.webp" class="responsive-img" alt="半小时漫画 27.3 笔记 什么是“五险一金”？">
                         
-                        <span class="card-title">洛谷P9228 原神 题解</span>
+                        <span class="card-title">半小时漫画 27.3 笔记 什么是“五险一金”？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1074,14 +1044,14 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-01-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-01-08
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/OI/" class="post-category">
-                                    OI
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
                                 </a>
                             
                             
@@ -1091,8 +1061,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">
+                        <span class="chip bg-color">经济学</span>
                     </a>
                     
                 </div>
@@ -1106,13 +1076,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/01/02/xiao-lan-shu-17.1-ti-jie/">
+                <a href="/2024/01/07/ban-xiao-shi-man-hua-27.2-bi-ji-huo-bi-de-qi-yuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p42.webp" class="responsive-img" alt="小蓝书 17.1 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p165.webp" class="responsive-img" alt="半小时漫画 27.2 笔记 货币的起源">
                         
-                        <span class="card-title">小蓝书 17.1 题解</span>
+                        <span class="card-title">半小时漫画 27.2 笔记 货币的起源</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1123,7 +1093,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-07
                             </span>
                         <span class="publish-author">
                             
@@ -1140,12 +1110,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%92%95%E5%92%95/">
-                        <span class="chip bg-color">咕咕</span>
+                    <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">
+                        <span class="chip bg-color">经济学</span>
                     </a>
                     
                 </div>
@@ -1307,7 +1273,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1375,13 +1341,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1391,7 +1357,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1399,13 +1365,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1421,7 +1387,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/LilliaAsupure
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1576,21 +1542,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

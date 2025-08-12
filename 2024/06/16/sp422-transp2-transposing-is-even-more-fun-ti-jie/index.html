@@ -7,7 +7,7 @@
     <meta name="keywords" content="SP422 TRANSP2 - Transposing is Even More Fun 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,94 +739,43 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="sp422-transp2---transposing-is-even-more-fun-题解">SP422 TRANSP2
-- Transposing is Even More Fun 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP422">TRANSP2 -
-Transposing is Even More Fun</a></p>
+                <h1 id="SP422-TRANSP2-Transposing-is-Even-More-Fun-题解"><a href="#SP422-TRANSP2-Transposing-is-Even-More-Fun-题解" class="headerlink" title="SP422 TRANSP2 - Transposing is Even More Fun 题解"></a>SP422 TRANSP2 - Transposing is Even More Fun 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP422">TRANSP2 - Transposing is Even More Fun</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>假设你有一个 <span class="math inline">\(2^a\times 2^b\)</span>
-的数组。它在内存中以通常的方式按顺序存储，先是第一行的值，然后是第二行的值，依此类推。你希望对它进行转置，但没有任何额外的内存。你唯一能执行的操作是交换两个内存单元的内容。进行转置所需的最少操作数是多少？</p>
+<p>假设你有一个 $2^a\times 2^b$ 的数组。它在内存中以通常的方式按顺序存储，先是第一行的值，然后是第二行的值，依此类推。你希望对它进行转置，但没有任何额外的内存。你唯一能执行的操作是交换两个内存单元的内容。进行转置所需的最少操作数是多少？</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入的第一行包含测试用例的数量 <span class="math inline">\(c~(1 \le c
-\le 4\times 10^6)\)</span> 。</p>
-<p>每个测试用例由两个整数 <span class="math inline">\(a\)</span> 和
-<span class="math inline">\(b\)</span> 组成 <span
-class="math inline">\((0 \le a + b \le 1\times 10^6)\)</span> 。</p>
+<p>输入的第一行包含测试用例的数量 $c~(1 \le c \le 4\times 10^6)$ 。</p>
+<p>每个测试用例由两个整数 $a$ 和 $b$ 组成 $(0 \le a + b \le 1\times 10^6)$ 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每个测试用例，输出转置一个 <span class="math inline">\(2a\times
-2b\)</span> 数组所需的最少交换次数。</p>
-<p>由于这个数可能非常大，你需要输出它除以 <span
-class="math inline">\(1000003\)</span> 的余数（是的，<span
-class="math inline">\(1000003\)</span> 是一个质数:) ）。</p>
+<p>对于每个测试用例，输出转置一个 $2a\times 2b$ 数组所需的最少交换次数。</p>
+<p>由于这个数可能非常大，你需要输出它除以 $1000003$ 的余数（是的，$1000003$ 是一个质数:) ）。</p>
 </blockquote>
-<p>我们可以把答案看作将一个序列转化为排列 <span
-class="math inline">\(p=0,1,\cdots\)</span> 的最少交换数。</p>
-<p>意思对于每个数 <span class="math inline">\(i\)</span> 我们连边 <span
-class="math inline">\(i \to p_i\)</span>
-会形成若干个循环置换，每个大小为 <span class="math inline">\(x\)</span>
-的循环置换贡献 <span class="math inline">\(x-1\)</span> 的次数</p>
+<p>我们可以把答案看作将一个序列转化为排列 $p=0,1,\cdots$ 的最少交换数。</p>
+<p>意思对于每个数 $i$ 我们连边 $i \to p_i$ 会形成若干个循环置换，每个大小为 $x$ 的循环置换贡献 $x-1$ 的次数</p>
 <p>现在的问题是如何找到这个序列中循环置换的数量。</p>
-<p>注意到对于矩阵元素 <span class="math inline">\(a_{ij}\)</span>
-，它在序列上的位置为 <span class="math inline">\(2^bi+j\)</span>
-，而在转置矩阵 <span class="math inline">\(a^{\rm T}\)</span> 上的位置为
-<span class="math inline">\(2^aj + i\)</span> 。</p>
-<p>如果我们把这两个数看作一个 <span class="math inline">\(a+b\)</span>
-位的二进制数，并首尾相接，那么交换操作就等价于旋转 <span
-class="math inline">\(b\)</span> 个单位。</p>
-<p>如果 <span class="math inline">\(x\)</span> 在旋转后变为 <span
-class="math inline">\(y\)</span> ，我们就连边 <span
-class="math inline">\(x\to y\)</span>
-，显然最终形成的环的个数就是我们要求的循环置换的个数。</p>
-<p>注意到旋转 <span class="math inline">\(b\)</span> 个单位会把 <span
-class="math inline">\(a+b\)</span> 个二进制位划分成 <span
-class="math inline">\(\gcd(a+b,\,b)\)</span> 个大小为 <span
-class="math inline">\(\frac{a+b}{\gcd(a + b,\,b)}\)</span> 的环</p>
-<p>因为 <span class="math inline">\(\gcd(a + b,\, b)=\gcd(a, b)\)</span>
-，所以也就是 <span class="math inline">\(\gcd(a,b)\)</span> 个大小为
-<span class="math inline">\(\frac{a+b}{\gcd(a,b)}\)</span>
-的等价类。</p>
-<p>不妨记 <span class="math inline">\(g = \gcd(a,b),~n =
-\frac{a+b}{\gcd(a,b)}\)</span> ，根据 Burnside 引理 <span
-class="math display">\[
-|X / G|=\frac{1}{|G|} \sum_{\varphi_i \in G} \left|X^{\varphi_i}\right|
-\]</span> 其中 <span class="math inline">\(X^{\varphi_i}\)</span> 为
-<span class="math inline">\(\varphi_i\)</span>
-作用下的不动点集合，本题中置换 <span
-class="math inline">\(\varphi_i\)</span> 表示将 <span
-class="math inline">\(g\)</span> 个大小为 <span
-class="math inline">\(n\)</span> 的环旋转 <span
-class="math inline">\(i\)</span> 个单位。</p>
-<p>而 <span class="math inline">\(\varphi_i\)</span>
-作用下的不动点数量为 <span
-class="math inline">\(\left(2^{\operatorname{gcd}(n, i)}\right)^g=2^{g
-\operatorname{gcd}(n, i)}\)</span> ，这里 <span
-class="math inline">\(2\)</span> 是每个等价类可以染成 <span
-class="math inline">\(0\)</span> 或 <span
-class="math inline">\(1\)</span> 。</p>
-<p>那么答案就是 <span class="math display">\[
+<p>注意到对于矩阵元素 $a_{ij}$ ，它在序列上的位置为 $2^bi+j$ ，而在转置矩阵 $a^{\rm T}$ 上的位置为 $2^aj + i$ 。</p>
+<p>如果我们把这两个数看作一个 $a+b$ 位的二进制数，并首尾相接，那么交换操作就等价于旋转 $b$ 个单位。</p>
+<p>如果 $x$ 在旋转后变为 $y$ ，我们就连边 $x\to y$ ，显然最终形成的环的个数就是我们要求的循环置换的个数。</p>
+<p>注意到旋转 $b$ 个单位会把 $a+b$ 个二进制位划分成 $\gcd(a+b,\,b)$ 个大小为 $\frac{a+b}{\gcd(a + b,\,b)}$ 的环</p>
+<p>因为 $\gcd(a + b,\, b)=\gcd(a, b)$ ，所以也就是 $\gcd(a,b)$ 个大小为 $\frac{a+b}{\gcd(a,b)}$ 的等价类。</p>
+<p>不妨记 $g = \gcd(a,b),~n = \frac{a+b}{\gcd(a,b)}$ ，根据 Burnside 引理</p>
+<script type="math/tex; mode=display">
+|X / G|=\frac{1}{|G|} \sum_{\varphi_i \in G} \left|X^{\varphi_i}\right|</script><p>其中 $X^{\varphi_i}$ 为 $\varphi_i$ 作用下的不动点集合，本题中置换 $\varphi_i$ 表示将 $g$ 个大小为 $n$ 的环旋转 $i$ 个单位。</p>
+<p>而 $\varphi_i$ 作用下的不动点数量为 $\left(2^{\operatorname{gcd}(n, i)}\right)^g=2^{g \operatorname{gcd}(n, i)}$ ，这里 $2$ 是每个等价类可以染成 $0$ 或 $1$ 。</p>
+<p>那么答案就是</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-\mathrm{Ans} &amp;= \sum_{i=1}^n 2^{g \operatorname{gcd}(n, i)}
-\\[3pt] &amp;= \sum_{d \mid n} 2^{g d}
-\sum_{i=1}^{\frac{n}{d}}\left[\operatorname{gcd}\left(i,
-\frac{n}{d}\right)=1\right] \\
-\\[3pt]&amp;= \sum_{d \mid n} 2^{g d} \varphi\left(\frac{n}{d}\right)
-\end{aligned}
-\]</span> 提示：这里 <span class="math inline">\(\varphi(n)\)</span>
-是欧拉函数，中括号是艾弗森括号。</p>
-<p>那么我们只需要预处理 <span class="math inline">\(\varphi\)</span>
-以及所有数的约数即可。</p>
+\mathrm{Ans} &= \sum_{i=1}^n 2^{g \operatorname{gcd}(n, i)}
+\\[3pt] &= \sum_{d \mid n} 2^{g d} \sum_{i=1}^{\frac{n}{d}}\left[\operatorname{gcd}\left(i, \frac{n}{d}\right)=1\right] \\
+\\[3pt]&= \sum_{d \mid n} 2^{g d} \varphi\left(\frac{n}{d}\right)
+\end{aligned}</script><p>提示：这里 $\varphi(n)$ 是欧拉函数，中括号是艾弗森括号。</p>
+<p>那么我们只需要预处理 $\varphi$ 以及所有数的约数即可。</p>
 <p>这里学到了一种妙妙办法，可以枚举每个数的倍数并和它连边，这样每次只需要遍历邻接表就可以了。</p>
-<p>时间复杂度 <span class="math display">\[
-\mathcal{O}\left(V \log V + T \max_{1\le n \le V}\{ d(n)\}\right)
-\]</span> 其中 <span class="math inline">\(V = a + b\)</span>
-的值域，<span class="math inline">\(d(n)\)</span> 为 <span
-class="math inline">\(n\)</span> 的因子个数。根据<a
-href="/notations/#toc-heading-2">表格</a>可知 <span
-class="math inline">\(V \le 10^6\)</span> 时 <span
-class="math inline">\(\max d(n) \le 240\)</span> 。</p>
+<p>时间复杂度</p>
+<script type="math/tex; mode=display">
+\mathcal{O}\left(V \log V + T \max_{1\le n \le V}\{ d(n)\}\right)</script><p>其中 $V = a + b$ 的值域，$d(n)$ 为 $n$ 的因子个数。根据<a href="/notations/#toc-heading-2">表格</a>可知 $V \le 10^6$ 时 $\max d(n) \le 240$ 。</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
@@ -893,17 +838,15 @@ class="math inline">\(\max d(n) \le 240\)</span> 。</p>
         cout <span class="token operator">&lt;&lt;</span> <span class="token function">dec</span><span class="token punctuation">(</span>pw2<span class="token punctuation">[</span>a <span class="token operator">+</span> b<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">1ll</span> <span class="token operator">*</span> res <span class="token operator">*</span> g <span class="token operator">%</span> mod <span class="token operator">*</span> <span class="token function">qpow</span><span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">%</span> mod<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>双倍经验：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP419">SP419 TRANSP -
-Transposing is Fun</a>（本题弱化版）</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP419">SP419 TRANSP - Transposing is Fun</a>（本题弱化版）</li>
 </ul>
-<hr />
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">https://www.luogu.com.cn/article/z2fw12jy</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">https://www.luogu.com.cn/article/z2fw12jy</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>毒瘤题放图片。萌萌题不放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406162019336.jpg" style="zoom:50%;" /></p>
@@ -1032,7 +975,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1040,7 +982,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1383,7 +1325,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1451,13 +1393,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1467,7 +1409,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1475,13 +1417,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1497,7 +1439,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/z2fw12jy">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1652,21 +1594,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

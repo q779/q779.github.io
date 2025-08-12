@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P4037 [JSOI2008]魔兽地图 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,86 +739,51 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4037-jsoi2008魔兽地图-题解">洛谷P4037 [JSOI2008]魔兽地图
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4037">P4037
-[JSOI2008]魔兽地图</a></p>
+                <h1 id="洛谷P4037-JSOI2008-魔兽地图-题解"><a href="#洛谷P4037-JSOI2008-魔兽地图-题解" class="headerlink" title="洛谷P4037 [JSOI2008]魔兽地图 题解"></a>洛谷P4037 [JSOI2008]魔兽地图 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4037">P4037 [JSOI2008]魔兽地图</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>DotR (Defense of the Robots)
-Allstars是一个风靡全球的魔兽地图，他的规则简单与同样流行的地图DotA
-(Defense of the Ancients) Allstars。</p>
+<p>DotR (Defense of the Robots) Allstars是一个风靡全球的魔兽地图，他的规则简单与同样流行的地图DotA (Defense of the Ancients) Allstars。</p>
 <p>DotR里面的英雄只有一个属性——力量。他们需要购买装备来提升自己的力量值，每件装备都可以使佩戴它的英雄的力量值提高固定的点数，所以英雄的力量值等于它购买的所有装备的力量值之和。装备分为基本装备和高级装备两种。基本装备可以直接从商店里面用金币购买，而高级装备需要用基本装备或者较低级的高级装备来合成，合成不需要附加的金币。装备的合成路线可以用一棵树来表示。</p>
-<p>比如，Sange and Yasha的合成需要Sange,Yasha和Sange and Yasha Recipe
-Scroll三样物品。其中Sange又要用Ogre Axe, Belt of Giant Strength和 Sange
-Recipe
-Scroll合成。每件基本装备都有数量限制，这限制了你不能无限制地合成某些性价比很高的装备。</p>
+<p>比如，Sange and Yasha的合成需要Sange,Yasha和Sange and Yasha Recipe Scroll三样物品。其中Sange又要用Ogre Axe, Belt of Giant Strength和 Sange Recipe Scroll合成。每件基本装备都有数量限制，这限制了你不能无限制地合成某些性价比很高的装备。</p>
 <p>现在，英雄Spectre有M个金币，他想用这些钱购买装备使自己的力量值尽量高。你能帮帮他吗？他会教你魔法Haunt（幽灵附体）作为回报的。</p>
 </blockquote>
 <p>容易发现这是一个十分有(dú)趣(liú)的树上背包问题</p>
 <p>高级装备和基本装备显然有树形的依赖关系</p>
-<p>按照高级-&gt;高级-&gt;基本的方式进行建图，<span
-class="math inline">\((u,v)\)</span> 的边权就是合成 <span
-class="math inline">\(u\)</span> 需要的 <span
-class="math inline">\(v\)</span> 个数</p>
+<p>按照高级-&gt;高级-&gt;基本的方式进行建图，$(u,v)$ 的边权就是合成 $u$ 需要的 $v$ 个数</p>
 <p>于是可以由此建出一个<strong>森林</strong>，因此最后dp的时候要加个虚拟结点啥的</p>
-<p>设 <span class="math inline">\(P[x],L[x],M[x]\)</span> 分别表示物品
-<span class="math inline">\(x\)</span> 的价值、购买上限和花费</p>
+<p>设 $P[x],L[x],M[x]$ 分别表示物品 $x$ 的价值、购买上限和花费</p>
 <p>对于基本装备（叶子结点），显然要进行<code>L[x]=min(L[x],m/M[x])</code>的操作</p>
-<p>设 <span class="math inline">\(f[u][j][k]\)</span> 表示 <span
-class="math inline">\(u\)</span> 装备所在子树，上传 <span
-class="math inline">\(j\)</span> 个 <span
-class="math inline">\(u\)</span> 装备用于给上层合成（也就是不计算这
-<span class="math inline">\(j\)</span>
-个的贡献），且所在子树花费的总金额为 <span
-class="math inline">\(k\)</span> 是能获得的最大价值</p>
-<p>对于一个 <span class="math inline">\(u\)</span>
-，它对父亲的贡献分为两方面</p>
+<p>设 $f[u][j][k]$ 表示 $u$ 装备所在子树，上传 $j$ 个 $u$ 装备用于给上层合成（也就是不计算这 $j$ 个的贡献），且所在子树花费的总金额为 $k$ 是能获得的最大价值</p>
+<p>对于一个 $u$ ，它对父亲的贡献分为两方面</p>
 <ul>
 <li>它所在的子树的贡献（价值），包括儿子的以及自己没上传的</li>
-<li><span class="math inline">\(u\)</span> 上传的 <span
-class="math inline">\(u\)</span> 装备的个数，以用于父亲的合成</li>
+<li>$u$ 上传的 $u$ 装备的个数，以用于父亲的合成</li>
 </ul>
 <p>则我们首先要知道对于每个结点究竟合成几个</p>
-<p>考虑枚举 <span class="math inline">\(l\)</span> ，表示 <span
-class="math inline">\(u\)</span> 要合成 <span
-class="math inline">\(l\)</span> 个（上传+自己私藏的）</p>
+<p>考虑枚举 $l$ ，表示 $u$ 要合成 $l$ 个（上传+自己私藏的）</p>
 <p>然后我们就可以枚举上传几个以及花费多少了</p>
-<p>如何知道对 <span class="math inline">\(u\)</span> 所在子树花费 <span
-class="math inline">\(k\)</span> 能获得的最大价值是多少呢</p>
+<p>如何知道对 $u$ 所在子树花费 $k$ 能获得的最大价值是多少呢</p>
 <p>这个需要我们再单独做一个临时的dp</p>
-<p>设 <span class="math inline">\(g[i][j]\)</span> 表示对于 <span
-class="math inline">\(u\)</span> 所在子树，只考虑 <span
-class="math inline">\(u\)</span> 的前 <span
-class="math inline">\(i\)</span> 个儿子所在子树，花费为 <span
-class="math inline">\(j\)</span> 时能获得的最大价值（这里不用记录 <span
-class="math inline">\(u\)</span> ，因为只是临时的dp）</p>
-<p>则有 <span class="math display">\[
-g[i][j+k]=\max(g[i][j+k],g[i-1][j]+f[v][l\times w(u,v)][k])
-\]</span></p>
-<ul>
-<li><p>这里为什么是 <span class="math inline">\(l\times w(u,v)\)</span>
-？因为已经枚举了当前要合成 <span class="math inline">\(l\)</span>
-个</p></li>
-<li><p>这里为什么max的第一个不是 <span
-class="math inline">\(g[i-1][j+k]\)</span>
-？因为我们每个子树都要拿材料啊</p>
+<p>设 $g[i][j]$ 表示对于 $u$ 所在子树，只考虑 $u$ 的前 $i$ 个儿子所在子树，花费为 $j$ 时能获得的最大价值（这里不用记录 $u$ ，因为只是临时的dp）</p>
+<p>则有</p>
+<script type="math/tex; mode=display">
+g[i][j+k]=\max(g[i][j+k],g[i-1][j]+f[v][l\times w(u,v)][k])</script><ul>
+<li><p>这里为什么是 $l\times w(u,v)$ ？因为已经枚举了当前要合成 $l$ 个</p>
+</li>
+<li><p>这里为什么max的第一个不是 $g[i-1][j+k]$ ？因为我们每个子树都要拿材料啊</p>
 <p>所以这里只是代码这么写而已，</p>
-<p>相当于 <span
-class="math inline">\(g[i][j+k]=\max\{g[i-1][j]+f[v][l\times
-w(u,v)][k]\}\)</span></p></li>
-<li><p><del>这里为什么是 <span class="math inline">\(j+k\)</span>
-？因为我喜欢刷表法，当然可以填表法</del></p></li>
+<p>相当于 $g[i][j+k]=\max\{g[i-1][j]+f[v][l\times w(u,v)][k]\}$</p>
+</li>
+<li><p><del>这里为什么是 $j+k$ ？因为我喜欢刷表法，当然可以填表法</del></p>
+</li>
 </ul>
-<p>然后就可以愉快地推出 <span class="math inline">\(f\)</span>
-的转移方程了 <span class="math display">\[
-f[u][j][k]=\max(f[u][j][k],g[k]+(l-j) \times P[u])
-\]</span> 细节巨多，详见代码（<del>这次有注释了qwq</del>）</p>
-<p>时间复杂度的宽松上界为 <span class="math inline">\(O(100\times
-nm^2)\)</span></p>
+<p>然后就可以愉快地推出 $f$ 的转移方程了</p>
+<script type="math/tex; mode=display">
+f[u][j][k]=\max(f[u][j][k],g[k]+(l-j) \times P[u])</script><p>细节巨多，详见代码（<del>这次有注释了qwq</del>）</p>
+<p>时间复杂度的宽松上界为 $O(100\times nm^2)$</p>
 <p>实际剪枝+时限3.00s，可以<code>444ms</code>跑过所有点（<del>嘿嘿所以我是目前最优解</del></p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -927,7 +888,7 @@ nm^2)\)</span></p>
         res<span class="token operator">=</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span>h<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考了很多的题解，就不一一列出来了 qwq</p>
 
                 
@@ -1054,7 +1015,6 @@ nm^2)\)</span></p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1062,7 +1022,7 @@ nm^2)\)</span></p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1234,12 +1194,12 @@ nm^2)\)</span></p>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">总结</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%B0%E5%AD%A6/">
                         <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
                     </a>
                     
                 </div>
@@ -1401,7 +1361,7 @@ nm^2)\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1469,13 +1429,13 @@ nm^2)\)</span></p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1485,7 +1445,7 @@ nm^2)\)</span></p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1493,13 +1453,13 @@ nm^2)\)</span></p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1515,7 +1475,7 @@ nm^2)\)</span></p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1670,21 +1630,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

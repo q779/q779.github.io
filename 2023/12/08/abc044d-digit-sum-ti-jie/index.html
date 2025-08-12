@@ -7,7 +7,7 @@
     <meta name="keywords" content="[ABC044D] Digit Sum 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,64 +735,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="abc044d-digit-sum-题解">[ABC044D] Digit Sum 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc060_b">[ABC044D] Digit
-Sum</a></p>
+                <h1 id="ABC044D-Digit-Sum-题解"><a href="#ABC044D-Digit-Sum-题解" class="headerlink" title="[ABC044D] Digit Sum 题解"></a>[ABC044D] Digit Sum 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc060_b">[ABC044D] Digit Sum</a> </p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>对于任意非负整数 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(m(2\le m)\)</span> ，定义 <span
-class="math inline">\(f_m(x)\)</span> 为 <span
-class="math inline">\(x\)</span> 在 <span
-class="math inline">\(m\)</span> 进制下的各位数字之和。</p>
-<p>例如<span
-class="math inline">\(f_{10}(87654)=8+7+6+5+4=30,~f_{100}(87654)=8+76+54=138\)</span>
-。给定两个整数 <span class="math inline">\(x\)</span> 和 <span
-class="math inline">\(n\)</span> 。</p>
-<p>你需要计算是否存在某个 <span class="math inline">\(m\ge 2\)</span>
-使得 <span class="math inline">\(f_m(x)=n\)</span> 。</p>
-<p>如果存在，输出最小的满足条件的 <span class="math inline">\(m\)</span>
-；如果不存在，输出 <span class="math inline">\(−1\)</span> 。</p>
-<p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le x,n \le 10^{11}\)</span></p>
+<p>对于任意非负整数 $x$ 和 $m(2\le m)$ ，定义 $f_m(x)$ 为 $x$ 在 $m$ 进制下的各位数字之和。</p>
+<p>例如$f_{10}(87654)=8+7+6+5+4=30,~f_{100}(87654)=8+76+54=138$ 。给定两个整数 $x$ 和 $n$ 。</p>
+<p>你需要计算是否存在某个 $m\ge 2$ 使得 $f_m(x)=n$ 。 </p>
+<p>如果存在，输出最小的满足条件的 $m$ ；如果不存在，输出 $−1$ 。</p>
+<p><strong>数据范围</strong>： </p>
+<p>$1 \le x,n \le 10^{11}$</p>
 </blockquote>
-<p>设 <span class="math inline">\(x\)</span> 化为 <span
-class="math inline">\(m\)</span> 进制后为 <span
-class="math inline">\(\overline{x_1x_2\dots x_t}\)</span></p>
-<p>不难发现当 <span class="math inline">\(t \ge 3\)</span> 时， <span
-class="math inline">\(m\le \sqrt{x}-\epsilon,\epsilon \in
-\mathbb{N}\)</span></p>
-<p>例如当 <span class="math inline">\(t=3\)</span> 时，设 <span
-class="math inline">\(x\)</span> 化为 <span
-class="math inline">\(m\)</span> 进制后为 <span
-class="math inline">\(\overline{abc}\)</span> ，则 <span
-class="math display">\[
-x=am^2+bm+c
-\]</span> 显然有 <span class="math inline">\(m\le
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span></p>
-<p>因此我们暴力枚举所有 <span class="math inline">\(m\le
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span> ，对应 <span
-class="math inline">\(t\ge 3\)</span> 的情况</p>
-<p>接下来 <span class="math inline">\(m &gt; \sqrt{x}-\epsilon,\epsilon
-\in \mathbb{N}\)</span> 的情况，直接枚举 <span
-class="math inline">\(m\)</span> 肯定是不行的</p>
-<p>注意到此时 <span class="math inline">\(x\)</span> 满足 <span
-class="math display">\[
-x=am+b
-\]</span> 因为有 <span class="math inline">\(m &gt;
-\sqrt{x}-\epsilon,\epsilon \in \mathbb{N}\)</span> ，因此 <span
-class="math inline">\(a \le \sqrt{x}-\epsilon^{\prime},\epsilon^{\prime}
-\in \mathbb{N}\)</span></p>
-<p>于是我们只要枚举这个 <span class="math inline">\(a\)</span>
-，然后判断此时的 <span
-class="math inline">\(m=\frac{x-(n-a)}{a}\)</span> 是否合法即可</p>
-<p>这里的合法指 <span class="math inline">\(x\)</span> 在当前 <span
-class="math inline">\(m\)</span> 进制下是 <span
-class="math inline">\(am+b\)</span></p>
-<p>时间复杂度 <span class="math inline">\(O(\sqrt{x})\)</span></p>
+<p>设 $x$ 化为 $m$ 进制后为 $\overline{x_1x_2\dots x_t}$</p>
+<p>不难发现当 $t \ge 3$ 时， $m\le \sqrt{x}-\epsilon,\epsilon \in \mathbb{N}$ </p>
+<p>例如当 $t=3$ 时，设 $x$ 化为 $m$ 进制后为 $\overline{abc}$ ，则</p>
+<script type="math/tex; mode=display">
+x=am^2+bm+c</script><p>显然有 $m\le \sqrt{x}-\epsilon,\epsilon \in \mathbb{N}$ </p>
+<p>因此我们暴力枚举所有 $m\le \sqrt{x}-\epsilon,\epsilon \in \mathbb{N}$ ，对应 $t\ge 3$ 的情况</p>
+<p>接下来 $m &gt; \sqrt{x}-\epsilon,\epsilon \in \mathbb{N}$ 的情况，直接枚举 $m$ 肯定是不行的</p>
+<p>注意到此时 $x$ 满足</p>
+<script type="math/tex; mode=display">
+x=am+b</script><p>因为有 $m &gt; \sqrt{x}-\epsilon,\epsilon \in \mathbb{N}$ ，因此 $a \le \sqrt{x}-\epsilon^{\prime},\epsilon^{\prime} \in \mathbb{N}$</p>
+<p>于是我们只要枚举这个 $a$ ，然后判断此时的 $m=\frac{x-(n-a)}{a}$ 是否合法即可</p>
+<p>这里的合法指 $x$ 在当前 $m$ 进制下是 $am+b$ </p>
+<p>时间复杂度 $O(\sqrt{x})$ </p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -836,8 +799,8 @@ class="math inline">\(am+b\)</span></p>
     <span class="token keyword">if</span><span class="token punctuation">(</span>ans<span class="token operator">==</span>INF<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"-1\n"</span><span class="token punctuation">;</span>
     <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>AtCoder改过题号了，这篇是以前写的</p>
 <p>然后就很好笑的是题目上的题号和实际网址上的题号又是不一样的</p>
@@ -962,7 +925,6 @@ class="math inline">\(am+b\)</span></p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -970,7 +932,7 @@ class="math inline">\(am+b\)</span></p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1301,7 +1263,7 @@ class="math inline">\(am+b\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1369,13 +1331,13 @@ class="math inline">\(am+b\)</span></p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1385,7 +1347,7 @@ class="math inline">\(am+b\)</span></p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1393,13 +1355,13 @@ class="math inline">\(am+b\)</span></p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1415,7 +1377,7 @@ class="math inline">\(am+b\)</span></p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1570,21 +1532,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="[AGC010F] Tree Game 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,63 +739,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="agc010f-tree-game-题解">[AGC010F] Tree Game 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc010_f">[AGC010F] Tree
-Game</a></p>
+                <h1 id="AGC010F-Tree-Game-题解"><a href="#AGC010F-Tree-Game-题解" class="headerlink" title="[AGC010F] Tree Game 题解"></a>[AGC010F] Tree Game 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc010_f">[AGC010F] Tree Game</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一棵 <span class="math inline">\(n\)</span> 个节点的树，第 <span
-class="math inline">\(i\)</span> 条边连接 <span
-class="math inline">\(a_i,b_i\)</span>，每个节点 <span
-class="math inline">\(i\)</span> 上有 <span
-class="math inline">\(A_i\)</span>
-个石子，高桥君和青木君将在树上玩游戏</p>
+<p>有一棵 $n$ 个节点的树，第 $i$ 条边连接 $a_i,b_i$，每个节点 $i$ 上有 $A_i$ 个石子，高桥君和青木君将在树上玩游戏</p>
 <p>首先，高桥君会选一个节点并在上面放一个棋子，然后从高桥君开始，他们轮流执行以下操作：</p>
 <ul>
 <li>从当前棋子占据的点上移除一个石子，将棋子移动到相邻节点</li>
 </ul>
 <p>如果轮到一个人执行操作时棋子占据的点上没有石子，那么他就输了。</p>
-<p>请你找出所有的点 <span
-class="math inline">\(v\)</span>，使得如果高桥君在游戏开始时把棋子放到
-<span class="math inline">\(v\)</span> 上，他可以赢。</p>
+<p>请你找出所有的点 $v$，使得如果高桥君在游戏开始时把棋子放到 $v$ 上，他可以赢。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span></p>
-<p>第二行 <span class="math inline">\(n\)</span> 个整数 <span
-class="math inline">\(A_{1..n}\)</span></p>
-<p>接下来行每行两个整数 <span class="math inline">\(a_i,b_i\)</span>
-表示一条边</p>
+<p>   第一行一个整数 $n$</p>
+<p>   第二行 $n$ 个整数 $A_{1..n}$</p>
+<p>   接下来行每行两个整数 $a_i,b_i$ 表示一条边</p>
 <p><strong>输出格式</strong>：</p>
-<p>以编号递增的顺序在一行中输出所有满足条件的点</p>
+<p>   以编号递增的顺序在一行中输出所有满足条件的点</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2 \le n \le 3000,~0 \le A_i \le
-10^9\)</span></p>
+<p>$2 \le n \le 3000,~0 \le A_i \le 10^9$</p>
 </blockquote>
-<p>根据博弈论的套路，记 <span class="math inline">\(f_u =
-\mathrm{N/P}\)</span> 表示点 <span class="math inline">\(u\)</span>
-先手为必胜态/必败态。</p>
-<p>显然叶子节点都为 <span class="math inline">\(\mathrm{N}\)</span>
-。考虑一个两层的树，即 <span class="math inline">\(u\)</span> 有若干儿子
-<span class="math inline">\(v_i\)</span> 的极小树。</p>
-<p>尝试一下就能发现，当且仅当 <span class="math inline">\(A_u &gt;
-\min\{A_{v_i}\}\)</span> 时 <span class="math inline">\(u\)</span> 为
-<span class="math inline">\(\mathrm{N}\)</span> 。</p>
-<p>接着考虑一般情况的 <span class="math inline">\(u\)</span>
-。可以发现，如果 <span class="math inline">\(u\)</span> 存在必胜态的
-<span class="math inline">\(v_i\)</span> ，那么先手一定不会往那走。</p>
-<p>因此只需考虑必败态的 <span class="math inline">\(v_i\)</span>
-是否真能“让先手在 <span class="math inline">\(v_i\)</span> 的必败”。</p>
-<p>根据刚才的结论我们可以猜测并证明， <span
-class="math inline">\(u\)</span> 当且仅当 <span
-class="math inline">\(v_i\)</span> 为 <span
-class="math inline">\(\mathrm{P}\)</span> 且 <span
-class="math inline">\(A_u &gt; \min\{A_{x}\} \quad (x \in
-T(v_i))\)</span> 时为 <span class="math inline">\(\mathrm{N}\)</span>
-。</p>
+<p>根据博弈论的套路，记 $f_u = \mathrm{N/P}$ 表示点 $u$ 先手为必胜态/必败态。</p>
+<p>显然叶子节点都为 $\mathrm{N}$ 。考虑一个两层的树，即 $u$ 有若干儿子 $v_i$ 的极小树。</p>
+<p>尝试一下就能发现，当且仅当 $A_u &gt; \min\{A_{v_i}\}$ 时 $u$ 为 $\mathrm{N}$ 。</p>
+<p>接着考虑一般情况的 $u$ 。可以发现，如果 $u$ 存在必胜态的 $v_i$ ，那么先手一定不会往那走。</p>
+<p>因此只需考虑必败态的 $v_i$ 是否真能“让先手在 $v_i$ 的必败”。</p>
+<p>根据刚才的结论我们可以猜测并证明， $u$ 当且仅当 $v_i$ 为 $\mathrm{P}$ 且 $A_u &gt; \min\{A_{x}\} \quad (x \in T(v_i))$ 时为 $\mathrm{N}$ 。</p>
 <p>那么可以发现这道题就是个难度虚高的憨憨博弈论题，<del>专挑不会博弈论的人吓唬</del>。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -829,11 +797,10 @@ T(v_i))\)</span> 时为 <span class="math inline">\(\mathrm{N}\)</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> ok <span class="token operator">?</span> ok <span class="token operator">=</span> <span class="token boolean">false</span> <span class="token operator">:</span> <span class="token punctuation">(</span>cout <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> i<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html">https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html">https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html</a></p>
 
                 
             </div>
@@ -959,7 +926,6 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -967,7 +933,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1305,7 +1271,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1373,13 +1339,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1389,7 +1355,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1397,13 +1363,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1419,7 +1385,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1574,21 +1540,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

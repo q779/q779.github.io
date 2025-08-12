@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P7597 「EZEC-8」猜树 加强版 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -684,12 +680,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">图论</span>
                             </a>
                         
-                            <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
-                                <span class="chip bg-color">随机化</span>
-                            </a>
-                        
                             <a href="/tags/%E6%9E%84%E9%80%A0/">
                                 <span class="chip bg-color">构造</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
+                                <span class="chip bg-color">随机化</span>
                             </a>
                         
                             <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -751,93 +747,53 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p7597-ezec-8猜树-加强版-题解">洛谷P7597 「EZEC-8」猜树
-加强版 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7597">P7597
-「EZEC-8」猜树 加强版</a></p>
+                <h1 id="洛谷P7597-「EZEC-8」猜树-加强版-题解"><a href="#洛谷P7597-「EZEC-8」猜树-加强版-题解" class="headerlink" title="洛谷P7597 「EZEC-8」猜树 加强版 题解"></a>洛谷P7597 「EZEC-8」猜树 加强版 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7597">P7597 「EZEC-8」猜树 加强版</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道交互题。</p>
-<p>有一棵以 <span class="math inline">\(1\)</span> 为根的 <span
-class="math inline">\(n\)</span>
-个点的有根树，您需要通过若干次询问得到这棵树的结构。</p>
+<p>有一棵以 $1$ 为根的 $n$ 个点的有根树，您需要通过若干次询问得到这棵树的结构。</p>
 <p>您可以使用两种询问：</p>
-<ol type="1">
-<li><code>? 1 u v</code> 通过这种询问，您可以获得 <span
-class="math inline">\(u\)</span> 和 <span
-class="math inline">\(v\)</span> 之间的距离。</li>
-<li><code>? 2 u</code> 通过这种询问，您可以获得 <span
-class="math inline">\(u\)</span> 子树的大小和 <span
-class="math inline">\(u\)</span> 子树中的所有节点。</li>
+<ol>
+<li><code>? 1 u v</code> 通过这种询问，您可以获得 $u$ 和 $v$ 之间的距离。</li>
+<li><code>? 2 u</code> 通过这种询问，您可以获得 $u$ 子树的大小和 $u$ 子树中的所有节点。</li>
 </ol>
-<p>请通过使交互库输出不超过 <span class="math inline">\(40000\)</span>
-个数，得到这棵树的结构。</p>
+<p>请通过使交互库输出不超过 $40000$ 个数，得到这棵树的结构。</p>
 <p><strong>交互方式</strong>：</p>
-<p>输入树的大小 <span class="math inline">\(n\)</span> 以开始交互。</p>
+<p>输入树的大小 $n$ 以开始交互。</p>
 <p>交互过程中，您可以进行题目描述中的两种询问。</p>
-<p>对于第一种询问，交互库将会返回一个非负整数，表示 <span
-class="math inline">\(u\)</span> 节点和 <span
-class="math inline">\(v\)</span> 节点间的距离。</p>
-<p>对于第二种询问，交互库将会先返回一个正整数 <span
-class="math inline">\(x\)</span>，表示 <span
-class="math inline">\(u\)</span> 子树的大小。接下来会在同一行中返回
-<span class="math inline">\(x\)</span> 个正整数，表示 <span
-class="math inline">\(u\)</span>
-子树中的所有节点（节点顺序会被打乱）。</p>
-<p>在您确定答案后，请以 <code>! fa[2] fa[3] … fa[n]</code>
-的形式输出一行，停止交互。其中 <span
-class="math inline">\(fa(i)\)</span> 表示这棵树中 <span
-class="math inline">\(i\)</span> 号节点的父节点。</p>
+<p>对于第一种询问，交互库将会返回一个非负整数，表示 $u$ 节点和 $v$ 节点间的距离。</p>
+<p>对于第二种询问，交互库将会先返回一个正整数 $x$，表示 $u$ 子树的大小。接下来会在同一行中返回 $x$ 个正整数，表示 $u$ 子树中的所有节点（节点顺序会被打乱）。</p>
+<p>在您确定答案后，请以 <code>! fa[2] fa[3] … fa[n]</code> 的形式输出一行，停止交互。其中 $fa(i)$ 表示这棵树中 $i$ 号节点的父节点。</p>
 <p>在您输出一行后，请清空缓冲区：</p>
 <ul>
-<li>在 C++ 中，使用 <code>fflush(stdout)</code> 或
-<code>cout.flush()</code>。</li>
+<li>在 C++ 中，使用 <code>fflush(stdout)</code> 或 <code>cout.flush()</code>。</li>
 <li>在 Pascal 中，使用 <code>flush(output)</code>。</li>
 <li>在 Python 中，使用 <code>stdout.flush()</code>。</li>
 <li>其它语言请自行查阅文档。</li>
 </ul>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2 \leq n \leq 5000\)</span>，<span
-class="math inline">\(1\le u,v\le n\)</span>。</p>
+<p>$2 \leq n \leq 5000$，$1\le u,v\le n$。</p>
 </blockquote>
-<p>首先一个简单的想法是，我们询问 <span class="math inline">\(1\)</span>
-都每个点的距离，这样可以得到所有点的深度</p>
+<p>首先一个简单的想法是，我们询问 $1$ 都每个点的距离，这样可以得到所有点的深度</p>
 <p>接着从根节点开始遍历，每次暴力找一个儿子，然后询问它的子树，这样把同一层的点分成各个子树。</p>
-<p>显然这么做大约需要 <span
-class="math inline">\(\mathcal{O}(n^2)\)</span>
-次询问，根本过不了。不过好消息是，这只是一个上界。</p>
-<p>设节点 <span class="math inline">\(u\)</span> 有 <span
-class="math inline">\(k\)</span> 个儿子，那只需要算出 <span
-class="math inline">\(k-1\)</span>
-个儿子，就知道剩下那个儿子的子树了。</p>
-<p>由于这 <span class="math inline">\(k-1\)</span>
-个儿子的询问次数以及他们递归以后的询问次数显著影响总询问数</p>
-<p>这使得我们注意到，如何选择剩下的那个儿子，使得这 <span
-class="math inline">\(k-1\)</span> 个儿子的询问次数较少？</p>
-<p>答案是选择重儿子。根据 <a
-target="_blank" rel="noopener" href="https://oi-wiki.org/graph/dsu-on-tree/">dsu on tree</a>
-的结论，<span class="math inline">\(\sum
-\operatorname{size}(u)-\operatorname{size}(\operatorname{son}
-u)\)</span> 的量级在 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span> 。</p>
+<p>显然这么做大约需要 $\mathcal{O}(n^2)$ 次询问，根本过不了。不过好消息是，这只是一个上界。</p>
+<p>设节点 $u$ 有 $k$ 个儿子，那只需要算出 $k-1$ 个儿子，就知道剩下那个儿子的子树了。</p>
+<p>由于这 $k-1$ 个儿子的询问次数以及他们递归以后的询问次数显著影响总询问数</p>
+<p>这使得我们注意到，如何选择剩下的那个儿子，使得这 $k-1$ 个儿子的询问次数较少？</p>
+<p>答案是选择重儿子。根据 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/dsu-on-tree/">dsu on tree</a> 的结论，$\sum \operatorname{size}(u)-\operatorname{size}(\operatorname{son} u)$ 的量级在 $\mathcal{O}(n \log n)$ 。</p>
 <p>那么问题来了，我们都不知道这棵树是什么样子的，怎么找到重儿子？</p>
-<p>由于重儿子是 <span class="math inline">\(u\)</span>
-子树里子树最大的那个儿子，</p>
-<p>那么在 <span class="math inline">\(u\)</span>
-里面任取一个点是在重儿子子树里的概率显然大于其他任何一个儿子。</p>
-<p>没错，考虑随机化，在 <span class="math inline">\(u\)</span>
-子树里随便选一个节点，然后看看落到哪个儿子子树里了，这个儿子就当重儿子。</p>
+<p>由于重儿子是 $u$ 子树里子树最大的那个儿子，</p>
+<p>那么在 $u$ 里面任取一个点是在重儿子子树里的概率显然大于其他任何一个儿子。</p>
+<p>没错，考虑随机化，在 $u$ 子树里随便选一个节点，然后看看落到哪个儿子子树里了，这个儿子就当重儿子。</p>
 <p>显然这个算法会在选错儿子的时候复杂度会退化，于是</p>
 <ul>
 <li>在轻儿子越少的时候，复杂度会越慢？</li>
 <li>轻儿子越少，意味着重儿子越大，更可能选到重儿子，复杂度会变快？</li>
 </ul>
 <p><del>所以越慢就会越快</del>。这就是随机化的算法的有趣之处。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
-，询问次数为 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>时间复杂度 $\mathcal{O}(n^2)$ ，询问次数为 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
@@ -897,14 +853,12 @@ mt19937 <span class="token function">rd</span><span class="token punctuation">(<
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> fa<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/vv9ji83b">https://www.luogu.com.cn/article/vv9ji83b</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">https://www.luogu.com.cn/article/spkw3fpp</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/vv9ji83b">https://www.luogu.com.cn/article/vv9ji83b</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">https://www.luogu.com.cn/article/spkw3fpp</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406190040639.jpg" style="zoom:30%;" /></p>
@@ -980,12 +934,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
                                     <span class="chip bg-color">图论</span>
                                 </a>
                             
-                                <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
-                                    <span class="chip bg-color">随机化</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%9E%84%E9%80%A0/">
                                     <span class="chip bg-color">构造</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
+                                    <span class="chip bg-color">随机化</span>
                                 </a>
                             
                                 <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -1041,7 +995,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1049,7 +1002,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1392,7 +1345,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1460,13 +1413,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1476,7 +1429,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1484,13 +1437,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1506,7 +1459,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/spkw3fpp">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1661,21 +1614,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

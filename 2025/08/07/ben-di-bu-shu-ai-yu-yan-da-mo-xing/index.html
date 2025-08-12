@@ -7,7 +7,7 @@
     <meta name="keywords" content="本地部署 AI 语言大模型, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -735,35 +731,21 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="本地部署-ai-语言大模型">本地部署 AI 语言大模型</h1>
-<p>极简版教程，本机系统是 MacOS14，方法应该是通用的。</p>
-<p>第一问，<strong>怎么跑模型</strong>？下载这个软件 <a
-target="_blank" rel="noopener" href="https://ollama.com/download">Ollama</a> ，全平台可用。</p>
-<p>第二问，<strong>模型在哪找</strong>？打开 Ollama
-就可以下主流的模型，或者去这个网站 <a
-target="_blank" rel="noopener" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B">Hugging
-Face</a></p>
-<p>第三问，有没有更功能多样且更好看的 <strong>UI
-界面</strong>？有的兄弟，有的。</p>
-<p>这个稍微复杂一点，首先 UI 界面是这个开源项目 <a
-target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">open-webui</a> ，支持
-docker 一键部署。</p>
+                <h1 id="本地部署-AI-语言大模型"><a href="#本地部署-AI-语言大模型" class="headerlink" title="本地部署 AI 语言大模型"></a>本地部署 AI 语言大模型</h1><p>极简版教程，本机系统是 MacOS14，方法应该是通用的。</p>
+<p>第一问，<strong>怎么跑模型</strong>？下载这个软件 <a target="_blank" rel="noopener" href="https://ollama.com/download">Ollama</a> ，全平台可用。</p>
+<p>第二问，<strong>模型在哪找</strong>？打开 Ollama 就可以下主流的模型，或者去这个网站 <a target="_blank" rel="noopener" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B">Hugging Face</a></p>
+<p>第三问，有没有更功能多样且更好看的 <strong>UI 界面</strong>？有的兄弟，有的。</p>
+<p>这个稍微复杂一点，首先 UI 界面是这个开源项目 <a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">open-webui</a> ，支持 docker 一键部署。</p>
 <blockquote>
-<p>如果你像我一样之前不知道 docker 是什么，那么……先放 <a
-target="_blank" rel="noopener" href="https://www.docker.com/">下载链接</a> ，然后科普一下，</p>
+<p>如果你像我一样之前不知道 docker 是什么，那么……先放 <a target="_blank" rel="noopener" href="https://www.docker.com/">下载链接</a> ，然后科普一下，</p>
 <p>这就是个小沙箱，类似于虚拟机，用于快速配置隔离开发环境，不会污染你的电脑环境。</p>
 </blockquote>
-<p>接着复制 open-webui 上那个 computer
-的指令（如下），打开终端粘贴（相信你一定会打开终端的）</p>
-<pre class="language-none"><code class="language-none">docker run -d -p 3000:8080 --add-host&#x3D;host.docker.internal:host-gateway -v open-webui:&#x2F;app&#x2F;backend&#x2F;data --name open-webui --restart always ghcr.io&#x2F;open-webui&#x2F;open-webui:main</code></pre>
-<p>等它部署一会儿，然后用浏览器打开 <a
-target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:3000/</a>
-，就可以用啦</p>
+<p>接着复制 open-webui 上那个 computer 的指令（如下），打开终端粘贴（相信你一定会打开终端的）</p>
+<pre class="line-numbers language-none"><code class="language-none">docker run -d -p 3000:8080 --add-host&#x3D;host.docker.internal:host-gateway -v open-webui:&#x2F;app&#x2F;backend&#x2F;data --name open-webui --restart always ghcr.io&#x2F;open-webui&#x2F;open-webui:main<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>等它部署一会儿，然后用浏览器打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:3000/</a> ，就可以用啦</p>
 <p>第四问，<strong>怎么调教AI模型</strong>呢？这个么，点那个“工作空间”，创建自定义模型，然后改一下系统提示词就好了。</p>
-<p>下面是我折腾了一番折腾出的效果，用的是 8B 的模型，我电脑的 16GB
-统一内存正好可以跑</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.webp" /></p>
+<p>下面是我折腾了一番折腾出的效果，用的是 8B 的模型，我电脑的 16GB 统一内存正好可以跑</p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.webp" alt=""></p>
 <p>对不起，看板娘（在那边👉），<strong>我们还是爱你的。</strong></p>
 
                 
@@ -882,7 +864,6 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -890,7 +871,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -967,17 +948,17 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/08/07/ben-di-bu-shu-ai-yu-yan-da-mo-xing/">
+                <a href="/2025/08/11/macos-qing-chu-dns-huan-cun/">
                     <div class="card-image">
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p15.webp" class="responsive-img" alt="本地部署 AI 语言大模型">
                         
-                        <span class="card-title">本地部署 AI 语言大模型</span>
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p215.webp" class="responsive-img" alt="MacOS 清除 DNS 缓存">
+                        
+                        <span class="card-title">MacOS 清除 DNS 缓存</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -987,27 +968,30 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-08-11
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/AI/" class="post-category">
-                                    AI
+                            <a href="/categories/%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    系统
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/LLM/">
-                        <span class="chip bg-color">LLM</span>
+                    <a href="/tags/MacOS/">
+                        <span class="chip bg-color">MacOS</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
                 </div>
@@ -1218,7 +1202,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1286,13 +1270,13 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1302,7 +1286,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1310,13 +1294,13 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1332,7 +1316,7 @@ src="https://raw.githubusercontent.com/q779/blog-img/main/img/202508080008181.we
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1487,21 +1471,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P4302 [SCOI2003]字符串折叠 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -723,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    944
+                    943
                 </div>
                 
 
@@ -743,81 +739,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p4302-scoi2003字符串折叠-题解">洛谷P4302
-[SCOI2003]字符串折叠 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4302">P4302
-[SCOI2003]字符串折叠</a></p>
+                <h1 id="洛谷P4302-SCOI2003-字符串折叠-题解"><a href="#洛谷P4302-SCOI2003-字符串折叠-题解" class="headerlink" title="洛谷P4302 [SCOI2003]字符串折叠 题解"></a>洛谷P4302 [SCOI2003]字符串折叠 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4302">P4302 [SCOI2003]字符串折叠</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>折叠的定义如下：</p>
-<ol type="1">
-<li>一个字符串可以看成它自身的折叠，记作 <span class="math inline">\(S =
-S\)</span> 。</li>
-<li><span class="math inline">\(X(S)\)</span> 是 <span
-class="math inline">\(X(X&gt;1)\)</span> 个 <span
-class="math inline">\(S\)</span> 连接在一起的串的折叠，记作 <span
-class="math inline">\(X(S) = SSSS\dots S(x
-\,\texttt{个}\,S)\)</span>。</li>
-<li>如果 <span class="math inline">\(A = A^{\prime}, B =
-B^{\prime}\)</span> ，则 <span class="math inline">\(AB =
-A^{\prime}B^{\prime}\)</span> 。例如，因为 <span
-class="math inline">\(\mathtt{3(A)} = \mathtt{AAA}, \mathtt{2(B)} =
-\mathtt{BB}\)</span>，所以 <span
-class="math inline">\(\mathtt{3(A)C2(B)} = \mathtt{AAACBB}\)</span> ，而
-<span class="math inline">\(\mathtt{2(3(A)C)2(B)} =
-\mathtt{AAACAAACBB}\)</span> 。</li>
+<p>折叠的定义如下： </p>
+<ol>
+<li>一个字符串可以看成它自身的折叠，记作 $S = S$ 。</li>
+<li>$X(S)$ 是 $X(X&gt;1)$ 个 $S$ 连接在一起的串的折叠，记作 $X(S) = SSSS\dots S(x \,\texttt{个}\,S)$。</li>
+<li>如果 $A = A^{\prime}, B = B^{\prime}$ ，则 $AB = A^{\prime}B^{\prime}$ 。例如，因为 $\mathtt{3(A)} = \mathtt{AAA}, \mathtt{2(B)} = \mathtt{BB}$，所以 $\mathtt{3(A)C2(B)} = \mathtt{AAACBB}$ ，而 $\mathtt{2(3(A)C)2(B)} = \mathtt{AAACAAACBB}$ 。</li>
 </ol>
-<p>给一个字符串，求它的最短折叠。例如 <span
-class="math inline">\(\mathtt{AAAAAAAAAABABABCCD}\)</span>
-的最短折叠为：<span
-class="math inline">\(\mathtt{9(A)3(AB)CCD}\)</span>。</p>
+<p>给一个字符串，求它的最短折叠。例如 $\mathtt{AAAAAAAAAABABABCCD}$ 的最短折叠为：$\mathtt{9(A)3(AB)CCD}$。</p>
 <p><strong>输入格式</strong>：</p>
-<p>仅一行，即字符串 <span class="math inline">\(S\)</span>
-，长度保证不超过 <span class="math inline">\(100\)</span> 。</p>
+<p>仅一行，即字符串 $S$ ，长度保证不超过 $100$ 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>仅一行，即最短的折叠长度。</p>
 </blockquote>
 <p>区间dp + kmp 神仙题。</p>
-<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示区间 <span
-class="math inline">\([i,j]\)</span> 的最短折叠长度。</p>
-<p>显然边界为 <span class="math inline">\(f_{i,i} = 1\)</span>
-，最后答案为 <span class="math inline">\(f_{1,n}\)</span> 。</p>
-<p>下文中使用 <span class="math inline">\(a \downarrow b+c\)</span> 表示
-<span class="math inline">\(a \leftarrow \min\{a,b+c\}\)</span></p>
-<p>考虑转移。第一种，直接两个串合并 <span class="math display">\[
-f_{i,j} \downarrow \min_{i\le k &lt; j} \{f_{i,k} + f_{k+1,j}\}
-\]</span>
-第二种，折叠。一个原始的想法是，按套路把两个区间合并，计算他们的贡献</p>
+<p>设 $f_{i,j}$ 表示区间 $[i,j]$ 的最短折叠长度。</p>
+<p>显然边界为 $f_{i,i} = 1$ ，最后答案为 $f_{1,n}$ 。</p>
+<p>下文中使用 $a \downarrow b+c$ 表示 $a \leftarrow \min\{a,b+c\}$</p>
+<p>考虑转移。第一种，直接两个串合并</p>
+<script type="math/tex; mode=display">
+f_{i,j} \downarrow \min_{i\le k < j} \{f_{i,k} + f_{k+1,j}\}</script><p>第二种，折叠。一个原始的想法是，按套路把两个区间合并，计算他们的贡献</p>
 <p>但我们无法得知两个区间中的某个是否已经被折叠过了，以及它们各被折叠了几次</p>
 <p>于是尝试直接暴力枚举折叠后的子串长度，然后转移。</p>
-<p>记 <span class="math inline">\(d=j-i+1\)</span> ，并且 <span
-class="math inline">\([i,j]\)</span> 由 <span
-class="math inline">\(X\)</span> 个长度为 <span
-class="math inline">\(k\)</span> 的串拼接而成（ <span
-class="math inline">\(d=X\cdot k\)</span> ），则 <span
-class="math display">\[
-f_{i,j} \downarrow f_{i,i+k-1}  + \left\lfloor{\lg X}\right\rfloor + 3
-\]</span> 然后稍微优化一下，比如枚举 <span
-class="math inline">\(d\)</span> 的因数，时间复杂度 <span
-class="math inline">\(O(n^3 \log n)\)</span>
-（<del>貌似可以水过？</del>）</p>
+<p>记 $d=j-i+1$ ，并且 $[i,j]$ 由 $X$ 个长度为 $k$ 的串拼接而成（ $d=X\cdot k$ ），则</p>
+<script type="math/tex; mode=display">
+f_{i,j} \downarrow f_{i,i+k-1}  + \left\lfloor{\lg X}\right\rfloor + 3</script><p>然后稍微优化一下，比如枚举 $d$ 的因数，时间复杂度 $O(n^3 \log n)$ （<del>貌似可以水过？</del>）</p>
 <p>仔细思考可以发现，很多枚举是不必要的。</p>
-<p>根据 <strong>border</strong> 定理，一个串有长度为 <span
-class="math inline">\(k\)</span> 的周期<strong>当且仅当</strong>它有长为
-<span class="math inline">\(d-k\)</span> 的 <strong>border</strong>
-。</p>
-<p>因此我们可以预处理出每个子串的最长 <strong>border</strong> （显然跑
-<span class="math inline">\(n\)</span> 遍 <span
-class="math inline">\(\mathtt{kmp}\)</span> 即可）</p>
-<p>其实就是预处理每个子串的最小周期 <span
-class="math inline">\(k_0\)</span></p>
-<p>然后枚举 <span class="math inline">\(k=t\cdot k_0\)</span>
-为周期，这样就可以在 <span class="math inline">\(O(\log n)\)</span>
-的时间内转移第二部分了</p>
+<p>根据 <strong>border</strong> 定理，一个串有长度为 $k$ 的周期<strong>当且仅当</strong>它有长为 $d-k$ 的 <strong>border</strong> 。</p>
+<p>因此我们可以预处理出每个子串的最长 <strong>border</strong> （显然跑 $n$ 遍 $\mathtt{kmp}$ 即可）</p>
+<p>其实就是预处理每个子串的最小周期 $k_0$ </p>
+<p>然后枚举 $k=t\cdot k_0$ 为周期，这样就可以在 $O(\log n)$ 的时间内转移第二部分了</p>
 <p>结果复杂度瓶颈就变成了区间dp的转移（悲</p>
-<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
+<p>时间复杂度 $O(n^3)$ </p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -879,10 +836,9 @@ class="math inline">\(k_0\)</span></p>
         <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1090.html">https://yhx-12243.github.io/OI-transit/records/lydsy1090.html</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/lydsy1090.html">https://yhx-12243.github.io/OI-transit/records/lydsy1090.html</a></p>
 
                 
             </div>
@@ -1008,7 +964,6 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1016,7 +971,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1359,7 +1314,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1427,13 +1382,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1443,7 +1398,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1451,13 +1406,13 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1473,7 +1428,7 @@ target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/reco
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1628,21 +1583,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

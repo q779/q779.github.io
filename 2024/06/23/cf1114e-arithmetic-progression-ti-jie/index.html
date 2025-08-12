@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1114E Arithmetic Progression 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -751,72 +747,40 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1114e-arithmetic-progression-题解">CF1114E Arithmetic
-Progression 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1114E">Arithmetic
-Progression</a></p>
+                <h1 id="CF1114E-Arithmetic-Progression-题解"><a href="#CF1114E-Arithmetic-Progression-题解" class="headerlink" title="CF1114E Arithmetic Progression 题解"></a>CF1114E Arithmetic Progression 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1114E">Arithmetic Progression</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道交互题。</p>
-<p>有一个长度为 <span class="math inline">\(n\)</span> 的序列 <span
-class="math inline">\(a\)</span>，保证它从小到大排序后是个等差数列。</p>
+<p>有一个长度为 $n$ 的序列 $a$，保证它从小到大排序后是个等差数列。</p>
 <p>你不知道这个序列长什么样，但你可以询问：</p>
 <ul>
-<li><span class="math inline">\(\texttt{? i}\)</span> 表示询问 <span
-class="math inline">\(a_i\)</span> 的值；</li>
-<li><span class="math inline">\(\mathtt{&gt;\ x}\)</span>
-表示询问序列中是否存在严格大于 <span class="math inline">\(x\)</span>
-的数。</li>
+<li>$\texttt{? i}$ 表示询问 $a_i$ 的值；</li>
+<li>$\mathtt{&gt;\ x}$ 表示询问序列中是否存在严格大于 $x$ 的数。</li>
 </ul>
-<p>你可以问不超过 <span class="math inline">\(60\)</span> 个询问。</p>
+<p>你可以问不超过 $60$ 个询问。</p>
 <p>现在，你需要求出这个等差数列的首项和这个等差数列的公差。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(2\le n\le 10^6,~0\le a_i\le
-10^9\)</span>。</p>
+<p>$2\le n\le 10^6,~0\le a_i\le 10^9$。</p>
 </blockquote>
-<p>注意到操作二可以让我们二分出序列的最大值，记为 <span
-class="math inline">\(a_n\)</span> （就当题目的序列没有名字好了）。</p>
+<p>注意到操作二可以让我们二分出序列的最大值，记为 $a_n$ （就当题目的序列没有名字好了）。</p>
 <p>那么接下来的询问只能问询问一了，因为询问二根本问不出什么东西，这不明摆着让我们乱搞么？</p>
-<p>考虑把所有剩下的询问都用于操作一，记询问得到的数为 <span
-class="math inline">\(x_1,x_2,\cdots,x_k\)</span> 。由于 <span
-class="math display">\[
-d\mid\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}
-\]</span> 显然 <span class="math inline">\(k\)</span> 越大，<span
-class="math inline">\(d\)</span> 越可能等于 <span
-class="math inline">\(\gcd\)</span> 的值，可是这道题又限制了我们问的
-<span class="math inline">\(k\)</span> 的大小。</p>
-<p>因此考虑随机化，即随机一个排列，然后把排列的前 <span
-class="math inline">\(k\)</span> 项（<span
-class="math inline">\(k\)</span> 是剩余询问数）用于询问。</p>
-<p>最后直接将 <span
-class="math inline">\(\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}\)</span>
-当作 <span class="math inline">\(d\)</span> 输出即可。</p>
-<p>分析一下正确率。首先二分最大值的花费不超过 <span
-class="math inline">\(\left\lceil\log_2 10^9\right\rceil=30\)</span>
-次，即 <span class="math inline">\(k \ge 30\)</span> 次。</p>
-<p>记首项 <span class="math inline">\(a_1 = a_0 + d\)</span> ，那么
-<span class="math inline">\(x_i = a_0 + b_id\)</span>
-，而题目保证是等差数列，所以 <span class="math inline">\(b_i\)</span>
-是一个 <span class="math inline">\(1\)</span> 到 <span
-class="math inline">\(n\)</span> 的排列。</p>
-<p>那么错误概率为 <span class="math display">\[
-p=\frac{1}{n^{\underline{k}}} \sum_{b\, \in
-\,\mathrm{permutation}(n)}\left[\gcd\left(b_1, \ldots,
-b_k\right)=1\right]
-\]</span> 这里的下划线是下降阶乘幂。</p>
-<p>考虑枚举最大公约数 <span class="math inline">\(d\)</span>
-，根据莫比乌斯反演有 <span class="math display">\[
-\frac{1}{n^{\underline{k}}} \sum_{d=2}^n
-\mu(d)\left\lfloor\frac{n}{d}\right\rfloor^{\underline{k}}
-\]</span> 这个东西可以 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 算出来，我用 Python
-算的，代码在后面。</p>
-<p>算出来答案是 <span class="math inline">\(9.309223788847006\times
-10^{-10}\)</span> ，这个错误率低的比某些哈希还低。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>考虑把所有剩下的询问都用于操作一，记询问得到的数为 $x_1,x_2,\cdots,x_k$ 。由于</p>
+<script type="math/tex; mode=display">
+d\mid\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}</script><p>显然 $k$ 越大，$d$ 越可能等于 $\gcd$ 的值，可是这道题又限制了我们问的 $k$ 的大小。</p>
+<p>因此考虑随机化，即随机一个排列，然后把排列的前 $k$ 项（$k$ 是剩余询问数）用于询问。</p>
+<p>最后直接将 $\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}$ 当作 $d$ 输出即可。</p>
+<p>分析一下正确率。首先二分最大值的花费不超过 $\left\lceil\log_2 10^9\right\rceil=30$ 次，即 $k \ge 30$ 次。</p>
+<p>记首项 $a_1 = a_0 + d$ ，那么 $x_i = a_0 + b_id$ ，而题目保证是等差数列，所以 $b_i$ 是一个 $1$ 到 $n$ 的排列。</p>
+<p>那么错误概率为</p>
+<script type="math/tex; mode=display">
+p=\frac{1}{n^{\underline{k}}} \sum_{b\, \in \,\mathrm{permutation}(n)}\left[\gcd\left(b_1, \ldots, b_k\right)=1\right]</script><p>这里的下划线是下降阶乘幂。</p>
+<p>考虑枚举最大公约数 $d$ ，根据莫比乌斯反演有</p>
+<script type="math/tex; mode=display">
+\frac{1}{n^{\underline{k}}} \sum_{d=2}^n \mu(d)\left\lfloor\frac{n}{d}\right\rfloor^{\underline{k}}</script><p>这个东西可以 $\mathcal{O}(n)$ 算出来，我用 Python 算的，代码在后面。</p>
+<p>算出来答案是 $9.309223788847006\times 10^{-10}$ ，这个错误率低的比某些哈希还低。</p>
+<p>时间复杂度 $\mathcal{O}(n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -853,9 +817,9 @@ class="math inline">\(\mathcal{O}(n)\)</span> 算出来，我用 Python
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token function">min</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> <span class="token number">60</span> <span class="token operator">-</span> cnt<span class="token punctuation">)</span><span class="token punctuation">)</span> ans <span class="token operator">=</span> <span class="token function">gcd</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span> mx <span class="token operator">-</span> <span class="token function">ask</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> <span class="token string">"! "</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>mx <span class="token operator">-</span> <span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> ans<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span> <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>算错误率的代码：</p>
-<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">mobius</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">mobius</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
     mu <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
     ck <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token boolean">False</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
     prime <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
@@ -888,14 +852,12 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
     <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
         tmp <span class="token operator">=</span> tmp <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">//</span> d<span class="token punctuation">)</span> <span class="token operator">-</span> j<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>n <span class="token operator">-</span> j<span class="token punctuation">)</span>
     ans <span class="token operator">=</span> ans <span class="token operator">+</span> tmp
-<span class="token keyword">print</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span></code></pre>
-<hr />
+<span class="token keyword">print</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7rn1tlfb">https://www.luogu.com.cn/article/7rn1tlfb</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">https://www.luogu.com.cn/article/xjo8wc2w</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7rn1tlfb">https://www.luogu.com.cn/article/7rn1tlfb</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">https://www.luogu.com.cn/article/xjo8wc2w</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406231641929.jpg" style="zoom:45%;" /></p>
@@ -1032,7 +994,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1040,7 +1001,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1159,12 +1120,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
-                        <span class="chip bg-color">随机化</span>
-                    </a>
-                    
                     <a href="/tags/%E6%9E%84%E9%80%A0/">
                         <span class="chip bg-color">构造</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
+                        <span class="chip bg-color">随机化</span>
                     </a>
                     
                     <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -1379,7 +1340,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1447,13 +1408,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1463,7 +1424,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1471,13 +1432,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1493,7 +1454,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1648,21 +1609,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

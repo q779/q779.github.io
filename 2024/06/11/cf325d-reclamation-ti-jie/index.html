@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF325D Reclamation 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,44 +739,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf325d-reclamation-题解">CF325D Reclamation 题解</h1>
-<p>题目链接：<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
+                <h1 id="CF325D-Reclamation-题解"><a href="#CF325D-Reclamation-题解" class="headerlink" title="CF325D Reclamation 题解"></a>CF325D Reclamation 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个大小为 <span class="math inline">\(r \times c\)</span>
-的二维环形网格图，每一行的第 <span class="math inline">\(1\)</span>
-格和第 <span class="math inline">\(c\)</span> 格相邻。</p>
-<p><img
-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" /></p>
-<p>现在按照给定的顺序将 <span class="math inline">\(n\)</span>
-个格子变成障碍物。</p>
-<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 <span
-class="math inline">\(1\)</span> 行到第 <span
-class="math inline">\(r\)</span> 行的路径。</p>
+<p>给定一个大小为 $r \times c$ 的二维环形网格图，每一行的第 $1$ 格和第 $c$ 格相邻。  </p>
+<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" alt=""></p>
+<p>现在按照给定的顺序将 $n$ 个格子变成障碍物。</p>
+<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 $1$ 行到第 $r$ 行的路径。</p>
 <p>如果一个格子不可以变成障碍，就跳过该操作并且继续处理接下来的格子。路径为四相邻规则。</p>
-<p>你需要求出最多可以有多少个格子变成障碍物。</p>
+<p>你需要求出最多可以有多少个格子变成障碍物。  </p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行有三个整数 <span class="math inline">\(r,c,n(1 \le r,c \le
-3000, 1 \le n \le 3 \times 10^5)\)</span>。</p>
-<p>接下来 <span class="math inline">\(n\)</span> 行，每行两个正整数
-<span class="math inline">\(r_i , c_i\)</span>，表示将位于 $r_i $
-行，<span class="math inline">\(c_i\)</span> 列的格子变成障碍物。</p>
+<p>第一行有三个整数 $r,c,n(1 \le r,c \le 3000, 1 \le n \le 3 \times 10^5)$。  </p>
+<p>接下来 $n$ 行，每行两个正整数 $r_i , c_i$，表示将位于 $r_i $ 行，$c_i$ 列的格子变成障碍物。  </p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一个整数表示答案。</p>
 </blockquote>
 <p>如果删掉一格后环不再构成四连通，那么这个点和其他已删除的点将圆柱的侧面截断。</p>
 <p>换句话说，此时这个环（或者说曲面）上存在一个由已删除点构成的<strong>八连通块</strong>。</p>
 <p>维护环的连通性十分麻烦。考虑断环为链，然后用并查集维护已删除点的连通性。</p>
-<p>这样我们只需要判断删除操作是否会使得 <span
-class="math inline">\((x,y)\)</span> 和 <span
-class="math inline">\((x,y+c)\)</span> 连通即可。</p>
-<p>注意每次删除一个点，要把 <span class="math inline">\((x,y)\)</span>
-和 <span class="math inline">\((x,y+c)\)</span> 都标记。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\alpha(n) +
-2rc)\)</span></p>
+<p>这样我们只需要判断删除操作是否会使得 $(x,y)$ 和 $(x,y+c)$ 连通即可。</p>
+<p>注意每次删除一个点，要把 $(x,y)$ 和 $(x,y+c)$ 都标记。</p>
+<p>时间复杂度 $\mathcal{O}(n\alpha(n) + 2rc)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
@@ -848,17 +829,16 @@ class="math inline">\((x,y+c)\)</span> 连通即可。</p>
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>其实这道题还蛮简单的，不过不太好描述，导致这篇题解写了好久。</p>
 <p>放音乐。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1468515491&amp;auto=0&amp;height=66">
-</iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1468515491&auto=0&height=66"></iframe>
+
 <blockquote>
 <p>从此就 收剑入鞘洒脱放下执着</p>
 <p>不再说 万事蹉跎是一杯苦酒</p>
@@ -991,7 +971,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -999,7 +978,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1342,7 +1321,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1410,13 +1389,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1426,7 +1405,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1434,13 +1413,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1456,7 +1435,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1611,21 +1590,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

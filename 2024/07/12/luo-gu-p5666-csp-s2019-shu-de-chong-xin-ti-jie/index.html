@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P5666 [CSP-S2019] 树的重心 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,127 +739,64 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p5666-csp-s2019-树的重心-题解">洛谷P5666 [CSP-S2019]
-树的重心 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5666">P5666
-[CSP-S2019] 树的重心</a></p>
+                <h1 id="洛谷P5666-CSP-S2019-树的重心-题解"><a href="#洛谷P5666-CSP-S2019-树的重心-题解" class="headerlink" title="洛谷P5666 [CSP-S2019] 树的重心 题解"></a>洛谷P5666 [CSP-S2019] 树的重心 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5666">P5666 [CSP-S2019] 树的重心</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小简单正在学习离散数学，今天的内容是图论基础，在课上他做了如下两条笔记：</p>
-<ol type="1">
-<li><p>一个大小为 <span class="math inline">\(n\)</span> 的树由 <span
-class="math inline">\(n\)</span> 个结点与 <span class="math inline">\(n
-- 1\)</span>
-条无向边构成，且满足任意两个结点间<strong>有且仅有</strong>一条简单路径。在树中删去一个结点及与它关联的边，树将分裂为若干个子树；而在树中删去一条边（保留关联结点，下同），树将分裂为<strong>恰好</strong>两个子树。</p></li>
-<li><p>对于一个大小为 <span class="math inline">\(n\)</span>
-的树与任意一个树中结点 <span class="math inline">\(c\)</span>，称 <span
-class="math inline">\(c\)</span>
-是该树的<strong>重心</strong>当且仅当在树中删去 <span
-class="math inline">\(c\)</span>
-及与它关联的边后，分裂出的所有子树的大小均<strong>不超过</strong> <span
-class="math inline">\(\lfloor \frac{n}{2} \rfloor\)</span>（其中 <span
-class="math inline">\(\lfloor x \rfloor\)</span>
-是下取整函数）。对于包含至少一个结点的树，它的重心只可能有 1 或 2
-个。</p></li>
+<ol>
+<li><p>一个大小为 $n$ 的树由 $n$ 个结点与 $n - 1$ 条无向边构成，且满足任意两个结点间<strong>有且仅有</strong>一条简单路径。在树中删去一个结点及与它关联的边，树将分裂为若干个子树；而在树中删去一条边（保留关联结点，下同），树将分裂为<strong>恰好</strong>两个子树。</p>
+</li>
+<li><p>对于一个大小为 $n$ 的树与任意一个树中结点 $c$，称 $c$ 是该树的<strong>重心</strong>当且仅当在树中删去 $c$ 及与它关联的边后，分裂出的所有子树的大小均<strong>不超过</strong> $\lfloor \frac{n}{2} \rfloor$（其中 $\lfloor x \rfloor$ 是下取整函数）。对于包含至少一个结点的树，它的重心只可能有 1 或 2 个。</p>
+</li>
 </ol>
-<p>课后老师给出了一个大小为 <span class="math inline">\(n\)</span> 的树
-<span class="math inline">\(S\)</span>，树中结点从 <span
-class="math inline">\(1 \sim n\)</span> 编号。小简单的课后作业是求出
-<span class="math inline">\(S\)</span>
-单独删去每条边后，分裂出的两个子树的重心编号和之和。即：</p>
-<p><span class="math display">\[
-\sum_{(u,v) \in E} \left( \sum_{1 \leq x \leq n \atop 且 x 号点是
-S&#39;_u 的重心} x + \sum_{1 \leq y \leq n \atop 且 y 号点是 S&#39;_v
-的重心} y \right)
-\]</span></p>
-<p>上式中，<span class="math inline">\(E\)</span> 表示树 <span
-class="math inline">\(S\)</span> 的边集，<span
-class="math inline">\((u,v)\)</span> 表示一条连接 <span
-class="math inline">\(u\)</span> 号点和 <span
-class="math inline">\(v\)</span> 号点的边。<span
-class="math inline">\(S&#39;_u\)</span> 与 <span
-class="math inline">\(S&#39;_v\)</span> 分别表示树 <span
-class="math inline">\(S\)</span> 删去边 <span
-class="math inline">\((u,v)\)</span> 后，<span
-class="math inline">\(u\)</span> 号点与 <span
-class="math inline">\(v\)</span> 号点所在的被分裂出的子树。</p>
+<p>课后老师给出了一个大小为 $n$ 的树 $S$，树中结点从 $1 \sim n$ 编号。小简单的课后作业是求出 $S$ 单独删去每条边后，分裂出的两个子树的重心编号和之和。即：</p>
+<script type="math/tex; mode=display">
+\sum_{(u,v) \in E} \left( \sum_{1 \leq x \leq n \atop 且 x 号点是 S'_u 的重心} x + \sum_{1 \leq y \leq n \atop 且 y 号点是 S'_v 的重心} y \right)</script><p>上式中，$E$ 表示树 $S$ 的边集，$(u,v)$ 表示一条连接 $u$ 号点和 $v$ 号点的边。$S’_u$ 与 $S’_v$ 分别表示树 $S$ 删去边 $(u,v)$ 后，$u$ 号点与 $v$ 号点所在的被分裂出的子树。</p>
 <p>小简单觉得作业并不简单，只好向你求助，请你教教他。</p>
 <p><strong>输入格式</strong>：</p>
 <p>本题包含多组测试数据。</p>
-<p>第一行一个整数 <span class="math inline">\(T\)</span>
-表示数据组数。</p>
+<p>第一行一个整数 $T$ 表示数据组数。</p>
 <p>接下来依次给出每组输入数据，对于每组数据：</p>
-<p>第一行一个整数 <span class="math inline">\(n\)</span> 表示树 <span
-class="math inline">\(S\)</span> 的大小。</p>
-<p>接下来 <span class="math inline">\(n − 1\)</span>
-行，每行两个以空格分隔的整数 <span
-class="math inline">\(u_i\)</span>，<span
-class="math inline">\(v_i\)</span>，表示树中的一条边 <span
-class="math inline">\((u_i,v_i)\)</span>。</p>
+<p>第一行一个整数 $n$ 表示树 $S$ 的大小。</p>
+<p>接下来 $n − 1$ 行，每行两个以空格分隔的整数 $u_i$，$v_i$，表示树中的一条边 $(u_i,v_i)$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>共 <span class="math inline">\(T\)</span> 行，每行一个整数，第 <span
-class="math inline">\(i\)</span> 行的整数表示：第 <span
-class="math inline">\(i\)</span>
-组数据给出的树单独删去每条边后，分裂出的两个子树的重心编号和之和。</p>
+<p>共 $T$ 行，每行一个整数，第 $i$ 行的整数表示：第 $i$ 组数据给出的树单独删去每条边后，分裂出的两个子树的重心编号和之和。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \leq T \leq 5 , 1 \leq u_i,v_i \leq
-n\)</span>。保证给出的图是一个树。</p>
+<p>$1 \leq T \leq 5 , 1 \leq u_i,v_i \leq n$。保证给出的图是一个树。</p>
 </blockquote>
-<p>套路地考察每个点作为重心的次数。考虑将树的重心提作根 <span
-class="math inline">\(\rm root\)</span> （有两个就随便选一个）。</p>
-<p>对于任意点 <span class="math inline">\(u~(u \ne
-\mathrm{root})\)</span> ，若 <span class="math inline">\(u\)</span>
-是割掉某条边后的重心，则这条边一定不在 <span
-class="math inline">\(u\)</span> 的子树内。</p>
-<p>记割掉某条边 <span class="math inline">\(e\)</span>
-后，另一个树的大小为 <span class="math inline">\(S\)</span> ，并记 <span
-class="math display">\[
-g_u = \max_{v \in \mathrm{son}(u)}\left\{ \mathrm{size}(v)\right\}
-\]</span> 那么根据 <span class="math inline">\(u\)</span> 为重心可知
-<span class="math display">\[
+<p>套路地考察每个点作为重心的次数。考虑将树的重心提作根 $\rm root$ （有两个就随便选一个）。</p>
+<p>对于任意点 $u~(u \ne \mathrm{root})$ ，若 $u$ 是割掉某条边后的重心，则这条边一定不在 $u$ 的子树内。</p>
+<p>记割掉某条边 $e$ 后，另一个树的大小为 $S$ ，并记</p>
+<script type="math/tex; mode=display">
+g_u = \max_{v \in \mathrm{son}(u)}\left\{ \mathrm{size}(v)\right\}</script><p>那么根据 $u$ 为重心可知</p>
+<script type="math/tex; mode=display">
 \begin{cases}
     2(n-S-\mathrm{size}(u)) \le n - S
     \\[8pt] 2g_u \le n -S
-\end{cases}
-\]</span> 所以 <span class="math display">\[
-n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u
-\]</span> 即我们需要找到对于点 <span class="math inline">\(u\)</span>
-有多少条边 <span class="math inline">\(e\)</span> 满足</p>
-<ol type="1">
-<li><span class="math inline">\(n-2\ \mathrm{size}(u) \leq S \leq n-2
-g_u\)</span></li>
-<li>边不在 <span class="math inline">\(u\)</span> 的子树内。</li>
+\end{cases}</script><p>所以</p>
+<script type="math/tex; mode=display">
+n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u</script><p>即我们需要找到对于点 $u$ 有多少条边 $e$ 满足</p>
+<ol>
+<li>$n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u$</li>
+<li>边不在 $u$ 的子树内。</li>
 </ol>
-<p>仅考虑第一个条件的话，考虑 dfs 并用树状数组维护切掉边 <span
-class="math inline">\(e = (u, fa(u))\)</span> 后，</p>
-<p>每一个 <span class="math inline">\(S\)</span>
-的值有多少个，这样对于每个 <span class="math inline">\(u\)</span>
-我们只需要查询一下区间和即可。</p>
-<p>考虑去掉不满足第二个条件的 <span class="math inline">\(e\)</span>
-，考虑再拿一个树状数组按 dfs 序动态维护经过每个点的 <span
-class="math inline">\(S\)</span> 的值有多少个</p>
-<p>这样对于每个点，在其子树内的 <span class="math inline">\(e\)</span>
-就是进入时减去回溯时的区间和的差。</p>
-<p>那么怎么统计 <span class="math inline">\(u=\rm root\)</span>
-的贡献呢？设 <span class="math inline">\(u\)</span> 的儿子中 <span
-class="math inline">\(\rm size\)</span> 最大的节点是 <span
-class="math inline">\(x\)</span> ，次大的是 <span
-class="math inline">\(y\)</span> 。</p>
-<p>若 <span class="math inline">\(e\)</span> 在 <span
-class="math inline">\(x\)</span> 的子树中，则有 <span
-class="math display">\[
-2\ \mathrm{size}(y) \le n -S
-\]</span> 即 <span class="math display">\[
-S \le n - 2\ \mathrm{size}(y)
-\]</span> 否则有 <span class="math display">\[
-2\ \mathrm{size}(x) \le n - S
-\]</span> 即 <span class="math display">\[
-S \le n - 2\ \mathrm{size}(x)
-\]</span> 直接维护即可。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>仅考虑第一个条件的话，考虑 dfs 并用树状数组维护切掉边 $e = (u, fa(u))$ 后，</p>
+<p>每一个 $S$ 的值有多少个，这样对于每个 $u$ 我们只需要查询一下区间和即可。</p>
+<p>考虑去掉不满足第二个条件的 $e$ ，考虑再拿一个树状数组按 dfs 序动态维护经过每个点的 $S$ 的值有多少个</p>
+<p>这样对于每个点，在其子树内的 $e$ 就是进入时减去回溯时的区间和的差。</p>
+<p>那么怎么统计 $u=\rm root$ 的贡献呢？设 $u$ 的儿子中 $\rm size$ 最大的节点是 $x$ ，次大的是 $y$ 。</p>
+<p>若 $e$ 在 $x$ 的子树中，则有</p>
+<script type="math/tex; mode=display">
+2\ \mathrm{size}(y) \le n -S</script><p>即</p>
+<script type="math/tex; mode=display">
+S \le n - 2\ \mathrm{size}(y)</script><p>否则有</p>
+<script type="math/tex; mode=display">
+2\ \mathrm{size}(x) \le n - S</script><p>即</p>
+<script type="math/tex; mode=display">
+S \le n - 2\ \mathrm{size}(x)</script><p>直接维护即可。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -927,11 +860,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token comment">// freopen("check.out","w",stdout);</span>
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">https://www.luogu.com.cn/article/p9dqpc9y</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">https://www.luogu.com.cn/article/p9dqpc9y</a></p>
 
                 
             </div>
@@ -1057,7 +989,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1065,7 +996,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1400,7 +1331,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1468,13 +1399,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1484,7 +1415,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1492,13 +1423,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1514,7 +1445,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1669,21 +1600,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

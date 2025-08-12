@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P2375 [NOI2014] 动物园 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,62 +735,29 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2375-noi2014-动物园-题解">洛谷P2375 [NOI2014] 动物园
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2375">P2375
-[NOI2014] 动物园</a></p>
+                <h1 id="洛谷P2375-NOI2014-动物园-题解"><a href="#洛谷P2375-NOI2014-动物园-题解" class="headerlink" title="洛谷P2375 [NOI2014] 动物园 题解"></a>洛谷P2375 [NOI2014] 动物园 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2375">P2375 [NOI2014] 动物园</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>近日，园长发现动物园中好吃懒做的动物越来越多了。例如企鹅，只会卖萌向游客要吃的。为了整治动物园的不良风气，让动物们凭自己的真才实学向游客要吃的，园长决定开设算法班，让动物们学习算法。</p>
 <p>某天，园长给动物们讲解KMP算法。</p>
-<p>园长：“对于一个字符串<span
-class="math inline">\(S\)</span>，它的长度为<span
-class="math inline">\(L\)</span>。我们可以在<span
-class="math inline">\(O(L)\)</span>的时间内，求出一个名为<code>next</code>的数组。有谁预习了<code>next</code>数组的含义吗？”</p>
-<p>熊猫：“对于字符串<span class="math inline">\(S\)</span>的前<span
-class="math inline">\(i\)</span>个字符构成的子串，既是它的后缀又是它的前缀的字符串中（它本身除外），最长的长度记作<span
-class="math inline">\(next[i]\)</span>。”</p>
+<p>园长：“对于一个字符串$S$，它的长度为$L$。我们可以在$O(L)$的时间内，求出一个名为<code>next</code>的数组。有谁预习了<code>next</code>数组的含义吗？”</p>
+<p>熊猫：“对于字符串$S$的前$i$个字符构成的子串，既是它的后缀又是它的前缀的字符串中（它本身除外），最长的长度记作$next[i]$。”</p>
 <p>园长：“非常好！那你能举个例子吗？”</p>
-<p>熊猫：“例<span
-class="math inline">\(S\)</span>为<code>abcababc</code>，则<span
-class="math inline">\(next[5]=2\)</span>。因为<span
-class="math inline">\(S\)</span>的前<span
-class="math inline">\(5\)</span>个字符为<code>abcab</code>，<code>ab</code>既是它的后缀又是它的前缀，并且找不到一个更长的字符串满足这个性质。同理，还可得出<span
-class="math inline">\(next[1] = next[2] = next[3] = 0\)</span>，<span
-class="math inline">\(next[4] = next[6] = 1\)</span>，<span
-class="math inline">\(next[7] = 2\)</span>，<span
-class="math inline">\(next[8] = 3\)</span>。”</p>
-<p>园长表扬了认真预习的熊猫同学。随后，他详细讲解了如何在<span
-class="math inline">\(O(L)\)</span>的时间内求出<code>next</code>数组。</p>
-<p>下课前，园长提出了一个问题：“KMP算法只能求出<code>next</code>数组。我现在希望求出一个更强大<code>num</code>数组一一对于字符串<span
-class="math inline">\(S\)</span>的前<span
-class="math inline">\(i\)</span>个字符构成的子串，既是它的后缀同时又是它的前缀，并且该后缀与该前缀不重叠，将这种字符串的数量记作<span
-class="math inline">\(num[i]\)</span>。例如<span
-class="math inline">\(S\)</span>为<code>aaaaa</code>，则<span
-class="math inline">\(num[4] = 2\)</span>。这是因为<span
-class="math inline">\(S\)</span>的前<span
-class="math inline">\(4\)</span>个字符为<code>aaaa</code>，其中<code>a</code>和<code>aa</code>都满足性质‘既是后缀又是前缀’，同时保证这个后缀与这个前缀不重叠。而<code>aaa</code>虽然满足性质‘既是后缀又是前缀’，但遗憾的是这个后缀与这个前缀重叠了，所以不能计算在内。同理，<span
-class="math inline">\(num[1] = 0,num[2] = num[3] = 1,num[5] =
-2\)</span>。”</p>
-<p>最后，园长给出了奖励条件，第一个做对的同学奖励巧克力一盒。听了这句话，睡了一节课的企鹅立刻就醒过来了！但企鹅并不会做这道题，于是向参观动物园的你寻求帮助。你能否帮助企鹅写一个程序求出<span
-class="math inline">\(num\)</span>数组呢？</p>
-<p>特别地，为了避免大量的输出，你不需要输出<span
-class="math inline">\(num[i]\)</span>分别是多少，你只需要输出所有<span
-class="math inline">\((num[i]+1)\)</span>的乘积，对<span
-class="math inline">\(1,000,000,007\)</span>取模的结果即可。</p>
-<p><span class="math inline">\(N ≤ 5, L ≤ 1,000,000\)</span></p>
+<p>熊猫：“例$S$为<code>abcababc</code>，则$next[5]=2$。因为$S$的前$5$个字符为<code>abcab</code>，<code>ab</code>既是它的后缀又是它的前缀，并且找不到一个更长的字符串满足这个性质。同理，还可得出$next[1] = next[2] = next[3] = 0$，$next[4] = next[6] = 1$，$next[7] = 2$，$next[8] = 3$。”</p>
+<p>园长表扬了认真预习的熊猫同学。随后，他详细讲解了如何在$O(L)$的时间内求出<code>next</code>数组。</p>
+<p>下课前，园长提出了一个问题：“KMP算法只能求出<code>next</code>数组。我现在希望求出一个更强大<code>num</code>数组一一对于字符串$S$的前$i$个字符构成的子串，既是它的后缀同时又是它的前缀，并且该后缀与该前缀不重叠，将这种字符串的数量记作$num[i]$。例如$S$为<code>aaaaa</code>，则$num[4] = 2$。这是因为$S$的前$4$个字符为<code>aaaa</code>，其中<code>a</code>和<code>aa</code>都满足性质‘既是后缀又是前缀’，同时保证这个后缀与这个前缀不重叠。而<code>aaa</code>虽然满足性质‘既是后缀又是前缀’，但遗憾的是这个后缀与这个前缀重叠了，所以不能计算在内。同理，$num[1] = 0,num[2] = num[3] = 1,num[5] = 2$。”</p>
+<p>最后，园长给出了奖励条件，第一个做对的同学奖励巧克力一盒。听了这句话，睡了一节课的企鹅立刻就醒过来了！但企鹅并不会做这道题，于是向参观动物园的你寻求帮助。你能否帮助企鹅写一个程序求出$num$数组呢？</p>
+<p>特别地，为了避免大量的输出，你不需要输出$num[i]$分别是多少，你只需要输出所有$(num[i]+1)$的乘积，对$1,000,000,007$取模的结果即可。</p>
+<p>$N ≤ 5, L ≤ 1,000,000$</p>
 </blockquote>
 <p>注：border为公共前后缀</p>
-<p>考虑 <span class="math inline">\(S\)</span> 的最长border <span
-class="math inline">\(s\)</span></p>
-<p>显然 <span class="math inline">\(s\)</span> 的最长border一定也是
-<span class="math inline">\(S\)</span> 的border</p>
-<p>则 <span class="math inline">\(\text{num}_{S} =
-\text{num}_s+1\)</span>（先不考虑重叠问题）</p>
+<p>考虑 $S$ 的最长border $s$ </p>
+<p>显然 $s$ 的最长border一定也是 $S$ 的border</p>
+<p>则 $\text{num}_{S} = \text{num}_s+1$（先不考虑重叠问题） </p>
 <p>对于重叠的情况直接跳fail数组即可</p>
-<p>时间复杂度 <span class="math inline">\(O(\sum|s_i|)\)</span></p>
+<p>时间复杂度 $O(\sum|s_i|)$ </p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
@@ -840,7 +803,7 @@ class="math inline">\(s\)</span></p>
         <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -962,7 +925,6 @@ class="math inline">\(s\)</span></p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -970,7 +932,7 @@ class="math inline">\(s\)</span></p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1305,7 +1267,7 @@ class="math inline">\(s\)</span></p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1373,13 +1335,13 @@ class="math inline">\(s\)</span></p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1389,7 +1351,7 @@ class="math inline">\(s\)</span></p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1397,13 +1359,13 @@ class="math inline">\(s\)</span></p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1419,7 +1381,7 @@ class="math inline">\(s\)</span></p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1574,21 +1536,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,47 +735,30 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p1156-垃圾陷阱-题解浅谈刷表法与填表法">洛谷P1156 垃圾陷阱
-题解&amp;浅谈刷表法与填表法</h1>
-<p><strong>填表法</strong>
-：就是一般的动态规划，当前点的状态，可以直接用状态方程，根据<strong>之前点</strong>的状态推导出来。</p>
+                <h1 id="洛谷P1156-垃圾陷阱-题解-amp-浅谈刷表法与填表法"><a href="#洛谷P1156-垃圾陷阱-题解-amp-浅谈刷表法与填表法" class="headerlink" title="洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法"></a>洛谷P1156 垃圾陷阱 题解&amp;浅谈刷表法与填表法</h1><p><strong>填表法</strong> ：就是一般的动态规划，当前点的状态，可以直接用状态方程，根据<strong>之前点</strong>的状态推导出来。</p>
 <p><strong>刷表法</strong>：由当前点的状态，<strong>更新其他点的状态</strong>。需要注意：只用当每个状态所依赖的状态对它的影响相互独立。</p>
 <p>下面会用一道题目给出两种写法的区别</p>
 <HR>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1156">P1156
-垃圾陷阱</a></p>
+
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1156">P1156 垃圾陷阱</a></p>
 <blockquote>
 <p><strong>题意</strong>：<del>吃垃圾就完了</del></p>
-<p>卡门――农夫约翰极其珍视的一条<code>Holsteins</code>奶牛――已经落了到“垃圾井”中。“垃圾井”是农夫们扔垃圾的地方，它的深度为<span
-class="math inline">\(D(2 \le D \le 100)\)</span>英尺。</p>
+<p>卡门――农夫约翰极其珍视的一条<code>Holsteins</code>奶牛――已经落了到“垃圾井”中。“垃圾井”是农夫们扔垃圾的地方，它的深度为$D(2 \le D \le 100)$英尺。</p>
 <p>卡门想把垃圾堆起来，等到堆得与井同样高时，她就能逃出井外了。另外，卡门可以通过吃一些垃圾来维持自己的生命。</p>
 <p>每个垃圾都可以用来吃或堆放，并且堆放垃圾不用花费卡门的时间。</p>
-<p>假设卡门预先知道了每个垃圾扔下的时间<span
-class="math inline">\(t(0&lt; t \le
-1000)\)</span>，以及每个垃圾堆放的高度<span class="math inline">\(h(1
-\le h \le 25\)</span>)和吃进该垃圾能维持生命的时间<span
-class="math inline">\(f(1 \le f \le
-30)\)</span>，要求出卡门最早能逃出井外的时间，假设卡门当前体内有足够持续<span
-class="math inline">\(10\)</span>小时的能量，如果卡门<span
-class="math inline">\(10\)</span>小时内没有进食，卡门就将饿死。</p>
-<p>注：如果能量为 <span class="math inline">\(0\)</span>
-时恰好有垃圾可以吃，则不会饿死</p>
+<p>假设卡门预先知道了每个垃圾扔下的时间$t(0&lt; t \le 1000)$，以及每个垃圾堆放的高度$h(1 \le h \le 25$)和吃进该垃圾能维持生命的时间$f(1 \le f \le 30)$，要求出卡门最早能逃出井外的时间，假设卡门当前体内有足够持续$10$小时的能量，如果卡门$10$小时内没有进食，卡门就将饿死。</p>
+<p>注：如果能量为 $0$ 时恰好有垃圾可以吃，则不会饿死</p>
 </blockquote>
 <p>注意到对于每个垃圾，只有吃掉和堆起来两种方法</p>
-<p>设 <span class="math inline">\(dp[i][j]\)</span> 表示只考虑前 <span
-class="math inline">\(i\)</span> 个垃圾，堆到高度 <span
-class="math inline">\(j\)</span> 时，最多可以活到什么时候</p>
-<p>容易推出方程 <span class="math display">\[
-dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])
-\]</span> <strong>1.填表法</strong></p>
-<p>求出dp数组以后扫一遍就好了，细节较多（其实好像可以滚动数组，<del>但是懒</del>
-qwq）</p>
-<p>注意这里垃圾的高度可能会超过 <span class="math inline">\(m\)</span>
-，但是数据好像没卡这个东西</p>
-<p>处理方法就是把 <span class="math inline">\(m+\max(h_i)\)</span>
-都dp一下</p>
+<p>设 $dp[i][j]$ 表示只考虑前 $i$ 个垃圾，堆到高度 $j$ 时，最多可以活到什么时候</p>
+<p>容易推出方程</p>
+<script type="math/tex; mode=display">
+dp[i][j]=\max(dp[i-1][j]+v_i,dp[i-1][j-h_i])</script><p><strong>1.填表法</strong></p>
+<p>求出dp数组以后扫一遍就好了，细节较多（其实好像可以滚动数组，<del>但是懒</del> qwq）</p>
+<p>注意这里垃圾的高度可能会超过 $m$ ，但是数据好像没卡这个东西</p>
+<p>处理方法就是把 $m+\max(h_i)$ 都dp一下</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -823,14 +802,13 @@ qwq）</p>
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res2 <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>2.刷表法</strong></p>
 <p>这里可以滚动数组了，不过要两个</p>
 <p>否则会导致数据更新错误</p>
-<p>当然也可以不用滚动数组
-<del>位运算那么可爱为什么不写她呐？对不对？</del></p>
+<p>当然也可以不用滚动数组 <del>位运算那么可爱为什么不写她呐？对不对？</del></p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -869,7 +847,7 @@ qwq）</p>
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><del>哼哼，我才不会说我是在考数学的时候推出来的dp方程</del></p>
 <p><strong>转载请说明出处</strong></p>
 
@@ -993,7 +971,6 @@ qwq）</p>
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1001,7 +978,7 @@ qwq）</p>
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1082,13 +1059,13 @@ qwq）</p>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p1108-di-jie-gou-mai-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p1171-shou-huo-yuan-de-nan-ti-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p19.webp" class="responsive-img" alt="洛谷P1108 低价购买 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p192.webp" class="responsive-img" alt="洛谷P1171 售货员的难题 题解">
                         
-                        <span class="card-title">洛谷P1108 低价购买 题解</span>
+                        <span class="card-title">洛谷P1171 售货员的难题 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1135,13 +1112,13 @@ qwq）</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p1171-shou-huo-yuan-de-nan-ti-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p1284-san-jiao-xing-mu-chang-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p192.webp" class="responsive-img" alt="洛谷P1171 售货员的难题 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p25.webp" class="responsive-img" alt="洛谷P1284 三角形牧场 题解">
                         
-                        <span class="card-title">洛谷P1171 售货员的难题 题解</span>
+                        <span class="card-title">洛谷P1284 三角形牧场 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1336,7 +1313,7 @@ qwq）</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1404,13 +1381,13 @@ qwq）</p>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1420,7 +1397,7 @@ qwq）</p>
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1428,13 +1405,13 @@ qwq）</p>
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1450,7 +1427,7 @@ qwq）</p>
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1605,21 +1582,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

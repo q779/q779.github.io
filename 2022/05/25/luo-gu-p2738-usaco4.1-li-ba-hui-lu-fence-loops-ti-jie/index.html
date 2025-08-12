@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P2738 [USACO4.1]篱笆回路Fence Loops 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,19 +735,15 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2738-usaco4.1篱笆回路fence-loops-题解">洛谷P2738
-[USACO4.1]篱笆回路Fence Loops 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2738">P2738
-[USACO4.1]篱笆回路Fence Loops</a></p>
+                <h1 id="洛谷P2738-USACO4-1-篱笆回路Fence-Loops-题解"><a href="#洛谷P2738-USACO4-1-篱笆回路Fence-Loops-题解" class="headerlink" title="洛谷P2738 [USACO4.1]篱笆回路Fence Loops 题解"></a>洛谷P2738 [USACO4.1]篱笆回路Fence Loops 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2738">P2738 [USACO4.1]篱笆回路Fence Loops</a></p>
 <blockquote>
-<p><strong>题意</strong>：农夫布朗的牧场上的篱笆已经失去控制了。它们分成了1~200英尺长的线段。只有在线段的端点处才能连接两个线段，有时给定的一个端点上会有两个以上的篱笆。结果篱笆形成了一张网分割了布朗的牧场。布朗想将牧场恢复原样，出于这个考虑，他首先得知道牧场上哪一块区域的周长最小。
-布朗将他的每段篱笆从1到N进行了标号（N=线段的总数）。他知道每段篱笆有如下属性：</p>
+<p><strong>题意</strong>：农夫布朗的牧场上的篱笆已经失去控制了。它们分成了1~200英尺长的线段。只有在线段的端点处才能连接两个线段，有时给定的一个端点上会有两个以上的篱笆。结果篱笆形成了一张网分割了布朗的牧场。布朗想将牧场恢复原样，出于这个考虑，他首先得知道牧场上哪一块区域的周长最小。 布朗将他的每段篱笆从1到N进行了标号（N=线段的总数）。他知道每段篱笆有如下属性：</p>
 <p>该段篱笆的长度</p>
 <p>该段篱笆的一端所连接的另一段篱笆的标号</p>
 <p>该段篱笆的另一端所连接的另一段篱笆的标号</p>
 <p>幸运的是，没有篱笆连接它自身。对于一组有关篱笆如何分割牧场的数据，写一个程序来计算出所有分割出的区域中最小的周长。</p>
 <p>例如，标号1~10的篱笆由下图的形式组成（下面的数字是篱笆的标号）：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp">         <span class="token number">1</span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">         <span class="token number">1</span>
  <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>
  <span class="token operator">|</span>\             <span class="token operator">/</span><span class="token operator">|</span>
 <span class="token number">2</span><span class="token operator">|</span> \<span class="token number">7</span>          <span class="token operator">/</span> <span class="token operator">|</span>
@@ -761,22 +753,18 @@ rgba(0,0,0,0.2);
 <span class="token number">3</span><span class="token operator">|</span>     \<span class="token number">9</span>  <span class="token operator">/</span>     <span class="token operator">|</span>
  <span class="token operator">|</span>      \ <span class="token operator">/</span>      <span class="token operator">|</span>
  <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>
-     <span class="token number">4</span>       <span class="token number">5</span></code></pre>
+     <span class="token number">4</span>       <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上图中周长最小的区域是由2，7，8号篱笆形成的。</p>
 </blockquote>
 <p>这题建图比较麻烦</p>
-<p>考虑将第 <span class="math inline">\(i\)</span> 条边的两个端点记为
-<span class="math inline">\(2i-1\)</span> 和 <span
-class="math inline">\(2i\)</span> ，记录其连接的边的编号</p>
-<p>然后 <span class="math inline">\(O(n^2)\)</span>
-枚举一下这些边，将本质相同端点合并（用<del>冰茶姬</del>并查集）</p>
-<p>去个重然后跑个<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最小环</a>就好了</p>
-<p>时间复杂度 <span class="math inline">\(O(n^3)\)</span></p>
+<p>考虑将第 $i$ 条边的两个端点记为 $2i-1$ 和 $2i$ ，记录其连接的边的编号</p>
+<p>然后 $O(n^2)$ 枚举一下这些边，将本质相同端点合并（用<del>冰茶姬</del>并查集）</p>
+<p>去个重然后跑个<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最小环</a>就好了</p>
+<p>时间复杂度 $O(n^3)$ </p>
 <p>注意 <code>INF</code> 不可以开太大，不然会爆掉的</p>
 <p>边去重好像不必要，但是保险起见就去一去</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x1f1f1f1f1f1f1f1f</span></span></span>
@@ -870,7 +858,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
     <span class="token punctuation">&#125;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%lld\n"</span><span class="token punctuation">,</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -992,7 +980,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1000,7 +987,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1134,13 +1121,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2912-usaco08oct-pasture-walking-g-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2888-usaco07nov-cow-hurdles-s-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p146.webp" class="responsive-img" alt="洛谷P2912 [USACO08OCT]Pasture Walking G 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p226.webp" class="responsive-img" alt="洛谷P2888 [USACO07NOV]Cow Hurdles S 题解">
                         
-                        <span class="card-title">洛谷P2912 [USACO08OCT]Pasture Walking G 题解</span>
+                        <span class="card-title">洛谷P2888 [USACO07NOV]Cow Hurdles S 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1335,7 +1322,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1403,13 +1390,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1419,7 +1406,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1427,13 +1414,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1449,7 +1436,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6175">最
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1604,21 +1591,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

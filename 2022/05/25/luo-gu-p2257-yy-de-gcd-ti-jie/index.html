@@ -7,7 +7,7 @@
     <meta name="keywords" content="洛谷P2257 YY的GCD 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,52 +735,33 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷p2257-yy的gcd-题解">洛谷P2257 YY的GCD 题解</h1>
-<blockquote>
+                <h1 id="洛谷P2257-YY的GCD-题解"><a href="#洛谷P2257-YY的GCD-题解" class="headerlink" title="洛谷P2257 YY的GCD 题解"></a>洛谷P2257 YY的GCD 题解</h1><blockquote>
 <p><strong>题意</strong>：</p>
 <p>多组询问。</p>
-<p>给定 <span class="math inline">\(N, M\)</span>，求 <span
-class="math inline">\(1 \leq x \leq N\)</span>，<span
-class="math inline">\(1 \leq y \leq M\)</span> 且 <span
-class="math inline">\(\gcd(x,y)\)</span> 为质数的 <span
-class="math inline">\((x,y)\)</span> 有多少对。</p>
+<p>给定 $N, M$，求 $1 \leq x \leq N$，$1 \leq y \leq M$ 且 $\gcd(x,y)$ 为质数的 $(x,y)$ 有多少对。</p>
 </blockquote>
 <p>一句话题意</p>
-<p>令 <span class="math inline">\(\mathcal{P}\)</span>
-为所有素数组成的集合，求 <span class="math display">\[
-\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]
-\]</span> 不妨假设 <span class="math inline">\(n\le m\)</span></p>
+<p>令 $\mathcal{P}$ 为所有素数组成的集合，求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]</script><p>不妨假设 $n\le m$ </p>
 <p>然后么推推柿子</p>
 <p>友情提醒，这道题涉及经典操作：转化枚举量、构造莫比乌斯反演</p>
-<p>不知道的可以先去看看别的题，比如这个题 <a
-target="_blank" rel="noopener" href="https://q779.github.io/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">link</a>
-<span class="math display">\[
+<p>不知道的可以先去看看别的题，比如这个题 <a target="_blank" rel="noopener" href="https://q779.github.io/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">link</a></p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]
-\\=
-&amp;\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^m\left[\gcd(i,j)=k\right][k
-\in \mathcal{P}]
-\\=
-&amp;\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}[\gcd(i,j)=1][k
-\in \mathcal{P}]
-\\=&amp;\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}\sum_{d\mid
-\gcd(i,j)}\mu(d)[k \in \mathcal{P}]
-\\=&amp;\sum_{k=1}^{n}\sum_{d=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\mu(d)\left\lfloor{\dfrac{n}{kd}}\right\rfloor\left\lfloor{\dfrac{m}{kd}}\right\rfloor[k
-\in \mathcal{P}]
-\\=&amp;\sum_{l=1}^{n}\left\lfloor{\dfrac{n}{l}}\right\rfloor\left\lfloor{\dfrac{m}{l}}\right\rfloor\sum_{k
-\mid l\land k \in \mathcal{P}}\mu\left(\dfrac{l}{k}\right)
-\end{aligned}
-\]</span> 注：<span class="math inline">\(\land\)</span>
-表示逻辑与，可认为其等价于 “且”</p>
-<p>令 <span class="math inline">\(f(x) = \sum\limits_{k \mid x\land k
-\in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)\)</span></p>
+&\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right] 
+\\= &\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^m\left[\gcd(i,j)=k\right][k \in \mathcal{P}]
+\\= &\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}[\gcd(i,j)=1][k \in \mathcal{P}]
+\\=&\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}\sum_{d\mid \gcd(i,j)}\mu(d)[k \in \mathcal{P}]
+\\=&\sum_{k=1}^{n}\sum_{d=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\mu(d)\left\lfloor{\dfrac{n}{kd}}\right\rfloor\left\lfloor{\dfrac{m}{kd}}\right\rfloor[k \in \mathcal{P}]
+\\=&\sum_{l=1}^{n}\left\lfloor{\dfrac{n}{l}}\right\rfloor\left\lfloor{\dfrac{m}{l}}\right\rfloor\sum_{k \mid l\land k \in \mathcal{P}}\mu\left(\dfrac{l}{k}\right)
+\end{aligned}</script><p>注：$\land$ 表示逻辑与，可认为其等价于 “且”</p>
+<p>令 $f(x) = \sum\limits_{k \mid x\land k \in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)$</p>
 <p>然后这个题其实到这里就差不多了</p>
 <p>前面的用数论分块</p>
-<p>后面那个 <span class="math inline">\(\mu\)</span>
-可以在筛法里面求</p>
-<p>时间复杂度 <span class="math inline">\(O(n\log \log n +
-Q\sqrt{n})\)</span></p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<p>后面那个 $\mu$ 可以在筛法里面求</p>
+<p>时间复杂度 $O(n\log \log n + Q\sqrt{n})$</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -874,77 +851,49 @@ Q\sqrt{n})\)</span></p>
         <span class="token function">write</span><span class="token punctuation">(</span><span class="token function">solve</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>这份代码很慢，跑了<code>7.74s</code>， 目前最优解就跑了
-<code>5.69s</code> (截止20220511)</p>
-<p>其实这个 <span class="math inline">\(O(n \log\log n)\)</span>
-的枚举并没有必要</p>
-<p>考虑在线性筛的过程中更新答案 <span class="math display">\[
-f(x) = \sum\limits_{k \mid x\land k \in
-\mathcal{P}}\mu\left(\dfrac{x}{k}\right)
-\]</span> 设 <span class="math inline">\(x=ab\)</span> ，其中 <span
-class="math inline">\(a\)</span> 为 <span
-class="math inline">\(x\)</span> 的最小质因数</p>
-<p>称 <span class="math inline">\(p\)</span>
-为当前线性筛枚举的一个用于标记的素数（<code>prime[j]</code>）</p>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这份代码很慢，跑了<code>7.74s</code>， 目前最优解就跑了 <code>5.69s</code> (截止20220511) </p>
+<p>其实这个 $O(n \log\log n)$ 的枚举并没有必要</p>
+<p>考虑在线性筛的过程中更新答案</p>
+<script type="math/tex; mode=display">
+f(x) = \sum\limits_{k \mid x\land k \in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)</script><p>设 $x=ab$ ，其中 $a$ 为 $x$ 的最小质因数</p>
+<p>称 $p$ 为当前线性筛枚举的一个用于标记的素数（<code>prime[j]</code>）</p>
 <ul>
-<li><p>若 <span class="math inline">\(x \in \mathcal{P}\)</span>
-，则显然 <span class="math inline">\(f(x) = \mu(1) = 1\)</span></p></li>
-<li><p>若 <span class="math inline">\(x\notin \mathcal P \land b \bmod a
-= 0\)</span></p>
-<p>则有 <span class="math inline">\(x = a^p
-b^{\prime},b=a^{p-1}b^{\prime},p\)</span> 为大于 <span
-class="math inline">\(1\)</span> 的正整数 （即 <span
-class="math inline">\(x\)</span> 有多个最小质因数 ）</p>
+<li><p>若 $x \in \mathcal{P}$ ，则显然 $f(x) = \mu(1) = 1$</p>
+</li>
+<li><p>若 $x\notin \mathcal P \land b \bmod a = 0$</p>
+<p>则有 $x = a^p b^{\prime},b=a^{p-1}b^{\prime},p$ 为大于 $1$ 的正整数 （即 $x$ 有多个最小质因数 ）</p>
 <ul>
-<li><p>若 <span class="math inline">\(b\)</span>
-<strong>没有</strong>多个最小质因数，则当且仅当 <span
-class="math inline">\(p=a\)</span> 时 <span
-class="math inline">\(\mu\left(\dfrac{x}{p}\right) = \mu(b) \ne
-0\)</span></p>
-<p>因此有 <span class="math inline">\(f(x) = \mu(b)\)</span></p></li>
-<li><p>若 <span class="math inline">\(b\)</span>
-<strong>含有</strong>多个最小质因数，则 <span
-class="math inline">\(\forall p \in
-\mathcal{P}^{\prime},\mu\left(\dfrac{x}{p}\right)=0,\mathcal{P}^{\prime}\)</span>
-为当前筛出的素数集</p>
-<p>不过我们无须单独考虑这种情况，因为此时仍然有 <span
-class="math inline">\(\mu\left(\dfrac{x}{p}\right) =
-\mu(b)\)</span></p></li>
-</ul></li>
-<li><p>若 <span class="math inline">\(x\notin \mathcal{P} \land b \bmod
-a \ne 0\)</span></p>
-<p>则此时 <span class="math inline">\(x\)</span> 有唯一且最小的质因数
-<span class="math inline">\(a\)</span></p>
-<p>显然有 <span class="math inline">\(\mu(x) = -\mu(b)\)</span>
-，因为它仅仅多了一个本质不同的质因子</p>
-<p>则对于 <span class="math inline">\(\mu\left(\dfrac{x}{p}\right) =
--\mu\left(\dfrac{b}{p}\right)\)</span> 也是成立的</p>
-<p>因此 <span class="math inline">\(f(b)\)</span> 中的每一项在 <span
-class="math inline">\(f(x)\)</span> 中都能找到对应的</p>
-<p>注意到 <span class="math display">\[
-f(x) = f(ab) =\sum\limits_{k \mid ab\land k \in
-\mathcal{P}}\mu\left(\dfrac{ab}{k}\right)
-\]</span> 由于 <span class="math inline">\(\gcd(a,b)=1\)</span>
-（显然），则 <span class="math inline">\(f(x)\)</span> 仅仅比 <span
-class="math inline">\(f(b)\)</span> 多了一项 <span
-class="math inline">\(\mu\left(\dfrac{ab}{a}\right) =
-\mu(b)\)</span></p>
-<p>则有 <span class="math inline">\(f(x) =
--f(b)+\mu(b)\)</span></p></li>
+<li><p>若 $b$ <strong>没有</strong>多个最小质因数，则当且仅当 $p=a$ 时 $\mu\left(\dfrac{x}{p}\right) = \mu(b) \ne 0$</p>
+<p>因此有 $f(x) = \mu(b)$</p>
+</li>
+<li><p>若 $b$ <strong>含有</strong>多个最小质因数，则 $\forall p \in \mathcal{P}^{\prime},\mu\left(\dfrac{x}{p}\right)=0,\mathcal{P}^{\prime}$ 为当前筛出的素数集</p>
+<p>不过我们无须单独考虑这种情况，因为此时仍然有 $\mu\left(\dfrac{x}{p}\right) = \mu(b)$</p>
+</li>
 </ul>
-<p>综上，有 <span class="math display">\[
+</li>
+<li><p>若 $x\notin \mathcal{P} \land b \bmod a \ne 0$ </p>
+<p>则此时 $x$ 有唯一且最小的质因数 $a$ </p>
+<p>显然有 $\mu(x) = -\mu(b)$ ，因为它仅仅多了一个本质不同的质因子</p>
+<p>则对于 $\mu\left(\dfrac{x}{p}\right) = -\mu\left(\dfrac{b}{p}\right)$ 也是成立的</p>
+<p>因此 $f(b)$ 中的每一项在 $f(x)$ 中都能找到对应的</p>
+<p>注意到</p>
+<script type="math/tex; mode=display">
+f(x) = f(ab) =\sum\limits_{k \mid ab\land k \in \mathcal{P}}\mu\left(\dfrac{ab}{k}\right)</script><p>由于 $\gcd(a,b)=1$ （显然），则 $f(x)$ 仅仅比 $f(b)$ 多了一项 $\mu\left(\dfrac{ab}{a}\right) = \mu(b)$</p>
+<p>则有 $f(x) = -f(b)+\mu(b)$</p>
+</li>
+</ul>
+<p>综上，有</p>
+<script type="math/tex; mode=display">
 f(x) = \begin{cases}
-\mu(1),&amp;x \in \mathcal{P},
-\\\\\mu(b),&amp;x \notin \mathcal{P} \land b \bmod a=0,
-\\\\-f(b)+\mu(b),&amp;x\notin \mathcal{P} \land b\bmod a \ne 0.
-\end{cases}
-\]</span> 于是我们就可以在 <span class="math inline">\(O(n +
-Q\sqrt{n})\)</span> 的时间复杂度内解决这个问题了</p>
+\mu(1),&x \in \mathcal{P},
+\\\\\mu(b),&x \notin \mathcal{P} \land b \bmod a=0,
+\\\\-f(b)+\mu(b),&x\notin \mathcal{P} \land b\bmod a \ne 0.
+\end{cases}</script><p>于是我们就可以在 $O(n + Q\sqrt{n})$ 的时间复杂度内解决这个问题了</p>
 <p><del>然后稍微卡一卡常，就跑的飞快</del></p>
 <p><del>对了，目前最优解其实是我的代码哦（虽然没啥用</del></p>
 <p>代码如下</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token keyword">typedef</span> <span class="token keyword">long</span> <span class="token keyword">long</span> ll<span class="token punctuation">;</span>
@@ -1029,13 +978,11 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>Q<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
         <span class="token function">write</span><span class="token punctuation">(</span><span class="token function">solve</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果有什么错误或者问题的话，欢迎留言</p>
 <p><strong>参考文献</strong></p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257">https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p2257">https://siyuan.blog.luogu.org/solution-p2257</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257">https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p2257">https://siyuan.blog.luogu.org/solution-p2257</a></p>
 
                 
             </div>
@@ -1157,7 +1104,6 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1165,7 +1111,7 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1246,13 +1192,13 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2216-haoi2007-li-xiang-de-zheng-fang-xing-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2224-hnoi2001-chan-pin-jia-gong-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p147.webp" class="responsive-img" alt="洛谷P2216 [HAOI2007]理想的正方形 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p194.webp" class="responsive-img" alt="洛谷P2224 [HNOI2001]产品加工 题解">
                         
-                        <span class="card-title">洛谷P2216 [HAOI2007]理想的正方形 题解</span>
+                        <span class="card-title">洛谷P2224 [HNOI2001]产品加工 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1284,8 +1230,8 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/DP/">
+                        <span class="chip bg-color">DP</span>
                     </a>
                     
                 </div>
@@ -1299,13 +1245,13 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/25/luo-gu-p2224-hnoi2001-chan-pin-jia-gong-ti-jie/">
+                <a href="/2022/05/25/luo-gu-p2260-qing-hua-ji-xun-2012-mo-ji-he-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p194.webp" class="responsive-img" alt="洛谷P2224 [HNOI2001]产品加工 题解">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p14.webp" class="responsive-img" alt="洛谷P2260 [清华集训2012]模积和 题解">
                         
-                        <span class="card-title">洛谷P2224 [HNOI2001]产品加工 题解</span>
+                        <span class="card-title">洛谷P2260 [清华集训2012]模积和 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1337,8 +1283,8 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/DP/">
-                        <span class="chip bg-color">DP</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1500,7 +1446,7 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1568,13 +1514,13 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1584,7 +1530,7 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1592,13 +1538,13 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1614,7 +1560,7 @@ target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p225
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1769,21 +1715,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

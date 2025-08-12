@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF815D Karen and Cards 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -743,68 +739,35 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf815d-karen-and-cards-题解">CF815D Karen and Cards 题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF815D">Karen and
-Cards</a></p>
+                <h1 id="CF815D-Karen-and-Cards-题解"><a href="#CF815D-Karen-and-Cards-题解" class="headerlink" title="CF815D Karen and Cards 题解"></a>CF815D Karen and Cards 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF815D">Karen and Cards</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有 <span class="math inline">\(n\)</span>
-张卡牌，每张卡牌都有三个属性，第 <span class="math inline">\(i\)</span>
-张卡牌的三个属性记作 <span
-class="math inline">\(a_i,b_i,c_i\)</span>。卡牌 <span
-class="math inline">\(x\)</span> 可以打败卡牌 <span
-class="math inline">\(y\)</span> 当且仅当 <span
-class="math inline">\(x\)</span> 至少有两个属性值比 <span
-class="math inline">\(y\)</span> 对应的属性值大。如卡牌 <span
-class="math inline">\((1,2,3)\)</span> 可以打败卡牌 <span
-class="math inline">\((3,1,2)\)</span>，因为 <span
-class="math inline">\(2&gt;1,3&gt;2\)</span>。</p>
-<p>现在请你判断满足 <span class="math inline">\(a\leq A,b\leq B, c\leq
-C\)</span> 的卡牌中，可以打败给定的所有 <span
-class="math inline">\(n\)</span> 张卡牌的有多少张。</p>
+<p>有 $n$ 张卡牌，每张卡牌都有三个属性，第 $i$ 张卡牌的三个属性记作 $a_i,b_i,c_i$。卡牌 $x$ 可以打败卡牌 $y$ 当且仅当 $x$ 至少有两个属性值比 $y$ 对应的属性值大。如卡牌 $(1,2,3)$ 可以打败卡牌 $(3,1,2)$，因为 $2&gt;1,3&gt;2$。</p>
+<p>现在请你判断满足 $a\leq A,b\leq B, c\leq C$ 的卡牌中，可以打败给定的所有 $n$ 张卡牌的有多少张。</p>
 <p><strong>数据范围</strong>：</p>
-<p><span class="math inline">\(1 \le n,A,B,C \le 5\times 10^5\)</span>
-。</p>
+<p>$1 \le n,A,B,C \le 5\times 10^5$ 。</p>
 </blockquote>
 <p>九条可怜镇楼</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407222035606.png" style="zoom:75%;"/></p>
-<p>这里讲讲 <span class="math inline">\(\mathcal{O}(n \log n)\)</span>
-的更好想的解法。（<del>其实是我的思路和这个解法比较接近</del>）</p>
-<p>方便起见，记当前考察的三元组为 <span
-class="math inline">\((x,y,z)\)</span> 。</p>
-<p>首先考虑所有的 <span class="math inline">\(c_i\)</span> 相等时（设为
-<span class="math inline">\(c\)</span>
-）怎么做。正难则反，考虑计算不可行解的数量。</p>
-<p>分类讨论一下 <span class="math inline">\(z\)</span> 和 <span
-class="math inline">\(c_i\)</span> 的大小关系：</p>
+<p>这里讲讲 $\mathcal{O}(n \log n)$ 的更好想的解法。（<del>其实是我的思路和这个解法比较接近</del>）</p>
+<p>方便起见，记当前考察的三元组为 $(x,y,z)$ 。</p>
+<p>首先考虑所有的 $c_i$ 相等时（设为 $c$ ）怎么做。正难则反，考虑计算不可行解的数量。</p>
+<p>分类讨论一下 $z$ 和 $c_i$ 的大小关系：</p>
 <ul>
-<li>若 <span class="math inline">\(z \le c\)</span> ，对于每个三元组
-<ul>
-<li>当 <span class="math inline">\(y \in [1, b_i]\)</span> 时，有 <span
-class="math inline">\(x \in (A,+\infty)\)</span> ；</li>
-<li>当 <span class="math inline">\(y \in (b_i, B]\)</span> 时，有 <span
-class="math inline">\(x \in (a_i,+\infty)\)</span> 。</li>
-</ul></li>
-<li>若 <span class="math inline">\(z &gt; c\)</span>
-，对于每个三元组，只需满足当 <span class="math inline">\(y \in [1,
-b_i]\)</span> 时 <span class="math inline">\(x \in
-(a_i,+\infty)\)</span> 即可。</li>
+<li>若 $z \le c$ ，对于每个三元组<ul>
+<li>当 $y \in [1, b_i]$ 时，有 $x \in (A,+\infty)$ ；</li>
+<li>当 $y \in (b_i, B]$ 时，有 $x \in (a_i,+\infty)$ 。</li>
 </ul>
-<p>显然对于每个 <span class="math inline">\(y\)</span> ，可选的 <span
-class="math inline">\(x\)</span> 取值范围的左端点是单调增的。</p>
-<p>这个相当于区间取 max 操作，可以用吉司机线段树维护，均摊是 <span
-class="math inline">\(\mathcal{O}(q \log n)\)</span> 的。</p>
-<p>现在考虑 <span class="math inline">\(c_i\)</span> 不同的情况。我们把
-<span class="math inline">\(c_i\)</span> 降序排序，可以发现当 <span
-class="math inline">\(z \in (c_i,c_{i+1}]\)</span> 时，每个 <span
-class="math inline">\(z\)</span> 的贡献是一样的。</p>
-<p>由于 <span class="math inline">\(z \le c\)</span>
-的限制更为严格，所以我们先把 <span class="math inline">\(z &gt;
-c\)</span> 的贡献加上，再扫一遍计算即可，详见代码。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+</li>
+<li>若 $z &gt; c$ ，对于每个三元组，只需满足当 $y \in [1, b_i]$ 时 $x \in (a_i,+\infty)$ 即可。</li>
+</ul>
+<p>显然对于每个 $y$ ，可选的 $x$ 取值范围的左端点是单调增的。</p>
+<p>这个相当于区间取 max 操作，可以用吉司机线段树维护，均摊是 $\mathcal{O}(q \log n)$ 的。</p>
+<p>现在考虑 $c_i$ 不同的情况。我们把 $c_i$ 降序排序，可以发现当 $z \in (c_i,c_{i+1}]$ 时，每个 $z$ 的贡献是一样的。</p>
+<p>由于 $z \le c$ 的限制更为严格，所以我们先把 $z &gt; c$ 的贡献加上，再扫一遍计算即可，详见代码。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$ </p>
 <p>代码：（<del>喜提最劣解 1187ms</del>）</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f</span></span></span>
@@ -927,11 +890,10 @@ n)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token function">write</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">pc</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">https://www.luogu.com.cn/article/sjh6bjhk</a></p>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">https://www.luogu.com.cn/article/sjh6bjhk</a></p>
 
                 
             </div>
@@ -1057,7 +1019,6 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -1065,7 +1026,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1408,7 +1369,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1476,13 +1437,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1492,7 +1453,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1500,13 +1461,13 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1522,7 +1483,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/sjh6bjhk">
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1677,21 +1638,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {

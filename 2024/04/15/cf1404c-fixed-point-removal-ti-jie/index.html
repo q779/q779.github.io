@@ -7,7 +7,7 @@
     <meta name="keywords" content="CF1404C Fixed Point Removal 题解, Q779的博客">
     <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -29,11 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Q779的博客" type="application/atom+xml">
 </head>
 
 
@@ -522,7 +518,7 @@ rgba(0,0,0,0.2);
 </style>
 
 <a href="https://github.com/q779/q779.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
+   data-tooltip="Fork Me" data-position="left" data-delay="50" alt="github link">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -739,82 +735,33 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="cf1404c-fixed-point-removal-题解">CF1404C Fixed Point Removal
-题解</h1>
-<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1404C">CF1404C
-Fixed Point Removal</a></p>
+                <h1 id="CF1404C-Fixed-Point-Removal-题解"><a href="#CF1404C-Fixed-Point-Removal-题解" class="headerlink" title="CF1404C Fixed Point Removal 题解"></a>CF1404C Fixed Point Removal 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1404C">CF1404C Fixed Point Removal</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>令 <span class="math inline">\(a_1, \ldots, a_n\)</span> 为一个包含
-<span class="math inline">\(n\)</span> 个正整数的数组。</p>
-<p>在一次操作中，你可以选择一个位置 <span
-class="math inline">\(i\)</span> 使得 <span class="math inline">\(a_i =
-i\)</span>，并从数组中移除 <span
-class="math inline">\(a_i\)</span>（移除后，剩余部分被拼接起来）。</p>
-<p><span class="math inline">\(a\)</span>
-的权重定义为你能移除的最大元素数量。</p>
-<p>你必须回答 <span class="math inline">\(q\)</span> 个独立的查询 <span
-class="math inline">\((x, y)\)</span>：在将 <span
-class="math inline">\(a\)</span> 的前 <span
-class="math inline">\(x\)</span> 个元素和最后 <span
-class="math inline">\(y\)</span> 个元素替换为 <span
-class="math inline">\(n+1\)</span>（使它们无法被移除）后，<span
-class="math inline">\(a\)</span> 的权重是多少？</p>
+<p>令 $a_1, \ldots, a_n$ 为一个包含 $n$ 个正整数的数组。</p>
+<p>在一次操作中，你可以选择一个位置 $i$ 使得 $a_i = i$，并从数组中移除 $a_i$（移除后，剩余部分被拼接起来）。</p>
+<p>$a$ 的权重定义为你能移除的最大元素数量。</p>
+<p>你必须回答 $q$ 个独立的查询 $(x, y)$：在将 $a$ 的前 $x$ 个元素和最后 $y$ 个元素替换为 $n+1$（使它们无法被移除）后，$a$ 的权重是多少？</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(q\)</span> <span class="math inline">\((1 \le n, q
-\le 3 \cdot 10^5)\)</span>——数组的长度和查询的数量。</p>
-<p>第二行包含 <span class="math inline">\(n\)</span> 个整数 <span
-class="math inline">\(a_1\)</span>, <span
-class="math inline">\(a_2\)</span>, ..., <span
-class="math inline">\(a_n\)</span> <span class="math inline">\((1 \leq
-a_i \leq n)\)</span>——数组的元素。</p>
-<p>接下来的 <span class="math inline">\(q\)</span> 行中的第 <span
-class="math inline">\(i\)</span> 行包含两个整数 <span
-class="math inline">\(x\)</span> 和 <span
-class="math inline">\(y\)</span> <span class="math inline">\((x, y \ge
-0\)</span> 且 <span class="math inline">\(x+y &lt; n)\)</span>。</p>
+<p>第一行包含两个整数 $n$ 和 $q$ $(1 \le n, q \le 3 \cdot 10^5)$——数组的长度和查询的数量。</p>
+<p>第二行包含 $n$ 个整数 $a_1$, $a_2$, …, $a_n$ $(1 \leq a_i \leq n)$——数组的元素。</p>
+<p>接下来的 $q$ 行中的第 $i$ 行包含两个整数 $x$ 和 $y$ $(x, y \ge 0$ 且 $x+y &lt; n)$。</p>
 <p><strong>输出格式</strong>：</p>
-<p>打印 <span class="math inline">\(q\)</span> 行，第 <span
-class="math inline">\(i\)</span> 行应该包含一个单独的整数——第 <span
-class="math inline">\(i\)</span> 个查询的答案。</p>
+<p>打印 $q$ 行，第 $i$ 行应该包含一个单独的整数——第 $i$ 个查询的答案。</p>
 </blockquote>
-<p>考虑令 <span class="math inline">\(a_i = i - a_i\)</span>
-，这样就只保留了相对距离。</p>
-<p>可以发现，当 <span class="math inline">\(a_i \ge 0\)</span>
-且前面被删掉的数的个数 <span class="math inline">\(\ge a_i\)</span> 时，
-<span class="math inline">\(a_i\)</span> 总能被删掉。</p>
+<p>考虑令 $a_i = i - a_i$ ，这样就只保留了相对距离。</p>
+<p>可以发现，当 $a_i \ge 0$ 且前面被删掉的数的个数 $\ge a_i$ 时， $a_i$ 总能被删掉。</p>
 <p>于是我们不需要考虑一个可以删除的序列的删除顺序了。</p>
 <p>然而询问并不从序列的开头开始，而是询问一个区间的答案，不过看上去不是很好在线维护。（反正我不会）</p>
-<p>考虑离线询问，将询问按右端点顺序排序。每考虑一个新的数 <span
-class="math inline">\(a_r\)</span> 时，维护 <span
-class="math inline">\(f_i\)</span> 表示以 <span
-class="math inline">\(i\)</span> 为起点时能删掉的数。</p>
-<p>考察 <span class="math inline">\(a_r\)</span> 的贡献：显然 <span
-class="math inline">\(f_i\)</span> 单调递减，设 <span
-class="math inline">\(p\)</span> 为最大的满足 <span
-class="math inline">\(f_p \ge a_r\)</span> 的位置，则 <span
-class="math inline">\(1\)</span> 到 <span
-class="math inline">\(p\)</span> 的每个 <span
-class="math inline">\(f\)</span> 都能吃到 <span
-class="math inline">\(1\)</span> 的贡献</p>
-<p>于是我们只需要快速找到这个 <span class="math inline">\(p\)</span>
-即可，考虑用树状数组维护。</p>
-<p>注意到每次修改时都是 <span class="math inline">\(t_1\)</span> 加
-<span class="math inline">\(1\)</span> ，<span
-class="math inline">\(t_{p+1}\)</span> 减 <span
-class="math inline">\(1\)</span> ，于是我们可以直接维护每个位置减 <span
-class="math inline">\(1\)</span> 的个数。</p>
-<p>那么如何找到 <span class="math inline">\(p+1\)</span>
-呢？设当前一共加了 <span class="math inline">\(r-1\)</span>
-次，那么减的次数不会超过 <span class="math inline">\(r-1-a_r\)</span>
-次。</p>
-<p>考虑树状数组上二分求第 <span class="math inline">\(k\)</span>
-小（全局），方式和线段树上二分挺类似的，详见代码。</p>
-<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
-n)\)</span></p>
+<p>考虑离线询问，将询问按右端点顺序排序。每考虑一个新的数 $a_r$ 时，维护 $f_i$ 表示以 $i$ 为起点时能删掉的数。</p>
+<p>考察 $a_r$ 的贡献：显然 $f_i$ 单调递减，设 $p$ 为最大的满足 $f_p \ge a_r$ 的位置，则 $1$ 到 $p$ 的每个 $f$ 都能吃到 $1$ 的贡献</p>
+<p>于是我们只需要快速找到这个 $p$ 即可，考虑用树状数组维护。</p>
+<p>注意到每次修改时都是 $t_1$ 加 $1$ ，$t_{p+1}$ 减 $1$ ，于是我们可以直接维护每个位置减 $1$ 的个数。</p>
+<p>那么如何找到 $p+1$ 呢？设当前一共加了 $r-1$ 次，那么减的次数不会超过 $r-1-a_r$ 次。</p>
+<p>考虑树状数组上二分求第 $k$ 小（全局），方式和线段树上二分挺类似的，详见代码。</p>
+<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
 <p>代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
@@ -858,14 +805,12 @@ n)\)</span></p>
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<hr />
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/x70o5ehy">https://www.luogu.com.cn/article/x70o5ehy</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find_kth.html">https://www.cnblogs.com/LiuRunky/p/BIT_Find_kth.html</a></p>
-<hr />
+<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/x70o5ehy">https://www.luogu.com.cn/article/x70o5ehy</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find_kth.html">https://www.cnblogs.com/LiuRunky/p/BIT_Find_kth.html</a></p>
+<hr>
 <p><strong>题外话</strong>：</p>
 <p>感觉对于这种题还是没有将题目规律与数学的直接关系找准，可以算是建模水平还不够吧。</p>
 
@@ -989,7 +934,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
 
 <script type="module">
   import { init } from "/libs/waline/waline.js";
-  
   const locale = {
     nick: '昵称(必填)',
     nickError: '昵称不能少于3个字符',
@@ -997,7 +941,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
     mailError: '请填写正确的邮件地址',
     link: '网站',
     optional: '可选',
-    placeholder: '欢迎评论呀 awa~❤️\n友情提醒：请勿发表敏感内容；请勿使用无效邮箱或您的常用密码。',
+    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
     sofa: '来发评论吧~',
     submit: '提交',
     like: '喜欢',
@@ -1336,7 +1280,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1402.1k</span>&nbsp;字
+                class="white-color">1386.2k</span>&nbsp;字
             
             
             
@@ -1404,13 +1348,13 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/q779" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50" alt="github link">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:q779lovesqwq@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50" alt="email me">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1420,7 +1364,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1789554075" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1789554075" data-position="top" data-delay="50" alt="QQ">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -1428,13 +1372,13 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
 
 
 
-    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50">
+    <a href="https://www.zhihu.com/people/q779" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/q779" data-position="top" data-delay="50" alt="zhihu">
         <i class="fab fa-zhihu1">知</i>
     </a>
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50" alt="RSS">
         <i class="fas fa-rss"></i>
     </a>
 
@@ -1450,7 +1394,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/LiuRunky/p/BIT_Find
     <div class="modal-content">
         <div class="search-header">
             <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键字（目前仅支持标题搜索）"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1605,21 +1549,6 @@ $(function () {
     
 
     <script src="/live2d-widget/autoload.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <style>
             [bg-lazy] {
