@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P2257 YY的GCD 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -735,32 +735,51 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2257-YY的GCD-题解"><a href="#洛谷P2257-YY的GCD-题解" class="headerlink" title="洛谷P2257 YY的GCD 题解"></a>洛谷P2257 YY的GCD 题解</h1><blockquote>
+                <h1 id="洛谷p2257-yy的gcd-题解">洛谷P2257 YY的GCD 题解</h1>
+<blockquote>
 <p><strong>题意</strong>：</p>
 <p>多组询问。</p>
-<p>给定 $N, M$，求 $1 \leq x \leq N$，$1 \leq y \leq M$ 且 $\gcd(x,y)$ 为质数的 $(x,y)$ 有多少对。</p>
+<p>给定 <span class="math inline">\(N, M\)</span>，求 <span
+class="math inline">\(1 \leq x \leq N\)</span>，<span
+class="math inline">\(1 \leq y \leq M\)</span> 且 <span
+class="math inline">\(\gcd(x,y)\)</span> 为质数的 <span
+class="math inline">\((x,y)\)</span> 有多少对。</p>
 </blockquote>
 <p>一句话题意</p>
-<p>令 $\mathcal{P}$ 为所有素数组成的集合，求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]</script><p>不妨假设 $n\le m$ </p>
+<p>令 <span class="math inline">\(\mathcal{P}\)</span>
+为所有素数组成的集合，求 <span class="math display">\[
+\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]
+\]</span> 不妨假设 <span class="math inline">\(n\le m\)</span></p>
 <p>然后么推推柿子</p>
 <p>友情提醒，这道题涉及经典操作：转化枚举量、构造莫比乌斯反演</p>
-<p>不知道的可以先去看看别的题，比如这个题 <a target="_blank" rel="noopener" href="https://q779.github.io/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">link</a></p>
-<script type="math/tex; mode=display">
+<p>不知道的可以先去看看别的题，比如这个题 <a
+target="_blank" rel="noopener" href="https://q779.github.io/2022/05/25/luo-gu-p2522-haoi2011-problem-b-ti-jie/">link</a>
+<span class="math display">\[
 \begin{aligned}
-&\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right] 
-\\= &\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^m\left[\gcd(i,j)=k\right][k \in \mathcal{P}]
-\\= &\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}[\gcd(i,j)=1][k \in \mathcal{P}]
-\\=&\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}\sum_{d\mid \gcd(i,j)}\mu(d)[k \in \mathcal{P}]
-\\=&\sum_{k=1}^{n}\sum_{d=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\mu(d)\left\lfloor{\dfrac{n}{kd}}\right\rfloor\left\lfloor{\dfrac{m}{kd}}\right\rfloor[k \in \mathcal{P}]
-\\=&\sum_{l=1}^{n}\left\lfloor{\dfrac{n}{l}}\right\rfloor\left\lfloor{\dfrac{m}{l}}\right\rfloor\sum_{k \mid l\land k \in \mathcal{P}}\mu\left(\dfrac{l}{k}\right)
-\end{aligned}</script><p>注：$\land$ 表示逻辑与，可认为其等价于 “且”</p>
-<p>令 $f(x) = \sum\limits_{k \mid x\land k \in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)$</p>
+&amp;\sum_{i=1}^{n}\sum_{j=1}^{m}\left[\gcd(i,j)\in\mathcal{P}\right]
+\\=
+&amp;\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^m\left[\gcd(i,j)=k\right][k
+\in \mathcal{P}]
+\\=
+&amp;\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}[\gcd(i,j)=1][k
+\in \mathcal{P}]
+\\=&amp;\sum_{k=1}^{n}\sum_{i=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\sum_{j=1}^{\left\lfloor{\frac{m}{k}}\right\rfloor}\sum_{d\mid
+\gcd(i,j)}\mu(d)[k \in \mathcal{P}]
+\\=&amp;\sum_{k=1}^{n}\sum_{d=1}^{\left\lfloor{\frac{n}{k}}\right\rfloor}\mu(d)\left\lfloor{\dfrac{n}{kd}}\right\rfloor\left\lfloor{\dfrac{m}{kd}}\right\rfloor[k
+\in \mathcal{P}]
+\\=&amp;\sum_{l=1}^{n}\left\lfloor{\dfrac{n}{l}}\right\rfloor\left\lfloor{\dfrac{m}{l}}\right\rfloor\sum_{k
+\mid l\land k \in \mathcal{P}}\mu\left(\dfrac{l}{k}\right)
+\end{aligned}
+\]</span> 注：<span class="math inline">\(\land\)</span>
+表示逻辑与，可认为其等价于 “且”</p>
+<p>令 <span class="math inline">\(f(x) = \sum\limits_{k \mid x\land k
+\in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)\)</span></p>
 <p>然后这个题其实到这里就差不多了</p>
 <p>前面的用数论分块</p>
-<p>后面那个 $\mu$ 可以在筛法里面求</p>
-<p>时间复杂度 $O(n\log \log n + Q\sqrt{n})$</p>
+<p>后面那个 <span class="math inline">\(\mu\)</span>
+可以在筛法里面求</p>
+<p>时间复杂度 <span class="math inline">\(O(n\log \log n +
+Q\sqrt{n})\)</span></p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">// #define int long long</span>
@@ -852,44 +871,72 @@ rgba(0,0,0,0.2);
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这份代码很慢，跑了<code>7.74s</code>， 目前最优解就跑了 <code>5.69s</code> (截止20220511) </p>
-<p>其实这个 $O(n \log\log n)$ 的枚举并没有必要</p>
-<p>考虑在线性筛的过程中更新答案</p>
-<script type="math/tex; mode=display">
-f(x) = \sum\limits_{k \mid x\land k \in \mathcal{P}}\mu\left(\dfrac{x}{k}\right)</script><p>设 $x=ab$ ，其中 $a$ 为 $x$ 的最小质因数</p>
-<p>称 $p$ 为当前线性筛枚举的一个用于标记的素数（<code>prime[j]</code>）</p>
+<p>这份代码很慢，跑了<code>7.74s</code>， 目前最优解就跑了
+<code>5.69s</code> (截止20220511)</p>
+<p>其实这个 <span class="math inline">\(O(n \log\log n)\)</span>
+的枚举并没有必要</p>
+<p>考虑在线性筛的过程中更新答案 <span class="math display">\[
+f(x) = \sum\limits_{k \mid x\land k \in
+\mathcal{P}}\mu\left(\dfrac{x}{k}\right)
+\]</span> 设 <span class="math inline">\(x=ab\)</span> ，其中 <span
+class="math inline">\(a\)</span> 为 <span
+class="math inline">\(x\)</span> 的最小质因数</p>
+<p>称 <span class="math inline">\(p\)</span>
+为当前线性筛枚举的一个用于标记的素数（<code>prime[j]</code>）</p>
 <ul>
-<li><p>若 $x \in \mathcal{P}$ ，则显然 $f(x) = \mu(1) = 1$</p>
-</li>
-<li><p>若 $x\notin \mathcal P \land b \bmod a = 0$</p>
-<p>则有 $x = a^p b^{\prime},b=a^{p-1}b^{\prime},p$ 为大于 $1$ 的正整数 （即 $x$ 有多个最小质因数 ）</p>
+<li><p>若 <span class="math inline">\(x \in \mathcal{P}\)</span>
+，则显然 <span class="math inline">\(f(x) = \mu(1) = 1\)</span></p></li>
+<li><p>若 <span class="math inline">\(x\notin \mathcal P \land b \bmod a
+= 0\)</span></p>
+<p>则有 <span class="math inline">\(x = a^p
+b^{\prime},b=a^{p-1}b^{\prime},p\)</span> 为大于 <span
+class="math inline">\(1\)</span> 的正整数 （即 <span
+class="math inline">\(x\)</span> 有多个最小质因数 ）</p>
 <ul>
-<li><p>若 $b$ <strong>没有</strong>多个最小质因数，则当且仅当 $p=a$ 时 $\mu\left(\dfrac{x}{p}\right) = \mu(b) \ne 0$</p>
-<p>因此有 $f(x) = \mu(b)$</p>
-</li>
-<li><p>若 $b$ <strong>含有</strong>多个最小质因数，则 $\forall p \in \mathcal{P}^{\prime},\mu\left(\dfrac{x}{p}\right)=0,\mathcal{P}^{\prime}$ 为当前筛出的素数集</p>
-<p>不过我们无须单独考虑这种情况，因为此时仍然有 $\mu\left(\dfrac{x}{p}\right) = \mu(b)$</p>
-</li>
+<li><p>若 <span class="math inline">\(b\)</span>
+<strong>没有</strong>多个最小质因数，则当且仅当 <span
+class="math inline">\(p=a\)</span> 时 <span
+class="math inline">\(\mu\left(\dfrac{x}{p}\right) = \mu(b) \ne
+0\)</span></p>
+<p>因此有 <span class="math inline">\(f(x) = \mu(b)\)</span></p></li>
+<li><p>若 <span class="math inline">\(b\)</span>
+<strong>含有</strong>多个最小质因数，则 <span
+class="math inline">\(\forall p \in
+\mathcal{P}^{\prime},\mu\left(\dfrac{x}{p}\right)=0,\mathcal{P}^{\prime}\)</span>
+为当前筛出的素数集</p>
+<p>不过我们无须单独考虑这种情况，因为此时仍然有 <span
+class="math inline">\(\mu\left(\dfrac{x}{p}\right) =
+\mu(b)\)</span></p></li>
+</ul></li>
+<li><p>若 <span class="math inline">\(x\notin \mathcal{P} \land b \bmod
+a \ne 0\)</span></p>
+<p>则此时 <span class="math inline">\(x\)</span> 有唯一且最小的质因数
+<span class="math inline">\(a\)</span></p>
+<p>显然有 <span class="math inline">\(\mu(x) = -\mu(b)\)</span>
+，因为它仅仅多了一个本质不同的质因子</p>
+<p>则对于 <span class="math inline">\(\mu\left(\dfrac{x}{p}\right) =
+-\mu\left(\dfrac{b}{p}\right)\)</span> 也是成立的</p>
+<p>因此 <span class="math inline">\(f(b)\)</span> 中的每一项在 <span
+class="math inline">\(f(x)\)</span> 中都能找到对应的</p>
+<p>注意到 <span class="math display">\[
+f(x) = f(ab) =\sum\limits_{k \mid ab\land k \in
+\mathcal{P}}\mu\left(\dfrac{ab}{k}\right)
+\]</span> 由于 <span class="math inline">\(\gcd(a,b)=1\)</span>
+（显然），则 <span class="math inline">\(f(x)\)</span> 仅仅比 <span
+class="math inline">\(f(b)\)</span> 多了一项 <span
+class="math inline">\(\mu\left(\dfrac{ab}{a}\right) =
+\mu(b)\)</span></p>
+<p>则有 <span class="math inline">\(f(x) =
+-f(b)+\mu(b)\)</span></p></li>
 </ul>
-</li>
-<li><p>若 $x\notin \mathcal{P} \land b \bmod a \ne 0$ </p>
-<p>则此时 $x$ 有唯一且最小的质因数 $a$ </p>
-<p>显然有 $\mu(x) = -\mu(b)$ ，因为它仅仅多了一个本质不同的质因子</p>
-<p>则对于 $\mu\left(\dfrac{x}{p}\right) = -\mu\left(\dfrac{b}{p}\right)$ 也是成立的</p>
-<p>因此 $f(b)$ 中的每一项在 $f(x)$ 中都能找到对应的</p>
-<p>注意到</p>
-<script type="math/tex; mode=display">
-f(x) = f(ab) =\sum\limits_{k \mid ab\land k \in \mathcal{P}}\mu\left(\dfrac{ab}{k}\right)</script><p>由于 $\gcd(a,b)=1$ （显然），则 $f(x)$ 仅仅比 $f(b)$ 多了一项 $\mu\left(\dfrac{ab}{a}\right) = \mu(b)$</p>
-<p>则有 $f(x) = -f(b)+\mu(b)$</p>
-</li>
-</ul>
-<p>综上，有</p>
-<script type="math/tex; mode=display">
+<p>综上，有 <span class="math display">\[
 f(x) = \begin{cases}
-\mu(1),&x \in \mathcal{P},
-\\\\\mu(b),&x \notin \mathcal{P} \land b \bmod a=0,
-\\\\-f(b)+\mu(b),&x\notin \mathcal{P} \land b\bmod a \ne 0.
-\end{cases}</script><p>于是我们就可以在 $O(n + Q\sqrt{n})$ 的时间复杂度内解决这个问题了</p>
+\mu(1),&amp;x \in \mathcal{P},
+\\\\\mu(b),&amp;x \notin \mathcal{P} \land b \bmod a=0,
+\\\\-f(b)+\mu(b),&amp;x\notin \mathcal{P} \land b\bmod a \ne 0.
+\end{cases}
+\]</span> 于是我们就可以在 <span class="math inline">\(O(n +
+Q\sqrt{n})\)</span> 的时间复杂度内解决这个问题了</p>
 <p><del>然后稍微卡一卡常，就跑的飞快</del></p>
 <p><del>对了，目前最优解其实是我的代码哦（虽然没啥用</del></p>
 <p>代码如下</p>
@@ -981,8 +1028,10 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果有什么错误或者问题的话，欢迎留言</p>
 <p><strong>参考文献</strong></p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257">https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p2257">https://siyuan.blog.luogu.org/solution-p2257</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257">https://www.luogu.com.cn/blog/An-Amazing-Blog/solution-p2257</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://siyuan.blog.luogu.org/solution-p2257">https://siyuan.blog.luogu.org/solution-p2257</a></p>
 
                 
             </div>
@@ -1087,96 +1136,6 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1438,7 +1397,7 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1446,7 +1405,7 @@ ll <span class="token function">solve</span><span class="token punctuation">(</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

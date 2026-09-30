@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,46 +739,88 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4725-【模板】多项式对数函数（多项式-ln）-题解"><a href="#洛谷P4725-【模板】多项式对数函数（多项式-ln）-题解" class="headerlink" title="洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解"></a>洛谷P4725 【模板】多项式对数函数（多项式 ln） 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4725">P4725 【模板】多项式对数函数（多项式 ln）</a></p>
+                <h1 id="洛谷p4725-模板多项式对数函数多项式-ln-题解">洛谷P4725
+【模板】多项式对数函数（多项式 ln） 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4725">P4725
+【模板】多项式对数函数（多项式 ln）</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出 $n-1$ 次多项式 $A(x)$，求一个 $\bmod{\:x^n}$ 下的多项式 $B(x)$，满足 $B(x) \equiv \ln A(x)$ 。</p>
-<p>在模 $998244353$  意义下进行，且 $a_i \in [0, 998244353) \cap \mathbb{Z}$ 。保证 $a_0 = 1$ 。</p>
+<p>给出 <span class="math inline">\(n-1\)</span> 次多项式 <span
+class="math inline">\(A(x)\)</span>，求一个 <span
+class="math inline">\(\bmod{\:x^n}\)</span> 下的多项式 <span
+class="math inline">\(B(x)\)</span>，满足 <span
+class="math inline">\(B(x) \equiv \ln A(x)\)</span> 。</p>
+<p>在模 <span class="math inline">\(998244353\)</span> 意义下进行，且
+<span class="math inline">\(a_i \in [0, 998244353) \cap
+\mathbb{Z}\)</span> 。保证 <span class="math inline">\(a_0 = 1\)</span>
+。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行一个整数 $n$ 。</p>
-<p>下一行有 $n$ 个整数，依次表示多项式的系数 $a_0, a_1, \cdots, a_{n-1}$ 。</p>
+<p>第一行一个整数 <span class="math inline">\(n\)</span> 。</p>
+<p>下一行有 <span class="math inline">\(n\)</span>
+个整数，依次表示多项式的系数 <span class="math inline">\(a_0, a_1,
+\cdots, a_{n-1}\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出 $n$ 个整数，表示答案多项式中的系数 $a_0, a_1, \cdots, a_{n-1}$ 。</p>
+<p>输出 <span class="math inline">\(n\)</span>
+个整数，表示答案多项式中的系数 <span class="math inline">\(a_0, a_1,
+\cdots, a_{n-1}\)</span> 。</p>
 <p><strong>数据范围</strong>：</p>
-<p>对于 $100\%$ 的数据，$1\le n \le 10^5$ 。</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le n \le 10^5\)</span> 。</p>
 </blockquote>
-<p>给定整系数多项式 $f(x)$ ，求 $g(x)$ 满足</p>
-<script type="math/tex; mode=display">
-g(x) \equiv \ln f(x) \pmod{x^n}</script><p>在说明解法之前，我们先证明一个定理。</p>
-<p><strong>定理</strong>：当且仅当 $[x^0]f(x) = 1$ 时，$f(x)$ 有对数多项式。</p>
+<p>给定整系数多项式 <span class="math inline">\(f(x)\)</span> ，求 <span
+class="math inline">\(g(x)\)</span> 满足 <span class="math display">\[
+g(x) \equiv \ln f(x) \pmod{x^n}
+\]</span> 在说明解法之前，我们先证明一个定理。</p>
+<p><strong>定理</strong>：当且仅当 <span class="math inline">\([x^0]f(x)
+= 1\)</span> 时，<span class="math inline">\(f(x)\)</span>
+有对数多项式。</p>
 <blockquote>
 <p>证明：</p>
 <p>先证明一个引理。</p>
 <blockquote>
-<p><strong>引理</strong>：当 $\forall x\in \mathbb{Q} ,~x \ne 1$ 有 $\ln x \not\in \mathbb{Q}$ （$\mathbb{Q}$ 为有理数集）。</p>
-<p>证明：考虑反证法。若 $c=\ln x\in \mathbb{Q}$ ，则 $x = \mathrm{e}^c$ ，显然有 $c \ne 0$ 。</p>
-<p>因为 $\mathrm{e}$ 为超越数，所以 $\mathrm{e}^{c}$ 对于 $\forall c \in \mathbb{Q}$ 都有 $\mathrm{e}^c\not\in \mathbb{Q}$ ，即 $x \not\in \mathbb{Q}$ ，与假设矛盾。$\square$</p>
+<p><strong>引理</strong>：当 <span class="math inline">\(\forall x\in
+\mathbb{Q} ,~x \ne 1\)</span> 有 <span class="math inline">\(\ln x
+\not\in \mathbb{Q}\)</span> （<span
+class="math inline">\(\mathbb{Q}\)</span> 为有理数集）。</p>
+<p>证明：考虑反证法。若 <span class="math inline">\(c=\ln x\in
+\mathbb{Q}\)</span> ，则 <span class="math inline">\(x =
+\mathrm{e}^c\)</span> ，显然有 <span class="math inline">\(c \ne
+0\)</span> 。</p>
+<p>因为 <span class="math inline">\(\mathrm{e}\)</span> 为超越数，所以
+<span class="math inline">\(\mathrm{e}^{c}\)</span> 对于 <span
+class="math inline">\(\forall c \in \mathbb{Q}\)</span> 都有 <span
+class="math inline">\(\mathrm{e}^c\not\in \mathbb{Q}\)</span> ，即 <span
+class="math inline">\(x \not\in \mathbb{Q}\)</span> ，与假设矛盾。<span
+class="math inline">\(\square\)</span></p>
 </blockquote>
-<p>考虑用先求导再积分的方式获得其对数</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>当然这个 $f(x)$ 显然已经确定了它的构成，那么我们可以写成</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C \pmod{x^n}</script><p>其中 $C=\ln f(0)$​ 为积分常数。</p>
-<p>根据引理，又因为无理数在模意义下无意义，所以 $f(0) = 1$ 即 $[x^0]f(x)=1$​ 。</p>
-<p>对于除 $[x^0]f(x)$​ 外的项，显然其导数和积分都为有理数。证毕。</p>
+<p>考虑用先求导再积分的方式获得其对数 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 当然这个 <span class="math inline">\(f(x)\)</span>
+显然已经确定了它的构成，那么我们可以写成 <span class="math display">\[
+\ln f(x) \equiv \int_{0}^x\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x + C
+\pmod{x^n}
+\]</span> 其中 <span class="math inline">\(C=\ln f(0)\)</span>​
+为积分常数。</p>
+<p>根据引理，又因为无理数在模意义下无意义，所以 <span
+class="math inline">\(f(0) = 1\)</span> 即 <span
+class="math inline">\([x^0]f(x)=1\)</span>​ 。</p>
+<p>对于除 <span class="math inline">\([x^0]f(x)\)</span>​
+外的项，显然其导数和积分都为有理数。证毕。</p>
 </blockquote>
 <p><strong>解法</strong>：</p>
-<p>其实我们刚刚已经推导出了</p>
-<script type="math/tex; mode=display">
-\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int \frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}</script><p>这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下</p>
-<script type="math/tex; mode=display">
+<p>其实我们刚刚已经推导出了 <span class="math display">\[
+\ln f(x) \equiv \int \mathrm{d} \ln f(x) \equiv \int
+\frac{f^{\prime}(x)}{f(x)}\mathrm{d}x\pmod{x^n}
+\]</span> 这里不熟悉微积分的同学可能没法一眼看出来，那么给个公式提示一下
+<span class="math display">\[
 x^n = nx^{n-1}
-\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C</script><p>因此实际上我们可以 $\mathcal{O}(n)$ 求导和积分，加上求逆的 $\mathcal{O}(n \log n)$ ，总时间复杂度为 $\mathcal{O}(n \log n)$</p>
+\\\int x^n \mathrm{~d} x = \frac{x^{n+1}}{n+1}+C
+\]</span> 因此实际上我们可以 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 求导和积分，加上求逆的
+<span class="math inline">\(\mathcal{O}(n \log n)\)</span>
+，总时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -876,8 +918,10 @@ x^n = nx^{n-1}
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
-<p>传送门：<a href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a> 。</p>
+<hr />
+<p>传送门：<a
+href="/2024/02/04/duo-xiang-shi-chu-deng-han-shu/">多项式初等函数</a>
+。</p>
 
                 
             </div>
@@ -986,96 +1030,6 @@ x^n = nx^{n-1}
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1337,7 +1291,7 @@ x^n = nx^{n-1}
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1345,7 +1299,7 @@ x^n = nx^{n-1}
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

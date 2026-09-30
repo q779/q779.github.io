@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="[ABC291G] OR Sum 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -719,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    893
+                    897
                 </div>
                 
 
@@ -739,36 +739,65 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ABC291G-OR-Sum-题解"><a href="#ABC291G-OR-Sum-题解" class="headerlink" title="[ABC291G] OR Sum 题解"></a>[ABC291G] OR Sum 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc291_g">[ABC291G] OR Sum</a></p>
+                <h1 id="abc291g-or-sum-题解">[ABC291G] OR Sum 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_abc291_g">[ABC291G] OR
+Sum</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长为 $n$ 的序列 $A_i,B_i$ 。</p>
-<p>你可以对 $A$ 进行若干次循环移位操作，即</p>
+<p>给定两个长为 <span class="math inline">\(n\)</span> 的序列 <span
+class="math inline">\(A_i,B_i\)</span> 。</p>
+<p>你可以对 <span class="math inline">\(A\)</span>
+进行若干次循环移位操作，即</p>
 <ul>
-<li>对于任意 $i~(0 \le i &lt; n)$ ，令 $A’_i \gets A_{(i + 1) \bmod n}$ 。</li>
-<li>然后令 $A \gets A’$ ，这相当于让 $A$ 整体向左循环移位了一次。</li>
+<li>对于任意 <span class="math inline">\(i~(0 \le i &lt; n)\)</span>
+，令 <span class="math inline">\(A&#39;_i \gets A_{(i + 1) \bmod
+n}\)</span> 。</li>
+<li>然后令 <span class="math inline">\(A \gets A&#39;\)</span>
+，这相当于让 <span class="math inline">\(A\)</span>
+整体向左循环移位了一次。</li>
 </ul>
-<p>请求出</p>
-<script type="math/tex; mode=display">
-\max\left\{\sum_{i=0}^{n-1}\ (A_i \lor B_i)\right\}</script><p>其中 $\lor$ 表示二进制下的或运算。</p>
+<p>请求出 <span class="math display">\[
+\max\left\{\sum_{i=0}^{n-1}\ (A_i \lor B_i)\right\}
+\]</span> 其中 <span class="math inline">\(\lor\)</span>
+表示二进制下的或运算。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2 \le n \le 5\times10^5,~0 \le A_i,B_i \le 31$</p>
+<p><span class="math inline">\(2 \le n \le 5\times10^5,~0 \le A_i,B_i
+\le 31\)</span></p>
 </blockquote>
-<p>发现 $\lor$ 操作并不好做，考虑将 $A_i,B_i$ 取反，然后求 $\land$ 的最小值。</p>
-<p>枚举循环移位了 $j$ 次，考察 $A,B$ 二进制下第 $k$ 位，记为 $a,b$ 。</p>
-<p>那么记答案为 $c_j$ ，则有</p>
-<script type="math/tex; mode=display">
-c_j = \sum_{i = 0}^{n-1} a_i\cdot b_{(i + j) \bmod n}\qquad(0 \le j \le n - 1)</script><p>提示：显然对 $A$ 循环移位等价于对 $B$ 反向循环移位</p>
+<p>发现 <span class="math inline">\(\lor\)</span> 操作并不好做，考虑将
+<span class="math inline">\(A_i,B_i\)</span> 取反，然后求 <span
+class="math inline">\(\land\)</span> 的最小值。</p>
+<p>枚举循环移位了 <span class="math inline">\(j\)</span> 次，考察 <span
+class="math inline">\(A,B\)</span> 二进制下第 <span
+class="math inline">\(k\)</span> 位，记为 <span
+class="math inline">\(a,b\)</span> 。</p>
+<p>那么记答案为 <span class="math inline">\(c_j\)</span> ，则有 <span
+class="math display">\[
+c_j = \sum_{i = 0}^{n-1} a_i\cdot b_{(i + j) \bmod n}\qquad(0 \le j \le
+n - 1)
+\]</span> 提示：显然对 <span class="math inline">\(A\)</span>
+循环移位等价于对 <span class="math inline">\(B\)</span> 反向循环移位</p>
 <p>接下来就开始喵喵操作了：</p>
 <ul>
-<li>把 $b$ 复制一遍，得到 $c_j = \sum a_i \cdot b_{i + j}$ </li>
-<li>记 $k = i+j$ ，得到 $c_{k - i} = \sum a_i \cdot b_k$</li>
-<li>把 $i$ 改成 $-i$ ，得到 $c_{k + i} = \sum a_{n-1 - i}\cdot b_k$ </li>
+<li>把 <span class="math inline">\(b\)</span> 复制一遍，得到 <span
+class="math inline">\(c_j = \sum a_i \cdot b_{i + j}\)</span></li>
+<li>记 <span class="math inline">\(k = i+j\)</span> ，得到 <span
+class="math inline">\(c_{k - i} = \sum a_i \cdot b_k\)</span></li>
+<li>把 <span class="math inline">\(i\)</span> 改成 <span
+class="math inline">\(-i\)</span> ，得到 <span
+class="math inline">\(c_{k + i} = \sum a_{n-1 - i}\cdot
+b_k\)</span></li>
 </ul>
-<p>现在令 $a’$ 为 $a$ 翻转后的结果，整理可得</p>
-<script type="math/tex; mode=display">
-c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</script><p>显然这是一个卷积，而答案的值域 $V \le 1.6\times 10^7$ ，可以直接用 NTT 。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>现在令 <span class="math inline">\(a&#39;\)</span> 为 <span
+class="math inline">\(a\)</span> 翻转后的结果，整理可得 <span
+class="math display">\[
+c_{i + j} = \sum_{i=0}^{n-1} a&#39;_{i}\cdot b_j\qquad (n-1 \le j \le 2n
+- 2)
+\]</span> 显然这是一个卷积，而答案的值域 <span class="math inline">\(V
+\le 1.6\times 10^7\)</span> ，可以直接用 NTT 。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -854,10 +883,11 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
     cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span><span class="token function">max_element</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> f <span class="token operator">+</span> n<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/l1v7nxw8">https://www.luogu.com.cn/article/l1v7nxw8</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/l1v7nxw8">https://www.luogu.com.cn/article/l1v7nxw8</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202407031746515.jpg" style="zoom:33%;" /></p>
@@ -969,96 +999,6 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1320,7 +1260,7 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1328,7 +1268,7 @@ c_{i + j} = \sum_{i=0}^{n-1} a'_{i}\cdot b_j\qquad (n-1 \le j \le 2n - 2)</scrip
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

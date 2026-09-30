@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF708E Student&#39;s Camp 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -719,7 +719,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.4k
                 </div>
                 
 
@@ -739,60 +739,115 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF708E-Student’s-Camp-题解"><a href="#CF708E-Student’s-Camp-题解" class="headerlink" title="CF708E Student’s Camp 题解"></a>CF708E Student’s Camp 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF708E">CF708E Student’s Camp</a></p>
+                <h1 id="cf708e-students-camp-题解">CF708E Student's Camp 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF708E">CF708E
+Student's Camp</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>有一个 $(n+2) \times m$ 的网格。</p>
-<p>给定 $n,m,a,b,k$  ，记 $p=\frac{a}{b}$ </p>
-<p>除了第 $0$ 行和第 $n+1$ 行，其他每一行</p>
+<p>有一个 <span class="math inline">\((n+2) \times m\)</span>
+的网格。</p>
+<p>给定 <span class="math inline">\(n,m,a,b,k\)</span> ，记 <span
+class="math inline">\(p=\frac{a}{b}\)</span></p>
+<p>除了第 <span class="math inline">\(0\)</span> 行和第 <span
+class="math inline">\(n+1\)</span> 行，其他每一行</p>
 <ul>
-<li>白天最左边的格子有 $p$ 的概率被吹走。</li>
-<li>夜晚最右边的格子有 $p$ 的概率被吹走。</li>
+<li>白天最左边的格子有 <span class="math inline">\(p\)</span>
+的概率被吹走。</li>
+<li>夜晚最右边的格子有 <span class="math inline">\(p\)</span>
+的概率被吹走。</li>
 </ul>
-<p>如果网格（包括第 $0$ 行和第 $n+1$ 行）被分成了两个及以上连通分量，则称网格不连通。</p>
-<p>求 $k$ 天后，网格始终保持连通的<strong>概率</strong>。</p>
-<p>$n,m \le 1.5 \times 10^3,~k \le 10^5,~a &lt; b \le 10^9$，答案对 $10^9+7$ 取模。</p>
+<p>如果网格（包括第 <span class="math inline">\(0\)</span> 行和第 <span
+class="math inline">\(n+1\)</span>
+行）被分成了两个及以上连通分量，则称网格不连通。</p>
+<p>求 <span class="math inline">\(k\)</span>
+天后，网格始终保持连通的<strong>概率</strong>。</p>
+<p><span class="math inline">\(n,m \le 1.5 \times 10^3,~k \le 10^5,~a
+&lt; b \le 10^9\)</span>，答案对 <span
+class="math inline">\(10^9+7\)</span> 取模。</p>
 </blockquote>
 <p><del>特别🐮🍺</del>的一道题，考虑概率dp。</p>
 <blockquote>
-<p>下文中出现的<del>奇怪</del>变量名（<del>因为参考自 <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf708E.html">link</a></del>），先给出对应的代码形式</p>
-<p>$\mathtt{pl}_i\to $  <code>pl[i]</code> ，$\mathtt{pr}_i \to$  <code>pr[i]</code> </p>
-<p>$F_{i,j} \to$  <code>F[i][j]</code> ， $\mathtt{sl}_{i,j} \to$  <code>sl[i][j]</code> ， $\mathtt{sr}_{i,j} \to$  <code>sr[i][j]</code> </p>
+<p>下文中出现的<del>奇怪</del>变量名（<del>因为参考自 <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/cf708E.html">link</a></del>），先给出对应的代码形式</p>
+<p>$_i$ <code>pl[i]</code> ，<span class="math inline">\(\mathtt{pr}_i
+\to\)</span> <code>pr[i]</code></p>
+<p><span class="math inline">\(F_{i,j} \to\)</span> <code>F[i][j]</code>
+， <span class="math inline">\(\mathtt{sl}_{i,j} \to\)</span>
+<code>sl[i][j]</code> ， <span class="math inline">\(\mathtt{sr}_{i,j}
+\to\)</span> <code>sr[i][j]</code></p>
 </blockquote>
 <p>注意到每一行是相互独立的，故</p>
-<p>设 $\mathtt{pl}_i$ 表示某一行在 $k$ 个白天后，最左边的砖块为第 $i$ 块的概率</p>
-<p>设 $\mathtt{pr}_i$ 表示某一行在 $k$ 个夜晚后，最右边的砖块为第 $i$ 块的概率</p>
-<p>根据<del>小学数学</del>，如果把这里这个 $i$ 看作一个离散随机变量，则它一定服从<strong>二项分布</strong></p>
-<p>记 $q=1-p$ ，即</p>
-<script type="math/tex; mode=display">
-\mathtt{pl}_{i+1} = \dbinom{k}{i} q^{i} p^{k-i}</script><p>根据二项分布的对称性可得 $\mathtt{pr}_{m-i} = \mathtt{pl}_{i+1}$ </p>
+<p>设 <span class="math inline">\(\mathtt{pl}_i\)</span> 表示某一行在
+<span class="math inline">\(k\)</span> 个白天后，最左边的砖块为第 <span
+class="math inline">\(i\)</span> 块的概率</p>
+<p>设 <span class="math inline">\(\mathtt{pr}_i\)</span> 表示某一行在
+<span class="math inline">\(k\)</span> 个夜晚后，最右边的砖块为第 <span
+class="math inline">\(i\)</span> 块的概率</p>
+<p>根据<del>小学数学</del>，如果把这里这个 <span
+class="math inline">\(i\)</span>
+看作一个离散随机变量，则它一定服从<strong>二项分布</strong></p>
+<p>记 <span class="math inline">\(q=1-p\)</span> ，即 <span
+class="math display">\[
+\mathtt{pl}_{i+1} = \dbinom{k}{i} q^{i} p^{k-i}
+\]</span> 根据二项分布的对称性可得 <span
+class="math inline">\(\mathtt{pr}_{m-i} = \mathtt{pl}_{i+1}\)</span></p>
 <p>根据砖块吹走的性质，最后每一行一定是连续的一段，</p>
-<p>故设 $f_{i,l,r}$ 表示 $k$ 天后，从下往上数第 $i$ 行仅剩下砖块 $l,l+1,\cdots,r$ 的概率</p>
+<p>故设 <span class="math inline">\(f_{i,l,r}\)</span> 表示 <span
+class="math inline">\(k\)</span> 天后，从下往上数第 <span
+class="math inline">\(i\)</span> 行仅剩下砖块 <span
+class="math inline">\(l,l+1,\cdots,r\)</span> 的概率</p>
 <p>如果建筑没有倒塌，那么上下两行一定是有交集的。</p>
 <p>这个交集并不是很好枚举，但是没交集的部分还是比较好枚举的</p>
-<p>设 $F_{i,r}$ 表示 $k$ 天后，从下往上数第 $i$ 行最右边的砖块为第 $r$ 块的概率，则</p>
-<script type="math/tex; mode=display">
-F_{i,r} = \sum_{l=1}^{r} f_{i,l,r}</script><p>设 $\mathtt{sr}_{i,j}$ 表示 $k$ 天后，从下往上数第 $i$ 行最右边的砖块为第 $j$ 块<strong>或更靠左</strong>的概率，则</p>
-<script type="math/tex; mode=display">
-\mathtt{sr}_{i,j} = \sum_{r=1}^{j}F_{i,r} = \sum_{r=1}^{j}\sum_{l=1}^{r} f_{i,l,r} = \sum_{1 \le l\le r \le j} f_{i,l,r}</script><p>设 $\mathtt{sl}_{i,j}$ 表示 $k$ 天后，从下往上数第 $i$ 行最左边的砖块为第 $j$ 块<strong>或更靠右</strong>的概率，则</p>
-<script type="math/tex; mode=display">
-\mathtt{sl}_{i,j} = \sum_{j \le l \le r \le m} f_{i,l,r}</script><p>这个可以由对称性 $\mathtt{sr}_{i,m-j+1}$ 的值推得。</p>
-<p>故转移方程为</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(F_{i,r}\)</span> 表示 <span
+class="math inline">\(k\)</span> 天后，从下往上数第 <span
+class="math inline">\(i\)</span> 行最右边的砖块为第 <span
+class="math inline">\(r\)</span> 块的概率，则 <span
+class="math display">\[
+F_{i,r} = \sum_{l=1}^{r} f_{i,l,r}
+\]</span> 设 <span class="math inline">\(\mathtt{sr}_{i,j}\)</span> 表示
+<span class="math inline">\(k\)</span> 天后，从下往上数第 <span
+class="math inline">\(i\)</span> 行最右边的砖块为第 <span
+class="math inline">\(j\)</span> 块<strong>或更靠左</strong>的概率，则
+<span class="math display">\[
+\mathtt{sr}_{i,j} = \sum_{r=1}^{j}F_{i,r} = \sum_{r=1}^{j}\sum_{l=1}^{r}
+f_{i,l,r} = \sum_{1 \le l\le r \le j} f_{i,l,r}
+\]</span> 设 <span class="math inline">\(\mathtt{sl}_{i,j}\)</span> 表示
+<span class="math inline">\(k\)</span> 天后，从下往上数第 <span
+class="math inline">\(i\)</span> 行最左边的砖块为第 <span
+class="math inline">\(j\)</span> 块<strong>或更靠右</strong>的概率，则
+<span class="math display">\[
+\mathtt{sl}_{i,j} = \sum_{j \le l \le r \le m} f_{i,l,r}
+\]</span> 这个可以由对称性 <span
+class="math inline">\(\mathtt{sr}_{i,m-j+1}\)</span> 的值推得。</p>
+<p>故转移方程为 <span class="math display">\[
 \begin{aligned}
-f_{i,l,r} &= \mathtt{pl}_l \times \mathtt{pr}_{r} \times \sum_{[j,k] \cap [l,r] \ne \varnothing} f_{i-1,j,k}
-\\\\&=\mathtt{pl}_l\times \mathtt{pr}_r \times \left(\sum_{1 \le j \le k \le m}f_{i-1,j,k} - \sum_{1 \le j \le k < l} f_{i-1,j,k}-\sum_{r<j\le k \le m} f_{i-1,j,k} \right)
-\\\\&=\mathtt{pl}_l\times \mathtt{pr}_r \times (\mathtt{sr}_{i-1,m} - \mathtt{sr}_{i-1,l-1} -\mathtt{sr}_{i-1,r+1})
-\end{aligned}</script><p>于是</p>
-<script type="math/tex; mode=display">
+f_{i,l,r} &amp;= \mathtt{pl}_l \times \mathtt{pr}_{r} \times \sum_{[j,k]
+\cap [l,r] \ne \varnothing} f_{i-1,j,k}
+\\\\&amp;=\mathtt{pl}_l\times \mathtt{pr}_r \times \left(\sum_{1 \le j
+\le k \le m}f_{i-1,j,k} - \sum_{1 \le j \le k &lt; l}
+f_{i-1,j,k}-\sum_{r&lt;j\le k \le m} f_{i-1,j,k} \right)
+\\\\&amp;=\mathtt{pl}_l\times \mathtt{pr}_r \times (\mathtt{sr}_{i-1,m}
+- \mathtt{sr}_{i-1,l-1} -\mathtt{sr}_{i-1,r+1})
+\end{aligned}
+\]</span> 于是 <span class="math display">\[
 \begin{aligned}
-F_{i,r} &= \sum_{l=1}^{r} f_{i,l,r}
-\\&=\sum_{l=1}^{r}{\left(\mathtt{pl}_l\times \mathtt{pr}_r \times (\mathtt{sr}_{i-1,m} - \mathtt{sr}_{i-1,l-1} -\mathtt{sr}_{i-1,r+1})\right)}
-\\&= \mathtt{pr}_r \times \left(\left(\sum_{l=1}^{r} \mathtt{pl}_l\right) \times (\mathtt{sr}_{i-1,m}-\mathtt{sl}_{i-1,r+1}) - \sum_{l=1}^{r} (\mathtt{pl}_l \times \mathtt{sr}_{i-1,l-1})\right)
-\end{aligned}</script><p>设 $\mathtt{s1}_i = \sum_{k=1}^{i} \mathtt{pl}_k,~\mathtt{s2}_i = \sum_{k=1}^{i} \mathtt{pl}_k \times \mathtt{sr}_{i-1,k-1}$ ，则</p>
-<script type="math/tex; mode=display">
-F_{i,r} = \mathtt{pr}_r \times (\mathtt{s1}_r \times (\mathtt{sr}_{i-1,m} - \mathtt{sl}_{i-1,r+1})-\mathtt{s2}_r)</script><p>然后我们就能 $O(nm)$ 求解啦！</p>
-<p>最终的答案就是 $\mathtt{sr}_{n,m}$ </p>
+F_{i,r} &amp;= \sum_{l=1}^{r} f_{i,l,r}
+\\&amp;=\sum_{l=1}^{r}{\left(\mathtt{pl}_l\times \mathtt{pr}_r \times
+(\mathtt{sr}_{i-1,m} - \mathtt{sr}_{i-1,l-1}
+-\mathtt{sr}_{i-1,r+1})\right)}
+\\&amp;= \mathtt{pr}_r \times \left(\left(\sum_{l=1}^{r}
+\mathtt{pl}_l\right) \times (\mathtt{sr}_{i-1,m}-\mathtt{sl}_{i-1,r+1})
+- \sum_{l=1}^{r} (\mathtt{pl}_l \times \mathtt{sr}_{i-1,l-1})\right)
+\end{aligned}
+\]</span> 设 <span class="math inline">\(\mathtt{s1}_i = \sum_{k=1}^{i}
+\mathtt{pl}_k,~\mathtt{s2}_i = \sum_{k=1}^{i} \mathtt{pl}_k \times
+\mathtt{sr}_{i-1,k-1}\)</span> ，则 <span class="math display">\[
+F_{i,r} = \mathtt{pr}_r \times (\mathtt{s1}_r \times
+(\mathtt{sr}_{i-1,m} - \mathtt{sl}_{i-1,r+1})-\mathtt{s2}_r)
+\]</span> 然后我们就能 <span class="math inline">\(O(nm)\)</span>
+求解啦！</p>
+<p>最终的答案就是 <span
+class="math inline">\(\mathtt{sr}_{n,m}\)</span></p>
 <p><del>呼，总算写完了，累死了（</del></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -981,96 +1036,6 @@ F_{i,r} = \mathtt{pr}_r \times (\mathtt{s1}_r \times (\mathtt{sr}_{i-1,m} - \mat
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1340,7 +1305,7 @@ F_{i,r} = \mathtt{pr}_r \times (\mathtt{s1}_r \times (\mathtt{sr}_{i-1,m} - \mat
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1348,7 +1313,7 @@ F_{i,r} = \mathtt{pr}_r \times (\mathtt{s1}_r \times (\mathtt{sr}_{i-1,m} - \mat
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

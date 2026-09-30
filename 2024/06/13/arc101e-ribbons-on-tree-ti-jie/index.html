@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="[ARC101E] Ribbons on Tree 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -723,7 +723,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    890
+                    891
                 </div>
                 
 
@@ -743,43 +743,85 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ARC101E-Ribbons-on-Tree-题解"><a href="#ARC101E-Ribbons-on-Tree-题解" class="headerlink" title="[ARC101E] Ribbons on Tree 题解"></a>[ARC101E] Ribbons on Tree 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc101_c">[ARC101E] Ribbons on Tree</a></p>
+                <h1 id="arc101e-ribbons-on-tree-题解">[ARC101E] Ribbons on Tree
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc101_c">[ARC101E] Ribbons on
+Tree</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个大小为 $n(2\le N\le 5000)$ 的树，保证 $n$ 为偶数。</p>
-<p>您需要给树上的点两两配对，对于一组点对 $(u,v)$，在树上将 $u\leadsto v$ 的路径染色。</p>
-<p>定义一个配对方案合法当且仅当所有边都有颜色，求方案数对 $10^9+7$ 取模。</p>
+<p>给定一个大小为 <span class="math inline">\(n(2\le N\le 5000)\)</span>
+的树，保证 <span class="math inline">\(n\)</span> 为偶数。</p>
+<p>您需要给树上的点两两配对，对于一组点对 <span
+class="math inline">\((u,v)\)</span>，在树上将 <span
+class="math inline">\(u\leadsto v\)</span> 的路径染色。</p>
+<p>定义一个配对方案合法当且仅当所有边都有颜色，求方案数对 <span
+class="math inline">\(10^9+7\)</span> 取模。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406131708046.png" style="zoom:80%;" /></p>
-<p>输入：第一行 $n$ ，接下来 $n-1$ 行 $u,v$ 表示无向边 $u,v$ 。输出：一行答案。</p>
+<p>输入：第一行 <span class="math inline">\(n\)</span> ，接下来 <span
+class="math inline">\(n-1\)</span> 行 <span
+class="math inline">\(u,v\)</span> 表示无向边 <span
+class="math inline">\(u,v\)</span> 。输出：一行答案。</p>
 </blockquote>
-<p>先考虑一个 $\mathcal{O}(n^3)$ 的 dp。</p>
-<p>设 $f(u,i)$ 为 $u$ 子树中有 $i$ 个点要向上匹配的方案数。</p>
-<p>那么这就是一个树上背包，转移考虑枚举 $u$ 子树内的点数 $i$ ， $v$ 子树内的点数 $j$ 和匹配的对数 $k$ </p>
-<script type="math/tex; mode=display">
-f_{\rm now}(u,i + j-2k) = \sum_{1\le k \le j \le \min\{\operatorname{size} u,~\operatorname{size} v\}} f_{\rm pre}(u,i)\times f(v,j) \times \binom{i}{k}\binom{j}{k}\times k!</script><p>答案就是 $f(1,0)$ 。不过这样做似乎不好优化。</p>
+<p>先考虑一个 <span class="math inline">\(\mathcal{O}(n^3)\)</span> 的
+dp。</p>
+<p>设 <span class="math inline">\(f(u,i)\)</span> 为 <span
+class="math inline">\(u\)</span> 子树中有 <span
+class="math inline">\(i\)</span> 个点要向上匹配的方案数。</p>
+<p>那么这就是一个树上背包，转移考虑枚举 <span
+class="math inline">\(u\)</span> 子树内的点数 <span
+class="math inline">\(i\)</span> ， <span
+class="math inline">\(v\)</span> 子树内的点数 <span
+class="math inline">\(j\)</span> 和匹配的对数 <span
+class="math inline">\(k\)</span> <span class="math display">\[
+f_{\rm now}(u,i + j-2k) = \sum_{1\le k \le j \le
+\min\{\operatorname{size} u,~\operatorname{size} v\}} f_{\rm
+pre}(u,i)\times f(v,j) \times \binom{i}{k}\binom{j}{k}\times k!
+\]</span> 答案就是 <span class="math inline">\(f(1,0)\)</span>
+。不过这样做似乎不好优化。</p>
 <p>正难则反，考虑计算不合法的方案数。</p>
-<p>首先设 $g(n)$ 为 $n$ 个点两两匹配的方案数，其中 $n$ 为偶数，边界 $g(0)=1$ ，则</p>
-<script type="math/tex; mode=display">
-g(n) = 1 \times 3 \times \cdots \times (n - 1) = \prod_{1 \le i \le \frac{n}{2}} (2i-1)</script><p>这个式子很好推，不过还是讲一下吧。</p>
+<p>首先设 <span class="math inline">\(g(n)\)</span> 为 <span
+class="math inline">\(n\)</span> 个点两两匹配的方案数，其中 <span
+class="math inline">\(n\)</span> 为偶数，边界 <span
+class="math inline">\(g(0)=1\)</span> ，则 <span class="math display">\[
+g(n) = 1 \times 3 \times \cdots \times (n - 1) = \prod_{1 \le i \le
+\frac{n}{2}} (2i-1)
+\]</span> 这个式子很好推，不过还是讲一下吧。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406131759752.png" style="zoom:50%;" alt="cxy 颇有大数学家费马的风范"/></p>
-<p>记 $n=2k$ ，我们把点标上序号，分为奇偶两列，每次考察 $2k-1$ 和谁匹配。</p>
+<p>记 <span class="math inline">\(n=2k\)</span>
+，我们把点标上序号，分为奇偶两列，每次考察 <span
+class="math inline">\(2k-1\)</span> 和谁匹配。</p>
 <ul>
-<li>如果 $2k-1$ 和某个偶点匹配，那会有一个奇点失配并选择剩下那个偶点，方案数为 $k$ 。</li>
-<li>如果 $2k-1$ 和某个奇点匹配，那会有一个偶点失配并选择和 $2k$ 匹配，方案数为 $k-1$ 。</li>
+<li>如果 <span class="math inline">\(2k-1\)</span>
+和某个偶点匹配，那会有一个奇点失配并选择剩下那个偶点，方案数为 <span
+class="math inline">\(k\)</span> 。</li>
+<li>如果 <span class="math inline">\(2k-1\)</span>
+和某个奇点匹配，那会有一个偶点失配并选择和 <span
+class="math inline">\(2k\)</span> 匹配，方案数为 <span
+class="math inline">\(k-1\)</span> 。</li>
 </ul>
-<p>那么 $g(n) = (n-1) \times g(n-2) = \prod_{1 \le i \le \frac{n}{2}} (2i-1)$ ，就推出来了。</p>
-<p>现在重新设 $f(u,i)$ 为 $u$ 子树内，$u$ 的合法连通块大小为 $i$ 时的方案数。</p>
-<p>边界 $f(u,1) = 1$ 。初值是</p>
-<script type="math/tex; mode=display">
-f_{\rm now}(u,i + j) = f_{\rm pre}(u,i) \times f(v,j)</script><p>转移钦定 $(u,v)$ 有没有颜色即可</p>
-<script type="math/tex; mode=display">
+<p>那么 <span class="math inline">\(g(n) = (n-1) \times g(n-2) =
+\prod_{1 \le i \le \frac{n}{2}} (2i-1)\)</span> ，就推出来了。</p>
+<p>现在重新设 <span class="math inline">\(f(u,i)\)</span> 为 <span
+class="math inline">\(u\)</span> 子树内，<span
+class="math inline">\(u\)</span> 的合法连通块大小为 <span
+class="math inline">\(i\)</span> 时的方案数。</p>
+<p>边界 <span class="math inline">\(f(u,1) = 1\)</span> 。初值是 <span
+class="math display">\[
+f_{\rm now}(u,i + j) = f_{\rm pre}(u,i) \times f(v,j)
+\]</span> 转移钦定 <span class="math inline">\((u,v)\)</span>
+有没有颜色即可 <span class="math display">\[
 \begin{aligned}
-f_{\rm now}(u,i) &\,\operatorname{\big\downarrow}\, f_{\rm pre}(u,i) \times f(v,j) \times g(j)
-\\[6pt] 
-\end{aligned}</script><p>这里 $a\downarrow b$ 表示 $a \gets a - b$ 。</p>
-<p>最后答案就是</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^n f(1,i)\times g(i)</script><p>时间复杂度 $\mathcal{O}(n^2)$</p>
+f_{\rm now}(u,i) &amp;\,\operatorname{\big\downarrow}\, f_{\rm pre}(u,i)
+\times f(v,j) \times g(j)
+\\[6pt]
+\end{aligned}
+\]</span> 这里 <span class="math inline">\(a\downarrow b\)</span> 表示
+<span class="math inline">\(a \gets a - b\)</span> 。</p>
+<p>最后答案就是 <span class="math display">\[
+\sum_{i=1}^n f(1,i)\times g(i)
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -823,10 +865,11 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">add</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> f<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> g<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">%</span> mod<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/to1ph9za">https://www.luogu.com.cn/article/to1ph9za</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/to1ph9za">https://www.luogu.com.cn/article/to1ph9za</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片，放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406131819655.webp" style="zoom:25%;" /></p>
@@ -942,96 +985,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1292,7 +1245,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1300,7 +1253,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

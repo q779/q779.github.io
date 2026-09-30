@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="[ARC172D] Distance Ranking 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,31 +739,61 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ARC172D-Distance-Ranking-题解"><a href="#ARC172D-Distance-Ranking-题解" class="headerlink" title="[ARC172D] Distance Ranking 题解"></a>[ARC172D] Distance Ranking 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc172_d">[ARC172D] Distance Ranking</a></p>
+                <h1 id="arc172d-distance-ranking-题解">[ARC172D] Distance Ranking
+题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc172_d">[ARC172D] Distance
+Ranking</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$N$ 维空间中有 $N$ 个点，每个点的每一维坐标都是在 $[0,10^8]$ 上的整数。</p>
-<p>已知这些点两两连边的长度大小关系，从小到大给出，每次给出 $a_i,b_i$ 以表示他们的连边。</p>
-<p>求一个满足上述条件的 $N$ 个点的构造方案。保证有解。（不能有两条边长度相等）</p>
+<p><span class="math inline">\(N\)</span> 维空间中有 <span
+class="math inline">\(N\)</span> 个点，每个点的每一维坐标都是在 <span
+class="math inline">\([0,10^8]\)</span> 上的整数。</p>
+<p>已知这些点两两连边的长度大小关系，从小到大给出，每次给出 <span
+class="math inline">\(a_i,b_i\)</span> 以表示他们的连边。</p>
+<p>求一个满足上述条件的 <span class="math inline">\(N\)</span>
+个点的构造方案。保证有解。（不能有两条边长度相等）</p>
 <p><strong>数据范围</strong>：</p>
-<p>$3 \le N \le 20,~ 1 \le a_i &lt; b_i \le N~\left(1 \le i \le \frac{N(N-1)}{2}\right)$ 。保证 $a_i,b_i$ 互不相同。</p>
+<p><span class="math inline">\(3 \le N \le 20,~ 1 \le a_i &lt; b_i \le
+N~\left(1 \le i \le \frac{N(N-1)}{2}\right)\)</span> 。保证 <span
+class="math inline">\(a_i,b_i\)</span> 互不相同。</p>
 </blockquote>
 <p>首先考虑任意两个不同点之间的距离均相等的情况怎么做。</p>
-<p>显然这个时候可以构造 $p_{i,j} = [i=j]$ ，其中 $p_{i,j}$ 表示点 $i$ 的第 $j$ 维坐标。</p>
-<p>不过这个 $[0,1]$ 的范围似乎有些小了，不方便我们进行修改，以满足原题的要求。</p>
-<p>因此我们可以将其缩放为 $p_{i,j} = K \times [i=j]$ ，其中 $K=10^8$ 表示一个足够大的值（<del>确实足够大</del>）。</p>
-<p>那么两点之间的距离有</p>
-<script type="math/tex; mode=display">
-\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2</script><p>此时如果我们令 $p_{i,j} \gets p_{i,j} + 1$ ，则有</p>
-<script type="math/tex; mode=display">
-\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2 - 2K + \mathcal{O}(1)</script><p>这里 $\mathcal{O}(1) \ll 2K$ ，显然也远小于 $2K^2$ 。</p>
-<p>注意到，对于 $x \ne i \land x\ne j$ 的 $x$ ，$\mathrm{dis}(i,x)$ 的变化量也是 $\mathcal{O}(1)$ 的。</p>
-<p>换句话说，如果我们给每个 $\mathrm{dis}(i,j)$ 都减去一个 $c_{i,j} \times K$ ，剩下 $\mathcal{O}(1)$ 的变化率可以忽略不计了。</p>
-<p>而 $2K^2$ 是固定不变的，那么当 $c_{i,j}$ 互不相同时，影响 $\mathrm{dis}(i,j)$ 的排名的就只有 $c_{i,j}$ 了。</p>
-<p>于是我们只需要令</p>
-<script type="math/tex; mode=display">
-p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>这道题就做完了，代码非常简单。</p>
-<p>时间复杂度 $\mathcal{O}(n^2)$</p>
+<p>显然这个时候可以构造 <span class="math inline">\(p_{i,j} =
+[i=j]\)</span> ，其中 <span class="math inline">\(p_{i,j}\)</span>
+表示点 <span class="math inline">\(i\)</span> 的第 <span
+class="math inline">\(j\)</span> 维坐标。</p>
+<p>不过这个 <span class="math inline">\([0,1]\)</span>
+的范围似乎有些小了，不方便我们进行修改，以满足原题的要求。</p>
+<p>因此我们可以将其缩放为 <span class="math inline">\(p_{i,j} = K \times
+[i=j]\)</span> ，其中 <span class="math inline">\(K=10^8\)</span>
+表示一个足够大的值（<del>确实足够大</del>）。</p>
+<p>那么两点之间的距离有 <span class="math display">\[
+\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2
+\]</span> 此时如果我们令 <span class="math inline">\(p_{i,j} \gets
+p_{i,j} + 1\)</span> ，则有 <span class="math display">\[
+\mathrm{dis}(i, j) = \sum_{k=1}^n (p_{i,k}-p_{j,k})^2 = 2K^2 - 2K +
+\mathcal{O}(1)
+\]</span> 这里 <span class="math inline">\(\mathcal{O}(1) \ll
+2K\)</span> ，显然也远小于 <span class="math inline">\(2K^2\)</span>
+。</p>
+<p>注意到，对于 <span class="math inline">\(x \ne i \land x\ne
+j\)</span> 的 <span class="math inline">\(x\)</span> ，<span
+class="math inline">\(\mathrm{dis}(i,x)\)</span> 的变化量也是 <span
+class="math inline">\(\mathcal{O}(1)\)</span> 的。</p>
+<p>换句话说，如果我们给每个 <span
+class="math inline">\(\mathrm{dis}(i,j)\)</span> 都减去一个 <span
+class="math inline">\(c_{i,j} \times K\)</span> ，剩下 <span
+class="math inline">\(\mathcal{O}(1)\)</span>
+的变化率可以忽略不计了。</p>
+<p>而 <span class="math inline">\(2K^2\)</span> 是固定不变的，那么当
+<span class="math inline">\(c_{i,j}\)</span> 互不相同时，影响 <span
+class="math inline">\(\mathrm{dis}(i,j)\)</span> 的排名的就只有 <span
+class="math inline">\(c_{i,j}\)</span> 了。</p>
+<p>于是我们只需要令 <span class="math display">\[
+p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)
+\]</span> 这道题就做完了，代码非常简单。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -792,9 +822,10 @@ p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token function">rep</span><span class="token punctuation">(</span>j<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>j <span class="token operator">==</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">https://www.luogu.com.cn/article/q882qzsa</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/q882qzsa">https://www.luogu.com.cn/article/q882qzsa</a></p>
 
                 
             </div>
@@ -903,96 +934,6 @@ p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1258,7 +1199,7 @@ p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1266,7 +1207,7 @@ p_{a_i,b_i}\gets p_{a_i,b_i} + \left(\frac{n(n-1)}{2} - i + 1\right)</script><p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P6097 【模板】子集卷积 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,31 +739,63 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6097-【模板】子集卷积-题解"><a href="#洛谷P6097-【模板】子集卷积-题解" class="headerlink" title="洛谷P6097 【模板】子集卷积 题解"></a>洛谷P6097 【模板】子集卷积 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097 【模板】子集卷积</a></p>
+                <h1 id="洛谷p6097-模板子集卷积-题解">洛谷P6097 【模板】子集卷积
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">P6097
+【模板】子集卷积</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定两个长度为 $2^n$ 的序列 $a_0,a_1,\cdots,a_{2^n-1}$ 和 $b_0,b_1,\cdots,b_{2^n-1}$</p>
-<p>你需要求出一个序列 $c_0,c_1,\cdots,c_{2^n-1}$，其中 $c_k$ 满足：</p>
-<script type="math/tex; mode=display">
-c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j</script><p>其中 $\lor$ 表示按位或，$\land$ 表示按位与。答案对 $10^9+9$ 取模。</p>
+<p>给定两个长度为 <span class="math inline">\(2^n\)</span> 的序列 <span
+class="math inline">\(a_0,a_1,\cdots,a_{2^n-1}\)</span> 和 <span
+class="math inline">\(b_0,b_1,\cdots,b_{2^n-1}\)</span></p>
+<p>你需要求出一个序列 <span
+class="math inline">\(c_0,c_1,\cdots,c_{2^n-1}\)</span>，其中 <span
+class="math inline">\(c_k\)</span> 满足： <span class="math display">\[
+c_k=\sum_{(i \lor j) = k,~(i \land j) = 0} a_i b_j
+\]</span> 其中 <span class="math inline">\(\lor\)</span>
+表示按位或，<span class="math inline">\(\land\)</span>
+表示按位与。答案对 <span class="math inline">\(10^9+9\)</span>
+取模。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行输入一个正整数 $n$ ，表示集合的大小。</p>
-<p>第二行有 $2^n$ 个整数，描述了 $a$。</p>
-<p>第三行有 $2^n$ 个整数，描述了 $b$。</p>
+<p>第一行输入一个正整数 <span class="math inline">\(n\)</span>
+，表示集合的大小。</p>
+<p>第二行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(a\)</span>。</p>
+<p>第三行有 <span class="math inline">\(2^n\)</span> 个整数，描述了
+<span class="math inline">\(b\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行 $2^n$ 个整数，表示 $c$。</p>
+<p>输出一行 <span class="math inline">\(2^n\)</span> 个整数，表示 <span
+class="math inline">\(c\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1\le n\le 20$，$0\le a_i,b_i&lt; 10^9+9$。</p>
+<p><span class="math inline">\(1\le n\le 20\)</span>，<span
+class="math inline">\(0\le a_i,b_i&lt; 10^9+9\)</span>。</p>
 </blockquote>
-<p>才发现这个 $2^n-1$ 个数就是 $n$ 个元素的所有非空集合，$a_i,b_i$ 就是集合 $i$ 的两种权值。</p>
-<p>称 $c_k = \sum_{(i \lor j) = k} a_ib_j$ 为「子集并卷积」运算。显然这个可以用 <a href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 $\mathcal{O}(n \log n)$ 的复杂度内计算出来。</p>
-<p>考虑原题，第一个限制 $(i \lor j) = k$ 很简单，直接 FWT 就可以。</p>
-<p>第二个限制 $(i \land j) = 0$ ，也就是 $S_i \cap S_j = \varnothing$ ，这等价于 $|S_i| + |S_j|=|S_i \cup S_j|$ </p>
-<p>考虑额外开一维记录元素个数。即，设 $f_{i,j} = a_j\times [|j|=i],~g_{i,j} = b_j[|j|=i]$ </p>
-<p>并类似的设 $h_{i,j}$ 为答案，那么</p>
-<script type="math/tex; mode=display">
-h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运算，那么答案 $c_i = h_{|i|,i}$ 。</p>
-<p>时间复杂度 $\mathcal{O}(n^22^n)$</p>
+<p>才发现这个 <span class="math inline">\(2^n-1\)</span> 个数就是 <span
+class="math inline">\(n\)</span> 个元素的所有非空集合，<span
+class="math inline">\(a_i,b_i\)</span> 就是集合 <span
+class="math inline">\(i\)</span> 的两种权值。</p>
+<p>称 <span class="math inline">\(c_k = \sum_{(i \lor j) = k}
+a_ib_j\)</span> 为「子集并卷积」运算。显然这个可以用 <a
+href="/2024/07/15/kuai-su-wo-er-shi-bian-huan-fwt/">FWT</a> 在 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span>
+的复杂度内计算出来。</p>
+<p>考虑原题，第一个限制 <span class="math inline">\((i \lor j) =
+k\)</span> 很简单，直接 FWT 就可以。</p>
+<p>第二个限制 <span class="math inline">\((i \land j) = 0\)</span>
+，也就是 <span class="math inline">\(S_i \cap S_j = \varnothing\)</span>
+，这等价于 <span class="math inline">\(|S_i| + |S_j|=|S_i \cup
+S_j|\)</span></p>
+<p>考虑额外开一维记录元素个数。即，设 <span
+class="math inline">\(f_{i,j} = a_j\times [|j|=i],~g_{i,j} =
+b_j[|j|=i]\)</span></p>
+<p>并类似的设 <span class="math inline">\(h_{i,j}\)</span> 为答案，那么
+<span class="math display">\[
+h_i = \sum_{k=0}^i f_k *g_{i-k}
+\]</span> 其中 <span class="math inline">\(*\)</span>
+表示子集并卷积运算，那么答案 <span class="math inline">\(c_i =
+h_{|i|,i}\)</span> 。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^22^n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -801,9 +833,10 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
     <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">[</span><span class="token function">popc</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" \n"</span><span class="token punctuation">[</span>i <span class="token operator">==</span> mx <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xt9hh8pb">https://www.luogu.com.cn/article/xt9hh8pb</a></p>
 
                 
             </div>
@@ -912,96 +945,6 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1266,7 +1209,7 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1274,7 +1217,7 @@ h_i = \sum_{k=0}^i f_k *g_{i-k}</script><p>其中 $*$ 表示子集并卷积运�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P6960 [NEERC2017] Interactive Sort 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -676,12 +676,12 @@ rgba(0,0,0,0.2);
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/%E6%9E%84%E9%80%A0/">
-                                <span class="chip bg-color">构造</span>
-                            </a>
-                        
                             <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
                                 <span class="chip bg-color">随机化</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                <span class="chip bg-color">构造</span>
                             </a>
                         
                             <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -743,25 +743,51 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P6960-NEERC2017-Interactive-Sort-题解"><a href="#洛谷P6960-NEERC2017-Interactive-Sort-题解" class="headerlink" title="洛谷P6960 [NEERC2017] Interactive Sort 题解"></a>洛谷P6960 [NEERC2017] Interactive Sort 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6960">P6960 [NEERC2017] Interactive Sort</a></p>
+                <h1 id="洛谷p6960-neerc2017-interactive-sort-题解">洛谷P6960 [NEERC2017]
+Interactive Sort 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6960">P6960
+[NEERC2017] Interactive Sort</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道 IO 交互题。</p>
-<p>有一个长度为 $n~(n\le 10^4)$ 的排列，将排列按奇偶分为两个序列</p>
-<p>记所有偶数组成的序列为 $a$ ，所有奇数组成的序列为 $b$ ，初始未知。</p>
-<p>你可以进行不超过 $3\times 10^5$ 次询问 <code>? i j</code>，每次交互库会返回一个 <code>&lt;</code> 或 <code>&gt;</code> 表示 $a_i$ 和 $b_j$ 的大小关系。</p>
-<p>最后你需要求出 $a,b$ 并输出，格式为 <code>! a b</code>。保证数据随机。</p>
+<p>有一个长度为 <span class="math inline">\(n~(n\le 10^4)\)</span>
+的排列，将排列按奇偶分为两个序列</p>
+<p>记所有偶数组成的序列为 <span class="math inline">\(a\)</span>
+，所有奇数组成的序列为 <span class="math inline">\(b\)</span>
+，初始未知。</p>
+<p>你可以进行不超过 <span class="math inline">\(3\times 10^5\)</span>
+次询问 <code>? i j</code>，每次交互库会返回一个 <code>&lt;</code> 或
+<code>&gt;</code> 表示 <span class="math inline">\(a_i\)</span> 和 <span
+class="math inline">\(b_j\)</span> 的大小关系。</p>
+<p>最后你需要求出 <span class="math inline">\(a,b\)</span>
+并输出，格式为 <code>! a b</code>。保证数据随机。</p>
 </blockquote>
 <p>首先最简单的方案就是暴力询问每个偶数和每个奇数。</p>
-<p>注意到每次询问偶数 $a_i$ ，都会将奇数序列分为两个集合，分别是大于 $a_i$ 的和小于 $a_i$ 的。（$a_i=n$ 除外）</p>
-<p>那么当我们每询问出一个 $a_i$ ，$b$ 中的某个集合就会分成两个。</p>
+<p>注意到每次询问偶数 <span class="math inline">\(a_i\)</span>
+，都会将奇数序列分为两个集合，分别是大于 <span
+class="math inline">\(a_i\)</span> 的和小于 <span
+class="math inline">\(a_i\)</span> 的。（<span
+class="math inline">\(a_i=n\)</span> 除外）</p>
+<p>那么当我们每询问出一个 <span class="math inline">\(a_i\)</span>
+，<span class="math inline">\(b\)</span> 中的某个集合就会分成两个。</p>
 <p>如果我们取集合内的任意一个元素作为集合的权值，那么这些集合的权值显然是单调的</p>
-<p>于是对于每个 $a_i$ ，我们二分出它可能位于<strong>哪两个块</strong>，然后暴力比较块里面的元素</p>
-<p>这样就可以将一个已知集合划分成两个，同时也知道 $a_i$ 的值。</p>
-<p>我们考虑按随机的顺序问 $a_i$ （不过这题保证了随机所以顺序问也可以）</p>
-<p>问完 $i$ 个 $a$ 后每个块的期望大小约为 $\frac{n}{2i}$ 。暴力问两个块，最坏情况下期望问 $\frac{n}{i}$ 次。</p>
-<p>再加上二分的次数，故期望询问次数为 $\sum_{i=1}^n \log_2i$ ，当 $n=10^4$ 次期望询问 $1.45 \times 10^5$ 次。</p>
-<p>时间复杂度 $\mathcal{O}(n \ln n)$</p>
+<p>于是对于每个 <span class="math inline">\(a_i\)</span>
+，我们二分出它可能位于<strong>哪两个块</strong>，然后暴力比较块里面的元素</p>
+<p>这样就可以将一个已知集合划分成两个，同时也知道 <span
+class="math inline">\(a_i\)</span> 的值。</p>
+<p>我们考虑按随机的顺序问 <span class="math inline">\(a_i\)</span>
+（不过这题保证了随机所以顺序问也可以）</p>
+<p>问完 <span class="math inline">\(i\)</span> 个 <span
+class="math inline">\(a\)</span> 后每个块的期望大小约为 <span
+class="math inline">\(\frac{n}{2i}\)</span>
+。暴力问两个块，最坏情况下期望问 <span
+class="math inline">\(\frac{n}{i}\)</span> 次。</p>
+<p>再加上二分的次数，故期望询问次数为 <span
+class="math inline">\(\sum_{i=1}^n \log_2i\)</span> ，当 <span
+class="math inline">\(n=10^4\)</span> 次期望询问 <span
+class="math inline">\(1.45 \times 10^5\)</span> 次。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \ln
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -824,10 +850,11 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
     vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> v1<span class="token punctuation">,</span> v2<span class="token punctuation">;</span> <span class="token function">answer</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/y4f0185w">https://www.luogu.com.cn/article/y4f0185w</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/y4f0185w">https://www.luogu.com.cn/article/y4f0185w</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406250030872.jpg" style="zoom:24%;" /></p>
@@ -899,12 +926,12 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
                                     <span class="chip bg-color">算法</span>
                                 </a>
                             
-                                <a href="/tags/%E6%9E%84%E9%80%A0/">
-                                    <span class="chip bg-color">构造</span>
-                                </a>
-                            
                                 <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
                                     <span class="chip bg-color">随机化</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%9E%84%E9%80%A0/">
+                                    <span class="chip bg-color">构造</span>
                                 </a>
                             
                                 <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -943,96 +970,6 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1290,7 +1227,7 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1298,7 +1235,7 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

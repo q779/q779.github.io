@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3704 [SDOI2017] 数字表格 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -735,45 +735,88 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3704-SDOI2017-数字表格-题解"><a href="#洛谷P3704-SDOI2017-数字表格-题解" class="headerlink" title="洛谷P3704 [SDOI2017] 数字表格 题解"></a>洛谷P3704 [SDOI2017] 数字表格 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3704">P3704 [SDOI2017] 数字表格</a></p>
+                <h1 id="洛谷p3704-sdoi2017-数字表格-题解">洛谷P3704 [SDOI2017] 数字表格
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3704">P3704
+[SDOI2017] 数字表格</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$q$ 组询问，给定 $n,m$ ，求</p>
-<script type="math/tex; mode=display">
-\mathrm{Ans} = \prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)}</script><p>其中 $F$ 的幂次可以快速计算（在本题中是斐波那契数列，$F_0=0,F_1=1$ ）</p>
-<p>$1\le q \le 10^3,1 \le n,m \le 10^6$​</p>
+<p><span class="math inline">\(q\)</span> 组询问，给定 <span
+class="math inline">\(n,m\)</span> ，求 <span class="math display">\[
+\mathrm{Ans} = \prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)}
+\]</span> 其中 <span class="math inline">\(F\)</span>
+的幂次可以快速计算（在本题中是斐波那契数列，<span
+class="math inline">\(F_0=0,F_1=1\)</span> ）</p>
+<p><span class="math inline">\(1\le q \le 10^3,1 \le n,m \le
+10^6\)</span>​</p>
 </blockquote>
 <p>莫比乌斯反演 + 数论分块。</p>
-<p>既然 $F$ 可以快速计算，那就是叫我们统计 $F(k)$ 是怎么贡献的了。</p>
-<script type="math/tex; mode=display">
-\prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)} = \prod_{k=1}^nF_k^{\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]}</script><p>把上面那一堆提出来</p>
-<script type="math/tex; mode=display">
+<p>既然 <span class="math inline">\(F\)</span>
+可以快速计算，那就是叫我们统计 <span class="math inline">\(F(k)\)</span>
+是怎么贡献的了。 <span class="math display">\[
+\prod_{i=1}^n\prod_{j=1}^{m}F_{\gcd(i,j)} =
+\prod_{k=1}^nF_k^{\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]}
+\]</span> 把上面那一堆提出来 <span class="math display">\[
 \begin{aligned}
-\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k] 
-&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\operatorname{gcd}(i, j)=1]
-\\[6pt]&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d \mid \operatorname{gcd}(i, j)} \mu(d)
-\\[6pt]&= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\cdot [d \mid \operatorname{gcd}(i, j)]
-\\[6pt]&= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d \mid \operatorname{gcd}(i, j)]
-\end{aligned}</script><p>因为能产生贡献的 $d$ 一定为 $\gcd(i,j)$ 的因数，反过来能产生贡献的 $i,j$ 一定是 $d$ 的倍数。</p>
-<p>所以我们可以转为枚举 $d$​ 的倍数</p>
-<script type="math/tex; mode=display">
+\sum_{i=1}^n \sum_{j=1}^m[\operatorname{gcd}(i, j)=k]
+&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[\operatorname{gcd}(i,
+j)=1]
+\\[6pt]&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d \mid
+\operatorname{gcd}(i, j)} \mu(d)
+\\[6pt]&amp;= \sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}\sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\mu(d)\cdot [d \mid \operatorname{gcd}(i, j)]
+\\[6pt]&amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\sum_{j=1}^{\left\lfloor\frac{m}{k}\right\rfloor}[d \mid
+\operatorname{gcd}(i, j)]
+\end{aligned}
+\]</span> 因为能产生贡献的 <span class="math inline">\(d\)</span> 一定为
+<span class="math inline">\(\gcd(i,j)\)</span>
+的因数，反过来能产生贡献的 <span class="math inline">\(i,j\)</span>
+一定是 <span class="math inline">\(d\)</span> 的倍数。</p>
+<p>所以我们可以转为枚举 <span class="math inline">\(d\)</span>​ 的倍数
+<span class="math display">\[
 \begin{aligned}
-&= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor} 
-    \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}[d \mid \operatorname{gcd}(di, dj)]
-\\[6pt] &= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor} 
+&amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor}
+    \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}[d \mid
+\operatorname{gcd}(di, dj)]
+\\[6pt] &amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\mu(d)\sum_{i=1}^{\left\lfloor\frac{n}{kd}\right\rfloor}
     \sum_{j=1}^{\left\lfloor\frac{m}{kd}\right\rfloor}1
-\\[6pt] &= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor} \mu(d)\left\lfloor\frac{n}{kd}\right\rfloor\left\lfloor\frac{m}{kd}\right\rfloor
-\end{aligned}</script><p>这里需要用到 <a href="/2022/05/25/luo-gu-p2257-yy-de-gcd-ti-jie/">洛谷P2257 YY的GCD</a> 中的技巧，把 $kd$ 看作一个整体枚举</p>
-<p>在本题中我们直接把上面那一坨东西扔回去再枚举 $T=kd$ </p>
-<script type="math/tex; mode=display">
+\\[6pt] &amp;= \sum_{d=1}^{\left\lfloor\frac{n}{k}\right\rfloor}
+\mu(d)\left\lfloor\frac{n}{kd}\right\rfloor\left\lfloor\frac{m}{kd}\right\rfloor
+\end{aligned}
+\]</span> 这里需要用到 <a
+href="/2022/05/25/luo-gu-p2257-yy-de-gcd-ti-jie/">洛谷P2257 YY的GCD</a>
+中的技巧，把 <span class="math inline">\(kd\)</span>
+看作一个整体枚举</p>
+<p>在本题中我们直接把上面那一坨东西扔回去再枚举 <span
+class="math inline">\(T=kd\)</span> <span class="math display">\[
 \begin{aligned}
-\mathrm{Ans}& =\prod_{k=1}^N F_k\left(\sum_{d=1}^{\left\lfloor\frac{N}{k}\right\rfloor} \mu(d)\left\lfloor\frac{N}{k d}\right\rfloor\left\lfloor\frac{M}{k d}\right\rfloor\right) \\
-& =\prod_{T=1}^N\left(\prod_{k \mid T} F_k{ }^{\mu\left(\frac{T}{k}\right)}\right)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
-\end{aligned}</script><p>令 $f(n) = \prod_{d \mid n} F_d^{\mu\left(\frac{n}{d}\right)}$ ，则</p>
-<script type="math/tex; mode=display">
-\mathrm{Ans} = \prod_{T=1}^N f(T)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}</script><p>其中 $f(T)$ 可以暴力预处理出来，每个数直接往它的倍数贡献，复杂度是 $\mathcal{O}(n \log n)$​</p>
-<p>注意数论分块的 $f(T)$ 的乘积要预处理，不要直接用快速幂算，否则会多一个 log 。</p>
-<p>总时间复杂度 $\mathcal{O}(n \log nM + q\sqrt{N}\log M)$ ，其中 $M$ 是模数。</p>
+\mathrm{Ans}&amp; =\prod_{k=1}^N
+F_k\left(\sum_{d=1}^{\left\lfloor\frac{N}{k}\right\rfloor}
+\mu(d)\left\lfloor\frac{N}{k d}\right\rfloor\left\lfloor\frac{M}{k
+d}\right\rfloor\right) \\
+&amp; =\prod_{T=1}^N\left(\prod_{k \mid T} F_k{
+}^{\mu\left(\frac{T}{k}\right)}\right)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
+\end{aligned}
+\]</span> 令 <span class="math inline">\(f(n) = \prod_{d \mid n}
+F_d^{\mu\left(\frac{n}{d}\right)}\)</span> ，则 <span
+class="math display">\[
+\mathrm{Ans} = \prod_{T=1}^N
+f(T)^{\left\lfloor\frac{N}{T}\right\rfloor\left\lfloor\frac{M}{T}\right\rfloor}
+\]</span> 其中 <span class="math inline">\(f(T)\)</span>
+可以暴力预处理出来，每个数直接往它的倍数贡献，复杂度是 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span>​</p>
+<p>注意数论分块的 <span class="math inline">\(f(T)\)</span>
+的乘积要预处理，不要直接用快速幂算，否则会多一个 log 。</p>
+<p>总时间复杂度 <span class="math inline">\(\mathcal{O}(n \log nM +
+q\sqrt{N}\log M)\)</span> ，其中 <span class="math inline">\(M\)</span>
+是模数。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -847,9 +890,10 @@ rgba(0,0,0,0.2);
     <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7tsegn1x">https://www.luogu.com.cn/article/7tsegn1x</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7tsegn1x">https://www.luogu.com.cn/article/7tsegn1x</a></p>
 
                 
             </div>
@@ -955,96 +999,6 @@ rgba(0,0,0,0.2);
     
 
     
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
-    
 
     
 
@@ -1059,13 +1013,13 @@ rgba(0,0,0,0.2);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/04/25/wu-yong-zhi-yong-fang-wei-da-yong/">
+                <a href="/2024/04/25/wang-yi-yun-yin-le-bo-fang-qi-html-qian-ru/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p154.webp" class="responsive-img" alt="无用之用，方为大用">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p205.webp" class="responsive-img" alt="网易云音乐播放器 HTML 嵌入">
                         
-                        <span class="card-title">无用之用，方为大用</span>
+                        <span class="card-title">网易云音乐播放器 HTML 嵌入</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1082,8 +1036,8 @@ rgba(0,0,0,0.2);
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%91%98%E5%BD%95/" class="post-category">
-                                    摘录
+                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
                                 </a>
                             
                             
@@ -1093,12 +1047,8 @@ rgba(0,0,0,0.2);
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%94%9F%E6%B4%BB%E7%9B%B8%E5%85%B3/">
-                        <span class="chip bg-color">生活相关</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%93%B2%E5%AD%A6/">
-                        <span class="chip bg-color">哲学</span>
+                    <a href="/tags/HTML/">
+                        <span class="chip bg-color">HTML</span>
                     </a>
                     
                 </div>
@@ -1112,12 +1062,13 @@ rgba(0,0,0,0.2);
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/04/25/xu-de-hai-gong-cheng/">
+                <a href="/2024/04/24/note-16/">
                     <div class="card-image">
                         
-                        <img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202404250302235.jpg" class="responsive-img" alt="须德海工程">
                         
-                        <span class="card-title">须德海工程</span>
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p67.webp" class="responsive-img" alt="note[16]">
+                        
+                        <span class="card-title">note[16]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1128,7 +1079,7 @@ rgba(0,0,0,0.2);
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-24
                             </span>
                         <span class="publish-author">
                             
@@ -1145,12 +1096,8 @@ rgba(0,0,0,0.2);
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9C%B0%E7%90%86/">
-                        <span class="chip bg-color">地理</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8E%86%E5%8F%B2/">
-                        <span class="chip bg-color">历史</span>
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1304,7 +1251,7 @@ rgba(0,0,0,0.2);
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1312,7 +1259,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

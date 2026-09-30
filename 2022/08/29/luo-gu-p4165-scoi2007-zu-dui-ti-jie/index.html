@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P4165 [SCOI2007]组队 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -731,29 +731,52 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P4165-SCOI2007-组队-题解"><a href="#洛谷P4165-SCOI2007-组队-题解" class="headerlink" title="洛谷P4165 [SCOI2007]组队 题解"></a>洛谷P4165 [SCOI2007]组队 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4165">P4165 [SCOI2007]组队</a></p>
+                <h1 id="洛谷p4165-scoi2007组队-题解">洛谷P4165 [SCOI2007]组队 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4165">P4165
+[SCOI2007]组队</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>NBA每年都有球员选秀环节。通常用速度和身高两项数据来衡量一个篮球运动员的基本素质。假如一支球队里速度最慢的球员速度为 $\min V$，身高最矮的球员高度为 $\min H$，那么这支球队的所有队员都应该满足: </p>
-<script type="math/tex; mode=display">
-A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V ) \le C</script><p>其中 $A,B,C$ 为给定的经验值。这个式子很容易理解，如果一个球队的球员速度和身高差距太大，会造成配合的不协调。</p>
-<p>请问作为球队管理层的你，在 $N$ 名选秀球员中，最多能有多少名符合条件的候选球员。</p>
+<p>NBA每年都有球员选秀环节。通常用速度和身高两项数据来衡量一个篮球运动员的基本素质。假如一支球队里速度最慢的球员速度为
+<span class="math inline">\(\min V\)</span>，身高最矮的球员高度为 <span
+class="math inline">\(\min H\)</span>，那么这支球队的所有队员都应该满足:
+<span class="math display">\[
+A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min
+V ) \le C
+\]</span> 其中 <span class="math inline">\(A,B,C\)</span>
+为给定的经验值。这个式子很容易理解，如果一个球队的球员速度和身高差距太大，会造成配合的不协调。</p>
+<p>请问作为球队管理层的你，在 <span class="math inline">\(N\)</span>
+名选秀球员中，最多能有多少名符合条件的候选球员。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行四个数 $N,A,B,C$ 下接 $N$ 行每行两个数描述一个球员的 $\mathtt{height}$ 和$\mathtt{speed}$ 。</p>
+<p>第一行四个数 <span class="math inline">\(N,A,B,C\)</span> 下接 <span
+class="math inline">\(N\)</span> 行每行两个数描述一个球员的 <span
+class="math inline">\(\mathtt{height}\)</span> 和<span
+class="math inline">\(\mathtt{speed}\)</span> 。</p>
 <p><strong>输出格式</strong>：</p>
 <p>最多候选球员数目。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$N \le 5\times 10^3$ ，$A,B,C$ 均在长整型以内，$\mathtt{height}$ 和 $\mathtt{speed}$ 不大于 $10^4$ 。</p>
+<p><span class="math inline">\(N \le 5\times 10^3\)</span> ，<span
+class="math inline">\(A,B,C\)</span> 均在长整型以内，<span
+class="math inline">\(\mathtt{height}\)</span> 和 <span
+class="math inline">\(\mathtt{speed}\)</span> 不大于 <span
+class="math inline">\(10^4\)</span> 。</p>
 </blockquote>
 <p>好像有人写了三维偏序，<del>真流批</del></p>
 <p>其实这题不需要三维偏序</p>
-<p>考虑枚举 $\min H$ ，然后我们会得到一个 $\min V$ 的不等式</p>
-<script type="math/tex; mode=display">
- V-\left(C - \frac{A\times (H-\min H)}{B}\right) \ge \min V</script><p>然后我们就可以算出每个球员在 $\min H$ 确定的情况下</p>
-<p>$\min V$ 在哪个范围的时候，这个球员可以被选中，考虑差分。</p>
-<p>最后枚举每个球员作为 $\min V$ ，此时可以直接查询差分数组（要先做一遍前缀和哦）</p>
-<p>注意特判 $B=0$ 的情况，此时 $\forall \min V \in [1,v_i]$ 可以选 $v_i$ 。</p>
-<p>时间复杂度 $O(n \times \max\{n,v_i\})$</p>
+<p>考虑枚举 <span class="math inline">\(\min H\)</span>
+，然后我们会得到一个 <span class="math inline">\(\min V\)</span>
+的不等式 <span class="math display">\[
+V-\left(C - \frac{A\times (H-\min H)}{B}\right) \ge \min V
+\]</span> 然后我们就可以算出每个球员在 <span class="math inline">\(\min
+H\)</span> 确定的情况下</p>
+<p><span class="math inline">\(\min V\)</span>
+在哪个范围的时候，这个球员可以被选中，考虑差分。</p>
+<p>最后枚举每个球员作为 <span class="math inline">\(\min V\)</span>
+，此时可以直接查询差分数组（要先做一遍前缀和哦）</p>
+<p>注意特判 <span class="math inline">\(B=0\)</span> 的情况，此时 <span
+class="math inline">\(\forall \min V \in [1,v_i]\)</span> 可以选 <span
+class="math inline">\(v_i\)</span> 。</p>
+<p>时间复杂度 <span class="math inline">\(O(n \times
+\max\{n,v_i\})\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -903,96 +926,6 @@ A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V )
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1262,7 +1195,7 @@ A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V )
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1270,7 +1203,7 @@ A \times ( \mathtt{height} – \min H ) + B \times ( \mathtt{speed} – \min V )
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

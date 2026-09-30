@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P9228 原神 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -711,7 +711,7 @@ rgba(0,0,0,0.2);
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    680
+                    674
                 </div>
                 
 
@@ -731,36 +731,47 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P9228-原神-题解"><a href="#洛谷P9228-原神-题解" class="headerlink" title="洛谷P9228 原神 题解"></a>洛谷P9228 原神 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9228">P9228 原神</a></p>
+                <h1 id="洛谷p9228-原神-题解">洛谷P9228 原神 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9228">P9228
+原神</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>原神中有一个魔法师，她可以打出 $ n $ 次火元素攻击魔法和 $ m $ 次冰元素攻击魔法，每次攻击的伤害分别为 $ a_1,a_2,\cdots, a_n $ 和 $ b_1,b_2,\cdots, b_m $。</p>
+<p>原神中有一个魔法师，她可以打出 $ n $ 次火元素攻击魔法和 $ m $
+次冰元素攻击魔法，每次攻击的伤害分别为 $ a_1,a_2,, a_n $ 和 $ b_1,b_2,,
+b_m $。</p>
 <p>元素攻击之间存在如下反应规则：</p>
 <ul>
-<li><p>每次元素攻击可以给<strong>没有元素附着</strong>的怪物附着相应的元素，初始时怪物没有元素附着；</p>
-</li>
-<li><p>如果用火元素攻击打到冰元素附着的怪物身上，那么本次伤害将 $ \times 2 $，<strong>并清空元素附着</strong>；</p>
-</li>
-<li><p>如果用冰元素攻击打到火元素附着的怪物身上，那么本次伤害将 $ +k $，<strong>并清空元素附着</strong>。</p>
-</li>
+<li><p>每次元素攻击可以给<strong>没有元素附着</strong>的怪物附着相应的元素，初始时怪物没有元素附着；</p></li>
+<li><p>如果用火元素攻击打到冰元素附着的怪物身上，那么本次伤害将 $
+$，<strong>并清空元素附着</strong>；</p></li>
+<li><p>如果用冰元素攻击打到火元素附着的怪物身上，那么本次伤害将 $ +k
+$，<strong>并清空元素附着</strong>。</p></li>
 </ul>
 <p>现在魔法师可以任意安排攻击顺序，也就是说，每次攻击过后，魔法师可以从自己没有使用过的魔法中任意挑选一种使用。她希望最大化总伤害，请问<strong>最大总伤害</strong>是多少。</p>
 <p><strong>输入格式</strong>：</p>
 <p>第一行三个整数 $ n,m,k $。</p>
-<p>第二行 $ n $ 个整数 $ a_1,a_2,\cdots, a_n $。</p>
-<p>第三行 $ m $ 个整数 $ b_1,b_2,\cdots, b_m $。</p>
+<p>第二行 $ n $ 个整数 $ a_1,a_2,, a_n $。</p>
+<p>第三行 $ m $ 个整数 $ b_1,b_2,, b_m $。</p>
 <p><strong>输出格式</strong>：</p>
 <p>一行一个整数，表示答案。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \leq n,m \leq 10^6$，$0 \leq a_i,b_i,k \leq 10^9$</p>
+<p><span class="math inline">\(1 \leq n,m \leq 10^6\)</span>，<span
+class="math inline">\(0 \leq a_i,b_i,k \leq 10^9\)</span></p>
 </blockquote>
 <p>注意到每次攻击通常是由一个火魔法加一个冰魔法组合而成的。</p>
-<p>显然冰魔法的攻击不会影响到总伤害，而火魔法在小于 $k$ 时没有必要进行翻倍操作。</p>
-<p>那么问题就很简单了，如果 $n \le m$ ，我们枚举每个火魔法 $a_i$ ，贡献为</p>
-<script type="math/tex; mode=display">
-a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
-<p>反之，若 $n &gt; m$ ，这意味着有些火魔法无法配对，那么我们就优先将 $a_i$ 较大的进行配对。</p>
-<p>时间复杂度 $\mathcal{O}(n\log n)$</p>
+<p>显然冰魔法的攻击不会影响到总伤害，而火魔法在小于 <span
+class="math inline">\(k\)</span> 时没有必要进行翻倍操作。</p>
+<p>那么问题就很简单了，如果 <span class="math inline">\(n \le m\)</span>
+，我们枚举每个火魔法 <span class="math inline">\(a_i\)</span> ，贡献为
+<span class="math display">\[
+a_i + \max\{a_i, k\}
+\]</span> 接着加上所有的 <span class="math inline">\(b_i\)</span>
+即可。</p>
+<p>反之，若 <span class="math inline">\(n &gt; m\)</span>
+，这意味着有些火魔法无法配对，那么我们就优先将 <span
+class="math inline">\(a_i\)</span> 较大的进行配对。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -793,7 +804,7 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
     cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>圆神，启动！</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202401091759448.png" style="zoom: 50%;" /></p>
@@ -898,96 +909,6 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
     
 
     
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
-    
 
     
 
@@ -1059,13 +980,13 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/01/08/ban-xiao-shi-man-hua-27.3-bi-ji-shi-me-shi-wu-xian-yi-jin/">
+                <a href="/2024/01/08/cf1527d-mex-tree-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p151.webp" class="responsive-img" alt="半小时漫画 27.3 笔记 什么是“五险一金”？">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p2.webp" class="responsive-img" alt="CF1527D MEX Tree 题解">
                         
-                        <span class="card-title">半小时漫画 27.3 笔记 什么是“五险一金”？</span>
+                        <span class="card-title">CF1527D MEX Tree 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1082,8 +1003,8 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    笔记
+                            <a href="/categories/OI/" class="post-category">
+                                    OI
                                 </a>
                             
                             
@@ -1093,8 +1014,16 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">
-                        <span class="chip bg-color">经济学</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -1248,7 +1177,7 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1256,7 +1185,7 @@ a_i + \max\{a_i, k\}</script><p>接着加上所有的 $b_i$ 即可。</p>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

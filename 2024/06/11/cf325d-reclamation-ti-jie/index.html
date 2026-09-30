@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF325D Reclamation 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,27 +739,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF325D-Reclamation-题解"><a href="#CF325D-Reclamation-题解" class="headerlink" title="CF325D Reclamation 题解"></a>CF325D Reclamation 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
+                <h1 id="cf325d-reclamation-题解">CF325D Reclamation 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF325D">Reclamation</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给定一个大小为 $r \times c$ 的二维环形网格图，每一行的第 $1$ 格和第 $c$ 格相邻。  </p>
-<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" alt=""></p>
-<p>现在按照给定的顺序将 $n$ 个格子变成障碍物。</p>
-<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 $1$ 行到第 $r$ 行的路径。</p>
+<p>给定一个大小为 <span class="math inline">\(r \times c\)</span>
+的二维环形网格图，每一行的第 <span class="math inline">\(1\)</span>
+格和第 <span class="math inline">\(c\)</span> 格相邻。</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406111310359.png" /></p>
+<p>现在按照给定的顺序将 <span class="math inline">\(n\)</span>
+个格子变成障碍物。</p>
+<p>一个格子可以变成障碍的条件为该格子变成障碍后仍然存在一条从第 <span
+class="math inline">\(1\)</span> 行到第 <span
+class="math inline">\(r\)</span> 行的路径。</p>
 <p>如果一个格子不可以变成障碍，就跳过该操作并且继续处理接下来的格子。路径为四相邻规则。</p>
-<p>你需要求出最多可以有多少个格子变成障碍物。  </p>
+<p>你需要求出最多可以有多少个格子变成障碍物。</p>
 <p><strong>输入格式</strong>：</p>
-<p>第一行有三个整数 $r,c,n(1 \le r,c \le 3000, 1 \le n \le 3 \times 10^5)$。  </p>
-<p>接下来 $n$ 行，每行两个正整数 $r_i , c_i$，表示将位于 $r_i $ 行，$c_i$ 列的格子变成障碍物。  </p>
+<p>第一行有三个整数 <span class="math inline">\(r,c,n(1 \le r,c \le
+3000, 1 \le n \le 3 \times 10^5)\)</span>。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 行，每行两个正整数
+<span class="math inline">\(r_i , c_i\)</span>，表示将位于 $r_i $
+行，<span class="math inline">\(c_i\)</span> 列的格子变成障碍物。</p>
 <p><strong>输出格式</strong>：</p>
 <p>输出一个整数表示答案。</p>
 </blockquote>
 <p>如果删掉一格后环不再构成四连通，那么这个点和其他已删除的点将圆柱的侧面截断。</p>
 <p>换句话说，此时这个环（或者说曲面）上存在一个由已删除点构成的<strong>八连通块</strong>。</p>
 <p>维护环的连通性十分麻烦。考虑断环为链，然后用并查集维护已删除点的连通性。</p>
-<p>这样我们只需要判断删除操作是否会使得 $(x,y)$ 和 $(x,y+c)$ 连通即可。</p>
-<p>注意每次删除一个点，要把 $(x,y)$ 和 $(x,y+c)$ 都标记。</p>
-<p>时间复杂度 $\mathcal{O}(n\alpha(n) + 2rc)$</p>
+<p>这样我们只需要判断删除操作是否会使得 <span
+class="math inline">\((x,y)\)</span> 和 <span
+class="math inline">\((x,y+c)\)</span> 连通即可。</p>
+<p>注意每次删除一个点，要把 <span class="math inline">\((x,y)\)</span>
+和 <span class="math inline">\((x,y+c)\)</span> 都标记。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\alpha(n) +
+2rc)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -830,15 +845,16 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> res <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/8n2v47is">https://www.luogu.com.cn/article/8n2v47is</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>其实这道题还蛮简单的，不过不太好描述，导致这篇题解写了好久。</p>
 <p>放音乐。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height=86 src="//music.163.com/outchain/player?type=2&id=1468515491&auto=0&height=66"></iframe>
-
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&amp;id=1468515491&amp;auto=0&amp;height=66">
+</iframe>
 <blockquote>
 <p>从此就 收剑入鞘洒脱放下执着</p>
 <p>不再说 万事蹉跎是一杯苦酒</p>
@@ -954,96 +970,6 @@ rgba(0,0,0,0.2);
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1313,7 +1239,7 @@ rgba(0,0,0,0.2);
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1321,7 +1247,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

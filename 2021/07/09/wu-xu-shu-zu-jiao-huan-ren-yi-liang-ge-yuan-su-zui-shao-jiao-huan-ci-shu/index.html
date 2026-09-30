@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="无序数组交换任意两个元素 最少交换次数, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -735,9 +735,14 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="无序数组交换任意两个元素-最少交换次数"><a href="#无序数组交换任意两个元素-最少交换次数" class="headerlink" title="无序数组交换任意两个元素 最少交换次数"></a>无序数组交换任意两个元素 最少交换次数</h1><p><strong>题目</strong>：</p>
-<p>属于是经典题了，做完可以去做一下 <a target="_blank" rel="noopener" href="https://uoj.ac/problem/233">UOJ233 【IOI2015】Sorting</a> （<del>确信</del></p>
-<p>给定长度为 $n$ 的排列，将元素升序排序，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
+                <h1 id="无序数组交换任意两个元素-最少交换次数">无序数组交换任意两个元素
+最少交换次数</h1>
+<p><strong>题目</strong>：</p>
+<p>属于是经典题了，做完可以去做一下 <a
+target="_blank" rel="noopener" href="https://uoj.ac/problem/233">UOJ233 【IOI2015】Sorting</a>
+（<del>确信</del></p>
+<p>给定长度为 <span class="math inline">\(n\)</span>
+的排列，将元素升序排序，每次可以交换<strong>任意两个元素</strong>，最少要交换几次？</p>
 <blockquote>
 <p>如果是交换相邻两个元素，那就是逆序对的个数，这个本文不会提及（<del>因为已经说完了</del></p>
 </blockquote>
@@ -752,15 +757,23 @@ swap <span class="token number">2</span> <span class="token number">4</span>
 swap <span class="token number">4</span> <span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>题解</strong>：</p>
 <p>对于每个元素，我们将该元素和它的正确位置建边</p>
-<p>最后一定是 $1\sim n$ 个环（自环也算）</p>
-<p>对于有 $k$ 个元素的环，最少交换次数为 $k-1$</p>
-<p>假设共有 $p$ 个环，对于第 $i$ 个环，有 $k_i$ 个元素，则它的最少交换次数为 $k_i - 1$ </p>
-<p>因此</p>
-<script type="math/tex; mode=display">
-\mathtt{ans} = \sum\limits_{i=1}^{p}{(k_i-1)} = \sum\limits_{i=1}^{p}{k_i} - p</script><p>显然</p>
-<script type="math/tex; mode=display">
-n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素个数 - 环的个数。具体实现见代码。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>最后一定是 <span class="math inline">\(1\sim n\)</span>
+个环（自环也算）</p>
+<p>对于有 <span class="math inline">\(k\)</span>
+个元素的环，最少交换次数为 <span class="math inline">\(k-1\)</span></p>
+<p>假设共有 <span class="math inline">\(p\)</span> 个环，对于第 <span
+class="math inline">\(i\)</span> 个环，有 <span
+class="math inline">\(k_i\)</span> 个元素，则它的最少交换次数为 <span
+class="math inline">\(k_i - 1\)</span></p>
+<p>因此 <span class="math display">\[
+\mathtt{ans} = \sum\limits_{i=1}^{p}{(k_i-1)} =
+\sum\limits_{i=1}^{p}{k_i} - p
+\]</span> 显然 <span class="math display">\[
+n  = \sum\limits_{i=1}^{p}{k_i}
+\]</span></p>
+<p>所以答案就是 <span class="math inline">\(n-p\)</span> ，即元素个数 -
+环的个数。具体实现见代码。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -800,8 +813,22 @@ n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素
 <p>我们可以遍历一遍原数组，如果当前元素不在正确位置上，将该元素和此时在它正确位置上的元素<strong>交换</strong></p>
 <p>这里有一个要注意的，某次交换后我们可能没有将交换和被交换数都放在正确位置上，且有可能在接下来的遍历中不会再次遍历到被交换数，因此交换后还要再判断，直到当前位置的数正确，显然不这么做不会影响正确结果</p>
 <p>很容易证明这是最少的。</p>
-<p>设当前元素为 $\alpha$ （不在正确位置上），它与非 $\alpha$ 的正确位置上的元素 $\beta$ 交换，会有两种情况：第一种， $\beta$ 在正确位置上。由于最后 $\beta$ 一定会在正确位置上，且一定是 $\beta$ 和在 $\beta$ 正确位置上的元素交换（或 $\beta$ 本来就在正确位置），所以交换 $\alpha$ 和 $\beta$ 就是多余的；第二种， $\beta$ 不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换 $\alpha$ 和 $\beta$ 是多余的</p>
-<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度 $\mathcal{O}(n\log n)$</p>
+<p>设当前元素为 <span class="math inline">\(\alpha\)</span>
+（不在正确位置上），它与非 <span class="math inline">\(\alpha\)</span>
+的正确位置上的元素 <span class="math inline">\(\beta\)</span>
+交换，会有两种情况：第一种， <span class="math inline">\(\beta\)</span>
+在正确位置上。由于最后 <span class="math inline">\(\beta\)</span>
+一定会在正确位置上，且一定是 <span class="math inline">\(\beta\)</span>
+和在 <span class="math inline">\(\beta\)</span> 正确位置上的元素交换（或
+<span class="math inline">\(\beta\)</span> 本来就在正确位置），所以交换
+<span class="math inline">\(\alpha\)</span> 和 <span
+class="math inline">\(\beta\)</span> 就是多余的；第二种， <span
+class="math inline">\(\beta\)</span>
+不在正确位置上。显然对于每次必要交换，我们不在乎正确位置上的元素是什么，我们只需要将正确的元素与其交换就可以了，至于被交换的元素，我们会接下来处理它，所以交换
+<span class="math inline">\(\alpha\)</span> 和 <span
+class="math inline">\(\beta\)</span> 是多余的</p>
+<p>由于我们要知道正确位置，所以要排序好的数组记录正确位置，时间复杂度
+<span class="math inline">\(\mathcal{O}(n\log n)\)</span></p>
 <p>主要代码如下：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">fun</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -819,9 +846,10 @@ n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素
         <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401713.html">https://www.cnblogs.com/hellowooorld/p/7401713.html</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/hellowooorld/p/7401713.html">https://www.cnblogs.com/hellowooorld/p/7401713.html</a></p>
 
                 
             </div>
@@ -926,96 +954,6 @@ n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1269,7 +1207,7 @@ n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1277,7 +1215,7 @@ n  = \sum\limits_{i=1}^{p}{k_i}</script><p>所以答案就是 $n-p$ ，即元素
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

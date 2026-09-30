@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF1200E Compress Words 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -735,11 +735,15 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1200E-Compress-Words-题解"><a href="#CF1200E-Compress-Words-题解" class="headerlink" title="CF1200E Compress Words 题解"></a>CF1200E Compress Words 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1200E">CF1200E Compress Words</a></p>
+                <h1 id="cf1200e-compress-words-题解">CF1200E Compress Words 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1200E">CF1200E
+Compress Words</a></p>
 <blockquote>
-<p><strong>题意</strong>：给定一堆字符串，依次插入答案串尾部，每次删掉答案串的后缀 与 待插入串的前缀的最大匹配串</p>
+<p><strong>题意</strong>：给定一堆字符串，依次插入答案串尾部，每次删掉答案串的后缀
+与 待插入串的前缀的最大匹配串</p>
 </blockquote>
-<h2 id="解法一-KMP"><a href="#解法一-KMP" class="headerlink" title="解法一 KMP"></a>解法一 KMP</h2><p>这个解法常数比较大</p>
+<h2 id="解法一-kmp">解法一 KMP</h2>
+<p>这个解法常数比较大</p>
 <p>可以想到，暂时把待插入串放到答案串前，然后跑一遍KMP</p>
 <p>最后一个值就是新串的最长前后缀，也就是我们要求的最大匹配串的长度</p>
 <p>由于直接拼接新串会导致某些时候答案超出原长</p>
@@ -747,7 +751,8 @@ rgba(0,0,0,0.2);
 <p>注意不能自带border</p>
 <p>而这样的算法还是不行的，因为答案串中有很多字符其实用不到</p>
 <p>因此我们只要截取答案串后面的拼接即可</p>
-<p>时间复杂度 $O(\sum |s_i|) = O(n)$ </p>
+<p>时间复杂度 <span class="math inline">\(O(\sum |s_i|) =
+O(n)\)</span></p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -783,31 +788,52 @@ rgba(0,0,0,0.2);
     cout <span class="token operator">&lt;&lt;</span> ans<span class="token operator">+</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="解法二-字符串哈希"><a href="#解法二-字符串哈希" class="headerlink" title="解法二 字符串哈希"></a>解法二 字符串哈希</h2><p>这里主要扯扯字符串哈希的东西</p>
+<h2 id="解法二-字符串哈希">解法二 字符串哈希</h2>
+<p>这里主要扯扯字符串哈希的东西</p>
 <p>虽然之前没怎么研究，一直用的<code>unordered_map&lt;string,int&gt;mp</code></p>
 <p>但是这次就手写个字符串哈希吧</p>
-<p>一般字符串哈希有两种写法，这里就按照<a target="_blank" rel="noopener" href="https://oi-wiki.org/string/hash/">OI WIKI</a>默认的写法来讲了</p>
-<p>定义哈希函数 $f(s) = \sum\limits_{i=1}^{l}s[i]\times b^{l-i} \mod M$ </p>
-<p>一般来讲我们不会只用一个大质数 $M$ ，而是一堆 qwq</p>
-<p>因为这样它的 $n$ 次比较的错误率会降到  $1-\left(1-\dfrac{1}{\prod M_i}\right)^n$</p>
+<p>一般字符串哈希有两种写法，这里就按照<a
+target="_blank" rel="noopener" href="https://oi-wiki.org/string/hash/">OI WIKI</a>默认的写法来讲了</p>
+<p>定义哈希函数 <span class="math inline">\(f(s) =
+\sum\limits_{i=1}^{l}s[i]\times b^{l-i} \mod M\)</span></p>
+<p>一般来讲我们不会只用一个大质数 <span class="math inline">\(M\)</span>
+，而是一堆 qwq</p>
+<p>因为这样它的 <span class="math inline">\(n\)</span>
+次比较的错误率会降到 <span
+class="math inline">\(1-\left(1-\dfrac{1}{\prod
+M_i}\right)^n\)</span></p>
 <blockquote>
-<p>这个数有多小呢？我们假设只有两个大质数 <code>1e9+7,998244353</code>，比较<code>1e6</code>次</p>
-<p>那么它的值约为 $0.00000000000100175873$ </p>
+<p>这个数有多小呢？我们假设只有两个大质数
+<code>1e9+7,998244353</code>，比较<code>1e6</code>次</p>
+<p>那么它的值约为 <span
+class="math inline">\(0.00000000000100175873\)</span></p>
 <p>这错误的概率还没计算机出故障的几率高吧</p>
 <p>因此我们直接忽略不计</p>
 </blockquote>
-<p>那么对于一个字符串 $\tt{xyz}$，它的值就等于 $(xb^2+yb+z) \mod M$ </p>
-<p>类比于一个 $b$ 进制的数，应该还算比较好理解的</p>
-<p>根据这个式子，如果我们要求它的一个子串 $s[l\dots r]$ 的哈希值怎么办</p>
-<p>注意到 $f(s[l\dots r]) = \sum\limits_{i=l}^{r}s[i]\times b^{r-i} \mod M$ </p>
-<p>因此可以得到结论 $f(s[l\dots r]) = f(s[1\dots r]))-f(s[1\dots l-1])\times b^{r-l+1} \mod M$ </p>
-<p>注意这里，由于做了取模操作，$f(s[l\dots r])$ 的值可能为负数，要注意把它转成正的</p>
-<p>这样我们就可以 $O(n)$ 预处理 $b$ ， $O(1)$ 查询了（也可以就快速幂 $O(\log n)$ 查询）</p>
+<p>那么对于一个字符串 <span
+class="math inline">\(\tt{xyz}\)</span>，它的值就等于 <span
+class="math inline">\((xb^2+yb+z) \mod M\)</span></p>
+<p>类比于一个 <span class="math inline">\(b\)</span>
+进制的数，应该还算比较好理解的</p>
+<p>根据这个式子，如果我们要求它的一个子串 <span
+class="math inline">\(s[l\dots r]\)</span> 的哈希值怎么办</p>
+<p>注意到 <span class="math inline">\(f(s[l\dots r]) =
+\sum\limits_{i=l}^{r}s[i]\times b^{r-i} \mod M\)</span></p>
+<p>因此可以得到结论 <span class="math inline">\(f(s[l\dots r]) =
+f(s[1\dots r]))-f(s[1\dots l-1])\times b^{r-l+1} \mod M\)</span></p>
+<p>注意这里，由于做了取模操作，<span class="math inline">\(f(s[l\dots
+r])\)</span> 的值可能为负数，要注意把它转成正的</p>
+<p>这样我们就可以 <span class="math inline">\(O(n)\)</span> 预处理 <span
+class="math inline">\(b\)</span> ， <span
+class="math inline">\(O(1)\)</span> 查询了（也可以就快速幂 <span
+class="math inline">\(O(\log n)\)</span> 查询）</p>
 <p>好的相信你已经理解了字符串哈希的一些基本东西，下面来做个简单的小例题</p>
 <p>好吧就是这题，看它题意</p>
 <p>很简单，直接暴力枚举+哈希就OK了，</p>
-<p>而朴素的解法，语句 <code>str1==str2</code> ，它实质上是 $O(n)$ 级别的</p>
-<p>因此我们把朴素解法的 $O(n^2)$ 就可以压到 $O(n)$ 了</p>
+<p>而朴素的解法，语句 <code>str1==str2</code> ，它实质上是 <span
+class="math inline">\(O(n)\)</span> 级别的</p>
+<p>因此我们把朴素解法的 <span class="math inline">\(O(n^2)\)</span>
+就可以压到 <span class="math inline">\(O(n)\)</span> 了</p>
 <p>代码如下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -993,96 +1019,6 @@ rgba(0,0,0,0.2);
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1352,7 +1288,7 @@ rgba(0,0,0,0.2);
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1360,7 +1296,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

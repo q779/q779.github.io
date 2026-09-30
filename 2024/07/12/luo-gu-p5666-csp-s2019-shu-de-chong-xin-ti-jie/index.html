@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P5666 [CSP-S2019] 树的重心 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,62 +739,125 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P5666-CSP-S2019-树的重心-题解"><a href="#洛谷P5666-CSP-S2019-树的重心-题解" class="headerlink" title="洛谷P5666 [CSP-S2019] 树的重心 题解"></a>洛谷P5666 [CSP-S2019] 树的重心 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5666">P5666 [CSP-S2019] 树的重心</a></p>
+                <h1 id="洛谷p5666-csp-s2019-树的重心-题解">洛谷P5666 [CSP-S2019]
+树的重心 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5666">P5666
+[CSP-S2019] 树的重心</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小简单正在学习离散数学，今天的内容是图论基础，在课上他做了如下两条笔记：</p>
-<ol>
-<li><p>一个大小为 $n$ 的树由 $n$ 个结点与 $n - 1$ 条无向边构成，且满足任意两个结点间<strong>有且仅有</strong>一条简单路径。在树中删去一个结点及与它关联的边，树将分裂为若干个子树；而在树中删去一条边（保留关联结点，下同），树将分裂为<strong>恰好</strong>两个子树。</p>
-</li>
-<li><p>对于一个大小为 $n$ 的树与任意一个树中结点 $c$，称 $c$ 是该树的<strong>重心</strong>当且仅当在树中删去 $c$ 及与它关联的边后，分裂出的所有子树的大小均<strong>不超过</strong> $\lfloor \frac{n}{2} \rfloor$（其中 $\lfloor x \rfloor$ 是下取整函数）。对于包含至少一个结点的树，它的重心只可能有 1 或 2 个。</p>
-</li>
+<ol type="1">
+<li><p>一个大小为 <span class="math inline">\(n\)</span> 的树由 <span
+class="math inline">\(n\)</span> 个结点与 <span class="math inline">\(n
+- 1\)</span>
+条无向边构成，且满足任意两个结点间<strong>有且仅有</strong>一条简单路径。在树中删去一个结点及与它关联的边，树将分裂为若干个子树；而在树中删去一条边（保留关联结点，下同），树将分裂为<strong>恰好</strong>两个子树。</p></li>
+<li><p>对于一个大小为 <span class="math inline">\(n\)</span>
+的树与任意一个树中结点 <span class="math inline">\(c\)</span>，称 <span
+class="math inline">\(c\)</span>
+是该树的<strong>重心</strong>当且仅当在树中删去 <span
+class="math inline">\(c\)</span>
+及与它关联的边后，分裂出的所有子树的大小均<strong>不超过</strong> <span
+class="math inline">\(\lfloor \frac{n}{2} \rfloor\)</span>（其中 <span
+class="math inline">\(\lfloor x \rfloor\)</span>
+是下取整函数）。对于包含至少一个结点的树，它的重心只可能有 1 或 2
+个。</p></li>
 </ol>
-<p>课后老师给出了一个大小为 $n$ 的树 $S$，树中结点从 $1 \sim n$ 编号。小简单的课后作业是求出 $S$ 单独删去每条边后，分裂出的两个子树的重心编号和之和。即：</p>
-<script type="math/tex; mode=display">
-\sum_{(u,v) \in E} \left( \sum_{1 \leq x \leq n \atop 且 x 号点是 S'_u 的重心} x + \sum_{1 \leq y \leq n \atop 且 y 号点是 S'_v 的重心} y \right)</script><p>上式中，$E$ 表示树 $S$ 的边集，$(u,v)$ 表示一条连接 $u$ 号点和 $v$ 号点的边。$S’_u$ 与 $S’_v$ 分别表示树 $S$ 删去边 $(u,v)$ 后，$u$ 号点与 $v$ 号点所在的被分裂出的子树。</p>
+<p>课后老师给出了一个大小为 <span class="math inline">\(n\)</span> 的树
+<span class="math inline">\(S\)</span>，树中结点从 <span
+class="math inline">\(1 \sim n\)</span> 编号。小简单的课后作业是求出
+<span class="math inline">\(S\)</span>
+单独删去每条边后，分裂出的两个子树的重心编号和之和。即：</p>
+<p><span class="math display">\[
+\sum_{(u,v) \in E} \left( \sum_{1 \leq x \leq n \atop 且 x 号点是
+S&#39;_u 的重心} x + \sum_{1 \leq y \leq n \atop 且 y 号点是 S&#39;_v
+的重心} y \right)
+\]</span></p>
+<p>上式中，<span class="math inline">\(E\)</span> 表示树 <span
+class="math inline">\(S\)</span> 的边集，<span
+class="math inline">\((u,v)\)</span> 表示一条连接 <span
+class="math inline">\(u\)</span> 号点和 <span
+class="math inline">\(v\)</span> 号点的边。<span
+class="math inline">\(S&#39;_u\)</span> 与 <span
+class="math inline">\(S&#39;_v\)</span> 分别表示树 <span
+class="math inline">\(S\)</span> 删去边 <span
+class="math inline">\((u,v)\)</span> 后，<span
+class="math inline">\(u\)</span> 号点与 <span
+class="math inline">\(v\)</span> 号点所在的被分裂出的子树。</p>
 <p>小简单觉得作业并不简单，只好向你求助，请你教教他。</p>
 <p><strong>输入格式</strong>：</p>
 <p>本题包含多组测试数据。</p>
-<p>第一行一个整数 $T$ 表示数据组数。</p>
+<p>第一行一个整数 <span class="math inline">\(T\)</span>
+表示数据组数。</p>
 <p>接下来依次给出每组输入数据，对于每组数据：</p>
-<p>第一行一个整数 $n$ 表示树 $S$ 的大小。</p>
-<p>接下来 $n − 1$ 行，每行两个以空格分隔的整数 $u_i$，$v_i$，表示树中的一条边 $(u_i,v_i)$。</p>
+<p>第一行一个整数 <span class="math inline">\(n\)</span> 表示树 <span
+class="math inline">\(S\)</span> 的大小。</p>
+<p>接下来 <span class="math inline">\(n − 1\)</span>
+行，每行两个以空格分隔的整数 <span
+class="math inline">\(u_i\)</span>，<span
+class="math inline">\(v_i\)</span>，表示树中的一条边 <span
+class="math inline">\((u_i,v_i)\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>共 $T$ 行，每行一个整数，第 $i$ 行的整数表示：第 $i$ 组数据给出的树单独删去每条边后，分裂出的两个子树的重心编号和之和。</p>
+<p>共 <span class="math inline">\(T\)</span> 行，每行一个整数，第 <span
+class="math inline">\(i\)</span> 行的整数表示：第 <span
+class="math inline">\(i\)</span>
+组数据给出的树单独删去每条边后，分裂出的两个子树的重心编号和之和。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \leq T \leq 5 , 1 \leq u_i,v_i \leq n$。保证给出的图是一个树。</p>
+<p><span class="math inline">\(1 \leq T \leq 5 , 1 \leq u_i,v_i \leq
+n\)</span>。保证给出的图是一个树。</p>
 </blockquote>
-<p>套路地考察每个点作为重心的次数。考虑将树的重心提作根 $\rm root$ （有两个就随便选一个）。</p>
-<p>对于任意点 $u~(u \ne \mathrm{root})$ ，若 $u$ 是割掉某条边后的重心，则这条边一定不在 $u$ 的子树内。</p>
-<p>记割掉某条边 $e$ 后，另一个树的大小为 $S$ ，并记</p>
-<script type="math/tex; mode=display">
-g_u = \max_{v \in \mathrm{son}(u)}\left\{ \mathrm{size}(v)\right\}</script><p>那么根据 $u$ 为重心可知</p>
-<script type="math/tex; mode=display">
+<p>套路地考察每个点作为重心的次数。考虑将树的重心提作根 <span
+class="math inline">\(\rm root\)</span> （有两个就随便选一个）。</p>
+<p>对于任意点 <span class="math inline">\(u~(u \ne
+\mathrm{root})\)</span> ，若 <span class="math inline">\(u\)</span>
+是割掉某条边后的重心，则这条边一定不在 <span
+class="math inline">\(u\)</span> 的子树内。</p>
+<p>记割掉某条边 <span class="math inline">\(e\)</span>
+后，另一个树的大小为 <span class="math inline">\(S\)</span> ，并记 <span
+class="math display">\[
+g_u = \max_{v \in \mathrm{son}(u)}\left\{ \mathrm{size}(v)\right\}
+\]</span> 那么根据 <span class="math inline">\(u\)</span> 为重心可知
+<span class="math display">\[
 \begin{cases}
     2(n-S-\mathrm{size}(u)) \le n - S
     \\[8pt] 2g_u \le n -S
-\end{cases}</script><p>所以</p>
-<script type="math/tex; mode=display">
-n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u</script><p>即我们需要找到对于点 $u$ 有多少条边 $e$ 满足</p>
-<ol>
-<li>$n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u$</li>
-<li>边不在 $u$ 的子树内。</li>
+\end{cases}
+\]</span> 所以 <span class="math display">\[
+n-2\ \mathrm{size}(u) \leq S \leq n-2 g_u
+\]</span> 即我们需要找到对于点 <span class="math inline">\(u\)</span>
+有多少条边 <span class="math inline">\(e\)</span> 满足</p>
+<ol type="1">
+<li><span class="math inline">\(n-2\ \mathrm{size}(u) \leq S \leq n-2
+g_u\)</span></li>
+<li>边不在 <span class="math inline">\(u\)</span> 的子树内。</li>
 </ol>
-<p>仅考虑第一个条件的话，考虑 dfs 并用树状数组维护切掉边 $e = (u, fa(u))$ 后，</p>
-<p>每一个 $S$ 的值有多少个，这样对于每个 $u$ 我们只需要查询一下区间和即可。</p>
-<p>考虑去掉不满足第二个条件的 $e$ ，考虑再拿一个树状数组按 dfs 序动态维护经过每个点的 $S$ 的值有多少个</p>
-<p>这样对于每个点，在其子树内的 $e$ 就是进入时减去回溯时的区间和的差。</p>
-<p>那么怎么统计 $u=\rm root$ 的贡献呢？设 $u$ 的儿子中 $\rm size$ 最大的节点是 $x$ ，次大的是 $y$ 。</p>
-<p>若 $e$ 在 $x$ 的子树中，则有</p>
-<script type="math/tex; mode=display">
-2\ \mathrm{size}(y) \le n -S</script><p>即</p>
-<script type="math/tex; mode=display">
-S \le n - 2\ \mathrm{size}(y)</script><p>否则有</p>
-<script type="math/tex; mode=display">
-2\ \mathrm{size}(x) \le n - S</script><p>即</p>
-<script type="math/tex; mode=display">
-S \le n - 2\ \mathrm{size}(x)</script><p>直接维护即可。</p>
-<p>时间复杂度 $\mathcal{O}(n \log n)$</p>
+<p>仅考虑第一个条件的话，考虑 dfs 并用树状数组维护切掉边 <span
+class="math inline">\(e = (u, fa(u))\)</span> 后，</p>
+<p>每一个 <span class="math inline">\(S\)</span>
+的值有多少个，这样对于每个 <span class="math inline">\(u\)</span>
+我们只需要查询一下区间和即可。</p>
+<p>考虑去掉不满足第二个条件的 <span class="math inline">\(e\)</span>
+，考虑再拿一个树状数组按 dfs 序动态维护经过每个点的 <span
+class="math inline">\(S\)</span> 的值有多少个</p>
+<p>这样对于每个点，在其子树内的 <span class="math inline">\(e\)</span>
+就是进入时减去回溯时的区间和的差。</p>
+<p>那么怎么统计 <span class="math inline">\(u=\rm root\)</span>
+的贡献呢？设 <span class="math inline">\(u\)</span> 的儿子中 <span
+class="math inline">\(\rm size\)</span> 最大的节点是 <span
+class="math inline">\(x\)</span> ，次大的是 <span
+class="math inline">\(y\)</span> 。</p>
+<p>若 <span class="math inline">\(e\)</span> 在 <span
+class="math inline">\(x\)</span> 的子树中，则有 <span
+class="math display">\[
+2\ \mathrm{size}(y) \le n -S
+\]</span> 即 <span class="math display">\[
+S \le n - 2\ \mathrm{size}(y)
+\]</span> 否则有 <span class="math display">\[
+2\ \mathrm{size}(x) \le n - S
+\]</span> 即 <span class="math display">\[
+S \le n - 2\ \mathrm{size}(x)
+\]</span> 直接维护即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -861,9 +924,10 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">https://www.luogu.com.cn/article/p9dqpc9y</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/p9dqpc9y">https://www.luogu.com.cn/article/p9dqpc9y</a></p>
 
                 
             </div>
@@ -973,96 +1037,6 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     
 
     
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
-    
 
     
 
@@ -1134,13 +1108,13 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/07/12/qun-xing-po-sui-zhi-huan/">
+                <a href="/2024/07/10/luo-gu-p3488-poi2009-lyz-ice-skates-ti-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p227.webp" class="responsive-img" alt="【群星】破碎之环">
+                        <img src="/medias/loading.gif" data-original="/medias/featureimages/p11.webp" class="responsive-img" alt="洛谷P3488 [POI2009] LYZ-Ice Skates 题解">
                         
-                        <span class="card-title">【群星】破碎之环</span>
+                        <span class="card-title">洛谷P3488 [POI2009] LYZ-Ice Skates 题解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1151,14 +1125,14 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%B8%B8%E6%88%8F/" class="post-category">
-                                    游戏
+                            <a href="/categories/OI/" class="post-category">
+                                    OI
                                 </a>
                             
                             
@@ -1168,8 +1142,16 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B8%B8%E6%88%8F/">
-                        <span class="chip bg-color">游戏</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -1323,7 +1305,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1331,7 +1313,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

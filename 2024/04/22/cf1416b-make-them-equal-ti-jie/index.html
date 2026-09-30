@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF1416B Make Them Equal 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,28 +739,57 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1416B-Make-Them-Equal-题解"><a href="#CF1416B-Make-Them-Equal-题解" class="headerlink" title="CF1416B Make Them Equal 题解"></a>CF1416B Make Them Equal 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1416B">Make Them Equal</a></p>
+                <h1 id="cf1416b-make-them-equal-题解">CF1416B Make Them Equal 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1416B">Make
+Them Equal</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>给出一个序列 $a$，求出一个长度不超过 $3n$ 的操作序列，使序列 $a$ 中每个元素相等。</p>
-<p>定义一次操作为：选出 $(i,j,x)$ 三元组，满足 $i,j$ 为序列合法下标，$x$ 为 $10^9$ 以内非负整数，令 $a_i\gets a_i-x\cdot i,a_j\gets a_j+x\cdot i$。</p>
-<p>必须保证操作过程中的任意时刻序列 $a$ 中每个元素都非负。</p>
-<p>输出时先输出操作次数 $k$，然后输出 $k$ 行操作序列。</p>
-<p>数据组数 $t\le10^4$，序列长度 $\sum n\le10^4$，元素大小 $1\le a_i\le10^5$。</p>
+<p>给出一个序列 <span
+class="math inline">\(a\)</span>，求出一个长度不超过 <span
+class="math inline">\(3n\)</span> 的操作序列，使序列 <span
+class="math inline">\(a\)</span> 中每个元素相等。</p>
+<p>定义一次操作为：选出 <span class="math inline">\((i,j,x)\)</span>
+三元组，满足 <span class="math inline">\(i,j\)</span>
+为序列合法下标，<span class="math inline">\(x\)</span> 为 <span
+class="math inline">\(10^9\)</span> 以内非负整数，令 <span
+class="math inline">\(a_i\gets a_i-x\cdot i,a_j\gets a_j+x\cdot
+i\)</span>。</p>
+<p>必须保证操作过程中的任意时刻序列 <span
+class="math inline">\(a\)</span> 中每个元素都非负。</p>
+<p>输出时先输出操作次数 <span class="math inline">\(k\)</span>，然后输出
+<span class="math inline">\(k\)</span> 行操作序列。</p>
+<p>数据组数 <span class="math inline">\(t\le10^4\)</span>，序列长度
+<span class="math inline">\(\sum n\le10^4\)</span>，元素大小 <span
+class="math inline">\(1\le a_i\le10^5\)</span>。</p>
 </blockquote>
 <p>感觉这种题目很喜欢找到一种，就像游戏机制一样的性质，使劲钻空子。</p>
-<p>首先如果 $n \not\mid \sum a_i$  一定无解，因为最终每个数一定会变成平均数。</p>
-<p>注意到 $i=1$ 的自由度最高，如果所有的多余的值都放在 $i=1$ 上那么这道题就非常简单了。</p>
-<p>考虑用以下方案移动 $i \in [2,n]$ 的 $a_i$ 的值：</p>
-<ol>
-<li>用 $a_1$ 把 $a_i$ 补成 $i$ 的倍数</li>
-<li>把 $a_i$ 移到 $a_1$ （即 $a_1 \gets a_i,~a_i \gets 0$ ）</li>
+<p>首先如果 <span class="math inline">\(n \not\mid \sum a_i\)</span>
+一定无解，因为最终每个数一定会变成平均数。</p>
+<p>注意到 <span class="math inline">\(i=1\)</span>
+的自由度最高，如果所有的多余的值都放在 <span
+class="math inline">\(i=1\)</span> 上那么这道题就非常简单了。</p>
+<p>考虑用以下方案移动 <span class="math inline">\(i \in [2,n]\)</span>
+的 <span class="math inline">\(a_i\)</span> 的值：</p>
+<ol type="1">
+<li>用 <span class="math inline">\(a_1\)</span> 把 <span
+class="math inline">\(a_i\)</span> 补成 <span
+class="math inline">\(i\)</span> 的倍数</li>
+<li>把 <span class="math inline">\(a_i\)</span> 移到 <span
+class="math inline">\(a_1\)</span> （即 <span class="math inline">\(a_1
+\gets a_i,~a_i \gets 0\)</span> ）</li>
 </ol>
-<p>最后，处理完所有的 $i$ 后，把 $a_1$ 均分给每个 $a_i$ 。</p>
-<p>这个方案唯一的疑点就是第一步 $a_1$ 有没有足够的值去填补。</p>
-<p>事实上一定是有的：显然 $a_i \ge 1$ ，因此在处理到第 $i$ 个数时 $a_1=\left(\sum_{1\le l &lt; i}{a_l}\right) \ge i-1$​ 。</p>
-<p>这样操作数就是 $3(n-1)$ ，符合题目要求。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>最后，处理完所有的 <span class="math inline">\(i\)</span> 后，把
+<span class="math inline">\(a_1\)</span> 均分给每个 <span
+class="math inline">\(a_i\)</span> 。</p>
+<p>这个方案唯一的疑点就是第一步 <span class="math inline">\(a_1\)</span>
+有没有足够的值去填补。</p>
+<p>事实上一定是有的：显然 <span class="math inline">\(a_i \ge 1\)</span>
+，因此在处理到第 <span class="math inline">\(i\)</span> 个数时 <span
+class="math inline">\(a_1=\left(\sum_{1\le l &lt; i}{a_l}\right) \ge
+i-1\)</span>​ 。</p>
+<p>这样操作数就是 <span class="math inline">\(3(n-1)\)</span>
+，符合题目要求。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -800,9 +829,10 @@ rgba(0,0,0,0.2);
     <span class="token keyword">int</span> qwq<span class="token punctuation">;</span> cin <span class="token operator">>></span> qwq<span class="token punctuation">;</span> <span class="token keyword">while</span><span class="token punctuation">(</span>qwq<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f54n6a4j">https://www.luogu.com.cn/article/f54n6a4j</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/f54n6a4j">https://www.luogu.com.cn/article/f54n6a4j</a></p>
 
                 
             </div>
@@ -911,96 +941,6 @@ rgba(0,0,0,0.2);
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1254,7 +1194,7 @@ rgba(0,0,0,0.2);
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1262,7 +1202,7 @@ rgba(0,0,0,0.2);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

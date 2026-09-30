@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF1114E Arithmetic Progression 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -747,38 +747,70 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF1114E-Arithmetic-Progression-题解"><a href="#CF1114E-Arithmetic-Progression-题解" class="headerlink" title="CF1114E Arithmetic Progression 题解"></a>CF1114E Arithmetic Progression 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1114E">Arithmetic Progression</a></p>
+                <h1 id="cf1114e-arithmetic-progression-题解">CF1114E Arithmetic
+Progression 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1114E">Arithmetic
+Progression</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>这是一道交互题。</p>
-<p>有一个长度为 $n$ 的序列 $a$，保证它从小到大排序后是个等差数列。</p>
+<p>有一个长度为 <span class="math inline">\(n\)</span> 的序列 <span
+class="math inline">\(a\)</span>，保证它从小到大排序后是个等差数列。</p>
 <p>你不知道这个序列长什么样，但你可以询问：</p>
 <ul>
-<li>$\texttt{? i}$ 表示询问 $a_i$ 的值；</li>
-<li>$\mathtt{&gt;\ x}$ 表示询问序列中是否存在严格大于 $x$ 的数。</li>
+<li><span class="math inline">\(\texttt{? i}\)</span> 表示询问 <span
+class="math inline">\(a_i\)</span> 的值；</li>
+<li><span class="math inline">\(\mathtt{&gt;\ x}\)</span>
+表示询问序列中是否存在严格大于 <span class="math inline">\(x\)</span>
+的数。</li>
 </ul>
-<p>你可以问不超过 $60$ 个询问。</p>
+<p>你可以问不超过 <span class="math inline">\(60\)</span> 个询问。</p>
 <p>现在，你需要求出这个等差数列的首项和这个等差数列的公差。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$2\le n\le 10^6,~0\le a_i\le 10^9$。</p>
+<p><span class="math inline">\(2\le n\le 10^6,~0\le a_i\le
+10^9\)</span>。</p>
 </blockquote>
-<p>注意到操作二可以让我们二分出序列的最大值，记为 $a_n$ （就当题目的序列没有名字好了）。</p>
+<p>注意到操作二可以让我们二分出序列的最大值，记为 <span
+class="math inline">\(a_n\)</span> （就当题目的序列没有名字好了）。</p>
 <p>那么接下来的询问只能问询问一了，因为询问二根本问不出什么东西，这不明摆着让我们乱搞么？</p>
-<p>考虑把所有剩下的询问都用于操作一，记询问得到的数为 $x_1,x_2,\cdots,x_k$ 。由于</p>
-<script type="math/tex; mode=display">
-d\mid\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}</script><p>显然 $k$ 越大，$d$ 越可能等于 $\gcd$ 的值，可是这道题又限制了我们问的 $k$ 的大小。</p>
-<p>因此考虑随机化，即随机一个排列，然后把排列的前 $k$ 项（$k$ 是剩余询问数）用于询问。</p>
-<p>最后直接将 $\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}$ 当作 $d$ 输出即可。</p>
-<p>分析一下正确率。首先二分最大值的花费不超过 $\left\lceil\log_2 10^9\right\rceil=30$ 次，即 $k \ge 30$ 次。</p>
-<p>记首项 $a_1 = a_0 + d$ ，那么 $x_i = a_0 + b_id$ ，而题目保证是等差数列，所以 $b_i$ 是一个 $1$ 到 $n$ 的排列。</p>
-<p>那么错误概率为</p>
-<script type="math/tex; mode=display">
-p=\frac{1}{n^{\underline{k}}} \sum_{b\, \in \,\mathrm{permutation}(n)}\left[\gcd\left(b_1, \ldots, b_k\right)=1\right]</script><p>这里的下划线是下降阶乘幂。</p>
-<p>考虑枚举最大公约数 $d$ ，根据莫比乌斯反演有</p>
-<script type="math/tex; mode=display">
-\frac{1}{n^{\underline{k}}} \sum_{d=2}^n \mu(d)\left\lfloor\frac{n}{d}\right\rfloor^{\underline{k}}</script><p>这个东西可以 $\mathcal{O}(n)$ 算出来，我用 Python 算的，代码在后面。</p>
-<p>算出来答案是 $9.309223788847006\times 10^{-10}$ ，这个错误率低的比某些哈希还低。</p>
-<p>时间复杂度 $\mathcal{O}(n)$</p>
+<p>考虑把所有剩下的询问都用于操作一，记询问得到的数为 <span
+class="math inline">\(x_1,x_2,\cdots,x_k\)</span> 。由于 <span
+class="math display">\[
+d\mid\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}
+\]</span> 显然 <span class="math inline">\(k\)</span> 越大，<span
+class="math inline">\(d\)</span> 越可能等于 <span
+class="math inline">\(\gcd\)</span> 的值，可是这道题又限制了我们问的
+<span class="math inline">\(k\)</span> 的大小。</p>
+<p>因此考虑随机化，即随机一个排列，然后把排列的前 <span
+class="math inline">\(k\)</span> 项（<span
+class="math inline">\(k\)</span> 是剩余询问数）用于询问。</p>
+<p>最后直接将 <span
+class="math inline">\(\gcd\{a_n-x_1,\,a_n-x_2,\,a_n-x_3,\,\cdots,\,a_n-x_k\}\)</span>
+当作 <span class="math inline">\(d\)</span> 输出即可。</p>
+<p>分析一下正确率。首先二分最大值的花费不超过 <span
+class="math inline">\(\left\lceil\log_2 10^9\right\rceil=30\)</span>
+次，即 <span class="math inline">\(k \ge 30\)</span> 次。</p>
+<p>记首项 <span class="math inline">\(a_1 = a_0 + d\)</span> ，那么
+<span class="math inline">\(x_i = a_0 + b_id\)</span>
+，而题目保证是等差数列，所以 <span class="math inline">\(b_i\)</span>
+是一个 <span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span> 的排列。</p>
+<p>那么错误概率为 <span class="math display">\[
+p=\frac{1}{n^{\underline{k}}} \sum_{b\, \in
+\,\mathrm{permutation}(n)}\left[\gcd\left(b_1, \ldots,
+b_k\right)=1\right]
+\]</span> 这里的下划线是下降阶乘幂。</p>
+<p>考虑枚举最大公约数 <span class="math inline">\(d\)</span>
+，根据莫比乌斯反演有 <span class="math display">\[
+\frac{1}{n^{\underline{k}}} \sum_{d=2}^n
+\mu(d)\left\lfloor\frac{n}{d}\right\rfloor^{\underline{k}}
+\]</span> 这个东西可以 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 算出来，我用 Python
+算的，代码在后面。</p>
+<p>算出来答案是 <span class="math inline">\(9.309223788847006\times
+10^{-10}\)</span> ，这个错误率低的比某些哈希还低。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -853,11 +885,13 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
         tmp <span class="token operator">=</span> tmp <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">//</span> d<span class="token punctuation">)</span> <span class="token operator">-</span> j<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>n <span class="token operator">-</span> j<span class="token punctuation">)</span>
     ans <span class="token operator">=</span> ans <span class="token operator">+</span> tmp
 <span class="token keyword">print</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7rn1tlfb">https://www.luogu.com.cn/article/7rn1tlfb</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">https://www.luogu.com.cn/article/xjo8wc2w</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/7rn1tlfb">https://www.luogu.com.cn/article/7rn1tlfb</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/xjo8wc2w">https://www.luogu.com.cn/article/xjo8wc2w</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>放图片。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406231641929.jpg" style="zoom:45%;" /></p>
@@ -978,96 +1012,6 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
     
 
     
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
-    
 
     
 
@@ -1120,12 +1064,12 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%9E%84%E9%80%A0/">
-                        <span class="chip bg-color">构造</span>
-                    </a>
-                    
                     <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/">
                         <span class="chip bg-color">随机化</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9E%84%E9%80%A0/">
+                        <span class="chip bg-color">构造</span>
                     </a>
                     
                     <a href="/tags/%E4%BA%A4%E4%BA%92%E9%A2%98/">
@@ -1332,7 +1276,7 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1340,7 +1284,7 @@ ans <span class="token operator">=</span> <span class="token number">0</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

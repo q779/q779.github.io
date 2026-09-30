@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF464D World of Darkraft - 2 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,47 +739,96 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF464D-World-of-Darkraft-2-题解"><a href="#CF464D-World-of-Darkraft-2-题解" class="headerlink" title="CF464D World of Darkraft - 2 题解"></a>CF464D World of Darkraft - 2 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF464D">CF464D World of Darkraft - 2</a></p>
+                <h1 id="cf464d-world-of-darkraft---2-题解">CF464D World of Darkraft - 2
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF464D">CF464D
+World of Darkraft - 2</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>cxy 在玩 “World of Dardraft - 2” 游戏，有 $k$ 种不同的装备，初始状态下所有的装备都是 $1$ 级的。</p>
+<p>cxy 在玩 "World of Dardraft - 2" 游戏，有 <span
+class="math inline">\(k\)</span> 种不同的装备，初始状态下所有的装备都是
+<span class="math inline">\(1\)</span> 级的。</p>
 <p>每当打败一个怪物，她就能获得一个新的装备，新的装备由如下规则生成：</p>
-<ol>
-<li>先从 $k$ 种装备中等概率随机选择一种装备，记作 $i$。</li>
-<li>设当前类型为 $i$ 的装备的等级为 $t_i$，则会从 $[1, t_i + 1]$ 中等概率随机一个作为新的装备的等级。</li>
+<ol type="1">
+<li>先从 <span class="math inline">\(k\)</span>
+种装备中等概率随机选择一种装备，记作 <span
+class="math inline">\(i\)</span>。</li>
+<li>设当前类型为 <span class="math inline">\(i\)</span> 的装备的等级为
+<span class="math inline">\(t_i\)</span>，则会从 <span
+class="math inline">\([1, t_i + 1]\)</span>
+中等概率随机一个作为新的装备的等级。</li>
 </ol>
-<p>cxy 会从新的装备和原来 (对应类型) 的装备中选择一个级别更高的，将它装备上，并出售剩下的一个装备，等级为 $x$ 的装备的售价为 $x$ (个硬币)。</p>
-<p>请帮助 cxy 决定打败 $n$ 个怪物后获得的硬币数的期望。</p>
+<p>cxy 会从新的装备和原来 (对应类型)
+的装备中选择一个级别更高的，将它装备上，并出售剩下的一个装备，等级为
+<span class="math inline">\(x\)</span> 的装备的售价为 <span
+class="math inline">\(x\)</span> (个硬币)。</p>
+<p>请帮助 cxy 决定打败 <span class="math inline">\(n\)</span>
+个怪物后获得的硬币数的期望。</p>
 <p><strong>输入格式</strong>：</p>
-<p>共一行，包含两个正整数 $n, k$ 。</p>
+<p>共一行，包含两个正整数 <span class="math inline">\(n, k\)</span>
+。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出一行一个实数，表示打败 $n$ 个怪物后获得硬币数的期望。答案被认为正确当且仅当相对或绝对误差不超过 $10^{-9}$。</p>
+<p>输出一行一个实数，表示打败 <span class="math inline">\(n\)</span>
+个怪物后获得硬币数的期望。答案被认为正确当且仅当相对或绝对误差不超过
+<span class="math inline">\(10^{-9}\)</span>。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le n \le 10^5,1\le k \le 100$</p>
+<p><span class="math inline">\(1 \le n \le 10^5,1\le k \le
+100\)</span></p>
 </blockquote>
 <p>注意到最终硬币的期望值对于各个装备是独立的。</p>
-<p>根据期望的线性性质，我们可以算出单个装备的期望，然后再乘以 $k$ 。</p>
-<p>设 $f_{i,j}$ 表示还需要打败 $i$ 个怪物，且当前装备等级为 $j$ 的情况下，后面 $i$ 次得到硬币的期望。</p>
-<p>初始状态为 $f_{0,j} = 0$ 。</p>
-<p>考虑转移。由于掉某一种装备的概率为 $\frac{1}{k}$ ，因此有 $\frac{k-1}{k}$ 的概率掉出其他装备</p>
-<p>而掉出其他装备对这个装备的等级没有影响，故前者要乘上 $f_{i-1,j}$ 。</p>
-<p>在这 $\frac{1}{k}$ 的概率中，有 $\frac{1}{j+1}$ 的概率产生 $j+1$ 级装备（乘法原理）</p>
-<p>把原来的 $j$ 卖了，权值对应为 $\frac{1}{k(j+1)}\left(f_{i-1, j+1}+j\right)$ 。</p>
-<p>显然还有 $\frac{j}{j+1}$ 的概率产生低级装备，则转移方程为</p>
-<script type="math/tex; mode=display">
+<p>根据期望的线性性质，我们可以算出单个装备的期望，然后再乘以 <span
+class="math inline">\(k\)</span> 。</p>
+<p>设 <span class="math inline">\(f_{i,j}\)</span> 表示还需要打败 <span
+class="math inline">\(i\)</span> 个怪物，且当前装备等级为 <span
+class="math inline">\(j\)</span> 的情况下，后面 <span
+class="math inline">\(i\)</span> 次得到硬币的期望。</p>
+<p>初始状态为 <span class="math inline">\(f_{0,j} = 0\)</span> 。</p>
+<p>考虑转移。由于掉某一种装备的概率为 <span
+class="math inline">\(\frac{1}{k}\)</span> ，因此有 <span
+class="math inline">\(\frac{k-1}{k}\)</span> 的概率掉出其他装备</p>
+<p>而掉出其他装备对这个装备的等级没有影响，故前者要乘上 <span
+class="math inline">\(f_{i-1,j}\)</span> 。</p>
+<p>在这 <span class="math inline">\(\frac{1}{k}\)</span> 的概率中，有
+<span class="math inline">\(\frac{1}{j+1}\)</span> 的概率产生 <span
+class="math inline">\(j+1\)</span> 级装备（乘法原理）</p>
+<p>把原来的 <span class="math inline">\(j\)</span> 卖了，权值对应为
+<span class="math inline">\(\frac{1}{k(j+1)}\left(f_{i-1,
+j+1}+j\right)\)</span> 。</p>
+<p>显然还有 <span class="math inline">\(\frac{j}{j+1}\)</span>
+的概率产生低级装备，则转移方程为 <span class="math display">\[
 \begin{aligned}
-f_{i, j}&=\frac{k-1}{k} f_{i-1, j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-1, j}+t\right)+\left(f_{i-1, j+1}+j\right)\right]
-\\[6pt]&=\frac{(k(j+1)-1) f_{i-1, j}+f_{i-1, j+1}+\frac{1}{2} j(j+3)}{k(j+1)}
-\end{aligned}</script><p>最后答案为 $k\cdot f_{n,1}$ 时间复杂度 $\mathcal{O}(n^2)$ ，空间复杂度 $\mathcal{O}(n)$。</p>
+f_{i, j}&amp;=\frac{k-1}{k} f_{i-1,
+j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-1,
+j}+t\right)+\left(f_{i-1, j+1}+j\right)\right]
+\\[6pt]&amp;=\frac{(k(j+1)-1) f_{i-1, j}+f_{i-1, j+1}+\frac{1}{2}
+j(j+3)}{k(j+1)}
+\end{aligned}
+\]</span> 最后答案为 <span class="math inline">\(k\cdot f_{n,1}\)</span>
+时间复杂度 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
+，空间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span>。</p>
 <p>接下来就是神奇的浮点优化时间了。</p>
-<p>注意到其实它升到等级极高的情况实际上可能性几乎为 $0$ ，因此有很多的 $f$ 在精度范围内都是无意义的</p>
-<p>由几何分布，概率为 $p$ 的时间期望 $\frac{1}{p}$ 次才能成功，则对于一个特定的装备</p>
-<p>它从第 $j$ 级升到第 $j+1$ 级的概率为 $\frac{1}{k(j+1)}$ ，因此其期望的次数为 $k(j+1)$ 。</p>
-<p>则从 $1$ 级升到 $m$ 级的期望次数为 $2k + 3k + \cdots + mk \sim \frac{1}{2}m^2k &lt; n$</p>
-<p>则有 $m &lt; \sqrt{\dfrac{2n}{k}}$ ，即期望等级大约在 $500$ 左右。</p>
-<p>事实上，超过 $1000$ 在 <code>double</code> 中已经存不了了，因此不会对答案产生影响。</p>
-<p>所以第二维开个 $1000$ 左右即可。</p>
-<p>时间复杂度 $\mathcal{O}(1000 \times n ) = \mathcal{O}(n \sqrt{n})$</p>
+<p>注意到其实它升到等级极高的情况实际上可能性几乎为 <span
+class="math inline">\(0\)</span> ，因此有很多的 <span
+class="math inline">\(f\)</span> 在精度范围内都是无意义的</p>
+<p>由几何分布，概率为 <span class="math inline">\(p\)</span> 的时间期望
+<span class="math inline">\(\frac{1}{p}\)</span>
+次才能成功，则对于一个特定的装备</p>
+<p>它从第 <span class="math inline">\(j\)</span> 级升到第 <span
+class="math inline">\(j+1\)</span> 级的概率为 <span
+class="math inline">\(\frac{1}{k(j+1)}\)</span> ，因此其期望的次数为
+<span class="math inline">\(k(j+1)\)</span> 。</p>
+<p>则从 <span class="math inline">\(1\)</span> 级升到 <span
+class="math inline">\(m\)</span> 级的期望次数为 <span
+class="math inline">\(2k + 3k + \cdots + mk \sim \frac{1}{2}m^2k &lt;
+n\)</span></p>
+<p>则有 <span class="math inline">\(m &lt; \sqrt{\dfrac{2n}{k}}\)</span>
+，即期望等级大约在 <span class="math inline">\(500\)</span> 左右。</p>
+<p>事实上，超过 <span class="math inline">\(1000\)</span> 在
+<code>double</code> 中已经存不了了，因此不会对答案产生影响。</p>
+<p>所以第二维开个 <span class="math inline">\(1000\)</span>
+左右即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(1000 \times n ) =
+\mathcal{O}(n \sqrt{n})\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -813,14 +862,15 @@ f_{i, j}&=\frac{k-1}{k} f_{i-1, j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>n <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> k <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=243">https://yhx-12243.github.io/OI-transit/?redirect=243</a></p>
-<hr>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/?redirect=243">https://yhx-12243.github.io/OI-transit/?redirect=243</a></p>
+<hr />
 <p><strong>题外话</strong>：</p>
 <p>upd. 20240521 和 mygr 巨佬的对话</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405212345292.png" style="zoom:40%;" /></p>
-<p>图 $\downarrow$</p>
+<p>图 <span class="math inline">\(\downarrow\)</span></p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202405212338323.png" style="zoom:30%;" /></p>
 
                 
@@ -930,96 +980,6 @@ f_{i, j}&=\frac{k-1}{k} f_{i-1, j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1293,7 +1253,7 @@ f_{i, j}&=\frac{k-1}{k} f_{i-1, j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1301,7 +1261,7 @@ f_{i, j}&=\frac{k-1}{k} f_{i-1, j}+\frac{1}{k(j+1)}\left[\sum_{t=1}^j\left(f_{i-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

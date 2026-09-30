@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CF786B Legacy 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,39 +739,60 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="CF786B-Legacy-题解"><a href="#CF786B-Legacy-题解" class="headerlink" title="CF786B Legacy 题解"></a>CF786B Legacy 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">CF786B Legacy</a></p>
+                <h1 id="cf786b-legacy-题解">CF786B Legacy 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">CF786B
+Legacy</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>$n$ 个结点， $q$ 次操作，问操作后从 $s$ 出发的单源最短路</p>
+<p><span class="math inline">\(n\)</span> 个结点， <span
+class="math inline">\(q\)</span> 次操作，问操作后从 <span
+class="math inline">\(s\)</span> 出发的单源最短路</p>
 <p>操作如下</p>
 <ul>
-<li>输入 <code>1 u v w</code> 表示 $u$ 到 $v$ 连一条有向边</li>
-<li>输入 <code>2 u l r w</code> 表示 $u$ 到 $[l,r]$ 的每个结点连一条有向边</li>
-<li>输入 <code>3 u l r w</code> 表示 $[l,r]$ 的每个结点向 $u$ 连一条有向边</li>
+<li>输入 <code>1 u v w</code> 表示 <span
+class="math inline">\(u\)</span> 到 <span
+class="math inline">\(v\)</span> 连一条有向边</li>
+<li>输入 <code>2 u l r w</code> 表示 <span
+class="math inline">\(u\)</span> 到 <span
+class="math inline">\([l,r]\)</span> 的每个结点连一条有向边</li>
+<li>输入 <code>3 u l r w</code> 表示 <span
+class="math inline">\([l,r]\)</span> 的每个结点向 <span
+class="math inline">\(u\)</span> 连一条有向边</li>
 </ul>
-<p>对于 $100\%$ 的数据，$1\le n,q \le 10^5$，$1\le w \le 10^9$</p>
+<p>对于 <span class="math inline">\(100\%\)</span> 的数据，<span
+class="math inline">\(1\le n,q \le 10^5\)</span>，<span
+class="math inline">\(1\le w \le 10^9\)</span></p>
 </blockquote>
 <p>线段树优化建图的板子</p>
 <p>考虑建两棵线段树，分别称为「入树」和「出树」</p>
-<p>入树的父节点向子结点连一条边权为 $0$ 的有向边</p>
-<p>出树的子节点向父结点连一条边权为 $0$ 的有向边</p>
+<p>入树的父节点向子结点连一条边权为 <span
+class="math inline">\(0\)</span> 的有向边</p>
+<p>出树的子节点向父结点连一条边权为 <span
+class="math inline">\(0\)</span> 的有向边</p>
 <p>两棵树的叶子结点均表示原图中的点</p>
-<p>这样每次区间的连边，我们直接在线段树上把管理对应区间的结点当作 $v$ 即可</p>
+<p>这样每次区间的连边，我们直接在线段树上把管理对应区间的结点当作 <span
+class="math inline">\(v\)</span> 即可</p>
 <p>具体地，</p>
 <ul>
-<li><p>把 $u$ 到 $[l,r]$ 的每个结点连一条有向边</p>
-<p>我们只要找出在入树上对应的结点，把出树中的 $u$ 向这些结点都连一条有向边就行了</p>
-</li>
-<li><p>把 $[l,r]$ 的每个结点向 $u$ 连一条有向边</p>
-<p>我们只要找出在出树上对应的结点，把这些结点都向入树中的 $u$ 连一条有向边就行了</p>
-</li>
+<li><p>把 <span class="math inline">\(u\)</span> 到 <span
+class="math inline">\([l,r]\)</span> 的每个结点连一条有向边</p>
+<p>我们只要找出在入树上对应的结点，把出树中的 <span
+class="math inline">\(u\)</span> 向这些结点都连一条有向边就行了</p></li>
+<li><p>把 <span class="math inline">\([l,r]\)</span> 的每个结点向 <span
+class="math inline">\(u\)</span> 连一条有向边</p>
+<p>我们只要找出在出树上对应的结点，把这些结点都向入树中的 <span
+class="math inline">\(u\)</span> 连一条有向边就行了</p></li>
 </ul>
-<p>这么说很抽象，给张图大家就懂了 made by <a target="_blank" rel="noopener" href="https://app.diagrams.net/">diagrams</a></p>
-<p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/08/21/SIf2Wk4JiXF1PtR.png" alt=""></p>
-<p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/08/21/NReycijYz3mHBFs.png" alt=""></p>
-<p>可以证明，这样修改的复杂度为 $O(\log n)$ </p>
-<p>总时间复杂度 $O(n\log n + q \log n)$ </p>
-<p>注意要记录结点 $i$ 对应入树的叶子结点的编号，这两个是不一样的！</p>
+<p>这么说很抽象，给张图大家就懂了 made by <a
+target="_blank" rel="noopener" href="https://app.diagrams.net/">diagrams</a></p>
+<p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/08/21/SIf2Wk4JiXF1PtR.png" /></p>
+<p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/08/21/NReycijYz3mHBFs.png" /></p>
+<p>可以证明，这样修改的复杂度为 <span class="math inline">\(O(\log
+n)\)</span></p>
+<p>总时间复杂度 <span class="math inline">\(O(n\log n + q \log
+n)\)</span></p>
+<p>注意要记录结点 <span class="math inline">\(i\)</span>
+对应入树的叶子结点的编号，这两个是不一样的！</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -908,11 +929,17 @@ vector<span class="token operator">&lt;</span>node1<span class="token operator">
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>题外话</strong>：</p>
 <blockquote>
-<p>Rick and his co-workers have made a new radioactive formula and a lot of bad guys are after them. So Rick wants to give his legacy to Morty before bad guys catch them.</p>
-<p>Rick 和他的同事们做出了一种新的带放射性的婴儿食品(???根据图片和原文的确如此…)，与此同时很多坏人正追赶着他们。因此 Rick 想在坏人们捉到他之前把他的遗产留给 Morty。</p>
+<p>Rick and his co-workers have made a new radioactive formula and a lot
+of bad guys are after them. So Rick wants to give his legacy to Morty
+before bad guys catch them.</p>
+<p>Rick
+和他的同事们做出了一种新的带放射性的婴儿食品(???根据图片和原文的确如此...)，与此同时很多坏人正追赶着他们。因此
+Rick 想在坏人们捉到他之前把他的遗产留给 Morty。</p>
 </blockquote>
-<p>带放射性的婴儿食品。给我来一碗，<del>美汁汁</del>！<img src="/medias/loading.gif" data-original="http://qzonestyle.gtimg.cn/qzone/em/e194.gif?max_age=2592000" alt=""></p>
-<p><img src="/medias/loading.gif" data-original="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.png" alt=""></p>
+<p>带放射性的婴儿食品。给我来一碗，<del>美汁汁</del>！<img
+src="http://qzonestyle.gtimg.cn/qzone/em/e194.gif?max_age=2592000" /></p>
+<p><img
+src="https://espresso.codeforces.com/3e33a87e8ba090af9cf4c5a8e27cb131ebefa1c7.png" /></p>
 
                 
             </div>
@@ -1021,96 +1048,6 @@ vector<span class="token operator">&lt;</span>node1<span class="token operator">
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1380,7 +1317,7 @@ vector<span class="token operator">&lt;</span>node1<span class="token operator">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1388,7 +1325,7 @@ vector<span class="token operator">&lt;</span>node1<span class="token operator">
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

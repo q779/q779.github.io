@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3687 [ZJOI2017]仙人掌 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -743,22 +743,31 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P3687-ZJOI2017-仙人掌-题解"><a href="#洛谷P3687-ZJOI2017-仙人掌-题解" class="headerlink" title="洛谷P3687 [ZJOI2017]仙人掌 题解"></a>洛谷P3687 [ZJOI2017]仙人掌 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3687">P3687 [ZJOI2017]仙人掌</a></p>
+                <h1 id="洛谷p3687-zjoi2017仙人掌-题解">洛谷P3687 [ZJOI2017]仙人掌
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3687">P3687
+[ZJOI2017]仙人掌</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>如果一个<strong>无自环无重边无向连通图</strong>的任意一条边最多属于一个简单环，我们就称之为仙人掌。所谓简单环即不经过重复的结点的环。</p>
-<p> <img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/10/19/QniJMCAIo981xPp.png" alt=""></p>
+<p><img src="/medias/loading.gif" data-original="https://s2.loli.net/2022/10/19/QniJMCAIo981xPp.png" /></p>
 <p>现在九条可怜手上有一张<strong>无自环无重边的无向连通图</strong>，但是她觉得这张图中的边数太少了，所以她想要在图上连上一些新的边。同时为了方便的存储这张无向图，图中的边数又不能太多。经过权衡，她想要加边后得到的图为一棵仙人掌。</p>
 <p>不难发现合法的加边方案有很多，可怜想要知道总共有多少不同的加边方案。</p>
 <p>两个加边方案是不同的当且仅当一个方案中存在一条另一个方案中没有的边。</p>
 <p><strong>输入格式</strong>：</p>
-<p>多组数据，第一行输入一个整数 $Q$ 表示数据组数。</p>
-<p>每组数据第一行输入两个整数 $n,m$ ，表示图中的点数与边数。</p>
-<p>接下来 $m$ 行，每行两个整数 $u,v(1\le u,v \le n, u\ne v)$ 表示图中的一条边。保证输入的图联通且没有自环与重边。</p>
+<p>多组数据，第一行输入一个整数 <span class="math inline">\(Q\)</span>
+表示数据组数。</p>
+<p>每组数据第一行输入两个整数 <span class="math inline">\(n,m\)</span>
+，表示图中的点数与边数。</p>
+<p>接下来 <span class="math inline">\(m\)</span> 行，每行两个整数 <span
+class="math inline">\(u,v(1\le u,v \le n, u\ne v)\)</span>
+表示图中的一条边。保证输入的图联通且没有自环与重边。</p>
 <p><strong>输出格式</strong>：</p>
-<p>对于每组数据，输出一个整数表示方案数，当然方案数可能很大，请对 $998244353$ 取模后输出。</p>
+<p>对于每组数据，输出一个整数表示方案数，当然方案数可能很大，请对 <span
+class="math inline">\(998244353\)</span> 取模后输出。</p>
 <p><strong>数据范围</strong>：</p>
-<p>$1 \le \sum n \le 5\times 10^5,~1 \le m \le \frac{n(n-2)}{2},~\sum m \le 10^6$</p>
+<p><span class="math inline">\(1 \le \sum n \le 5\times 10^5,~1 \le m
+\le \frac{n(n-2)}{2},~\sum m \le 10^6\)</span></p>
 </blockquote>
 <p>题目就是给了一张无向简单连通图，问你有多少种加边的方法使原图还是个仙人掌。</p>
 <p>首先考虑最简单的情况，给定的是<strong>一棵树</strong>时怎么做。</p>
@@ -767,24 +776,46 @@ rgba(0,0,0,0.2);
 <p>因此对于树来说，问题就可以转化为求加上若干条边，使树上的每一条边在且仅在一个环上。</p>
 <p>注意到加一条边，其实就是在树上选出了一条链，让这个链上的所有点处于同一个环内。</p>
 <p>因此我们可以不用管这个加边，进而考虑树上被若干条不相交链覆盖的方案数。</p>
-<p>设 $f_i$ 表示考虑 $i$ 所在子树与 $i$ 连向父亲的边，用若干条不相交的链覆盖的方案数。</p>
-<p>并设 $g_i$ 表示一个点连出 $i$ 条边，用这 $i$ 条边组成若干条不相交的链的方案数。</p>
-<p>考虑最后一条边是否匹配，则</p>
-<script type="math/tex; mode=display">
-g_i = g_{i-1} + g_{i-2} \times (i-1)</script><p>后面那个 $i-1$ 表示的是：前 $i-1$ 条里面选 $1$ 条和 $i$ 配对，即 $\binom{i-1}{1}$ 。</p>
-<p>考虑 $f_i$ 的转移。首先随便钦定这棵树的根为 $\mathtt{rt}$ 。</p>
-<p>对于非根结点 $u$ ，它连出去的 $\mathtt{son}(u) + 1$ 条边。记 $v \in \mathtt{son}(u)$ 。</p>
-<p>可以考虑将所有的 $(u,v)$ 以及 $(u,\mathtt{fa}(u))$ 组成若干条不相交的链，则</p>
-<script type="math/tex; mode=display">
-f_{u} = g_{\mathtt{son}(u) + 1} \times \prod_{ v \in \mathtt{son}(u)} f_v</script><p>根节点的话，就是没有父亲而已，所以</p>
-<script type="math/tex; mode=display">
-f_{\mathtt{rt}} = g_{\mathtt{son}(\mathtt{rt})} \times \prod_{ v \in \mathtt{son}(\mathtt{rt})} f_v</script><p>最后的答案就是 $f_{\mathtt{rt}}$ 。</p>
+<p>设 <span class="math inline">\(f_i\)</span> 表示考虑 <span
+class="math inline">\(i\)</span> 所在子树与 <span
+class="math inline">\(i\)</span>
+连向父亲的边，用若干条不相交的链覆盖的方案数。</p>
+<p>并设 <span class="math inline">\(g_i\)</span> 表示一个点连出 <span
+class="math inline">\(i\)</span> 条边，用这 <span
+class="math inline">\(i\)</span> 条边组成若干条不相交的链的方案数。</p>
+<p>考虑最后一条边是否匹配，则 <span class="math display">\[
+g_i = g_{i-1} + g_{i-2} \times (i-1)
+\]</span> 后面那个 <span class="math inline">\(i-1\)</span> 表示的是：前
+<span class="math inline">\(i-1\)</span> 条里面选 <span
+class="math inline">\(1\)</span> 条和 <span
+class="math inline">\(i\)</span> 配对，即 <span
+class="math inline">\(\binom{i-1}{1}\)</span> 。</p>
+<p>考虑 <span class="math inline">\(f_i\)</span>
+的转移。首先随便钦定这棵树的根为 <span
+class="math inline">\(\mathtt{rt}\)</span> 。</p>
+<p>对于非根结点 <span class="math inline">\(u\)</span> ，它连出去的
+<span class="math inline">\(\mathtt{son}(u) + 1\)</span> 条边。记 <span
+class="math inline">\(v \in \mathtt{son}(u)\)</span> 。</p>
+<p>可以考虑将所有的 <span class="math inline">\((u,v)\)</span> 以及
+<span class="math inline">\((u,\mathtt{fa}(u))\)</span>
+组成若干条不相交的链，则 <span class="math display">\[
+f_{u} = g_{\mathtt{son}(u) + 1} \times \prod_{ v \in \mathtt{son}(u)}
+f_v
+\]</span> 根节点的话，就是没有父亲而已，所以 <span
+class="math display">\[
+f_{\mathtt{rt}} = g_{\mathtt{son}(\mathtt{rt})} \times \prod_{ v \in
+\mathtt{son}(\mathtt{rt})} f_v
+\]</span> 最后的答案就是 <span
+class="math inline">\(f_{\mathtt{rt}}\)</span> 。</p>
 <p>然后考虑其他的情况怎么做。显然原图不是仙人掌的时候一定无解</p>
 <p>如果原图是个仙人掌，那我们直接把原来所有的环全部删掉。</p>
 <p>删掉之后，原图就有可能变成了森林。森林其实也是一样的，因为每棵树之间的决策相互独立。</p>
-<p>注意这题多测，而且 $\sum n$ 很大，不能直接 <code>memset</code> 。</p>
-<p>可以用 <code>memset(head[u], 0, (n+1) * sizeof(int))</code> ，也可以用时间戳维护。（代码里是后者）</p>
-<p>时间复杂度 $\mathcal{O}(\sum n + \sum m)$</p>
+<p>注意这题多测，而且 <span class="math inline">\(\sum n\)</span>
+很大，不能直接 <code>memset</code> 。</p>
+<p>可以用 <code>memset(head[u], 0, (n+1) * sizeof(int))</code>
+，也可以用时间戳维护。（代码里是后者）</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(\sum n + \sum
+m)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -1009,96 +1040,6 @@ f_{\mathtt{rt}} = g_{\mathtt{son}(\mathtt{rt})} \times \prod_{ v \in \mathtt{son
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1364,7 +1305,7 @@ f_{\mathtt{rt}} = g_{\mathtt{son}(\mathtt{rt})} \times \prod_{ v \in \mathtt{son
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1372,7 +1313,7 @@ f_{\mathtt{rt}} = g_{\mathtt{son}(\mathtt{rt})} \times \prod_{ v \in \mathtt{son
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P1354 房间最短路问题 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -739,24 +739,42 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P1354-房间最短路问题-题解"><a href="#洛谷P1354-房间最短路问题-题解" class="headerlink" title="洛谷P1354 房间最短路问题 题解"></a>洛谷P1354 房间最短路问题 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1354">P1354 房间最短路问题</a></p>
+                <h1 id="洛谷p1354-房间最短路问题-题解">洛谷P1354 房间最短路问题
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1354">P1354
+房间最短路问题</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
-<p>在一个长宽均为 $10$，入口、出口分别为 $(0,5)$、$(10,5)$ 的房间里，有几堵墙，每堵墙上有两个缺口，求入口到出口的最短路经。</p>
+<p>在一个长宽均为 <span
+class="math inline">\(10\)</span>，入口、出口分别为 <span
+class="math inline">\((0,5)\)</span>、<span
+class="math inline">\((10,5)\)</span>
+的房间里，有几堵墙，每堵墙上有两个缺口，求入口到出口的最短路经。</p>
 <p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202306110111497.jpeg" style="zoom:75%;" /></p>
 <p><strong>输入格式</strong>：</p>
-<p>第一排为 $n$（$n \le 20$），墙的数目。</p>
-<p>接下来 $n$ 排，每排 $5$ 个实数 $x,a_1,b_1,a_2,b_2$。</p>
-<p>$x$ 表示墙的横坐标（所有墙都是竖直的），$a_1 \sim b_1$ 和 $a_2 \sim b_2$ 之间为空缺。</p>
-<p>$a_1,b_1,a_2,b_2$ 保持递增，$x_1 \sim x_n$ 也是递增的。</p>
+<p>第一排为 <span class="math inline">\(n\)</span>（<span
+class="math inline">\(n \le 20\)</span>），墙的数目。</p>
+<p>接下来 <span class="math inline">\(n\)</span> 排，每排 <span
+class="math inline">\(5\)</span> 个实数 <span
+class="math inline">\(x,a_1,b_1,a_2,b_2\)</span>。</p>
+<p><span class="math inline">\(x\)</span>
+表示墙的横坐标（所有墙都是竖直的），<span class="math inline">\(a_1 \sim
+b_1\)</span> 和 <span class="math inline">\(a_2 \sim b_2\)</span>
+之间为空缺。</p>
+<p><span class="math inline">\(a_1,b_1,a_2,b_2\)</span> 保持递增，<span
+class="math inline">\(x_1 \sim x_n\)</span> 也是递增的。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出最短距离，保留 $2$ 位小数。</p>
+<p>输出最短距离，保留 <span class="math inline">\(2\)</span>
+位小数。</p>
 </blockquote>
 <p>我们可以对端点暴力建图，但是这会有个问题，就是两个点之间可能无法直线连接。</p>
 <p>由于题目中的路线不能是曲线之类的，因此我们只需要判断出这种情况，并且不连线就好了（<del>什么大废话</del>）</p>
-<p>判断两点连线是否与某条直线相交，显然我们要知道它的方程，然后枚举每个可能的线。根据两点式方程：</p>
-<script type="math/tex; mode=display">
-\frac{y - y_2}{y_1-y_2} = \frac{x - x_2}{x_1-x_2} \Rightarrow y=\frac{y_2-y_1}{x_2-x_1}\left(x-x_1\right)+y_1</script><p>时间复杂度 $\mathcal{O}(n^3)$</p>
+<p>判断两点连线是否与某条直线相交，显然我们要知道它的方程，然后枚举每个可能的线。根据两点式方程：
+<span class="math display">\[
+\frac{y - y_2}{y_1-y_2} = \frac{x - x_2}{x_1-x_2} \Rightarrow
+y=\frac{y_2-y_1}{x_2-x_1}\left(x-x_1\right)+y_1
+\]</span> 时间复杂度 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span></p>
 <p>代码：（来自参考文献[1]）</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
@@ -906,9 +924,10 @@ vector<span class="token operator">&lt;</span>edge<span class="token operator">>
     <span class="token function">dijkstra</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%.2lf"</span><span class="token punctuation">,</span> d<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/NaCly-Fish-blog/solution-p1354">https://www.luogu.com.cn/blog/NaCly-Fish-blog/solution-p1354</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/NaCly-Fish-blog/solution-p1354">https://www.luogu.com.cn/blog/NaCly-Fish-blog/solution-p1354</a></p>
 
                 
             </div>
@@ -1017,96 +1036,6 @@ vector<span class="token operator">&lt;</span>edge<span class="token operator">>
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1368,7 +1297,7 @@ vector<span class="token operator">&lt;</span>edge<span class="token operator">>
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1376,7 +1305,7 @@ vector<span class="token operator">&lt;</span>edge<span class="token operator">>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

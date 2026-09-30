@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Sparse Table（ST 表）学习笔记, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -735,15 +735,32 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Sparse-Table（ST-表）学习笔记"><a href="#Sparse-Table（ST-表）学习笔记" class="headerlink" title="Sparse Table（ST 表）学习笔记"></a>Sparse Table（ST 表）学习笔记</h1><p>很少写算法和数据结构的讲解，但是 ST 表还是有必要写一下的，这里面细节很多。</p>
-<p>稀疏表（ST 表）是一种常用的 RMQ 数据结构，适合于<strong>不带修改的可重复贡献问题</strong></p>
-<p>所谓可重复贡献问题，是指对于运算 $\operatorname{opt}$ 有 $x \operatorname{opt} x = x$ 的区间询问，例如 $\max,\min,\gcd$ 等</p>
-<p>ST 表基于倍增的思想，可以做到 $\mathcal{O}(n \log n)$ 预处理，$\mathcal{O}(1)$ 回答询问。注意，不支持修改。</p>
-<p>定义 $f(i,j)$ 为区间 $[i,i + 2^j -1]$ 的最大值，显然 $f(i,0) = a_i$ 。考虑转移 $j &gt; 0$ 的情况</p>
-<script type="math/tex; mode=display">
-f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 $[l,r]$ ，我们记 $k = \left\lfloor \log_2 (r - l + 1)\right\rfloor$ ，则询问的答案为</p>
-<script type="math/tex; mode=display">
-\max\{f(l,k),~f(r - 2^k + 1, k)\}</script><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3865">模板题</a>代码：</p>
+                <h1 id="sparse-tablest-表学习笔记">Sparse Table（ST 表）学习笔记</h1>
+<p>很少写算法和数据结构的讲解，但是 ST
+表还是有必要写一下的，这里面细节很多。</p>
+<p>稀疏表（ST 表）是一种常用的 RMQ
+数据结构，适合于<strong>不带修改的可重复贡献问题</strong></p>
+<p>所谓可重复贡献问题，是指对于运算 <span
+class="math inline">\(\operatorname{opt}\)</span> 有 <span
+class="math inline">\(x \operatorname{opt} x = x\)</span>
+的区间询问，例如 <span class="math inline">\(\max,\min,\gcd\)</span>
+等</p>
+<p>ST 表基于倍增的思想，可以做到 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span> 预处理，<span
+class="math inline">\(\mathcal{O}(1)\)</span>
+回答询问。注意，不支持修改。</p>
+<p>定义 <span class="math inline">\(f(i,j)\)</span> 为区间 <span
+class="math inline">\([i,i + 2^j -1]\)</span> 的最大值，显然 <span
+class="math inline">\(f(i,0) = a_i\)</span> 。考虑转移 <span
+class="math inline">\(j &gt; 0\)</span> 的情况 <span
+class="math display">\[
+f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}
+\]</span> 对于询问 <span class="math inline">\([l,r]\)</span> ，我们记
+<span class="math inline">\(k = \left\lfloor \log_2 (r - l +
+1)\right\rfloor\)</span> ，则询问的答案为 <span class="math display">\[
+\max\{f(l,k),~f(r - 2^k + 1, k)\}
+\]</span> <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3865">模板题</a>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
@@ -775,13 +792,23 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>接下来我来解释一些细节。首先预处理 log <strong>几乎是必须的</strong>，并且一些题会卡这个（被卡过）。</p>
-<p>可能你们会想到自带的 <code>log()</code> 和 <code>log2()</code> 函数，查阅官方文档可以发现，这些函数都是针对于浮点数的。</p>
-<p>据我所知，这几个函数实现的时候用的应该是牛顿迭代法，复杂度会带上一个近似于 $\mathcal{O}(\log x)$ 的。</p>
-<p>因此一般采用预处理 log ，或者用 <code>__lg()</code> 。后者的实现方式是利用 <code>__builtin_clz()</code> ，不推荐使用。</p>
-<p>然后是询问中的 <code>max(st[k][l], st[k][r - (1 &lt;&lt; k) + 1])</code> ，可能和一些人的写法不一样。</p>
-<p>你们有可能见过回答 <code>max(st[l+(1&lt;&lt;k)-1][k], st[r][k])</code> 的，<del>比如我以前的代码就是这么写的</del></p>
-<p>其实它这种代码的定义跟我的不太一样，它的 $f(i,j)$ 定义的是 $[i - 2^j +1, ~i]$ 的最大值。</p>
+<p>接下来我来解释一些细节。首先预处理 log
+<strong>几乎是必须的</strong>，并且一些题会卡这个（被卡过）。</p>
+<p>可能你们会想到自带的 <code>log()</code> 和 <code>log2()</code>
+函数，查阅官方文档可以发现，这些函数都是针对于浮点数的。</p>
+<p>据我所知，这几个函数实现的时候用的应该是牛顿迭代法，复杂度会带上一个近似于
+<span class="math inline">\(\mathcal{O}(\log x)\)</span> 的。</p>
+<p>因此一般采用预处理 log ，或者用 <code>__lg()</code>
+。后者的实现方式是利用 <code>__builtin_clz()</code> ，不推荐使用。</p>
+<p>然后是询问中的
+<code>max(st[k][l], st[k][r - (1 &lt;&lt; k) + 1])</code>
+，可能和一些人的写法不一样。</p>
+<p>你们有可能见过回答
+<code>max(st[l+(1&lt;&lt;k)-1][k], st[r][k])</code>
+的，<del>比如我以前的代码就是这么写的</del></p>
+<p>其实它这种代码的定义跟我的不太一样，它的 <span
+class="math inline">\(f(i,j)\)</span> 定义的是 <span
+class="math inline">\([i - 2^j +1, ~i]\)</span> 的最大值。</p>
 <p>我以前的代码（部分），并且采用了另一种构建方式，<strong>仅供参考</strong>：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">,</span>lg<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">change</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
@@ -810,11 +837,23 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后再说一下板子代码里 <code>r-l+1</code> 和 <code>r-l</code> 都可以是怎么回事。</p>
-<p>根据定义，$k$ 算出来不一样当且仅当 $r-l+1$ 刚好为 $2$ 的次幂，并且会算成 $k-1$ </p>
-<p>这个时候 $f(l,k)$ 的位置就是 $[l,r]$ 的答案，并且 $r - 2^k + 1 = l$ 。如果换成 $k-1$ 事实上等价于回答 $f(l,k)$ 。</p>
-<p>所以说 ST 表的细节还是蛮多的。 ST 表的用途不是很广泛，一般是需要 $\mathcal{O}(1)$ 询问的时候才会用到。</p>
-<p>比如传说中的 $\mathcal{O}(\log n) \sim \mathcal{O}(1)$ 询问 LCA ，就是用到了 ST 表维护欧拉序。这里就不讲了（大雾）</p>
+<p>然后再说一下板子代码里 <code>r-l+1</code> 和 <code>r-l</code>
+都可以是怎么回事。</p>
+<p>根据定义，<span class="math inline">\(k\)</span> 算出来不一样当且仅当
+<span class="math inline">\(r-l+1\)</span> 刚好为 <span
+class="math inline">\(2\)</span> 的次幂，并且会算成 <span
+class="math inline">\(k-1\)</span></p>
+<p>这个时候 <span class="math inline">\(f(l,k)\)</span> 的位置就是 <span
+class="math inline">\([l,r]\)</span> 的答案，并且 <span
+class="math inline">\(r - 2^k + 1 = l\)</span> 。如果换成 <span
+class="math inline">\(k-1\)</span> 事实上等价于回答 <span
+class="math inline">\(f(l,k)\)</span> 。</p>
+<p>所以说 ST 表的细节还是蛮多的。 ST 表的用途不是很广泛，一般是需要
+<span class="math inline">\(\mathcal{O}(1)\)</span>
+询问的时候才会用到。</p>
+<p>比如传说中的 <span class="math inline">\(\mathcal{O}(\log n) \sim
+\mathcal{O}(1)\)</span> 询问 LCA ，就是用到了 ST
+表维护欧拉序。这里就不讲了（大雾）</p>
 
                 
             </div>
@@ -919,96 +958,6 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1270,7 +1219,7 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1278,7 +1227,7 @@ f(i,j) = \max\left\{f(i,j-1),~f(i + 2^j, j - 1)\right\}</script><p>对于询问 
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

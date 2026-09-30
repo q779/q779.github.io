@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P2015 二叉苹果树 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -743,29 +743,43 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2015-二叉苹果树-题解"><a href="#洛谷P2015-二叉苹果树-题解" class="headerlink" title="洛谷P2015 二叉苹果树 题解"></a>洛谷P2015 二叉苹果树 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2015">P2015 二叉苹果树</a></p>
+                <h1 id="洛谷p2015-二叉苹果树-题解">洛谷P2015 二叉苹果树 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2015">P2015
+二叉苹果树</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>有一棵苹果树，如果树枝有分叉，一定是分二叉（就是说没有只有一个儿子的结点）</p>
-<p>这棵树共有 $N$ 个结点（叶子点或者树枝分叉点），编号为 $1 \sim N$，树根编号一定是 $1$。</p>
-<p>我们用一根树枝两端连接的结点的编号来描述一根树枝的位置。下面是一颗有 $4$ 个树枝的树：</p>
+<p>这棵树共有 <span class="math inline">\(N\)</span>
+个结点（叶子点或者树枝分叉点），编号为 <span class="math inline">\(1
+\sim N\)</span>，树根编号一定是 <span
+class="math inline">\(1\)</span>。</p>
+<p>我们用一根树枝两端连接的结点的编号来描述一根树枝的位置。下面是一颗有
+<span class="math inline">\(4\)</span> 个树枝的树：</p>
 <pre class="line-numbers language-none"><code class="language-none">2   5
  \ &#x2F; 
   3   4
    \ &#x2F;
     1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>现在这颗树枝条太多了，需要剪枝。但是一些树枝上长有苹果。</p>
-<p>给定需要保留的树枝数量 $m$ ，求出最多能留住多少苹果。</p>
+<p>给定需要保留的树枝数量 <span class="math inline">\(m\)</span>
+，求出最多能留住多少苹果。</p>
 </blockquote>
 <p>经典的树形依赖背包（树上背包）</p>
-<p>设 $dp[u][j]$ 表示 $u$ 结点所在子树保留 $j$ 条边所能得到的最大苹果树</p>
-<p>则有</p>
-<script type="math/tex; mode=display">
-dp[u][j]=\max(dp[u][j],dp[u][j-k-1]+dp[v][k]+w(u,v))</script><p>为什么是 $j-k-1$ 呢</p>
-<p>因为 $k$ 是 $v$ 所在子树的分配边数，但是你要花一条边去连上 $v$ </p>
-<p><del>不然你给了 $v$ 一共 $k$ 条边最后没连上它啥也没有</del></p>
-<p>但是填表法会被卡到 $O(nm^2)$ ，所以考虑<strong>刷表法</strong></p>
-<p>时间复杂度 $O(nm)$ </p>
+<p>设 <span class="math inline">\(dp[u][j]\)</span> 表示 <span
+class="math inline">\(u\)</span> 结点所在子树保留 <span
+class="math inline">\(j\)</span> 条边所能得到的最大苹果树</p>
+<p>则有 <span class="math display">\[
+dp[u][j]=\max(dp[u][j],dp[u][j-k-1]+dp[v][k]+w(u,v))
+\]</span> 为什么是 <span class="math inline">\(j-k-1\)</span> 呢</p>
+<p>因为 <span class="math inline">\(k\)</span> 是 <span
+class="math inline">\(v\)</span>
+所在子树的分配边数，但是你要花一条边去连上 <span
+class="math inline">\(v\)</span></p>
+<p><del>不然你给了 <span class="math inline">\(v\)</span> 一共 <span
+class="math inline">\(k\)</span> 条边最后没连上它啥也没有</del></p>
+<p>但是填表法会被卡到 <span class="math inline">\(O(nm^2)\)</span>
+，所以考虑<strong>刷表法</strong></p>
+<p>时间复杂度 <span class="math inline">\(O(nm)\)</span></p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
@@ -939,96 +953,6 @@ dp[u][j]=\max(dp[u][j],dp[u][j-k-1]+dp[v][k]+w(u,v))</script><p>为什么是 $j-
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1306,7 +1230,7 @@ dp[u][j]=\max(dp[u][j],dp[u][j-k-1]+dp[v][k]+w(u,v))</script><p>为什么是 $j-
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1314,7 +1238,7 @@ dp[u][j]=\max(dp[u][j],dp[u][j-k-1]+dp[v][k]+w(u,v))</script><p>为什么是 $j-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             

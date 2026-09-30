@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P2490 [SDOI2011] 黑白棋 题解, Q779的博客">
-    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）">
+    <meta name="description" content="好看、可爱、高效，世界上最好的博客（之一）。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -360,7 +360,7 @@ rgba(0,0,0,0.2);
         <div class="logo-name">Q779的博客</div>
         <div class="logo-desc">
             
-            好看、可爱、高效，世界上最好的博客（之一）
+            好看、可爱、高效，世界上最好的博客（之一）。
             
         </div>
     </div>
@@ -743,34 +743,68 @@ rgba(0,0,0,0.2);
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="洛谷P2490-SDOI2011-黑白棋-题解"><a href="#洛谷P2490-SDOI2011-黑白棋-题解" class="headerlink" title="洛谷P2490 [SDOI2011] 黑白棋 题解"></a>洛谷P2490 [SDOI2011] 黑白棋 题解</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2490">P2490 [SDOI2011] 黑白棋</a></p>
+                <h1 id="洛谷p2490-sdoi2011-黑白棋-题解">洛谷P2490 [SDOI2011] 黑白棋
+题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2490">P2490
+[SDOI2011] 黑白棋</a></p>
 <blockquote>
 <p><strong>题意</strong>：</p>
 <p>小 A 和小 B 又想到了一个新的游戏。</p>
-<p>这个游戏是在一个 $1 \times n$ 的棋盘上进行的，棋盘上有 $k$ 个棋子，一半是黑色，一半是白色。</p>
+<p>这个游戏是在一个 <span class="math inline">\(1 \times n\)</span>
+的棋盘上进行的，棋盘上有 <span class="math inline">\(k\)</span>
+个棋子，一半是黑色，一半是白色。</p>
 <p>最左边是白色棋子，最右边是黑色棋子，相邻的棋子颜色不同。</p>
-<p><img src="/medias/loading.gif" data-original="https://raw.githubusercontent.com/q779/blog-img/main/img/202406271916669.png" alt=""></p>
-<p>小 A 可以移动白色棋子，小 B 可以移动黑色的棋子，其中白色不能往左，黑色不能往右。他们每次操作可以移动 $1$ 到 $d$ 个棋子。</p>
+<p><img
+src="https://raw.githubusercontent.com/q779/blog-img/main/img/202406271916669.png" /></p>
+<p>小 A 可以移动白色棋子，小 B
+可以移动黑色的棋子，其中白色不能往左，黑色不能往右。他们每次操作可以移动
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(d\)</span> 个棋子。</p>
 <p>每当移动某一个棋子时，这个棋子不能跨越两边的棋子，当然也不可以出界。当谁不可以操作时，谁就失败了。</p>
-<p>小 A 和小 B 轮流操作，现在小 A 先移动，有多少种初始棋子的布局会使他胜利呢？</p>
+<p>小 A 和小 B 轮流操作，现在小 A
+先移动，有多少种初始棋子的布局会使他胜利呢？</p>
 <p><strong>输入格式</strong>：</p>
-<p>输入三个数 $n,k,d$。</p>
+<p>输入三个数 <span class="math inline">\(n,k,d\)</span>。</p>
 <p><strong>输出格式</strong>：</p>
-<p>输出小 A 胜利的方案总数。答案对 $10^9+7$ 取模。</p>
+<p>输出小 A 胜利的方案总数。答案对 <span
+class="math inline">\(10^9+7\)</span> 取模。</p>
 <p><strong>数据范围</strong>：</p>
-<p>保证 $1 \leq d \leq k \leq n \leq 10^4$，$k$ 为偶数，$k \leq 100$。</p>
+<p>保证 <span class="math inline">\(1 \leq d \leq k \leq n \leq
+10^4\)</span>，<span class="math inline">\(k\)</span> 为偶数，<span
+class="math inline">\(k \leq 100\)</span>。</p>
 </blockquote>
 <p>由于终止状态一定是 “……黑白…黑白…黑白……” 的情况</p>
-<p>所以我们可以把相邻两个黑白棋子的距离看作一堆石子，那么问题就转化为了一个 <a href="/2024/06/27/k-nim-you-xi/">K–Nim 游戏</a></p>
-<p>确切的讲，是一个 $d$–Nim游戏，因为每次可以操作不超过 $d$ 堆石子。</p>
-<p>记 $b_s = \sum_{i=1}^n\left(a_i\right)_s$ ，其中 $(x)_s$ 表示 $x$ 二进制下第 $s$ 位。</p>
-<p>因为 $d$–Nim 先手必胜的条件是存在一个 $s$ 满足 $b_s\not\equiv 0 \pmod{d+1}$ ，所以问题转化为找这样的情况数。</p>
-<p>正难则反。考虑设 $f(i,j)$ 表示前 $i$ 位（记 $0$ 到 $i-1$ 位）中 $b_j\equiv 0 \pmod{d+1}$ 。</p>
-<p>转移考虑枚举第 $i$ 位中选出 $x(d+1)$ 堆为 $1$ 的，有</p>
-<script type="math/tex; mode=display">
-f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow} \binom{\frac{k}{2}}{x(d+1)}f(i,j)</script><p>这里 $\uparrow$ 表示 <code>a += b</code> 。记 $c~(c \ge 0)$ 为最高位，那么答案就是</p>
-<script type="math/tex; mode=display">
-\binom{n}{k} - \sum_{i=1}^{n-k} \binom{n-i-\frac{k}{2}}{\frac{k}{2}}f(c + 1,\,i)</script><p>时间复杂度 $\mathcal{O}(n \log n \log_d n)$ ，可能还有更紧的上界不过已经足够小了。</p>
+<p>所以我们可以把相邻两个黑白棋子的距离看作一堆石子，那么问题就转化为了一个
+<a href="/2024/06/27/k-nim-you-xi/">K–Nim 游戏</a></p>
+<p>确切的讲，是一个 <span
+class="math inline">\(d\)</span>–Nim游戏，因为每次可以操作不超过 <span
+class="math inline">\(d\)</span> 堆石子。</p>
+<p>记 <span class="math inline">\(b_s =
+\sum_{i=1}^n\left(a_i\right)_s\)</span> ，其中 <span
+class="math inline">\((x)_s\)</span> 表示 <span
+class="math inline">\(x\)</span> 二进制下第 <span
+class="math inline">\(s\)</span> 位。</p>
+<p>因为 <span class="math inline">\(d\)</span>–Nim
+先手必胜的条件是存在一个 <span class="math inline">\(s\)</span> 满足
+<span class="math inline">\(b_s\not\equiv 0 \pmod{d+1}\)</span>
+，所以问题转化为找这样的情况数。</p>
+<p>正难则反。考虑设 <span class="math inline">\(f(i,j)\)</span> 表示前
+<span class="math inline">\(i\)</span> 位（记 <span
+class="math inline">\(0\)</span> 到 <span
+class="math inline">\(i-1\)</span> 位）中 <span
+class="math inline">\(b_j\equiv 0 \pmod{d+1}\)</span> 。</p>
+<p>转移考虑枚举第 <span class="math inline">\(i\)</span> 位中选出 <span
+class="math inline">\(x(d+1)\)</span> 堆为 <span
+class="math inline">\(1\)</span> 的，有 <span class="math display">\[
+f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow}
+\binom{\frac{k}{2}}{x(d+1)}f(i,j)
+\]</span> 这里 <span class="math inline">\(\uparrow\)</span> 表示
+<code>a += b</code> 。记 <span class="math inline">\(c~(c \ge
+0)\)</span> 为最高位，那么答案就是 <span class="math display">\[
+\binom{n}{k} - \sum_{i=1}^{n-k} \binom{n-i-\frac{k}{2}}{\frac{k}{2}}f(c
++ 1,\,i)
+\]</span> 时间复杂度 <span class="math inline">\(\mathcal{O}(n \log n
+\log_d n)\)</span> ，可能还有更紧的上界不过已经足够小了。</p>
 <p>代码：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -806,9 +840,10 @@ f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow} \binom{\frac{k}{2}}{x(d+1
     cout <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>C<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">+</span> mod <span class="token operator">-</span> res<span class="token punctuation">)</span> <span class="token operator">%</span> mod <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+<hr />
 <p><strong>参考文献</strong>：</p>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bb6oenl4">https://www.luogu.com.cn/article/bb6oenl4</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/bb6oenl4">https://www.luogu.com.cn/article/bb6oenl4</a></p>
 
                 
             </div>
@@ -921,96 +956,6 @@ f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow} \binom{\frac{k}{2}}{x(d+1
 
     
 
-    
-        <link
-    rel="stylesheet"
-    href="/libs/waline/waline.css"
-/>
-
-<div class="card waline-card" data-aos="fade-up">
-  <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-      <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-      <span>评论</span>
-  </div>
-  <div id="waline" class="card-content" style="display: grid">
-  </div>
-</div>
-
-<script type="module">
-  import { init } from "/libs/waline/waline.js";
-  const locale = {
-    nick: '昵称(必填)',
-    nickError: '昵称不能少于3个字符',
-    mail: '邮箱(必填)',
-    mailError: '请填写正确的邮件地址',
-    link: '网站',
-    optional: '可选',
-    placeholder: '你好你好，这里是输入框，支持 TeX 评论。',
-    sofa: '来发评论吧~',
-    submit: '提交',
-    like: '喜欢',
-    cancelLike: '取消喜欢',
-    reply: '回复',
-    cancelReply: '取消回复',
-    comment: '评论',
-    refresh: '刷新',
-    more: '加载更多...',
-    preview: '预览',
-    emoji: '表情',
-    uploadImage: '上传图片',
-    seconds: '秒前',
-    minutes: '分钟前',
-    hours: '小时前',
-    days: '天前',
-    now: '刚刚',
-    uploading: '正在上传',
-    login: '登录',
-    logout: '退出',
-    admin: '博主',
-    sticky: '置顶',
-    word: '字',
-    wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
-    anonymous: '匿名',
-    level0: '潜水',
-    level1: '冒泡',
-    level2: '吐槽',
-    level3: '活跃',
-    level4: '话痨',
-    level5: '传说',
-    gif: '表情包',
-    gifSearchPlaceholder: '搜索表情包',
-    profile: '个人资料',
-    approved: '通过',
-    waiting: '待审核',
-    spam: '垃圾',
-    unsticky: '取消置顶',
-    oldest: '按倒序',
-    latest: '按正序',
-    hottest: '按热度',
-    reactionTitle: '你认为这篇文章怎么样？',
-  };
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-server-khaki-seven.vercel.app/',
-    avatar: 'identicon',  
-    requiredMeta: ['nick', 'mail'],  
-    wordLimit: 2000,
-    // 9 emoji most
-    reaction: [
-      '/libs/waline/emojis/bmoji_thumb_up.png',
-      '/libs/waline/emojis/bmoji_give_love.png',
-      '/libs/waline/emojis/bmoji_what.png',
-      '/libs/waline/emojis/bmoji_hmm.png',
-      '/libs/waline/emojis/bmoji_unavailble_doge.png',
-      '/libs/waline/emojis/bmoji_onlooker.png',
-    ],
-    emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-    ],
-    // ...
-    locale,
-  });
-</script> 
     
 
     
@@ -1276,7 +1221,7 @@ f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow} \binom{\frac{k}{2}}{x(d+1
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022-2025</span>
+                <span id="year">2022-2026</span>
             
             <a href="/about" target="_blank">q779</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -1284,7 +1229,7 @@ f(i+1,\,j+2^i\cdot x(d+1)) \operatorname{\big\uparrow} \binom{\frac{k}{2}}{x(d+1
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">1386.2k</span>&nbsp;字
+                class="white-color">1355.9k</span>&nbsp;字
             
             
             
