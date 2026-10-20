@@ -1,0 +1,929 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《组合数学》 §2.3 学习笔记（下） | Q779’s Blog</title><meta name="author" content="q779"><meta name="copyright" content="q779"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F5F5DC"><meta name="description" content="《组合数学》 §2.3 学习笔记（下） 传送门：《组合数学》 §2.3 学习笔记（上） 2.3.1 普通生成函数 事实 2.3.20 若 \(f(x) &#x3D; \sum_{n&#x3D;0}^{\infty}a_nx^n\) ，则 \(\{a_{n+1}\}_{n&#x3D;0}^{\infty}\) 的普通生成函数是 \[ \frac{f(x) - a_0}{x} \] 事实 2.3.21 若 \(f(x) &#x3D; \su">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《组合数学》 §2.3 学习笔记（下）">
+<meta property="og:url" content="https://q779.cn/p/2024/a520e289b2be/index.html">
+<meta property="og:site_name" content="Q779’s Blog">
+<meta property="og:description" content="《组合数学》 §2.3 学习笔记（下） 传送门：《组合数学》 §2.3 学习笔记（上） 2.3.1 普通生成函数 事实 2.3.20 若 \(f(x) &#x3D; \sum_{n&#x3D;0}^{\infty}a_nx^n\) ，则 \(\{a_{n+1}\}_{n&#x3D;0}^{\infty}\) 的普通生成函数是 \[ \frac{f(x) - a_0}{x} \] 事实 2.3.21 若 \(f(x) &#x3D; \su">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://q779.cn/qwq/img/p64.webp">
+<meta property="article:published_time" content="2024-06-24T07:29:32.179Z">
+<meta property="article:modified_time" content="2025-08-08T12:19:44.654Z">
+<meta property="article:author" content="q779">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="生成函数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://q779.cn/qwq/img/p64.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "《组合数学》 §2.3 学习笔记（下）",
+  "url": "https://q779.cn/p/2024/a520e289b2be/",
+  "image": "https://q779.cn/qwq/img/p64.webp",
+  "datePublished": "2024-06-24T07:29:32.179Z",
+  "dateModified": "2025-08-08T12:19:44.654Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "q779",
+      "url": "https://q779.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/qwq/img/favicon.ico"><link rel="canonical" href="https://q779.cn/p/2024/a520e289b2be/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#F5F5DC')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《组合数学》 §2.3 学习笔记（下）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(/qwq/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/qwq/img/p64.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/logo.webp" alt="Logo"><span class="site-name">Q779’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">《组合数学》 §2.3 学习笔记（下）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">《组合数学》 §2.3 学习笔记（下）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-24T07:29:32.179Z" title="发表于 2024-06-24 15:29:32">2024-06-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-08T12:19:44.654Z" title="更新于 2025-08-08 20:19:44">2025-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.7k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="组合数学-2.3-学习笔记下">《组合数学》 §2.3 学习笔记（下）</h1>
+<p>传送门：<a
+href="/2024/06/24/zu-he-shu-xue-ss2.3-xue-xi-bi-ji-shang/">《组合数学》
+§2.3 学习笔记（上）</a></p>
+<h2 id="普通生成函数">2.3.1 普通生成函数</h2>
+<h3 id="事实-2.3.20">事实 2.3.20</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}a_nx^n\)</span> ，则 <span
+class="math inline">\(\{a_{n+1}\}_{n=0}^{\infty}\)</span>
+的普通生成函数是 <span class="math display">\[
+\frac{f(x) - a_0}{x}
+\]</span></p>
+<h3 id="事实-2.3.21">事实 2.3.21</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}a_nx^n\)</span> ，则 <span
+class="math inline">\(\{a_{n+2}\}_{n=0}^{\infty}\)</span>
+的普通生成函数是 <span class="math display">\[
+\frac{f(x) - a_0 - a_1x}{x^2}
+\]</span></p>
+<h3 id="性质-2.3.22">性质 2.3.22</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n =
+0}^{\infty}a_nx^n\)</span> ，则 <span class="math inline">\(\{a_{n +
+k}\}_{n=0}^{\infty}\)</span> 的普通生成函数是 <span
+class="math display">\[
+\frac{f(x) - a_0 - a_1x - \cdots - a_{k-1}x^{k-1}}{x^k}
+\]</span></p>
+<h3 id="事实-2.3.23">事实 2.3.23</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n =
+0}^{\infty}a_nx^n\)</span> ，则 <span
+class="math inline">\(\{na_n\}_{n=0}^{\infty}\)</span> 的普通生成函数是
+<span class="math display">\[
+x\mathrm{D}f
+\]</span> 这里为了方便，用 <span
+class="math inline">\(x\mathrm{D}\)</span> 表示 <span
+class="math inline">\(x \frac{\rm d}{\mathrm{d}x}\)</span> 。</p>
+<h3 id="推论-2.3.24">推论 2.3.24</h3>
+<p><span class="math display">\[
+\{n\}_{n=0}^{\infty} \leftrightarrow x\mathrm{D}\left(\frac{1}{1 -
+x}\right) = \frac{x}{(1 - x)^2}
+\]</span></p>
+<h3 id="事实-2.3.25">事实 2.3.25</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n=0}^{\infty}
+a_nx^n\)</span> ，则 <span
+class="math inline">\(\{n^ka_n\}_{n=0}^{\infty}\)</span>
+的普通生成函数是 <span class="math display">\[
+(x\mathrm{D})^kf = (xD)((x\mathrm{D})^{k-1}f)
+\]</span></p>
+<h3 id="性质-2.3.26">性质 2.3.26</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n=0}^{\infty}
+a_nx^n\)</span> ，<span class="math inline">\(P\)</span>
+是任一多项式，则 <span
+class="math inline">\(\{P(n)a_n\}_{n=0}^{\infty}\)</span>
+的普通生成函数是 <span class="math display">\[
+P(x\mathrm{D})f
+\]</span></p>
+<h3 id="例-2.3.27">例 2.3.27</h3>
+<p>求和 <span class="math display">\[
+\sum_{n=0}^{\infty} \frac{n^2 + 4n + 5}{n!}
+\]</span> <strong>解</strong> 由于 <span class="math display">\[
+\mathrm{e}^x = \sum_{n=0}^{\infty}\frac{1}{n!}x^n
+\]</span> 故 <span class="math display">\[
+((x\mathrm{D})^2 + 4(x\mathrm{D}) + 5)\mathrm{e}^x
+=\sum_{n=0}^{\infty}\frac{n^2 + 4n + 5}{n!}x^n
+\]</span> 即 <span class="math display">\[
+(x^2 + 5x + 5)\mathrm{e}^x = \sum_{n=0}^{\infty}\frac{n^2 + 4n +
+5}{n!}x^n
+\]</span> 在上式中，令 <span class="math inline">\(x=1\)</span>
+，顺便得到 <span class="math display">\[
+\sum_{n=0}^{\infty}\frac{n^2 + 4n + 5}{n!} = 11\mathrm{e}
+\]</span></p>
+<h3 id="性质-2.3.28">性质 2.3.28</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n=0}^{\infty} a_nx^n,g(x)
+= \sum_{n=0}^{\infty}b_nx^n\)</span> ，则 <span
+class="math inline">\(f(x)g(x)\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{k=0}^n a_kb_{n-k}\right\}_{n=0}^{\infty}
+\]</span> 的普通生成函数。</p>
+<h3 id="性质-2.3.29">性质 2.3.29</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n=0}^{\infty}
+a_nx^n\)</span> ，<span class="math inline">\(k\)</span> 为正整数，则
+<span class="math inline">\(f^k(x)\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{n_1 + n_2 + \dots n_k = n}a_{n_1}a_{n_2}\cdots
+a_{n_k}\right\}_{n=0}^{\infty}
+\]</span> 的普通生成函数。</p>
+<h3 id="例-2.3.30">例 2.3.30</h3>
+<p>令 <span class="math inline">\(f(n,k)\)</span> 表示正整数 <span
+class="math inline">\(n\)</span> 写成 <span
+class="math inline">\(k\)</span> 个非负整数有序和的方法数，例如 <span
+class="math inline">\(f(4,2)=5\)</span> ，求 <span
+class="math inline">\(f(n,k)\)</span> 的显式表达式。</p>
+<p><strong>解</strong> 数列 <span
+class="math inline">\(\{1\}_{n=0}^{\infty}\)</span> 的普通生成函数是
+<span class="math inline">\(\frac{1}{1 - x}\)</span> ，故 <span
+class="math inline">\(\frac{1}{(1 - x)^k}\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{n_1 + n_2 + \dots n_k = n}1\right\}_{n=0}^{\infty}
+\]</span> 的普通生成函数。上面的数列就是 <span
+class="math inline">\(\{f(n,k)\}_{n=0}^{\infty}\)</span> ，从而 <span
+class="math display">\[
+f(n, k) = [x^n]\frac{1}{(1-x)^k} = \binom{n+k-1}{n}
+\]</span></p>
+<h3 id="推论-2.3.31-前缀和">推论 2.3.31 （前缀和）</h3>
+<p>若 <span class="math inline">\(f(x) = \sum_{n=0}^{\infty}
+a_nx^n\)</span> ，<span class="math inline">\(k\)</span> 为正整数，则
+<span class="math inline">\(\frac{f(x)}{1-x}\)</span> 是数列 <span
+class="math inline">\(\left\{\sum_{j=0}^{n}
+a_j\right\}_{n=0}^{\infty}\)</span> 的普通生成函数。</p>
+<h3 id="例-2.3.32-调和级数">例 2.3.32 （调和级数）</h3>
+<p><span class="math inline">\(H_n\)</span> 定义如下： <span
+class="math display">\[
+H_n = \begin{cases}
+0&amp;n = 0
+\\[8pt] 1 + \dfrac{1}{2} + \cdots + \dfrac{1}{n} &amp; n \ge 1
+\end{cases}
+\]</span> 求 <span class="math inline">\(\{H_n\}_{n=0}^{\infty}\)</span>
+的普通生成函数。</p>
+<p><strong>解</strong> 要求的函数是 <span
+class="math inline">\(\frac{1}{1 - x}\)</span> 乘以 <span
+class="math inline">\(\{\frac{1}{n}\}_{n=1}^{\infty}\)</span>
+的普通生成函数，后者显然是 <span class="math display">\[
+f(x) = \sum_{n=1}^{\infty}\frac{x^n}{n}
+\]</span> 由 <span class="math inline">\(f^{\prime}(x) =
+\sum_{n=1}^{\infty}x^{n-1} = \frac{1}{1 - x}\)</span>
+，经过<del>简单计算</del>查表就可以得到 <span class="math inline">\(f(x)
+= -\ln(1 - x)\)</span> ，所以 <span class="math display">\[
+\sum_{n=0}^{\infty}H_nx^n = -\frac{1}{1-x}\ln(1-x) =
+\frac{1}{1-x}\ln\frac{1}{1-x}
+\]</span></p>
+<h3 id="例-2.3.33">例 2.3.33</h3>
+<p>用硬币垒成一个“喷泉”如下：每行的硬币都连续摆在一起，除最下一行外，</p>
+<p>每枚硬币恰好置于其下面一行的两枚硬币之间。</p>
+<p>令 <span class="math inline">\(f_n\)</span> 为最下一行有 <span
+class="math inline">\(n\)</span> 枚硬币的方案数，求 <span
+class="math inline">\(\{f_n\}_{n=0}^{\infty}\)</span>
+的普通生成函数。</p>
+<p><strong>解</strong> 首先 <span class="math inline">\(f_0=1\)</span>
+，对 <span class="math inline">\(n \ge 1\)</span> 若只有一行，则数目为
+<span class="math inline">\(1\)</span> ；若有多于一行，考虑枚举第二行有
+<span class="math inline">\(k\)</span> 枚硬币，则 <span
+class="math display">\[
+f_n = \sum_{k=1}^{n-1}(n - k)f_k + 1 = \sum_{k=1}^{n}(n - k)f_k + 1
+\]</span> 令 <span class="math inline">\(\{f_n\}_{n=0}^{\infty}\)</span>
+的普通生成函数为 <span class="math inline">\(f(x)\)</span> ，则 <span
+class="math display">\[
+\begin{aligned}
+f(x) &amp;= \sum_{n=0}^{\infty} f_nx^n =
+\sum_{n=0}^{\infty}\left(\sum_{k=1}^n(n - k)f_k + 1\right)x^n
+\\[6pt] &amp;= \sum_{n=0}^{\infty} \left(\sum_{k=1}^{n}(n - k)
+f_k\right)x^n + \sum_{n \ge 0} 1\cdot x^n
+\\[6pt] &amp;= \sum_{n=0}^{\infty}\left(\sum_{k=1}^n(n - k)f_k\right)x^n
++ \frac{1}{1-x}
+\end{aligned}
+\]</span> 记 <span class="math inline">\(g(x) = f(x) - 1\)</span> ，则有
+<span class="math inline">\(g(x)\)</span> 为 <span
+class="math inline">\(g_n\)</span> 的普通生成函数，其中 <span
+class="math inline">\(g_0 = f_0 - 1 = 0\)</span> 。</p>
+<p>而当 <span class="math inline">\(n \ge 1\)</span> 时，<span
+class="math inline">\(g_n = f_n\)</span> ，则有 <span
+class="math display">\[
+\sum_{k=1}^n (n - k) f_k = \sum_{k=1}^n (n - k) g_k = \sum_{k=0}^n (n -
+k) g_k
+\]</span> 而 <span class="math inline">\(\{n\}_{n=0}^{\infty}\)</span>
+的普通生成函数是 <span class="math inline">\((x\mathrm{D})\frac{1}{1-x}
+= \frac{x}{(1-x)^2}\)</span> ，所以 <span class="math display">\[
+\sum_{n=0}^{\infty}\left(\sum_{k=0}^n(n - k) g_k\right)x^n =
+\frac{x}{(1-x)^2}g(x) =\frac{x}{(1-x)^2}(f(x) - 1)
+\]</span> 由 <span class="math display">\[
+f(x) = \frac{x}{(1-x)^2}(f(x) - 1) + \frac{1}{1-x}
+\]</span> 解得 <span class="math display">\[
+f(x) = \frac{1 - 2x}{1 - 3x + x^2}
+\]</span></p>
+<h3 id="注-2.3.34">注 2.3.34</h3>
+<p>经过计算，可求得上例中的 <span class="math inline">\(f_n\)</span> 为
+<span class="math display">\[
+f_n = \frac{-1+\sqrt{5}}{2\sqrt{5}}\left(\frac{3+\sqrt{5}}{2}\right)^n +
+\frac{1+\sqrt{5}}{2\sqrt{5}}\left(\frac{3-\sqrt{5}}{2}\right)^n
+\]</span></p>
+<h2 id="指数型生成函数">2.3.2 指数型生成函数</h2>
+<h3 id="事实-2.3.35">事实 2.3.35</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(\{a_{n+1}\}_{n=0}^{\infty}\)</span>
+的指数型生成函数是 <span class="math display">\[
+\sum_{n=0}^{\infty} \frac{a_{n+1}}{n!}x^n =
+\sum_{n=1}^{\infty}\frac{na_n}{n!}x^{n-1} = f^{\prime}(x)
+\]</span></p>
+<h3 id="性质-2.3.36">性质 2.3.36</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(\{a_{n+k}\}_{n=0}^{\infty}\)</span>
+的指数型生成函数是 <span class="math inline">\(\mathrm{D}^kf\)</span>
+。</p>
+<h3 id="例-2.3.37">例 2.3.37</h3>
+<p>题：再求 <span class="math inline">\(f_n\)</span> 。</p>
+<p><strong>解</strong> 令 <span class="math inline">\(f(x)\)</span> 为
+<span class="math inline">\(\{f_n\}_{n=0}^{\infty}\)</span>
+的指数型生成函数。性质 2.3.36 立即给出 <span class="math display">\[
+f^{\prime\prime}(x) = f^{\prime}(x) + f(x)
+\]</span> 解此常系数线性齐次微分方程，得到 <span class="math display">\[
+f(x) = c_1\mathrm{e}^{\frac{1+\sqrt{5}}{2}x} +
+c_2\mathrm{e}^{\frac{1-\sqrt{5}}{2}x}
+\]</span> 其中 <span class="math inline">\(c_1,c_2\)</span>
+是待定系数。初始条件转化为 <span
+class="math inline">\(f(0)=0,f^{\prime}(0)=1\)</span> 。</p>
+<p>代入解得 <span class="math inline">\(c_1 = \frac{1}{\sqrt{5}},\,c_2 =
+-\frac{1}{\sqrt{5}}\)</span> ，从而 <span class="math display">\[
+f(x) = \frac{\mathrm{e}^{\frac{1+\sqrt{5}}{2}x} -
+\mathrm{e}^{\frac{1-\sqrt{5}}{2}x}}{\sqrt{5}}
+\]</span> 最后，得 <span class="math display">\[
+f_n = \left[\frac{x^n}{n!}\right]f(x) = \frac{\left(\frac{1 +
+\sqrt{5}}{2}\right)^n - \left(\frac{1 - \sqrt{5}}{2}\right)^n}{\sqrt{5}}
+\]</span></p>
+<h3 id="事实-2.3.38">事实 2.3.38</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(\{na_n\}_{n=0}^{\infty}\)</span>
+的指数型生成函数是 <span class="math inline">\(x\mathrm{D}f\)</span>
+。</p>
+<h3 id="性质-2.3.39">性质 2.3.39</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(\{P(n)a_n\}_{n=0}^{\infty}\)</span>
+的指数型生成函数是 <span class="math display">\[
+P(x\mathrm{D})f
+\]</span></p>
+<h3 id="性质-2.3.40">性质 2.3.40</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n,~g(x) =
+\sum_{n=0}^{\infty}\frac{b_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(f(x)g(x)\)</span> 是 <span class="math display">\[
+\left\{\sum_{k=0}^{n}\binom{n}{k}a_kb_{n-k}\right\}_{n=0}^{\infty}
+\]</span> 的指数型生成函数。</p>
+<h3 id="例-2.3.41">例 2.3.41</h3>
+<p>回忆 Bell 数，令 <span class="math inline">\(B_n\)</span> 表示 <span
+class="math inline">\([n]\)</span> 上所有划分的个数，则有 <span
+class="math display">\[
+B_n = \sum_{k=1}^n\binom{n-1}{k-1}B_{n-k} =
+\sum_{i=0}^{n-1}\binom{n-1}{n-i-1}B_i \quad (\mathbf{Let}\  i = n - k)
+\]</span> 所以 <span class="math display">\[
+B_{n+1} = \sum_{k=0}^n\binom{n}{n-k}B_k = \sum_{k=0}^n\binom{n}{k}B_k
+\]</span> 初始条件为 <span class="math inline">\(B_0=1,~B_1 = 1\)</span>
+。利用上述指数型生成函数的性质，再次求解 <span
+class="math inline">\(B_n\)</span> 。没了。</p>
+<h3 id="例-2.3.42-catalan-括号串-2.3.43">例 2.3.42 （Catalan
+括号串）&amp; 2.3.43</h3>
+<p>详见 <a
+href="/2022/09/11/qian-tan-qia-te-lan-shu-catalan-shu/">浅谈卡特兰数
+（Catalan数）</a></p>
+<h3 id="例-2.3.44-错排公式">例 2.3.44 （错排公式）</h3>
+<p>置换 <span class="math inline">\(\sigma \in S_n\)</span>
+称为<strong>错位排列</strong>，如果对任意 <span class="math inline">\(1
+\le i \le n\)</span> ，均有 <span class="math inline">\(\sigma(i) \ne
+i\)</span> 。</p>
+<p>令 <span class="math inline">\(d_n\)</span> 表示 <span
+class="math inline">\(S_n\)</span> 中错位排列的总数，易得 <span
+class="math display">\[
+n! = \sum_{k=0}^{n}\binom{n}{k}d_{n-k}
+\]</span> 这促使我们考虑 <span class="math inline">\(d_n\)</span>
+的指数型生成函数 <span class="math inline">\(D(x) =
+\sum_{n=0}^{\infty}d_n\frac{x^n}{n!}\)</span> 。</p>
+<p>由于 <span class="math inline">\(\{1\}_{n=0}^{\infty}\)</span>
+的指数型生成函数为 <span class="math inline">\(\mathrm{e}^x\)</span>
+，而 <span class="math inline">\(\{n!\}_{n=0}^{\infty}\)</span>
+的指数型生成函数为 <span class="math display">\[
+\sum_{n\ge 0}\frac{n!}{n!}x^n = \sum_{n\ge 0}x^n = \frac{1}{1-x}
+\]</span> 由前面的递推关系可得 <span
+class="math inline">\(\frac{1}{1-x}=\mathrm{e}^xD(x)\)</span> ，即 <span
+class="math inline">\(D(x)=\frac{\mathrm{e}^{-x}}{1-x}\)</span> 。</p>
+<p>也可以利用错位排列 <span class="math inline">\(d_n\)</span>
+的递推关系求解</p>
+<p>考虑 <span class="math inline">\(\sigma \in S_{n+1}\)</span>
+的最后一位 <span class="math inline">\(\sigma(n + 1)\)</span>
+的取值，它有 <span class="math inline">\(n\)</span> 种可能。</p>
+<ul>
+<li>若 <span class="math inline">\(\sigma(n + 1)=i\)</span> 且 <span
+class="math inline">\(\sigma(i)=n+1\)</span> ，则 <span
+class="math inline">\(\sigma\)</span> 为 <span
+class="math inline">\([n]\setminus \{i\}\)</span>
+上的一个错位排列；</li>
+<li>若 <span class="math inline">\(\sigma(n + 1) = i\)</span> 但 <span
+class="math inline">\(\sigma(i) = n + 1\)</span> ，则用 <span
+class="math inline">\(i\)</span> 替代 <span
+class="math inline">\(n+1\)</span> 可得到 <span
+class="math inline">\([n]\)</span> 上的一个错位排列。</li>
+</ul>
+<p>于是 <span class="math display">\[
+d_{n+1} = n(d_n + d_{n-1})
+\]</span> （注意到这个递推关系不是常系数的）所以 <span
+class="math display">\[
+\begin{aligned}
+D^{\prime}(x) &amp;= \sum_{n=0}^{\infty}\frac{d_{n+1}}{n!}x^n =
+\sum_{n=0}^{\infty} \frac{d_n}{(n-1)!}x^n +
+\sum_{n=0}^{\infty}\frac{d_{n-1}}{(n-1)!}x^n
+\\[6pt] &amp;= xD^{\prime}(x) + xD(x)
+\end{aligned}
+\]</span> 或 <span class="math display">\[
+\frac{D^{\prime}(x)}{D(x)} = -1 + \frac{1}{1 - x}
+\]</span> 从而 <span class="math inline">\(D(x) =
+\frac{1}{1-x}\mathrm{e}^{-x + c}\)</span> ，<span
+class="math inline">\(c\)</span> 为待定常数。</p>
+<p>当 <span class="math inline">\(x = 0\)</span> 时，<span
+class="math inline">\(D(0) = d_0 = 1\)</span> ，得到 <span
+class="math inline">\(c = 0\)</span> ，这也求出 <span
+class="math inline">\(D(x) = \frac{\mathrm{e}^{-x}}{1-x}\)</span> 。</p>
+<p>展开得到 <span class="math display">\[
+D(x) = \frac{\mathrm{e}^{-x}}{1 - x} =
+\frac{1}{1-x}\sum_{i=0}^{\infty}\frac{(-1)^i}{i!}x^i =
+\sum_{n=0}^{\infty}\left(\sum_{i=0}^n\frac{(-1)^i}{i!}\right)x^n
+\]</span> 所以 <span class="math display">\[
+d_n = n!\sum_{i=0}^{n}\frac{(-1)^i}{i!}
+\]</span> 这表明，在 <span class="math inline">\(S_n\)</span>
+中任取一个置换，它是错位排列的概率为 <span
+class="math inline">\(\frac{d_n}{n!}\)</span> ，其极限是 <span
+class="math inline">\(\mathrm{e}^{-1}(n \to \infty)\)</span> 。</p>
+<h3 id="性质-2.3.45">性质 2.3.45</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n,~g(x) =
+\sum_{n=0}^{\infty}\frac{b_n}{n!}x^n,~h(x)=\sum_{n=0}^{\infty}\frac{c_n}{n!}x^n\)</span>
+，则 <span class="math inline">\(f(x)g(x)h(x)\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{i + j + k = n,~i,j,k \ge
+0}\binom{n}{i,j,k}a_ib_jc_k\right\}_{n=0}^{\infty}
+\]</span> 的指数型生成函数。</p>
+<h3 id="性质-2.3.46">性质 2.3.46</h3>
+<p>若 <span class="math inline">\(f(x) =
+\sum_{n=0}^{\infty}\frac{a_n}{n!}x^n\)</span> ，则 <span
+class="math inline">\(f^{k}(x)\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{n_1 + n_2 + \cdots + n_k = n,~n_i\ge
+0}\binom{n}{n_1,n_2,\cdots,n_k}a_{n_1}a_{n_2}\cdots
+a_{n_k}\right\}_{n=0}^{\infty}
+\]</span> 的指数型生成函数。</p>
+<h3 id="定理-2.3.47">定理 2.3.47</h3>
+<p>令 <span class="math inline">\(h_n\)</span> 表示多重集 <span
+class="math inline">\(S=\{n_1\cdot t_1,n_2\cdot t_2,\cdots,n_k\cdot
+t_k\}\)</span> 的满足某种选取规则 <span class="math inline">\(P\)</span>
+的 <span class="math inline">\(n\)</span>–排列数</p>
+<p>其中 <span class="math inline">\(n_i \ge 0~(1 \le i \le k)\)</span>
+。记仅由 <span class="math inline">\(t_i\)</span> 组成的满足性质 <span
+class="math inline">\(P\)</span> 的 <span
+class="math inline">\(n\)</span>–排列数为 <span
+class="math inline">\(a_{i,n}\)</span> ，</p>
+<p>数列 <span class="math inline">\(\{a_{i,n}\}_{n=0}^{\infty}\)</span>
+的指数型生成函数为 <span class="math inline">\(f_i(x)~(1 \le i \le
+k)\)</span> ，则数列 <span
+class="math inline">\(\{h_n\}_{n=0}^{\infty}\)</span> 的指数型生成函数为
+<span class="math display">\[
+h(x) = \prod_{i=1}^k f_i(x)
+\]</span> 证明略。</p>
+<h3 id="注-2.3.48">注 2.3.48</h3>
+<p>一般地，若 <span class="math inline">\(n_i = \infty\)</span>
+，且所循规则 <span class="math inline">\(P\)</span> 对元素 <span
+class="math inline">\(t_i\)</span> 的选取没有限制，则 <span
+class="math display">\[
+f_i(x) = \mathrm{e}^x
+\]</span> 若 <span class="math inline">\(n_i &lt; \infty\)</span>
+，且规则 <span class="math inline">\(P\)</span> 对元素 <span
+class="math inline">\(t_i\)</span> 的选取没有限制，则 <span
+class="math display">\[
+f_i(x)=\sum_{j=0}^{n_i}\frac{x^j}{j!}
+\]</span> 有时元素 <span class="math inline">\(t_i\)</span>
+的选取受到限制，例如 <span class="math inline">\(t_i\)</span> 只能有大于
+<span class="math inline">\(1\)</span> 的奇数个，此时 <span
+class="math inline">\(t_i\)</span> 满足该规则的 <span
+class="math inline">\(n\)</span>–排列数即为 <span
+class="math display">\[
+a_j^{(i)} = \begin{cases}
+    1, &amp; j = 3,5,7,9,\cdots
+\\[6pt] 0, &amp;\textbf{otherwise}
+\end{cases}
+\]</span> 于是 <span class="math display">\[
+f_i(x) = \sum_{j=1}^{\infty}\frac{x^{2j+1}}{(2j+1)!} =
+\frac{\mathrm{e}^x - \mathrm{e}^{-x} - 2x}{2}
+\]</span></p>
+<h3 id="例-2.3.49">例 2.3.49</h3>
+<p>用红、白、蓝三种颜色对 <span class="math inline">\(1\)</span> 行
+<span class="math inline">\(n\)</span> 列的棋盘上所有方格进行染色。</p>
+<p>若要求涂成红色的方格数为偶数，则有多少种涂色方法？</p>
+<p><strong>解</strong> 用 <span class="math inline">\(h_n\)</span>
+表示这样的涂色的方法数，且设数列 <span
+class="math inline">\(\{h_n\}_{n=0}^{\infty}\)</span> 的指数生成函数为
+<span class="math inline">\(h(x)\)</span> ，易见 <span
+class="math display">\[
+\begin{aligned}
+    h(x) &amp;= \left(1 + \frac{x^2}{2!} + \frac{x^4}{4!} +
+\cdots\right)\left(1 + \frac{x}{1!} + \frac{x^2}{2!} + \cdots\right)^2
+    \\[6pt] &amp;=\frac{1}{2}(\mathrm{e}^x+
+\mathrm{e}^{-x})(\mathrm{e}^x)^2 = \frac{1}{2}(\mathrm{e}^{3x} +
+\mathrm{e}^x)
+    \\[6pt] &amp;= \frac{1}{2}\left(\sum_{n=0}^{\infty}\frac{(3x)^n}{n!}
++ \sum_{n=0}^{\infty}\frac{x^n}{n!}\right)
+    \\[6pt] &amp;= \frac{1}{2}\sum_{n=0}^{\infty}(3^n+1)\frac{x^n}{n!}
+\end{aligned}
+\]</span> 因此 <span class="math display">\[
+h_n = \frac{3^n + 1}{2}
+\]</span></p>
+<h3 id="例-2.3.50">例 2.3.50</h3>
+<p>确定每位数字都是奇数且 <span class="math inline">\(1\)</span> 和
+<span class="math inline">\(3\)</span> 出现偶数次的 <span
+class="math inline">\(n\)</span> 位数个数 <span
+class="math inline">\(h_n\)</span> 。</p>
+<p><strong>解</strong> 设 <span
+class="math inline">\(\{h_n\}_{n=0}^{\infty}\)</span> 的指数型生成函数为
+<span class="math inline">\(h(x)\)</span> ，则 <span
+class="math display">\[
+\begin{aligned}
+h(x) &amp;= \left(1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \cdots
+\right)^2\left(1 + \frac{x}{1!} + \frac{x^2}{2!} + \cdots\right)^3
+\\[6pt] &amp;= \left(\frac{\mathrm{e}^x +
+\mathrm{e}^{-x}}{2}\right)^2\mathrm{e}^{3x} =
+\frac{1}{4}(\mathrm{e}^{5x} + 2\mathrm{e}^{3x} + \mathrm{e}^x)
+\\[6pt] &amp;= \sum_{n=0}^{\infty} \frac{5 ^ n + 2\cdot 3^n + 1}{4}\cdot
+\frac{x^n}{n!}
+\end{aligned}
+\]</span> 因此 <span class="math display">\[
+h_n = \frac{5^n + 2\cdot 3^n + 1}{4}
+\]</span></p>
+<h2 id="狄利克雷生成函数">2.3.3 狄利克雷生成函数</h2>
+<h3 id="性质-2.3.51">性质 2.3.51</h3>
+<p>若 <span class="math inline">\(f(s) =
+\sum_{n=1}^{\infty}\frac{a_n}{n^s},~g(s) =
+\sum_{n=1}^{\infty}\frac{b_n}{n^s}\)</span> 分别是数列 <span
+class="math inline">\(\{a_n\}_{n=0}^{\infty}\)</span> 和 <span
+class="math inline">\(\{b_n\}_{n=1}^{\infty}\)</span>
+的狄利克雷生成函数，</p>
+<p>则 <span class="math inline">\(f(s)g(s)\)</span> 是数列 <span
+class="math display">\[
+\left\{\sum_{d \mid n} a_db_{\frac{n}{d}}\right\}_{n=1}^{\infty}
+\]</span> 的狄利克雷生成函数。</p>
+<h3 id="性质-2.3.52">性质 2.3.52</h3>
+<p>若 <span class="math inline">\(f(s) =
+\sum_{n=1}^{\infty}\frac{a_n}{n^s}\)</span> 是数列 <span
+class="math inline">\(\{a_n\}_{n=1}^{\infty}\)</span>
+的狄利克雷生成函数，则 <span class="math inline">\(f^k(s)\)</span>
+是数列 <span class="math display">\[
+\left\{\sum_{n_1n_2\cdots n_k = n}a_{n_1}a_{n_2}\cdots
+a_{n_k}\right\}_{n=1}^{\infty}
+\]</span> 的狄利克雷生成函数。</p>
+<h3 id="例-2.3.53">例 2.3.53</h3>
+<p>已知数列 <span class="math inline">\(\{1\}_{n=1}^{\infty}\)</span>
+的狄利克雷生成函数是 Riemann-Zeta 函数 <span class="math display">\[
+\zeta(s) = \sum_{n=1}^{\infty}\frac{1}{n^s}
+\]</span> 求以 <span class="math inline">\(\zeta^2(s)\)</span>
+为其狄利克雷生成函数的数列。</p>
+<p><strong>解</strong> 由前面的性质有 <span class="math display">\[
+[n^{-s}\zeta^2(s) = \sum_{d \mid n}1 = d(n)
+\]</span> 这里 <span class="math inline">\(d(n)\)</span> 是 <span
+class="math inline">\(n\)</span> 的正因子个数，则所求即为 <span
+class="math inline">\(\{d(n)\}_{n=1}^{\infty}\)</span> 。</p>
+<h3 id="例-2.3.54">例 2.3.54</h3>
+<p>类似地，<span class="math inline">\(\zeta^k(s)\)</span> 生成了 <span
+class="math inline">\(n\)</span> 的可分解为 <span
+class="math inline">\(k\)</span> 个有序正因子积的方法数</p>
+<p><span class="math inline">\((\zeta(s)-1)^k\)</span> 生成了 <span
+class="math inline">\(n\)</span> 的可分解为 <span
+class="math inline">\(k\)</span> 个有序正因子（即大于 <span
+class="math inline">\(1\)</span>）积的方法数。</p>
+<h3 id="定义-2.3.55">定义 2.3.55</h3>
+<p><strong>数论函数</strong>是指定义域为 <span
+class="math inline">\(\mathbb{Z}^+\)</span> 的函数。</p>
+<p>如果数论函数 <span class="math inline">\(f(x)\)</span>
+对任意互素的正整数 <span class="math inline">\(m,n\)</span> 有 <span
+class="math inline">\(f(mn)=f(m)f(n)\)</span> ，则称 <span
+class="math inline">\(f(x)\)</span> 具有<strong>积性</strong>。</p>
+<p>由积性的定义可知，一个积性数论函数被它在素数幂上的取值唯一确定：
+<span class="math display">\[
+f(n) = f(p_1^{a_1})f(p_2^{a_2})\cdots f(p_r^{a_r})
+\]</span> 这里 <span class="math inline">\(n\)</span> 的素因子分解为
+<span class="math inline">\(n = p_1^{a_1}p_2^{a_2}\cdots
+p_r^{a_r}\)</span> （<span class="math inline">\(p_i\)</span>
+为素数，<span class="math inline">\(a_i\)</span> 为正整数，<span
+class="math inline">\(1 \le i \le r\)</span>）</p>
+<p>例如，对于积性数论函数 <span class="math inline">\(f(x)\)</span>
+，若知道 <span class="math inline">\(p\)</span> 是素数，<span
+class="math inline">\(m \in \mathbb{N}^+\)</span> 时，<span
+class="math inline">\(f(p^{m}) = p^{2m}\)</span> ，</p>
+<p>则对于一切正整数 <span class="math inline">\(n\)</span> 有 <span
+class="math inline">\(f(n) = n^2\)</span> 。又对任意不恒为 <span
+class="math inline">\(0\)</span> 的积性数论函数 <span
+class="math inline">\(f(n)\)</span> ，显然有 <span
+class="math inline">\(f(1) = 1\)</span> 。</p>
+<h3 id="例-2.3.56">例 2.3.56</h3>
+<p><span class="math inline">\(d(n)\)</span> 是一个积性数论函数。</p>
+<h3 id="定理-2.3.57">定理 2.3.57</h3>
+<p>若 <span class="math inline">\(f\)</span> 是积性函数，则 <span
+class="math inline">\(\{f(n)\}_{n=1}^{\infty}\)</span>
+的狄利克雷生成函数有下面的表达形式 <span class="math display">\[
+\sum_{n=1}^{\infty}\frac{f(n)}{n^s} = \prod_{p \in
+\mathbb{P}}\left(\sum_{k=0}^{\infty}f(p^k)p^{-ks}\right)
+\]</span> 证明略。</p>
+<h3 id="例-2.3.58">例 2.3.58</h3>
+<p>利用积性数论函数的上述性质，将 <span
+class="math inline">\(\zeta(s)\)</span> 化为乘积形式。</p>
+<p><strong>解</strong> 常值函数 <span class="math inline">\(f :
+\mathbb{Z}^+ \to 1\)</span> 是一个积性数论函数，从而 <span
+class="math display">\[
+\zeta(s) = \prod_{p \in
+\mathbb{P}}\left(\sum_{k=0}^{\infty}p^{-ks}\right) = \prod_{p \in
+\mathbb{P}}\frac{1}{1 - p^{-s}} = \frac{1}{\prod_{p \in \mathbb{P}} (1 -
+p^{-s})}
+\]</span></p>
+<h3 id="定义-2.3.59">定义 2.3.59</h3>
+<p><strong>Möbius
+函数</strong>（莫比乌斯函数）是一个积性数论函数，它在素数幂上如下定义
+<span class="math display">\[
+\mu(p^{a}) = \begin{cases}
+    +1, &amp; a = 0
+    \\[6pt]-1, &amp; a = 1
+    \\[6pt]0, &amp;a\ge 2
+\end{cases}\quad(p \in \mathbb{P})
+\]</span></p>
+<h3 id="注-2.3.60">注 2.3.60</h3>
+<p>略。</p>
+<h3 id="事实-2.3.61">事实 2.3.61</h3>
+<p>考察数列 <span
+class="math inline">\(\{\mu(n)\}_{n=1}^{\infty}\)</span>
+的狄利克雷生成函数 <span class="math inline">\(\tilde{\mu}(s)\)</span>
+，有 <span class="math display">\[
+\tilde{\mu}(s) = \sum_{n=1}^{\infty} \frac{\mu(n)}{n^s} = \prod_{p \in
+\mathbb{P}} (1 - p^{-s})
+\]</span> 从而 <span class="math inline">\(\tilde{\mu}(s)\zeta(s) =
+1\)</span> ，也即 <span class="math display">\[
+\frac{1}{\zeta(s)} = \sum_{n=1}^{\infty}\frac{\mu(n)}{n^s}
+\]</span></p>
+<h3 id="定理-2.3.62-莫比乌斯反演">定理 2.3.62 （莫比乌斯反演）</h3>
+<p>若两数列 <span
+class="math inline">\(\{a_{n}\}_{n=1}^{\infty},\{b_n\}_{n=1}^{\infty}\)</span>
+满足对任意 <span class="math inline">\(n \ge 1\)</span> ，有 <span
+class="math display">\[
+a_n = \sum_{d \mid n}b_{d}
+\]</span> 则对任意 <span class="math inline">\(n \ge 1\)</span> 有 <span
+class="math display">\[
+b_n = \sum_{d\mid n}\mu\left(\frac{n}{d}\right)a_d
+\]</span> 证明略。</p>
+<h3 id="例-2.3.63">例 2.3.63</h3>
+<p>一个由 <span class="math inline">\(0\)</span> 和 <span
+class="math inline">\(1\)</span>
+组成的序列称为<strong>本原的</strong>，当且仅当它不能写成多于一个完全相同的子列的并置。</p>
+<p>例如，全场为 <span class="math inline">\(4\)</span> 的 <span
+class="math inline">\(0,1\)</span> 序列共计 <span
+class="math inline">\(16\)</span> 个，其中本原序列有 <span
+class="math inline">\(12\)</span> 个，非本原序列有 <span
+class="math inline">\(4\)</span> 个，即 <span class="math display">\[
+0000,\,1111,\,0101,\,1010
+\]</span> 令 <span class="math inline">\(f_n\)</span> 表示长度为 <span
+class="math inline">\(n\)</span> 的 <span
+class="math inline">\(0,1\)</span> 本原序列的个数，求 <span
+class="math inline">\(f_n\)</span> 的显式表达式。</p>
+<p><strong>解</strong> 令 <span class="math inline">\(a_n\)</span>
+表示长度为 <span class="math inline">\(n\)</span> 的所有 <span
+class="math inline">\(0,1\)</span> 序列的个数，则 <span
+class="math inline">\(a_n = 2^n\)</span></p>
+<p>容易看出，对于任一长度为 <span class="math inline">\(n\)</span> 的
+<span class="math inline">\(0,1\)</span> 序列，存在唯一的 <span
+class="math inline">\(d\)</span> 使得序列可以写成 <span
+class="math inline">\(\frac{n}{d}\)</span> 个长度为 <span
+class="math inline">\(d\)</span> 的本原序列的并置</p>
+<p>这里 <span class="math inline">\(d \mid n\)</span> 。反之，若 <span
+class="math inline">\(d\mid n\)</span> ，将 <span
+class="math inline">\(\frac{n}{d}\)</span> 个长度为 <span
+class="math inline">\(d\)</span> 的本原序列并置，可得到一个长度为 <span
+class="math inline">\(n\)</span> 的普通 <span
+class="math inline">\(0,1\)</span> 序列</p>
+<p>（该序列是本原的当且仅当 <span class="math inline">\(n = d\)</span>
+）。于是当 <span class="math inline">\(n \ge 1\)</span> 时有 <span
+class="math display">\[
+a_n = \sum_{d \mid n} f_d
+\]</span> 故当 <span class="math inline">\(n\ge 1\)</span> 时，有 <span
+class="math display">\[
+f_n = \sum_{d \mid n}\mu\left(\frac{n}{d}\right)a_d = \sum_{d\mid
+n}\mu\left(\frac{n}{d}\right)2^d
+\]</span></p>
+<h3 id="例-2.3.64-分圆多项式">例 2.3.64 （分圆多项式）</h3>
+<p>如果复数 <span class="math inline">\(\xi\)</span> 是方程 <span
+class="math inline">\(x^n - 1=0\)</span> 的一个根，且满足 <span
+class="math inline">\(\xi^m - 1\ne 0~(1 \le m \le n - 1)\)</span></p>
+<p>则称 <span class="math inline">\(\xi\)</span> 为 <span
+class="math inline">\(n\)</span>
+次<strong>本原单位根</strong>。一般地，全部 <span
+class="math inline">\(n\)</span> 次本原单位根为 <span
+class="math display">\[
+\left\{\left.\exp\left(\frac{2\pi ik}{n}\right) \,\right|\, 0 \le k \le
+n - 1,\gcd(n,k) = 1\right\}
+\]</span> 熟知，以所有 <span class="math inline">\(n\)</span>
+次单位根为全部根的多项式为 <span class="math display">\[
+x^n - 1 = \prod_{k=0}^{n - 1}\left(x - \exp\left(\frac{2\pi
+ik}{n}\right)\right)
+\]</span> 定义<strong>分圆多项式</strong>为以所有 <span
+class="math inline">\(n\)</span> 次本原单位根为全部根的多项式 <span
+class="math display">\[
+\phi_n(x) = \prod_{0 \le k \le n-1\, \land \, \gcd(n,k)=1}\left(x -
+\exp\left(\frac{2\pi ik}{n}\right)\right)
+\]</span> 试用 <span
+class="math inline">\(\{x^d-1\}_{d=0}^{\infty}\)</span> 中的多项式表示
+<span class="math inline">\(\phi_n(x)\)</span> 。</p>
+<p><strong>解</strong> 注意到对于任一 <span
+class="math inline">\(n\)</span> 次单位根 <span
+class="math inline">\(\xi\)</span> ，都存在 <span
+class="math inline">\(n\)</span> 的唯一正因子 <span
+class="math inline">\(d\)</span> ，使得 <span
+class="math inline">\(\xi\)</span> 是 <span
+class="math inline">\(d\)</span> 次本原单位根，</p>
+<p>从而 <span class="math inline">\(\xi\)</span> 是 <span
+class="math inline">\(\phi_d(x)\)</span> 的根；而对于 <span
+class="math inline">\(n\)</span> 的任一正因子 <span
+class="math inline">\(d\)</span> ，<span
+class="math inline">\(\phi_d(x)\)</span> 的根显然也是一个 <span
+class="math inline">\(n\)</span> 次单位根，</p>
+<p>且不同的 <span class="math inline">\(\phi_d(x)\)</span>
+没有相同的根，因此多项式 <span class="math display">\[
+\prod_{k=0}^{n - 1}\left(x - \exp\left(\frac{2\pi
+ik}{n}\right)\right)=x^n - 1
+\]</span> 可以分解为分圆多项式之积 <span class="math display">\[
+x^n-1 = \prod_{d \mid n}\phi_d(x)
+\]</span> 两边取对数，得 <span class="math display">\[
+\ln(x^n - 1) = \sum_{d \mid n}\ln \phi_d(x)
+\]</span> 故 <span class="math display">\[
+\ln\phi_n(x) = \sum_{d \mid n}\mu\left(\frac{n}{d}\right)\ln(x^d - 1)
+\]</span> 即 <span class="math display">\[
+\phi_n(x) = \prod_{d \mid n}(x^d-1)^{\mu\left(\frac{n}{d}\right)}
+\]</span> 由上例我们得到定理 2.3.65。</p>
+<h3 id="定理-2.3.65">定理 2.3.65</h3>
+<p>设 <span class="math inline">\(n\)</span> 是正整数，则 <span
+class="math display">\[
+\phi_n(x) = \prod_{d \mid n}(x^d - 1)^{\mu\left(\frac{n}{d}\right)}
+\]</span></p>
+<h3 id="例-2.3.66">例 2.3.66</h3>
+<p>求 <span class="math inline">\(\phi_{12}(x)\)</span> 。</p>
+<p><strong>解</strong> 由上述定理知 <span class="math display">\[
+\begin{aligned}
+\phi_{12}(x) &amp;= \prod_{d \mid 12}(x^d -
+1)^{\mu\left(\frac{12}{d}\right)}
+\\[6pt] &amp;=
+(x-1)^0(x^2-1)^1(x^3-1)^0(x^4-1)^{-1}(x^6-1)^{-1}(x^{12}-1)^1
+\\[6pt] &amp;= \frac{(x^2-1)(x^{12}-1)}{(x^4-1)(x^6-1)}
+\\[6pt] &amp;= x^4 - x^2 + 1
+\end{aligned}
+\]</span></p>
+<h3 id="注-2.3.67">注 2.3.67</h3>
+<p>虽然在分圆多项式 <span class="math inline">\(\phi_n(x)\)</span>
+的定义中出现复数，</p>
+<p>但由于 <span class="math inline">\(\phi_n(x)\)</span>
+是一个整系数多项式除以一个首项系数为 <span
+class="math inline">\(1\)</span>
+的整系数多项式，故分圆多项式也是整系数多项式。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://q779.cn">q779</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://q779.cn/p/2024/a520e289b2be/">https://q779.cn/p/2024/a520e289b2be/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 许可协议。转载请注明来源 <a href="https://q779.cn" target="_blank">Q779’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/">生成函数</a></div><div class="post-share"><div class="social-share" data-image="/qwq/img/p64.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/p/2024/bc9000eea7ee/" title="洛谷P6960 [NEERC2017] Interactive Sort 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p185.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">洛谷P6960 [NEERC2017] Interactive Sort 题解</div></div><div class="info-2"><div class="info-item-1">洛谷P6960 [NEERC2017] Interactive Sort 题解 题目链接：P6960 [NEERC2017] Interactive Sort  题意： 这是一道 IO 交互题。 有一个长度为 \(n~(n\le 10^4)\) 的排列，将排列按奇偶分为两个序列 记所有偶数组成的序列为 \(a\) ，所有奇数组成的序列为 \(b\) ，初始未知。 你可以进行不超过 \(3\times 10^5\) 次询问 ? i j，每次交互库会返回一个 &lt; 或 &gt; 表示 \(a_i\) 和 \(b_j\) 的大小关系。 最后你需要求出 \(a,b\) 并输出，格式为 ! a b。保证数据随机。  首先最简单的方案就是暴力询问每个偶数和每个奇数。 注意到每次询问偶数 \(a_i\) ，都会将奇数序列分为两个集合，分别是大于 \(a_i\) 的和小于 \(a_i\) 的。（\(a_i=n\) 除外） 那么当我们每询问出一个 \(a_i\) ，\(b\) 中的某个集合就会分成两个。 如果我们取集合内的任意一个元素作为集合的权值，那么这些集合的权值显然是单调的 于是对于每个...</div></div></div></a><a class="pagination-related" href="/p/2024/f52be0db0b57/" title="《组合数学》 §2.3 学习笔记（上）"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p177.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">《组合数学》 §2.3 学习笔记（上）</div></div><div class="info-2"><div class="info-item-1">《组合数学》 §2.3 学习笔记（上） 前言：可以参考 生成函数 学习笔记 定义 2.3.1 数列 \(\{a_n\}_{n=0}^{\infty}\) 的普通生成函数是下面的形式级数 \[ f(x) = \sum_{n=0}^{\infty} a_nx^n \] 定义 2.3.2 数列 \(\{a_n\}_{n=0}^{\infty}\) 的指数型生成函数是下面的形式级数 \[ f(x) = \sum_{n=0}^{\infty}\frac{a_n}{n!}x^n \] 定义 2.3.3 数列 \(\{a_n\}_{n=1}^{\infty}\) 的 Dirichlet 生成函数（狄利克雷生成函数）是下面的形式级数 \[ f(s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s} \] 例 2.3.4 数列 \(\{1\}_{n=0}^{\infty}\) 的普通生成函数是 \[ \sum_{n=0}^{\infty}x^n = \frac{1}{1-x} \] 同时它的指数型生成函数是 \[ \sum_{n=0}^{\infty}\frac{x^n}...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">q779</div><div class="author-info-description">这么可爱的网站，记得点个收藏呀~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/q779"><i class="fab fa-github"></i><span>点点关注喵~</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-2.3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8B"><span class="toc-text">《组合数学》 §2.3 学习笔记（下）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0"><span class="toc-text">2.3.1 普通生成函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.20"><span class="toc-text">事实 2.3.20</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.21"><span class="toc-text">事实 2.3.21</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.22"><span class="toc-text">性质 2.3.22</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.23"><span class="toc-text">事实 2.3.23</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA-2.3.24"><span class="toc-text">推论 2.3.24</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.25"><span class="toc-text">事实 2.3.25</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.26"><span class="toc-text">性质 2.3.26</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.27"><span class="toc-text">例 2.3.27</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.28"><span class="toc-text">性质 2.3.28</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.29"><span class="toc-text">性质 2.3.29</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.30"><span class="toc-text">例 2.3.30</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA-2.3.31-%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-text">推论 2.3.31 （前缀和）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.32-%E8%B0%83%E5%92%8C%E7%BA%A7%E6%95%B0"><span class="toc-text">例 2.3.32 （调和级数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.33"><span class="toc-text">例 2.3.33</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8-2.3.34"><span class="toc-text">注 2.3.34</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E6%95%B0%E5%9E%8B%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0"><span class="toc-text">2.3.2 指数型生成函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.35"><span class="toc-text">事实 2.3.35</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.36"><span class="toc-text">性质 2.3.36</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.37"><span class="toc-text">例 2.3.37</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.38"><span class="toc-text">事实 2.3.38</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.39"><span class="toc-text">性质 2.3.39</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.40"><span class="toc-text">性质 2.3.40</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.41"><span class="toc-text">例 2.3.41</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.42-catalan-%E6%8B%AC%E5%8F%B7%E4%B8%B2-2.3.43"><span class="toc-text">例 2.3.42 （Catalan
+括号串）&amp; 2.3.43</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.44-%E9%94%99%E6%8E%92%E5%85%AC%E5%BC%8F"><span class="toc-text">例 2.3.44 （错排公式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.45"><span class="toc-text">性质 2.3.45</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.46"><span class="toc-text">性质 2.3.46</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-2.3.47"><span class="toc-text">定理 2.3.47</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8-2.3.48"><span class="toc-text">注 2.3.48</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.49"><span class="toc-text">例 2.3.49</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.50"><span class="toc-text">例 2.3.50</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0"><span class="toc-text">2.3.3 狄利克雷生成函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.51"><span class="toc-text">性质 2.3.51</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2.3.52"><span class="toc-text">性质 2.3.52</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.53"><span class="toc-text">例 2.3.53</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.54"><span class="toc-text">例 2.3.54</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2.3.55"><span class="toc-text">定义 2.3.55</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.56"><span class="toc-text">例 2.3.56</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-2.3.57"><span class="toc-text">定理 2.3.57</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.58"><span class="toc-text">例 2.3.58</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2.3.59"><span class="toc-text">定义 2.3.59</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8-2.3.60"><span class="toc-text">注 2.3.60</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%AE%9E-2.3.61"><span class="toc-text">事实 2.3.61</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-2.3.62-%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94"><span class="toc-text">定理 2.3.62 （莫比乌斯反演）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.63"><span class="toc-text">例 2.3.63</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.64-%E5%88%86%E5%9C%86%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">例 2.3.64 （分圆多项式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-2.3.65"><span class="toc-text">定理 2.3.65</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2.3.66"><span class="toc-text">例 2.3.66</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8-2.3.67"><span class="toc-text">注 2.3.67</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/p/2026/47ae547e0eb6/" title="本站更新日志"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="本站更新日志"/></a><div class="content"><a class="title" href="/p/2026/47ae547e0eb6/" title="本站更新日志">本站更新日志</a><time datetime="2026-10-20T09:16:31.918Z" title="发表于 2026-10-20 17:16:31">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/98db94ed87b5/" title="C++自用模板"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p164.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="C++自用模板"/></a><div class="content"><a class="title" href="/p/2026/98db94ed87b5/" title="C++自用模板">C++自用模板</a><time datetime="2026-10-19T15:09:50.000Z" title="发表于 2026-10-19 23:09:50">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p106.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 博客删除 .DS_Store 文件"/></a><div class="content"><a class="title" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件">Hexo 博客删除 .DS_Store 文件</a><time datetime="2026-10-18T10:10:43.557Z" title="发表于 2026-10-18 18:10:43">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p207.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 生成美观的永久链接"/></a><div class="content"><a class="title" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接">Hexo 生成美观的永久链接</a><time datetime="2026-10-18T09:01:51.318Z" title="发表于 2026-10-18 17:01:51">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p7.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="在 Hexo 中置顶文章"/></a><div class="content"><a class="title" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章">在 Hexo 中置顶文章</a><time datetime="2026-10-18T06:51:07.991Z" title="发表于 2026-10-18 14:51:07">2026-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/qwq/img/p64.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By q779</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
+  const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem',
+            'ui/lazy'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          lazyMargin: '200px',
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/qwq/cdn/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/qwq/cdn/live2d-widget/dist/autoload.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

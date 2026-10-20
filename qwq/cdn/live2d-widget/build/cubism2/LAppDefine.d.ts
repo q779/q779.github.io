@@ -1,0 +1,23 @@
+declare const LAppDefine: {
+    VIEW_MAX_SCALE: number;
+    VIEW_MIN_SCALE: number;
+    VIEW_LOGICAL_LEFT: number;
+    VIEW_LOGICAL_RIGHT: number;
+    VIEW_LOGICAL_MAX_LEFT: number;
+    VIEW_LOGICAL_MAX_RIGHT: number;
+    VIEW_LOGICAL_MAX_BOTTOM: number;
+    VIEW_LOGICAL_MAX_TOP: number;
+    PRIORITY_NONE: number;
+    PRIORITY_IDLE: number;
+    PRIORITY_NORMAL: number;
+    PRIORITY_FORCE: number;
+    MOTION_GROUP_IDLE: string;
+    MOTION_GROUP_TAP_BODY: string;
+    MOTION_GROUP_FLICK_HEAD: string;
+    MOTION_GROUP_PINCH_IN: string;
+    MOTION_GROUP_PINCH_OUT: string;
+    MOTION_GROUP_SHAKE: string;
+    HIT_AREA_HEAD: string;
+    HIT_AREA_BODY: string;
+};
+export default LAppDefine;

@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[AGC010F] Tree Game 题解 | Q779’s Blog</title><meta name="author" content="q779"><meta name="copyright" content="q779"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F5F5DC"><meta name="description" content="[AGC010F] Tree Game 题解 题目链接：[AGC010F] Tree Game  题意： 有一棵 \(n\) 个节点的树，第 \(i\) 条边连接 \(a_i,b_i\)，每个节点 \(i\) 上有 \(A_i\) 个石子，高桥君和青木君将在树上玩游戏 首先，高桥君会选一个节点并在上面放一个棋子，然后从高桥君开始，他们轮流执行以下操作：  从当前棋子占据的点上移除一个石子，将棋子移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[AGC010F] Tree Game 题解">
+<meta property="og:url" content="https://q779.cn/p/2024/5b7af62fc24a/index.html">
+<meta property="og:site_name" content="Q779’s Blog">
+<meta property="og:description" content="[AGC010F] Tree Game 题解 题目链接：[AGC010F] Tree Game  题意： 有一棵 \(n\) 个节点的树，第 \(i\) 条边连接 \(a_i,b_i\)，每个节点 \(i\) 上有 \(A_i\) 个石子，高桥君和青木君将在树上玩游戏 首先，高桥君会选一个节点并在上面放一个棋子，然后从高桥君开始，他们轮流执行以下操作：  从当前棋子占据的点上移除一个石子，将棋子移">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://q779.cn/qwq/img/p165.webp">
+<meta property="article:published_time" content="2024-01-18T00:31:07.167Z">
+<meta property="article:modified_time" content="2024-01-18T00:47:32.557Z">
+<meta property="article:author" content="q779">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="博弈论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://q779.cn/qwq/img/p165.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[AGC010F] Tree Game 题解",
+  "url": "https://q779.cn/p/2024/5b7af62fc24a/",
+  "image": "https://q779.cn/qwq/img/p165.webp",
+  "datePublished": "2024-01-18T00:31:07.167Z",
+  "dateModified": "2024-01-18T00:47:32.557Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "q779",
+      "url": "https://q779.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/qwq/img/favicon.ico"><link rel="canonical" href="https://q779.cn/p/2024/5b7af62fc24a/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#F5F5DC')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[AGC010F] Tree Game 题解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(/qwq/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/qwq/img/p165.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/logo.webp" alt="Logo"><span class="site-name">Q779’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[AGC010F] Tree Game 题解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[AGC010F] Tree Game 题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-18T00:31:07.167Z" title="发表于 2024-01-18 08:31:07">2024-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T00:47:32.557Z" title="更新于 2024-01-18 08:47:32">2024-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OI/">OI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">721</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="agc010f-tree-game-题解">[AGC010F] Tree Game 题解</h1>
+<p>题目链接：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc010_f">[AGC010F] Tree
+Game</a></p>
+<blockquote>
+<p><strong>题意</strong>：</p>
+<p>有一棵 <span class="math inline">\(n\)</span> 个节点的树，第 <span
+class="math inline">\(i\)</span> 条边连接 <span
+class="math inline">\(a_i,b_i\)</span>，每个节点 <span
+class="math inline">\(i\)</span> 上有 <span
+class="math inline">\(A_i\)</span>
+个石子，高桥君和青木君将在树上玩游戏</p>
+<p>首先，高桥君会选一个节点并在上面放一个棋子，然后从高桥君开始，他们轮流执行以下操作：</p>
+<ul>
+<li>从当前棋子占据的点上移除一个石子，将棋子移动到相邻节点</li>
+</ul>
+<p>如果轮到一个人执行操作时棋子占据的点上没有石子，那么他就输了。</p>
+<p>请你找出所有的点 <span
+class="math inline">\(v\)</span>，使得如果高桥君在游戏开始时把棋子放到
+<span class="math inline">\(v\)</span> 上，他可以赢。</p>
+<p><strong>输入格式</strong>：</p>
+<p>第一行一个整数 <span class="math inline">\(n\)</span></p>
+<p>第二行 <span class="math inline">\(n\)</span> 个整数 <span
+class="math inline">\(A_{1..n}\)</span></p>
+<p>接下来行每行两个整数 <span class="math inline">\(a_i,b_i\)</span>
+表示一条边</p>
+<p><strong>输出格式</strong>：</p>
+<p>以编号递增的顺序在一行中输出所有满足条件的点</p>
+<p><strong>数据范围</strong>：</p>
+<p><span class="math inline">\(2 \le n \le 3000,~0 \le A_i \le
+10^9\)</span></p>
+</blockquote>
+<p>根据博弈论的套路，记 <span class="math inline">\(f_u =
+\mathrm{N/P}\)</span> 表示点 <span class="math inline">\(u\)</span>
+先手为必胜态/必败态。</p>
+<p>显然叶子节点都为 <span class="math inline">\(\mathrm{N}\)</span>
+。考虑一个两层的树，即 <span class="math inline">\(u\)</span> 有若干儿子
+<span class="math inline">\(v_i\)</span> 的极小树。</p>
+<p>尝试一下就能发现，当且仅当 <span class="math inline">\(A_u &gt;
+\min\{A_{v_i}\}\)</span> 时 <span class="math inline">\(u\)</span> 为
+<span class="math inline">\(\mathrm{N}\)</span> 。</p>
+<p>接着考虑一般情况的 <span class="math inline">\(u\)</span>
+。可以发现，如果 <span class="math inline">\(u\)</span> 存在必胜态的
+<span class="math inline">\(v_i\)</span> ，那么先手一定不会往那走。</p>
+<p>因此只需考虑必败态的 <span class="math inline">\(v_i\)</span>
+是否真能“让先手在 <span class="math inline">\(v_i\)</span> 的必败”。</p>
+<p>根据刚才的结论我们可以猜测并证明， <span
+class="math inline">\(u\)</span> 当且仅当 <span
+class="math inline">\(v_i\)</span> 为 <span
+class="math inline">\(\mathrm{P}\)</span> 且 <span
+class="math inline">\(A_u &gt; \min\{A_{x}\} \quad (x \in
+T(v_i))\)</span> 时为 <span class="math inline">\(\mathrm{N}\)</span>
+。</p>
+<p>那么可以发现这道题就是个难度虚高的憨憨博弈论题，<del>专挑不会博弈论的人吓唬</del>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p>代码：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3e3</span> <span class="token operator">+</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> pos <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> head<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">Edge</span> <span class="token punctuation">&#123;</span> <span class="token keyword">int</span> u<span class="token punctuation">,</span>v<span class="token punctuation">,</span>next<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span> e<span class="token punctuation">[</span>N <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">addEdge</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span> <span class="token keyword">int</span> v<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> e<span class="token punctuation">[</span><span class="token operator">++</span>pos<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>u<span class="token punctuation">,</span> v<span class="token punctuation">,</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> pos<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">bool</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span> <span class="token keyword">int</span> fa<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">bool</span> r <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">,</span> v<span class="token punctuation">;</span> i <span class="token operator">&amp;&amp;</span> r<span class="token punctuation">;</span> i <span class="token operator">=</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>v <span class="token operator">=</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>v<span class="token punctuation">)</span> <span class="token operator">!=</span> fa <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">&lt;</span> a<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">)</span> r <span class="token operator">&amp;=</span> <span class="token function">dfs</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> u<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span>r<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// freopen("check.in","r",stdin);</span>
+    <span class="token comment">// freopen("check.out","w",stdout);</span>
+    cin <span class="token operator">>></span> n<span class="token punctuation">;</span> <span class="token keyword">bool</span> ok <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> u<span class="token punctuation">,</span> v<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cin <span class="token operator">>></span> u <span class="token operator">>></span> v<span class="token punctuation">;</span> <span class="token function">addEdge</span><span class="token punctuation">(</span>u<span class="token punctuation">,</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">addEdge</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> ok <span class="token operator">?</span> ok <span class="token operator">=</span> <span class="token boolean">false</span> <span class="token operator">:</span> <span class="token punctuation">(</span>cout <span class="token operator">&lt;&lt;</span> <span class="token char">' '</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> i<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> cout <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html">https://yhx-12243.github.io/OI-transit/records/ac2307%3Bagc010F.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://q779.cn">q779</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://q779.cn/p/2024/5b7af62fc24a/">https://q779.cn/p/2024/5b7af62fc24a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 许可协议。转载请注明来源 <a href="https://q779.cn" target="_blank">Q779’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a></div><div class="post-share"><div class="social-share" data-image="/qwq/img/p165.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/p/2024/ed59dc746063/" title="CF1325D Ehab the Xorcist 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p216.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CF1325D Ehab the Xorcist 题解</div></div><div class="info-2"><div class="info-item-1">CF1325D Ehab the Xorcist 题解 题目链接：CF1325D Ehab the Xorcist  题意： 给定整数 \(u\) 和 \(v(0\le u,v \le 10^{18})\) 试构造长度最短的数组，使得数组内所有元素的异或和为 \(u\)，加和为 \(v\)。 如果有解，输出两行，第一行输出一个整数 \(n\)，第二行输出 \(n\) 个非负整数，表示数组里的元素。 多解输出任意一组即可。如果无解，输出一行一个整数 \(-1\)。  Codeforces 居然没有 C++14 的提交方式了。 简单观察样例可以发现结论， \(u &gt; v\) 时一定无解。 这点很容易证明，因为异或本质上是二进制下的不进位加法，所以无论如何值都不会变得更大。 根据上面的结论，可以发现 \[ a + b = (a\oplus b) + 2(a \land b) \] 即 \[ a + b - (a\oplus b) = 2(a \land b) \] 这里的 \((a\land b)\times 2\) 表示的是手动进位（因为异或是不进位加法） 当然这里还有一个附加...</div></div></div></a><a class="pagination-related" href="/p/2024/94e1148be95d/" title="洛谷P9034 「KDOI-04」Again Counting Set 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p43.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">洛谷P9034 「KDOI-04」Again Counting Set 题解</div></div><div class="info-2"><div class="info-item-1">洛谷P9034 「KDOI-04」Again Counting Set 题解 题目链接：P9034 「KDOI-04」Again Counting Set  题意： 小 S 不喜欢集合，不喜欢自然数，不喜欢求和，不喜欢求积，不喜欢最小值，不喜欢最大值，不喜欢 \(\operatorname{mex}\)，所以有了这题。 给出 \(n,k\)，求有多少个可重整数集合 \(S\) 满足：  \(|S|=k\)； 对于任意 \(x\in S\)，\(0\le x\le n\)； \(\displaystyle{\prod_{x\in S} x=\min_{x\in S} x}\)； \(\displaystyle{\sum_{x\in S} x=\min_{x\in S} x+\max_{x\in S}x+{\operatorname{mex}}(S)}\)。  注： \(\bf{mex}\) 指集合中没有出现过的最小的自然数。 输入格式： 本题包含多组测试数据。 输入的第一行包含一个正整数 \(T\)，表示测试数据组数。 对于每组测试数据，输入包含一行两个正整数 \(n,k\)。 输...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">q779</div><div class="author-info-description">这么可爱的网站，记得点个收藏呀~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/q779"><i class="fab fa-github"></i><span>点点关注喵~</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#agc010f-tree-game-%E9%A2%98%E8%A7%A3"><span class="toc-text">[AGC010F] Tree Game 题解</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/p/2026/47ae547e0eb6/" title="本站更新日志"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="本站更新日志"/></a><div class="content"><a class="title" href="/p/2026/47ae547e0eb6/" title="本站更新日志">本站更新日志</a><time datetime="2026-10-20T09:16:31.918Z" title="发表于 2026-10-20 17:16:31">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/98db94ed87b5/" title="C++自用模板"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p164.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="C++自用模板"/></a><div class="content"><a class="title" href="/p/2026/98db94ed87b5/" title="C++自用模板">C++自用模板</a><time datetime="2026-10-19T15:09:50.000Z" title="发表于 2026-10-19 23:09:50">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p106.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 博客删除 .DS_Store 文件"/></a><div class="content"><a class="title" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件">Hexo 博客删除 .DS_Store 文件</a><time datetime="2026-10-18T10:10:43.557Z" title="发表于 2026-10-18 18:10:43">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p207.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 生成美观的永久链接"/></a><div class="content"><a class="title" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接">Hexo 生成美观的永久链接</a><time datetime="2026-10-18T09:01:51.318Z" title="发表于 2026-10-18 17:01:51">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p7.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="在 Hexo 中置顶文章"/></a><div class="content"><a class="title" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章">在 Hexo 中置顶文章</a><time datetime="2026-10-18T06:51:07.991Z" title="发表于 2026-10-18 14:51:07">2026-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/qwq/img/p165.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By q779</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
+  const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem',
+            'ui/lazy'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          lazyMargin: '200px',
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/qwq/cdn/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/qwq/cdn/live2d-widget/dist/autoload.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

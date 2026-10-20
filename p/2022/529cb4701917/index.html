@@ -1,0 +1,762 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>洛谷模板题 | Q779’s Blog</title><meta name="author" content="q779"><meta name="copyright" content="q779"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F5F5DC"><meta name="description" content="本文统计截止于 2022年09月28日 ，有空再来统计这个。 其实还有很多模板或者 Trick 在洛谷没有被标出来。         难度 通过数&#x2F;总数 完成度     普及- 7&#x2F;7 100%   并查集 ok 堆 ok 快速幂 ok   最小生成树 ok 线性筛 ok 快速排序 ok   字符串哈希 ok     普及&#x2F;提高- 16&#x2F;16 100%   树状数组 1 ok 乘法逆元 ok LC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="洛谷模板题">
+<meta property="og:url" content="https://q779.cn/p/2022/529cb4701917/index.html">
+<meta property="og:site_name" content="Q779’s Blog">
+<meta property="og:description" content="本文统计截止于 2022年09月28日 ，有空再来统计这个。 其实还有很多模板或者 Trick 在洛谷没有被标出来。         难度 通过数&#x2F;总数 完成度     普及- 7&#x2F;7 100%   并查集 ok 堆 ok 快速幂 ok   最小生成树 ok 线性筛 ok 快速排序 ok   字符串哈希 ok     普及&#x2F;提高- 16&#x2F;16 100%   树状数组 1 ok 乘法逆元 ok LC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://q779.cn/qwq/img/p11.webp">
+<meta property="article:published_time" content="2022-09-28T09:29:11.424Z">
+<meta property="article:modified_time" content="2024-05-29T09:50:47.238Z">
+<meta property="article:author" content="q779">
+<meta property="article:tag" content="OI相关">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://q779.cn/qwq/img/p11.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "洛谷模板题",
+  "url": "https://q779.cn/p/2022/529cb4701917/",
+  "image": "https://q779.cn/qwq/img/p11.webp",
+  "datePublished": "2022-09-28T09:29:11.424Z",
+  "dateModified": "2024-05-29T09:50:47.238Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "q779",
+      "url": "https://q779.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/qwq/img/favicon.ico"><link rel="canonical" href="https://q779.cn/p/2022/529cb4701917/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#F5F5DC')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '洛谷模板题',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(/qwq/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/qwq/img/p11.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/logo.webp" alt="Logo"><span class="site-name">Q779’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">洛谷模板题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">洛谷模板题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-28T09:29:11.424Z" title="发表于 2022-09-28 17:29:11">2022-09-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-29T09:50:47.238Z" title="更新于 2024-05-29 17:50:47">2024-05-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OI/">OI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">837</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>本文统计截止于 2022年09月28日 ，有空再来统计这个。</p>
+<p>其实还有很多模板或者 Trick 在洛谷没有被标出来。</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">难度</th>
+<th style="text-align: left;">通过数/总数</th>
+<th style="text-align: left;">完成度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">普及-</td>
+<td style="text-align: left;">7/7</td>
+<td style="text-align: left;">100%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3367">并查集</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3378">堆</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1226">快速幂</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3366">最小生成树</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3383">线性筛</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1177">快速排序</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3370">字符串哈希</a> ok</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">普及/提高-</td>
+<td style="text-align: left;">16/16</td>
+<td style="text-align: left;">100%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3374">树状数组 1</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3811">乘法逆元</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3379">LCA</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3372">线段树1</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3368">树状数组 2</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3375">KMP</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3385">负环</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3865">ST 表</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1939">矩阵加速（数列）</a>
+ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5788">单调栈</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3371">单源最短路 1</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4779">单源最短路 2</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4549">裴蜀定理</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8306">字典树</a> ok</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">普及+/提高</td>
+<td style="text-align: left;">13/16</td>
+<td style="text-align: left;">81.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2613">有理数取余</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8436">边双连</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7771">欧拉路径</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2252">威佐夫博弈</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2197">nim 游戏</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3387">缩点</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3373">线段树 2</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5905">全源最短路</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3388">割点</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3386">二分图最大匹配</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5656">exgcd</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">最长公共子序列</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8435">边双连</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">提高+/省选-</td>
+<td style="text-align: left;">24/34</td>
+<td style="text-align: left;">70.58%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3369">普通平衡树 1</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3377">左偏树</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3381">最小费用最大流</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5854">笛卡尔树</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5903">树上 k 级祖先</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6091">原根</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4781">拉格朗日插值</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1368">最小表示法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5632">Stoer-Wagner 算法</a>
+ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6086">Prufer 序列</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3805">manacher</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5490">扫描线</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3389">高斯消元</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2742">二维凸包</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3846">BSGS</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3808">AC自动机 1</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3796">AC自动机 2</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4783">矩阵求逆</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5826">子序列自动机</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1495">CRT</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3376">网络最大流</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3384">轻重链剖分</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3807">Lucas</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3391">文艺平衡树</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5091">扩展欧拉定理</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3812">线性基</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3919">可持久化线段树 1</a>
+ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6136">普通平衡树 2</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3834">可持久化线段树 2</a>
+ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7112">行列式求值</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4525">自适应辛普森
+A-side</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1919">FFT
+快速傅里叶变换</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3803">多项式乘法</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5829">失配树</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">省选/NOI-</td>
+<td style="text-align: left;">20/64</td>
+<td style="text-align: left;">31.25%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4238">多项式乘法逆</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5394">下降幂多项式乘法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7776">特征多项式</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4725">多项式 ln</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4726">多项式 exp</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4512">多项式除法</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5205">多项式开根 A-side</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5245">多项式快速幂
+A-side</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5277">多项式开根 B-side</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5273">多项式快速幂
+B-side</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4245">任意模数多项式乘法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1452">旋转卡壳</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3809">后缀排序</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4196">半平面交</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4719">动态 DP A-side</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4782">2-SAT</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5236">静态仙人掌</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5496">PAM</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6177">树分块</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6114">Lyndon 分解</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5494">线段树分裂</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5055">可持久化文艺平衡树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5906">回滚莫队</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5357">AC自动机 3</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5043">树同构</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6139">广义 SAM</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5807">BEST 定理</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6329">点分树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5491">二次剩余</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5192">有源汇上下界最大流</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4213">杜教筛</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4717">FMT/FWT</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3810">三维偏序</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4929">DLX</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4716">最小树形图</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5787">线段树分治</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6113">一般图最大匹配</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4526">自适应辛普森 2</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4718">Pollard-Rho</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4777">exCRT</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3804">SAM</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4195">exBSGS</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6097">子集卷积</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6164">后缀平衡树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6242">线段树 C-side</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3835">可持久化平衡树</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6178">Matrix-Tree 定理</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">Link Cut Tree</a> ok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3806">点分治</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4556">线段树合并</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5410">Z 函数</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6192">最小斯坦纳树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4720">exLucas</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4721">分治 FFT</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4751">动态 DP B-side</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4722">预流推进</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3380">树套树</a> ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7173">有负圈费用流</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4897">最小割树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6657">LGV 引理</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4980">Pólya 定理</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7884">Meissel-Lehmer
+算法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4887">莫队二次离线</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P">二分图最大权完美匹配</a>
+ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P">Chirp Z-Transform</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NOI/NOI+/CTSC</td>
+<td style="text-align: left;">1/19</td>
+<td style="text-align: left;">5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4724">三维凸包</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5180">支配树</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4723">常系数齐次线性递推</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2483">k 短路</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5247">动态图完全连通性</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5325">Min_25 筛</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5050">多项式多点求值</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5282">快速阶乘</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5809">多项式复合逆</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5487">Berlekamp-Massey
+算法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5373">多项式复合函数</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5808">常系数非齐次线递推</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5056">插头 dp</a> ok</td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5158">多项式快速插值</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5668">n 次剩余</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5170">类欧几里得算法</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6656">Runs</a></td>
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6699">一般图最大权匹配</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6115">整式递推</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://q779.cn">q779</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://q779.cn/p/2022/529cb4701917/">https://q779.cn/p/2022/529cb4701917/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 许可协议。转载请注明来源 <a href="https://q779.cn" target="_blank">Q779’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OI%E7%9B%B8%E5%85%B3/">OI相关</a></div><div class="post-share"><div class="social-share" data-image="/qwq/img/p11.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/p/2022/90dab3802396/" title="小蓝书 16.3"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p3.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">小蓝书 16.3</div></div><div class="info-2"><div class="info-item-1">小蓝书 16.3 本文写于较早时候，所以可能存在一些问题。 小蓝书上讲的母函数就是普通生成函数。传送门：生成函数 学习笔记 对于一个数列 \(\{f_n\}\) ，定义它的普通生成函数 \(F(x)\) 为以 \(x\) 为未定元的一个形式幂级数，则 \[ F(x) = \sum_{n \ge 0} f_nx^n \\f_n = [x^n]F(x) \] 另一种易于理解的写法是这样的（数列为 \(\{a_n\}\) ） \[ F(x) = \sum_{i=0}^{\infty}a_ix^i = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n + \cdots \]  一些常用的公式&amp;技巧： 更多详见 泰勒级数&amp;麦克劳林级数 公式I \(\forall x : |x| &lt; 1\) \[ \dfrac{1}{1-x} = \sum_{n=0}^{\infty} x^n = 1+x+x^2 + \cdots + x^n + \cdots \] 公式II \(\forall x : |x| &lt; 1,~ k \in \mathbb{Z...</div></div></div></a><a class="pagination-related" href="/p/2022/c0a1530285e5/" title="洛谷P6134 [JSOI2015]最小表示 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p214.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">洛谷P6134 [JSOI2015]最小表示 题解</div></div><div class="info-2"><div class="info-item-1">洛谷P6134 [JSOI2015]最小表示 题解 题目链接：P6134 [JSOI2015]最小表示  题意： 对于一个 \(N\) 个点（每个点从 \(1\) 到 \(N\) 编号），\(M\) 条边的有向图，cxy 发现，如果从图中删去一些边，那么原图的连通性会发生改变；而也有一些边，删去之后图的连通性并不会发生改变。 cxy 想知道，如果想要使得原图任意两点的连通性保持不变，我们最多能删掉多少条边呢？ 为了简化一下大家的工作量，这次 cxy 保证他给定的有向图一定是一个有向无环图（cxy：大家都知道对于给任意有向图的问题，最后都能转化为有向无环图上的问题，所以就干脆简化一下大家的工作）。 输入格式： 第一行包含两个正整数 \(N\) 和 \(M\)。 接下来 \(M\) 行，每行包含两个 \(1\) 到 \(N\) 之间的正整数 \(x_i\) 和 \(y_i\)，表示图中存在一条从 \(x_i\) 到 \(y_i\) 的有向边。 输入数据保证，任意两点间只会有至多一条边存在。 输出格式： 输出一行包含一个整数，表示cxy最多可以删掉的边数。 数据范围： 对于 \(100...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">q779</div><div class="author-info-description">这么可爱的网站，记得点个收藏呀~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/q779"><i class="fab fa-github"></i><span>点点关注喵~</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/p/2026/47ae547e0eb6/" title="本站更新日志"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="本站更新日志"/></a><div class="content"><a class="title" href="/p/2026/47ae547e0eb6/" title="本站更新日志">本站更新日志</a><time datetime="2026-10-20T09:16:31.918Z" title="发表于 2026-10-20 17:16:31">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/98db94ed87b5/" title="C++自用模板"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p164.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="C++自用模板"/></a><div class="content"><a class="title" href="/p/2026/98db94ed87b5/" title="C++自用模板">C++自用模板</a><time datetime="2026-10-19T15:09:50.000Z" title="发表于 2026-10-19 23:09:50">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p106.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 博客删除 .DS_Store 文件"/></a><div class="content"><a class="title" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件">Hexo 博客删除 .DS_Store 文件</a><time datetime="2026-10-18T10:10:43.557Z" title="发表于 2026-10-18 18:10:43">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p207.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 生成美观的永久链接"/></a><div class="content"><a class="title" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接">Hexo 生成美观的永久链接</a><time datetime="2026-10-18T09:01:51.318Z" title="发表于 2026-10-18 17:01:51">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p7.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="在 Hexo 中置顶文章"/></a><div class="content"><a class="title" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章">在 Hexo 中置顶文章</a><time datetime="2026-10-18T06:51:07.991Z" title="发表于 2026-10-18 14:51:07">2026-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/qwq/img/p11.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By q779</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
+  const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem',
+            'ui/lazy'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          lazyMargin: '200px',
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/qwq/cdn/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/qwq/cdn/live2d-widget/dist/autoload.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

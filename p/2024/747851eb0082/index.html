@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>洛谷P4383 [八省联考 2018] 林克卡特树 题解 | Q779’s Blog</title><meta name="author" content="q779"><meta name="copyright" content="q779"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F5F5DC"><meta name="description" content="洛谷P4383 [八省联考 2018] 林克卡特树 题解 题目链接：P4383 [八省联考 2018] 林克卡特树  题意： 小 L 最近沉迷于塞尔达传说：荒野之息（The Legend of Zelda: Breath of The Wild）无法自拔，他尤其喜欢游戏中的迷你挑战。 游戏中有一个叫做 LCT 的挑战，它的规则是这样子的：现在有一个 \(N\) 个点的树，每条边有一个整数边权 \(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="洛谷P4383 [八省联考 2018] 林克卡特树 题解">
+<meta property="og:url" content="https://q779.cn/p/2024/747851eb0082/index.html">
+<meta property="og:site_name" content="Q779’s Blog">
+<meta property="og:description" content="洛谷P4383 [八省联考 2018] 林克卡特树 题解 题目链接：P4383 [八省联考 2018] 林克卡特树  题意： 小 L 最近沉迷于塞尔达传说：荒野之息（The Legend of Zelda: Breath of The Wild）无法自拔，他尤其喜欢游戏中的迷你挑战。 游戏中有一个叫做 LCT 的挑战，它的规则是这样子的：现在有一个 \(N\) 个点的树，每条边有一个整数边权 \(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://q779.cn/qwq/img/p169.webp">
+<meta property="article:published_time" content="2024-07-01T12:57:50.321Z">
+<meta property="article:modified_time" content="2025-08-08T12:21:30.242Z">
+<meta property="article:author" content="q779">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="wqs二分">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://q779.cn/qwq/img/p169.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "洛谷P4383 [八省联考 2018] 林克卡特树 题解",
+  "url": "https://q779.cn/p/2024/747851eb0082/",
+  "image": "https://q779.cn/qwq/img/p169.webp",
+  "datePublished": "2024-07-01T12:57:50.321Z",
+  "dateModified": "2025-08-08T12:21:30.242Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "q779",
+      "url": "https://q779.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/qwq/img/favicon.ico"><link rel="canonical" href="https://q779.cn/p/2024/747851eb0082/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#F5F5DC')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '洛谷P4383 [八省联考 2018] 林克卡特树 题解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(/qwq/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/qwq/img/p169.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/logo.webp" alt="Logo"><span class="site-name">Q779’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">洛谷P4383 [八省联考 2018] 林克卡特树 题解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">洛谷P4383 [八省联考 2018] 林克卡特树 题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-01T12:57:50.321Z" title="发表于 2024-07-01 20:57:50">2024-07-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-08T12:21:30.242Z" title="更新于 2025-08-08 20:21:30">2025-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OI/">OI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="洛谷p4383-八省联考-2018-林克卡特树-题解">洛谷P4383 [八省联考
+2018] 林克卡特树 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4383">P4383
+[八省联考 2018] 林克卡特树</a></p>
+<blockquote>
+<p><strong>题意</strong>：</p>
+<p>小 L 最近沉迷于塞尔达传说：荒野之息（The Legend of Zelda: Breath of
+The Wild）无法自拔，他尤其喜欢游戏中的迷你挑战。</p>
+<p>游戏中有一个叫做 LCT 的挑战，它的规则是这样子的：现在有一个 <span
+class="math inline">\(N\)</span> 个点的树，每条边有一个整数边权 <span
+class="math inline">\(v_i\)</span>，若 <span class="math inline">\(v_i
+\geq 0\)</span>，表示走这条边会获得 <span
+class="math inline">\(v_i\)</span> 的收益；若 <span
+class="math inline">\(v_i \lt 0\)</span> ，则表示走这条边需要支付 <span
+class="math inline">\(-v_i\)</span> 的过路费。小 L 需要控制主角 Link
+切掉（Cut）树上的恰好 <span class="math inline">\(K\)</span>
+条边，然后再连接 <span class="math inline">\(K\)</span> 条边权为 0
+的边，得到一棵新的树。接着，他会选择树上的两个点 <span
+class="math inline">\(p,q\)</span>，并沿着树上连接这两点的简单路径从
+<span class="math inline">\(p\)</span> 走到 <span
+class="math inline">\(q\)</span>，并为经过的每条边支付过路费/
+获取相应收益。</p>
+<p>海拉鲁大陆之神 TemporaryDO 想考验一下 Link。他告诉 Link，如果 Link
+能切掉合适的边、选择合适的路径从而使 总收益 - 总过路费
+最大化的话，就把传说中的大师之剑送给他。</p>
+<p>小 L 想得到大师之剑，于是他找到了你来帮忙，请你告诉他，Link 能得到的
+总收益 - 总过路费 最大是多少。</p>
+<p><strong>输入格式</strong>：</p>
+<p>输入第一行包含两个正整数 <span
+class="math inline">\(N,K\)</span>。</p>
+<p>接下来 <span class="math inline">\(N - 1\)</span>
+行，每行包含三个整数 <span
+class="math inline">\(x_i,y_i,v_i\)</span>，表示第 <span
+class="math inline">\(i\)</span> 条边连接图中的 <span
+class="math inline">\(x_i, y_i\)</span> 两点，它的边权为 <span
+class="math inline">\(v_i\)</span>。</p>
+<p><strong>输出格式</strong>：</p>
+<p>输出一行一个整数，表示答案。</p>
+<p><strong>数据范围</strong>：</p>
+<p>保证 <span class="math inline">\(1 \leq N \leq 3 \times
+10^5\)</span>，<span class="math inline">\(0 \leq K \leq 3 \times
+10^5\)</span>，<span class="math inline">\(K \lt N\)</span>，<span
+class="math inline">\(1 \leq x_i,y_i \leq N\)</span>，<span
+class="math inline">\(|v_i| \leq 10^6\)</span>。</p>
+</blockquote>
+<p>注意到题目相当于要求出 <span class="math inline">\(K+1\)</span>
+条不相交的链的边权和的最大值。注意单个点也算链。</p>
+<p>设 <span class="math inline">\(f(0/1/2,u,k)\)</span> 为 <span
+class="math inline">\(u\)</span> 所在子树选 <span
+class="math inline">\(k\)</span> 条链的最优解，<span
+class="math inline">\(u=0/1/2\)</span> 表示在链上的度数。</p>
+<ul>
+<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
+class="math inline">\(0\)</span> 时，表示 <span
+class="math inline">\(u\)</span> 不在选的链上，合并答案即可 <span
+class="math display">\[
+f_{\rm new}(0,u,i) \operatorname{\big\uparrow} f_{\rm pre}(0,u,j) +
+f(0,v,i - j)
+\]</span></p></li>
+<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
+class="math inline">\(1\)</span> 时，表示 <span
+class="math inline">\(u\)</span> 为端点，考虑 <span
+class="math inline">\(u\)</span> 为起点的链和 <span
+class="math inline">\(v\)</span> 的链接上 <span
+class="math inline">\(u\)</span> ，合并即可 <span
+class="math display">\[
+f_{\rm new}(1,u,i) \operatorname{\big\uparrow} \max\left\{
+f_{\rm pre}(0,u,j) +  f(1,v,i-j) + w(u,v),\ f_{\rm pre}(1,u,j) +
+f(0,v,i-j)
+\right\}
+\]</span></p></li>
+<li><p>当 <span class="math inline">\(u\)</span> 的度数为 <span
+class="math inline">\(2\)</span> 时，表示 <span
+class="math inline">\(u\)</span>是链中间的一点，考虑自己和儿子组链，以及儿子和儿子组链
+<span class="math display">\[
+f_{\rm new}(2,u,i)\operatorname{\big\uparrow} \max\{f_{\rm pre} (1,u,j)
++ f(1,v,i-j-1) + w(u,v),\ f_{\rm pre}(2,u,j) + f(0,v,i-j)\}
+\]</span></p></li>
+</ul>
+<p>这样我们就得到了一个 <span
+class="math inline">\(\mathcal{O}(nk)\)</span> 的树上背包解法。</p>
+<p>假设只选 <span class="math inline">\(K\)</span> 条链的结果比 <span
+class="math inline">\(K+1\)</span> 劣。注意到这相当于把 <span
+class="math inline">\(K+1\)</span> 的一条链合并了。</p>
+<p>显然合并的那条边贡献是非正数，否则我们 <span
+class="math inline">\(K+1\)</span> 的最优方案一定会合并这两条链。</p>
+<p>那么关于 <span class="math inline">\(k\)</span> 的函数 <span
+class="math inline">\(y=f(0/1/2,u,k)\)</span> 一定存在一个点 <span
+class="math inline">\(K_0\)</span> 使得 <span
+class="math inline">\(K_0\)</span> 处取到最大值。</p>
+<p>而在 <span class="math inline">\(K_0\)</span>
+后，我们将被迫拆散很多优秀的链，这将损失很多贡献。</p>
+<p>由此可以发现函数 <span class="math inline">\(y\)</span>
+是一个上凸函数。（好像证明的有点草率，但是能理解吧）</p>
+<p>那么考虑 wqs 二分即可。有关 wqs 二分的具体内容可以参考之前这篇 <a
+href="/2024/05/23/cf739e-gosha-is-hunting-ti-jie/">CF739E Gosha is
+hunting 题解</a></p>
+<p><del>如果你懒得看的话</del>，简单概括一下就是，我们二分一条切线去切原函数（因为全部算出来是线性的）</p>
+<p>然后在一番奇奇怪怪的推导之下，我们发现求出 <span
+class="math inline">\(y\)</span> 相当于给每次选择物品增加了一个额外代价
+<span class="math inline">\(-k\)</span> 。</p>
+<p>并且 wqs 二分的好处在于，它把 <span class="math inline">\(k\)</span>
+这一维省掉了，可以不考虑 <span class="math inline">\(k\)</span>
+随便选，二分会保证算出我们要的那个 <span
+class="math inline">\(k\)</span></p>
+<p>那么不考虑 <span class="math inline">\(k\)</span>
+的话就方便多了，随便 dp 一下就好了。注意 wqs
+二分到斜率相同的点时要尽可能多选。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n \log
+V)\)</span></p>
+<p>代码：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">int</span> <span class="token expression"><span class="token keyword">long</span> <span class="token keyword">long</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INF</span> <span class="token expression"><span class="token number">0x3f3f3f3f3f3f3f3f</span></span></span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">rep</span><span class="token expression"><span class="token punctuation">(</span>i<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> i</span><span class="token punctuation">##</span><span class="token expression">END <span class="token operator">=</span> <span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> i</span><span class="token punctuation">##</span><span class="token expression">END<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">Rep</span><span class="token expression"><span class="token punctuation">(</span>i<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">,</span> i</span><span class="token punctuation">##</span><span class="token expression">END <span class="token operator">=</span> <span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> i</span><span class="token punctuation">##</span><span class="token expression">END<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3e5</span> <span class="token operator">+</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> k<span class="token punctuation">,</span> pos <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> head<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">Edge</span> <span class="token punctuation">&#123;</span> <span class="token keyword">int</span> v<span class="token punctuation">,</span> w<span class="token punctuation">,</span> next<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span> e<span class="token punctuation">[</span>N <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">addEdge</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span> <span class="token keyword">int</span> v<span class="token punctuation">,</span> <span class="token keyword">int</span> w<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> e<span class="token punctuation">[</span><span class="token operator">++</span>pos<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>v<span class="token punctuation">,</span> w<span class="token punctuation">,</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> pos<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">struct</span> <span class="token class-name">qwq</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token keyword">const</span> qwq <span class="token operator">&amp;</span>o<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> x <span class="token operator">==</span> o<span class="token punctuation">.</span>x <span class="token operator">?</span> y <span class="token operator">></span> o<span class="token punctuation">.</span>y <span class="token operator">:</span> x <span class="token operator">&lt;</span> o<span class="token punctuation">.</span>x<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    qwq <span class="token keyword">operator</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">const</span> qwq <span class="token operator">&amp;</span>o<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>x <span class="token operator">+</span> o<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">+</span> o<span class="token punctuation">.</span>y<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    qwq <span class="token keyword">operator</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>v<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>x <span class="token operator">+</span> v<span class="token punctuation">,</span> y<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span> dp<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span>qwq <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">const</span> qwq <span class="token operator">&amp;</span>y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">=</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> y <span class="token operator">:</span> x<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> u<span class="token punctuation">,</span> <span class="token keyword">int</span> fa<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">up</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token operator">-</span>x<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> head<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> i<span class="token punctuation">;</span> i <span class="token operator">=</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> v <span class="token operator">=</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>v<span class="token punctuation">;</span> <span class="token keyword">if</span><span class="token punctuation">(</span>v <span class="token operator">==</span> fa<span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> u<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        qwq tmp <span class="token operator">=</span> dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">+</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>w<span class="token punctuation">;</span> tmp<span class="token punctuation">.</span>x <span class="token operator">-=</span> x<span class="token punctuation">;</span> tmp<span class="token punctuation">.</span>y <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token function">up</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">,</span> tmp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">up</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">+</span> e<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>w<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    qwq tmp <span class="token operator">=</span> dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">;</span> tmp<span class="token punctuation">.</span>x <span class="token operator">-=</span> x<span class="token punctuation">;</span> tmp<span class="token punctuation">.</span>y <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token function">up</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">max</span><span class="token punctuation">(</span>tmp<span class="token punctuation">,</span> dp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">bool</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">rep</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token function">rep</span><span class="token punctuation">(</span>j<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">)</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>y <span class="token operator">&lt;=</span> k<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// freopen("check.in","r",stdin);</span>
+    <span class="token comment">// freopen("check.out","w",stdout);</span>
+    cin <span class="token operator">>></span> n <span class="token operator">>></span> k<span class="token punctuation">;</span> <span class="token operator">++</span>k<span class="token punctuation">;</span> <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> u<span class="token punctuation">,</span> v<span class="token punctuation">,</span> w<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        cin <span class="token operator">>></span> u <span class="token operator">>></span> v <span class="token operator">>></span> w<span class="token punctuation">;</span> sum <span class="token operator">+=</span> <span class="token function">abs</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">addEdge</span><span class="token punctuation">(</span>u<span class="token punctuation">,</span> v<span class="token punctuation">,</span> w<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">addEdge</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> u<span class="token punctuation">,</span> w<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token operator">-</span>sum<span class="token punctuation">,</span> r <span class="token operator">=</span> sum<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span> 
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> r <span class="token operator">=</span> mid<span class="token punctuation">;</span> <span class="token keyword">else</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">check</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">;</span> cout <span class="token operator">&lt;&lt;</span> dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>x <span class="token operator">+</span> l <span class="token operator">*</span> k <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/dt5wolcy">https://www.luogu.com.cn/article/dt5wolcy</a></p>
+<hr />
+<p><strong>题外话</strong>：</p>
+<p>放图片？</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://raw.githubusercontent.com/q779/blog-img/main/img/202407012149157.jpg" style="zoom:50%;" class="img-shadow img-margin"/></p>
+<p>另外现在 blog 不会自动给我所有的图片加上
+<code>class="img-shadow img-margin"</code> 了</p>
+<p>省得一些插图弄了阴影特别难看。另外今天又学了点 HTML
+的东西，顺便修了点以前的 bug</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://q779.cn">q779</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://q779.cn/p/2024/747851eb0082/">https://q779.cn/p/2024/747851eb0082/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 许可协议。转载请注明来源 <a href="https://q779.cn" target="_blank">Q779’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/DP/">DP</a><a class="post-meta__tags" href="/tags/wqs%E4%BA%8C%E5%88%86/">wqs二分</a></div><div class="post-share"><div class="social-share" data-image="/qwq/img/p169.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/p/2024/aa36f1feada5/" title="AT_code_festival_2017_qualb_e Popping Balls 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p201.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">AT_code_festival_2017_qualb_e Popping Balls 题解</div></div><div class="info-2"><div class="info-item-1">AT_code_festival_2017_qualb_e Popping Balls 题解 题目链接：Popping Balls  题意： 有 \(A+B\) 个球排成一行，其中左边 \(A\) 个是红色的，右边 \(B\) 个是蓝色的。 你可以选定一对整数 \((s,t)~(1\le s&lt;t\le A + B)\)，然后重复进行以下操作直到球被取完： 将第一个球或第 \(s\) 个球或第 \(t\) 个球（当前球的数量必须够才能执行）拿出来。 求最后拿出来的球的颜色序列有多少种不同方案数。答案对 \(10^9+7\) 取模。 方案不同当且仅当存在某一次取出的球的颜色不同。 输入：\(A,B\) 。输出：一行答案。数据范围：\(A, B \leq 2000\)。  非常有趣的计数题。 注意到每次在 \(1\) 处拿球时，\(s,t\) 相当于向右移动一格；而从 \(s\) 处拿球，\(t\) 相当于向右一格。 那么当 \(s,t\) 均可用时，  若 \(s\) 处是红球，那么从 \(0\) 处拿球一定不劣于从 \(s\) 处拿球。 若 \(s\) 处是蓝球，那么从 \(...</div></div></div></a><a class="pagination-related" href="/p/2024/e298c9d8f808/" title="CF1147E Rainbow Coins 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p128.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CF1147E Rainbow Coins 题解</div></div><div class="info-2"><div class="info-item-1">CF1147E Rainbow Coins 题解 题目链接：Rainbow Coins  题意： cxy 有 \(n\) 枚各种颜色的硬币，她想把它们分类成堆。这些硬币标号为 \(1, 2, \ldots, n\)，每个硬币是红色、绿色或蓝色之一。她希望将硬币分类成三堆，其中一堆包含所有的红色硬币，一堆包含所有的绿色硬币，另一堆包含所有的蓝色硬币。 不幸的是，cxy 是色盲，因此她无法完成这项任务。幸运的是，她有一个朋友可以检查一对硬币并告诉 cxy 它们是否是同一种颜色。利用她的朋友，cxy 相信她现在可以对硬币进行分类。 堆之间的顺序无所谓，只要相同颜色的硬币在同一堆里，不同颜色的硬币不在同一堆里即可。 她的朋友会批量回答关于多个硬币对的问题，并且会并行回答这些对的所有问题。每个批次中，每个硬币最多只能出现在一个对中。同一个硬币可以出现在不同的批次中。 cxy 只能使用 \(7\) 次询问。帮她找到分类后的硬币堆。 交互格式： 会给出多个测试用例。第一行包含一个整数 \(t\) \((1 \leq t \leq 5)\)——测试用例的数量。 每个测试用例的第一行包含一个整数 ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">q779</div><div class="author-info-description">这么可爱的网站，记得点个收藏呀~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/q779"><i class="fab fa-github"></i><span>点点关注喵~</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B4%9B%E8%B0%B7p4383-%E5%85%AB%E7%9C%81%E8%81%94%E8%80%83-2018-%E6%9E%97%E5%85%8B%E5%8D%A1%E7%89%B9%E6%A0%91-%E9%A2%98%E8%A7%A3"><span class="toc-text">洛谷P4383 [八省联考
+2018] 林克卡特树 题解</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/p/2026/47ae547e0eb6/" title="本站更新日志"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="本站更新日志"/></a><div class="content"><a class="title" href="/p/2026/47ae547e0eb6/" title="本站更新日志">本站更新日志</a><time datetime="2026-10-20T09:16:31.918Z" title="发表于 2026-10-20 17:16:31">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/98db94ed87b5/" title="C++自用模板"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p164.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="C++自用模板"/></a><div class="content"><a class="title" href="/p/2026/98db94ed87b5/" title="C++自用模板">C++自用模板</a><time datetime="2026-10-19T15:09:50.000Z" title="发表于 2026-10-19 23:09:50">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p106.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 博客删除 .DS_Store 文件"/></a><div class="content"><a class="title" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件">Hexo 博客删除 .DS_Store 文件</a><time datetime="2026-10-18T10:10:43.557Z" title="发表于 2026-10-18 18:10:43">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p207.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 生成美观的永久链接"/></a><div class="content"><a class="title" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接">Hexo 生成美观的永久链接</a><time datetime="2026-10-18T09:01:51.318Z" title="发表于 2026-10-18 17:01:51">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p7.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="在 Hexo 中置顶文章"/></a><div class="content"><a class="title" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章">在 Hexo 中置顶文章</a><time datetime="2026-10-18T06:51:07.991Z" title="发表于 2026-10-18 14:51:07">2026-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/qwq/img/p169.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By q779</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
+  const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem',
+            'ui/lazy'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          lazyMargin: '200px',
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/qwq/cdn/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/qwq/cdn/live2d-widget/dist/autoload.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

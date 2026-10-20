@@ -1,0 +1,482 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解 | Q779’s Blog</title><meta name="author" content="q779"><meta name="copyright" content="q779"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F5F5DC"><meta name="description" content="UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解 题目链接：#340. 【清华集训2017】小 Y 和恐怖的奴隶主  题意： 小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个 Boss。 虽然这个 Boss 有 \(10^{100}\) 点生命值，但它只带了一个随从——一个只有 \(m\) 点生命值的 “恐怖的奴隶主”。 这个 “恐怖的奴隶主” 有一个特殊的技能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解">
+<meta property="og:url" content="https://q779.cn/p/2022/0b6e40423ae3/index.html">
+<meta property="og:site_name" content="Q779’s Blog">
+<meta property="og:description" content="UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解 题目链接：#340. 【清华集训2017】小 Y 和恐怖的奴隶主  题意： 小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个 Boss。 虽然这个 Boss 有 \(10^{100}\) 点生命值，但它只带了一个随从——一个只有 \(m\) 点生命值的 “恐怖的奴隶主”。 这个 “恐怖的奴隶主” 有一个特殊的技能">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://q779.cn/qwq/img/p37.webp">
+<meta property="article:published_time" content="2022-11-09T07:24:10.563Z">
+<meta property="article:modified_time" content="2025-08-08T11:54:54.438Z">
+<meta property="article:author" content="q779">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="卡常">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://q779.cn/qwq/img/p37.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解",
+  "url": "https://q779.cn/p/2022/0b6e40423ae3/",
+  "image": "https://q779.cn/qwq/img/p37.webp",
+  "datePublished": "2022-11-09T07:24:10.563Z",
+  "dateModified": "2025-08-08T11:54:54.438Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "q779",
+      "url": "https://q779.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/qwq/img/favicon.ico"><link rel="canonical" href="https://q779.cn/p/2022/0b6e40423ae3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#F5F5DC')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(/qwq/img/bg.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/qwq/img/p37.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/logo.webp" alt="Logo"><span class="site-name">Q779’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/notations/"><i class="fa-fw fas fa-signature"></i><span> 符号</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">UOJ340 【清华集训2017】小 Y 和恐怖的奴隶主 题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-09T07:24:10.563Z" title="发表于 2022-11-09 15:24:10">2022-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-08T11:54:54.438Z" title="更新于 2025-08-08 19:54:54">2025-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OI/">OI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="uoj340-清华集训2017小-y-和恐怖的奴隶主-题解">UOJ340
+【清华集训2017】小 Y 和恐怖的奴隶主 题解</h1>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/340">#340.
+【清华集训2017】小 Y 和恐怖的奴隶主</a></p>
+<blockquote>
+<p><strong>题意</strong>：</p>
+<p>小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个
+Boss。</p>
+<p>虽然这个 Boss 有 <span class="math inline">\(10^{100}\)</span>
+点生命值，但它只带了一个随从——一个只有 <span
+class="math inline">\(m\)</span> 点生命值的 “恐怖的奴隶主”。</p>
+<p>这个 “恐怖的奴隶主”
+有一个特殊的技能：每当它被扣减生命值但没有死亡（死亡即生命值 <span
+class="math inline">\(\leq 0\)</span>），且 Boss 的随从数量小于上限
+<span class="math inline">\(k\)</span>，便会召唤一个新的具有 <span
+class="math inline">\(m\)</span> 点生命值的 “恐怖的奴隶主”。</p>
+<p>现在小 Y 可以进行 <span class="math inline">\(n\)</span>
+次攻击，每次攻击时，会从 Boss 以及 Boss
+的所有随从中的等概率随机选择一个，并扣减 <span
+class="math inline">\(1\)</span> 点生命值，她想知道进行 <span
+class="math inline">\(n\)</span> 次攻击后扣减 Boss
+的生命值点数的期望。为了避免精度误差，你的答案需要对 <span
+class="math inline">\(998244353\)</span> 取模。</p>
+<p><strong>输入格式</strong>：</p>
+<p>从标准输入读入数据。</p>
+<p>输入第一行包含三个正整数 <span class="math inline">\(T, m,
+k\)</span>，<span class="math inline">\(T\)</span> 表示询问组数，<span
+class="math inline">\(m, k\)</span> 的含义见题目描述。</p>
+<p>接下来 <span class="math inline">\(T\)</span> 行，每行包含一个正整数
+<span class="math inline">\(n\)</span>，表示询问进行 <span
+class="math inline">\(n\)</span> 次攻击后扣减 Boss
+的生命值点数的期望。</p>
+<p><strong>输出格式</strong>：</p>
+<p>输出共 <span class="math inline">\(T\)</span>
+行，对于每个询问输出一行一个非负整数，表示该询问的答案对 <span
+class="math inline">\(998244353\)</span> 取模的结果。</p>
+<p>可以证明，所求期望一定是一个有理数，设其为 <span
+class="math inline">\(\frac{p}{q}\)</span>（<span
+class="math inline">\(\mathrm{gcd}(p,q) = 1\)</span>），那么你输出的数
+<span class="math inline">\(x\)</span> 要满足 <span
+class="math inline">\(p \equiv qx \pmod{998244353}\)</span>。</p>
+<p><strong>数据范围</strong>：</p>
+<p><span class="math inline">\(1 \le T \le 1000,~1 \le n \le 10^{18},~m
+= 1,2,3,~1\le k \le 8\)</span></p>
+</blockquote>
+<p><del>据说概率要顺推，期望要逆推？</del></p>
+<p>容易想到是矩阵快速幂优化期望dp。</p>
+<p>注意到 <span class="math inline">\(m\)</span> 很小，且 <span
+class="math inline">\(k\)</span>
+也很小，所以我们直接枚举每个血量各有多少人。</p>
+<p>设 <span class="math inline">\(f_{i,a,b,c}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 次攻击后，场上有 <span
+class="math inline">\(a\)</span> 个 <span
+class="math inline">\(1\)</span> 点血，<span
+class="math inline">\(b\)</span> 个 <span
+class="math inline">\(2\)</span> 点血，<span
+class="math inline">\(c\)</span> 个 <span
+class="math inline">\(3\)</span> 点血的期望。</p>
+<p>转移很简单，就是乘一乘概率系数啥的，这里就略去了。<del>或者可以看参考文献[2]的分析</del></p>
+<p>注意到 <span class="math inline">\(f_i\)</span> 只有 <span
+class="math inline">\(165 + 1\)</span>
+个状态，其中一个是额外加上的，表示 boss 扣血的期望 <span
+class="math inline">\(g\)</span> 。</p>
+<p><br></p>
+<p>关于构建矩阵，估计也有很多人和我一样知道矩阵快速幂，但不会代码实现矩阵的构建。</p>
+<p>最开始学斐波那契数列的矩阵快速幂方法时，只是看这个矩阵挺好用，怎么正好就推出来下一个。</p>
+<p>现在做了这道题，感觉对这个矩阵的理解又加深了一些。</p>
+<p>对于转移矩阵 <span class="math inline">\(M\)</span> ，考察 <span
+class="math inline">\(M_{i,j}\)</span> 的数学意义。</p>
+<p>状态数组（行向量）左乘 <span class="math inline">\(M_{i,j}\)</span>
+其实就是：<strong>「原向量第 <span class="math inline">\(i\)</span>
+个状态」转移到「新向量第 <span class="math inline">\(j\)</span>
+个状态」时乘的系数</strong>。</p>
+<p>也可以说，「新向量第 <span class="math inline">\(j\)</span>
+个状态」由「原向量第 <span class="math inline">\(i\)</span>
+个状态」转移过来时乘的系数。</p>
+<p>举个例子，斐波那契数列 <span class="math display">\[
+\begin{bmatrix}
+f_i&amp;f_{i-1}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+1&amp;1\\1&amp;0
+\end{bmatrix}
+=
+\begin{bmatrix}
+f_{i+1}&amp;f_{i}
+\end{bmatrix}
+\]</span> 因为有递推式 <span class="math inline">\(f_1=1,~f_2=1,~f_i =
+f_{i-1} + f_{i-2}\)</span> 。</p>
+<p>本质上矩阵就是多个行向量构成的，因此对于矩阵乘法，我们也可以用这样的方式理解，如
+<span class="math display">\[
+\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix} \times
+\begin{bmatrix}5&amp;6\\7&amp;8\end{bmatrix}
+= \begin{bmatrix}5 \times 1 + 7 \times 2 &amp; 6 \times 1+ 8 \times 2 \\
+5 \times 3 + 7 \times 4&amp;6 \times 3 + 8 \times 4\end{bmatrix}
+= \begin{bmatrix}19&amp;22\\43&amp;50\end{bmatrix}
+\]</span> 属于是复习一下矩阵快速幂了（</p>
+<p><br></p>
+<p>然而直接矩阵快速幂是 <span
+class="math inline">\(\mathcal{O}(T166^3\log n)\)</span> 的，会
+TLE。</p>
+<p>考虑预处理 <span class="math inline">\(2^k\)</span>
+次幂的矩阵，这样查询就可以少掉一个 <span class="math inline">\(M\times
+M\)</span> 的第 <span class="math inline">\(k\)</span> 维枚举了。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(T166^2\log
+n)\)</span></p>
+<p>代码：（这题卡常，可以用 <code>__int128</code> 优化取模操作）</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token comment">// #define int long long</span>
+<span class="token comment">// #define INF 0x3f3f3f3f3f3f3f3f</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">pragma</span> <span class="token expression">GCC <span class="token function">optimize</span><span class="token punctuation">(</span></span><span class="token string">"Ofast,unroll-loops,fast-math"</span><span class="token expression"><span class="token punctuation">)</span></span></span>
+<span class="token keyword">typedef</span> <span class="token keyword">long</span> <span class="token keyword">long</span> ll<span class="token punctuation">;</span>
+<span class="token keyword">const</span> ll mod <span class="token operator">=</span> <span class="token number">998244353</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">up</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">&lt;</span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">down</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> x <span class="token operator">></span> y <span class="token operator">?</span> x <span class="token operator">=</span> y <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">typedef</span> vector<span class="token operator">&lt;</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">></span> mat<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">N</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">166</span> <span class="token operator">+</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">K</span> <span class="token expression"><span class="token number">11</span></span></span>
+
+mat M<span class="token punctuation">[</span><span class="token number">70</span><span class="token punctuation">]</span><span class="token punctuation">,</span>ans<span class="token punctuation">;</span>
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>Q<span class="token punctuation">,</span>m<span class="token punctuation">,</span>k<span class="token punctuation">,</span>cnt<span class="token punctuation">,</span>inv<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span>id<span class="token punctuation">[</span>K<span class="token punctuation">]</span><span class="token punctuation">[</span>K<span class="token punctuation">]</span><span class="token punctuation">[</span>K<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">qpow</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> base <span class="token operator">=</span> a <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> b<span class="token punctuation">;</span> b <span class="token operator">>>=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>b <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> ans <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> ans <span class="token operator">*</span> base <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+        base <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> base <span class="token operator">*</span> base <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+mat <span class="token keyword">operator</span> <span class="token operator">*</span> <span class="token punctuation">(</span>mat <span class="token operator">&amp;</span>A<span class="token punctuation">,</span> mat <span class="token operator">&amp;</span>B<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> A<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">=</span> A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> p <span class="token operator">=</span> B<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    mat <span class="token function">C</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>p <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>p<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            __int128 t <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">&lt;=</span>m<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> t <span class="token operator">+=</span> <span class="token number">1ll</span> <span class="token operator">*</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">*</span> B<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            C<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> t <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> C<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// freopen("check.in","r",stdin);</span>
+    <span class="token comment">// freopen("check.out","w",stdout);</span>
+    cin <span class="token operator">>></span> Q <span class="token operator">>></span> m <span class="token operator">>></span> k<span class="token punctuation">;</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">resize</span><span class="token punctuation">(</span>N<span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">9</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> inv<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">qpow</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> mod <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> a<span class="token operator">&lt;=</span>k<span class="token punctuation">;</span> a<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> b<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> b <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>m <span class="token operator">>=</span> <span class="token number">2</span> <span class="token operator">?</span> k <span class="token operator">-</span> a <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> b<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>m <span class="token operator">==</span> <span class="token number">3</span> <span class="token operator">?</span> k <span class="token operator">-</span> a <span class="token operator">-</span> b <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span> id<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">++</span>cnt<span class="token punctuation">;</span>
+    <span class="token operator">++</span>cnt<span class="token punctuation">;</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>cnt<span class="token punctuation">]</span><span class="token punctuation">[</span>cnt<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> ans<span class="token punctuation">.</span><span class="token function">resize</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">vector</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>cnt <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> a<span class="token operator">&lt;=</span>k<span class="token punctuation">;</span> a<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> b<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> b <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>m <span class="token operator">>=</span> <span class="token number">2</span> <span class="token operator">?</span> k <span class="token operator">-</span> a <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> b<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>m <span class="token operator">==</span> <span class="token number">3</span> <span class="token operator">?</span> k <span class="token operator">-</span> a <span class="token operator">-</span> b <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">int</span> i <span class="token operator">=</span> id<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">,</span> iv <span class="token operator">=</span> inv<span class="token punctuation">[</span>a <span class="token operator">+</span> b <span class="token operator">+</span> c <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> d <span class="token operator">=</span> a <span class="token operator">+</span> b <span class="token operator">+</span> c <span class="token operator">&lt;</span> k<span class="token punctuation">;</span>
+                <span class="token keyword">switch</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">case</span> <span class="token number">1</span><span class="token operator">:</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> a <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                    <span class="token keyword">case</span> <span class="token number">2</span><span class="token operator">:</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> a <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>b <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">+</span> d<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> b <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                    <span class="token keyword">case</span> <span class="token number">3</span><span class="token operator">:</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> a <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>b <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>c <span class="token operator">+</span> d<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> b <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">[</span>b <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>c <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">+</span> d<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1ll</span> <span class="token operator">*</span> c <span class="token operator">*</span> iv <span class="token operator">%</span> mod<span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+                M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> M<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>cnt<span class="token punctuation">]</span> <span class="token operator">=</span> iv<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">60</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> M<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> M<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> M<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>ll n<span class="token punctuation">;</span> Q<span class="token punctuation">;</span> Q<span class="token operator">--</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        cin <span class="token operator">>></span> n<span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>cnt<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> ans<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        ans<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>id<span class="token punctuation">[</span>m <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>m <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span>m <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">60</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">>></span> i<span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> ans <span class="token operator">=</span> ans <span class="token operator">*</span> M<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>cnt<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr />
+<p><strong>参考文献</strong>：</p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://m-sea.blog.luogu.org/solution-p4007">https://m-sea.blog.luogu.org/solution-p4007</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/Mrsrz/solution-p4007">https://www.luogu.com.cn/blog/Mrsrz/solution-p4007</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://q779.cn">q779</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://q779.cn/p/2022/0b6e40423ae3/">https://q779.cn/p/2022/0b6e40423ae3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 许可协议。转载请注明来源 <a href="https://q779.cn" target="_blank">Q779’s Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/DP/">DP</a><a class="post-meta__tags" href="/tags/%E5%8D%A1%E5%B8%B8/">卡常</a></div><div class="post-share"><div class="social-share" data-image="/qwq/img/p37.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/p/2022/830debecd5ac/" title="洛谷P4137 Rmq Problem / mex 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p55.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">洛谷P4137 Rmq Problem / mex 题解</div></div><div class="info-2"><div class="info-item-1">洛谷P4137 Rmq Problem / mex 题解 题目链接：P4137 Rmq Problem / mex  题意： 有一个长度为 \(n\) 的数组 \(\{a_1,a_2,\ldots,a_n\}\)。 \(m\) 次询问，每次询问一个区间内最小没有出现过的自然数。 输入格式： 第一行，两个正整数 \(n,m\)。 第二行，\(n\) 个非负整数 \(a_1, a_2, \ldots , a_n\)。 接下来 \(m\) 行，每行两个正整数 \(l,r\)，表示一次询问。 输出格式： 输出 \(m\) 行，每行一个数，依次表示每个询问的答案。 数据范围： \(1\leq n,m\leq 2\times {10}^5,~1\leq l\leq r\leq n,~0\leq a_i\leq 2\times 10^5\)  线段树上二分经典题，维护区间 \(\mathrm{mex}\) 。 建一棵可持久化权值线段树，然后从左往右扫一遍 每次修改当前权值对应的「最后一次出现的位置」为「当前位置」 查询区间 \([l,r]\) 时，答案就是第 \(r\) 棵线段树上，第一个「最...</div></div></div></a><a class="pagination-related" href="/p/2022/a37eb36545fb/" title="SP1043 GSS1 - Can you answer these queries I 题解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p132.webp" onerror="onerror=null;src='/qwq/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">SP1043 GSS1 - Can you answer these queries I 题解</div></div><div class="info-2"><div class="info-item-1">SP1043 GSS1 - Can you answer these queries I 题解 题目链接：SP1043 GSS1 - Can you answer these queries I  题意： 给定一个长度为 \(n\) 的序列 \(a_i\) 。 \(q\) 次询问，查询区间最大子段和 数据范围： \(1\le n,q \le 5\times 10^4,~ |a_i| \le 2\times10^4\) 。  纯粹是为了凑齐才写的，详见 GSS3 线段树经典题。我们需要维护总和、最大前缀、最大后缀、最大子段和。 \[ \mathtt{sum[u]} = \mathtt{sum[l]} + \mathtt{sum[r]} \\\mathtt{pre[u]} = \max\{\mathtt{pre[l]},~\mathtt{sum[l]}+\mathtt{pre[r]}\} \\\mathtt{suf[u]} = \max\{\mathtt{suf[r]},~\mathtt{sum[r]}+\mathtt{suf[l]}\} \\\mathtt{res[u]} = \m...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">q779</div><div class="author-info-description">这么可爱的网站，记得点个收藏呀~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1445</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/q779"><i class="fab fa-github"></i><span>点点关注喵~</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#uoj340-%E6%B8%85%E5%8D%8E%E9%9B%86%E8%AE%AD2017%E5%B0%8F-y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB-%E9%A2%98%E8%A7%A3"><span class="toc-text">UOJ340
+【清华集训2017】小 Y 和恐怖的奴隶主 题解</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/p/2026/47ae547e0eb6/" title="本站更新日志"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/avatar.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="本站更新日志"/></a><div class="content"><a class="title" href="/p/2026/47ae547e0eb6/" title="本站更新日志">本站更新日志</a><time datetime="2026-10-20T09:16:31.918Z" title="发表于 2026-10-20 17:16:31">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/98db94ed87b5/" title="C++自用模板"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p164.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="C++自用模板"/></a><div class="content"><a class="title" href="/p/2026/98db94ed87b5/" title="C++自用模板">C++自用模板</a><time datetime="2026-10-19T15:09:50.000Z" title="发表于 2026-10-19 23:09:50">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p106.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 博客删除 .DS_Store 文件"/></a><div class="content"><a class="title" href="/p/2026/14e74acf4d5f/" title="Hexo 博客删除 .DS_Store 文件">Hexo 博客删除 .DS_Store 文件</a><time datetime="2026-10-18T10:10:43.557Z" title="发表于 2026-10-18 18:10:43">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p207.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="Hexo 生成美观的永久链接"/></a><div class="content"><a class="title" href="/p/2026/4c4cea749a15/" title="Hexo 生成美观的永久链接">Hexo 生成美观的永久链接</a><time datetime="2026-10-18T09:01:51.318Z" title="发表于 2026-10-18 17:01:51">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/qwq/img/p7.webp" onerror="this.onerror=null;this.src='/qwq/img/404.jpg'" alt="在 Hexo 中置顶文章"/></a><div class="content"><a class="title" href="/p/2026/43c6e07a6b9a/" title="在 Hexo 中置顶文章">在 Hexo 中置顶文章</a><time datetime="2026-10-18T06:51:07.991Z" title="发表于 2026-10-18 14:51:07">2026-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/qwq/img/p37.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2022 - 2026 By q779</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
+  const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem',
+            'ui/lazy'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          lazyMargin: '200px',
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/qwq/cdn/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/qwq/cdn/live2d-widget/dist/autoload.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>
