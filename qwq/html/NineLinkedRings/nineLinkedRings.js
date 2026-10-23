@@ -149,31 +149,30 @@ function initLanguage()
 {
 	var sysLang = getSystemLanguage();
 
-	if(sysLang == "zh-cn")
-	{
-		document.getElementById('textRings').innerHTML = "环数:";
+	if(sysLang == "zh-tw" || sysLang == "zh-hk") { //tranditional chinese
+		document.getElementById('textRings').innerHTML = "\u74B0\u6578:"; //"環數:";
 		
-		document.getElementById('textMode').innerHTML = "游戏模式:";
+		document.getElementById('textMode').innerHTML = "\u904A\u6232\u6A21\u5F0F:"; //"遊戲模式:";
 		var modeOption = document.getElementById('mode').options;
-		modeOption[0].innerHTML = "环全下";
-		modeOption[1].innerHTML = "环全上";
+		modeOption[0].innerHTML = "\u74B0\u5168\u4E0B"; //"環全下";	
+		modeOption[1].innerHTML = "\u74B0\u5168\u4E0A"; //"環全上";
 
-		document.getElementById('textSpeed').innerHTML = "速度:";
+		document.getElementById('textSpeed').innerHTML = "\u901F\u5EA6:"; //"速度:";
 		var speedOption = document.getElementById('speed').options;
-		speedOption[0].innerHTML = "非常快";
-		speedOption[1].innerHTML = "快";
-		speedOption[2].innerHTML = "中等";
-		speedOption[3].innerHTML = "慢";
-		speedOption[4].innerHTML = "非常慢";
+		speedOption[0].innerHTML = "\u975E\u5E38\u5FEB"; //"非常快";	
+		speedOption[1].innerHTML = "\u5FEB"; //"快";
+		speedOption[2].innerHTML = "\u9069\u4E2D"; //"適中";
+		speedOption[3].innerHTML = "\u6162"; //"慢";
+		speedOption[4].innerHTML = "\u975E\u5E38\u6162"; //"非常慢";
 		
-		document.getElementById('reset').value = "重置";
-		document.getElementById('random').value = "随机";
-		document.getElementById('hints').value = "提示";
-		document.getElementById('auto').value = "自动";
-		document.getElementById('stop').value = "停止";
+		document.getElementById('reset').value = "\u91CD\u7F6E"; //"重置";
+		document.getElementById('random').value = "\u96A8\u6A5F"; //"隨機";
+		document.getElementById('hints').value = "\u63D0\u793A"; //"提示";
+		document.getElementById('auto').value = "\u81EA\u52D5"; //"自動";
+		document.getElementById('stop').value = "\u505C\u6B62"; //"停止";
 		
-		textSuccess = "完成";
-	}
+		textSuccess = "\u5B8C\u6210"; //"完成";
+	}	
 }
 
 //--------------------------
@@ -440,7 +439,7 @@ function createBackground()
 	var titleText = new Kinetic.Text({
 		x: titleFontSize/4, 
 		y: titleFontSize/4,
-		text: "九 连 环",
+		text: "\u4E5D \u9023 \u74B0", //九連環
 		fill: BACKGROUND_COLOR,
 		fontSize: titleFontSize*1.4,
 		fontStyle:"bold",
