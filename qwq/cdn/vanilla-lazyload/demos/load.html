@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Static load method - LazyLoad demos</title>
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        background: grey;
+      }
+
+      body {
+        max-width: 1280px;
+        margin: 0 auto;
+        background: white;
+      }
+
+      .products {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+      }
+
+      .product {
+        display: block;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        width: 220px;
+      }
+
+      .product img {
+        display: block;
+        width: 220px;
+        height: 280px;
+      }
+
+      .product:hover .product-image__b.loaded {
+        opacity: 1;
+      }
+
+      .product-image__a {
+        margin: 0 auto;
+      }
+
+      .product-image__b {
+        opacity: 0;
+        transition: opacity 0.5s;
+        position: absolute;
+        top: 0;
+        left: calc(50% - 220px / 2);
+      }
+
+      img:not([src]) {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Static load method demo</h1>
+    <div class="products">
+      <!-- Eagerly loading 8 -->
+      <a href="#" class="product">
+        <img
+          alt="01a"
+          class="product-image__a"
+          src="./images/220x280-01.webp"
+          srcset="
+            ./images/220x280-01.webp 1x,
+            ./images/440x560-01.webp 2x
+          "
+        />
+        <img
+          alt="01b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-01.webp"
+          data-srcset="./images/220x280-L-01.webp 1x, ./images/440x560-L-01.webp 2x"
+        />
+        <p>Product 01</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="02a"
+          class="product-image__a"
+          src="./images/220x280-02.webp"
+          srcset="
+            ./images/220x280-02.webp 1x,
+            ./images/440x560-02.webp 2x
+          "
+        />
+        <img
+          alt="02b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-02.webp"
+          data-srcset="./images/220x280-L-02.webp 1x, ./images/440x560-L-02.webp 2x"
+        />
+        <p>Product 02</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="03a"
+          class="product-image__a"
+          src="./images/220x280-03.webp"
+          srcset="
+            ./images/220x280-03.webp 1x,
+            ./images/440x560-03.webp 2x
+          "
+        />
+        <img
+          alt="03b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-03.webp"
+          data-srcset="./images/220x280-L-03.webp 1x, ./images/440x560-L-03.webp 2x"
+        />
+        <p>Product 03</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="04a"
+          class="product-image__a"
+          src="./images/220x280-04.webp"
+          srcset="
+            ./images/220x280-04.webp 1x,
+            ./images/440x560-04.webp 2x
+          "
+        />
+        <img
+          alt="04b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-04.webp"
+          data-srcset="./images/220x280-L-04.webp 1x, ./images/440x560-L-04.webp 2x"
+        />
+        <p>Product 04</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="05a"
+          class="product-image__a"
+          src="./images/220x280-05.webp"
+          srcset="
+            ./images/220x280-05.webp 1x,
+            ./images/440x560-05.webp 2x
+          "
+        />
+        <img
+          alt="05b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-05.webp"
+          data-srcset="./images/220x280-L-05.webp 1x, ./images/440x560-L-05.webp 2x"
+        />
+        <p>Product 05</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="06a"
+          class="product-image__a"
+          src="./images/220x280-06.webp"
+          srcset="
+            ./images/220x280-06.webp 1x,
+            ./images/440x560-06.webp 2x
+          "
+        />
+        <img
+          alt="06b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-06.webp"
+          data-srcset="./images/220x280-L-06.webp 1x, ./images/440x560-L-06.webp 2x"
+        />
+        <p>Product 06</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="07a"
+          class="product-image__a"
+          src="./images/220x280-07.webp"
+          srcset="
+            ./images/220x280-07.webp 1x,
+            ./images/440x560-07.webp 2x
+          "
+        />
+        <img
+          alt="07b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-07.webp"
+          data-srcset="./images/220x280-L-07.webp 1x, ./images/440x560-L-07.webp 2x"
+        />
+        <p>Product 07</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="08a"
+          class="product-image__a"
+          src="./images/220x280-08.webp"
+          srcset="
+            ./images/220x280-08.webp 1x,
+            ./images/440x560-08.webp 2x
+          "
+        />
+        <img
+          alt="08b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-08.webp"
+          data-srcset="./images/220x280-L-08.webp 1x, ./images/440x560-L-08.webp 2x"
+        />
+        <p>Product 08</p>
+      </a>
+      <!-- 8 more! -->
+      <a href="#" class="product">
+        <img
+          alt="09a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-09.webp"
+          data-srcset="./images/220x280-09.webp 1x, ./images/440x560-09.webp 2x"
+        />
+        <img
+          alt="09b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-09.webp"
+          data-srcset="./images/220x280-L-09.webp 1x, ./images/440x560-L-09.webp 2x"
+        />
+        <p>Product 09</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="10a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-10.webp"
+          data-srcset="./images/220x280-10.webp 1x, ./images/440x560-10.webp 2x"
+        />
+        <img
+          alt="10b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-10.webp"
+          data-srcset="./images/220x280-L-10.webp 1x, ./images/440x560-L-10.webp 2x"
+        />
+        <p>Product 10</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="11a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-11.webp"
+          data-srcset="./images/220x280-11.webp 1x, ./images/440x560-11.webp 2x"
+        />
+        <img
+          alt="11b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-11.webp"
+          data-srcset="./images/220x280-L-11.webp 1x, ./images/440x560-L-11.webp 2x"
+        />
+        <p>Product 11</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="12a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-12.webp"
+          data-srcset="./images/220x280-12.webp 1x, ./images/440x560-12.webp 2x"
+        />
+        <img
+          alt="12b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-12.webp"
+          data-srcset="./images/220x280-L-12.webp 1x, ./images/440x560-L-12.webp 2x"
+        />
+        <p>Product 12</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="13a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-13.webp"
+          data-srcset="./images/220x280-13.webp 1x, ./images/440x560-13.webp 2x"
+        />
+        <img
+          alt="13b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-13.webp"
+          data-srcset="./images/220x280-L-13.webp 1x, ./images/440x560-L-13.webp 2x"
+        />
+        <p>Product 13</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="14a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-14.webp"
+          data-srcset="./images/220x280-14.webp 1x, ./images/440x560-14.webp 2x"
+        />
+        <img
+          alt="14b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-14.webp"
+          data-srcset="./images/220x280-L-14.webp 1x, ./images/440x560-L-14.webp 2x"
+        />
+        <p>Product 14</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="15a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-15.webp"
+          data-srcset="./images/220x280-15.webp 1x, ./images/440x560-15.webp 2x"
+        />
+        <img
+          alt="15b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-15.webp"
+          data-srcset="./images/220x280-L-15.webp 1x, ./images/440x560-L-15.webp 2x"
+        />
+        <p>Product 15</p>
+      </a>
+      <a href="#" class="product">
+        <img
+          alt="16a"
+          class="lazy product-image__a"
+          data-src="./images/220x280-16.webp"
+          data-srcset="./images/220x280-16.webp 1x, ./images/440x560-16.webp 2x"
+        />
+        <img
+          alt="16b"
+          class="lazy-hover product-image__b"
+          data-src="./images/220x280-L-16.webp"
+          data-srcset="./images/220x280-L-16.webp 1x, ./images/440x560-L-16.webp 2x"
+        />
+        <p>Product 16</p>
+      </a>
+    </div>
+  </body>
+
+  <script src="../dist/lazyload.min.js"></script>
+  <script>
+    (function (w, d) {
+      function logElementEvent(eventName, element) {
+        console.log(Date.now(), eventName, element.getAttribute("data-src"));
+      }
+
+      var callback_enter = function (element) {
+        logElementEvent("🔑 ENTERED", element);
+      };
+      var callback_exit = function (element) {
+        logElementEvent("🚪 EXITED", element);
+      };
+      var callback_loading = function (element) {
+        logElementEvent("⌚ LOADING", element);
+      };
+      var callback_loaded = function (element) {
+        logElementEvent("👍 LOADED", element);
+      };
+      var callback_error = function (element) {
+        logElementEvent("💀 ERROR", element);
+        element.src =
+          "./images/440x560-Error.webp";
+      };
+      var callback_finish = function () {
+        logElementEvent("✔️ FINISHED", document.documentElement);
+      };
+      var callback_cancel = function (element) {
+        logElementEvent("🔥 CANCEL", element);
+      };
+
+      var options = {
+        // Assign the callbacks defined above
+        callback_enter: callback_enter,
+        callback_exit: callback_exit,
+        callback_cancel: callback_cancel,
+        callback_loading: callback_loading,
+        callback_loaded: callback_loaded,
+        callback_error: callback_error,
+        callback_finish: callback_finish
+      };
+
+      var page_ll = new LazyLoad(options);
+
+      function mouseoverHandler(event) {
+        var product = event.currentTarget;
+        var lazyImg = product.querySelector(".lazy-hover");
+        if (!!lazyImg.getAttribute("data-ll-status")) {
+          return;
+        }
+        // page_ll.load(lazyImg); STILL WORKS, BUT DEPRECATED
+        LazyLoad.load(lazyImg, options);
+      }
+
+      function nodeSetToArray(nodeSet) {
+        return Array.prototype.slice.call(nodeSet);
+      }
+
+      function initializeMouseBehaviour() {
+        const products = document.querySelectorAll(".product");
+        nodeSetToArray(products).forEach(function (product) {
+          product.addEventListener("mouseover", mouseoverHandler, true);
+        });
+      }
+
+      initializeMouseBehaviour();
+    })(window, document);
+  </script>
+</html>

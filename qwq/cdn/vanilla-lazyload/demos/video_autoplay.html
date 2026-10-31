@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>Lazy autoplay video - Lazyload demos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      ul,
+      li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      .viewport-height {
+        min-height: calc(100vh + 300px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Lazy video demo, with autoplay</h1>
+    <p>👇🏼 Scroll down to see the lazy videos 👇🏼</p>
+    <div class="viewport-height"></div>
+
+    <h2>Preload = none</h2>
+    <video
+      class="lazy"
+      controls
+      autoplay
+      preload="none"
+      width="620"
+      data-src="./videos/1920x1080-01.mp4"
+      data-poster="./videos/1920x1080-01.webp"
+    >
+      <source type="video/mp4" data-src="./videos/1920x1080-01.mp4" />
+      <source type="video/ogg" data-src="./videos/1920x1080-01.ogv" />
+      <source type="video/avi" data-src="./videos/1920x1080-01.avi" />
+    </video>
+
+    <h2>Preload = metadata</h2>
+    <video
+      class="lazy"
+      preload="metadata"
+      controls
+      autoplay
+      width="620"
+      data-src="./videos/1920x1080-02.mp4"
+      data-poster="./videos/1920x1080-02.webp"
+    >
+      <source type="video/mp4" data-src="./videos/1920x1080-02.mp4" />
+      <source type="video/ogg" data-src="./videos/1920x1080-02.ogv" />
+      <source type="video/avi" data-src="./videos/1920x1080-02.avi" />
+    </video>
+
+    <h2>Preload = auto</h2>
+    <video
+      class="lazy"
+      preload="auto"
+      controls
+      autoplay
+      width="620"
+      data-src="./videos/1920x1080-03.mp4"
+      data-poster="./videos/1920x1080-03.webp"
+    >
+      <source type="video/mp4" data-src="./videos/1920x1080-03.mp4" />
+      <source type="video/ogg" data-src="./videos/1920x1080-03.ogv" />
+      <source type="video/avi" data-src="./videos/1920x1080-03.avi" />
+    </video>
+
+    <script src="../dist/lazyload.min.js"></script>
+    <script>
+      (function () {
+        function logElementEvent(eventName, element) {
+          console.log(Date.now(), eventName, element.getAttribute("data-src"));
+        }
+
+        var callback_enter = function (element) {
+          logElementEvent("🔑 ENTERED", element);
+        };
+        var callback_exit = function (element) {
+          logElementEvent("🚪 EXITED", element);
+        };
+        var callback_loading = function (element) {
+          logElementEvent("⌚ LOADING", element);
+        };
+        var callback_loaded = function (element) {
+          logElementEvent("👍 LOADED", element);
+        };
+        var callback_error = function (element) {
+          logElementEvent("💀 ERROR", element);
+          element.src = "./images/440x560-Error.webp";
+        };
+        var callback_finish = function () {
+          logElementEvent("✔️ FINISHED", document.documentElement);
+        };
+        var callback_cancel = function (element) {
+          logElementEvent("🔥 CANCEL", element);
+        };
+
+        ll = new LazyLoad({
+          // Assign the callbacks defined above
+          callback_enter: callback_enter,
+          callback_exit: callback_exit,
+          callback_cancel: callback_cancel,
+          callback_loading: callback_loading,
+          callback_loaded: callback_loaded,
+          callback_error: callback_error,
+          callback_finish: callback_finish,
+          // For debugging purposes
+          threshold: 0
+        });
+      })();
+    </script>
+  </body>
+</html>
