@@ -1,0 +1,773 @@
+# 6.1.15 (2026-09-08)
+
+### Bug Fixes
+
+- **Carousel** Fix external controls (`data-carousel-target`) when the button is nested inside a carousel or wraps child elements
+- **Carousel** Fix custom Toolbar items being skipped when their name matches a built-in `Object` property
+- **Fancybox** Prevent the instance from closing when a text-selection drag started inside the content is released over the backdrop
+- **Fancybox** Preserve slide `alt` text when opening through a delegated trigger
+
+### Features
+
+- **Fancybox** Allow the `dragToClose` option to be changed while an instance is open
+- **Gestures** Add `enable()` and `disable()` methods to stop and resume gesture recognition
+- Add translations into Brazilian, Portuguese and Traditional Chinese
+
+# 6.1.14 (2026-04-29)
+
+### Bug Fixes
+
+- **Panzoom** Fix an issue where a vertical image could not be dragged correctly after rotating
+- **Panzoom** Fix pin positioning in some cases
+
+### Features
+
+- **Carousel** Add support for external controls
+
+# 6.1.13 (2026-03-02)
+
+### Bug Fixes
+
+- **Panzoom** Avoid content duplication when performing multiple reinitializations
+- **Panzoom** Show default buttons on the toolbar if none are specified
+- **Fancybox** Make image visible outside viewport when closing and using sidebar plugin
+
+### Features
+
+- **Fancybox** Add additional CSS variables to the sidebar plugin
+- Add translations into Turkish, Ukrainian and Chinese
+
+# 6.1.12 (2026-02-23)
+
+### Bug Fixes
+
+- **Carousel** Fix an issue when combining the `adaptiveHeight` option and the Autoplay plugin ([840](https://github.com/fancyapps/ui/issues/840))
+- **Fancybox** Fix an issue with `history.scrollRestoration` in the Hash plugin ([841](https://github.com/fancyapps/ui/issues/841))
+
+# 6.1.11 (2026-02-18)
+
+### Bug Fixes
+
+- **Carousel** Support "complex" values for gap ([839](https://github.com/fancyapps/ui/issues/839))
+- **Fancybox** Fix an issue with `slug` option ([835](https://github.com/fancyapps/ui/issues/835))
+
+### Features
+
+- **Panzoom** Enable the creation of a custom click zoom flow by making the `clickAction` and `dblClickAction` options to accept a method that returns a number
+- **Fancybox** Add `closeButtonTpl` option to the close button template created above the content
+- **Fancybox** Add a new plugin "Sidebar" that changes the layout to create a sidebar
+
+# 6.1.10 (2026-01-29)
+
+### Bug Fixes
+
+- **Carousel** Fix an issue with non-infinite carousels when swiping the page vertically
+- **Fancybox** Fix an issue with the Hash plugin when an iframe element is active
+
+### Features
+
+- **Carousel** Add `preload` and `autosize` options for iframes to the HTML plugin
+
+# 6.1.9 (2026-01-23)
+
+### Features
+
+- **Fancybox** Add `slug` option to the Hash plugin ([821](https://github.com/fancyapps/ui/issues/821))
+
+# 6.1.8 (2026-01-19)
+
+### Bug Fixes
+
+- **Carousel** Fix Firefox error messages in the console when dragging outside the window
+
+### Features
+
+- **Carousel** Add an Instagram-style "dynamic" mode to the Dots
+
+# 6.1.7 (2025-12-09)
+
+### Bug Fixes
+
+- **Carousel** Add `referrerpolicy` attribute to the video iframe tag ([827](https://github.com/fancyapps/ui/issues/827))
+- **Carousel** Set the correct value for the `aria-label` attribute of the thumb button ([822](https://github.com/fancyapps/ui/issues/822))
+
+# 6.1.6 (2025-11-19)
+
+### Bug Fixes
+
+- **Carousel** Fix issue with dragging when the carousel is inside an element that has `overflow:clip` ([820](https://github.com/fancyapps/ui/issues/820))
+
+# 6.1.5 (2025-11-08)
+
+### Bug Fixes
+
+- **Carousel** Fix issue with a horizontally scrollable element in a horizontally oriented carousel ([817](https://github.com/fancyapps/ui/issues/817))
+- **Gestures** Check if the target should be ignored inside shadow DOM and also outside it
+
+# 6.1.4 (2025-11-05)
+
+### Bug Fixes
+
+- **Fancybox** Fix issue with the close button above images when the toolbar is disabled ([815](https://github.com/fancyapps/ui/issues/815))
+
+# 6.1.3 (2025-11-04)
+
+### Bug Fixes
+
+- **Carousel** Add support for `data-thumb-class` for all thumb types
+
+### Features
+
+- **Fancybox** Scroll page to the trigger element when Fancybox is launched from a URL hash
+- **Fancybox** Add support for `Fancybox.bind(groupSelector: string, itemSelector: string, userOptions?: Partial<FancyboxOptions>)`
+
+# 6.1.2 (2025-10-29)
+
+### Bug Fixes
+
+- **Carousel** Fix issue with missing `is-draggable` class name in some cases
+- **Fancybox** The `fromSelector` method should accept custom options if two parameters are passed
+
+# 6.1.1 (2025-10-28)
+
+### Bug Fixes
+
+- **Carousel** When executing `reInit()`, preserve the order of DOM elements
+- **Carousel** When removing carousel slides, remove the corresponding thumbnails
+- **Fancybox** Sync with the carousel on the page when Hash plugins launch Fancybox on page load
+
+### Features
+
+- **Carousel** When navigating, toggle the `aria-current` attribute for elements with `[data-carousel-go-to]` attribute
+
+# 6.1.0 (2025-10-22)
+
+### Bug Fixes
+
+- **Fancybox** Fix zoom-out animation when carousel animates with CSS
+- **Carousel** Eliminate initialization delay
+
+### Features
+
+- **Carousel** Add a new thumbnail type "scrollable", which also allows Fancybox to display thumbnails in v3 style
+- **Carousel** Add a `reInit()` method to reinitialize the carousel with new options
+- **Carousel** Expose the `getPageIndexFromPosition()` method which helps to build creative interactions
+- **Fancybox** Add a new option `modal` to allow other content to be placed above the `<dialog>` element
+- **Fancybox** Support custom slugs in Hash plugin
+
+# 6.0.34 (2025-10-03)
+
+### Bug Fixes
+
+- **Panzoom** Fixed panning issue on touch devices after multiple touches
+- **Carousel** Fix issue with the default Shopify theme
+- **Carousel** Watch for viewport element resize events instead of the container
+- **Fancybox** When dragging to close, use the base scale of the current Panzoom instance for scaling
+
+### Features
+
+- **Carousel** Add a new event `createSlide` that can be used to customize the slide object before it is processed by plugins
+
+# 6.0.33 (2025-09-27)
+
+### Bug Fixes
+
+- **Fancybox** Fix issue with captions containing special characters ([805](https://github.com/fancyapps/ui/issues/805))
+- **Fancybox** Fix issues with touch events
+
+### Features
+
+- **Fancybox** Slightly scale the image smaller as the user drags an image up/down to close
+
+# 6.0.32 (2025-09-16)
+
+### Bug Fixes
+
+- **Fancybox** Fix issue with `dragToClose` after rapid multiple clicks and drags
+
+### Features
+
+- **Panzoom** Make the `iterateZoom` button available
+
+# 6.0.31 (2025-09-15)
+
+### Bug Fixes
+
+- **Fancybox** Resize images to initial size when navigating the carousel
+- **Fancybox** Support the `autoStart` option of the carousel Autoplay plugin
+
+# 6.0.30 (2025-09-11)
+
+### Bug Fixes
+
+- **Panzoom** Fix issue with the reset button
+- **Panzoom** Disable `toggleFull` and `toggle1to1` buttons if image cannot be enlarged
+
+### Features
+
+- **Panzoom** Add `toggleFS()` method and the corresponding `toggleFS` button
+
+# 6.0.29 (2025-09-08)
+
+### Bug Fixes
+
+- **Fancybox** Fix incorrect image sizes in some cases
+
+### Features
+
+- **Fancybox** Improved support for Panzoom's `startPos` option to set initial image size and position
+
+# 6.0.28 (2025-09-04)
+
+### Bug Fixes
+
+- **Carousel** Fix incorrect page count in some cases
+
+### Features
+
+- **Carousel** Add `parentEl` option to the Toolbar plugin
+
+# 6.0.27 (2025-09-02)
+
+### Bug Fixes
+
+- **Panzoom** Support other content types, not just images
+- **Carousel** Use `inert` attribute on invisible slides to prevent focusable elements from being focused using keyboard navigation
+- **Fancybox** Do not add `-1` to gallery URLs that contain only one image
+
+# 6.0.26 (2025-08-29)
+
+### Bug Fixes
+
+- **Carousel** Fix visible pins just before the image appears
+- **Carousel** Add `aria-hidden="true"` to inactive slides
+- **Fancybox** Support main template without `<dialog>` element
+- **Fancybox** Reorganize CSS to make it easier to change the progress bar color
+
+# 6.0.25 (2025-08-25)
+
+### Bug Fixes
+
+- **Carousel** Fix thumbnail position in RTL mode
+
+# 6.0.24 (2025-08-22)
+
+### Bug Fixes
+
+- **Carousel** Avoid removing slides during initialization
+
+### Features
+
+- **Carousel** Toggle `aria-disabled` attribute for custom navigation elements
+
+# 6.0.23 (2025-08-19)
+
+### Bug Fixes
+
+- **Fancybox** Fix page scrolling issue after closing on iOS ([789](https://github.com/fancyapps/ui/issues/789))
+
+# 6.0.22 (2025-08-07)
+
+### Bug Fixes
+
+- **Carousel** Fix Autoscroll to wait until carousel transition is complete
+- **Carousel** Fix arrow position for vertical thumbnails
+- **Carousel** Fix issue with some events and Vue
+- **Fancybox** Fix double tap to zoom to corresponding coordinates in compact mode
+
+### Features
+
+- **Carousel** Add support for the `data-thumb-alt` attribute to set a custom `alt` tag for thumbnails
+- **Carousel** Tween option now also affects animation after swipe to allow customize
+
+# 6.0.21 (2025-08-04)
+
+### Features
+
+- **Carousel** Add optional `prevClass` and `nextClass` options to Arrows plugin
+
+# 6.0.20 (2025-08-04)
+
+### Bug Fixes
+
+- **Carousel** Fix issue with the click event on touch devices in some cases
+
+# 6.0.19 (2025-08-01)
+
+### Bug Fixes
+
+- **Carousel** Preserve container class `f-carousel` after destrying
+- **Fancybox** Fix CSS to support vertical thumbnails
+
+# 6.0.18 (2025-07-30)
+
+### Features
+
+- **Fancybox** Add `shouldClose` event
+
+### Bug Fixes
+
+- **Carousel** Fix the position of the infinite carousel after adding slides
+- **Fancybox** Fix `dragToClose` if gestures are disabled for carousel
+
+# 6.0.17 (2025-07-25)
+
+### Features
+
+- **Fancybox** Add option `wheel` ([757](https://github.com/fancyapps/ui/issues/757))
+
+# 6.0.16 (2025-07-21)
+
+### Bug Fixes
+
+- **Fancybox** Fix issues with the `<picture>` element
+
+# 6.0.15 (2025-07-18)
+
+### Bug Fixes
+
+- **Panzoom** Resize content if caption size changes
+
+# 6.0.14 (2025-07-17)
+
+### Features
+
+- **Carousel** Sync Thumbs when adding Carousel slides
+
+# 6.0.13 (2025-07-16)
+
+### Features
+
+- **Carousel** Keep slides in DOM ([768](https://github.com/fancyapps/ui/issues/768))
+- **Carousel** Add new API method `getVisibleSlides()` to get slides with elements visible in the viewport
+
+# 6.0.12 (2025-07-14)
+
+### Features
+
+- **Fancybox** Add support for ajax content type
+
+# 6.0.11 (2025-07-10)
+
+- Add Spanish, French, Italian, Latvian translations
+
+# 6.0.10 (2025-07-10)
+
+### Bug Fixes
+
+- **Carousel** Fix Vimeo link recognition issue ([692](https://github.com/fancyapps/ui/issues/692))
+- **Carousel** Fix an issue with video aspect ratio in some cases
+
+# 6.0.9 (2025-07-08)
+
+### Bug Fixes
+
+- **Carousel** Fix an issue with position resetting when toggling visibility ([666](https://github.com/fancyapps/ui/issues/666))
+
+# 6.0.8 (2025-07-07)
+
+### Features
+
+- **Carousel** Add `thumbClass` attribute to slides, which allows to set a custom class name for thumbnails
+- **Carousel** Show all visible slides if the viewport element has CSS `overflow:visible`
+- **Panzoom** Add option `protected`
+
+# 6.0.7 (2025-07-04)
+
+### Features
+
+- **Fancybox** Support zoom animation for images that have CSS `object-fit: contain`.
+
+# 6.0.6 (2025-07-03)
+
+### Bug Fixes
+
+- **Fancybox** Fix an issue with back button on Android devices ([761](https://github.com/fancyapps/ui/issues/761))
+
+# 6.0.5 (2025-06-20)
+
+### Bug Fixes
+
+- **Carousel** Update video dimensions when container dimensions change
+
+# 6.0.4 (2025-06-19)
+
+### Bug Fixes
+
+- **Fancybox** Make `.bind()` work the same as v5 for nested containers
+
+# 6.0.3 (2025-06-17)
+
+### Bug Fixes
+
+- **Fancybox** Fix the issue if it is inside a generated sandbox iframe
+
+# 6.0.2 (2025-06-16)
+
+### Bug Fixes
+
+- **Carousel** Fix the default appearance of dots
+
+### Features
+
+- **Carousel** Add option `Toolbar.items` to add new or overwrite existing items
+
+# 6.0.1 (2025-06-16)
+
+### Bug Fixes
+
+- Fixed issue during server-side rendering
+
+# 6.0.0 (2025-06-14)
+
+Major rewrite of many aspects of the project. See [Upgrading](https://fancyapps.com/resources/upgrading/) notes.
+
+# 5.0.36 (2024-04-10)
+
+### Bug Fixes
+
+- **Fancybox** Content flashes on close with Safari 17.4 ([642](https://github.com/fancyapps/ui/issues/642))
+- **Fancybox** Issue with `:empty` selector ([631](https://github.com/fancyapps/ui/issues/631))
+
+# 5.0.35 (2024-03-13)
+
+### Bug Fixes
+
+- **Fancybox** Scroll position after closing ([628](https://github.com/fancyapps/ui/issues/628))
+
+### Features
+
+- **Fancybox** Add option `closeExisting` ([629](https://github.com/fancyapps/ui/issues/629))
+
+# 5.0.34 (2024-03-12)
+
+### Bug Fixes
+
+- **Carousel** Animation direction of synchronized carousels ([622](https://github.com/fancyapps/ui/issues/622))
+- **Fancybox** Tweak CSS to work for Shopify
+
+### Features
+
+- **Fancybox** Support `data-width` and `data-height` attributes for images
+
+# 5.0.33 (2024-01-03)
+
+### Bug Fixes
+
+- **Panzoom** Refactored code to correctly show the zoom-in cursor when click action is "iterateZoom"
+
+# 5.0.32 (2023-12-21)
+
+### Bug Fixes
+
+- **Fancybox** Improved Hash plugin, see [264](https://github.com/fancyapps/ui/issues/264)
+
+# 5.0.31 (2023-12-18)
+
+### Bug Fixes
+
+- **Fancybox** Fix an issue with fullscreen and multiple instances
+- **Carousel** Fix incorrect page selection when using margins, infinite navigation and `dragFree`
+
+# 5.0.30 (2023-12-14)
+
+### Bug Fixes
+
+- Fix l10n TS files ([598](https://github.com/fancyapps/ui/issues/598))
+
+### Features
+
+- **Carousel** Added new method `setPageFromPosition`, see [597](https://github.com/fancyapps/ui/issues/597)
+
+# 5.0.29 (2023-12-12)
+
+### Bug Fixes
+
+- **Fancybox** Fix an issue with Carousel dimensions in Fancybox modal ([589](https://github.com/fancyapps/ui/issues/589))
+- **Fancybox** Fix an issue with Youtube video start time containing minutes ([596](https://github.com/fancyapps/ui/issues/596))
+- **Fancybox** Slideshow needs to restart after manually changing a gallery item
+- **Fancybox** Fix an issue with container custom position and closing animation
+
+# 5.0.28 (2023-11-15)
+
+### Features
+
+- **Fancybox** Added additional CSS variables to control transition durations ([523](https://github.com/fancyapps/ui/issues/523))
+- **Carousel** The navigation plugin reuses existing DOM elements
+- Improved TypeScript support
+
+# 5.0.27 (2023-11-09)
+
+### Bug Fixes
+
+- **Fancybox** Fix an issue with keyboard navigation ([583](https://github.com/fancyapps/ui/issues/583))
+- **Fancybox** Fix an issue with scrollable content when using `wheel:slide` ([582](https://github.com/fancyapps/ui/issues/582))
+
+# 5.0.26 (2023-11-06)
+
+### Bug Fixes
+
+- **Carousel** Fix classic thumbnail CSS affecting dimensions
+
+# 5.0.25 (2023-11-03)
+
+### Bug Fixes
+
+- **Fancybox** Fix an issue with animations ([579](https://github.com/fancyapps/ui/issues/579))
+
+### Features
+
+- **Carousel** Added new method `addSlide()` that allows to add a new slide at a selected location
+- **Carousel** A completely reworked thumbail plugin:
+  1. Modern thumbnails can now be infinite, this also improves overall performance with large number of items.
+  2. New thumbnails are also created when new slides are added to the carousel. This allows, for example, to create a Fancybox gallery with an infinite number of images.
+
+# 5.0.24 (2023-10-05)
+
+### Bug Fixes
+
+- **Fancybox** Exit fullscreen mode only if started by Fancybox ([520](https://github.com/fancyapps/ui/issues/520))
+- **Fancybox** Fix an issue with elements inside the content that contain Panzoom data attributes
+
+### Features
+
+- Added Slovak translations
+- **Carousel** Added event `beforeChange`, can be used to prevent slide change
+
+# 5.0.23 (2023-09-28)
+
+### Bug Fixes
+
+- **Fancybox** Fix close button click event not working when text is selected ([565](https://github.com/fancyapps/ui/issues/565))
+- **Fancybox** Fix repetition of events ([554](https://github.com/fancyapps/ui/issues/554))
+- **Fancybox** Fix an issue with not yet loaded image after very fast clicks on toolbar buttons
+- **Fancybox** Fix an issue with captions containing only numbers
+- **Fancybox** HTML5 videos should support `data-width` and `data-height` attributes
+- **Carousel** Fix scrolling in Safari when using a mouse ([529](https://github.com/fancyapps/ui/issues/529))
+- **Carousel** Fix an issue when combining Carousel with Panzoom and using lazy image loading
+- **Panzoom** Fix pin position after resizing window in full screen mode
+- **Panzoom** Allow the click event of the Pins plugin to be executed in order to combine with Fancybox
+
+# 5.0.22 (2023-08-09)
+
+### Bug Fixes
+
+- **Fancybox** Classic thumbnails doesn't work on click ([535](https://github.com/fancyapps/ui/issues/535))
+- **Fancybox** The cursor should indicate whether the carousel is draggable or currently being dragged
+
+# 5.0.21 (2023-08-08)
+
+### Features
+
+- **Fancybox** Allow Caption to be an Element ([531](https://github.com/fancyapps/ui/issues/531))
+- **Carousel** `appendSlide()` supports a custom element ([537](https://github.com/fancyapps/ui/issues/537))
+- **Panzoom** Zoom in on the current display area centered around the axis ([519](https://github.com/fancyapps/ui/issues/519))
+
+### Bug Fixes
+
+- **Fancybox** Videos wrong size when scrolling through carousel ([535](https://github.com/fancyapps/ui/issues/535))
+- **Fancybox** Classic mode thumbnails are refreshed repeatedly ([540](https://github.com/fancyapps/ui/issues/540))
+- **Fancybox** Carousel swipe doesn't work with links ([524](https://github.com/fancyapps/ui/issues/524))
+- **Fancybox** Focus outline for thumbnails after using keyboard
+
+# 5.0.20 (2023-07-04)
+
+### Features
+
+- **Fancybox** Add ability to position elements (for example, navigation arrows) relative to the image
+- **Fancybox** Add ability to place caption anywhere (including toolbar)
+- **Fancybox** Add ability to dynamically add new content (example: `Fancybox.getInstance().carousel.appendSlide({src : "https://lipsum.app/id/1/800x600/"});`)
+- Add Latvian translations
+- **Fancybox** Add CSS variable `--f-transition-duration` to control transition duration more easily
+
+# 5.0.19 (2023-05-25)
+
+### Bug Fixes
+
+- **Carousel** In specific cases, an incorrect position occurs after a click ([498](https://github.com/fancyapps/ui/issues/498))
+
+### Features
+
+- **Fancybox** Add `createSlide` event to the thumbnail plugin
+
+# 5.0.18 (2023-05-22)
+
+### Features
+
+- **Fancybox** Add `startSlideshow` and `endSlideshow` events
+- **Fancybox** Add navigation using the mouse wheel above the thumbnails
+- **Fancybox** Add option to show custom content instead of default error message ([388](https://github.com/fancyapps/ui/issues/388))
+- Add Czech translations
+- Add Chinese (Simplified) translations
+
+# 5.0.17 (2023-04-26)
+
+### Features
+
+- **Fancybox** Scale the container to maintain dimensions regardless of the pinch zoom level of the device
+- **Fancybox** Add `Slideshow.progressParentEl` option to more easily specify the location of progress bar
+- **Fancybox** Add support for YouTube Shorts
+- **Carousel** Remove infinite navigation restriction in specific cases
+
+# 5.0.16 (2023-04-14)
+
+### Features
+
+- **Fancybox** Add `Html.iframeAttr` option that allows to customize the attributes of an iframe element
+- **Carousel** The `slidesPerPage` option now respects the actual width of each slide element
+- Fancybox and Carousel components now expose the components they use and thus they do not need to be loaded separately
+
+# 5.0.15 (2023-04-06)
+
+### Bug Fixes
+
+- **Fancybox** Fix `parentEl` option
+- **Fancybox** Fix click event while highlighting text in input ([471](https://github.com/fancyapps/ui/issues/471))
+- **Fancybox** Fix close button not showing in HTML5 Video ([469](https://github.com/fancyapps/ui/issues/469))
+
+### Features
+
+- **Fancybox** Add `fromSelector()` static method
+- **Fancybox** Improve zoom-in animation performance
+- **Carousel** Improve guesture handling
+
+# 5.0.14 (2023-03-30)
+
+### Bug Fixes
+
+- **Panzoom** Fix issue with rotation animation after quick click
+- **Panzoom** Fix the original image size rounding issue
+
+### Features
+
+- **Carousel** New `load` event for lazy loaded images
+- **Carousel** Add support for viewport element padding
+- **Fancybox** Add support for HTML content as a simple text string as well as multiple elements
+
+# 5.0.13 (2023-03-27)
+
+### Features
+
+- Add Japanese translations
+- **Fancybox** Add support for the `<picture>` element using a new `Images.content` option
+
+# 5.0.12 (2023-03-24)
+
+### Bug Fixes
+
+- **Carousel** Fix scrolling issue on Macbook using Firefox
+
+### Features
+
+- **Panzoom** Add support for the `<picture>` element
+
+# 5.0.11 (2023-03-23)
+
+### Bug Fixes
+
+- Fix French translations
+- **Panzoom** Don't add `is-draggable` class name if content fits
+
+# 5.0.10 (2023-03-22)
+
+### Bug Fixes
+
+- **Fancybox** Reverse the scroll direction of the mouse wheel ([425](https://github.com/fancyapps/ui/issues/425))
+
+### Features
+
+- Add Spanish translations
+- Add French translations
+
+# 5.0.9 (2023-03-21)
+
+### Bug Fixes
+
+- **Fancybox** Background scrolls behind dialog ([450](https://github.com/fancyapps/ui/issues/450))
+- **Fancybox** Fixed unwanted double click in specific scenarios
+
+### Features
+
+- Added Italian translations
+- **Fancybox** Opt out of youtube nocookie ([447](https://github.com/fancyapps/ui/issues/447))
+- **Fancybox** Allow to download as different names ([440](https://github.com/fancyapps/ui/issues/440))
+
+# 5.0.8 (2023-03-16)
+
+### Bug Fixes
+
+- **Fancybox** Improved focus handling
+
+### Features
+
+- Added language template and Polish translations
+- **Fancybox** Support private Vimeo videos ([436](https://github.com/fancyapps/ui/issues/436))
+- **Carousel** Added `getProgress(slideIndex)` method that can be used for tweening (parallax effects, etc)
+
+# 5.0.7 (2023-03-12)
+
+### Bug Fixes
+
+- **Fancybox** Use image src as fallback for thumbnail source ([434](https://github.com/fancyapps/ui/issues/434))
+- **Fancybox** Link focus on opening ([424](https://github.com/fancyapps/ui/issues/424))
+- **Fancybox** Typescript warnings ([427](https://github.com/fancyapps/ui/issues/427) and [429](https://github.com/fancyapps/ui/issues/429))
+
+### Features
+
+- **Fancybox** Add `mainClass` option ([432](https://github.com/fancyapps/ui/issues/432))
+- **Carousel** Revised flick gesture recognition
+- **Carousel** Revised thumbnail size and spacing
+- **Carousel** Improved positioning when changing container width
+
+# 5.0.6 (2023-03-03)
+
+### Bug Fixes
+
+- **Fancybox** Fix issue with page scrolling when using `wheel: "slide"` and `hideScrollbar: false` options
+
+### Features
+
+- **Fancybox** Changed navigation order when using `wheel: "slide"` option
+- **Fancybox** Added class name for thumbnails to indicate content type (`type-image`, `type-video`, etc)
+
+# 5.0.5 (2023-03-02)
+
+### Bug Fixes
+
+- **Fancybox** Fix issue with zoom-in animation from large images
+
+# 5.0.4 (2023-03-01)
+
+### Bug Fixes
+
+- **Fancybox** Fix blurry images in Safari
+
+### Features
+
+- **Fancybox** Improved accessibility
+
+# 5.0.3 (2023-02-26)
+
+### Bug Fixes
+
+- **Fancybox** Fix `Images.protected` option
+
+# 5.0.2 (2023-02-24)
+
+### Bug Fixes
+
+- **Fancybox** Typos in the template ([406](https://github.com/fancyapps/ui/issues/406))
+
+## Features
+
+- **Fancybox** Added `dnt` option for Vimeo videos
+
+# 5.0.1 (2023-02-23)
+
+### Bug Fixes
+
+- **Fancybox** Problem with preloading images ([403](https://github.com/fancyapps/ui/issues/403))
+
+# 5.0.0 (2023-02-22)
+
+Initial release

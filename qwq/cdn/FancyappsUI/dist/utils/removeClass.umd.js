@@ -1,0 +1,2 @@
+/*! License details at fancyapps.com/license */
+(function(e,t){typeof exports==`object`&&typeof module<`u`?t(exports):typeof define==`function`&&define.amd?define([`exports`],t):(e=typeof globalThis<`u`?globalThis:e||self,t(e.window=e.window||{}))})(this,function(e){Object.defineProperty(e,Symbol.toStringTag,{value:`Module`}),e.removeClass=(e,t=``)=>{e&&e.classList&&t.split(` `).forEach(t=>{t&&e.classList.remove(t)})}});

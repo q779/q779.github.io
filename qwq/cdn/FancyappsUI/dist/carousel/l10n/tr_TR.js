@@ -1,0 +1,2 @@
+/*! License details at fancyapps.com/license */
+import{tr_TR as r}from"../../panzoom/l10n/tr_TR.js";const a={...r,ERROR:"Bir şeyler yanlış gitti. <br /> Lütfen daha sonra tekrar deneyin.",NEXT:"Sonraki sayfa",PREV:"Önceki sayfa",GOTO:"%d. sayfaya git",DOWNLOAD:"İndir",TOGGLE_FULLSCREEN:"Tam ekran modunu değiştir",TOGGLE_EXPAND:"Tam boyut modunu değiştir",TOGGLE_THUMBS:"Küçük resimleri göster/gizle",TOGGLE_AUTOPLAY:"Slayt gösterisini başlat/durdur"};export{a as tr_TR};

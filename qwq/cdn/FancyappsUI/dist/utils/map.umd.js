@@ -1,0 +1,2 @@
+/*! License details at fancyapps.com/license */
+(function(e,t){typeof exports==`object`&&typeof module<`u`?t(exports):typeof define==`function`&&define.amd?define([`exports`],t):(e=typeof globalThis<`u`?globalThis:e||self,t(e.window=e.window||{}))})(this,function(e){Object.defineProperty(e,Symbol.toStringTag,{value:`Module`});let t=function(e=0,t=0,n=0){return Math.max(Math.min(t,n),e)};e.map=function(e=0,n=0,r=0,i=0,a=0,o=!1){let s=(e-n)/(r-n)*(a-i)+i;return o?i<a?t(i,s,a):t(a,s,i):s}});
