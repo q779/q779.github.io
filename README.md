@@ -2,5 +2,6 @@
 
 本站主要更新各种与计算机相关的内容，然后我懒得写这里的介绍
 
-博客地址 [q779.cn](https://q779.cn/) 或者 [q779.github.io](https://q779.github.io) ，欢迎来本站游玩喵～
+博客地址 [q779.vip](https://q779.vip/) 或者 [q779.github.io](https://q779.github.io) ，欢迎来本站游玩喵～
 
+**注意，本站域名已更新为 q779.vip**
