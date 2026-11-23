@@ -158,7 +158,8 @@ class LocalSearch {
       let resultItem = ''
 
       url = new URL(url, location.origin)
-      url.searchParams.append('highlight', highlightParam)
+      // 下面这行注释掉了
+      // url.searchParams.append('highlight', highlightParam)
 
       if (slicesOfTitle.length !== 0) {
         resultItem += `<li class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
